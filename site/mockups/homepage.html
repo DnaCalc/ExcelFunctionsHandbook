@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup — The Handbook of Excel Functions, homepage</title>
+<style>
+:root{
+  --surface-0:#faf9f5; --surface-1:#f1efe8; --surface-2:#ffffff;
+  --text-primary:#1a1a17; --text-secondary:#5f5e5a; --text-muted:#888780;
+  --border:#d3d1c7; --border-strong:#b4b2a9;
+  --bg-success:#eaf3de; --text-success:#3b6d11;
+  --accent:#185fa5; --radius:8px;
+  --mono:ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --surface-0:#1d1d1b; --surface-1:#262624; --surface-2:#30302e;
+    --text-primary:#f1efe8; --text-secondary:#b4b2a9; --text-muted:#888780;
+    --border:#444441; --border-strong:#5f5e5a;
+    --bg-success:#27500a; --text-success:#c0dd97; --accent:#85b7eb;
+  }
+}
+body{background:var(--surface-0); color:var(--text-primary); font-family:system-ui,sans-serif;
+  margin:0; padding:2rem; line-height:1.6;}
+.wrap{max-width:760px; margin:0 auto; background:var(--surface-1); border-radius:12px; padding:1.5rem;}
+a{color:var(--accent);}
+.card{background:var(--surface-2); border:0.5px solid var(--border); border-radius:12px; padding:0.9rem 1.25rem;}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px;}
+input,button{font:inherit; padding:6px 12px; border:0.5px solid var(--border-strong);
+  border-radius:var(--radius); background:var(--surface-2); color:var(--text-primary);}
+.muted{color:var(--text-muted); font-size:12px;}
+.sec{color:var(--text-secondary); font-size:13px;}
+h1{font-size:26px; font-weight:500; margin:0 0 6px; font-family:Georgia,serif;}
+p{margin:0.3rem 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="text-align:center; padding:0.5rem 0 1.25rem;">
+    <p class="muted" style="letter-spacing:0.08em;">DNA CALC</p>
+    <h1>The Handbook of Excel Functions</h1>
+    <p class="sec" style="font-size:14px;">Every worksheet function, described honestly — down to the last bit.</p>
+  </div>
+  <div style="display:flex; gap:8px; justify-content:center; margin-bottom:1.5rem;">
+    <input type="text" placeholder="GAMMALN, XLOOKUP, #NUM!, x87…" style="width:320px;">
+    <button>All 534 functions</button>
+  </div>
+
+  <div class="card" style="margin-bottom:12px;">
+    <p class="muted">Featured plate</p>
+    <p style="font-size:15px; font-weight:500;">Plate 12 — ERF: Excel vs correctly rounded, 16,384 probes</p>
+    <svg viewBox="0 0 620 110" role="img" style="width:100%; height:auto;">
+      <title>Signed ULP residual comb for ERF</title>
+      <line x1="30" y1="55" x2="600" y2="55" stroke="#888780" stroke-width="1"/>
+      <text x="8" y="30" style="font-size:11px; fill:#888780;">+1</text>
+      <text x="8" y="59" style="font-size:11px; fill:#888780;">0</text>
+      <text x="8" y="88" style="font-size:11px; fill:#888780;">−1</text>
+      <g stroke="#1D9E75" stroke-width="1.5">
+        <line x1="40" y1="55" x2="40" y2="42"/><line x1="52" y1="55" x2="52" y2="46"/><line x1="64" y1="55" x2="64" y2="50"/><line x1="76" y1="55" x2="76" y2="53"/>
+        <line x1="88" y1="55" x2="88" y2="68"/><line x1="100" y1="55" x2="100" y2="63"/><line x1="112" y1="55" x2="112" y2="58"/>
+        <line x1="124" y1="55" x2="124" y2="42"/><line x1="136" y1="55" x2="136" y2="47"/><line x1="148" y1="55" x2="148" y2="51"/>
+        <line x1="160" y1="55" x2="160" y2="67"/><line x1="172" y1="55" x2="172" y2="61"/><line x1="184" y1="55" x2="184" y2="56"/>
+        <line x1="196" y1="55" x2="196" y2="43"/><line x1="208" y1="55" x2="208" y2="48"/><line x1="220" y1="55" x2="220" y2="52"/>
+      </g>
+      <g stroke="#D85A30" stroke-width="1.5">
+        <line x1="250" y1="55" x2="250" y2="30"/><line x1="258" y1="55" x2="258" y2="78"/><line x1="266" y1="55" x2="266" y2="32"/><line x1="274" y1="55" x2="274" y2="76"/>
+        <line x1="282" y1="55" x2="282" y2="34"/><line x1="290" y1="55" x2="290" y2="74"/><line x1="298" y1="55" x2="298" y2="36"/><line x1="306" y1="55" x2="306" y2="72"/>
+      </g>
+      <g stroke="#1D9E75" stroke-width="1.5">
+        <line x1="340" y1="55" x2="340" y2="49"/><line x1="356" y1="55" x2="356" y2="59"/><line x1="372" y1="55" x2="372" y2="51"/><line x1="388" y1="55" x2="388" y2="58"/>
+        <line x1="404" y1="55" x2="404" y2="50"/><line x1="420" y1="55" x2="420" y2="57"/><line x1="436" y1="55" x2="436" y2="52"/><line x1="452" y1="55" x2="452" y2="56"/>
+        <line x1="468" y1="55" x2="468" y2="53"/><line x1="484" y1="55" x2="484" y2="55"/><line x1="500" y1="55" x2="500" y2="54"/><line x1="516" y1="55" x2="516" y2="55"/>
+        <line x1="532" y1="55" x2="532" y2="55"/><line x1="548" y1="55" x2="548" y2="55"/><line x1="564" y1="55" x2="564" y2="55"/><line x1="580" y1="55" x2="580" y2="55"/>
+      </g>
+      <rect x="246" y="20" width="66" height="70" fill="none" stroke="#993C1D" stroke-width="1" stroke-dasharray="3 3" rx="4"/>
+      <text x="252" y="14" style="font-size:11px; fill:#993C1D;">envelope aliasing band</text>
+    </svg>
+    <p class="sec">Why does Excel's error function alias like a comb? The residual is not noise — it is a signature of the algorithm inside. <a href="#">Read the identification →</a></p>
+  </div>
+
+  <div class="grid" style="margin-bottom:12px;">
+    <div class="card" style="padding:0.9rem 1rem;">
+      <p style="font-size:14px; font-weight:500;">February 29, 1900 exists</p>
+      <p class="sec">Why DATE keeps a 126-year-old bug, on purpose.</p>
+    </div>
+    <div class="card" style="padding:0.9rem 1rem;">
+      <p style="font-size:14px; font-weight:500;">EXP is still x87</p>
+      <p class="sec">Excel's transcendentals run a 1990s FPU path. Bit-for-bit.</p>
+    </div>
+    <div class="card" style="padding:0.9rem 1rem;">
+      <p style="font-size:14px; font-weight:500;">PMT, off by 16,285 ULP</p>
+      <p class="sec">A catastrophic cancellation hiding in a payment formula.</p>
+    </div>
+    <div class="card" style="padding:0.9rem 1rem;">
+      <p style="font-size:14px; font-weight:500;">The docs are not the function</p>
+      <p class="sec">Where published help and empirical behavior disagree, with evidence.</p>
+    </div>
+  </div>
+
+  <div class="card" style="display:flex; gap:16px; align-items:center; margin-bottom:12px;">
+    <div style="flex:1;">
+      <p style="font-size:14px; font-weight:500;">For engine builders, auditors, and the numerically curious</p>
+      <p class="sec">Reimplementing SUM? Auditing a model? Porting to Linux? Every function ships versioned, downloadable test suites — verify any claim yourself, no Excel required.</p>
+    </div>
+    <button>Get the test suites</button>
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:center; border-top:0.5px solid var(--border); padding-top:0.9rem; flex-wrap:wrap; gap:8px;">
+    <p class="muted">12 of 534 functions curated · 2,140 claims on record · 22 open discrepancies · <a href="#">full coverage report</a></p>
+    <p style="font-size:13px;"><a href="#">Challenge a claim with evidence</a></p>
+  </div>
+</div>
+</body>
+</html>

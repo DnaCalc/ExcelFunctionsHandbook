@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup — function page (GAMMALN), v3</title>
+<style>
+:root{
+  --surface-0:#faf9f5; --surface-1:#f1efe8; --surface-2:#ffffff;
+  --text-primary:#1a1a17; --text-secondary:#5f5e5a; --text-muted:#888780;
+  --border:#d3d1c7; --border-strong:#b4b2a9;
+  --bg-success:#eaf3de; --text-success:#3b6d11;
+  --bg-warning:#faeeda; --text-warning:#854f0b;
+  --accent:#185fa5; --border-accent:#378add; --radius:8px;
+  --mono:ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --surface-0:#1d1d1b; --surface-1:#262624; --surface-2:#30302e;
+    --text-primary:#f1efe8; --text-secondary:#b4b2a9; --text-muted:#888780;
+    --border:#444441; --border-strong:#5f5e5a;
+    --bg-success:#27500a; --text-success:#c0dd97;
+    --bg-warning:#633806; --text-warning:#fac775;
+    --accent:#85b7eb; --border-accent:#378add;
+  }
+}
+body{background:var(--surface-0); color:var(--text-primary); font-family:system-ui,sans-serif;
+  margin:0; padding:2rem; line-height:1.6;}
+.wrap{max-width:760px; margin:0 auto; background:var(--surface-1); border-radius:12px; padding:1.5rem;}
+a{color:var(--accent);}
+.card{background:var(--surface-2); border:0.5px solid var(--border); border-radius:12px; padding:0.9rem 1.25rem;}
+.chip{font-size:12px; border:0.5px solid var(--border); border-radius:var(--radius); padding:3px 10px;
+  text-decoration:none; color:var(--text-secondary); display:inline-block; margin:0 4px 4px 0;}
+button{font:inherit; font-size:13px; padding:6px 12px; border:0.5px solid var(--border-strong);
+  border-radius:var(--radius); background:var(--surface-2); color:var(--text-primary);}
+.muted{color:var(--text-muted); font-size:12px;}
+.sec{color:var(--text-secondary); font-size:13px;}
+h1{font-family:var(--mono); font-size:24px; font-weight:500; margin:0;}
+h3{font-size:16px; font-weight:500; margin:1.2rem 0 4px;}
+p{margin:0.3rem 0;}
+.ref{font-size:13px; margin:0; padding:6px 0; border-top:0.5px solid var(--border);}
+.ref:first-child{border-top:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
+    <div>
+      <h1>GAMMALN</h1>
+      <p class="sec">Natural logarithm of the gamma function · Statistical · since Excel 4.0 ·
+        <span style="font-family:var(--mono);">FUNC.GAMMALN</span> · xlfGammaLn (271)</p>
+      <p style="font-size:13px;"><a href="#">Microsoft docs</a> · <a href="#">37 localized names and docs</a> · <a href="#">history</a></p>
+    </div>
+    <span style="background:var(--bg-success); color:var(--text-success); font-size:12px; padding:4px 12px; border-radius:var(--radius);">supported</span>
+  </div>
+  <p class="muted">Basis: OxFunc snapshot g47 · context <span style="font-family:var(--mono);">current</span> ·
+    receipt 9f31…c2 · checked fresh 2026-07-15 · <a href="#">why?</a></p>
+
+  <div class="card" style="margin-top:0.8rem;">
+    <p style="font-family:var(--mono); font-size:15px;">GAMMALN(<span style="color:var(--accent);">x</span>)</p>
+    <p class="sec"><span style="font-family:var(--mono);">x</span> — the positive number for which ln Γ(x) is
+      returned. x ≤ 0 → <span style="font-family:var(--mono);">#NUM!</span>; non-numeric text →
+      <span style="font-family:var(--mono);">#VALUE!</span>.</p>
+    <p style="margin-top:8px;">
+      <a class="chip" href="#">deterministic</a><a class="chip" href="#">non-volatile</a><a class="chip" href="#">scalar → array lift</a><a class="chip" href="#">error fold: legacy</a>
+    </p>
+    <p class="muted">Each chip links to the call model — the uniform description of how every function is admitted, coerced, and evaluated.</p>
+  </div>
+
+  <h3>Implementations</h3>
+  <p class="sec" style="margin:0 0 8px;">What we have today, verified against this function's test suite.</p>
+  <div class="card" style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+    <div style="flex:1; min-width:220px;">
+      <p style="font-size:14px; font-weight:500;">Excel bit-exact · Rust</p>
+      <p class="sec">Returns exactly what Excel returns, quirks included. Verified on suite v3 (48,112 vectors) · Excel 2606 x64.</p>
+    </div>
+    <p style="font-size:13px;"><a href="#">source</a> · <a href="#">claim</a></p>
+  </div>
+  <p class="sec" style="margin-top:8px;"><a href="#">About implementation options</a> — the four flavours
+    (Excel bit-exact, natural best, portable reproducible, mathematically correct), the languages we target,
+    how new implementations are built, verified, and admitted.</p>
+
+  <h3>References</h3>
+  <p class="sec" style="margin:0 0 8px;">Where this function's mathematics and implementations are described elsewhere.</p>
+  <div class="card" style="padding:0.5rem 1.25rem;">
+    <p class="ref">Abramowitz and Stegun, §6.1 — the gamma function <span class="muted">· definitions and identities</span></p>
+    <p class="ref">Numerical Recipes, §6.1 gammln <span class="muted">· the classic Lanczos route</span></p>
+    <p class="ref">Cephes lgam.c <span class="muted">· series forms matching Excel's observed kernel family</span></p>
+    <p class="ref">DCDFLIB / TOMS 654 GRATIO <span class="muted">· the substrate behind Excel's gamma-tail distributions</span></p>
+    <p class="ref">M. Welinder, "Excel's statistical functions" <span class="muted">· primary-source behavior notes</span></p>
+  </div>
+
+  <div style="background:var(--bg-warning); border-radius:12px; padding:0.9rem 1.25rem; margin-top:1.2rem;">
+    <p style="font-size:13px; font-weight:500; color:var(--text-warning);">Open problem</p>
+    <p style="font-size:13px; color:var(--text-warning);">Excel's GAMMALN core carries a high-frequency ±1 ULP
+      residual (~40% of probes) whose exact operation graph is still unidentified. The bit-exact claim is scoped
+      to the verified corpus. <a href="#">Follow the hunt →</a></p>
+  </div>
+
+  <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
+    <div class="card" style="flex:1; min-width:250px;">
+      <p style="font-size:13px; font-weight:500;">Test suite v3</p>
+      <p class="sec" style="font-size:12px;">48,112 vectors · JSONL, bits-hex · oracle: Excel 2606 x64 (AMD) ·
+        sha256 7be4…91 · verify any port anywhere, no Excel needed.</p>
+      <button>Download suite</button>
+    </div>
+    <div class="card" style="flex:1; min-width:250px;">
+      <p style="font-size:13px; font-weight:500;">Disagree with a claim?</p>
+      <p class="sec" style="font-size:12px;">Submit a counterexample vector, an Excel-build observation, or a
+        better implementation. Evidence enters the record as a proposed claim — reviewed, decided, credited.</p>
+      <button>Submit evidence</button>
+    </div>
+  </div>
+
+  <div class="card" style="display:flex; gap:14px; align-items:center; margin-top:12px;">
+    <div style="flex:1;">
+      <p class="muted">The Last Bit — episode 14</p>
+      <p style="font-size:14px; font-weight:500;">Hunting GAMMALN's operation graph</p>
+      <p class="sec">How a residual that looks like noise turned out to be a signature — and what we still
+        can't read. <a href="#">Read episode</a> · <a href="#">all episodes</a></p>
+    </div>
+  </div>
+
+  <div style="display:flex; gap:14px; border-top:0.5px solid var(--border); padding-top:0.8rem; margin-top:12px; flex-wrap:wrap; font-size:13px;">
+    <a href="#">Why</a><a href="#">Sources</a><a href="#">As of</a><a href="#">History</a><a href="#">Limits</a><a href="#">ULP Atlas plate</a>
+  </div>
+</div>
+</body>
+</html>
