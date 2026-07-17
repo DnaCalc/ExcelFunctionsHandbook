@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.INDIRECT",
+  "surface_name": "INDIRECT",
+  "published_row_id": "FUNC.INDIRECT",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfIndirect",
+    "code": "148"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "CallerContext",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "CallerContext",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileContextual"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "INDIRECT(ref_text, [a1])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "ref_text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "a1",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a reference indicated by a text value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/indirect-function-474b3a3a-8a26-4f44-b491-92b6306fa261",
+    "english_description": "Returns a reference indicated by a text value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NEPŘÍMÝ.ODKAZ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "INDIREKTE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "INDIREKT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "en-US",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "EPÄSUORA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "he-IL",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INDIREKT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "INDIREKTE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ADR.POŚR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "INDIRETO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INDIRETO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДВССЫЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "INDIREKT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DOLAYLI işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "INDIRECT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "INDIRECT"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-INDIRECT-001",
+    "lean_module": "OxFunc.Functions.Indirect",
+    "rust_module": "oxfunc_core::functions::indirect",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

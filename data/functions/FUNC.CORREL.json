@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CORREL",
+  "surface_name": "CORREL",
+  "published_row_id": "FUNC.CORREL",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCorrel",
+    "code": "307"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CORREL(array1, array2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the correlation coefficient between two data sets",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/correl-function-995dcef7-0c0a-4bed-a3fb-239d7b68ca92",
+    "english_description": "Returns the correlation coefficient between two data sets"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CORREL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CORREL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CORREL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KORRELATION"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CORREL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CORREL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CORREL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CORREL"
+    },
+    {
+      "locale": "en-US",
+      "name": "CORREL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COEF.DE.CORREL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CORREL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KORRELAATIO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COEFFICIENT.CORRELATION*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CORREL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CORREL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KORREL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CORREL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CORREL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CORREL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CORREL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CORREL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CORREL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CORREL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CORRELATIE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WSP.KORELACJI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CORREL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CORREL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CORREL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КОРРЕЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CORREL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CORREL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CORREL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KORREL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CORREL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KORELASYON Denklemi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CORREL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CORREL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CORREL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CORREL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CORREL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.GCD",
+  "surface_name": "GCD",
+  "published_row_id": "FUNC.GCD",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfGcd",
+    "code": "473"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "GCD(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the greatest common divisor",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/gcd-function-d5107a51-69e3-461f-8e4c-ddfc21b5073a",
+    "english_description": "Returns the greatest common divisor"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "GCD"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "GCD"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "GCD"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STØRSTE.FÆLLES.DIVISOR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "GCD"
+    },
+    {
+      "locale": "el-GR",
+      "name": "GCD"
+    },
+    {
+      "locale": "en-AU",
+      "name": "GCD"
+    },
+    {
+      "locale": "en-GB",
+      "name": "GCD"
+    },
+    {
+      "locale": "en-US",
+      "name": "GCD"
+    },
+    {
+      "locale": "es-ES",
+      "name": "M.C.D"
+    },
+    {
+      "locale": "et-EE",
+      "name": "GCD"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SUURIN.YHT.TEKIJÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PGCD*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "GCD"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "GCD"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LKO"
+    },
+    {
+      "locale": "id-ID",
+      "name": "GCD"
+    },
+    {
+      "locale": "it-IT",
+      "name": "GCD"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "GCD"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "GCD"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "GCD"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "GCD"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GCD"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GGD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NAJW.WSP.DZIEL"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "GCD"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MDC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "GCD"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "GCD"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "GCD"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "GCD"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SGD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "GCD"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "OBEB işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "GCD"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "GCD"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "GCD"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "GCD"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "GCD"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

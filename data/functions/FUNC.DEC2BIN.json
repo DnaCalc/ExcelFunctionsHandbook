@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.DEC2BIN",
+  "surface_name": "DEC2BIN",
+  "published_row_id": "FUNC.DEC2BIN",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfDec2bin",
+    "code": "387"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "DEC2BIN(number, [places])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "places",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a decimal number to binary",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/dec2bin-function-0f63dd0e-5d1a-42d8-b511-5bf5c6d43838",
+    "english_description": "Converts a decimal number to binary"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DEC.TIL.BIN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "en-US",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DEC.A.BIN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "DESBIN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DECBIN*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "DEC.BIN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DEC.N.BIN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DZIES.NA.DWÓJK"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DECABIN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДЕС.В.ДВ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DEC.TILL.BIN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DEC2BIN işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DEC2BIN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DEC2BIN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,225 @@
+{
+  "function_id": "FUNC.PI",
+  "surface_name": "PI",
+  "published_row_id": "FUNC.PI",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfPi",
+    "code": "19"
+  },
+  "arity": {
+    "min": 0,
+    "max": 0
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NullaryConst",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PI()",
+    "trailing_repeats": false,
+    "parameters": []
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the value of pi",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/pi-function-264199d0-a3ba-46b8-975a-c4a04608989b",
+    "english_description": "Returns the value of pi"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PI"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PI"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PI"
+    },
+    {
+      "locale": "da-DK",
+      "name": "PI"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PI"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PI"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PI"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PI"
+    },
+    {
+      "locale": "en-US",
+      "name": "PI"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PI"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PII"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PI"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PI"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PI"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PI"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PI.GRECO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PI"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PI"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PI"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PI"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PI"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PI"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PI"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PI"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PI"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PI"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PI"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PI"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PI"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "Pİ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PI"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PI"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PI"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PI"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PI"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-PI-001",
+    "lean_module": "OxFunc.Functions.Pi",
+    "rust_module": "oxfunc_core::functions::pi",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

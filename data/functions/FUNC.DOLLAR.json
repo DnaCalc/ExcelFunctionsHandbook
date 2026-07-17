@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.DOLLAR",
+  "surface_name": "DOLLAR",
+  "published_row_id": "FUNC.DOLLAR",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfDollar",
+    "code": "13"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "LocaleProfile",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "DOLLAR(number, [decimals])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "decimals",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a number to text, using the $ (dollar) currency format",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/dollar-function-a6cd05d9-9740-4ad3-a469-8109d18ff611",
+    "english_description": "Converts a number to text, using the $ (dollar) currency format"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "KČ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "en-US",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MONEDA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "DOLLARI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DEVISE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FORINT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VALUTA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VALUTA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KWOTA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DÓLAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MOEDA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РУБЛЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VALUTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LİRA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DOLLAR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DOLLAR"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-DOLLAR-001",
+    "lean_module": "OxFunc.Functions.Dollar;OxFunc.LocaleFormat",
+    "rust_module": "oxfunc_core::functions::dollar_fn;oxfunc_core::locale_format",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

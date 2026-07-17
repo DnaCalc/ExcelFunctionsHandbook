@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.AVEDEV",
+  "surface_name": "AVEDEV",
+  "published_row_id": "FUNC.AVEDEV",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAvedev",
+    "code": "269"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "AVEDEV(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the average of the absolute deviations of data points from their mean",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/avedev-function-58fe8d65-2a84-4dc7-8052-f3f87b5c6639",
+    "english_description": "Returns the average of the absolute deviations of data points from their mean"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PRŮMODCHYLKA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MAD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "en-US",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DESVPROM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIPOIKKEAMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ECART.MOYEN*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁTL.ELTÉRÉS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GJENNOMSNITTSAVVIK"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ODCH.ŚREDNIE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DESV.MÉDIO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СРОТКЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MEDELAVV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ORTSAP işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AVEDEV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AVEDEV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

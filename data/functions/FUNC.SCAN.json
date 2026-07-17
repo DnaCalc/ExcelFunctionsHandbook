@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.SCAN",
+  "surface_name": "SCAN",
+  "published_row_id": "FUNC.SCAN",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SCAN(initial_value, array, lambda)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "initial_value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "lambda",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Scans an array by applying a LAMBDA to each value and returns an array that has each intermediate value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/scan-function-d58dfd11-9969-4439-b2dc-e7062724de29",
+    "english_description": "Scans an array by applying a LAMBDA to each value and returns an array that has each intermediate value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SCAN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SCAN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SCAN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SCAN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SCAN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SCAN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SCAN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SCAN"
+    },
+    {
+      "locale": "en-US",
+      "name": "SCAN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SCAN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SCAN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SCAN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SCAN*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SCAN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SCAN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SCAN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SCAN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SCAN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SCAN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SCAN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SCAN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SCAN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SCAN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SCANNEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SCAN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SCAN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SCAN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SCAN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "SCAN"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SCAN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SCAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SKENIRANJE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SCAN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SCAN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SCAN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SCAN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SCAN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SCAN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SCAN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SCAN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "callable_helper_runtime",
+  "admission_interface_kind": "higher_order_call",
+  "registry_backed": true
+}

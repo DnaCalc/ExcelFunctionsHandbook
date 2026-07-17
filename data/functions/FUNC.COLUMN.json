@@ -1,0 +1,232 @@
+{
+  "function_id": "FUNC.COLUMN",
+  "surface_name": "COLUMN",
+  "published_row_id": "FUNC.COLUMN",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfColumn",
+    "code": "9"
+  },
+  "arity": {
+    "min": 0,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "CallerContext",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "CallerContext",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "COLUMN(reference)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "reference",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the column number of a reference",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/column-function-44e8c754-711c-4df3-9da4-47a55042554b",
+    "english_description": "Returns the column number of a reference"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "en-US",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SARAKE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SÜTUN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COLUMN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COLUMN"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-COLUMN-001",
+    "lean_module": "OxFunc.Functions.Column",
+    "rust_module": "oxfunc_core::functions::column_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

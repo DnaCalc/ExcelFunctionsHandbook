@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.SECH",
+  "surface_name": "SECH",
+  "published_row_id": "FUNC.SECH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSech",
+    "code": "555"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SECH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the hyperbolic secant of an angle",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sech-function-e05a789f-5ff7-4d7f-984a-5edb9b09556f",
+    "english_description": "Returns the hyperbolic secant of an angle"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SECH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SECH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SECH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SECH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SECH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SECH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SECH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SECH"
+    },
+    {
+      "locale": "en-US",
+      "name": "SECH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SECH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SECH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SEKH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SECH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SECH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SECH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SECH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SECH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SECH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SECH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SECH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SECH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SECH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SECH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SECH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SECH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SECH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SECH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SECH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "SECH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SECH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SECH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SECH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SEKH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SECH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SECH"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SECH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SECH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SECH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SECH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SECH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

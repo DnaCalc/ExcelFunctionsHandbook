@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.CELL",
+  "surface_name": "CELL",
+  "published_row_id": "FUNC.CELL",
+  "entry_kind": "built_in_function",
+  "category": "Information functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCell",
+    "code": "125"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "CallerContext",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "CallerContext",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileContextual"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "CELL(info_type, [reference])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "info_type",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "reference",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns information about the formatting, location, or contents of a cell",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/cell-function-51bd39a5-f338-4dbe-a33f-955d67c2b2cf",
+    "english_description": "Returns information about the formatting, location, or contents of a cell"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CELL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CELL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "POLÍČKO"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CELLE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ZELLE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CELL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CELL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CELL"
+    },
+    {
+      "locale": "en-US",
+      "name": "CELL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CELDA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CELL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SOLU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CELLULE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CELL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CELL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CELLA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CELL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CELLA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CELL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CELL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CELL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CELL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CELLE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CEL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KOMÓRKA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CÉLULA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CÉL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CELL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЯЧЕЙКА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CELL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CELL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CELL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CELL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CELL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HÜCRE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CELL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CELL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CELL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CELL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CELL"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-CELL-001",
+    "lean_module": "OxFunc.Functions.Cell",
+    "rust_module": "oxfunc_core::functions::cell",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

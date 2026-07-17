@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.TRIMMEAN",
+  "surface_name": "TRIMMEAN",
+  "published_row_id": "FUNC.TRIMMEAN",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfTrimmean",
+    "code": "331"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the mean of the interior of a data set",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/trimmean-function-d90c9878-a119-4746-88fa-63d988f511d3",
+    "english_description": "Returns the mean of the interior of a data set"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TRIMMIDDELVÆRDI"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "en-US",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MEDIA.ACOTADA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIARVO.TASATTU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOYENNE.REDUITE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "RÉSZÁTLAG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TRIMMET.GJENNOMSNITT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GETRIMD.GEM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ŚREDNIA.WEWN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÉDIA.INTERNA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "УРЕЗСРЕДНЕЕ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TRIMMEDEL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KIRPORTALAMA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TRIMMEAN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TRIMMEAN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

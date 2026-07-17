@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.OR",
+  "surface_name": "OR",
+  "published_row_id": "FUNC.OR",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfOr",
+    "code": "37"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "OR(logical1, [logical2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "logical1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "logical2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns TRUE if any argument is TRUE",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/or-function-7d17ad14-8700-4281-b308-00b131e22af0",
+    "english_description": "Returns TRUE if any argument is TRUE"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "أو"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ИЛИ"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NEBO"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ELLER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ODER"
+    },
+    {
+      "locale": "el-GR",
+      "name": "Ή"
+    },
+    {
+      "locale": "en-AU",
+      "name": "OR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "OR"
+    },
+    {
+      "locale": "en-US",
+      "name": "OR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "O bien"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VÕI"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TAI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "OU"
+    },
+    {
+      "locale": "he-IL",
+      "name": "או"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ILI"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VAGY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ATAU"
+    },
+    {
+      "locale": "it-IT",
+      "name": "OPPURE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "または"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "또는"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ARBA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VAI"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ELLER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "OF"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LUB"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "OU"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "OU"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SAU"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ИЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ALEBO"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ALI"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ILI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ELLER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "หรือ"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VEYA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "АБО"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HOẶC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "或"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "或者"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "或者"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

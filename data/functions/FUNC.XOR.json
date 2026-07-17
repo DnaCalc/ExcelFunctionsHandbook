@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.XOR",
+  "surface_name": "XOR",
+  "published_row_id": "FUNC.XOR",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfXor",
+    "code": "569"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "XOR(logical1, [logical2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "logical1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "logical2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a logical exclusive OR of all arguments",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/xor-function-1548d4c2-5e47-4f77-9a92-0533bba14f37",
+    "english_description": "Returns a logical exclusive OR of all arguments"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "XOR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "XOR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "XOR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "XELLER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "XOR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "XOR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "XOR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "XOR"
+    },
+    {
+      "locale": "en-US",
+      "name": "XOR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "XO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "XOR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "EHDOTON.TAI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "OUX*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "XOR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "XOR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "XVAGY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "XOR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "XOR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "XOR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "XOR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "XOR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "XOR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "XOR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "EX.OF"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "XOR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "XOR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "XOU"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "XOR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ИСКЛИЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "XOR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "XOR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "XOR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "XELLER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "XOR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÖZELVEYA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "XOR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "XOR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "XOR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "XOR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "XOR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.DVARP",
+  "surface_name": "DVARP",
+  "published_row_id": "FUNC.DVARP",
+  "entry_kind": "built_in_function",
+  "category": "Database functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfDvarp",
+    "code": "196"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Calculates variance based on the entire population of selected database entries",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/dvarp-function-eb0ba387-9cb7-45c8-81e9-0394912502fc",
+    "english_description": "Calculates variance based on the entire population of selected database entries"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DVARP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DVARP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DVAR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DVARP"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DVARP"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DVARP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DVARP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DVARP"
+    },
+    {
+      "locale": "en-US",
+      "name": "DVARP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BDVARP"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DVARP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TVARIANSSIP"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BDVARP*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DVARP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DVARP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "AB.VAR2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DVARP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DVARP"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DVARP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DVARP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DVARP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DVARP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DVARP"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DBVARP"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BD.WARIANCJA.POPUL"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DVARP"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BDVARP"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DVARP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БДДИСПП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DVARP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DVARP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DVARP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DVARIANSP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DVARP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VSEÇVARS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DVARP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DVARP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DVARP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DVARP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DVARP"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

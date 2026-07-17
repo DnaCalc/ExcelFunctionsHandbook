@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CEILING.PRECISE",
+  "surface_name": "CEILING.PRECISE",
+  "published_row_id": "FUNC.CEILING.PRECISE",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfCeiling_precise",
+    "code": "546"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CEILING.PRECISE(number, [significance])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "significance",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/ceiling-precise-function-f366a774-527a-4c92-ba49-af0a196e66cb",
+    "english_description": "Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CEICEILING.PRECISELING.PRECISE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LOFT.PRECISE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "en-US",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MULTIPLO.SUPERIOR.EXACTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PYÖRISTÄ.KERR.YLÖS.TARKKA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PLAFOND.PRECIS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PLAFON.PONTOS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CEILING_PRECISE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AVRUND.GJELDENDE.MULTIPLUM.PRESIS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AFRONDEN.BOVEN.NAUWKEURIG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.W.GÓRĘ.DOKŁ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TETO.PRECISO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ARRED.EXCESSO.PRECISO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОКРВВЕРХ.ТОЧН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "RUNDA.UPP.EXAKT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TAVANAYUVARLA.DUYARLI"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CEILING.PRECISE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CEILING.PRECISE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

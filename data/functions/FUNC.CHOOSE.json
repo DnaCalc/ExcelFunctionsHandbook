@@ -1,0 +1,239 @@
+{
+  "function_id": "FUNC.CHOOSE",
+  "surface_name": "CHOOSE",
+  "published_row_id": "FUNC.CHOOSE",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfChoose",
+    "code": "100"
+  },
+  "arity": {
+    "min": 2,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=true;numerical_reduction_policy=none;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "CHOOSE(index_num, value1, [value2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "index_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Chooses a value from a list of values",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/choose-function-fc5c184f-cb62-4ec7-a46e-38653b98f5bc",
+    "english_description": "Chooses a value from a list of values"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZVOLIT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VÆLG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WAHL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ELEGIR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VALITSE.INDEKSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CHOISIR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VÁLASZT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VELG"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KIEZEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYBIERZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ESCOLHER"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SELECIONAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ВЫБОР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ODABERITE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VÄLJ"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ELEMAN işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHOOSE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHOOSE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,239 @@
+{
+  "function_id": "FUNC.CONFIDENCE.T",
+  "surface_name": "CONFIDENCE.T",
+  "published_row_id": "FUNC.CONFIDENCE.T",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfConfidence_t",
+    "code": "489"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CONFIDENCE.T(alpha, standard_dev, size)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "alpha",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "standard_dev",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "size",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the confidence interval for a population mean, using a Student's t distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/confidence-t-function-e8eca395-6c3a-4ba9-9003-79ccc61d3c53",
+    "english_description": "Returns the confidence interval for a population mean, using a Student's t distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KONFIDENST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "en-US",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INTERVALO.CONFIANZA.T"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LUOTTAMUSVÄLI.T"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "INTERVALLE.CONFIANCE.STUDENT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MEGBÍZHATÓSÁG.T"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KONFIDENS.T"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VERTROUWELIJKHEID.T"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "UFNOŚĆ.T"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONFIANÇA.T"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INT.CONFIANÇA.T"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДОВЕРИТ.СТЬЮДЕНТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KONFIDENCE.T"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GÜVENİLİRLİK.T"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CONFIDENCE.T"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CONFIDENCE.T"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

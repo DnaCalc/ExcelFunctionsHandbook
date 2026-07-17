@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ROWS",
+  "surface_name": "ROWS",
+  "published_row_id": "FUNC.ROWS",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfRows",
+    "code": "76"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "ROWS(array)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the number of rows in a reference",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/rows-function-b592593e-3fc2-47f2-bec1-bda493811597",
+    "english_description": "Returns the number of rows in a reference"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ROWS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ROWS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ROWS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "RÆKKER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ROWS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ROWS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ROWS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ROWS"
+    },
+    {
+      "locale": "en-US",
+      "name": "ROWS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FILAS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ROWS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "RIVIT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ROWS"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ROWS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ROWS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ROWS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ROWS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ROWS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ROWS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ROWS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ROWS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ROWS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ROWS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ROWS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROWS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ROWS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ROWS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ROWS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ROWS"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ROWS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ROWS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ROWS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ROWS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ROWS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SATIRSAY"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ROWS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ROWS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ROWS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ROWS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ROWS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

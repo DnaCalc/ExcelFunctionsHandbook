@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.SIGN",
+  "surface_name": "SIGN",
+  "published_row_id": "FUNC.SIGN",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSign",
+    "code": "26"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SIGN(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the sign of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sign-function-109c932d-fcdc-4023-91f1-2dd0e916a1d8",
+    "english_description": "Returns the sign of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SIGN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SIGN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SIGN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FORTEGN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SIGN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SIGN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SIGN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SIGN"
+    },
+    {
+      "locale": "en-US",
+      "name": "SIGN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SIGNO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SIGN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ETUMERKKI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SIGNE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SIGN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SIGN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ELŐJEL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SIGN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SEGNO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SIGN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SIGN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SIGN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SIGN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SIGN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SIGN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZNAK.LICZBY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SIGN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SINAL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SIGN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "SIGN"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SIGN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SIGN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ZNAK"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TECKEN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SIGN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "İŞARET"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SIGN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SIGN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SIGN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SIGN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SIGN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

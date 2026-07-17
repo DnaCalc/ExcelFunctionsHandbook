@@ -1,0 +1,245 @@
+{
+  "function_id": "FUNC.BINOM.DIST.RANGE",
+  "surface_name": "BINOM.DIST.RANGE",
+  "published_row_id": "FUNC.BINOM.DIST.RANGE",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfBinom_dist_range",
+    "code": "574"
+  },
+  "arity": {
+    "min": 3,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BINOM.DIST.RANGE(trials, probability_s, number_s, [number_s2])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "trials",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "probability_s",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number_s",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number_s2",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the probability of a trial result using a binomial distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/binom-dist-range-function-17331329-74c7-4053-bb4c-6653a7421595",
+    "english_description": "Returns the probability of a trial result using a binomial distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BINOMIAL.DIST.INTERVAL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "en-US",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.BINOM.SERIE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BINOMI.JAKAUMA.ALUE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.BINOMIALE.SERIE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BINOM.ELOSZL.TART"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BINOM.VERD.BEREIK"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.DWUM.ZAKRES"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.BINOM.INTERVALO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БИНОМ.РАСП.ДИАП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BINOM.FÖRD.INTERVALL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİNOM.DAĞ.ARALIK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BINOM.DIST.RANGE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BINOM.DIST.RANGE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ACOTH",
+  "surface_name": "ACOTH",
+  "published_row_id": "FUNC.ACOTH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAcoth",
+    "code": "549"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ACOTH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the hyperbolic arccotangent of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/acoth-function-cc49480f-f684-4171-9fc5-73e4e852300f",
+    "english_description": "Returns the hyperbolic arccotangent of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARCCOTH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "en-US",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ARCCOTH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARCCOTH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ACOTH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ACOTH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

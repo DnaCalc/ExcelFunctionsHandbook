@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.BYCOL",
+  "surface_name": "BYCOL",
+  "published_row_id": "FUNC.BYCOL",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BYCOL(array, lambda)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "lambda",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Applies a LAMBDA to each column and returns an array of the results",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bycol-function-58463999-7de5-49ce-8f38-b7f7a2192bfb",
+    "english_description": "Applies a LAMBDA to each column and returns an array of the results"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "en-US",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BYCOL*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BYCOL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BYCOL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "callable_helper_runtime",
+  "admission_interface_kind": "higher_order_call",
+  "registry_backed": true
+}

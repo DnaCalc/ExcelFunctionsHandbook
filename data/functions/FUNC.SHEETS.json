@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.SHEETS",
+  "surface_name": "SHEETS",
+  "published_row_id": "FUNC.SHEETS",
+  "entry_kind": "built_in_function",
+  "category": "Information functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSheets",
+    "code": "587"
+  },
+  "arity": {
+    "min": 0,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "SHEETS([reference])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "reference",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the number of sheets in a reference",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sheets-function-770515eb-e1e8-45ce-8066-b557e5e4b80b",
+    "english_description": "Returns the number of sheets in a reference"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARK.FLERE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "en-US",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "HOJAS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TAULUKOT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FEUILLES*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LAPOK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ANTALL.ARK"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BLADEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ARKUSZE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FOLHAS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЛИСТЫ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LISTOVI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ANTALBLAD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SAYFALAR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SHEETS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SHEETS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

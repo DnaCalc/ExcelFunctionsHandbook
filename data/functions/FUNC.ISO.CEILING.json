@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.ISO.CEILING",
+  "surface_name": "ISO.CEILING",
+  "published_row_id": "FUNC.ISO.CEILING",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfIso_ceiling",
+    "code": "523"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns a number that is rounded up to the nearest integer or to the nearest multiple of significance",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/iso-ceiling-function-e587bb73-6cc2-4113-b664-ff5b09859a83",
+    "english_description": "Returns a number that is rounded up to the nearest integer or to the nearest multiple of significance"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ISO.LOFT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MULTIPLO.SUPERIOR.ISO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ISO.PYÖRISTÄ.KERR.YLÖS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ISO.PLAFOND*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ISO.PLAFON"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISO.AFRONDEN.BOVEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ISO.ZAOKR.W.GÓRĘ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ARRED.EXCESSO.ISO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ISO.ОКРВВЕРХ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ISO.RUNDA.UPP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ISO.TAVAN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISO.CEILING"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISO.CEILING"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

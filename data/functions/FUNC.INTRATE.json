@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.INTRATE",
+  "surface_name": "INTRATE",
+  "published_row_id": "FUNC.INTRATE",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfIntrate",
+    "code": "433"
+  },
+  "arity": {
+    "min": 4,
+    "max": 5
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the interest rate for a fully invested security",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/intrate-function-5cb34dde-a221-4cb6-b3eb-0b9e55e1316f",
+    "english_description": "Returns the interest rate for a fully invested security"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "RENTEFOD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "en-US",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TASA.INT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KORKO.ARVOPAPERI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TAUX.INTERET*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KAMATRÁTA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "RENTESATS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "RENTEPERCENTAGE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "STOPA.PROC"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TAXAJUROS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ИНОРМА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÅRSRÄNTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "FAİZORANI işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "INTRATE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "INTRATE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

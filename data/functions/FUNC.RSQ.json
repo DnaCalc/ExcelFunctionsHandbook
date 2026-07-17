@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.RSQ",
+  "surface_name": "RSQ",
+  "published_row_id": "FUNC.RSQ",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfRsq",
+    "code": "313"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "RSQ(known_y's, known_x's)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "known_y's",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "known_x's",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the square of the Pearson product moment correlation coefficient",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/rsq-function-d7161715-250d-4a01-b80d-a8364f2be08f",
+    "english_description": "Returns the square of the Pearson product moment correlation coefficient"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "RSQ"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "RSQ"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "RSQ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FORKLARINGSGRAD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "RSQ"
+    },
+    {
+      "locale": "el-GR",
+      "name": "RSQ"
+    },
+    {
+      "locale": "en-AU",
+      "name": "RSQ"
+    },
+    {
+      "locale": "en-GB",
+      "name": "RSQ"
+    },
+    {
+      "locale": "en-US",
+      "name": "RSQ"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COEFICIENTE.R2"
+    },
+    {
+      "locale": "et-EE",
+      "name": "RSQ"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PEARSON.NELIÖ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COEFFICIENT.DETERMINATION*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "RSQ"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "RSQ"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "RNÉGYZET"
+    },
+    {
+      "locale": "id-ID",
+      "name": "RSQ"
+    },
+    {
+      "locale": "it-IT",
+      "name": "RSQ"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "RSQ"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "RSQ"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "RSQ"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "RSQ"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "RKVADRAT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "R.KWADRAAT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "R.KWADRAT"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "RSQ"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "RQUAD"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "RSQ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КВПИРСОН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "RSQ"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "RSQ"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "RSQ"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "RKV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "RSQ"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "RKARE işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "RSQ"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "RSQ"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "RSQ"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "RSQ"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "RSQ"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.SEC",
+  "surface_name": "SEC",
+  "published_row_id": "FUNC.SEC",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSec",
+    "code": "554"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=circular_trig_overflow;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=circular_trig_overflow;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SEC(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the secant of an angle",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sec-function-ff224717-9c87-4170-9b58-d069ced6d5f7",
+    "english_description": "Returns the secant of an angle"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SEC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SEC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SEC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SEC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SEC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SEC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SEC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SEC"
+    },
+    {
+      "locale": "en-US",
+      "name": "SEC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SEC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SEC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SEK"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SEC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SEC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SEC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SEC"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SEC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SEC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SEC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SEC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SEC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SEC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SEC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SECONDE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SEC"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SEC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SEC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SEC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "SEC"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SEC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SEC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SEC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SEK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SEC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SEC"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SEC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SEC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SEC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SEC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SEC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

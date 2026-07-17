@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.EOMONTH",
+  "surface_name": "EOMONTH",
+  "published_row_id": "FUNC.EOMONTH",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfEomonth",
+    "code": "450"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the serial number of the last day of the month before or after a specified number of months",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/eomonth-function-7314ffa1-2bc9-4005-9d66-f49db127d628",
+    "english_description": "Returns the serial number of the last day of the month before or after a specified number of months"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SLUT.PÅ.MÅNED"
+    },
+    {
+      "locale": "de-DE",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "en-US",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FIN.MES"
+    },
+    {
+      "locale": "et-EE",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FIN.MOIS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HÓNAP.UTOLSÓ.NAP"
+    },
+    {
+      "locale": "id-ID",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LAATSTE.DAG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NR.SER.OST.DN.MIES"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FIMMÊS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КОНМЕСЯЦА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SLUTMÅNAD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SERİAY işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "EOMONTH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "EOMONTH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

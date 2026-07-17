@@ -1,0 +1,235 @@
+{
+  "function_id": "FUNC.HSTACK",
+  "surface_name": "HSTACK",
+  "published_row_id": "FUNC.HSTACK",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "HSTACK(array1, [array2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "array1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Appends arrays horizontally and in sequence to return a larger array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/hstack-function-98c4ab76-10fe-4b4f-8d5f-af1c125fe8c2",
+    "english_description": "Appends arrays horizontally and in sequence to return a larger array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SROVNAT.VODOROVNĚ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VSTAK"
+    },
+    {
+      "locale": "de-DE",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "en-US",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "es-ES",
+      "name": "APILARH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "HPINO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ASSEMB.H*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VÍZSZ.HALMOZÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "it-IT",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HOR.STAPELEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "STOS.POZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "JUNTARH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ГСТОЛБИК"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "YATAYYIĞ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HSTACK"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HSTACK"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-HSTACK-001",
+    "lean_module": "OxFunc.Functions.Hstack",
+    "rust_module": "oxfunc_core::functions::hstack",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

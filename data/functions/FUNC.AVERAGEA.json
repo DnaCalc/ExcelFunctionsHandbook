@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.AVERAGEA",
+  "surface_name": "AVERAGEA",
+  "published_row_id": "FUNC.AVERAGEA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAveragea",
+    "code": "361"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "AVERAGEA(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the average of its arguments, including numbers, text, and logical values",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/averagea-function-f5f84098-d453-4f4c-bbba-3d2c66356091",
+    "english_description": "Returns the average of its arguments, including numbers, text, and logical values"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MIDDELV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "en-US",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIARVOA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁTLAGA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GJENNOMSNITTA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ŚREDNIA.A"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MÉDIAA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÉDIAA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ORTALAMAA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AVERAGEA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AVERAGEA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

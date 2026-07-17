@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ENCODEURL",
+  "surface_name": "ENCODEURL",
+  "published_row_id": "FUNC.ENCODEURL",
+  "entry_kind": "built_in_function",
+  "category": "Web functions",
+  "admission": {
+    "label": "deferred",
+    "reason": "Deferred with the current W041 family despite bounded local work."
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfEncodeurl",
+    "code": "597"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "TextToText",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ENCODEURL(text)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a URL-encoded string",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/encodeurl-function-07c7fb90-7c60-4bff-8687-fac50fe33d0e",
+    "english_description": "Returns a URL-encoded string"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KODNINGSURL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "en-US",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "URLCODIF"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "URLKOODAUS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "URLENCODAGE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "URL.KÓDOL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "URL.KODE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "URL.CODEREN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CODIFICAÇÃOURL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КОДИР.URL"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KODAWEBBADRESS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "URLKODLA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ENCODEURL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ENCODEURL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

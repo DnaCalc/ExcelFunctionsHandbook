@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.NOT",
+  "surface_name": "NOT",
+  "published_row_id": "FUNC.NOT",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfNot",
+    "code": "38"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "NOT(logical)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "logical",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Reverses the logic of its argument",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/not-function-9cfc6011-a054-40c7-a140-cd4ba2d87d77",
+    "english_description": "Reverses the logic of its argument"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "NOT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "NOT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NOT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "NOT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "NICHT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "NOT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "NOT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "NOT"
+    },
+    {
+      "locale": "en-US",
+      "name": "NOT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "NO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "NOT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NOT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NON"
+    },
+    {
+      "locale": "he-IL",
+      "name": "NOT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "NOT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NOT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "NOT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "NOT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "NOT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "NOT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "NOT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "NOT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "NOT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NOT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NOT"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "NOT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "NÃO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "NU"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "NOT"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NOT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "NOT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "NOT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "INTE"
+    },
+    {
+      "locale": "th-TH",
+      "name": "NOT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DEĞİL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "NOT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "NOT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "NOT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "NOT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "NOT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

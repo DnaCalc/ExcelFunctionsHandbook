@@ -1,0 +1,245 @@
+{
+  "function_id": "FUNC.BINOMDIST",
+  "surface_name": "BINOMDIST",
+  "published_row_id": "FUNC.BINOMDIST",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfBinomdist",
+    "code": "273"
+  },
+  "arity": {
+    "min": 4,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2|3)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2|3);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BINOMDIST(number_s, trials, probability_s, cumulative)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number_s",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "trials",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "probability_s",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "cumulative",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the individual term binomial distribution probability",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/binomdist-function-506a663e-c4ca-428d-b9a8-05583d68789c",
+    "english_description": "Returns the individual term binomial distribution probability"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BINOMIALFORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.BINOM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BINOMIJAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.BINOMIALE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BINOM.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.DWUM"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DISTRBINOM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БИНОМРАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BINOMFÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİNOMDAĞ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BINOMDIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BINOMDIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

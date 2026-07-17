@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.POWER",
+  "surface_name": "POWER",
+  "published_row_id": "FUNC.POWER",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfPower",
+    "code": "337"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "integer_exponent_publication",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=integer_exponent_publication;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "POWER(number, power)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "power",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the result of a number raised to a power",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/power-function-d3f2908b-56f4-4c3f-895a-07fb519c362a",
+    "english_description": "Returns the result of a number raised to a power"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "POWER"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "POWER"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "POWER"
+    },
+    {
+      "locale": "da-DK",
+      "name": "POTENS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "POWER"
+    },
+    {
+      "locale": "el-GR",
+      "name": "POWER"
+    },
+    {
+      "locale": "en-AU",
+      "name": "POWER"
+    },
+    {
+      "locale": "en-GB",
+      "name": "POWER"
+    },
+    {
+      "locale": "en-US",
+      "name": "POWER"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ALIMENTACIÓN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "POWER"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "POTENSSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ALIMENTATION"
+    },
+    {
+      "locale": "he-IL",
+      "name": "POWER"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "POWER"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HATVÁNY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "POWER"
+    },
+    {
+      "locale": "it-IT",
+      "name": "POTENZA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "POWER"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "전원"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "POWER"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "POWER"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "OPPHØYD"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "POWER"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "POTĘGA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ENERGIA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "POTÊNCIA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "POWER"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "POWER"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NAPÁJANIE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "POWER"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SNAGA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "UPPHÖJT.TILL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "POWER"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KUVVET"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "POWER"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "POWER"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "电源"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "POWER"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "POWER"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

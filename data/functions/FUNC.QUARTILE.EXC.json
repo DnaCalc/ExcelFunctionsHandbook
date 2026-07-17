@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.QUARTILE.EXC",
+  "surface_name": "QUARTILE.EXC",
+  "published_row_id": "FUNC.QUARTILE.EXC",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfQuartile_exc",
+    "code": "506"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "QUARTILE.EXC(array, quart)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "quart",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the quartile of the data set, based on percentile values from 0..1, exclusive",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/quartile-exc-function-5a355b7a-840b-4a01-b0f1-f538c2864cad",
+    "english_description": "Returns the quartile of the data set, based on percentile values from 0..1, exclusive"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "QUARTIL.EXC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KVARTIL.UDELAD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "en-US",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CUARTIL.EXC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NELJÄNNES.ULK"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "QUARTILE.EXCLURE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KVARTILIS.KIZÁR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KWARTIEL.EXC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KWARTYL.PRZEDZ.OTW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "QUARTIL.EXC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КВАРТИЛЬ.ИСКЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KVARTIL.EXK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DÖRTTEBİRLİK.HRC"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "QUARTILE.EXC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "QUARTILE.EXC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

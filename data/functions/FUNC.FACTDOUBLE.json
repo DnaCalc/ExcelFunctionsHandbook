@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.FACTDOUBLE",
+  "surface_name": "FACTDOUBLE",
+  "published_row_id": "FUNC.FACTDOUBLE",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfFactdouble",
+    "code": "415"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "FACTDOUBLE(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the double factorial of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/factdouble-function-e67697ac-d214-48eb-b7b7-cce2589ecac8",
+    "english_description": "Returns the double factorial of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DOBBELT.FAKULTET"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "en-US",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FACT.DOBLE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KERTOMA.OSA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FACTDOUBLE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FAKTDUPLA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DOBBELFAKT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DUBBELE.FACULTEIT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SILNIA.DWUKR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FACTDUPLO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДВФАКТР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DUBBELFAKULTET"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇİFTFAKTÖR işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FACTDOUBLE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FACTDOUBLE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

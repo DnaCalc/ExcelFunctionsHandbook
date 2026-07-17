@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.TAKE",
+  "surface_name": "TAKE",
+  "published_row_id": "FUNC.TAKE",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "TAKE(array, rows, [columns])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rows",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "columns",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a specified number of contiguous rows or columns from the start or end of an array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/take-function-25382ff1-5da1-4f78-ab43-f33bd2e4e003",
+    "english_description": "Returns a specified number of contiguous rows or columns from the start or end of an array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TAKE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TAKE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VZÍT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TAG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TAKE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TAKE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TAKE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TAKE"
+    },
+    {
+      "locale": "en-US",
+      "name": "TAKE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TOMAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TAKE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "OTA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PRENDRE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TAKE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TAKE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁTHELYEZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TAKE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TAKE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TAKE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TAKE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TAKE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TAKE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TAKE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NEMEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYCINEK"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TAKE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INCLUIR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TAKE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ВЗЯТЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TAKE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TAKE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TAKE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TAKE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "AL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TAKE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TAKE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TAKE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TAKE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TAKE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

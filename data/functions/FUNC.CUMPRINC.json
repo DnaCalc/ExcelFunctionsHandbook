@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.CUMPRINC",
+  "surface_name": "CUMPRINC",
+  "published_row_id": "FUNC.CUMPRINC",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfCumprinc",
+    "code": "447"
+  },
+  "arity": {
+    "min": 6,
+    "max": 6
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the cumulative principal paid on a loan between two periods",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/cumprinc-function-94a4516d-bd65-41a1-bc16-053a6af4c04d",
+    "english_description": "Returns the cumulative principal paid on a loan between two periods"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AKKUM.HOVEDSTOL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "KUMKAPITAL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "en-US",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PAGO.PRINC.ENTRE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MAKSETTU.LYHENNYS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CUMUL.PRINCPER"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÖSSZES.TŐKERÉSZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CAP.CUM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SAMLET.HOVEDSTOL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CUM.HOOFDSOM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SPŁAC.KAPIT"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PGTOCAPACUM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PGTOCAPACUM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОБЩДОХОД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KUMPRIS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TOPANAPARA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CUMPRINC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CUMPRINC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

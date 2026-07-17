@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.CSCH",
+  "surface_name": "CSCH",
+  "published_row_id": "FUNC.CSCH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCsch",
+    "code": "553"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CSCH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the hyperbolic cosecant of an angle",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/csch-function-f58f2c22-eb75-4dd6-84f4-a503527f8eeb",
+    "english_description": "Returns the hyperbolic cosecant of an angle"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CSCH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CSCH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CSCH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CSCH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CSCH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CSCH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CSCH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CSCH"
+    },
+    {
+      "locale": "en-US",
+      "name": "CSCH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CSCH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CSCH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOSEKH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CSCH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CSCH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CSCH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CSCH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CSCH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CSCH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CSCH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CSCH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CSCH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CSCH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CSCH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COSECH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CSCH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CSCH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CSCH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CSCH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "CSCH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CSCH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CSCH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CSCH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CSCH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CSCH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "CSCH"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CSCH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CSCH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CSCH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CSCH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CSCH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

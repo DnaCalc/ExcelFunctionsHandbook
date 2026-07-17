@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.ISOWEEKNUM",
+  "surface_name": "ISOWEEKNUM",
+  "published_row_id": "FUNC.ISOWEEKNUM",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfIsoweeknum",
+    "code": "584"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the number of the ISO week number of the year for a given date",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/isoweeknum-function-1c2d0afe-d25b-4ab1-8894-8d0520e90e0e",
+    "english_description": "Returns the number of the ISO week number of the year for a given date"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ISOUGE.NR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ISO.NUM.DE.SEMANA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VIIKKO.ISO.NRO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NO.SEMAINE.ISO*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ISO.HÉT.SZÁMA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISO.WEEKNUMMER"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ISO.NUM.TYG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "NUMSEMANAISO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОМНЕДЕЛИ.ISO"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ISOVECKONR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ISOHAFTASAY"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISOWEEKNUM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISOWEEKNUM"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

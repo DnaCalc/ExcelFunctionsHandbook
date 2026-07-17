@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.RIGHTB",
+  "surface_name": "RIGHTB",
+  "published_row_id": "FUNC.RIGHT, RIGHTB",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "RIGHTB(text, [num_bytes])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "num_bytes",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the rightmost characters from a text value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/right-function-240267ee-9afa-4639-a02b-f19e1786cf2f",
+    "english_description": "Returns the rightmost characters from a text value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "RIGHT، RIGHTB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZPRAVA, RIGHTB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HØJRE, HØJREB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "en-US",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DERECHA, DERECHAB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "OIKEA, OIKEAB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DROITE*, DROITEB*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "JOBB, JOBB2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "RIGHT、RIGHTB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "RECHTS, RECHTSB"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PRAWY, PRAWY.B"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIREITA, DIREITAB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПРАВСИМВ, ПРАВБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HÖGER, HÖGERB"
+    },
+    {
+      "locale": "th-TH",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SAĞDAN, SAĞB işlevleri"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "RIGHT, RIGHTB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "RIGHT、RIGHTB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "RIGHT，RIGHTB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "RIGHT，RIGHTB"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.CALL",
+  "surface_name": "CALL",
+  "published_row_id": "FUNC.CALL",
+  "entry_kind": "built_in_function",
+  "category": "User defined functions that are installed with add-ins",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCall",
+    "code": "150"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "ExternalEventDependent",
+    "fec_dependency_profile": "ExternalProvider",
+    "host_interaction_class": "ApplicationState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileContextual"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Calls a procedure in a dynamic link library or code resource",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/call-function-32d58445-e646-4ffd-8d5e-b45077a5e995",
+    "english_description": "Calls a procedure in a dynamic link library or code resource"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "إجراء مكالمة"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CALL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZAVOLAT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "RING OP"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ANRUFEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CALL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CALL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CALL"
+    },
+    {
+      "locale": "en-US",
+      "name": "CALL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "LLAMAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CALL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SOITA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CALL"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CALL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CALL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HÍVÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CALL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CALL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CALL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "통화"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CALL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CALL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ANROP"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CALL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYWOŁAJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CALL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CHAMAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CALL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ВЫЗВАТЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ZAVOLAŤ"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CALL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "POZOVI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "RING"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CALL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇAĞIR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CALL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CALL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "呼叫"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CALL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CALL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "registered_external_invocation",
+  "admission_interface_kind": "macro_or_host_registered_call",
+  "registry_backed": true
+}

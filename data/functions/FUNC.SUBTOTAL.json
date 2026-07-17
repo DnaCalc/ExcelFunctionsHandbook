@@ -1,0 +1,239 @@
+{
+  "function_id": "FUNC.SUBTOTAL",
+  "surface_name": "SUBTOTAL",
+  "published_row_id": "FUNC.SUBTOTAL",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSubtotal",
+    "code": "344"
+  },
+  "arity": {
+    "min": 2,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "Composite",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "SUBTOTAL(function_num, ref1, [ref2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "function_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "ref1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "ref2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a subtotal in a list or database",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/subtotal-function-7b027003-f060-4ade-9040-e478765b9939",
+    "english_description": "Returns a subtotal in a list or database"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "en-US",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SUBTOTALES"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VÄLISUMMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SOUS.TOTAL"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "RÉSZÖSSZEG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DELSUM"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SUBTOTAAL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SUMY.CZĘŚCIOWE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПРОМЕЖУТОЧНЫЕ.ИТОГИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PODZBIR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DELSUMMA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ALTTOPLAM"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SUBTOTAL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SUBTOTAL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

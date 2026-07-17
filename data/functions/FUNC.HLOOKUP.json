@@ -1,0 +1,245 @@
+{
+  "function_id": "FUNC.HLOOKUP",
+  "surface_name": "HLOOKUP",
+  "published_row_id": "FUNC.HLOOKUP",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfHlookup",
+    "code": "101"
+  },
+  "arity": {
+    "min": 3,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "LookupMatch",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "HLOOKUP(lookup_value, table_array, row_index_num, [range_lookup])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "lookup_value",
+        "optional": false,
+        "repeats": false,
+        "description": "Supports exact and approximate lookup, including the current-baseline wildcard text lane."
+      },
+      {
+        "name": "table_array",
+        "optional": false,
+        "repeats": false,
+        "description": "Reference and array structure stays visible through the adapter seam."
+      },
+      {
+        "name": "row_index_num",
+        "optional": false,
+        "repeats": false,
+        "description": "Truncates toward zero before validation."
+      },
+      {
+        "name": "range_lookup",
+        "optional": true,
+        "repeats": false,
+        "description": "Omitted means approximate-match mode."
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Looks in the top row of an array and returns the value of the indicated cell",
+    "long": "Current-baseline OxFunc support covers exact and approximate numeric lookup, wildcard text lookup on the exact lane, logical lookup values, and row-index validation."
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/hlookup-function-a3034eec-b719-4ba3-bb65-e1ad662ed95f",
+    "english_description": "Looks in the top row of an array and returns the value of the indicated cell"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VVYHLEDAT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VOPSLAG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WVERWEIS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "en-US",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BUSCARH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VHAKU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RECHERCHEH"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VKERES"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CERCA.ORIZZ"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FINN.KOLONNE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HORIZ.ZOEKEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYSZUKAJ.POZIOMO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PROCH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PROCH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ГПР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LETAKOLUMN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "YATAYARA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HLOOKUP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HLOOKUP"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

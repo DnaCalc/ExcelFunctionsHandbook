@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.SQRT",
+  "surface_name": "SQRT",
+  "published_row_id": "FUNC.SQRT",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSqrt",
+    "code": "20"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SQRT(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a positive square root",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sqrt-function-654975c2-05c4-4831-9a24-2c65e4040fdf",
+    "english_description": "Returns a positive square root"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SQRT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SQRT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SQRT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KVROD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WURZEL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SQRT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SQRT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SQRT"
+    },
+    {
+      "locale": "en-US",
+      "name": "SQRT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "RAIZ"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SQRT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NELIÖJUURI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RACINE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SQRT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SQRT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "GYÖK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SQRT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "RADQ"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SQRT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SQRT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SQRT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SQRT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ROT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WORTEL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SQRT"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "RAIZ"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "RAIZQ"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SQRT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КОРЕНЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SQRT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SQRT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SQRT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ROT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SQRT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KAREKÖK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SQRT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SQRT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SQRT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SQRT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SQRT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

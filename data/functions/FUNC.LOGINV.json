@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.LOGINV",
+  "surface_name": "LOGINV",
+  "published_row_id": "FUNC.LOGINV",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfLoginv",
+    "code": "291"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the inverse of the lognormal cumulative distribution function",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/loginv-function-0bd7631a-2725-482b-afb4-de23df77acfe",
+    "english_description": "Returns the inverse of the lognormal cumulative distribution function"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "en-US",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.LOG.INV"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LOGNORM.JAKAUMA.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.LOGNORMALE.INVERSE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INVERZ.LOG.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LOG.NORM.INV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.LOG.ODW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INVLOG"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЛОГНОРМОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LOGTERS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LOGINV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LOGINV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

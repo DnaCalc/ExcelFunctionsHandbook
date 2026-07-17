@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.BITXOR",
+  "surface_name": "BITXOR",
+  "published_row_id": "FUNC.BITXOR",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfBitxor",
+    "code": "564"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BITXOR(number1, number2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a bitwise 'Exclusive Or' of two numbers",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bitxor-function-c81306a1-03f9-4e89-85ac-b86c3cba10e4",
+    "english_description": "Returns a bitwise 'Exclusive Or' of two numbers"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BITXELLER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "en-US",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BIT.XO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BITTI.EHDOTON.TAI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BITOUEXCLUSIF*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BIT.XVAGY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BITEKSKLUSIVELLER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BIT.EX.OF"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BIT.XOU"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БИТ.ИСКЛИЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BITXELLER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİTÖZELVEYA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BITXOR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BITXOR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

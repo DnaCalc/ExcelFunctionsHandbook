@@ -1,0 +1,242 @@
+{
+  "function_id": "FUNC.TRIMRANGE",
+  "surface_name": "TRIMRANGE",
+  "published_row_id": "FUNC.TRIMRANGE",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "TRIMRANGE(array, [trim_rows], [trim_cols], [headers])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "trim_rows",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "trim_cols",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "headers",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Scans in from the edges of a range or array until it finds a non-blank cell (or value), it then excludes those blank rows or columns",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/trimrange-function-d7812248-3bc5-4c6b-901c-1afa9564f999",
+    "english_description": "Scans in from the edges of a range or array until it finds a non-blank cell (or value), it then excludes those blank rows or columns"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "OŘÍZNOUTOBLAST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TRIMOMRÅDE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "en-US",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "RECORTAR.RANGO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "RAJAAALUE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SUPPR.PLAGE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KIMETSZÉSITARTOMÁNY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TRIMBEREIK"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PRZYTNIJZAKRES"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "APARARINTERVALO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "УРЕЗДИАПАЗОН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KLIPPOMRÅDE"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KIRPARALIĞI"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TRIMRANGE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TRIMRANGE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

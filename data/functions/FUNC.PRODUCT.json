@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.PRODUCT",
+  "surface_name": "PRODUCT",
+  "published_row_id": "FUNC.PRODUCT",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfProduct",
+    "code": "183"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PRODUCT(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Multiplies its arguments",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/product-function-8e6b5b24-90ee-4650-aeec-80982a0512ce",
+    "english_description": "Multiplies its arguments"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "PRODUKT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PRODUKT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "en-US",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PRODUCTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TULO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PRODUIT"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZORZAT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PRODOTTO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PRODUKT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ILOCZYN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PRODUTO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПРОИЗВЕД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PRODUKT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇARPIM"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PRODUCT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PRODUCT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

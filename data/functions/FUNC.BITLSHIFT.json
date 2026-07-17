@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.BITLSHIFT",
+  "surface_name": "BITLSHIFT",
+  "published_row_id": "FUNC.BITLSHIFT",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfBitlshift",
+    "code": "565"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BITLSHIFT(number, shift_amount)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "shift_amount",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a value number shifted left by shift_amount bits",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bitlshift-function-c55bb27e-cacd-4c7c-b258-d80861a03c9c",
+    "english_description": "Returns a value number shifted left by shift_amount bits"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BITLSKIFT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "en-US",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BIT.DESPLIZQDA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BITTI.SIIRTO.V"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BITDECALG*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BIT.BAL.ELTOL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BIT.VERSCHUIF.LINKS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BIT.PRZESUNIĘCIE.W.LEWO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BITDESL.ESQ"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БИТ.СДВИГЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BITVSKIFT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİTSOLAKAYDIR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BITLSHIFT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BITLSHIFT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

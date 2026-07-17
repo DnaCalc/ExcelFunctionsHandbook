@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.BIN2HEX",
+  "surface_name": "BIN2HEX",
+  "published_row_id": "FUNC.BIN2HEX",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfBin2hex",
+    "code": "395"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BIN2HEX(number, [places])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "places",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a binary number to hexadecimal",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bin2hex-function-0375e507-f5e5-4077-9af8-28d84f9f41cc",
+    "english_description": "Converts a binary number to hexadecimal"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BIN.TIL.HEX"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "en-US",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BIN.A.HEX"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BINHEKSA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BINHEX*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BIN.HEX"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DWÓJK.NA.SZESN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BINAHEX"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДВ.В.ШЕСТН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BIN.TILL.HEX"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BIN2HEX işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BIN2HEX"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BIN2HEX"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,224 @@
+{
+  "function_id": "FUNC.LEN",
+  "surface_name": "LEN",
+  "published_row_id": "FUNC.LEN, LENB",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "LEN(text)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the number of characters in a text string",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/len-function-29236f94-cedc-429d-affd-b5e33d2c67cb",
+    "english_description": "Returns the number of characters in a text string"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LEN، LENB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LÆNGDE, LÆNGDEB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "en-US",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "LARGO, LARGOB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PITUUS, PITUUSB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NBCAR, LENB*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HOSSZ, HOSSZ2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LEN、LENB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LENGDE og LENGDEB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LENGTE, LENGTEB"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DŁ, DŁ.B"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "NÚM.CARAT, NÚM.CARATB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДЛСТР, ДЛИНБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LÄNGD, LÄNGDB"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "UZUNLUK, UZUNLUKB işlevleri"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LEN, LENB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LEN、LENB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LEN，LENB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LEN，LENB"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

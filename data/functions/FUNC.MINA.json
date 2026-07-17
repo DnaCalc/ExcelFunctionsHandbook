@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MINA",
+  "surface_name": "MINA",
+  "published_row_id": "FUNC.MINA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMina",
+    "code": "363"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MINA(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the smallest value in a list of arguments, including numbers, text, and logical values",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/mina-function-245a6f46-7ca5-4dc7-ab49-805341bc31d3",
+    "english_description": "Returns the smallest value in a list of arguments, including numbers, text, and logical values"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MINA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MINA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MINA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MINV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MINA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MINA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MINA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MINA"
+    },
+    {
+      "locale": "en-US",
+      "name": "MINA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MINA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MINA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MINA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MINA*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MINA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MINA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MIN2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MINA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MINA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MINA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MINA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MINA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MINA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MINA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MINA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MIN.A"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MINA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÍNIMOA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MINA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МИНА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MINA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MINA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MINA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MINA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MINA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "MİNA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MINA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MINA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MINA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MINA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MINA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

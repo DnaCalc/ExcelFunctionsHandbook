@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.WORKDAY",
+  "surface_name": "WORKDAY",
+  "published_row_id": "FUNC.WORKDAY",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfWorkday",
+    "code": "471"
+  },
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the serial number of the date before or after a specified number of workdays",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/workday-function-f764a5b7-05fc-4494-9486-60d494efbf33",
+    "english_description": "Returns the serial number of the date before or after a specified number of workdays"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARBEJDSDAG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "el-GR",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "en-AU",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "en-GB",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "en-US",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DIA.LAB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TYÖPÄIVÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SERIE.JOUR.OUVRE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KALK.MUNKANAP"
+    },
+    {
+      "locale": "id-ID",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "it-IT",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WERKDAG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DZIEŃ.ROBOCZY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIATRABALHO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РАБДЕНЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARBETSDAGAR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "İŞGÜNÜ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "WORKDAY"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "WORKDAY"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

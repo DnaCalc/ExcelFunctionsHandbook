@@ -1,0 +1,247 @@
+{
+  "function_id": "FUNC.TEXTJOIN",
+  "surface_name": "TEXTJOIN",
+  "published_row_id": "FUNC.TEXTJOIN",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 3,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "TextToText",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "TEXTJOIN(delimiter, ignore_empty, text1, [text2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "delimiter",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "ignore_empty",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "text1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "text2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Text: Combines the text from multiple ranges and/or strings",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/textjoin-function-357b449a-ec91-49d0-80c3-0e8fc845691c",
+    "english_description": "Text: Combines the text from multiple ranges and/or strings"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TEKST.KOMBINER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "en-US",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "UNIRCADENAS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TEKSTI.YHDISTÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "JOINDRE.TEXTE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÖVEGÖSSZEFŰZÉS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TEKST.COMBINEREN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "POŁĄCZ.TEKSTY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "UNIRTEXTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОБЪЕДИНИТЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "METİNBİRLEŞTİR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TEXTJOIN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TEXTJOIN"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-TEXTJOIN-001",
+    "lean_module": "OxFunc.Functions.TextJoin",
+    "rust_module": "oxfunc_core::functions::textjoin",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

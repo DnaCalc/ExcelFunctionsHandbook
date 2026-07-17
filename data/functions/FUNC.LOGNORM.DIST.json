@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.LOGNORM.DIST",
+  "surface_name": "LOGNORM.DIST",
+  "published_row_id": "FUNC.LOGNORM.DIST",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfLognorm_dist",
+    "code": "536"
+  },
+  "arity": {
+    "min": 4,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the cumulative lognormal distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/lognorm-dist-function-eb60d00b-48a9-4217-be2b-6074aee6b070",
+    "english_description": "Returns the cumulative lognormal distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LOGNORM.FORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.LOGNORM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LOGNORM_JAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.LOGNORMALE.N*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LOGNORM.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LOGNORM.VERD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.LOG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.NORMLOG"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЛОГНОРМ.РАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LOGNORM.FÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LOGNORM.DAĞ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LOGNORM.DIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LOGNORM.DIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

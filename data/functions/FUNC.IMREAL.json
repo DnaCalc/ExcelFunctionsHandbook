@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMREAL",
+  "surface_name": "IMREAL",
+  "published_row_id": "FUNC.IMREAL",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImreal",
+    "code": "410"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the real coefficient of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imreal-function-d12bc4c0-25d0-4bb3-a25f-ece1938bf366",
+    "english_description": "Returns the real coefficient of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGREELT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.REAL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.REAALI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.REEL*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.VALÓS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.REEEL.DEEL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZ.RZECZ.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.ВЕЩ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANGERÇEK işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMREAL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMREAL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

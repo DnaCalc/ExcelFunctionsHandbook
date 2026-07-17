@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.LOGNORM.INV",
+  "surface_name": "LOGNORM.INV",
+  "published_row_id": "FUNC.LOGNORM.INV",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfLognorm_inv",
+    "code": "537"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the inverse of the lognormal cumulative distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/lognorm-inv-function-fe79751a-f1f2-4af8-a0a1-e151b2d4f600",
+    "english_description": "Returns the inverse of the lognormal cumulative distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "en-US",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INV.LOGNORM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LOGNORM.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.LOGNORMALE.INVERSE.N*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LOGNORM.INVERZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.LOG.ODWR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INV.NORMALLOG"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЛОГНОРМ.ОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LOGNORM.TERS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LOGNORM.INV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LOGNORM.INV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

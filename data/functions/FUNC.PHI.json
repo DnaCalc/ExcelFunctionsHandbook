@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.PHI",
+  "surface_name": "PHI",
+  "published_row_id": "FUNC.PHI",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfPhi",
+    "code": "578"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PHI(x)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the value of the density function for a standard normal distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/phi-function-23e49bc6-a8e8-402d-98d3-9ded87f6295c",
+    "english_description": "Returns the value of the density function for a standard normal distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PHI"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PHI"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PHI"
+    },
+    {
+      "locale": "da-DK",
+      "name": "PHI"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PHI"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PHI"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PHI"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PHI"
+    },
+    {
+      "locale": "en-US",
+      "name": "PHI"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PHI"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "FII"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PHI*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PHI"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PHI"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PHI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PHI"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PHI"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PHI"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PHI"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PHI"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PHI"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PHI"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PHI"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PHI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PHI"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PHI"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PHI"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "PHI"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PHI"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PHI"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PHI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PHI"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PHI"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "PHI"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PHI"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PHI"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PHI"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PHI"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PHI"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

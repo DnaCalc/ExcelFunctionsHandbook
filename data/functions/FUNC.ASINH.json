@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ASINH",
+  "surface_name": "ASINH",
+  "published_row_id": "FUNC.ASINH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAsinh",
+    "code": "232"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ASINH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the inverse hyperbolic sine of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/asinh-function-4e00475a-067a-43cf-926a-765b0249717c",
+    "english_description": "Returns the inverse hyperbolic sine of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ASINH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ASINH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ARCSINH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARCSINH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ASINH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ASINH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ASINH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ASINH"
+    },
+    {
+      "locale": "en-US",
+      "name": "ASINH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ASENOH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ASINH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ASINH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ASINH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ASINH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ASINH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ASINH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ASINH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ASINH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ASINH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ASINH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ASINH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ASINH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ARCSINH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ASINH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ASINH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ASINH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ASENH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ASINH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ASINH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ASINH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ASINH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ASINH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARCSINH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ASINH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ASİNH işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ASINH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ASINH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ASINH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ASINH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ASINH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

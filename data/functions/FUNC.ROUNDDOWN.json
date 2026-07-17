@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.ROUNDDOWN",
+  "surface_name": "ROUNDDOWN",
+  "published_row_id": "FUNC.ROUNDDOWN",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfRounddown",
+    "code": "213"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ROUNDDOWN(number, num_digits)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "num_digits",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Rounds a number down, toward zero",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/rounddown-function-2ec94c73-241f-4b01-8c6f-17e6d7968f53",
+    "english_description": "Rounds a number down, toward zero"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "RUND.NED"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "en-US",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "REDONDEAR.MENOS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PYÖRISTÄ.DES.ALAS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ARRONDI.INF*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KEREK.LE"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AVRUND.NED"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AFRONDEN.NAAR.BENEDEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.DÓŁ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ARRED.PARA.BAIXO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОКРУГЛВНИЗ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "AVRUNDA.NEDÅT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "AŞAĞIYUVARLA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ROUNDDOWN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ROUNDDOWN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

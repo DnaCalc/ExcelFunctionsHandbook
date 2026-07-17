@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.GAUSS",
+  "surface_name": "GAUSS",
+  "published_row_id": "FUNC.GAUSS",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfGauss",
+    "code": "577"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "GAUSS(z)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "z",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns 0.5 less than the standard normal cumulative distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/gauss-function-069f1b4e-7dee-4d6a-a71f-4b69044a6b33",
+    "english_description": "Returns 0.5 less than the standard normal cumulative distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "en-US",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "GAUSS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ГАУСС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "GAUSS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "GAUSS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

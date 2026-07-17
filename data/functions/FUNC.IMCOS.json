@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMCOS",
+  "surface_name": "IMCOS",
+  "published_row_id": "FUNC.IMCOS",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImcos",
+    "code": "405"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the cosine of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imcos-function-dad75277-f592-4a6b-ad6c-be93a808a53c",
+    "english_description": "Returns the cosine of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGCOS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.COS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.COS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.COS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.COS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.COS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "COS.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.COS"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANCOS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMCOS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMCOS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

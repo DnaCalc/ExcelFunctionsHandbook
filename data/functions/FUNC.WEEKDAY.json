@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.WEEKDAY",
+  "surface_name": "WEEKDAY",
+  "published_row_id": "FUNC.WEEKDAY",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfWeekday",
+    "code": "70"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Converts a serial number to a day of the week",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/weekday-function-60e44483-2ed1-439f-8bd0-e404c190949a",
+    "english_description": "Converts a serial number to a day of the week"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DENTÝDNE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "UGEDAG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "el-GR",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "en-AU",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "en-GB",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "en-US",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DIASEM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "JOURSEM*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HÉT.NAPJA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "it-IT",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "HVERDAG"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WEEKDAG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DZIEŃ.TYG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIA.SEMANA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДЕНЬНЕД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VECKODAG"
+    },
+    {
+      "locale": "th-TH",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HAFTANINGÜNÜ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "WEEKDAY"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "WEEKDAY"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

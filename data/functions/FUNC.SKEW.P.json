@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.SKEW.P",
+  "surface_name": "SKEW.P",
+  "published_row_id": "FUNC.SKEW.P",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfSkew_p",
+    "code": "576"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the skewness of a distribution based on a population: a characterization of the degree of asymmetry of a distribution around its mean",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/skew-p-function-76530a5c-99b9-48a1-8392-26632d542fcb",
+    "english_description": "Returns the skewness of a distribution based on a population: a characterization of the degree of asymmetry of a distribution around its mean"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SKÆVHED.P"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "en-US",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COEFICIENTE.ASIMETRIA.P"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "JAKAUMAN.VINOUS.POP"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COEFFICIENT.ASYMETRIE.P*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FERDESÉG.P"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SCHEEFHEID.P"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SKOŚNOŚĆ.P"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DISTORÇÃO.P"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СКОС.Г"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SNEDHET.P"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇARPIKLIK.P"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SKEW.P"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SKEW.P"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

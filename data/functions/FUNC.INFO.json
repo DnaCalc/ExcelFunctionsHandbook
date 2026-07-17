@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.INFO",
+  "surface_name": "INFO",
+  "published_row_id": "FUNC.INFO",
+  "entry_kind": "built_in_function",
+  "category": "Information functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfInfo",
+    "code": "244"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "Composite",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileContextual"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "INFO(type_num)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "type_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns information about the current operating environment",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/info-function-725f259a-0e4b-49b3-8b52-58815c69acae",
+    "english_description": "Returns information about the current operating environment"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "INFO"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "INFO"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "INFO"
+    },
+    {
+      "locale": "da-DK",
+      "name": "INFO"
+    },
+    {
+      "locale": "de-DE",
+      "name": "INFO"
+    },
+    {
+      "locale": "el-GR",
+      "name": "INFO"
+    },
+    {
+      "locale": "en-AU",
+      "name": "INFO"
+    },
+    {
+      "locale": "en-GB",
+      "name": "INFO"
+    },
+    {
+      "locale": "en-US",
+      "name": "INFO"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INFORMACIÓN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "INFO"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KUVAUS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "INFOS"
+    },
+    {
+      "locale": "he-IL",
+      "name": "INFO"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "INFO"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INFÓ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "INFO"
+    },
+    {
+      "locale": "it-IT",
+      "name": "INFO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "INFO"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "INFO"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "INFO"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "INFO"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "INFO"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "INFO"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "INFO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "INFORMAÇÃO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INFORMAÇÕES"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "INFO"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ИНФОРМ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "INFO"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "INFO"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "INFO"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "INFO"
+    },
+    {
+      "locale": "th-TH",
+      "name": "INFO"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİLGİ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "INFO"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "INFO"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "INFO"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "INFO"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "INFO"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,242 @@
+{
+  "function_id": "FUNC.EXPAND",
+  "surface_name": "EXPAND",
+  "published_row_id": "FUNC.EXPAND",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "EXPAND(array, rows, [columns], [pad_with])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rows",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "columns",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "pad_with",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Expands or pads an array to specified row and column dimensions",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/expand-function-7433fba5-4ad1-41da-a904-d5d95808bc38",
+    "english_description": "Expands or pads an array to specified row and column dimensions"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ROZBALIT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "UDVID"
+    },
+    {
+      "locale": "de-DE",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "el-GR",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "en-AU",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "en-GB",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "en-US",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "es-ES",
+      "name": "EXPANDIR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LAAJENNA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ÉTENDRE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KITERJESZT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "it-IT",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "UTVID"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "UITBREIDEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZSZERZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "EXPANDIR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "EXPANDIR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РАЗВЕРНУТЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "RAZVIJ"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "EXPANDERA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GENİŞLET"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "EXPAND"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "EXPAND"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

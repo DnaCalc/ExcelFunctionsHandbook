@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.WEEKNUM",
+  "surface_name": "WEEKNUM",
+  "published_row_id": "FUNC.WEEKNUM",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfWeeknum",
+    "code": "465"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Converts a serial number to a number representing where the week falls numerically with a year",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/weeknum-function-e5c43a03-b4ab-426c-b411-b18c13c75340",
+    "english_description": "Converts a serial number to a number representing where the week falls numerically with a year"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "da-DK",
+      "name": "UGE.NR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "el-GR",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "en-US",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "NUM.DE.SEMANA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NO.SEMAINE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HÉT.SZÁMA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NUM.TYG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "NÚMSEMANA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОМНЕДЕЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VECKONR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HAFTASAY işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "WEEKNUM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "WEEKNUM"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

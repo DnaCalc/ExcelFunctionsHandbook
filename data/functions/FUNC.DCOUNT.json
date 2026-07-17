@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.DCOUNT",
+  "surface_name": "DCOUNT",
+  "published_row_id": "FUNC.DCOUNT",
+  "entry_kind": "built_in_function",
+  "category": "Database functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfDcount",
+    "code": "40"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Counts the cells that contain numbers in a database",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/dcount-function-c1fc7b93-fb0d-4d8d-97db-8d5f076eaeb1",
+    "english_description": "Counts the cells that contain numbers in a database"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DPOČET"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DTÆL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "en-US",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BDCONTAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TLASKE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BDNB*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "AB.DARAB"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DANTALL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DBAANTAL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BD.ILE.REKORDÓW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BDCONTAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БСЧЁТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DANTAL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VSEÇSAY işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DCOUNT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DCOUNT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

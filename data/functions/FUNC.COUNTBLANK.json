@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.COUNTBLANK",
+  "surface_name": "COUNTBLANK",
+  "published_row_id": "FUNC.COUNTBLANK",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCountblank",
+    "code": "347"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "COUNTBLANK(range)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "range",
+        "optional": false,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Counts the number of blank cells within a range",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/countblank-function-6a92d772-675c-4bee-b346-24af6bd3ac22",
+    "english_description": "Counts the number of blank cells within a range"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ANTAL.BLANKE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "en-US",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LASKE.TYHJÄT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "DARABÜRES"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TELLBLANKE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AANTAL.LEGE.CELLEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LICZ.PUSTE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONTAR.VAZIO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CONTAR.VAZIO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ANTAL.TOMMA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BOŞLUKSAY işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COUNTBLANK"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COUNTBLANK"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

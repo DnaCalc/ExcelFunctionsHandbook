@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.GESTEP",
+  "surface_name": "GESTEP",
+  "published_row_id": "FUNC.GESTEP",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfGestep",
+    "code": "419"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "GESTEP(number, [step])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "step",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Tests whether a number is greater than a threshold value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/gestep-function-f37e7d2a-41da-4129-be95-640883fca9df",
+    "english_description": "Tests whether a number is greater than a threshold value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "da-DK",
+      "name": "GETRIN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "el-GR",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "en-US",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MAYOR.O.IGUAL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "RAJA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SUP.SEUIL*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÜSZÖBNÉL.NAGYOBB"
+    },
+    {
+      "locale": "id-ID",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GRENSEVERDI"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GROTER.DAN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SPRAWDŹ.PRÓG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DEGRAU"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПОРОГ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SLSTEG"
+    },
+    {
+      "locale": "th-TH",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BESINIR işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "GESTEP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "GESTEP"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

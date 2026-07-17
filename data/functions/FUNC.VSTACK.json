@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.VSTACK",
+  "surface_name": "VSTACK",
+  "published_row_id": "FUNC.VSTACK",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VSTACK(array1, [array2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "array1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Appends arrays vertically and in sequence to return a larger array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/vstack-function-a4b86897-be0f-48fc-adca-fcc10d795a9c",
+    "english_description": "Appends arrays vertically and in sequence to return a larger array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SROVNAT.SVISLE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LSTAK"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "en-US",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "es-ES",
+      "name": "APILARV"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VPINO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ASSEMB.V*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FÜGG.HALMOZÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VERT.STAPELEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "STOS.PION"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "JUNTARV"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ВСТОЛБИК"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DÜŞEYYIĞ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VSTACK"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VSTACK"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

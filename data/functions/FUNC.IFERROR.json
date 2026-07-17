@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.IFERROR",
+  "surface_name": "IFERROR",
+  "published_row_id": "FUNC.IFERROR",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfIferror",
+    "code": "480"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=true;numerical_reduction_policy=none;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "IFERROR(value, value_if_error)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value_if_error",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a value you specify if a formula evaluates to an error; otherwise, returns the result of the formula",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/iferror-function-c526fd07-caeb-47b8-8bb6-63f3e417f611",
+    "english_description": "Returns a value you specify if a formula evaluates to an error; otherwise, returns the result of the formula"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CHYBHODN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HVIS.FEJL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WENNFEHLER"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "en-US",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SI.ERROR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "JOSVIRHE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SIERREUR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HAHIBA:"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SE.ERRORE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "HVISFEIL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ALS.FOUT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "JEŻELI.BŁĄD"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SEERRO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SE.ERRO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕСЛИОШИБКА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "Funkcia IFERROR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "OMFEL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EĞERHATA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IFERROR."
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IFERROR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IFERROR"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-IFERROR-001",
+    "lean_module": "OxFunc.Functions.IfError",
+    "rust_module": "oxfunc_core::functions::iferror",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

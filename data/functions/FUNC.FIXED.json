@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.FIXED",
+  "surface_name": "FIXED",
+  "published_row_id": "FUNC.FIXED",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfFixed",
+    "code": "14"
+  },
+  "arity": {
+    "min": 1,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "LocaleProfile",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "FIXED(number, [decimals])",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "decimals",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Formats a number as text with a fixed number of decimals",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/fixed-function-ffd5723c-324c-45e9-8b96-e41be2a8274a",
+    "english_description": "Formats a number as text with a fixed number of decimals"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "تم التصحيح"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ПОПРАВЕНО"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "OPRAVENO"
+    },
+    {
+      "locale": "da-DK",
+      "name": "RETTET"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BEHOBEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ΔΙΟΡΘΩΘΗΚΕ"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FIXED"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FIXED"
+    },
+    {
+      "locale": "en-US",
+      "name": "FIXED"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CORREGIDO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LAHENDATUD"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KORJATTU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RÉSOLU"
+    },
+    {
+      "locale": "he-IL",
+      "name": "תוקן"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "RIJEŠENO"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "JAVÍTVA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DIPERBAIKI"
+    },
+    {
+      "locale": "it-IT",
+      "name": "RISOLTO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "修正済み"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "해결됨"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PATAISYTA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IZLABOTS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LØST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "OPGELOST"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NAPRAWIONE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CORRIGIDO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CORRIGIDO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "REMEDIAT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ИСПРАВЛЕНО"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "OPRAVENÉ"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "POPRAVLJENO"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "POPRAVLJENO"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÅTGÄRDAT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "แก้ไขแล้ว"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DÜZELTİLDİ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ВИПРАВЛЕНО"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ĐÃ KHẮC PHỤC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "已修复"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "已修正"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "已修正"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-FIXED-001",
+    "lean_module": "OxFunc.Functions.Fixed;OxFunc.LocaleFormat",
+    "rust_module": "oxfunc_core::functions::fixed_fn;oxfunc_core::locale_format",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

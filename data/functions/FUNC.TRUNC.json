@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.TRUNC",
+  "surface_name": "TRUNC",
+  "published_row_id": "FUNC.TRUNC",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfTrunc",
+    "code": "197"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "TRUNC(number, [num_digits])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "num_digits",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Truncates a number to an integer",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/trunc-function-8b86a64c-3127-43db-ba14-aa5ceb292721",
+    "english_description": "Truncates a number to an integer"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "USEKNOUT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AFKORT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "en-US",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TRUNCAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KATKAISE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TRONQUE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CSONK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AVKORT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GEHEEL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LICZBA.CAŁK"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TRUNCAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОТБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "AVKORTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "NSAT işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TRUNC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TRUNC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

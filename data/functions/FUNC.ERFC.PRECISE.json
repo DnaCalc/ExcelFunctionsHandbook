@@ -1,0 +1,206 @@
+{
+  "function_id": "FUNC.ERFC.PRECISE",
+  "surface_name": "ERFC.PRECISE",
+  "published_row_id": "FUNC.ERFC.PRECISE",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfErfc_precise",
+    "code": "544"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the complementary ERF function integrated between x and infinity",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/erfc-precise-function-e90e6bab-f45e-45df-b2ac-cd2eb4d4a273",
+    "english_description": "Returns the complementary ERF function integrated between x and infinity"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "en-US",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FUN.ERROR.COMPL.EXACTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VIRHEFUNKTIO.KOMPLEMENTTI.TARKKA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ERFC.PRECIS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HIBAFKOMPLEMENTER.PONTOS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "FOUT.COMPLEMENT.NAUWKEURIG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KOMP.FUNKCJA.BŁ.DOKŁ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FUNCERROCOMPL.PRECISO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДФОШ.ТОЧН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FELFK.EXAKT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TÜMHATAİŞLEV.DUYARLI"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ERFC.PRECISE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ERFC.PRECISE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

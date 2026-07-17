@@ -1,0 +1,259 @@
+{
+  "function_id": "FUNC.XLOOKUP",
+  "surface_name": "XLOOKUP",
+  "published_row_id": "FUNC.XLOOKUP",
+  "entry_kind": "built_in_function",
+  "category": "Our 10 featured functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 3,
+    "max": 6
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "LookupMatch",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "lookup_value",
+        "optional": false,
+        "repeats": false,
+        "description": "Current mixed tranche carries the modern lookup-value entry point."
+      },
+      {
+        "name": "lookup_array",
+        "optional": false,
+        "repeats": false,
+        "description": "Lookup vector used for match search."
+      },
+      {
+        "name": "return_array",
+        "optional": false,
+        "repeats": false,
+        "description": "Return vector or area paired to the lookup array."
+      },
+      {
+        "name": "if_not_found",
+        "optional": true,
+        "repeats": false,
+        "description": "Optional not-found projection lane."
+      },
+      {
+        "name": "match_mode",
+        "optional": true,
+        "repeats": false,
+        "description": "Controls exact, approximate, and wildcard matching."
+      },
+      {
+        "name": "search_mode",
+        "optional": true,
+        "repeats": false,
+        "description": "Controls forward, reverse, and binary-style search direction."
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Use this function when you need to search a range or an array, and return an item corresponding to the first match it finds. If a match doesn't exist, then XLOOKUP can return the closest (approximate) match.",
+    "long": "The first widened tranche uses XLOOKUP as the modern lookup representative beyond the bounded HVLOOKUP family seed."
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/xlookup-function-b7fd680e-6d10-43e6-84f9-88eae8bf5929",
+    "english_description": "Use this function when you need to search a range or an array, and return an item corresponding to the first match it finds. If a match doesn't exist, then XLOOKUP can return the closest (approximate) match."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "da-DK",
+      "name": "XOPSLAG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "el-GR",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "en-US",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BUSCARX"
+    },
+    {
+      "locale": "et-EE",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "XHAKU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RECHERCHEX*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "XKERES"
+    },
+    {
+      "locale": "id-ID",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "X.ZOEKEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "X.WYSZUKAJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PROCX"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПРОСМОТРX"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "XLETAUPP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇAPRAZARA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "XLOOKUP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "XLOOKUP"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-XLOOKUP-001",
+    "lean_module": "OxFunc.Functions.Xlookup",
+    "rust_module": "oxfunc_core::functions::xlookup",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

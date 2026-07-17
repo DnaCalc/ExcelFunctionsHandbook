@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.HARMEAN",
+  "surface_name": "HARMEAN",
+  "published_row_id": "FUNC.HARMEAN",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfHarmean",
+    "code": "320"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "HARMEAN(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the harmonic mean",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/harmean-function-5efd9184-fab5-42f9-b1d3-57883a1d3bc6",
+    "english_description": "Returns the harmonic mean"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HARMIDDELVÆRDI"
+    },
+    {
+      "locale": "de-DE",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "en-US",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MEDIA.ARMO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIARVO.HARM"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOYENNE.HARMONIQUE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HARM.KÖZÉP"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GJENNOMSNITT.HARMONISK"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HARM.GEM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ŚREDNIA.HARMONICZNA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÉDIA.HARMÓNICA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СРГАРМ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HARMMEDEL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HARORT işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HARMEAN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HARMEAN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

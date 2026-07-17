@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.DROP",
+  "surface_name": "DROP",
+  "published_row_id": "FUNC.DROP",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "DROP(array, rows)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rows",
+        "optional": false,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Excludes a specified number of rows or columns from the start or end of an array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/drop-function-1cb4e151-9e17-4838-abe5-9ba48d8c6a34",
+    "english_description": "Excludes a specified number of rows or columns from the start or end of an array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DROP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DROP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZAHODIT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "UDELAD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DROP"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DROP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DROP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DROP"
+    },
+    {
+      "locale": "en-US",
+      "name": "DROP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "EXCLUIR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DROP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "DROP"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "EXCLURE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DROP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DROP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ELTÁVOLÍT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DROP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DROP"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DROP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DROP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DROP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DROP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DROP"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WEGLATEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "POMIŃ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DROP"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "EXCLUIR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DROP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СБРОСИТЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DROP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DROP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DROP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "UTESLUT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DROP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BIRAK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DROP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DROP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DROP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DROP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DROP"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

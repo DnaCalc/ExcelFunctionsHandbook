@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MODE.SNGL",
+  "surface_name": "MODE.SNGL",
+  "published_row_id": "FUNC.MODE.SNGL",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMode_sngl",
+    "code": "498"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MODE.SNGL(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the most common value in a data set",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/mode-sngl-function-f1267c16-66c6-4386-959f-8fba5f8bb7f8",
+    "english_description": "Returns the most common value in a data set"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HYPPIGST.ENKELT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "en-US",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MODA.UNO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MOODI.YKSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MODE.SIMPLE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MÓDUSZ.EGY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MODUS.ENKELV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYST.NAJCZĘŚCIEJ.WART"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MODO.SIMPLES"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МОДА.ОДН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TYPVÄRDE.ETT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ENÇOK_OLAN.TEK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MODE.SNGL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MODE.SNGL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.EVEN",
+  "surface_name": "EVEN",
+  "published_row_id": "FUNC.EVEN",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfEven",
+    "code": "279"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "EVEN(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Rounds a number up to the nearest even integer",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/even-function-197b5f06-c795-4c1e-8696-3c3b8a646cf9",
+    "english_description": "Rounds a number up to the nearest even integer"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "EVEN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "EVEN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZAOKROUHLIT.NA.SUDÉ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LIGE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "EVEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "EVEN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "EVEN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "EVEN"
+    },
+    {
+      "locale": "en-US",
+      "name": "EVEN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "REDONDEA.PAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "EVEN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PARILLINEN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PAIR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "EVEN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "EVEN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PÁROS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "EVEN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "EVEN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "EVEN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "EVEN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "EVEN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "EVEN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AVRUND.TIL.PARTALL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "EVEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.DO.PARZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "EVEN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "EVEN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЧЁТН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "EVEN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "EVEN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "EVEN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "JÄMN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "EVEN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇİFT"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "EVEN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "EVEN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "EVEN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "EVEN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "EVEN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

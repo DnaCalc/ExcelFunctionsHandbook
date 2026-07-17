@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.STDEV.S",
+  "surface_name": "STDEV.S",
+  "published_row_id": "FUNC.STDEV.S",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfStdev_s",
+    "code": "510"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "STDEV.S(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Estimates standard deviation based on a sample",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/stdev-s-function-7d69cf97-0c1f-4acf-be27-f3e83904cc23",
+    "english_description": "Estimates standard deviation based on a sample"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STDAFV.S"
+    },
+    {
+      "locale": "de-DE",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "el-GR",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "en-AU",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "en-GB",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "en-US",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DESVEST.M"
+    },
+    {
+      "locale": "et-EE",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIHAJONTA.S"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ECARTYPE.STANDARD*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÓR.M"
+    },
+    {
+      "locale": "id-ID",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "it-IT",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ODCH.STANDARD.PRÓBKI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DESVPAD.S"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СТАНДОТКЛОН.В"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "STDAV.S"
+    },
+    {
+      "locale": "th-TH",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "STDSAPMA.S"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "STDEV.S"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "STDEV.S"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

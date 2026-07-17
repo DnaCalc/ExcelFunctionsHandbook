@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.VAR.S",
+  "surface_name": "VAR.S",
+  "published_row_id": "FUNC.VAR.S",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfVar_s",
+    "code": "517"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VAR.S(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Estimates variance based on a sample",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/var-s-function-913633de-136b-449d-813e-65a00b2b990b",
+    "english_description": "Estimates variance based on a sample"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VARIANS.S"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "en-US",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "es-ES",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VAR.S*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VAR.M"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WARIANCJA.PRÓBKI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДИСП.В"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VARIANS.S"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VAR.S"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VAR.S"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

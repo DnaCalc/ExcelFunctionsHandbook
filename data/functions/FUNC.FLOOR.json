@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.FLOOR",
+  "surface_name": "FLOOR",
+  "published_row_id": "FUNC.FLOOR",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfFloor",
+    "code": "285"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Rounds a number down, toward zero",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/floor-function-14bb497c-24f2-4e04-b327-b0b4de5a8886",
+    "english_description": "Rounds a number down, toward zero"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZAOKR.DOLŮ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AFRUND.GULV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "en-US",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MULTIPLO.INFERIOR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PYÖRISTÄ.KERR.ALAS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PLANCHER*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PADLÓ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ARROTONDA.DIFETTO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.W.DÓŁ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ARRED.DEFEITO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "RUNDA.NER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TABANAYUVARLA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FLOOR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FLOOR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

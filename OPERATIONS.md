@@ -83,7 +83,7 @@ non-increasing. A regression fails CI.
 |---|---|---|
 | H0 | Repo bootstrap: charter, operations, skeleton, vocabulary draft, mockups, public repo | complete (2026-07-18, github.com/DnaCalc/ExcelFunctionsHandbook) |
 | H1 | Evaluation-context review → `content/model/` chapters | complete (2026-07-18, chapters 00–07 draft; 36 findings handed off) |
-| H2 | `efh-ingest` + the basic 534-row list in `data/` | planned |
+| H2 | `efh-ingest` + the basic 534-row list in `data/` | complete (2026-07-18, 541 entries from 534 rows; deterministic) |
 | H3 | Gneiss ledger bootstrap: vocabulary declared, baseline claims appended | planned |
 | H4 | Site v1: all pages honest-labeled, exhibits homepage, series scaffold, /coverage, /api | planned |
 | H5 | Depth tranche (~12 fns): curated pages, suites, claims, plates, references, first episodes; ABS+EXP full spread | planned |

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.FLOOR.PRECISE",
+  "surface_name": "FLOOR.PRECISE",
+  "published_row_id": "FUNC.FLOOR.PRECISE",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfFloor_precise",
+    "code": "547"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Rounds a number down to the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded down.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/floor-precise-function-f769b468-1452-4617-8dc3-02f842a0702e",
+    "english_description": "Rounds a number down to the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded down."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AFRUND.GULV.PRECISE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "en-US",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MULTIPLO.INFERIOR.EXACTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PYÖRISTÄ.KERR.ALAS.TARKKA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PLANCHER.PRECIS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PADLÓ.PONTOS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FLOOR_PRECISE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AVRUND.GJELDENDE.MULTIPLUM.NED.PRESIS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AFRONDEN.BENEDEN.NAUWKEURIG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.W.DÓŁ.DOKŁ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ARRED.DEFEITO.PRECISO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОКРВНИЗ.ТОЧН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "RUNDA.NER.EXAKT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TABANAYUVARLA.DUYARLI"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FLOOR.PRECISE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FLOOR.PRECISE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

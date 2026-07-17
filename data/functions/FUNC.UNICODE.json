@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.UNICODE",
+  "surface_name": "UNICODE",
+  "published_row_id": "FUNC.UNICODE",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfUnicode",
+    "code": "581"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the number (code point) that corresponds to the first character of the text",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/unicode-function-adb74aaa-a2a5-4dde-aff6-966e4e81f16f",
+    "english_description": "Returns the number (code point) that corresponds to the first character of the text"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "en-US",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "UNICODE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "id-ID",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "UNIKOD"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "th-TH",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "UNICODE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "UNICODE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

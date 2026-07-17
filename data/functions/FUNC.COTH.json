@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.COTH",
+  "surface_name": "COTH",
+  "published_row_id": "FUNC.COTH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCoth",
+    "code": "551"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=saturate_sign",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=saturate_sign",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "COTH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the hyperbolic cotangent of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/coth-function-2e0b4cb6-0ba0-403e-aed4-deaa71b49df5",
+    "english_description": "Returns the hyperbolic cotangent of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COTH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COTH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COTH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "COTH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "COTH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COTH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COTH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COTH"
+    },
+    {
+      "locale": "en-US",
+      "name": "COTH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COTH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COTH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "COTH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COTH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COTH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COTH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "COTH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COTH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COTH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COTH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COTH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COTH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COTH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "COTH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COTH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "COTH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "COTH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COTH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COTH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "COTH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COTH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COTH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COTH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "COTH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COTH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "COTH"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COTH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COTH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COTH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COTH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COTH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,232 @@
+{
+  "function_id": "FUNC.N",
+  "surface_name": "N",
+  "published_row_id": "FUNC.N",
+  "entry_kind": "built_in_function",
+  "category": "Information functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfN",
+    "code": "131"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "N(value)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a value converted to a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/n-function-a624cad1-3635-4208-b54a-29733d1278c9",
+    "english_description": "Returns a value converted to a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "N"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "N"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "N"
+    },
+    {
+      "locale": "da-DK",
+      "name": "N"
+    },
+    {
+      "locale": "de-DE",
+      "name": "N"
+    },
+    {
+      "locale": "el-GR",
+      "name": "Ε"
+    },
+    {
+      "locale": "en-AU",
+      "name": "N"
+    },
+    {
+      "locale": "en-GB",
+      "name": "N"
+    },
+    {
+      "locale": "en-US",
+      "name": "N"
+    },
+    {
+      "locale": "es-ES",
+      "name": "N"
+    },
+    {
+      "locale": "et-EE",
+      "name": "N"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "N"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "N"
+    },
+    {
+      "locale": "he-IL",
+      "name": "N"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "N"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "N"
+    },
+    {
+      "locale": "id-ID",
+      "name": "N"
+    },
+    {
+      "locale": "it-IT",
+      "name": "N"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "N"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "N 키"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "N"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "N"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "N"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "N"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "N"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "N"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "N"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "N"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "N"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "N"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "N"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "N"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "N"
+    },
+    {
+      "locale": "th-TH",
+      "name": "N"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "N"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "N"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "N"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "N"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "N"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "N"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-N-001",
+    "lean_module": "OxFunc.Functions.N",
+    "rust_module": "oxfunc_core::functions::n_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

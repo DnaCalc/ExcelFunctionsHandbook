@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.EUROCONVERT",
+  "surface_name": "EUROCONVERT",
+  "published_row_id": "FUNC.EUROCONVERT",
+  "entry_kind": "built_in_function",
+  "category": "User defined functions that are installed with add-ins",
+  "admission": {
+    "label": "deferred",
+    "reason": "Deferred add-in-owned surface."
+  },
+  "metadata_status": "catalog_only",
+  "xlcall": null,
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "EUROCONVERT(number, source, target, [full_precision], [triangulation_precision])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "source",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "target",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "full_precision",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "triangulation_precision",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a number to euros, converts a number from euros to a euro member currency, or converts a number from one euro member currency to another by using the euro as an intermediary (triangulation)",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/euroconvert-function-79c8fd67-c665-450c-bb6c-15fc92f8345c",
+    "english_description": "Converts a number to euros, converts a number from euros to a euro member currency, or converts a number from one euro member currency to another by using the euro as an intermediary (triangulation)"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "en-US",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "EUROCONVERT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EUROCONVERT işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "EUROCONVERT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "EUROCONVERT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

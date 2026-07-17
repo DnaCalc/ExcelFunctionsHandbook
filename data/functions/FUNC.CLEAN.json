@@ -1,0 +1,232 @@
+{
+  "function_id": "FUNC.CLEAN",
+  "surface_name": "CLEAN",
+  "published_row_id": "FUNC.CLEAN",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfClean",
+    "code": "162"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "TextToText",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CLEAN(text)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Removes all nonprintable characters from text",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/clean-function-26f3d7c5-475f-4a9c-90e5-4b8ba987ba41",
+    "english_description": "Removes all nonprintable characters from text"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VYČISTIT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "RENS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SÄUBERN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "en-US",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "LIMPIAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TYHJENNÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "EPURAGE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "TISZTÍT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LIBERA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "RENS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WISSEN.CONTROL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "OCZYŚĆ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LIMPAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "LIMPARB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПЕЧСИМВ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "OČISTI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "STÄDA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TEMİZ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CLEAN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CLEAN"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-CLEAN-001",
+    "lean_module": "OxFunc.Functions.Clean",
+    "rust_module": "oxfunc_core::functions::clean_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

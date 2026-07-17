@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.CONCAT",
+  "surface_name": "CONCAT",
+  "published_row_id": "FUNC.CONCAT",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 253
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CONCAT(text1, [text2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "text1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "text2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Combines the text from multiple ranges and/or strings, but it doesn't provide the delimiter or IgnoreEmpty arguments.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/concat-function-9b1a9a3f-94ff-41af-9736-694cbd6b4ca2",
+    "english_description": "Combines the text from multiple ranges and/or strings, but it doesn't provide the delimiter or IgnoreEmpty arguments."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SAMMENKÆDNING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "en-US",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "YHDISTÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CONCAT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FŰZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TEKST.SAMENV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZŁĄCZ.TEKST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СЦЕП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SAMMAN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ARALIKBİRLEŞTİR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CONCAT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CONCAT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

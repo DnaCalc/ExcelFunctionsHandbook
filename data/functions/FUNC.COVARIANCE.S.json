@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.COVARIANCE.S",
+  "surface_name": "COVARIANCE.S",
+  "published_row_id": "FUNC.COVARIANCE.S",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCovariance_s",
+    "code": "493"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "COVARIANCE.S(array1, array2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the sample covariance, the average of the products deviations for each data point pair in two data sets",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/covariance-s-function-0a539b74-7371-42aa-a18f-1f5320314977",
+    "english_description": "Returns the sample covariance, the average of the products deviations for each data point pair in two data sets"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KOVARIANS.S"
+    },
+    {
+      "locale": "de-DE",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "en-US",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COVARIANZA.M"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOVARIANSSI.S"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COVARIANCE.STANDARD*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KOVARIANCIA.M"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KOVARIANS.S"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COVARIANTIE.S"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KOWARIANCJA.PRÓBKI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "COVARIÂNCIA.S"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COVARIÂNCIA.S"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КОВАРИАЦИЯ.В"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KOVARIANS.S"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KOVARYANS.S"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COVARIANCE.S"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COVARIANCE.S"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,232 @@
+{
+  "function_id": "FUNC.TYPE",
+  "surface_name": "TYPE",
+  "published_row_id": "FUNC.TYPE",
+  "entry_kind": "built_in_function",
+  "category": "Information functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfType",
+    "code": "86"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "TYPE(value)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a number indicating the data type of a value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/type-function-45b4e688-4bc3-48b3-a105-ffa892995899",
+    "english_description": "Returns a number indicating the data type of a value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "النوع"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TYPE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TYPE (TYP)"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TYPE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TYPE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TYPE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TYPE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TYPE"
+    },
+    {
+      "locale": "en-US",
+      "name": "TYPE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TIPO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TYPE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TYPE (Tyyppi)"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TYPE (TYPE)"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TYPE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VRSTA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "TYPE (TÍPUS)"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TIPE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TYPE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TYPE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TYPE(종류)"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TIPAS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TIPS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TYPE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TYPE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "TYPE (TYP)"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TIPO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TYPE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TIP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "TYPE (ТИП)"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TYP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TYPE (VRSTA)"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TIP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TYP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ชนิด"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TÜR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TYPE (ТИП)"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LOẠI"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TYPE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TYPE (類型)"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TYPE (類型)"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-TYPE-001",
+    "lean_module": "OxFunc.Functions.Type",
+    "rust_module": "oxfunc_core::functions::type_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

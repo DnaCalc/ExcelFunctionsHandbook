@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MAX",
+  "surface_name": "MAX",
+  "published_row_id": "FUNC.MAX",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMax",
+    "code": "7"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MAX(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the maximum value in a list of arguments",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/max-function-e0012414-9ac8-4b34-9a47-73e662c08098",
+    "english_description": "Returns the maximum value in a list of arguments"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MAX"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MAX"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MAX"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MAKS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MAX"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MAX"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MAX"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MAX"
+    },
+    {
+      "locale": "en-US",
+      "name": "MAX"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MAX"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MAX"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MAKS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MAX"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MAX"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MAX"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MAX"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MAX"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MAX"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MAX"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MAX"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MAX"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MAX"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MAKS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MAX"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MAX"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MÁX"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MAX"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MAX"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МАКС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MAX"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MAX"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MAX"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MAX"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MAX"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "MAK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MAX"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MAX"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MAX"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MAX"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MAX"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

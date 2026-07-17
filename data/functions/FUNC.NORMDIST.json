@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.NORMDIST",
+  "surface_name": "NORMDIST",
+  "published_row_id": "FUNC.NORMDIST",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfNormdist",
+    "code": "293"
+  },
+  "arity": {
+    "min": 4,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2|3)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2|3);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the normal cumulative distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/normdist-function-126db625-c53e-4591-9a22-c9ff422d6d58",
+    "english_description": "Returns the normal cumulative distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "NORMFORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.NORM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NORM.JAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.NORMALE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NORM.ELOSZL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NORM.VERD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.NORMALNY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.NORM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОРМРАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "NORMFÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "NORMDAĞ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "NORMDIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "NORMDIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

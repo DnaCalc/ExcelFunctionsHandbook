@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.SMALL",
+  "surface_name": "SMALL",
+  "published_row_id": "FUNC.SMALL",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSmall",
+    "code": "326"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SMALL(array, k)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "k",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the k-th smallest value in a data set",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/small-function-17da8222-7c82-42b2-961b-14c45384df07",
+    "english_description": "Returns the k-th smallest value in a data set"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SMALL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SMALL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SMALL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MINDSTE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "KKLEINSTE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SMALL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SMALL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SMALL"
+    },
+    {
+      "locale": "en-US",
+      "name": "SMALL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "K.ESIMO.MENOR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SMALL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PIENI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PETITE.VALEUR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SMALL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SMALL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KICSI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SMALL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PICCOLO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SMALL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SMALL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SMALL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SMALL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "N.MINST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KLEINSTE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MIN.K"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MENOR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MENOR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SMALL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАИМЕНЬШИЙ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SMALL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SMALL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SMALL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MINSTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SMALL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KÜÇÜK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SMALL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SMALL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SMALL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SMALL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SMALL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

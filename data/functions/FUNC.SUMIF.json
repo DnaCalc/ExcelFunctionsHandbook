@@ -1,0 +1,221 @@
+{
+  "function_id": "FUNC.SUMIF",
+  "surface_name": "SUMIF",
+  "published_row_id": "FUNC.SUMIF",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfSumif",
+    "code": "345"
+  },
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Adds the cells specified by a given criteria",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sumif-function-169b8c99-c05c-4483-a712-1697a653039b",
+    "english_description": "Adds the cells specified by a given criteria"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SUM.HVIS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SUMMEWENN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "en-US",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SUMAR.SI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "Funktsioon SUMIF"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SUMMA.JOS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SOMME.SI"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZUMHA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SOMMA.SE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SUMMERHVIS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SOM.ALS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SUMA.JEŻELI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SOMASE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SOMA.SE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СУММЕСЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SUMMA.OM"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ETOPLA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SUMIF"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SUMIF"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-SUMIF-001",
+    "lean_module": "OxFunc.Functions.CriteriaFamily",
+    "rust_module": "oxfunc_core::functions::criteria_family",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

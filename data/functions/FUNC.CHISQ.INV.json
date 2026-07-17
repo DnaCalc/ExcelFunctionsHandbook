@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CHISQ.INV",
+  "surface_name": "CHISQ.INV",
+  "published_row_id": "FUNC.CHISQ.INV",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfChisq_inv",
+    "code": "529"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CHISQ.INV(probability, deg_freedom)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "probability",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "deg_freedom",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the cumulative beta probability density function",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/chisq-inv-function-400db556-62b3-472d-80b3-254723e7092f",
+    "english_description": "Returns the cumulative beta probability density function"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CHI2.INV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INV.CHICUAD"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "CHINELIÖ.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.KHIDEUX.INVERSE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KHINÉGYZET.INVERZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CHIKW.INV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.CHI.ODWR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INV.CHIQ"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ХИ2.ОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CHI2.INV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KİKARE.TERS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHISQ.INV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHISQ.INV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

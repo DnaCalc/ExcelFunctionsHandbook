@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.LN",
+  "surface_name": "LN",
+  "published_row_id": "FUNC.LN",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfLn",
+    "code": "22"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "LN(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the natural logarithm of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/ln-function-81fe1ed7-dac9-4acd-ba1d-07a142c6118f",
+    "english_description": "Returns the natural logarithm of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LN"
+    },
+    {
+      "locale": "en-US",
+      "name": "LN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "LN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LUONNLOG"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LN"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "LN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "LN"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

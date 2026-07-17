@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.VARP",
+  "surface_name": "VARP",
+  "published_row_id": "FUNC.VARP",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfVarp",
+    "code": "194"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VARP(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Calculates variance based on the entire population",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/varp-function-26a541c4-ecee-464d-a731-bd4c575b1a6b",
+    "english_description": "Calculates variance based on the entire population"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VARP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VARP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VAR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VARIANSP"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VARIANZEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VARP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VARP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VARP"
+    },
+    {
+      "locale": "en-US",
+      "name": "VARP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "VARP"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VARP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VARP"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VAR.P"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VARP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VARP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VARP"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VARP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAR.POP"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VARP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VARP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VARP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VARP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VARIANSP"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VARP"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WARIANCJA.POPUL"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VARP"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "VARP"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VARP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДИСПР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VARP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VARP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VARP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VARIANSP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VARP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VARS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VARP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VARP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VARP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VARP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VARP"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

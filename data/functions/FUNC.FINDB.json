@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.FINDB",
+  "surface_name": "FINDB",
+  "published_row_id": "FUNC.FIND, FINDB",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "FINDB(find_text, within_text, [start_num])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "find_text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "within_text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "start_num",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Finds one text value within another (case-sensitive)",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/find-function-c7912941-af2a-4bdf-a553-d0d89b0a0628",
+    "english_description": "Finds one text value within another (case-sensitive)"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FIND وFINDB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NAJÍT, FINDB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FINDEN, FINDENB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "en-US",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ENCONTRAR, ENCONTRARB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ETSI, ETSIB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TROUVE, TROUVERB"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FIND‏, FINDB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÖVEG.TALÁL, SZÖVEG.TALÁL2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TROVA, TROVA.B"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FIND、FINDB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FINN, FINNB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VIND.ALLES, VIND.ALLES.B."
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZNAJDŹ, ZNAJDŹB"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PROCURAR, PROCURARB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "LOCALIZAR, LOCALIZARB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАЙТИ, НАЙТИБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HITTA, HITTAB"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BUL, BULB"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FIND, FINDB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "Các hàm FIND, FINDB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FIND、FINDB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FIND、FINDB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FIND、FINDB"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

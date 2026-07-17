@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.SUM",
+  "surface_name": "SUM",
+  "published_row_id": "FUNC.SUM",
+  "entry_kind": "built_in_function",
+  "category": "Our 10 featured functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSum",
+    "code": "4"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SUM(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": "Starts the additive fold and admits ordinary scalar and reference-fed lanes."
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": "Represents the repeated optional additive arguments for the bounded witness slice."
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Use this function to add the values in cells.",
+    "long": "The first mixed tranche treats SUM as the ordinary scalar/aggregate anchor for downstream witness rendering."
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89",
+    "english_description": "Use this function to add the values in cells."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SUM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SUM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SUMA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SUM"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SUMME"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SUM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SUM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SUM"
+    },
+    {
+      "locale": "en-US",
+      "name": "SUM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SUMA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SUM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SUMMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SOMME"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SUM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SUM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZUM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SUM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SOMMA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SUM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SUM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SUM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SUM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SUMMER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SOM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SUMA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SOMA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SOMA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SUM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СУММ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SUM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SUM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SUM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SUMMA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SUM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TOPLA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SUM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "Hàm SUM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SUM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SUM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SUM"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-SUM-001",
+    "lean_module": "OxFunc.Functions.Sum",
+    "rust_module": "oxfunc_core::functions::sum",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

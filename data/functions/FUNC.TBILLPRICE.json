@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.TBILLPRICE",
+  "surface_name": "TBILLPRICE",
+  "published_row_id": "FUNC.TBILLPRICE",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfTbillprice",
+    "code": "439"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the price per $100 face value for a Treasury bill",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/tbillprice-function-eacca992-c29d-425a-9eb8-0513fe6035a2",
+    "english_description": "Returns the price per $100 face value for a Treasury bill"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STATSOBLIGATION.KURS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "en-US",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "LETRA.DE.TES.PRECIO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "OBLIG.HINTA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PRIX.BON.TRESOR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KJEGY.ÁR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TBILLPRIS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SCHATK.PRIJS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CENA.BS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "OTNVALOR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЦЕНАКЧЕК"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SSVXPRIS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HTAHDEĞER işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TBILLPRICE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TBILLPRICE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

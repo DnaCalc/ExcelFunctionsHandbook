@@ -1,0 +1,229 @@
+{
+  "function_id": "FUNC.AVERAGEIFS",
+  "surface_name": "AVERAGEIFS",
+  "published_row_id": "FUNC.AVERAGEIFS",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfAverageifs",
+    "code": "484"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "AVERAGEIFS(average_range, criteria_range1, criteria1, ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "average_range",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "criteria_range1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "criteria1",
+        "optional": false,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the average (arithmetic mean) of all cells that meet multiple criteria",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/averageifs-function-48910c45-1fc0-4389-a028-f7c5c3001690",
+    "english_description": "Returns the average (arithmetic mean) of all cells that meet multiple criteria"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MIDDEL.HVISER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "en-US",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PROMEDIO.SI.CONJUNTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIARVO.JOS.JOUKKO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOYENNE.SI.ENS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁTLAGHATÖBB"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GJENNOMSNITTHVIS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ŚREDNIA.WARUNKÓW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MÉDIASES"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÉDIA.SE.S"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СРЗНАЧЕСЛИМН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MEDEL.OMF"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇOKEĞERORTALAMA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AVERAGEIFS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AVERAGEIFS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

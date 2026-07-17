@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.HEX2OCT",
+  "surface_name": "HEX2OCT",
+  "published_row_id": "FUNC.HEX2OCT",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfHex2oct",
+    "code": "386"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "HEX2OCT(number, [places])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "places",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a hexadecimal number to octal",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/hex2oct-function-54d52808-5d19-4bd0-8a63-1096a5d11912",
+    "english_description": "Converts a hexadecimal number to octal"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HEX.TIL.OKT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "en-US",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "HEX.A.OCT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "HEKSAOKT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "HEXOCT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HEX.OKT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "HEKSTILOKT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HEX.N.OCT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SZESN.NA.ÓSM"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "HEXAOCT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ШЕСТН.В.ВОСЬМ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HEX.TILL.OKT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HEX2OCT işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HEX2OCT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HEX2OCT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

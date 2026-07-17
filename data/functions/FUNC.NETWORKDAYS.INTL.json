@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.NETWORKDAYS.INTL",
+  "surface_name": "NETWORKDAYS.INTL",
+  "published_row_id": "FUNC.NETWORKDAYS.INTL",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfNetworkdays_intl",
+    "code": "520"
+  },
+  "arity": {
+    "min": 2,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the number of whole workdays between two dates using parameters to indicate which and how many days are weekend days",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/networkdays-intl-function-a9b26239-4f20-46a1-9ab8-4e925bfd5e28",
+    "english_description": "Returns the number of whole workdays between two dates using parameters to indicate which and how many days are weekend days"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ANTAL.ARBEJDSDAGE.INTL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "en-US",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DIAS.LAB.INTL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TYÖPÄIVÄT.KANSVÄL"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NB.JOURS.OUVRES.INTL*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÖSSZ.MUNKANAP.INTL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NETWERKDAGEN.INTL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DNI.ROBOCZE.NIESTAND"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIATRABALHOTOTAL.INTL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЧИСТРАБДНИ.МЕЖД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "NETTOARBETSDAGAR.INT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TAMİŞGÜNÜ.ULUSL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "NETWORKDAYS.INTL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "NETWORKDAYS.INTL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

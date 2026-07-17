@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.LEFTB",
+  "surface_name": "LEFTB",
+  "published_row_id": "FUNC.LEFT, LEFTB",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "LEFTB(text, [num_bytes])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "num_bytes",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the leftmost characters from a text value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/left-function-9203d2d2-7960-479b-84c6-1ea52b99640c",
+    "english_description": "Returns the leftmost characters from a text value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LEFT، LEFTB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZLEVA, LEFTB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VENSTRE, VENSTREB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "en-US",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IZQUIERDA, IZQUIERDAB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VASEN, VASENB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "GAUCHE, GAUCHEB*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BAL, BAL2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LEFT、LEFTB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LINKS, LINKSB"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LEWY, LEWYB"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ESQUERDA, ESQUERDAB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЛЕВСИМВ, ЛЕВБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VÄNSTER, VÄNSTERB"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SOLDAN, SOLB işlevleri"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LEFT, LEFTB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LEFT、LEFTB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LEFT，LEFTB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LEFT，LEFTB"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,251 @@
+{
+  "function_id": "FUNC.BETAINV",
+  "surface_name": "BETAINV",
+  "published_row_id": "FUNC.BETAINV",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfBetainv",
+    "code": "272"
+  },
+  "arity": {
+    "min": 3,
+    "max": 5
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BETAINV(probability, alpha, beta, [A], [B])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "probability",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "alpha",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "beta",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "A",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "B",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the inverse of the cumulative distribution function for a specified beta distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/betainv-function-8b914ade-b902-43c1-ac9c-c05c54f10d6c",
+    "english_description": "Returns the inverse of the cumulative distribution function for a specified beta distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "en-US",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.BETA.INV"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BEETAJAKAUMA.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BETA.INVERSE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INVERZ.BÉTA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.BETA.ODW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BETA.ACUM.INV"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БЕТАОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BETATERS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BETAINV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BETAINV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.STDEVA",
+  "surface_name": "STDEVA",
+  "published_row_id": "FUNC.STDEVA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfStdeva",
+    "code": "366"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "STDEVA(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Estimates standard deviation based on a sample, including numbers, text, and logical values",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/stdeva-function-5ff38888-7ea5-48de-9a6d-11ed73b29e9d",
+    "english_description": "Estimates standard deviation based on a sample, including numbers, text, and logical values"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STDAFVV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "en-US",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DESVESTA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIHAJONTAA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "STDEVA*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÓRÁSA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ODCH.STANDARDOWE.A"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DESVPADA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СТАНДОТКЛОНА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "STDSAPMAA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "STDEVA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "STDEVA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

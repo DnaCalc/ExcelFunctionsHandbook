@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.FACT",
+  "surface_name": "FACT",
+  "published_row_id": "FUNC.FACT",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfFact",
+    "code": "184"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "FACT(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the factorial of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/fact-function-ca8588c2-15f2-41c0-8e8c-c11bd471a4f3",
+    "english_description": "Returns the factorial of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FACT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FACT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FAKTORIÁL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FAKULTET"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FACT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FACT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FACT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FACT"
+    },
+    {
+      "locale": "en-US",
+      "name": "FACT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FACT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FACT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KERTOMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FACT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FACT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FACT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FAKT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FACT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FACT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FACT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FACT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FACT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FACT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "OPPLYSNING"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "FACULTEIT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SILNIA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FACT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FACTORIAL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FACT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ФАКТР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FACT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FACT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FACT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FAKULTET"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FACT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇARPINIM işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FACT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FACT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FACT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FACT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FACT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

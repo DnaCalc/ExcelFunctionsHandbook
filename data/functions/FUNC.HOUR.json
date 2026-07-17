@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.HOUR",
+  "surface_name": "HOUR",
+  "published_row_id": "FUNC.HOUR",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfHour",
+    "code": "71"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Converts a serial number to an hour",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/hour-function-a3afa879-86cb-4339-b1b5-2dd2d7310ac7",
+    "english_description": "Converts a serial number to an hour"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HOUR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HOUR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "HODINA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HOUR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "HOUR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HOUR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HOUR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HOUR"
+    },
+    {
+      "locale": "en-US",
+      "name": "HOUR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "HOUR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TUND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TUNTI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "HOUR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HOUR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HOUR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HOUR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HOUR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "HOUR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HOUR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HOUR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HOUR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HOUR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TIME"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HOUR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "HOUR (godzina)"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "HOUR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "HORA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HOUR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "HOUR"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HODINA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "URA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ČAS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HOUR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ชั่วโมง"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SAAT"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ГОДИНА"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HOUR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HOUR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HOUR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HOUR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

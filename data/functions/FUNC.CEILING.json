@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CEILING",
+  "surface_name": "CEILING",
+  "published_row_id": "FUNC.CEILING",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCeiling",
+    "code": "288"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CEILING(number, significance)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "significance",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Rounds a number to the nearest integer or to the nearest multiple of significance",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/ceiling-function-0a5cd7c8-0720-4f0a-bd2c-c943e510899f",
+    "english_description": "Rounds a number to the nearest integer or to the nearest multiple of significance"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CEILING"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CEILING"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZAOKR.NAHORU"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AFRUND.LOFT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CEILING"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CEILING"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CEILING"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CEILING"
+    },
+    {
+      "locale": "en-US",
+      "name": "CEILING"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MULTIPLO.SUPERIOR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CEILING"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PYÖRISTÄ.KERR.YLÖS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PLAFOND*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CEILING"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CEILING"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PLAFON"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CEILING"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ARROTONDA.ECCESSO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CEILING"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CEILING"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CEILING"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CEILING"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TAK"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CEILING"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.W.GÓRĘ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TETO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ARRED.EXCESSO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CEILING"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "CEILING"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CEILING"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CEILING"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CEILING"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "RUNDA.UPP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CEILING"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TAVANAYUVARLA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CEILING"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CEILING"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CEILING"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CEILING"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CEILING"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

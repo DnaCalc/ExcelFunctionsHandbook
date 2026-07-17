@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.SLOPE",
+  "surface_name": "SLOPE",
+  "published_row_id": "FUNC.SLOPE",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSlope",
+    "code": "315"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SLOPE(known_y's, known_x's)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "known_y's",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "known_x's",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the slope of the linear regression line",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/slope-function-11fb8f97-3117-4813-98aa-61d7e01276b9",
+    "english_description": "Returns the slope of the linear regression line"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STIGNING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "en-US",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PENDIENTE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KULMAKERROIN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PENTE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MEREDEKSÉG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BAKKE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "RICHTING"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NACHYLENIE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DECLIVE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАКЛОН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LUTNING"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EĞİM işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SLOPE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SLOPE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

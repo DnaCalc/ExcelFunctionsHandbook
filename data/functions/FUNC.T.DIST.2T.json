@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.T.DIST.2T",
+  "surface_name": "T.DIST.2T",
+  "published_row_id": "FUNC.T.DIST.2T",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfT_dist_2t",
+    "code": "513"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the Percentage Points (probability) for the Student t-distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/t-dist-2t-function-198e9340-e360-4230-bd21-f52f22ff5c28",
+    "english_description": "Returns the Percentage Points (probability) for the Student t-distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "da-DK",
+      "name": "T.FORDELING.2T"
+    },
+    {
+      "locale": "de-DE",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "el-GR",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "en-AU",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "en-GB",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "en-US",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.T.2C"
+    },
+    {
+      "locale": "et-EE",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "T.JAKAUMA.2S"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.STUDENT.BILATERALE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "T.ELOSZLÁS.2SZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "it-IT",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.T.DS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.T.2C"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СТЬЮДЕНТ.РАСП.2Х"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "T.FÖRD.2T"
+    },
+    {
+      "locale": "th-TH",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "T.DAĞ.2K"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "T.DIST.2T"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "T.DIST.2T"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

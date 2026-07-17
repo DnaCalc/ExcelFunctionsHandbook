@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.COLUMNS",
+  "surface_name": "COLUMNS",
+  "published_row_id": "FUNC.COLUMNS",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfColumns",
+    "code": "77"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "COLUMNS(array)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the number of columns in a reference",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/columns-function-4e8e7b4e-e603-43e8-b177-956088fa48ca",
+    "english_description": "Returns the number of columns in a reference"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SLOUPCE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KOLONNER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SPALTEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "en-US",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SARAKKEET"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COLONNES"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "OSZLOPOK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "列"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "열"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KOLONNER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KOLOMMEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LICZBA.KOLUMN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "COLUNAS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COLS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЧИСЛСТОЛБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "KOLONE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KOLUMNER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SÜTUNSAY"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "列"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COLUMNS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COLUMNS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.TRANSLATE",
+  "surface_name": "TRANSLATE",
+  "published_row_id": "FUNC.TRANSLATE",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "deferred",
+    "reason": "Deferred from the current-version completion target even though W036 already pinned a narrow provider-language seam baseline."
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "ExternalProvider",
+    "host_interaction_class": "ExternalProvider",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "ExternalProvider",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "TRANSLATE(text, [source_language], [target_language])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "source_language",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "target_language",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Translates a text from one language to another",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/translate-function-d34f71c7-2ffe-409a-9a63-5eb5e91aa3dd",
+    "english_description": "Translates a text from one language to another"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "OVERSÆT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "en-US",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TRADUCIR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KÄÄNNÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TRADUIRE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FORDÍTÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VERTALEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "TŁUMACZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TRADUZIR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПЕРЕВОД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PREVEDI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÖVERSÄTT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DİLÇEVİR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TRANSLATE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TRANSLATE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "provider_language_request",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

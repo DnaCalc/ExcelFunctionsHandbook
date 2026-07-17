@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.AVERAGE",
+  "surface_name": "AVERAGE",
+  "published_row_id": "FUNC.AVERAGE",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAverage",
+    "code": "5"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "AVERAGE(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the average of its arguments",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/average-function-047bac88-d466-426c-a32b-8f33eb960cf6",
+    "english_description": "Returns the average of its arguments"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PRŮMĚR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MIDDEL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MITTELWERT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "en-US",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PROMEDIO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIARVO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOYENNE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁTLAG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MEDIA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GJENNOMSNITT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GEMIDDELDE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ŚREDNIA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MÉDIA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÉDIA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СРЗНАЧ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MEDEL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ORTALAMA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "Hàm AVERAGE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AVERAGE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AVERAGE"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-AVERAGE-001",
+    "lean_module": "OxFunc.Functions.Average",
+    "rust_module": "oxfunc_core::functions::average",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.UNICHAR",
+  "surface_name": "UNICHAR",
+  "published_row_id": "FUNC.UNICHAR",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfUnichar",
+    "code": "580"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "UNICHAR(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the Unicode character that is references by the given numeric value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/unichar-function-ffeb64f5-f131-44c6-b332-5cd72f0659b8",
+    "english_description": "Returns the Unicode character that is references by the given numeric value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "en-US",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "UNICAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "UNICODEMERKKI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "UNICAR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "UNIKARAKTER"
+    },
+    {
+      "locale": "id-ID",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "UNITEKEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZNAK.UNICODE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "UNICARÁT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЮНИСИМВ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "UNITECKENKOD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "UNICODEKARAKTERİ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "UNICHAR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "UNICHAR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

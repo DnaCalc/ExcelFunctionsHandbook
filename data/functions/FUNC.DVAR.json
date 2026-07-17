@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.DVAR",
+  "surface_name": "DVAR",
+  "published_row_id": "FUNC.DVAR",
+  "entry_kind": "built_in_function",
+  "category": "Database functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfDvar",
+    "code": "47"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Estimates variance based on a sample from selected database entries",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/dvar-function-d6747ca9-99c7-48bb-996e-9d7af00f3ed1",
+    "english_description": "Estimates variance based on a sample from selected database entries"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DVAR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DVAR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DVAR.VÝBĚR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DVAR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DVAR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DVAR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DVAR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DVAR"
+    },
+    {
+      "locale": "en-US",
+      "name": "DVAR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BDVAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DVAR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TVARIANSSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BDVAR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DVAR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DVAR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "AB.VAR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DVAR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DVAR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DVAR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DVAR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DVAR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DVAR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DVAR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DBVAR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BD.WARIANCJA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DVAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BDVAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DVAR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БДДИСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DVAR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DVAR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DVAR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DVARIANS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DVAR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VSEÇVAR işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DVAR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DVAR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DVAR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DVAR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DVAR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

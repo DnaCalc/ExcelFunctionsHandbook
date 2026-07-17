@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.GEOMEAN",
+  "surface_name": "GEOMEAN",
+  "published_row_id": "FUNC.GEOMEAN",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfGeomean",
+    "code": "319"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "GEOMEAN(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the geometric mean",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/geomean-function-db1ac48d-25a5-40a0-ab83-0b38980e40d5",
+    "english_description": "Returns the geometric mean"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "GEOMIDDELVÆRDI"
+    },
+    {
+      "locale": "de-DE",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "en-US",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MEDIA.GEOM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIARVO.GEOM"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOYENNE.GEOMETRIQUE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MÉRTANI.KÖZÉP"
+    },
+    {
+      "locale": "id-ID",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MEETK.GEM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ŚREDNIA.GEOMETRYCZNA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÉDIA.GEOMÉTRICA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СРГЕОМ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "GEOMEDEL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GEOORT Denklemi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "GEOMEAN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "GEOMEAN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

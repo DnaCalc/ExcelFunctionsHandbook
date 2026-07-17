@@ -1,0 +1,223 @@
+{
+  "function_id": "FUNC.CHISQ.TEST",
+  "surface_name": "CHISQ.TEST",
+  "published_row_id": "FUNC.CHISQ.TEST",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfChisq_test",
+    "code": "490"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "CHISQ.TEST(actual_range, expected_range)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "actual_range",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "expected_range",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the test for independence",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/chisq-test-function-2e8a7861-b14a-4985-aa93-fb88de3f260f",
+    "english_description": "Returns the test for independence"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CHI2.TEST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PRUEBA.CHICUAD"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "CHINELIÖ.TESTI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CHISQ.TEST*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KHINÉGYZET.PRÓBA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CHIKW.TEST"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CHI.TEST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TESTE.CHIQ"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ХИ2.ТЕСТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CHI2.TEST"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KİKARE.TEST"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHISQ.TEST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHISQ.TEST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

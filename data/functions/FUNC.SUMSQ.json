@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.SUMSQ",
+  "surface_name": "SUMSQ",
+  "published_row_id": "FUNC.SUMSQ",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSumsq",
+    "code": "321"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SUMSQ(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the sum of the squares of the arguments",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sumsq-function-e3313c02-51cc-4963-aae6-31442d9ec307",
+    "english_description": "Returns the sum of the squares of the arguments"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SUMA.ČTVERCŮ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SUMKV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "en-US",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SUMA.CUADRADOS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NELIÖSUMMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SOMME.CARRES*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NÉGYZETÖSSZEG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KWADRATENSOM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SUMA.KWADRATÓW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SOMARQUAD"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СУММКВ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KVADRATSUMMA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TOPKARE işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SUMSQ"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SUMSQ"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

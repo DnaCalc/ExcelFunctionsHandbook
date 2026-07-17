@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.BAHTTEXT",
+  "surface_name": "BAHTTEXT",
+  "published_row_id": "FUNC.BAHTTEXT",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfBahttext",
+    "code": "368"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "PseudoRandom",
+    "fec_dependency_profile": "RandomProvider",
+    "host_interaction_class": "ApplicationState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RandomProvider",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileFull"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BAHTTEXT(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a number to text, using the ? (baht) currency format",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bahttext-function-5ba4d0b4-abd3-4325-8d22-7a92d59aab9c",
+    "english_description": "Converts a number to text, using the ? (baht) currency format"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BAHTTEKST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "en-US",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TEXTOBAHT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BAHTTEKSTI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BAHTTEXT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BAHTSZÖVEG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BAT.TEKST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TEXTO.BAHT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БАТТЕКСТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BAHTMETİN işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BAHTTEXT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BAHTTEXT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

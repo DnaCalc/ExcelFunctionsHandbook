@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.RADIANS",
+  "surface_name": "RADIANS",
+  "published_row_id": "FUNC.RADIANS",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfRadians",
+    "code": "342"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "RADIANS(angle)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "angle",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts degrees to radians",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/radians-function-ac409508-3d48-45f5-ac02-1497c92de5bf",
+    "english_description": "Converts degrees to radians"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "RADIANER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "en-US",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "RADIAANIT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "he-IL",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "RADIÁN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "RADIANER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "RADIALEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "RADIANY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "RADIANOS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "RADIANOS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РАДИАНЫ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "RADIÁNY"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "RADIJANI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "RADIANER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "RADYAN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "RADIANS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "RADIANS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

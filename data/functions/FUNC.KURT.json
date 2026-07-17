@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.KURT",
+  "surface_name": "KURT",
+  "published_row_id": "FUNC.KURT",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfKurt",
+    "code": "322"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the kurtosis of a data set",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/kurt-function-bc3a265c-5da4-4dcb-b7fd-c237789095ab",
+    "english_description": "Returns the kurtosis of a data set"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "KURT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "KURT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "KURT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TOPSTEJL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "KURT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "KURT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "KURT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "KURT"
+    },
+    {
+      "locale": "en-US",
+      "name": "KURT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CURTOSIS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "KURT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KURT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "KURTOSIS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "KURT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "KURT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CSÚCSOSSÁG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "KURT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "KURT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "KURT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "KURT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "KURT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "KURT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KURT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KURTOSIS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KURTOZA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "KURT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CURT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "KURT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЭКСЦЕСС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "KURT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "KURT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "KURT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TOPPIGHET"
+    },
+    {
+      "locale": "th-TH",
+      "name": "KURT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BASIKLIK işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "KURT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "KURT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "KURT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "KURT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "KURT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

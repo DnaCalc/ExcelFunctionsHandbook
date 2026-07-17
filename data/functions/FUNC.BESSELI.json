@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.BESSELI",
+  "surface_name": "BESSELI",
+  "published_row_id": "FUNC.BESSELI",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfBesseli",
+    "code": "428"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BESSELI(x, n)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "n",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the modified Bessel function In(x)",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/besseli-function-8d33855c-9a8d-444b-98e0-852267b1c0df",
+    "english_description": "Returns the modified Bessel function In(x)"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "en-US",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BESSELI*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BESSEL.I"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БЕССЕЛЬ.I"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BESSELI Denklemi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BESSELI"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BESSELI"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

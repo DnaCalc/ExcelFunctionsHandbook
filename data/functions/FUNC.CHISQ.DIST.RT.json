@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CHISQ.DIST.RT",
+  "surface_name": "CHISQ.DIST.RT",
+  "published_row_id": "FUNC.CHISQ.DIST.RT",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfChisq_dist_rt",
+    "code": "528"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CHISQ.DIST.RT(x, deg_freedom)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "deg_freedom",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the one-tailed probability of the chi-squared distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/chisq-dist-rt-function-dc4832e8-ed2b-49ae-8d7c-b28d5804c0f2",
+    "english_description": "Returns the one-tailed probability of the chi-squared distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CHI2.FORD.RT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.CHICUAD.CD"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "CHINELIÖ.JAKAUMA.OH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.KHIDEUX.DROITE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KHINÉGYZET.ELOSZLÁS.JOBB"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CHIKW.VERD.RECHTS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.CHI.PS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.CHIQ.DIR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ХИ2.РАСП.ПХ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CHI2.FÖRD.RT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KİKARE.DAĞ.SAĞK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHISQ.DIST.RT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHISQ.DIST.RT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

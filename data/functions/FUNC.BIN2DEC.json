@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.BIN2DEC",
+  "surface_name": "BIN2DEC",
+  "published_row_id": "FUNC.BIN2DEC",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfBin2dec",
+    "code": "393"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BIN2DEC(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a binary number to decimal",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bin2dec-function-63905b57-b3a0-453d-99f4-647bb519cd6c",
+    "english_description": "Converts a binary number to decimal"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BIN.TIL.DEC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "en-US",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BIN.A.DEC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BINDES"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BINDEC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BIN.DEC"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DWÓJK.NA.DZIES"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BINADEC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДВ.В.ДЕС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BIN.TILL.DEC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BIN2DEC işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BIN2DEC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BIN2DEC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

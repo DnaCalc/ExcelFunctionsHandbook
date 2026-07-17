@@ -1,0 +1,232 @@
+{
+  "function_id": "FUNC.ASIN",
+  "surface_name": "ASIN",
+  "published_row_id": "FUNC.ASIN",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAsin",
+    "code": "98"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ASIN(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the arcsine of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/asin-function-81fb95e5-6d6f-48c4-bc45-58f955c6d347",
+    "english_description": "Returns the arcsine of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ASIN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ASIN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ASIN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARCSIN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ARCSIN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ASIN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ASIN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ASIN"
+    },
+    {
+      "locale": "en-US",
+      "name": "ASIN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ASENO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ASIN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ASIN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ASIN"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ASIN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ASIN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ARCSIN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ASIN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ARCSEN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ASIN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ASIN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ASIN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ASIN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ASIN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BOOGSIN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ASIN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ASEN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ASEN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ASIN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ASIN"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ASIN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ASIN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ASIN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ASIN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ASIN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ASİN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ASIN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ASIN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ASIN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ASIN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ASIN"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-ASIN-001",
+    "lean_module": "OxFunc.Functions.Asin",
+    "rust_module": "oxfunc_core::functions::asin",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

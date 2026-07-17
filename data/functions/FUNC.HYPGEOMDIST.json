@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.HYPGEOMDIST",
+  "surface_name": "HYPGEOMDIST",
+  "published_row_id": "FUNC.HYPGEOMDIST",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfHypgeomdist",
+    "code": "289"
+  },
+  "arity": {
+    "min": 4,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the hypergeometric distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/hypgeomdist-function-23e37961-2871-4195-9629-d0b2c108a12e",
+    "english_description": "Returns the hypergeometric distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HYPGEOFORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.HIPERGEOM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "HYPERGEOM.JAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.HYPERGEOMETRIQUE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HIPERGEOM.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HYPERGEO.VERD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.HIPERGEOM"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.HIPERGEOM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ГИПЕРГЕОМЕТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HYPGEOMFÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HİPERGEOMDAĞ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HYPGEOMDIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HYPGEOMDIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

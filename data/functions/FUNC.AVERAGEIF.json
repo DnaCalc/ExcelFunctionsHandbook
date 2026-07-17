@@ -1,0 +1,229 @@
+{
+  "function_id": "FUNC.AVERAGEIF",
+  "surface_name": "AVERAGEIF",
+  "published_row_id": "FUNC.AVERAGEIF",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfAverageif",
+    "code": "483"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "AVERAGEIF(range, criteria, [average_range])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "range",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "criteria",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "average_range",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the average (arithmetic mean) of all the cells in a range that meet a given criteria",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/averageif-function-faec8e2e-0dec-4308-af69-f5576d8ac642",
+    "english_description": "Returns the average (arithmetic mean) of all the cells in a range that meet a given criteria"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MIDDEL.HVIS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "en-US",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PROMEDIO.SI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIARVO.JOS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOYENNE.SI*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁTLAGHA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GJENNOMSNITTHVIS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ŚREDNIA.JEŻELI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MÉDIAIF"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÉDIA.SE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СРЗНАЧЕСЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MEDEL.OM"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EĞERORTALAMA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AVERAGEIF"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AVERAGEIF"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

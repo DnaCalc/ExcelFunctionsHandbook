@@ -1,0 +1,239 @@
+{
+  "function_id": "FUNC.CONFIDENCE",
+  "surface_name": "CONFIDENCE",
+  "published_row_id": "FUNC.CONFIDENCE",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfConfidence",
+    "code": "277"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CONFIDENCE(alpha, standard_dev, size)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "alpha",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "standard_dev",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "size",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the confidence interval for a population mean",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/confidence-function-75ccc007-f77c-4343-bc14-673642091ad6",
+    "english_description": "Returns the confidence interval for a population mean"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KONFIDENSINTERVAL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "en-US",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INTERVALO.CONFIANZA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LUOTTAMUSVÄLI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "INTERVALLE.CONFIANCE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MEGBÍZHATÓSÁG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KONFIDENS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BETROUWBAARHEID"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "UFNOŚĆ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONFIANÇA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INT.CONFIANÇA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДОВЕРИТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KONFIDENS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GÜVENİRLİK işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CONFIDENCE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CONFIDENCE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

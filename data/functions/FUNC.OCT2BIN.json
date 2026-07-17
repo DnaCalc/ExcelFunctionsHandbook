@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.OCT2BIN",
+  "surface_name": "OCT2BIN",
+  "published_row_id": "FUNC.OCT2BIN",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfOct2bin",
+    "code": "390"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "OCT2BIN(number, [places])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "places",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts an octal number to binary",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/oct2bin-function-55383471-3c56-4d27-9522-1a8ec646c589",
+    "english_description": "Converts an octal number to binary"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "OKT.TIL.BIN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "en-US",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "OCT.A.BIN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "OKTBIN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "OCTBIN*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "OKT.BIN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ÓSM.NA.DWÓJK"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "OCTABIN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ВОСЬМ.В.ДВ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "OKT.TILL.BIN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "OCT2BIN işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "OCT2BIN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "OCT2BIN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

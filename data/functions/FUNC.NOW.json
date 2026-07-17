@@ -1,0 +1,225 @@
+{
+  "function_id": "FUNC.NOW",
+  "surface_name": "NOW",
+  "published_row_id": "FUNC.NOW",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfNow",
+    "code": "74"
+  },
+  "arity": {
+    "min": 0,
+    "max": 0
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "TimeDependent",
+    "fec_dependency_profile": "TimeProvider",
+    "host_interaction_class": "ApplicationState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "TimeProvider",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileFull"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "NOW()",
+    "trailing_repeats": false,
+    "parameters": []
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the serial number of the current date and time",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/now-function-3337fd29-145a-4347-b2e6-20c904739c46",
+    "english_description": "Returns the serial number of the current date and time"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "الآن"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "NOW"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NOW"
+    },
+    {
+      "locale": "da-DK",
+      "name": "NU"
+    },
+    {
+      "locale": "de-DE",
+      "name": "JETZT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "NOW"
+    },
+    {
+      "locale": "en-AU",
+      "name": "NOW"
+    },
+    {
+      "locale": "en-GB",
+      "name": "NOW"
+    },
+    {
+      "locale": "en-US",
+      "name": "NOW"
+    },
+    {
+      "locale": "es-ES",
+      "name": "AHORA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "NOW"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NOW"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MAINTENANT"
+    },
+    {
+      "locale": "he-IL",
+      "name": "NOW"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "NOW"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MOST"
+    },
+    {
+      "locale": "id-ID",
+      "name": "NOW"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ADESSO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "NOW"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "NOW"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "NOW"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "NOW"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "NÅ"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NU"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "TERAZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "AGORA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "AGORA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "NOW"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ТДАТА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NOW"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "NOW"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "NOW"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "NU"
+    },
+    {
+      "locale": "th-TH",
+      "name": "NOW"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ŞİMDİ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "NOW"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "NOW"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "NOW"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "NOW"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "NOW"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-NOW-001",
+    "lean_module": "OxFunc.Functions.Now",
+    "rust_module": "oxfunc_core::functions::now_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "presentation_hinting_function",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

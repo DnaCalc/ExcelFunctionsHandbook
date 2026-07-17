@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMSQRT",
+  "surface_name": "IMSQRT",
+  "published_row_id": "FUNC.IMSQRT",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImsqrt",
+    "code": "400"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the square root of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imsqrt-function-e1753f80-ba11-4664-a10e-e17368396b70",
+    "english_description": "Returns the square root of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGKVROD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.RAIZ2"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.NELIÖJ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.RACINE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.GYÖK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.WORTEL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PIERWIASTEK.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMRAIZ"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.КОРЕНЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMROT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANKAREKÖK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMSQRT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMSQRT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

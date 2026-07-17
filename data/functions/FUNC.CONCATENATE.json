@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CONCATENATE",
+  "surface_name": "CONCATENATE",
+  "published_row_id": "FUNC.CONCATENATE",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfConcatenate",
+    "code": "336"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CONCATENATE(text1, [text2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "text1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "text2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Joins two or more text strings into one string",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/concatenate-function-8f8ae884-2ca8-4f7a-b093-75d702bea31d",
+    "english_description": "Joins two or more text strings into one string"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SAMMENKÆDE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VERKETTEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "en-US",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CONCATENAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KETJUTA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CONCATENER"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÖSSZEFŰZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONCATENA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KJEDE.SAMMEN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TEKST.SAMENVOEGEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZŁĄCZ.TEKSTY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONCATENAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CONCATENAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СЦЕПИТЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SAMMANFOGA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİRLEŞTİR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "Hàm CONCATENATE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CONCATENATE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CONCATENATE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

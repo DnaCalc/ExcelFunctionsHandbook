@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.EXACT",
+  "surface_name": "EXACT",
+  "published_row_id": "FUNC.EXACT",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfExact",
+    "code": "117"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "EXACT(text1, text2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "text2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Checks to see if two text values are identical",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/exact-function-d3087698-fc15-4a15-9631-12575cf29926",
+    "english_description": "Checks to see if two text values are identical"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "EXACT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "EXACT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "STEJNÉ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "EXACT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IDENTISCH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "EXACT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "EXACT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "EXACT"
+    },
+    {
+      "locale": "en-US",
+      "name": "EXACT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "EXACT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "EXACT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VERTAA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "EXACT"
+    },
+    {
+      "locale": "he-IL",
+      "name": "EXACT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "EXACT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "AZONOS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "EXACT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "EXACT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "EXACT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "EXACT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "EXACT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "EXACT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "EXACT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GELIJK"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PORÓWNAJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "EXATO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "EXATO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "EXACT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "Функция СОВПАД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "EXACT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "EXACT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "EXACT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "EXACT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "EXACT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÖZDEŞ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "EXACT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "EXACT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "EXACT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "EXACT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "EXACT"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-EXACT-001",
+    "lean_module": "OxFunc.Functions.Exact",
+    "rust_module": "oxfunc_core::functions::exact_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

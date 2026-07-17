@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ODD",
+  "surface_name": "ODD",
+  "published_row_id": "FUNC.ODD",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfOdd",
+    "code": "298"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ODD(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Rounds a number up to the nearest odd integer",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/odd-function-deae64eb-e08a-4c88-8b40-6d0b42575c98",
+    "english_description": "Rounds a number up to the nearest odd integer"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ODD"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ODD"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZAOKROUHLIT.NA.LICHÉ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ULIGE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ODD"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ODD"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ODD"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ODD"
+    },
+    {
+      "locale": "en-US",
+      "name": "ODD"
+    },
+    {
+      "locale": "es-ES",
+      "name": "REDONDEA.IMPAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ODD"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PARITON"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "IMPAIR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ODD"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ODD"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PÁRATLAN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ODD"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ODD"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ODD"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ODD"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ODD"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ODD"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ODDETALL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ONEVEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.DO.NPARZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ODD"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ÍMPAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ODD"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НЕЧЁТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ODD"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ODD"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ODD"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "UDDA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ODD"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TEK işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ODD"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ODD"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ODD"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ODD"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ODD"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,242 @@
+{
+  "function_id": "FUNC.SORTBY",
+  "surface_name": "SORTBY",
+  "published_row_id": "FUNC.SORTBY",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 30
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SORTBY(array, by_array1, [sort_order1], [by_array2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "by_array1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "sort_order1",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "by_array2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Sorts the contents of a range or array based on the values in a corresponding range or array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sortby-function-cd2d7a62-1b93-435c-b561-d6a35134f28f",
+    "english_description": "Sorts the contents of a range or array based on the values in a corresponding range or array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SORTER.EFTER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "en-US",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ORDENARPOR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LAJITTELE.ARVOJEN.PERUSTEELLA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TRIERPAR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "RENDEZÉS.ALAP.SZERINT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SORTEREN.OP"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SORTUJ.WEDŁUG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ORDENARPOR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СОРТПО"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SORTERAEFTER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SIRALAÖLÇÜT"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SORTBY"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SORTBY"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMLOG10",
+  "surface_name": "IMLOG10",
+  "published_row_id": "FUNC.IMLOG10",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImlog10",
+    "code": "403"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the base-10 logarithm of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imlog10-function-58200fca-e2a2-4271-8a98-ccd4360213a5",
+    "english_description": "Returns the base-10 logarithm of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGLOG10"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.LOG10"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.LOG10"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.LOG10*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.LOG10"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.LOG10"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LOG10.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.LOG10"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANLOG10 işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMLOG10"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMLOG10"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.VARPA",
+  "surface_name": "VARPA",
+  "published_row_id": "FUNC.VARPA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfVarpa",
+    "code": "365"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VARPA(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Calculates variance based on the entire population, including numbers, text, and logical values",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/varpa-function-59a62635-4e89-4fad-88ac-ce4dc0513b96",
+    "english_description": "Calculates variance based on the entire population, including numbers, text, and logical values"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VARPA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VARPA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VARPA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VARIANSPV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VARPA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VARPA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VARPA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VARPA"
+    },
+    {
+      "locale": "en-US",
+      "name": "VARPA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "VARPA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VARPA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VARPA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VARPA*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VARPA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VARPA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VARPA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VARPA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VARPA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VARPA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VARPA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VARPA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VARPA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VARPA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VARPA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WARIANCJA.POPUL.A"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VARPA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "VARPA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VARPA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДИСПРА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VARPA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VARPA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VARPA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VARPA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VARPA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VARSA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VARPA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VARPA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VARPA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VARPA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VARPA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

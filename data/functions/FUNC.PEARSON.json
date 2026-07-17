@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.PEARSON",
+  "surface_name": "PEARSON",
+  "published_row_id": "FUNC.PEARSON",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfPearson",
+    "code": "312"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PEARSON(array1, array2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the Pearson product moment correlation coefficient",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/pearson-function-0c3e30fc-e5af-49c4-808a-3ef66e034c18",
+    "english_description": "Returns the Pearson product moment correlation coefficient"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "da-DK",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "en-US",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PEARSON*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "PEARSON işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PEARSON"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PEARSON"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

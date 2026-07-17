@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.SINH",
+  "surface_name": "SINH",
+  "published_row_id": "FUNC.SINH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSinh",
+    "code": "229"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SINH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the hyperbolic sine of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sinh-function-1e4e8b9f-2b65-43fc-ab8a-0a37f4081fa7",
+    "english_description": "Returns the hyperbolic sine of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SINH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SINH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SINH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SINH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SINH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SINH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SINH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SINH"
+    },
+    {
+      "locale": "en-US",
+      "name": "SINH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SENOH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SINH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SINH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SINH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SINH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SINH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SINH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SINH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SINH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SINH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SINH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SINH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SINH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SINH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SINH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SINH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SINH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SENH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SINH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "SINH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SINH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SINH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SINH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SINH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SINH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SİNH işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SINH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SINH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SINH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SINH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SINH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

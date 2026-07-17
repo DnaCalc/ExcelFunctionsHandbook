@@ -1,0 +1,257 @@
+{
+  "function_id": "FUNC.BETA.DIST",
+  "surface_name": "BETA.DIST",
+  "published_row_id": "FUNC.BETA.DIST",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfBeta_dist",
+    "code": "525"
+  },
+  "arity": {
+    "min": 4,
+    "max": 6
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BETA.DIST(x, alpha, beta, cumulative, [A], [B])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "alpha",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "beta",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "cumulative",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "A",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "B",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the beta cumulative distribution function",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/beta-dist-function-11188c9c-780a-42c7-ba43-9ecb5a878d31",
+    "english_description": "Returns the beta cumulative distribution function"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BETA.FORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.BETA.N"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BEETA.JAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.BETA.N*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BÉTA.ELOSZL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.BETA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.BETA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БЕТА.РАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BETA.FÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BETA.DAĞ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BETA.DIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BETA.DIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

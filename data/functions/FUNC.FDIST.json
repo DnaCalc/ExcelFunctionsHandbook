@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.FDIST",
+  "surface_name": "FDIST",
+  "published_row_id": "FUNC.FDIST",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfFdist",
+    "code": "281"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the F probability distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/fdist-function-ecf76fba-b3f1-4e7d-a57e-6a5b7460b786",
+    "english_description": "Returns the F probability distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FDIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FDIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FDIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FFORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FDIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FDIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FDIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FDIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "FDIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.F"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FDIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "FJAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.F*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FDIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FDIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "F.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FDIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FDIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FDIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FDIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FDIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FDIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FDIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "F.VERDELING"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.F"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FDIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DISTF"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FDIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "FРАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FDIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FDIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FDIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FFÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FDIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "FDAĞ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FDIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FDIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FDIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FDIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FDIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

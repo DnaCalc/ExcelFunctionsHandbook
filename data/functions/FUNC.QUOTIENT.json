@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.QUOTIENT",
+  "surface_name": "QUOTIENT",
+  "published_row_id": "FUNC.QUOTIENT",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfQuotient",
+    "code": "417"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "QUOTIENT(numerator, denominator)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "numerator",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "denominator",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the integer portion of a division",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/quotient-function-9f7bf099-2a18-4282-8fa4-65290cc99dee",
+    "english_description": "Returns the integer portion of a division"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KVOTIENT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "en-US",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COCIENTE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "OSAMÄÄRÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "QUOTIENT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KVÓCIENS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KVOTIENT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZ.CAŁK.DZIELENIA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "QUOCIENTE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЧАСТНОЕ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KVOT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BÖLÜM işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "QUOTIENT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "QUOTIENT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

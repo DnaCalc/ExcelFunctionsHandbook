@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.PRICEDISC",
+  "surface_name": "PRICEDISC",
+  "published_row_id": "FUNC.PRICEDISC",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfPricedisc",
+    "code": "436"
+  },
+  "arity": {
+    "min": 4,
+    "max": 5
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the price per $100 face value of a discounted security",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/pricedisc-function-d06ad7c1-380e-4be7-9fd9-75e3079acfd3",
+    "english_description": "Returns the price per $100 face value of a discounted security"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KURS.DISKONTO"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "en-US",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PRECIO.DESCUENTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "HINTA.DISK"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VALEUR.ENCAISSEMENT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁR.LESZÁM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PRIS.DISKONTERT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PRIJS.DISCONTO"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CENA.DYSK"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PREÇODESC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЦЕНАСКИДКА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PRISDISK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DEĞERİND işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PRICEDISC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PRICEDISC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

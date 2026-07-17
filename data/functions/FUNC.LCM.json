@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.LCM",
+  "surface_name": "LCM",
+  "published_row_id": "FUNC.LCM",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfLcm",
+    "code": "475"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "LCM(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the least common multiple",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/lcm-function-7152b67a-8bb5-4075-ae5c-06ede5563c94",
+    "english_description": "Returns the least common multiple"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LCM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LCM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LCM"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MINDSTE.FÆLLES.MULTIPLUM"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LCM"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LCM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LCM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LCM"
+    },
+    {
+      "locale": "en-US",
+      "name": "LCM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "M.C.M"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LCM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PIENIN.YHT.JAETTAVA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PPCM*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LCM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LCM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LKT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LCM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LCM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LCM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LCM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LCM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LCM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LCM"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KGV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NAJMN.WSP.WIEL"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LCM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MMC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LCM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОК"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LCM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LCM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LCM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MGM"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LCM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "OKEK işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LCM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LCM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LCM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LCM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LCM"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.VARA",
+  "surface_name": "VARA",
+  "published_row_id": "FUNC.VARA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfVara",
+    "code": "367"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VARA(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Estimates variance based on a sample, including numbers, text, and logical values",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/vara-function-3de77469-fa3a-47b4-85fd-81758a1e1d07",
+    "english_description": "Estimates variance based on a sample, including numbers, text, and logical values"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VARA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VARA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VARA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VARIANSV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VARA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VARA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VARA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VARA"
+    },
+    {
+      "locale": "en-US",
+      "name": "VARA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "VARA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VARA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VARA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VARA*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VARA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VARA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VARA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VARA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VARA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VARA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VARA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VARA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VARA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VARA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VARA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WARIANCJA.A"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VARA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "VARA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VARA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДИСПА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VARA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VARA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VARA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VARA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VARA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VARA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VARA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VARA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VARA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VARA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VARA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

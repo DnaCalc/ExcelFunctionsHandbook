@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMLOG2",
+  "surface_name": "IMLOG2",
+  "published_row_id": "FUNC.IMLOG2",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImlog2",
+    "code": "402"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the base-2 logarithm of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imlog2-function-152e13b4-bc79-486c-a243-e6a676878c51",
+    "english_description": "Returns the base-2 logarithm of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGLOG2"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.LOG2"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.LOG2"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.LOG2*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.LOG2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.LOG2"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LOG2.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.LOG2"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANLOG2 işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMLOG2"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMLOG2"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.TINV",
+  "surface_name": "TINV",
+  "published_row_id": "FUNC.TINV",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfTinv",
+    "code": "332"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the inverse of the Student's t-distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/tinv-function-a7c85b9d-90f5-41fe-9ca5-1cd2f3e1ed7c",
+    "english_description": "Returns the inverse of the Student's t-distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TINV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TINV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TINV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TINV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TINV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TINV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TINV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TINV"
+    },
+    {
+      "locale": "en-US",
+      "name": "TINV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.T.INV"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TINV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TJAKAUMA.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.STUDENT.INVERSE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TINV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TINV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INVERZ.T"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TINV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TINV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TINV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TINV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TINV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TINV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TINV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "T.INV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.T.ODW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TINV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INVT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TINV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СТЬЮДРАСПОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TINV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TINV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TINV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TINV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TINV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TTERS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TINV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TINV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TINV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TINV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TINV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

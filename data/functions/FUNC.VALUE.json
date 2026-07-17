@@ -1,0 +1,232 @@
+{
+  "function_id": "FUNC.VALUE",
+  "surface_name": "VALUE",
+  "published_row_id": "FUNC.VALUE",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfValue",
+    "code": "33"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "LocaleProfile",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VALUE(text)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a text argument to a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/value-function-257d0108-07dc-437d-ae1c-bc2d3953d8c2",
+    "english_description": "Converts a text argument to a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VALUE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VALUE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VALUE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VALUE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VALUE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VALUE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VALUE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VALUE"
+    },
+    {
+      "locale": "en-US",
+      "name": "VALUE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "VALUE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VALUE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ARVO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VALUE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VALUE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VALUE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VALUE"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VALUE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VALORE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VALUE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VALUE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VALUE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VALUE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VALUE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VALUE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "VALUE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VALUE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "VALUE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VALUE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "VALUE"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VALUE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VALUE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VALUE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VALUE"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VALUE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SAYIYAÇEVİR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VALUE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VALUE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VALUE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VALUE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VALUE"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-VALUE-001",
+    "lean_module": "OxFunc.Functions.Value;OxFunc.LocaleFormat",
+    "rust_module": "oxfunc_core::functions::value_fn;oxfunc_core::locale_format",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

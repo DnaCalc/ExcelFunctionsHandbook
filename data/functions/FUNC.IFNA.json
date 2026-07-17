@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.IFNA",
+  "surface_name": "IFNA",
+  "published_row_id": "FUNC.IFNA",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfIfna",
+    "code": "590"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=true;numerical_reduction_policy=none;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "IFNA(value, value_if_na)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value_if_na",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the value you specify if the expression resolves to #N/A, otherwise returns the result of the expression",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/ifna-function-6626c961-a569-42fc-a49d-79b4951fd461",
+    "english_description": "Returns the value you specify if the expression resolves to #N/A, otherwise returns the result of the expression"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IFNA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IFNA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IFNA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HVISIT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IFNA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IFNA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IFNA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IFNA"
+    },
+    {
+      "locale": "en-US",
+      "name": "IFNA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SI.ND"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IFNA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "JOSPUUTTUU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SI.NON.DISP*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IFNA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IFNA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HAHIÁNYZIK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IFNA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IFNA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IFNA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IFNA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IFNA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IFNA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IFNA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ALS.NB"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "JEŻELI.ND"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IFNA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SEND"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IFNA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕСНД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IFNA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IFNA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IFNA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "OMSAKNAS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IFNA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EĞERYOKSA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IFNA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IFNA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IFNA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IFNA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IFNA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

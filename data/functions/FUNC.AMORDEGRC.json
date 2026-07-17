@@ -1,0 +1,253 @@
+{
+  "function_id": "FUNC.AMORDEGRC",
+  "surface_name": "AMORDEGRC",
+  "published_row_id": "FUNC.AMORDEGRC",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfAmordegrc",
+    "code": "466"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "AMORDEGRC(cost, date_purchased, first_period, salvage, period, rate, [basis])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "cost",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "date_purchased",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "first_period",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "salvage",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "period",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rate",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "basis",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the depreciation for each accounting period by using a depreciation coefficient",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/amordegrc-function-a14d0ca1-64a4-42eb-9b3d-b0dededf9e51",
+    "english_description": "Returns the depreciation for each accounting period by using a depreciation coefficient"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "en-US",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "AMORTIZ.PROGRE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "AMORDEGRC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÉRTÉKCSÖKK.TÉNYEZŐVEL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "AMORT.NIELIN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "АМОРУМ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "AMORDEGRC işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AMORDEGRC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AMORDEGRC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

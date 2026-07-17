@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CHIINV",
+  "surface_name": "CHIINV",
+  "published_row_id": "FUNC.CHIINV",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfChiinv",
+    "code": "275"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CHIINV(probability, deg_freedom)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "probability",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "deg_freedom",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the inverse of the one-tailed probability of the chi-squared distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/chiinv-function-cfbea3f6-6e4f-40c9-a87f-20472e0512af",
+    "english_description": "Returns the inverse of the one-tailed probability of the chi-squared distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PRUEBA.CHI.INV"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "CHIJAKAUMA.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "KHIDEUX.INVERSE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INVERZ.KHI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CHI.KWADRAAT.INV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.CHI.ODW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "QUIINV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INV.CHI"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ХИ2ОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CHI2INV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KİKARETERS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHIINV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHIINV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

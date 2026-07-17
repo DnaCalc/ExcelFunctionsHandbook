@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.DBCS",
+  "surface_name": "DBCS",
+  "published_row_id": "FUNC.DBCS",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfDbcs",
+    "code": "215"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "Composite",
+    "host_interaction_class": "ApplicationState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Changes half-width (single-byte) English letters or katakana within a character string to full-width (double-byte) characters",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/dbcs-function-a4025e73-63d2-4958-9423-21a24794c9e5",
+    "english_description": "Changes half-width (single-byte) English letters or katakana within a character string to full-width (double-byte) characters"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DBCS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DBCS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DBCS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DBCS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DBCS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DBCS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DBCS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DBCS"
+    },
+    {
+      "locale": "en-US",
+      "name": "DBCS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DBCS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DBCS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "DBCS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DBCS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DBCS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DBCS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KBKK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DBCS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DBCS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DBCS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DBCS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DBCS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DBCS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DBCS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DBCS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DBCS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DBCS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DBCS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DBCS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БДЦС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DBCS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DBCS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DBCS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DBCS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DBCS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DBCS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DBCS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DBCS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DBCS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DBCS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DBCS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "width_conversion_host_profile",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

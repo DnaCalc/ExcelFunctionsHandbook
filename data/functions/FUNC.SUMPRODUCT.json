@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.SUMPRODUCT",
+  "surface_name": "SUMPRODUCT",
+  "published_row_id": "FUNC.SUMPRODUCT",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfSumproduct",
+    "code": "228"
+  },
+  "arity": {
+    "min": 2,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the sum of the products of corresponding array components",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sumproduct-function-16753e75-9f68-4874-94ac-4d2145a2fd2e",
+    "english_description": "Returns the sum of the products of corresponding array components"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SOUČIN.SKALÁRNÍ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SUMPRODUKT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SUMMENPRODUKT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "en-US",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SUMAPRODUCTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TULOJEN.SUMMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SOMMEPROD"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZORZATÖSSZEG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MATR.SOMMA.PRODOTTO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SUMMERPRODUKT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SOMPRODUCT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SUMA.ILOCZYNÓW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SOMARPRODUTO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SOMARPRODUTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СУММПРОИЗВ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PRODUKTSUMMA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TOPLA.ÇARPIM"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "Hàm SUMPRODUCT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SUMPRODUCT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SUMPRODUCT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

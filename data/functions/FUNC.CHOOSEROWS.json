@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.CHOOSEROWS",
+  "surface_name": "CHOOSEROWS",
+  "published_row_id": "FUNC.CHOOSEROWS",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CHOOSEROWS(array, row_num1, [row_num2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "row_num1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "row_num2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the specified rows from an array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/chooserows-function-51ace882-9bab-4a44-9625-7274ef7507a3",
+    "english_description": "Returns the specified rows from an array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZVOLITŘÁDKY"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VÆLGRÆKKER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ELEGIRFILAS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CHOISIRLIGNES*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SORVÁLASZTÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VELGRADER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "KIES.RIJEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYBIERZ.WIERSZE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ESCOLHERLINS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ВЫБОРСТРОК"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VÄLJRADER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SATIRSEÇ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHOOSEROWS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHOOSEROWS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

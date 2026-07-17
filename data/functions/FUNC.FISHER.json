@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.FISHER",
+  "surface_name": "FISHER",
+  "published_row_id": "FUNC.FISHER",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfFisher",
+    "code": "283"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "FISHER(x)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the Fisher transformation",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/fisher-function-d656523c-5076-4f95-b87b-7741bf236c69",
+    "english_description": "Returns the Fisher transformation"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FISHER"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FISHER"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FISHER"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FISHER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FISHER"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FISHER"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FISHER"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FISHER"
+    },
+    {
+      "locale": "en-US",
+      "name": "FISHER"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FISHER"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FISHER"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "FISHER"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FISHER*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FISHER"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FISHER"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FISHER"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FISHER"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FISHER"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FISHER"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FISHER"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FISHER"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FISHER"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FISHER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "FISHER"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.FISHER"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FISHER"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FISHER"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FISHER"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ФИШЕР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FISHER"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FISHER"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FISHER"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FISHER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FISHER"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "FISHER işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FISHER"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FISHER"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FISHER"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FISHER"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FISHER"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

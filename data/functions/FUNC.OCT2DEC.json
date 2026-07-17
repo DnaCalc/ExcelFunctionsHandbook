@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.OCT2DEC",
+  "surface_name": "OCT2DEC",
+  "published_row_id": "FUNC.OCT2DEC",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfOct2dec",
+    "code": "392"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "OCT2DEC(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts an octal number to decimal",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/oct2dec-function-87606014-cb98-44b2-8dbb-e48f8ced1554",
+    "english_description": "Converts an octal number to decimal"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "OKT.TIL.DEC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "en-US",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "OCT.A.DEC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "OKTDES"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "OCTDEC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "OKT.DEC"
+    },
+    {
+      "locale": "id-ID",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ÓSM.NA.DZIES"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "OCTADEC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ВОСЬМ.В.ДЕС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "OKT.TILL.DEC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "OCT2DEC işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "OCT2DEC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "OCT2DEC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

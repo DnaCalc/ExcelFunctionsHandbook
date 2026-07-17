@@ -1,0 +1,223 @@
+{
+  "function_id": "FUNC.COUNTIF",
+  "surface_name": "COUNTIF",
+  "published_row_id": "FUNC.COUNTIF",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfCountif",
+    "code": "346"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "COUNTIF(range, criteria)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "range",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "criteria",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Counts the number of cells within a range that meet the given criteria",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/use-the-countif-function-in-microsoft-excel-e0de10c6-f885-4e71-abb4-1f464816df34",
+    "english_description": "Counts the number of cells within a range that meet the given criteria"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TÆL.HVIS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ZÄHLENWENN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "en-US",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CONTAR.SI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COUNTIF."
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LASKE.JOS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NB.SI"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "DARABHA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONTA.SE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ANTALL.HVIS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AANTAL.ALS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LICZ.JEŻELI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONT.SE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CONTAR.SE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СЧЁТЕСЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ANTAL.OM"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EĞERSAY"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COUNTIF"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COUNTIF"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

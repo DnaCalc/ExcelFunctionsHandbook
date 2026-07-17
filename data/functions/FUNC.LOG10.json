@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.LOG10",
+  "surface_name": "LOG10",
+  "published_row_id": "FUNC.LOG10",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfLog10",
+    "code": "23"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "LOG10(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the base-10 logarithm of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/log10-function-c75b881b-49dd-44fb-b6f4-37e3486a0211",
+    "english_description": "Returns the base-10 logarithm of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LOG10"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LOG10"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LOG10"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LOG10"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LOG10"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LOG10"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LOG10"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LOG10"
+    },
+    {
+      "locale": "en-US",
+      "name": "LOG10"
+    },
+    {
+      "locale": "es-ES",
+      "name": "LOG10"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LOG10"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LOG10"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOG10"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LOG10"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LOG10"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LOG10"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LOG10"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LOG10"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LOG10"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LOG10"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LOG10"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LOG10"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LOG10"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LOG10"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LOG10"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LOG10"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "LOG10"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LOG10"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "LOG10"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LOG10"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LOG10"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LOG10"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LOG10"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LOG10"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LOG10"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LOG10"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LOG10"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LOG10"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LOG10"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LOG10"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

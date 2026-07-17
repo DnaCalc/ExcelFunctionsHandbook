@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.MDETERM",
+  "surface_name": "MDETERM",
+  "published_row_id": "FUNC.MDETERM",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfMdeterm",
+    "code": "163"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the matrix determinant of an array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/mdeterm-function-e7bfa857-3834-422b-b871-0ffd03717020",
+    "english_description": "Returns the matrix determinant of an array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DETERMINANT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "en-US",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DETERMAT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DETERMINANTMAT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYZNACZNIK.MACIERZY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MATRIZ.DETERM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МОПРЕД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DETERMİNANT işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MDETERM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MDETERM"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

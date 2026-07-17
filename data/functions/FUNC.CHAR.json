@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.CHAR",
+  "surface_name": "CHAR",
+  "published_row_id": "FUNC.CHAR",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfChar",
+    "code": "111"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CHAR(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the character specified by the code number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/char-function-bbd249c8-b36e-4a91-8017-1c133f9b837a",
+    "english_description": "Returns the character specified by the code number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHAR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHAR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CHAR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TEGN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CHAR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHAR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHAR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHAR"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHAR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CARÁCTER"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHAR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "CHAR"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CHAR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHAR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHAR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CHAR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHAR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CODICE.CARATT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHAR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHAR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHAR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHAR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CHAR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TEKEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CHAR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CHAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CHAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHAR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СИМВОЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHAR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHAR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CHAR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CHAR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHAR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DAMGA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHAR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHAR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHAR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHAR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHAR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

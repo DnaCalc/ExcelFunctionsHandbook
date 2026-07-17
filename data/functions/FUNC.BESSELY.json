@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.BESSELY",
+  "surface_name": "BESSELY",
+  "published_row_id": "FUNC.BESSELY",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfBessely",
+    "code": "427"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BESSELY(x, n)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "n",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the Bessel function Yn(x)",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bessely-function-f3a356b3-da89-42c3-8974-2da54d6353a2",
+    "english_description": "Returns the Bessel function Yn(x)"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "en-US",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BESSELY*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BESSEL.Y"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БЕССЕЛЬ.Y"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BESSELY işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BESSELY"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BESSELY"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

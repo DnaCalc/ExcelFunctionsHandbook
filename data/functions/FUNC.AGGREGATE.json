@@ -1,0 +1,245 @@
+{
+  "function_id": "FUNC.AGGREGATE",
+  "surface_name": "AGGREGATE",
+  "published_row_id": "FUNC.AGGREGATE",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAggregate",
+    "code": "485"
+  },
+  "arity": {
+    "min": 3,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "Composite",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "AGGREGATE(function_num, options, ref1, [ref2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "function_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "options",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "ref1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "ref2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns an aggregate in a list or database",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/aggregate-function-43b9278e-6aa7-4f17-92b6-e19993fa26df",
+    "english_description": "Returns an aggregate in a list or database"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "المجموع"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SAMLING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AGGREGAT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "en-US",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "AGREGAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOOSTE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "AGRÉGAT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÖSSZESÍT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AGGREGAT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "AGREGUJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "AGREGADO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "AGREGAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "АГРЕГАТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ZDRUŽEVANJE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "AGGREGERA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TOPLAMA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AGGREGATE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AGGREGATE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

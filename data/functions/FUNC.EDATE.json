@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.EDATE",
+  "surface_name": "EDATE",
+  "published_row_id": "FUNC.EDATE",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfEdate",
+    "code": "449"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the serial number of the date that is the indicated number of months before or after the start date",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/edate-function-3c920eb2-6e66-44e7-a1f5-753ae47ee4f5",
+    "english_description": "Returns the serial number of the date that is the indicated number of months before or after the start date"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "EDATE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "EDATE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "EDATE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "EDATO"
+    },
+    {
+      "locale": "de-DE",
+      "name": "EDATE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "EDATE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "EDATE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "EDATE"
+    },
+    {
+      "locale": "en-US",
+      "name": "EDATE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FECHA.MES"
+    },
+    {
+      "locale": "et-EE",
+      "name": "EDATE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "EDATE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOIS.DECALER*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "EDATE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "EDATE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KALK.DÁTUM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "EDATE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "EDATE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "EDATE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "EDATE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "EDATE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "EDATE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DAG.ETTER (funksjon)"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ZELFDE.DAG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NR.SER.DATY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "EDATE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DATAM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "EDATE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДАТАМЕС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "EDATE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "EDATE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "EDATE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "EDATUM"
+    },
+    {
+      "locale": "th-TH",
+      "name": "EDATE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SERİTARİH işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "EDATE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "EDATE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "EDATE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "EDATE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "EDATE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

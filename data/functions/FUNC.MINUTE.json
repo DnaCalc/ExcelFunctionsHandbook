@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.MINUTE",
+  "surface_name": "MINUTE",
+  "published_row_id": "FUNC.MINUTE",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfMinute",
+    "code": "72"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Converts a serial number to a minute",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/minute-function-af728df0-05c4-4b07-9eed-a84801a60589",
+    "english_description": "Converts a serial number to a minute"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MINUTA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "en-US",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MINUT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MINUUTTI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MINUTT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MINUTE (minuta)"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MINUTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MINÚTA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MINUTA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MINUT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "th-TH",
+      "name": "นาที"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DAKİKA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ХВИЛИНА"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MINUTE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MINUTE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

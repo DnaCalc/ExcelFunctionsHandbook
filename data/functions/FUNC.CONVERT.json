@@ -1,0 +1,229 @@
+{
+  "function_id": "FUNC.CONVERT",
+  "surface_name": "CONVERT",
+  "published_row_id": "FUNC.CONVERT",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfConvert",
+    "code": "468"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CONVERT(number, from_unit, to_unit)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "from_unit",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "to_unit",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a number from one measurement system to another",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/convert-function-d785bef1-808e-4aac-bdcd-666c810f9af2",
+    "english_description": "Converts a number from one measurement system to another"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "en-US",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MUUNNA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONVERTI"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CONVERT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CONVERT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

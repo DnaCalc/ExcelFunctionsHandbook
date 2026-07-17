@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ISFORMULA",
+  "surface_name": "ISFORMULA",
+  "published_row_id": "FUNC.ISFORMULA",
+  "entry_kind": "built_in_function",
+  "category": "Information functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfIsformula",
+    "code": "589"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "Composite",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "ISFORMULA(reference)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "reference",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns TRUE if there is a reference to a cell that contains a formula",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/isformula-function-e4d1355f-7121-4ef2-801e-3839bfd6b1e5",
+    "english_description": "Returns TRUE if there is a reference to a cell that contains a formula"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.FORMEL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESFORMULA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONKAAVA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTFORMULE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPLET"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISFORMULE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.FORMUŁA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.FORMULA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕФОРМУЛА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRFORMEL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EFORMÜLSE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISFORMULA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISFORMULA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

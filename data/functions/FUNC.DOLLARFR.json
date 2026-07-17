@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.DOLLARFR",
+  "surface_name": "DOLLARFR",
+  "published_row_id": "FUNC.DOLLARFR",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfDollarfr",
+    "code": "444"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Converts a dollar price, expressed as a decimal number, into a dollar price, expressed as a fraction",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/dollarfr-function-0835d163-3023-4a33-9824-3042c5d4f495",
+    "english_description": "Converts a dollar price, expressed as a decimal number, into a dollar price, expressed as a fraction"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KR.BRØK"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "en-US",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MONEDA.FRAC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VALUUTTA.MURTO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PRIX.FRAC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FORINT.TÖRT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DOLLAR.BR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CENA.UŁAM"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MOEDAFRA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DOLARFR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РУБЛЬ.ДРОБЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BRÅK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LİRAKES işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DOLLARFR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DOLLARFR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

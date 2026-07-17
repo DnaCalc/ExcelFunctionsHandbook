@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.LARGE",
+  "surface_name": "LARGE",
+  "published_row_id": "FUNC.LARGE",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfLarge",
+    "code": "325"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "LARGE(array, k)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "k",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the k-th largest value in a data set",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/large-function-3af0af19-1190-42bb-bb8b-01672ec00a64",
+    "english_description": "Returns the k-th largest value in a data set"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LARGE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LARGE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LARGE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STØRSTE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "KGRÖSSTE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LARGE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LARGE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LARGE"
+    },
+    {
+      "locale": "en-US",
+      "name": "LARGE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "K.ESIMO.MAYOR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LARGE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SUURI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "GRANDE.VALEUR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LARGE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LARGE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NAGY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LARGE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "GRANDE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LARGE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LARGE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LARGE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LARGE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "N.STØRST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GROOTSTE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MAX.K"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MAIOR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MAIOR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LARGE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАИБОЛЬШИЙ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LARGE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LARGE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LARGE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "STÖRSTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LARGE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BÜYÜK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LARGE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LARGE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LARGE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LARGE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LARGE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

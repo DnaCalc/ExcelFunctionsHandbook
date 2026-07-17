@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMEXP",
+  "surface_name": "IMEXP",
+  "published_row_id": "FUNC.IMEXP",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImexp",
+    "code": "406"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the exponential of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imexp-function-c6f8da1f-e024-4c0c-b802-a60e7147a95f",
+    "english_description": "Returns the exponential of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGEKSP"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.EXP"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.EKSP"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.EXP*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.EXP"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.EXP"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "EXP.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.EXP"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMEUPPHÖJT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANÜS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMEXP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMEXP"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,220 @@
+{
+  "function_id": "FUNC.ARRAYTOTEXT",
+  "surface_name": "ARRAYTOTEXT",
+  "published_row_id": "FUNC.ARRAYTOTEXT",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ARRAYTOTEXT(array, [format])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "format",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns an array of text values from any specified range",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/arraytotext-function-9cdcad46-2fa5-4c6b-ac92-14e7bc862b8b",
+    "english_description": "Returns an array of text values from any specified range"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MATRIXTILTEKST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "en-US",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MATRIZATEXTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MATRIISI.TEKSTIKSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TABLEAU.EN.TEXTE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "TÖMB.SZÖVEGGÉ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "TABLICA.NA.TEKST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MATRIZPARATEXTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МАССИВВТЕКСТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MATRISTILLTEXT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DİZİMETİN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ARRAYTOTEXT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ARRAYTOTEXT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

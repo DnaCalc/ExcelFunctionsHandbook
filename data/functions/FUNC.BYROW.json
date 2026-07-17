@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.BYROW",
+  "surface_name": "BYROW",
+  "published_row_id": "FUNC.BYROW",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BYROW(array, lambda)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "lambda",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Applies a LAMBDA to each row and returns an array of the results",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/byrow-function-2e04c677-78c8-4e6b-8c10-a4602f2602bb",
+    "english_description": "Applies a LAMBDA to each row and returns an array of the results"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BYROW"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BYROW"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BYROW"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BYROW"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BYROW"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BYROW"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BYROW"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BYROW"
+    },
+    {
+      "locale": "en-US",
+      "name": "BYROW"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BYROW"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BYROW"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BYROW"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BYROW*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BYROW"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BYROW"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BYROW"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BYROW"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BYROW"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BYROW"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BYROW"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BYROW"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BYROW"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ETTERRAD"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BYROW"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WIERSZAMI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BYROW"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BYROW"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BYROW"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "BYROW"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BYROW"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BYROW"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BYROW"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BYROW"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BYROW"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BYROW"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BYROW"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BYROW"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BYROW"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BYROW"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BYROW"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "callable_helper_runtime",
+  "admission_interface_kind": "higher_order_call",
+  "registry_backed": true
+}

@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MROUND",
+  "surface_name": "MROUND",
+  "published_row_id": "FUNC.MROUND",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMround",
+    "code": "422"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MROUND(number, multiple)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "multiple",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a number rounded to the desired multiple",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427",
+    "english_description": "Returns a number rounded to the desired multiple"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MROUND"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MROUND"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MROUND"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MAFRUND"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MROUND"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MROUND"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MROUND"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MROUND"
+    },
+    {
+      "locale": "en-US",
+      "name": "MROUND"
+    },
+    {
+      "locale": "es-ES",
+      "name": "REDOND.MULT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MROUND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PYÖRISTÄ.KERR"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ARRONDI.AU.MULTIPLE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MROUND"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MROUND"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "TÖBBSZ.KEREKÍT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MROUND"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MROUND"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MROUND"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MROUND"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MROUND"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MROUND"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MRUND"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AFRONDEN.N.VEELVOUD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR.DO.WIELOKR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MROUND"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MARRED"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MROUND"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОКРУГЛТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MROUND"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MROUND"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MROUND"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MAVRUNDA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MROUND"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KYUVARLA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MROUND"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MROUND"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MROUND"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MROUND"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MROUND"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.CUMIPMT",
+  "surface_name": "CUMIPMT",
+  "published_row_id": "FUNC.CUMIPMT",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfCumipmt",
+    "code": "448"
+  },
+  "arity": {
+    "min": 6,
+    "max": 6
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the cumulative interest paid between two periods",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/cumipmt-function-61067bb0-9016-427d-b95b-1a752af0e606",
+    "english_description": "Returns the cumulative interest paid between two periods"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AKKUM.RENTE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "KUMZINSZ"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "en-US",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PAGO.INT.ENTRE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MAKSETTU.KORKO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CUMUL.INTER"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KRITBINOM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "INT.CUMUL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SAMLET.RENTE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CUM.RENTE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SPŁAC.ODS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PGTOJURACUM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PGTOJURACUM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОБЩПЛАТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KUMRÄNTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TOPÖDENENFAİZ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CUMIPMT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CUMIPMT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

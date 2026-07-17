@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.HYPGEOM.DIST",
+  "surface_name": "HYPGEOM.DIST",
+  "published_row_id": "FUNC.HYPGEOM.DIST",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfHypgeom_dist",
+    "code": "535"
+  },
+  "arity": {
+    "min": 5,
+    "max": 5
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the hypergeometric distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/hypgeom-dist-function-6dbd547f-1d12-4b1f-8ae5-b0d9e3d22fbf",
+    "english_description": "Returns the hypergeometric distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HYPGEO.FORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.HIPERGEOM.N"
+    },
+    {
+      "locale": "et-EE",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "HYPERGEOM_JAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.HYPERGEOMETRIQUE.N*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HIPGEOM.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HYPGEOM_DIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HYPGEOM. DIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "HYPGEOM.FORDELING.N"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HYPGEOM.VERD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.HIPERGEOM"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.HIPGEOM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ГИПЕРГЕОМ.РАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "HYPGEOM. DIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HYPGEOM.FÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HİPERGEOM.DAĞ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HYPGEOM.DIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HYPGEOM.DIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

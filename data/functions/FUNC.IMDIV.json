@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMDIV",
+  "surface_name": "IMDIV",
+  "published_row_id": "FUNC.IMDIV",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImdiv",
+    "code": "397"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the quotient of two complex numbers",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imdiv-function-a505aff7-af8a-4451-8142-77ec3d74d83f",
+    "english_description": "Returns the quotient of two complex numbers"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGDIV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.OSAM"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.DIV*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.HÁNYAD"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.QUOTIENT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ILORAZ.LICZB.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.ДЕЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANBÖL işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMDIV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMDIV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

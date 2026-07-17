@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.STEYX",
+  "surface_name": "STEYX",
+  "published_row_id": "FUNC.STEYX",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfSteyx",
+    "code": "314"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the standard error of the predicted y-value for each x in the regression",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/steyx-function-6ce74b2c-449d-4a6e-b9ac-f9cef5ba48ab",
+    "english_description": "Returns the standard error of the predicted y-value for each x in the regression"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "STEYX"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "STEYX"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "STEYX"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STFYX"
+    },
+    {
+      "locale": "de-DE",
+      "name": "STEYX"
+    },
+    {
+      "locale": "el-GR",
+      "name": "STEYX"
+    },
+    {
+      "locale": "en-AU",
+      "name": "STEYX"
+    },
+    {
+      "locale": "en-GB",
+      "name": "STEYX"
+    },
+    {
+      "locale": "en-US",
+      "name": "STEYX"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ERROR.TIPICO.XY"
+    },
+    {
+      "locale": "et-EE",
+      "name": "STEYX"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KESKIVIRHE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ERREUR.TYPE.XY*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "STEYX"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "STEYX"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "STHIBAYX"
+    },
+    {
+      "locale": "id-ID",
+      "name": "STEYX"
+    },
+    {
+      "locale": "it-IT",
+      "name": "STEYX"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "STEYX"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "STEYX"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "STEYX"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "STEYX"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "STEYX"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "STAND.FOUT.YX"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "REGBŁSTD"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "STEYX"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "EPADYX"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "STEYX"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СТОШYX"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "STEYX"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "STEYX"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "STEYX"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "STDFELYX"
+    },
+    {
+      "locale": "th-TH",
+      "name": "STEYX"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "STHYX işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "STEYX"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "STEYX"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "STEYX"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "STEYX"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "STEYX"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

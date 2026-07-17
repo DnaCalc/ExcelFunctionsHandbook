@@ -1,0 +1,251 @@
+{
+  "function_id": "FUNC.BETA.INV",
+  "surface_name": "BETA.INV",
+  "published_row_id": "FUNC.BETA.INV",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfBeta_inv",
+    "code": "526"
+  },
+  "arity": {
+    "min": 3,
+    "max": 5
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BETA.INV(probability, alpha, beta, [A], [B])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "probability",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "alpha",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "beta",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "A",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "B",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the inverse of the cumulative distribution function for a specified beta distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/beta-inv-function-e84cb8aa-8df0-4cf6-9892-83a341d252eb",
+    "english_description": "Returns the inverse of the cumulative distribution function for a specified beta distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "en-US",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BEETA. KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INVERZ.BÉTA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BETA. INVn"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BETA. INVN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BETA.INVn"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BETA.INVn"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

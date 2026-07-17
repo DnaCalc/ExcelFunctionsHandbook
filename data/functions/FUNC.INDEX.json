@@ -1,0 +1,250 @@
+{
+  "function_id": "FUNC.INDEX",
+  "surface_name": "INDEX",
+  "published_row_id": "FUNC.INDEX",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfIndex",
+    "code": "29"
+  },
+  "arity": {
+    "min": 2,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "INDEX(array, row_num, [column_num], [area_num])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "row_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "column_num",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "area_num",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Uses an index to choose a value from a reference or array",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/index-function-a5dcf0dd-996d-40a4-a822-b56b061328bd",
+    "english_description": "Uses an index to choose a value from a reference or array"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "INDEX"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "INDEX"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "INDEX"
+    },
+    {
+      "locale": "da-DK",
+      "name": "INDEX"
+    },
+    {
+      "locale": "de-DE",
+      "name": "INDEX"
+    },
+    {
+      "locale": "el-GR",
+      "name": "INDEX"
+    },
+    {
+      "locale": "en-AU",
+      "name": "INDEX"
+    },
+    {
+      "locale": "en-GB",
+      "name": "INDEX"
+    },
+    {
+      "locale": "en-US",
+      "name": "INDEX"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INDEX"
+    },
+    {
+      "locale": "et-EE",
+      "name": "INDEX"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "HAKEMISTO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "INDEX"
+    },
+    {
+      "locale": "he-IL",
+      "name": "INDEX"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "INDEX"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INDEX"
+    },
+    {
+      "locale": "id-ID",
+      "name": "INDEX"
+    },
+    {
+      "locale": "it-IT",
+      "name": "INDEX"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "INDEX"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "INDEX"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "INDEX"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "INDEX"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "INDEX"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "INDEX"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "INDEX"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "INDEX"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INDEX"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "INDEX"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "INDEX"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "INDEX"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "INDEX"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "INDEX"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "INDEX"
+    },
+    {
+      "locale": "th-TH",
+      "name": "INDEX"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "İNDİS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "INDEX"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "INDEX"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "INDEX"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "INDEX"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "INDEX"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-INDEX-001",
+    "lean_module": "OxFunc.Functions.Index",
+    "rust_module": "oxfunc_core::functions::index",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

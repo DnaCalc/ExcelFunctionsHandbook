@@ -1,0 +1,254 @@
+{
+  "function_id": "FUNC.SWITCH",
+  "surface_name": "SWITCH",
+  "published_row_id": "FUNC.SWITCH",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 3,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|3)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|3);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=true;numerical_reduction_policy=none;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "SWITCH(expression, value1, result1, [value2, result2], [default])",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "expression",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "result1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value2",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "result2",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "default",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Evaluates an expression against a list of values and returns the result corresponding to the first matching value. If there is no match, an optional default value may be returned.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/switch-function-47ab33c0-28ce-4530-8a45-d532ec4aa25e",
+    "english_description": "Evaluates an expression against a list of values and returns the result corresponding to the first matching value. If there is no match, an optional default value may be returned."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SKIFT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "en-US",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CAMBIAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MUUTA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SI.MULTIPLE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÁTVÁLT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SCHAKELEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PRZEŁĄCZ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PARÂMETRO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПЕРЕКЛЮЧ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VÄXLA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "İLKEŞLEŞEN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SWITCH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SWITCH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

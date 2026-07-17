@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.SQRTPI",
+  "surface_name": "SQRTPI",
+  "published_row_id": "FUNC.SQRTPI",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfSqrtpi",
+    "code": "416"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "SQRTPI(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the square root of (number * pi)",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/sqrtpi-function-1fb4e63f-9b51-46d6-ad68-b3e7a8b519b4",
+    "english_description": "Returns the square root of (number * pi)"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KVRODPI"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "en-US",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "es-ES",
+      "name": "RAIZ2PI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NELIÖJUURI.PII"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RACINE.PI*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "GYÖKPI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WORTEL.PI"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PIERW.PI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "RAIZPI"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КОРЕНЬПИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ROTPI"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KAREKÖKPİ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SQRTPI"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SQRTPI"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

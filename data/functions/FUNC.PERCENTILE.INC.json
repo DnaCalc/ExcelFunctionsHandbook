@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.PERCENTILE.INC",
+  "surface_name": "PERCENTILE.INC",
+  "published_row_id": "FUNC.PERCENTILE.INC",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfPercentile_inc",
+    "code": "502"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PERCENTILE.INC(array, k)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "k",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the k-th percentile of values in a range",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/percentile-inc-function-680f9539-45eb-410b-9a5e-c1355e5fe2ed",
+    "english_description": "Returns the k-th percentile of values in a range"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PERCENTIL.INC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FRAKTIL.MEDTAG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "en-US",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PERCENTIL.INC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PROSENTTIPISTE.SIS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CENTILE.INCLURE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PERCENTILIS.TARTALMAZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PERCENTIEL.INC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PERCENTYL.PRZEDZ.ZAMK"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PERCENTIL.INC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПРОЦЕНТИЛЬ.ВКЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PERCENTIL.INK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "YÜZDEBİRLİK.DHL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PERCENTILE.INC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PERCENTILE.INC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.MAP",
+  "surface_name": "MAP",
+  "published_row_id": "FUNC.MAP",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 254
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MAP(array1, [array2, ...], lambda)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "array1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "lambda",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns an array formed by mapping each value in the array(s) to a new value by applying a LAMBDA to create a new value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/map-function-48006093-f97c-47c1-bfcc-749263bb1f01",
+    "english_description": "Returns an array formed by mapping each value in the array(s) to a new value by applying a LAMBDA to create a new value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MAP"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MAP"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MAPA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TILKNYT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MAP"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MAP"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MAP"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MAP"
+    },
+    {
+      "locale": "en-US",
+      "name": "MAP"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MAPEAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MAP"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MAP"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MAP*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MAP"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MAP"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MAP"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MAP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MAP"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MAP"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MAP"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MAP"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MAP"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TILORDNE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TOEWIJZING"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MAPA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MAPA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MAPA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MAP"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "MAP"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MAP"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MAP"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MAP"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MAP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MAP"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EŞLE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MAP"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MAP"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MAP"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MAP"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MAP"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "callable_helper_runtime",
+  "admission_interface_kind": "higher_order_call",
+  "registry_backed": true
+}

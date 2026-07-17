@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.GROUPBY",
+  "surface_name": "GROUPBY",
+  "published_row_id": "FUNC.GROUPBY",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 3,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "GROUPBY(row_fields, values, function, [field_headers], [total_depth], [sort_order], [filter_array], [field_relationship])",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "row_fields",
+        "optional": false,
+        "repeats": false,
+        "description": "Grouping keys used to partition the input rows."
+      },
+      {
+        "name": "values",
+        "optional": false,
+        "repeats": false,
+        "description": "Value vector or matrix aggregated within each group."
+      },
+      {
+        "name": "function",
+        "optional": false,
+        "repeats": true,
+        "description": "Current parked baseline supports the admitted grouped-aggregation callable/aggregate slice."
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Helps a user group, aggregate, sort, and filter data based on the fields you specify",
+    "long": "The first widened tranche uses GROUPBY as the grouped-aggregation representative for witness rollout."
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/groupby-function-5e08ae8c-6800-4b72-b623-c41773611505",
+    "english_description": "Helps a user group, aggregate, sort, and filter data based on the fields you specify"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SESKUPITPODLE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "GRUPPER.EFTER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "el-GR",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "en-AU",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "en-GB",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "en-US",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "es-ES",
+      "name": "AGRUPARPOR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "JÄRJESTÄ.ARVOJEN.MUKAAN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "GROUPER.PAR*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CSOPORTOSÍTÁS.ALAP.SZERINT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "it-IT",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GROEPEREN.PER"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "GRUPUJ.WEDŁUG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "AGRUPARPOR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ГРУПППО"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "GRUPPERAEFTER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GRUPLAÖLÇÜT"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "GROUPBY"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "GROUPBY"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

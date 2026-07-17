@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.YEAR",
+  "surface_name": "YEAR",
+  "published_row_id": "FUNC.YEAR",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfYear",
+    "code": "69"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Converts a serial number to a year",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/year-function-c64f017a-1354-490d-981f-578e8ec8d3b9",
+    "english_description": "Converts a serial number to a year"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "YEAR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "YEAR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ROK"
+    },
+    {
+      "locale": "da-DK",
+      "name": "YEAR"
+    },
+    {
+      "locale": "de-DE",
+      "name": "YEAR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "YEAR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "YEAR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "YEAR"
+    },
+    {
+      "locale": "en-US",
+      "name": "YEAR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "YEAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AASTA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VUOSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "YEAR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "YEAR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "YEAR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "YEAR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "YEAR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "YEAR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "YEAR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "YEAR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "YEAR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "YEAR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ÅR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "YEAR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "YEAR (rok)"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "YEAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ANO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "YEAR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "YEAR"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ROK"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LETO"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "GODINA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "YEAR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ปี"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "YIL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "РІК"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "YEAR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "YEAR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "YEAR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "YEAR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

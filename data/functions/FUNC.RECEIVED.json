@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.RECEIVED",
+  "surface_name": "RECEIVED",
+  "published_row_id": "FUNC.RECEIVED",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfReceived",
+    "code": "434"
+  },
+  "arity": {
+    "min": 4,
+    "max": 5
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the amount received at maturity for a fully invested security",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/received-function-7a3f8b93-6611-4f81-8576-828312c9b5e5",
+    "english_description": "Returns the amount received at maturity for a fully invested security"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MODTAGET.VED.UDLØB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "el-GR",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "en-AU",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "en-GB",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "en-US",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CANTIDAD.RECIBIDA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VASTAANOTETTU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VALEUR.NOMINALE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KAPOTT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "it-IT",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MOTTATT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ONTVANGEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KWOTA.WYKUP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "RECEBIDO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "RECEBER"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПОЛУЧЕНО"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PRIJATÉ"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PRIMLJENO"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BELOPP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GETİRİ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "RECEIVED"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "RECEIVED"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

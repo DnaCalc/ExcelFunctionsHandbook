@@ -1,0 +1,230 @@
+{
+  "function_id": "FUNC.VALUETOTEXT",
+  "surface_name": "VALUETOTEXT",
+  "published_row_id": "FUNC.VALUETOTEXT",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VALUETOTEXT(value, [format])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "format",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns text from any specified value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/valuetotext-function-5fff61a2-301a-4ab2-9ffa-0a5242a08fea",
+    "english_description": "Returns text from any specified value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VÆRDITILTEKST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "en-US",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "VALORATEXTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ARVO.TEKSTIKSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VALEUR.EN.TEXTE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÉRTÉK.SZÖVEGGÉ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WARTOŚĆ.NA.TEKST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "VALORPARATEXTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЗНАЧЕНИЕВТЕКСТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VÄRDETILLTEXT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DEĞERMETİN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VALUETOTEXT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VALUETOTEXT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ATANH",
+  "surface_name": "ATANH",
+  "published_row_id": "FUNC.ATANH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAtanh",
+    "code": "234"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ATANH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the inverse hyperbolic tangent of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/atanh-function-3cd65768-0de7-4f1d-b312-d01c8c930d90",
+    "english_description": "Returns the inverse hyperbolic tangent of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ATANH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ATANH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ARCTGH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARCTANH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ATANH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ATANH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ATANH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ATANH"
+    },
+    {
+      "locale": "en-US",
+      "name": "ATANH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ATANH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ATANH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ATANH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ATANH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ATANH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ATANH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ATANH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ATANH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ATANH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ATANH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ATANH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ATANH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ATANH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ATANH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ATANH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ATANH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ATANH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ATANH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ATANH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ATANH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ATANH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ATANH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ATANH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARCTANH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ATANH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ATANH işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ATANH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ATANH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ATANH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ATANH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ATANH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

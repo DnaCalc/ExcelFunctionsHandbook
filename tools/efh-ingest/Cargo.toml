@@ -1,0 +1,12 @@
+[package]
+name = "efh-ingest"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Builds the Handbook's data/ projections from OxFunc truth surfaces (read-only)."
+
+[dependencies]
+oxfunc_core = { path = "../../../OxFunc/crates/oxfunc_core" }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+csv = "1"

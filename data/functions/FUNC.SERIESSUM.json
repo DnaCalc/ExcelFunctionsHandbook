@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.SERIESSUM",
+  "surface_name": "SERIESSUM",
+  "published_row_id": "FUNC.SERIESSUM",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfSeriessum",
+    "code": "414"
+  },
+  "arity": {
+    "min": 4,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the sum of a power series based on the formula",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/seriessum-function-a3ab25b5-1093-4f5b-b084-96c49087f637",
+    "english_description": "Returns the sum of a power series based on the formula"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SERIESUM"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "en-US",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SUMA.SERIES"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SARJA.SUMMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SOMME.SERIES*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SORÖSSZEG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SUMMER.REKKE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SOM.MACHTREEKS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SUMA.SZER.POT"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SOMASÉRIE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РЯД.СУММ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SERIESUMMA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SERİTOPLA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SERIESSUM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SERIESSUM"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

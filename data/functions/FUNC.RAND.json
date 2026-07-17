@@ -1,0 +1,225 @@
+{
+  "function_id": "FUNC.RAND",
+  "surface_name": "RAND",
+  "published_row_id": "FUNC.RAND",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfRand",
+    "code": "63"
+  },
+  "arity": {
+    "min": 0,
+    "max": 0
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "PseudoRandom",
+    "fec_dependency_profile": "RandomProvider",
+    "host_interaction_class": "ApplicationState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RandomProvider",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileFull"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "RAND()",
+    "trailing_repeats": false,
+    "parameters": []
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a random number between 0 and 1",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/rand-function-4cbfa695-8869-4788-8d90-021ea9f5be73",
+    "english_description": "Returns a random number between 0 and 1"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "RAND"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "RAND"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NÁHČÍSLO"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SLUMP"
+    },
+    {
+      "locale": "de-DE",
+      "name": "RAND"
+    },
+    {
+      "locale": "el-GR",
+      "name": "RAND"
+    },
+    {
+      "locale": "en-AU",
+      "name": "RAND"
+    },
+    {
+      "locale": "en-GB",
+      "name": "RAND"
+    },
+    {
+      "locale": "en-US",
+      "name": "RAND"
+    },
+    {
+      "locale": "es-ES",
+      "name": "RAND"
+    },
+    {
+      "locale": "et-EE",
+      "name": "RAND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SATUNNAISLUKU"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RAND"
+    },
+    {
+      "locale": "he-IL",
+      "name": "RAND"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "RAND"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VÉL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "RAND"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CASUALE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "RAND"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "RAND"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "RAND"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "RAND"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "RAND"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "RAND"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LOS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "RAND"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ALEATÓRIO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "RAND"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "RAND"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "RAND"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "RAND"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "RAND"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SLUMP"
+    },
+    {
+      "locale": "th-TH",
+      "name": "RAND"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "=S_SAYI_ÜRET()"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "RAND"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "RAND"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "RAND"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "RAND"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "RAND"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-RAND-001",
+    "lean_module": "OxFunc.Functions.Rand",
+    "rust_module": "oxfunc_core::functions::rand_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

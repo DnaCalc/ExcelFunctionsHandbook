@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ACOS",
+  "surface_name": "ACOS",
+  "published_row_id": "FUNC.ACOS",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAcos",
+    "code": "99"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ACOS(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the arccosine of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/acos-function-cb73173f-d089-4582-afa1-76e5524b5d5b",
+    "english_description": "Returns the arccosine of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ACOS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ACOS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ACOS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARCCOS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ARCCOS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ACOS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ACOS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ACOS"
+    },
+    {
+      "locale": "en-US",
+      "name": "ACOS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ACOS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ACOS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ACOS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ACOS"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ACOS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ACOS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ARCCOS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ACOS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ARCCOS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ACOS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ACOS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ACOS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ACOS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ACOS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BOOGCOS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ACOS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ACOS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ACOS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ACOS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ACOS"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ACOS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ACOS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ACOS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ACOS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ACOS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ACOS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ACOS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ACOS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ACOS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ACOS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ACOS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

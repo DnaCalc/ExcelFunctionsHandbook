@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.BITAND",
+  "surface_name": "BITAND",
+  "published_row_id": "FUNC.BITAND",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfBitand",
+    "code": "562"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BITAND(number1, number2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a 'Bitwise And' of two numbers",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bitand-function-8a2be3d7-91c3-4b48-9517-64548008563a",
+    "english_description": "Returns a 'Bitwise And' of two numbers"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BITAND"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BITAND"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BITAND"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BITOG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BITAND"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BITAND"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BITAND"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BITAND"
+    },
+    {
+      "locale": "en-US",
+      "name": "BITAND"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BIT.Y"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BITAND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BITTI.JA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BITET*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BITAND"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BITAND"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BIT.ÉS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BITAND"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BITAND"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BITAND"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BITAND"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BITAND"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BITAND"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BITAND"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BIT.EN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BITAND"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BITAND"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BIT.E"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BITAND"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БИТ.И"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BITAND"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BITAND"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BITAND"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BITOCH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BITAND"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİTVE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BITAND"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BITAND"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BITAND"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BITAND"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BITAND"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

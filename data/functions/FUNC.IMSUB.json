@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMSUB",
+  "surface_name": "IMSUB",
+  "published_row_id": "FUNC.IMSUB",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImsub",
+    "code": "396"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the difference between two complex numbers",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imsub-function-2e404b4d-4935-4e85-9f52-cb08b9a45054",
+    "english_description": "Returns the difference between two complex numbers"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGSUB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.SUSTR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.EROTUS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.DIFFERENCE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.KÜL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.VERSCHIL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "RÓŻN.LICZB.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMSUBTR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.РАЗН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMDIFF"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANTOPLA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMSUB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMSUB"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

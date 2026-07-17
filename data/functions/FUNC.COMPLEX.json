@@ -1,0 +1,239 @@
+{
+  "function_id": "FUNC.COMPLEX",
+  "surface_name": "COMPLEX",
+  "published_row_id": "FUNC.COMPLEX",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfComplex",
+    "code": "411"
+  },
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "COMPLEX(real_num, i_num, [suffix])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "real_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "i_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "suffix",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts real and imaginary coefficients into a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/complex-function-f0b8f3a9-51cc-4d6d-86fb-3a9362fa4128",
+    "english_description": "Converts real and imaginary coefficients into a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KOMPLEKST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "en-US",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COMPLEJO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KOMPLEX"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "複雑"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LICZBA.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "COMPLEXO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COMPLEXO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КОМПЛЕКСН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KOMPLEX"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KARMAŞIK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COMPLEX"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COMPLEX"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

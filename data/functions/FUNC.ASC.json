@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.ASC",
+  "surface_name": "ASC",
+  "published_row_id": "FUNC.ASC",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfAsc",
+    "code": "214"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "Composite",
+    "host_interaction_class": "ApplicationState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "Composite",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Changes full-width (double-byte) English letters or katakana within a character string to half-width (single-byte) characters",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/asc-function-0b6abf1c-c663-4004-a964-ebc00b723266",
+    "english_description": "Changes full-width (double-byte) English letters or katakana within a character string to half-width (single-byte) characters"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ASC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ASC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ASC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ASC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ASC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ASC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ASC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ASC"
+    },
+    {
+      "locale": "en-US",
+      "name": "ASC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ASC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ASC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ASC"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ASC"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ASC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ASC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ASC"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ASC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ASC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ASC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ASC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ASC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ASC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ASC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ASC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ASC"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ASC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ASC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ASC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ASC"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ASC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ASC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ASC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ASC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ASC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ASC"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ASC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ASC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ASC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ASC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ASC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "width_conversion_host_profile",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

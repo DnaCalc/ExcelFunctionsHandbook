@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.CSC",
+  "surface_name": "CSC",
+  "published_row_id": "FUNC.CSC",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCsc",
+    "code": "552"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=circular_trig_overflow;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=circular_trig_overflow;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CSC(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the cosecant of an angle",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/csc-function-07379361-219a-4398-8675-07ddc4f135c1",
+    "english_description": "Returns the cosecant of an angle"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CSC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CSC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CSC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CSC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CSC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CSC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CSC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CSC"
+    },
+    {
+      "locale": "en-US",
+      "name": "CSC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CSC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CSC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOSEK"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CSC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CSC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CSC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "CSC"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CSC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CSC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CSC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CSC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CSC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CSC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "CSC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COSEC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CSC"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CSC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CSC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CSC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "CSC"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CSC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CSC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CSC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CSC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CSC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "CSC"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CSC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CSC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CSC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CSC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CSC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.ROUND",
+  "surface_name": "ROUND",
+  "published_row_id": "FUNC.ROUND",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfRound",
+    "code": "27"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ROUND(number, num_digits)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "num_digits",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Rounds a number to a specified number of digits",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/round-function-c018c5d8-40fb-4053-90b1-b3e7f61a213c",
+    "english_description": "Rounds a number to a specified number of digits"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ROUND"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ROUND"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ZAOKROUHLIT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AFRUND"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ROUND"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ROUND"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ROUND"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ROUND"
+    },
+    {
+      "locale": "en-US",
+      "name": "ROUND"
+    },
+    {
+      "locale": "es-ES",
+      "name": "REDONDEAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ROUND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KIERROS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ARRONDI*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ROUND"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ROUND"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KEREKÍTÉS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ROUND"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ROUND"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ROUND"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ROUND"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ROUND"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ROUND"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AVRUND"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "RONDE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZAOKR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ROUND"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ARRED"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ROUND"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОКРУГЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "KOLO"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ROUND"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ROUND"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "AVRUNDA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ROUND"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "YUVARLA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ROUND"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ROUND"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ROUND"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ROUND"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ROUND"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-ROUND-001",
+    "lean_module": "OxFunc.Functions.Round",
+    "rust_module": "oxfunc_core::functions::round_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

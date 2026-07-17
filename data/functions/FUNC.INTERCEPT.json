@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.INTERCEPT",
+  "surface_name": "INTERCEPT",
+  "published_row_id": "FUNC.INTERCEPT",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfIntercept",
+    "code": "311"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "INTERCEPT(known_y's, known_x's)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "known_y's",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "known_x's",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the intercept of the linear regression line",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/intercept-function-2a9b74e2-9d47-4772-b663-3bca70bf63ef",
+    "english_description": "Returns the intercept of the linear regression line"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SKÆRING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "en-US",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INTERSECCION.EJE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LEIKKAUSPISTE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ORDONNEE.ORIGINE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "METSZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SKJÆRINGSPUNKT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SNIJPUNT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ODCIĘTA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INTERCETAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОТРЕЗОК"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SKÄRNINGSPUNKT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KESMENOKTASI işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "INTERCEPT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "INTERCEPT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

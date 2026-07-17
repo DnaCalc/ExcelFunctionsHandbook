@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ACOSH",
+  "surface_name": "ACOSH",
+  "published_row_id": "FUNC.ACOSH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAcosh",
+    "code": "233"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ACOSH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the inverse hyperbolic cosine of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/acosh-function-e3992cc1-103f-4e72-9f04-624b9ef5ebfe",
+    "english_description": "Returns the inverse hyperbolic cosine of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ARCCOSH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARCCOSH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "en-US",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BOOGCOSH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARCCOSH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ACOSH işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ACOSH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ACOSH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

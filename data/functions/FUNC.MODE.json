@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.MODE",
+  "surface_name": "MODE",
+  "published_row_id": "FUNC.MODE",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfMode",
+    "code": "330"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the most common value in a data set",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/mode-function-e45192ce-9122-4980-82ed-4bdc34973120",
+    "english_description": "Returns the most common value in a data set"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MODE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MODE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MODE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HYPPIGST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MODE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MODE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MODE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MODE"
+    },
+    {
+      "locale": "en-US",
+      "name": "MODE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MODA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MODE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MOODI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MODE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MODE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MODE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MÓDUSZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MODE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MODE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MODE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MODE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MODE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MODE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MODUS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MODUS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WYST.NAJCZĘŚCIEJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MODO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MODA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MODE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МОДА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MODE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MODE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MODE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TYPVÄRDE"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MODE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ENÇOK_OLAN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MODE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MODE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MODE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MODE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MODE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

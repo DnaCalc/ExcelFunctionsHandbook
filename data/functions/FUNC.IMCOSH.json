@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMCOSH",
+  "surface_name": "IMCOSH",
+  "published_row_id": "FUNC.IMCOSH",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImcosh",
+    "code": "594"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the hyperbolic cosine of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imcosh-function-053e4ddb-4122-458b-be9a-457c405e90ff",
+    "english_description": "Returns the hyperbolic cosine of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGCOSH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.COSH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.COSH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.COSH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.COSH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "COSH.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.COSH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANCOSH"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMCOSH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMCOSH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

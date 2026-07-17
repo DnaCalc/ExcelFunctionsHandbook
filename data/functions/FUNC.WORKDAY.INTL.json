@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.WORKDAY.INTL",
+  "surface_name": "WORKDAY.INTL",
+  "published_row_id": "FUNC.WORKDAY.INTL",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfWorkday_intl",
+    "code": "521"
+  },
+  "arity": {
+    "min": 2,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the serial number of the date before or after a specified number of workdays using parameters to indicate which and how many days are weekend days",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/workday-intl-function-a378391c-9ba7-4678-8a39-39611a9bf81d",
+    "english_description": "Returns the serial number of the date before or after a specified number of workdays using parameters to indicate which and how many days are weekend days"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARBEJDSDAG.INTL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "en-US",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DIA.LAB.INTL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TYÖPÄIVÄ.KANSVÄL"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SERIE.JOUR.OUVRE.INTL*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KALK.MUNKANAP.INTL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "WERKDAG.INTL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DZIEŃ.ROBOCZY.NIESTAND"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIATRABALHO.INTL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РАБДЕНЬ.МЕЖД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARBETSDAGAR.INT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "İŞGÜNÜ.ULUSL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "WORKDAY.INTL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "WORKDAY.INTL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.F.DIST",
+  "surface_name": "F.DIST",
+  "published_row_id": "FUNC.F.DIST",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfF_dist",
+    "code": "531"
+  },
+  "arity": {
+    "min": 4,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the F probability distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/f-dist-function-a887efdc-7c8e-46cb-a74a-f884cd29b25d",
+    "english_description": "Returns the F probability distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "F.FORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.F.N"
+    },
+    {
+      "locale": "et-EE",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "F.JAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.F.N*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "id-ID",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "F.VERD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.F"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.F"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "F.РАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "F.FÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "F.DAĞ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "F.DIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "F.DIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

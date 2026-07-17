@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MOD",
+  "surface_name": "MOD",
+  "published_row_id": "FUNC.MOD",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMod",
+    "code": "39"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MOD(number, divisor)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "divisor",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the remainder from division",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/mod-function-9b6cd169-b6ee-406a-a97b-edf2a9dc24f3",
+    "english_description": "Returns the remainder from division"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MOD"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MOD"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MOD"
+    },
+    {
+      "locale": "da-DK",
+      "name": "REST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "REST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MOD"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MOD"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MOD"
+    },
+    {
+      "locale": "en-US",
+      "name": "MOD"
+    },
+    {
+      "locale": "es-ES",
+      "name": "RESIDUO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MOD"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "JAKOJ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MOD"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MOD"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MOD"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MARADÉK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MOD"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MOD"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MOD"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MOD"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MOD"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MOD"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MOD"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "REST"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MOD"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MOD"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "RESTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MOD"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОСТАТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MOD"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MOD"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MOD"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MOD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MOD"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "MOD"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MOD"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MOD"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MOD"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MOD"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MOD"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

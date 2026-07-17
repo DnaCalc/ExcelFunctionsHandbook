@@ -1,0 +1,1646 @@
+{
+  "function_id": "FUNC.ISBLANK",
+  "surface_name": "ISBLANK",
+  "published_row_id": "FUNC.ISBLANK",
+  "entry_kind": "built_in_function",
+  "category": "Information functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfIsblank",
+    "code": "129"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns TRUE if the value is blank",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/is-functions-0f2d7971-6019-40a0-a171-f2d869135665",
+    "english_description": "Returns TRUE if the value is blank"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISERR"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISNA"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISODD"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISREF"
+    },
+    {
+      "locale": "ar-SA",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISERR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISNA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISODD"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISREF"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ISODD"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.CHYBA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.CHYBHODN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.ČISLO"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.LOGHODN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.NEDEF"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.NETEXT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.ODKAZ"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.PRÁZDNÉ"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "JE.TEXT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.FEJL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.FJL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.IKKE.TEKST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.IKKE.TILGÆNGELIG"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.LOGISK"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.REFERENCE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.TAL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.TEKST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.TOM"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ER.ULIGE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISODD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTBEZUG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTFEHL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTFEHLER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTKTEXT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTLEER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTLOG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTNV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTTEXT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ISTZAHL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISERR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISNA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISODD"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISREF"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISERR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISNA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISODD"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISREF"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISERR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISNA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISODD"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISREF"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISERR"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISNA"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISODD"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISREF"
+    },
+    {
+      "locale": "en-US",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ES.IMPAR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESBLANCO"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESERR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESERROR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESLOGICO"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESNOD"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESNOTEXTO"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESNUMERO"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESREF"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ESTEXTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISERR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISNA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISODD"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISREF"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONEI_TEKSTI"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONLUKU"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONPARITON"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONPUUTTUU"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONTEKSTI"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONTOTUUS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONTYHJÄ"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONVIITT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONVIRH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ONVIRHE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "EST.IMPAIR*"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTERR"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTERREUR"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTLOGIQUE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTNA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTNONTEXTE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTNUM"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTREF"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTTEXTE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ESTVIDE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISERR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISNA"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISODD"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISREF"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISERR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISNA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISODD"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISREF"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HIBA.E"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HIBÁS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HIVATKOZÁS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LOGIKAI"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NEM.SZÖVEG"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NINCS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "PÁRATLANE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÁM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÖVEG.E"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÜRES"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISERR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISNA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISODD"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISREF"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ISODD"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.ERR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.ERRORE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.LOGICO"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.NON.DISP"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.NON.TESTO"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.NUMERO"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.RIF"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.TESTO"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAL.VUOTO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISERR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISNA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISODD"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISREF"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISERR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISNA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISODD"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISREF"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISERR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISNA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISODD"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISREF"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISERR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISNA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISODD"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISREF"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERF"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERFEIL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERIKKETEKST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERIT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERLOGISK"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERREF"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERTALL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERTEKST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ERTOM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ISODD"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "IS.ONEVEN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISFOUT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISFOUT2"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISGEENTEKST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISGETAL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISLEEG"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISLOGISCH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISNB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISTEKST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ISVERWIJZING"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.ADR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.BŁ"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.BŁĄD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.BRAK"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.LICZBA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.LOGICZNA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.NIE.TEKST"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.NIEPARZYSTE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.PUSTA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.TEKST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "É.NÃO.DISP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "É.NÃO.TEXTO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÉCÉL.VAZIA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÉERRO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÉERROS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÉLÓGICO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÉNÚMERO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÉREF"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÉTEXTO"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ISODD"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.CÉL.VAZIA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.ERRO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.ERROS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.LÓGICO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.NÃO.DISP"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.NÃO.TEXTO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.NÚM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.REF"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "É.TEXTO"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ÉÍMPAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISERR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISNA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISODD"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISREF"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕЛОГИЧ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕНД"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕНЕТЕКСТ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕНЕЧЁТ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕОШ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕОШИБКА"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕПУСТО"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕССЫЛКА"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕТЕКСТ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕЧИСЛО"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISERR"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISNA"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISODD"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISREF"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISERR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISNA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISODD"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISREF"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISERR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISNA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISODD"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISREF"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄREJTEXT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRF"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRFEL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRLOGISK"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRSAKNAD"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRTAL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRTEXT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRTOM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRTOM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ÄRUDDA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISERR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISNA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISODD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISREF"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EBOŞSA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EHATA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EHATALIYSA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EMANTIKSALSA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EMETİNDEĞİLSE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EMETİNSE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EREFSE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ESAYIYSA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "EYOKSA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TEKMİ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISERR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISNA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISODD"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISREF"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISERR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISNA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISODD"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISREF"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISERR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISNA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISODD"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISREF"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISERR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISNA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISODD"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISREF"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ISTEXT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISBLANK"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISERR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISERROR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISLOGICAL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISNA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISNONTEXT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISNUMBER"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISODD"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISREF"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ISTEXT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

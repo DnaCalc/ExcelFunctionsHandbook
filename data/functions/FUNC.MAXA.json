@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MAXA",
+  "surface_name": "MAXA",
+  "published_row_id": "FUNC.MAXA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMaxa",
+    "code": "362"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MAXA(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the maximum value in a list of arguments, including numbers, text, and logical values",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/maxa-function-814bda1e-3840-4bff-9365-2f59ac2ee62d",
+    "english_description": "Returns the maximum value in a list of arguments, including numbers, text, and logical values"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MAXA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MAXA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MAXA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MAKSV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MAXA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MAXA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MAXA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MAXA"
+    },
+    {
+      "locale": "en-US",
+      "name": "MAXA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MAXA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MAXA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MAKSA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MAXA*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MAXA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MAXA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MAXA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MAXA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MAXA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MAXA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MAXA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MAXA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MAXA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MAKSA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MAXA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MAX.A"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MAXA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MÁXIMOA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MAXA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МАКСА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MAXA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MAXA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MAXA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MAXA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MAXA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "MAKA işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MAXA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MAXA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MAXA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MAXA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MAXA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

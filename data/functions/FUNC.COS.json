@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.COS",
+  "surface_name": "COS",
+  "published_row_id": "FUNC.COS",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCos",
+    "code": "16"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=circular_trig_overflow;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=circular_trig_overflow;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "COS(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the cosine of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/cos-function-0fb808a5-95d6-4553-8148-22aebdce5f05",
+    "english_description": "Returns the cosine of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "COS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "COS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COS"
+    },
+    {
+      "locale": "en-US",
+      "name": "COS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "COS"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COS"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "COS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "COS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "COS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "COS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "COS"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "COS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "COS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

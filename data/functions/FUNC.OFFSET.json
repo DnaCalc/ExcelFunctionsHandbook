@@ -1,0 +1,256 @@
+{
+  "function_id": "FUNC.OFFSET",
+  "surface_name": "OFFSET",
+  "published_row_id": "FUNC.OFFSET",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfOffset",
+    "code": "78"
+  },
+  "arity": {
+    "min": 3,
+    "max": 5
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "CallerContext",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "CallerContext",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "VolatileContextual"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "OFFSET(reference, rows, cols, [height], [width])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "reference",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rows",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "cols",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "height",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "width",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a reference offset from a given reference",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/offset-function-c8de19ae-dd79-4b9b-a14e-b4d906d11b66",
+    "english_description": "Returns a reference offset from a given reference"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "POSUN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FORSKYDNING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BEREICH.VERSCHIEBEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "en-AU",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "en-GB",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "en-US",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DESREF"
+    },
+    {
+      "locale": "et-EE",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SIIRTYMÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DECALER"
+    },
+    {
+      "locale": "he-IL",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ELTOLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "it-IT",
+      "name": "SCARTO"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FORSKYVNING"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VERSCHUIVING"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PRZESUNIĘCIE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DESLOC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DESLOCAMENTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СМЕЩ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FÖRSKJUTNING"
+    },
+    {
+      "locale": "th-TH",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KAYDIR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "OFFSET"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "OFFSET"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-OFFSET-001",
+    "lean_module": "OxFunc.Functions.Offset",
+    "rust_module": "oxfunc_core::functions::offset",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

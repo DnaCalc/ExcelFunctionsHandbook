@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.DEGREES",
+  "surface_name": "DEGREES",
+  "published_row_id": "FUNC.DEGREES",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfDegrees",
+    "code": "343"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "DEGREES(angle)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "angle",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts radians to degrees",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/degrees-function-4d6ec4db-e694-4b94-ace0-1cc3f61f9ba1",
+    "english_description": "Converts radians to degrees"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "STUPŇŮ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "GRADER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "GRAD"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "en-US",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "es-ES",
+      "name": "GRADOS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ASTEET"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DEGRÉS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "FOK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "GRADER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "GRADEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "STOPNIE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "GRAUS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "GRAUS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ГРАДУСЫ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "STUPNE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "STEPENI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "GRADER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DERECE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DEGREES"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DEGREES"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

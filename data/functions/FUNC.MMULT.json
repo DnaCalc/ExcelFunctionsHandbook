@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.MMULT",
+  "surface_name": "MMULT",
+  "published_row_id": "FUNC.MMULT",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfMmult",
+    "code": "165"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the matrix product of two arrays",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/mmult-function-40593ed7-a3cd-4b6b-b9a3-e4ad3c7245eb",
+    "english_description": "Returns the matrix product of two arrays"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MMULT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MMULT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MMULT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MPRODUKT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MMULT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MMULT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MMULT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MMULT"
+    },
+    {
+      "locale": "en-US",
+      "name": "MMULT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MMULT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MMULT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MKERRO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PRODUITMAT*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MMULT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MMULT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MSZORZAT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MMULT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MMULT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MMULT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MMULT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MMULT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MMULT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MMULT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PRODUCTMAT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MACIERZ.ILOCZYN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MMULT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MATRIZ.MULT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MMULT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МУМНОЖ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MMULT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MMULT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MMULT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MMULT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MMULT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DÇARP işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MMULT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MMULT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MMULT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MMULT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MMULT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

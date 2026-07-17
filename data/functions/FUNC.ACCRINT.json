@@ -1,0 +1,259 @@
+{
+  "function_id": "FUNC.ACCRINT",
+  "surface_name": "ACCRINT",
+  "published_row_id": "FUNC.ACCRINT",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfAccrint",
+    "code": "469"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ACCRINT(issue, first_interest, settlement, rate, par, frequency, [basis], [calc_method])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "issue",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "first_interest",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "settlement",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rate",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "par",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "frequency",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "basis",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "calc_method",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the accrued interest for a security that pays periodic interest",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/accrint-function-fe45d089-6722-4fb3-9379-e1f911d8dc74",
+    "english_description": "Returns the accrued interest for a security that pays periodic interest"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "en-US",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INT.ACUM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KERTYNYT.KORKO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "INTERET.ACC"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "IDŐSZAKI.KAMAT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SAMENG.RENTE"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NAL.ODS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "JUROSACUM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАКОПДОХОД"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "UPPLRÄNTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GERÇEKFAİZ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ACCRINT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ACCRINT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

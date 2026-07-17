@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.COUNTA",
+  "surface_name": "COUNTA",
+  "published_row_id": "FUNC.COUNTA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCounta",
+    "code": "169"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "COUNTA(value1, [value2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "value1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Counts how many values are in the list of arguments",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/counta-function-7dc98875-d5c1-46f1-9a82-53f3219e2509",
+    "english_description": "Counts how many values are in the list of arguments"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "POČET2"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TÆLV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ANZAHL2"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "en-US",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CONTARA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LASKE.A"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NBVAL"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "DARAB2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONTA.VALORI"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ANTALLA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AANTALARG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ILE.NIEPUSTYCH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONT.VALORES"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CONTAR.VAL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СЧЁТЗ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ANTALV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BAĞ_DEĞ_DOLU_SAY"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COUNTA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COUNTA"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-COUNTA-001",
+    "lean_module": "OxFunc.Functions.CountA",
+    "rust_module": "oxfunc_core::functions::counta",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

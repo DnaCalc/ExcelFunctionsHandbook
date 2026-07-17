@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.FILTERXML",
+  "surface_name": "FILTERXML",
+  "published_row_id": "FUNC.FILTERXML",
+  "entry_kind": "built_in_function",
+  "category": "Web functions",
+  "admission": {
+    "label": "deferred",
+    "reason": "Deferred with the current W041 family despite bounded local work."
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfFilterxml",
+    "code": "595"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "FILTERXML(xml, xpath)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "xml",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "xpath",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns specific data from the XML content by using the specified XPath",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/filterxml-function-4df72efc-11ec-4951-86f5-c1374812f5b7",
+    "english_description": "Returns specific data from the XML content by using the specified XPath"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FILTRERXML"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "en-US",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "es-ES",
+      "name": "XMLFILTRO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SUODATA.XML"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FILTRE.XML*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "XMLSZŰRÉS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FILTRARXML"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ФИЛЬТР.XML"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "XMLFİLTRELE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FILTERXML"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FILTERXML"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

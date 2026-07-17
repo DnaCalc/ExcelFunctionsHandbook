@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.NORMSINV",
+  "surface_name": "NORMSINV",
+  "published_row_id": "FUNC.NORMSINV",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfNormsinv",
+    "code": "296"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the inverse of the standard normal cumulative distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/normsinv-function-8d1bce66-8e4d-4f3b-967c-30eed61f019d",
+    "english_description": "Returns the inverse of the standard normal cumulative distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STANDARDNORMINV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "en-US",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.NORM.ESTAND.INV"
+    },
+    {
+      "locale": "et-EE",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NORM.JAKAUMA.NORMIT.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.NORMALE.STANDARD.INVERSE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "INVERZ.STNORM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "STAND.NORM.INV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.NORMALNY.S.ODW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INV.NORMP"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОРМСТОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "NORMSTERS işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "NORMSINV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "NORMSINV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

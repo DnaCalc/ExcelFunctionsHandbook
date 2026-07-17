@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMSECH",
+  "surface_name": "IMSECH",
+  "published_row_id": "FUNC.IMSECH",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImsech",
+    "code": "561"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the hyperbolic secant of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imsech-function-f250304f-788b-4505-954e-eb01fa50903b",
+    "english_description": "Returns the hyperbolic secant of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGSECH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.SECH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.SEKH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.SECH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.SECH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.SECH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SECH.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.SECH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMSEKH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANSECH"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMSECH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMSECH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

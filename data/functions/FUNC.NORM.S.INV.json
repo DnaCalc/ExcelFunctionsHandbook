@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.NORM.S.INV",
+  "surface_name": "NORM.S.INV",
+  "published_row_id": "FUNC.NORM.S.INV",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfNorm_s_inv",
+    "code": "540"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the inverse of the standard normal cumulative distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/norm-s-inv-function-d6d556b4-ab7f-49cd-b526-5a20918452b1",
+    "english_description": "Returns the inverse of the standard normal cumulative distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STANDARD.NORM.INV"
+    },
+    {
+      "locale": "de-DE",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "el-GR",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "en-AU",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "en-GB",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "en-US",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INV.NORM.ESTAND"
+    },
+    {
+      "locale": "et-EE",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NORM_JAKAUMA.KÄÄNT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.NORMALE.STANDARD.INVERSE.N*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NORM.S.INVERZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "it-IT",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.NORMALNY.S.ODWR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "INV.S.NORM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОРМ.СТ.ОБР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "NORM.S.TERS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "NORM.S.INV"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "NORM.S.INV"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

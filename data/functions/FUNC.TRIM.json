@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.TRIM",
+  "surface_name": "TRIM",
+  "published_row_id": "FUNC.TRIM",
+  "entry_kind": "built_in_function",
+  "category": "Text functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfTrim",
+    "code": "118"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "None",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "TextToText",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Removes spaces from text",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/trim-function-410388fa-c5df-49c6-b16c-9e5630b479f9",
+    "english_description": "Removes spaces from text"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TRIM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TRIM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TRIM"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TRIM"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TRIM"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TRIM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TRIM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TRIM"
+    },
+    {
+      "locale": "en-US",
+      "name": "TRIM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TRIM"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TRIM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "POISTA.VÄLIT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SUPPRESPACE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TRIM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TRIM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "TRIM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TRIM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TRIM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TRIM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TRIM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TRIM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TRIM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TRIM"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TRIM"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "TRIM"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TRIM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TRIM"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TRIM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "TRIM"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TRIM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TRIM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TRIM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TRIM"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TRIM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KIRP"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TRIM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TRIM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TRIM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TRIM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TRIM"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

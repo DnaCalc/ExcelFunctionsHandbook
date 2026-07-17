@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.DELTA",
+  "surface_name": "DELTA",
+  "published_row_id": "FUNC.DELTA",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfDelta",
+    "code": "418"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "DELTA(number1, number2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Tests whether two values are equal",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/delta-function-2f763672-c959-4e07-ac33-fe03220ba432",
+    "english_description": "Tests whether two values are equal"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DELTA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DELTA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DELTA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DELTA"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DELTA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DELTA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DELTA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DELTA"
+    },
+    {
+      "locale": "en-US",
+      "name": "DELTA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DELTA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DELTA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SAMA.ARVO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DELTA"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DELTA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DELTA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "DELTA"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DELTA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DELTA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "差分"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "델타"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DELTA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DELTA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DELTA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DELTA"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "CZY.RÓWNE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DELTA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DELTA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DELTA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДЕЛЬТА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DELTA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DELTA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DELTA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DELTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DELTA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DELTA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DELTA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DELTA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "增量"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DELTA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DELTA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

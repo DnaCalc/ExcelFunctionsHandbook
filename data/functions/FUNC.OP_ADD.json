@@ -1,0 +1,71 @@
+{
+  "function_id": "FUNC.OP_ADD",
+  "surface_name": "OP_ADD",
+  "published_row_id": "FUNC.OP_ADD",
+  "entry_kind": "built_in_operator",
+  "category": "Operators",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "A + B",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "A",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "B",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": null,
+    "long": null
+  },
+  "docs": null,
+  "localized_names": [],
+  "artifacts": {
+    "contract_row_id": "FN-OPADD-001",
+    "lean_module": "OxFunc.Functions.OpAdd",
+    "rust_module": "oxfunc_core::functions::op_add",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "operator_form",
+  "registry_backed": true
+}

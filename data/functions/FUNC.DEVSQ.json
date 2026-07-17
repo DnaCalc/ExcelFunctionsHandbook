@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.DEVSQ",
+  "surface_name": "DEVSQ",
+  "published_row_id": "FUNC.DEVSQ",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfDevsq",
+    "code": "318"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "DEVSQ(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the sum of squares of deviations",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/devsq-function-8b739616-8376-4df5-8bd0-cfe0a6caf444",
+    "english_description": "Returns the sum of squares of deviations"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SAK"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "en-US",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DESVIA2"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "OIKAISTU.NELIÖSUMMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SOMME.CARRES.ECARTS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SQ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DEV.KWAD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ODCH.KWADRATOWE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DESVQ"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "КВАДРОТКЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KVADAVV"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SAPKARE işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DEVSQ"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DEVSQ"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

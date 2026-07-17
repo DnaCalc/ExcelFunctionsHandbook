@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.AREAS",
+  "surface_name": "AREAS",
+  "published_row_id": "FUNC.AREAS",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAreas",
+    "code": "75"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "AREAS(reference)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "reference",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the number of areas in a reference",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/areas-function-8392ba32-7a41-43b3-96b0-3695d2ec6152",
+    "english_description": "Returns the number of areas in a reference"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "المناطق"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AREAS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "POČET.BLOKŮ"
+    },
+    {
+      "locale": "da-DK",
+      "name": "OMRÅDER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BEREICHE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AREAS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AREAS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AREAS"
+    },
+    {
+      "locale": "en-US",
+      "name": "AREAS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "AREAS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AREAS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ALUEILLA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ZONES*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AREAS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AREAS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "TERÜLET"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AREAS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AREAS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AREAS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AREAS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AREAS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AREAS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "OMRÅDER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AREAS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "OBSZARY"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÁREAS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ÁREAS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AREAS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОБЛАСТИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AREAS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PODROČJA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "OBLASTI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "OMRÅDEN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AREAS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ALANSAY işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AREAS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AREAS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AREAS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AREAS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AREAS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.COUNT",
+  "surface_name": "COUNT",
+  "published_row_id": "FUNC.COUNT",
+  "entry_kind": "built_in_function",
+  "category": "Our 10 featured functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCount",
+    "code": "0"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "COUNT(value1, [value2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "value1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "value2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Use this function to count how many numbers are in the list of arguments. You can use COUNTA to count how many values are in the list of arguments.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/count-function-a59cd7fc-b623-4d93-87a4-d23bf411294c",
+    "english_description": "Use this function to count how many numbers are in the list of arguments. You can use COUNTA to count how many values are in the list of arguments."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COUNT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COUNT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "COUNT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TÆL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ANZAHL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COUNT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COUNT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COUNT"
+    },
+    {
+      "locale": "en-US",
+      "name": "COUNT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "CONTAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COUNT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LASKE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "NB"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COUNT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COUNT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "DARAB"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COUNT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CONTA.NUMERI"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COUNT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COUNT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COUNT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COUNT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ANTALL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AANTAL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ILE.LICZB"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "CONT.NÚM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COUNT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COUNT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СЧЁТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COUNT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COUNT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COUNT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ANTAL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COUNT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BAĞ_DEĞ_SAY"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COUNT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COUNT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COUNT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COUNT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COUNT"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-COUNT-001",
+    "lean_module": "OxFunc.Functions.Count",
+    "rust_module": "oxfunc_core::functions::count",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

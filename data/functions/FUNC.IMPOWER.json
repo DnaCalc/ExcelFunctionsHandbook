@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMPOWER",
+  "surface_name": "IMPOWER",
+  "published_row_id": "FUNC.IMPOWER",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImpower",
+    "code": "398"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns a complex number raised to an integer power",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/impower-function-210fd2f5-f8ff-4c6a-9d60-30e34fbdef39",
+    "english_description": "Returns a complex number raised to an integer power"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGPOTENS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.POT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.POT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.PUISSANCE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.HATV"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.MACHT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "POTĘGA.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMPOT"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.СТЕПЕНЬ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMUPPHÖJT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANKUVVET işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMPOWER"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMPOWER"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

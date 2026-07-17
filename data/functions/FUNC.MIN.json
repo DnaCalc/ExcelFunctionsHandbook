@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MIN",
+  "surface_name": "MIN",
+  "published_row_id": "FUNC.MIN",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMin",
+    "code": "6"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MIN(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the minimum value in a list of arguments",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/min-function-61635d12-920f-4ce2-a70f-96f202dcc152",
+    "english_description": "Returns the minimum value in a list of arguments"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MIN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MIN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MIN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MIN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MIN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MIN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MIN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MIN"
+    },
+    {
+      "locale": "en-US",
+      "name": "MIN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MIN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MIN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MIN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MIN"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MIN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MIN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MIN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MIN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MIN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MIN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MIN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MIN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MIN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MIN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MIN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MIN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MÍN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MIN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MIN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МИН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MIN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MIN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MIN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MIN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MIN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "MİN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MIN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MIN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MIN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MIN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MIN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

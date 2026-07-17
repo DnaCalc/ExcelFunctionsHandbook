@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.REDUCE",
+  "surface_name": "REDUCE",
+  "published_row_id": "FUNC.REDUCE",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "REDUCE(initial_value, array, lambda)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "initial_value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "lambda",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Reduces an array to an accumulated value by applying a LAMBDA to each value and returning the total value in the accumulator",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/reduce-function-42e39910-b345-45f3-84b8-0642b568b7cb",
+    "english_description": "Reduces an array to an accumulated value by applying a LAMBDA to each value and returning the total value in the accumulator"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "en-US",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "REDUCE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "id-ID",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "REDUCEREN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "REDUZIR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SMANJITI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "th-TH",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "REDUCE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "REDUCE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "callable_helper_runtime",
+  "admission_interface_kind": "higher_order_call",
+  "registry_backed": true
+}

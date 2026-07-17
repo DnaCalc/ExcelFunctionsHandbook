@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.ROMAN",
+  "surface_name": "ROMAN",
+  "published_row_id": "FUNC.ROMAN",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfRoman",
+    "code": "354"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ROMAN(number, [form])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "form",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts an Arabic numeral to Roman, as text",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/roman-function-d6b0b99e-de46-4704-a518-b45a0f8b56f5",
+    "english_description": "Converts an Arabic numeral to Roman, as text"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ROMERTAL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "en-US",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "NUMERO.ROMANO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ROMAIN*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "RÓMAI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ROMEINS"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "RZYMSKIE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ROMANO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "РИМСКОЕ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ROMERSK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ROMEN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ROMAN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ROMAN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

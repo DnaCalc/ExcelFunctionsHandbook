@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.CHIDIST",
+  "surface_name": "CHIDIST",
+  "published_row_id": "FUNC.CHIDIST",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfChidist",
+    "code": "274"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "CHIDIST(x, deg_freedom)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "deg_freedom",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the one-tailed probability of the chi-squared distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/chidist-function-c90d0fbc-5b56-4f5f-ab57-34af1bf6897e",
+    "english_description": "Returns the one-tailed probability of the chi-squared distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "CHIFORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DISTR.CHI"
+    },
+    {
+      "locale": "et-EE",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "CHIJAKAUMA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.KHIDEUX*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KHI.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "KJI.FORDELING"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "CHI.KWADRAAT"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁAD.CHI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "QUIDIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.CHI"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ХИ2РАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "CHI2FÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KİKAREDAĞ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "CHIDIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "CHIDIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

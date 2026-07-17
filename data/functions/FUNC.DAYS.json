@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.DAYS",
+  "surface_name": "DAYS",
+  "published_row_id": "FUNC.DAYS",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfDays",
+    "code": "573"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the number of days between two dates",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/days-function-57740535-d549-4395-8728-0f07bff0b9df",
+    "english_description": "Returns the number of days between two dates"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "أيام"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DAYS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DAYS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DAGE"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TAGE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DAYS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DAYS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DAYS"
+    },
+    {
+      "locale": "en-US",
+      "name": "DAYS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DIAS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "DAYS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PÄIVÄT"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "JOURS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DAYS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DAYS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NAPOK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HARI"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DAYS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DAYS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DAYS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DAYS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DAYS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DAYS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DAGEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DNI"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DIAS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIAS"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DAYS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДНИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DAYS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DAYS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DANI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DAGAR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "DAYS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GÜNSAY"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "DAYS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DAYS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DAYS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DAYS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DAYS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

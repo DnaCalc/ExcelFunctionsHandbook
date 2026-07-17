@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.VAR",
+  "surface_name": "VAR",
+  "published_row_id": "FUNC.VAR",
+  "entry_kind": "built_in_function",
+  "category": "Compatibility",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfVar",
+    "code": "46"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "VAR(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Estimates variance based on a sample",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/var-function-1f2b7ab2-954d-4e17-ba2c-9e58b15a7da2",
+    "english_description": "Estimates variance based on a sample"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VAR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VAR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "VAR.VÝBĚR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VARIANS"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VARIANZ"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VAR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VAR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VAR"
+    },
+    {
+      "locale": "en-US",
+      "name": "VAR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "VAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VAR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VAR"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VAR"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VAR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VAR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VAR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VAR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VAR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VAR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VAR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VAR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VAR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VARIANS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VAR"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WARIANCJA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "VAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VAR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ДИСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VAR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VAR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VAR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VARIANS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VAR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VAR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VAR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VAR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VAR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VAR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VAR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

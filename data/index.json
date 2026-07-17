@@ -1,0 +1,3815 @@
+{
+  "provenance": {
+    "export_snapshot_id": "oxfunc-libctx-v1",
+    "export_snapshot_generation": "2026-04-02",
+    "export_source_commit": "87ef585",
+    "export_source_tree_state": "dirty",
+    "oxfunc_commit_at_ingest": "4093700",
+    "registry_snapshot_family": "oxfunc.function_registry.v1",
+    "registry_generation": 0,
+    "registry_content_fingerprint": "1f4b1600bdfad07e",
+    "tool": "efh-ingest 0.1.0"
+  },
+  "counts": {
+    "total_entries": 541,
+    "published_rows": 534,
+    "split_combined_rows": 7,
+    "functions": 518,
+    "operators": 23,
+    "registry_backed": 525,
+    "export_only": 16,
+    "deferred": 17,
+    "placeholder_signatures": 229,
+    "with_docs_link": 518,
+    "with_localized_names": 517
+  },
+  "rows": [
+    {
+      "function_id": "FUNC.ABS",
+      "surface_name": "ABS",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ACCRINT",
+      "surface_name": "ACCRINT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ACCRINTM",
+      "surface_name": "ACCRINTM",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ACOS",
+      "surface_name": "ACOS",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ACOSH",
+      "surface_name": "ACOSH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ACOT",
+      "surface_name": "ACOT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ACOTH",
+      "surface_name": "ACOTH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ADDRESS",
+      "surface_name": "ADDRESS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AGGREGATE",
+      "surface_name": "AGGREGATE",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AMORDEGRC",
+      "surface_name": "AMORDEGRC",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AMORLINC",
+      "surface_name": "AMORLINC",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AND",
+      "surface_name": "AND",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ARABIC",
+      "surface_name": "ARABIC",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AREAS",
+      "surface_name": "AREAS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ARRAYTOTEXT",
+      "surface_name": "ARRAYTOTEXT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ASC",
+      "surface_name": "ASC",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ASIN",
+      "surface_name": "ASIN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ASINH",
+      "surface_name": "ASINH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ATAN",
+      "surface_name": "ATAN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ATAN2",
+      "surface_name": "ATAN2",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ATANH",
+      "surface_name": "ATANH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AVEDEV",
+      "surface_name": "AVEDEV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AVERAGE",
+      "surface_name": "AVERAGE",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AVERAGEA",
+      "surface_name": "AVERAGEA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AVERAGEIF",
+      "surface_name": "AVERAGEIF",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.AVERAGEIFS",
+      "surface_name": "AVERAGEIFS",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BAHTTEXT",
+      "surface_name": "BAHTTEXT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BASE",
+      "surface_name": "BASE",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BESSELI",
+      "surface_name": "BESSELI",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BESSELJ",
+      "surface_name": "BESSELJ",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BESSELK",
+      "surface_name": "BESSELK",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BESSELY",
+      "surface_name": "BESSELY",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BETA.DIST",
+      "surface_name": "BETA.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BETA.INV",
+      "surface_name": "BETA.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BETADIST",
+      "surface_name": "BETADIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BETAINV",
+      "surface_name": "BETAINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BIN2DEC",
+      "surface_name": "BIN2DEC",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BIN2HEX",
+      "surface_name": "BIN2HEX",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BIN2OCT",
+      "surface_name": "BIN2OCT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BINOM.DIST",
+      "surface_name": "BINOM.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BINOM.DIST.RANGE",
+      "surface_name": "BINOM.DIST.RANGE",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BINOM.INV",
+      "surface_name": "BINOM.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BINOMDIST",
+      "surface_name": "BINOMDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BITAND",
+      "surface_name": "BITAND",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BITLSHIFT",
+      "surface_name": "BITLSHIFT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BITOR",
+      "surface_name": "BITOR",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BITRSHIFT",
+      "surface_name": "BITRSHIFT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BITXOR",
+      "surface_name": "BITXOR",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BYCOL",
+      "surface_name": "BYCOL",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.BYROW",
+      "surface_name": "BYROW",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CALL",
+      "surface_name": "CALL",
+      "entry_kind": "built_in_function",
+      "category": "User defined functions that are installed with add-ins",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CEILING",
+      "surface_name": "CEILING",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CEILING.MATH",
+      "surface_name": "CEILING.MATH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CEILING.PRECISE",
+      "surface_name": "CEILING.PRECISE",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CELL",
+      "surface_name": "CELL",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHAR",
+      "surface_name": "CHAR",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHIDIST",
+      "surface_name": "CHIDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHIINV",
+      "surface_name": "CHIINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHISQ.DIST",
+      "surface_name": "CHISQ.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHISQ.DIST.RT",
+      "surface_name": "CHISQ.DIST.RT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHISQ.INV",
+      "surface_name": "CHISQ.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHISQ.INV.RT",
+      "surface_name": "CHISQ.INV.RT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHISQ.TEST",
+      "surface_name": "CHISQ.TEST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHITEST",
+      "surface_name": "CHITEST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHOOSE",
+      "surface_name": "CHOOSE",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHOOSECOLS",
+      "surface_name": "CHOOSECOLS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CHOOSEROWS",
+      "surface_name": "CHOOSEROWS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CLEAN",
+      "surface_name": "CLEAN",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CODE",
+      "surface_name": "CODE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COLUMN",
+      "surface_name": "COLUMN",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COLUMNS",
+      "surface_name": "COLUMNS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COMBIN",
+      "surface_name": "COMBIN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COMBINA",
+      "surface_name": "COMBINA",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COMPLEX",
+      "surface_name": "COMPLEX",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CONCAT",
+      "surface_name": "CONCAT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CONCATENATE",
+      "surface_name": "CONCATENATE",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CONFIDENCE",
+      "surface_name": "CONFIDENCE",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CONFIDENCE.NORM",
+      "surface_name": "CONFIDENCE.NORM",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CONFIDENCE.T",
+      "surface_name": "CONFIDENCE.T",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CONVERT",
+      "surface_name": "CONVERT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COPILOT",
+      "surface_name": "COPILOT",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CORREL",
+      "surface_name": "CORREL",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COS",
+      "surface_name": "COS",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COSH",
+      "surface_name": "COSH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COT",
+      "surface_name": "COT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COTH",
+      "surface_name": "COTH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUNT",
+      "surface_name": "COUNT",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUNTA",
+      "surface_name": "COUNTA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUNTBLANK",
+      "surface_name": "COUNTBLANK",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUNTIF",
+      "surface_name": "COUNTIF",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUNTIFS",
+      "surface_name": "COUNTIFS",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUPDAYBS",
+      "surface_name": "COUPDAYBS",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUPDAYS",
+      "surface_name": "COUPDAYS",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUPDAYSNC",
+      "surface_name": "COUPDAYSNC",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUPNCD",
+      "surface_name": "COUPNCD",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUPNUM",
+      "surface_name": "COUPNUM",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COUPPCD",
+      "surface_name": "COUPPCD",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COVAR",
+      "surface_name": "COVAR",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COVARIANCE.P",
+      "surface_name": "COVARIANCE.P",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.COVARIANCE.S",
+      "surface_name": "COVARIANCE.S",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CRITBINOM",
+      "surface_name": "CRITBINOM",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CSC",
+      "surface_name": "CSC",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CSCH",
+      "surface_name": "CSCH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CUBEKPIMEMBER",
+      "surface_name": "CUBEKPIMEMBER",
+      "entry_kind": "built_in_function",
+      "category": "Cubes",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CUBEMEMBER",
+      "surface_name": "CUBEMEMBER",
+      "entry_kind": "built_in_function",
+      "category": "Cubes",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CUBEMEMBERPROPERTY",
+      "surface_name": "CUBEMEMBERPROPERTY",
+      "entry_kind": "built_in_function",
+      "category": "Cubes",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CUBERANKEDMEMBER",
+      "surface_name": "CUBERANKEDMEMBER",
+      "entry_kind": "built_in_function",
+      "category": "Cubes",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CUBESET",
+      "surface_name": "CUBESET",
+      "entry_kind": "built_in_function",
+      "category": "Cubes",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CUBESETCOUNT",
+      "surface_name": "CUBESETCOUNT",
+      "entry_kind": "built_in_function",
+      "category": "Cubes",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CUBEVALUE",
+      "surface_name": "CUBEVALUE",
+      "entry_kind": "built_in_function",
+      "category": "Cubes",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.CUMIPMT",
+      "surface_name": "CUMIPMT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.CUMPRINC",
+      "surface_name": "CUMPRINC",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DATE",
+      "surface_name": "DATE",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DATEDIF",
+      "surface_name": "DATEDIF",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DATEVALUE",
+      "surface_name": "DATEVALUE",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DAVERAGE",
+      "surface_name": "DAVERAGE",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DAY",
+      "surface_name": "DAY",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DAYS",
+      "surface_name": "DAYS",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DAYS360",
+      "surface_name": "DAYS360",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DB",
+      "surface_name": "DB",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DBCS",
+      "surface_name": "DBCS",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DCOUNT",
+      "surface_name": "DCOUNT",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DCOUNTA",
+      "surface_name": "DCOUNTA",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DDB",
+      "surface_name": "DDB",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DEC2BIN",
+      "surface_name": "DEC2BIN",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DEC2HEX",
+      "surface_name": "DEC2HEX",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DEC2OCT",
+      "surface_name": "DEC2OCT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DECIMAL",
+      "surface_name": "DECIMAL",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DEGREES",
+      "surface_name": "DEGREES",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DELTA",
+      "surface_name": "DELTA",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DETECTLANGUAGE",
+      "surface_name": "DETECTLANGUAGE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.DEVSQ",
+      "surface_name": "DEVSQ",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DGET",
+      "surface_name": "DGET",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DISC",
+      "surface_name": "DISC",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DMAX",
+      "surface_name": "DMAX",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DMIN",
+      "surface_name": "DMIN",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DOLLAR",
+      "surface_name": "DOLLAR",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DOLLARDE",
+      "surface_name": "DOLLARDE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DOLLARFR",
+      "surface_name": "DOLLARFR",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DPRODUCT",
+      "surface_name": "DPRODUCT",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DROP",
+      "surface_name": "DROP",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DSTDEV",
+      "surface_name": "DSTDEV",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DSTDEVP",
+      "surface_name": "DSTDEVP",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DSUM",
+      "surface_name": "DSUM",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DURATION",
+      "surface_name": "DURATION",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DVAR",
+      "surface_name": "DVAR",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.DVARP",
+      "surface_name": "DVARP",
+      "entry_kind": "built_in_function",
+      "category": "Database functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EDATE",
+      "surface_name": "EDATE",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EFFECT",
+      "surface_name": "EFFECT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ENCODEURL",
+      "surface_name": "ENCODEURL",
+      "entry_kind": "built_in_function",
+      "category": "Web functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.EOMONTH",
+      "surface_name": "EOMONTH",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ERF",
+      "surface_name": "ERF",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ERF.PRECISE",
+      "surface_name": "ERF.PRECISE",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ERFC",
+      "surface_name": "ERFC",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ERFC.PRECISE",
+      "surface_name": "ERFC.PRECISE",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ERROR.TYPE",
+      "surface_name": "ERROR.TYPE",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EUROCONVERT",
+      "surface_name": "EUROCONVERT",
+      "entry_kind": "built_in_function",
+      "category": "User defined functions that are installed with add-ins",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.EVEN",
+      "surface_name": "EVEN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EXACT",
+      "surface_name": "EXACT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EXP",
+      "surface_name": "EXP",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EXPAND",
+      "surface_name": "EXPAND",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EXPON.DIST",
+      "surface_name": "EXPON.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.EXPONDIST",
+      "surface_name": "EXPONDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.F.DIST",
+      "surface_name": "F.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.F.DIST.RT",
+      "surface_name": "F.DIST.RT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.F.INV",
+      "surface_name": "F.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.F.INV.RT",
+      "surface_name": "F.INV.RT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.F.TEST",
+      "surface_name": "F.TEST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FACT",
+      "surface_name": "FACT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FACTDOUBLE",
+      "surface_name": "FACTDOUBLE",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FALSE",
+      "surface_name": "FALSE",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FDIST",
+      "surface_name": "FDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FILTER",
+      "surface_name": "FILTER",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FILTERXML",
+      "surface_name": "FILTERXML",
+      "entry_kind": "built_in_function",
+      "category": "Web functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.FIND",
+      "surface_name": "FIND",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FINDB",
+      "surface_name": "FINDB",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FINV",
+      "surface_name": "FINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FISHER",
+      "surface_name": "FISHER",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FISHERINV",
+      "surface_name": "FISHERINV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FIXED",
+      "surface_name": "FIXED",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FLOOR",
+      "surface_name": "FLOOR",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FLOOR.MATH",
+      "surface_name": "FLOOR.MATH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FLOOR.PRECISE",
+      "surface_name": "FLOOR.PRECISE",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FORECAST",
+      "surface_name": "FORECAST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FORECAST.LINEAR",
+      "surface_name": "FORECAST.LINEAR",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FORMULATEXT",
+      "surface_name": "FORMULATEXT",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FREQUENCY",
+      "surface_name": "FREQUENCY",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FTEST",
+      "surface_name": "FTEST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FV",
+      "surface_name": "FV",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.FVSCHEDULE",
+      "surface_name": "FVSCHEDULE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAMMA",
+      "surface_name": "GAMMA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAMMA.DIST",
+      "surface_name": "GAMMA.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAMMA.INV",
+      "surface_name": "GAMMA.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAMMADIST",
+      "surface_name": "GAMMADIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAMMAINV",
+      "surface_name": "GAMMAINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAMMALN",
+      "surface_name": "GAMMALN",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAMMALN.PRECISE",
+      "surface_name": "GAMMALN.PRECISE",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GAUSS",
+      "surface_name": "GAUSS",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GCD",
+      "surface_name": "GCD",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GEOMEAN",
+      "surface_name": "GEOMEAN",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GESTEP",
+      "surface_name": "GESTEP",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GETPIVOTDATA",
+      "surface_name": "GETPIVOTDATA",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.GROUPBY",
+      "surface_name": "GROUPBY",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.GROWTH",
+      "surface_name": "GROWTH",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HARMEAN",
+      "surface_name": "HARMEAN",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HEX2BIN",
+      "surface_name": "HEX2BIN",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HEX2DEC",
+      "surface_name": "HEX2DEC",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HEX2OCT",
+      "surface_name": "HEX2OCT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HLOOKUP",
+      "surface_name": "HLOOKUP",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HOUR",
+      "surface_name": "HOUR",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HSTACK",
+      "surface_name": "HSTACK",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HYPERLINK",
+      "surface_name": "HYPERLINK",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HYPGEOM.DIST",
+      "surface_name": "HYPGEOM.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.HYPGEOMDIST",
+      "surface_name": "HYPGEOMDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IF",
+      "surface_name": "IF",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IFERROR",
+      "surface_name": "IFERROR",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IFNA",
+      "surface_name": "IFNA",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IFS",
+      "surface_name": "IFS",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMABS",
+      "surface_name": "IMABS",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMAGE",
+      "surface_name": "IMAGE",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMAGINARY",
+      "surface_name": "IMAGINARY",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMARGUMENT",
+      "surface_name": "IMARGUMENT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMCONJUGATE",
+      "surface_name": "IMCONJUGATE",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMCOS",
+      "surface_name": "IMCOS",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMCOSH",
+      "surface_name": "IMCOSH",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMCOT",
+      "surface_name": "IMCOT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMCSC",
+      "surface_name": "IMCSC",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMCSCH",
+      "surface_name": "IMCSCH",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMDIV",
+      "surface_name": "IMDIV",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMEXP",
+      "surface_name": "IMEXP",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMLN",
+      "surface_name": "IMLN",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMLOG10",
+      "surface_name": "IMLOG10",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMLOG2",
+      "surface_name": "IMLOG2",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMPOWER",
+      "surface_name": "IMPOWER",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMPRODUCT",
+      "surface_name": "IMPRODUCT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMREAL",
+      "surface_name": "IMREAL",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMSEC",
+      "surface_name": "IMSEC",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMSECH",
+      "surface_name": "IMSECH",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMSIN",
+      "surface_name": "IMSIN",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMSINH",
+      "surface_name": "IMSINH",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMSQRT",
+      "surface_name": "IMSQRT",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMSUB",
+      "surface_name": "IMSUB",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMSUM",
+      "surface_name": "IMSUM",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IMTAN",
+      "surface_name": "IMTAN",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.INDEX",
+      "surface_name": "INDEX",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.INDIRECT",
+      "surface_name": "INDIRECT",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.INFO",
+      "surface_name": "INFO",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.INT",
+      "surface_name": "INT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.INTERCEPT",
+      "surface_name": "INTERCEPT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.INTRATE",
+      "surface_name": "INTRATE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IPMT",
+      "surface_name": "IPMT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.IRR",
+      "surface_name": "IRR",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISBLANK",
+      "surface_name": "ISBLANK",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISERR",
+      "surface_name": "ISERR",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISERROR",
+      "surface_name": "ISERROR",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISEVEN",
+      "surface_name": "ISEVEN",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISFORMULA",
+      "surface_name": "ISFORMULA",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISLOGICAL",
+      "surface_name": "ISLOGICAL",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISNA",
+      "surface_name": "ISNA",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISNONTEXT",
+      "surface_name": "ISNONTEXT",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISNUMBER",
+      "surface_name": "ISNUMBER",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISO.CEILING",
+      "surface_name": "ISO.CEILING",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISODD",
+      "surface_name": "ISODD",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISOMITTED",
+      "surface_name": "ISOMITTED",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISOWEEKNUM",
+      "surface_name": "ISOWEEKNUM",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISPMT",
+      "surface_name": "ISPMT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISREF",
+      "surface_name": "ISREF",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ISTEXT",
+      "surface_name": "ISTEXT",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.JIS",
+      "surface_name": "JIS",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.KURT",
+      "surface_name": "KURT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LAMBDA",
+      "surface_name": "LAMBDA",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LARGE",
+      "surface_name": "LARGE",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LCM",
+      "surface_name": "LCM",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LEFT",
+      "surface_name": "LEFT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LEFTB",
+      "surface_name": "LEFTB",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LEN",
+      "surface_name": "LEN",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LENB",
+      "surface_name": "LENB",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LET",
+      "surface_name": "LET",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LINEST",
+      "surface_name": "LINEST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LN",
+      "surface_name": "LN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOG",
+      "surface_name": "LOG",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOG10",
+      "surface_name": "LOG10",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOGEST",
+      "surface_name": "LOGEST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOGINV",
+      "surface_name": "LOGINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOGNORM.DIST",
+      "surface_name": "LOGNORM.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOGNORM.INV",
+      "surface_name": "LOGNORM.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOGNORMDIST",
+      "surface_name": "LOGNORMDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOOKUP",
+      "surface_name": "LOOKUP",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.LOWER",
+      "surface_name": "LOWER",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MAKEARRAY",
+      "surface_name": "MAKEARRAY",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MAP",
+      "surface_name": "MAP",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MATCH",
+      "surface_name": "MATCH",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MAX",
+      "surface_name": "MAX",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MAXA",
+      "surface_name": "MAXA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MAXIFS",
+      "surface_name": "MAXIFS",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MDETERM",
+      "surface_name": "MDETERM",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MDURATION",
+      "surface_name": "MDURATION",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MEDIAN",
+      "surface_name": "MEDIAN",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MID",
+      "surface_name": "MID",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MIDB",
+      "surface_name": "MIDB",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MIN",
+      "surface_name": "MIN",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MINA",
+      "surface_name": "MINA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MINIFS",
+      "surface_name": "MINIFS",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MINUTE",
+      "surface_name": "MINUTE",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MINVERSE",
+      "surface_name": "MINVERSE",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MIRR",
+      "surface_name": "MIRR",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MMULT",
+      "surface_name": "MMULT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MOD",
+      "surface_name": "MOD",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MODE",
+      "surface_name": "MODE",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MODE.MULT",
+      "surface_name": "MODE.MULT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MODE.SNGL",
+      "surface_name": "MODE.SNGL",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MONTH",
+      "surface_name": "MONTH",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MROUND",
+      "surface_name": "MROUND",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MULTINOMIAL",
+      "surface_name": "MULTINOMIAL",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.MUNIT",
+      "surface_name": "MUNIT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.N",
+      "surface_name": "N",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NA",
+      "surface_name": "NA",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NEGBINOM.DIST",
+      "surface_name": "NEGBINOM.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NEGBINOMDIST",
+      "surface_name": "NEGBINOMDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NETWORKDAYS",
+      "surface_name": "NETWORKDAYS",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NETWORKDAYS.INTL",
+      "surface_name": "NETWORKDAYS.INTL",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NOMINAL",
+      "surface_name": "NOMINAL",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORM.DIST",
+      "surface_name": "NORM.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORM.INV",
+      "surface_name": "NORM.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORM.S.DIST",
+      "surface_name": "NORM.S.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORM.S.INV",
+      "surface_name": "NORM.S.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORMDIST",
+      "surface_name": "NORMDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORMINV",
+      "surface_name": "NORMINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORMSDIST",
+      "surface_name": "NORMSDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NORMSINV",
+      "surface_name": "NORMSINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NOT",
+      "surface_name": "NOT",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NOW",
+      "surface_name": "NOW",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NPER",
+      "surface_name": "NPER",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NPV",
+      "surface_name": "NPV",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.NUMBERVALUE",
+      "surface_name": "NUMBERVALUE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OCT2BIN",
+      "surface_name": "OCT2BIN",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OCT2DEC",
+      "surface_name": "OCT2DEC",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OCT2HEX",
+      "surface_name": "OCT2HEX",
+      "entry_kind": "built_in_function",
+      "category": "Engineering functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ODD",
+      "surface_name": "ODD",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ODDFPRICE",
+      "surface_name": "ODDFPRICE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ODDFYIELD",
+      "surface_name": "ODDFYIELD",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ODDLPRICE",
+      "surface_name": "ODDLPRICE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ODDLYIELD",
+      "surface_name": "ODDLYIELD",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OFFSET",
+      "surface_name": "OFFSET",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_ADD",
+      "surface_name": "OP_ADD",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_CONCAT",
+      "surface_name": "OP_CONCAT",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_DIVIDE",
+      "surface_name": "OP_DIVIDE",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_EQUAL",
+      "surface_name": "OP_EQUAL",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_GREATER_EQUAL",
+      "surface_name": "OP_GREATER_EQUAL",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_GREATER_THAN",
+      "surface_name": "OP_GREATER_THAN",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_IMPLICIT_INTERSECTION",
+      "surface_name": "OP_IMPLICIT_INTERSECTION",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_INTERSECTION_REF",
+      "surface_name": "OP_INTERSECTION_REF",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_LESS_EQUAL",
+      "surface_name": "OP_LESS_EQUAL",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_LESS_THAN",
+      "surface_name": "OP_LESS_THAN",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_MULTIPLY",
+      "surface_name": "OP_MULTIPLY",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_NEGATE",
+      "surface_name": "OP_NEGATE",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_NOT_EQUAL",
+      "surface_name": "OP_NOT_EQUAL",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_PERCENT",
+      "surface_name": "OP_PERCENT",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_POWER",
+      "surface_name": "OP_POWER",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_RANGE_REF",
+      "surface_name": "OP_RANGE_REF",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_SPILL_REF",
+      "surface_name": "OP_SPILL_REF",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_SUBTRACT",
+      "surface_name": "OP_SUBTRACT",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_TRIM_REF_BOTH",
+      "surface_name": "OP_TRIM_REF_BOTH",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_TRIM_REF_LEADING",
+      "surface_name": "OP_TRIM_REF_LEADING",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_TRIM_REF_TRAILING",
+      "surface_name": "OP_TRIM_REF_TRAILING",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_UNARY_PLUS",
+      "surface_name": "OP_UNARY_PLUS",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OP_UNION_REF",
+      "surface_name": "OP_UNION_REF",
+      "entry_kind": "built_in_operator",
+      "category": "Operators",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.OR",
+      "surface_name": "OR",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PDURATION",
+      "surface_name": "PDURATION",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PEARSON",
+      "surface_name": "PEARSON",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERCENTILE",
+      "surface_name": "PERCENTILE",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERCENTILE.EXC",
+      "surface_name": "PERCENTILE.EXC",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERCENTILE.INC",
+      "surface_name": "PERCENTILE.INC",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERCENTOF",
+      "surface_name": "PERCENTOF",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERCENTRANK",
+      "surface_name": "PERCENTRANK",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERCENTRANK.EXC",
+      "surface_name": "PERCENTRANK.EXC",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERCENTRANK.INC",
+      "surface_name": "PERCENTRANK.INC",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERMUT",
+      "surface_name": "PERMUT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PERMUTATIONA",
+      "surface_name": "PERMUTATIONA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PHI",
+      "surface_name": "PHI",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PHONETIC",
+      "surface_name": "PHONETIC",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.PI",
+      "surface_name": "PI",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PIVOTBY",
+      "surface_name": "PIVOTBY",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PMT",
+      "surface_name": "PMT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.POISSON",
+      "surface_name": "POISSON",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.POISSON.DIST",
+      "surface_name": "POISSON.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.POWER",
+      "surface_name": "POWER",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PPMT",
+      "surface_name": "PPMT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PRICE",
+      "surface_name": "PRICE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PRICEDISC",
+      "surface_name": "PRICEDISC",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PRICEMAT",
+      "surface_name": "PRICEMAT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PROB",
+      "surface_name": "PROB",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PRODUCT",
+      "surface_name": "PRODUCT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PROPER",
+      "surface_name": "PROPER",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.PV",
+      "surface_name": "PV",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.QUARTILE",
+      "surface_name": "QUARTILE",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.QUARTILE.EXC",
+      "surface_name": "QUARTILE.EXC",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.QUARTILE.INC",
+      "surface_name": "QUARTILE.INC",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.QUOTIENT",
+      "surface_name": "QUOTIENT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RADIANS",
+      "surface_name": "RADIANS",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RAND",
+      "surface_name": "RAND",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RANDARRAY",
+      "surface_name": "RANDARRAY",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RANDBETWEEN",
+      "surface_name": "RANDBETWEEN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RANK",
+      "surface_name": "RANK",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RANK.AVG",
+      "surface_name": "RANK.AVG",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RANK.EQ",
+      "surface_name": "RANK.EQ",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RATE",
+      "surface_name": "RATE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RECEIVED",
+      "surface_name": "RECEIVED",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REDUCE",
+      "surface_name": "REDUCE",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REGEXEXTRACT",
+      "surface_name": "REGEXEXTRACT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REGEXREPLACE",
+      "surface_name": "REGEXREPLACE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REGEXTEST",
+      "surface_name": "REGEXTEST",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REGISTER.ID",
+      "surface_name": "REGISTER.ID",
+      "entry_kind": "built_in_function",
+      "category": "User defined functions that are installed with add-ins",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REPLACE",
+      "surface_name": "REPLACE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REPLACEB",
+      "surface_name": "REPLACEB",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.REPT",
+      "surface_name": "REPT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RIGHT",
+      "surface_name": "RIGHT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RIGHTB",
+      "surface_name": "RIGHTB",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ROMAN",
+      "surface_name": "ROMAN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ROUND",
+      "surface_name": "ROUND",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ROUNDDOWN",
+      "surface_name": "ROUNDDOWN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ROUNDUP",
+      "surface_name": "ROUNDUP",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ROW",
+      "surface_name": "ROW",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ROWS",
+      "surface_name": "ROWS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RRI",
+      "surface_name": "RRI",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RSQ",
+      "surface_name": "RSQ",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.RTD",
+      "surface_name": "RTD",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SCAN",
+      "surface_name": "SCAN",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SEARCH",
+      "surface_name": "SEARCH",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SEARCHB",
+      "surface_name": "SEARCHB",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SEC",
+      "surface_name": "SEC",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SECH",
+      "surface_name": "SECH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SECOND",
+      "surface_name": "SECOND",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SEQUENCE",
+      "surface_name": "SEQUENCE",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SERIESSUM",
+      "surface_name": "SERIESSUM",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SHEET",
+      "surface_name": "SHEET",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SHEETS",
+      "surface_name": "SHEETS",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SIGN",
+      "surface_name": "SIGN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SIN",
+      "surface_name": "SIN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SINH",
+      "surface_name": "SINH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SKEW",
+      "surface_name": "SKEW",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SKEW.P",
+      "surface_name": "SKEW.P",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SLN",
+      "surface_name": "SLN",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SLOPE",
+      "surface_name": "SLOPE",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SMALL",
+      "surface_name": "SMALL",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SORT",
+      "surface_name": "SORT",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SORTBY",
+      "surface_name": "SORTBY",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SQRT",
+      "surface_name": "SQRT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SQRTPI",
+      "surface_name": "SQRTPI",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STANDARDIZE",
+      "surface_name": "STANDARDIZE",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STDEV",
+      "surface_name": "STDEV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STDEV.P",
+      "surface_name": "STDEV.P",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STDEV.S",
+      "surface_name": "STDEV.S",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STDEVA",
+      "surface_name": "STDEVA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STDEVP",
+      "surface_name": "STDEVP",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STDEVPA",
+      "surface_name": "STDEVPA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STEYX",
+      "surface_name": "STEYX",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.STOCKHISTORY",
+      "surface_name": "STOCKHISTORY",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.SUBSTITUTE",
+      "surface_name": "SUBSTITUTE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUBTOTAL",
+      "surface_name": "SUBTOTAL",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUM",
+      "surface_name": "SUM",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUMIF",
+      "surface_name": "SUMIF",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUMIFS",
+      "surface_name": "SUMIFS",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUMPRODUCT",
+      "surface_name": "SUMPRODUCT",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUMSQ",
+      "surface_name": "SUMSQ",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUMX2MY2",
+      "surface_name": "SUMX2MY2",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUMX2PY2",
+      "surface_name": "SUMX2PY2",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SUMXMY2",
+      "surface_name": "SUMXMY2",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SWITCH",
+      "surface_name": "SWITCH",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.SYD",
+      "surface_name": "SYD",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.T",
+      "surface_name": "T",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.T.DIST",
+      "surface_name": "T.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.T.DIST.2T",
+      "surface_name": "T.DIST.2T",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.T.DIST.RT",
+      "surface_name": "T.DIST.RT",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.T.INV",
+      "surface_name": "T.INV",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.T.INV.2T",
+      "surface_name": "T.INV.2T",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.T.TEST",
+      "surface_name": "T.TEST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TAKE",
+      "surface_name": "TAKE",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TAN",
+      "surface_name": "TAN",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TANH",
+      "surface_name": "TANH",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TBILLEQ",
+      "surface_name": "TBILLEQ",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TBILLPRICE",
+      "surface_name": "TBILLPRICE",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TBILLYIELD",
+      "surface_name": "TBILLYIELD",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TDIST",
+      "surface_name": "TDIST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TEXT",
+      "surface_name": "TEXT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TEXTAFTER",
+      "surface_name": "TEXTAFTER",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TEXTBEFORE",
+      "surface_name": "TEXTBEFORE",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TEXTJOIN",
+      "surface_name": "TEXTJOIN",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TEXTSPLIT",
+      "surface_name": "TEXTSPLIT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TIME",
+      "surface_name": "TIME",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TIMEVALUE",
+      "surface_name": "TIMEVALUE",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TINV",
+      "surface_name": "TINV",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TOCOL",
+      "surface_name": "TOCOL",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TODAY",
+      "surface_name": "TODAY",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TOROW",
+      "surface_name": "TOROW",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TRANSLATE",
+      "surface_name": "TRANSLATE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.TRANSPOSE",
+      "surface_name": "TRANSPOSE",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TREND",
+      "surface_name": "TREND",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TRIM",
+      "surface_name": "TRIM",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TRIMMEAN",
+      "surface_name": "TRIMMEAN",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TRIMRANGE",
+      "surface_name": "TRIMRANGE",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TRUE",
+      "surface_name": "TRUE",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TRUNC",
+      "surface_name": "TRUNC",
+      "entry_kind": "built_in_function",
+      "category": "Math and trigonometry functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TTEST",
+      "surface_name": "TTEST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.TYPE",
+      "surface_name": "TYPE",
+      "entry_kind": "built_in_function",
+      "category": "Information functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.UNICHAR",
+      "surface_name": "UNICHAR",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.UNICODE",
+      "surface_name": "UNICODE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.UNIQUE",
+      "surface_name": "UNIQUE",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.UPPER",
+      "surface_name": "UPPER",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VALUE",
+      "surface_name": "VALUE",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VALUETOTEXT",
+      "surface_name": "VALUETOTEXT",
+      "entry_kind": "built_in_function",
+      "category": "Text functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VAR",
+      "surface_name": "VAR",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VAR.P",
+      "surface_name": "VAR.P",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VAR.S",
+      "surface_name": "VAR.S",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VARA",
+      "surface_name": "VARA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VARP",
+      "surface_name": "VARP",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VARPA",
+      "surface_name": "VARPA",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VDB",
+      "surface_name": "VDB",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VLOOKUP",
+      "surface_name": "VLOOKUP",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.VSTACK",
+      "surface_name": "VSTACK",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WEBSERVICE",
+      "surface_name": "WEBSERVICE",
+      "entry_kind": "built_in_function",
+      "category": "Web functions",
+      "admission": "deferred"
+    },
+    {
+      "function_id": "FUNC.WEEKDAY",
+      "surface_name": "WEEKDAY",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WEEKNUM",
+      "surface_name": "WEEKNUM",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WEIBULL",
+      "surface_name": "WEIBULL",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WEIBULL.DIST",
+      "surface_name": "WEIBULL.DIST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WORKDAY",
+      "surface_name": "WORKDAY",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WORKDAY.INTL",
+      "surface_name": "WORKDAY.INTL",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WRAPCOLS",
+      "surface_name": "WRAPCOLS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.WRAPROWS",
+      "surface_name": "WRAPROWS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.XIRR",
+      "surface_name": "XIRR",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.XLOOKUP",
+      "surface_name": "XLOOKUP",
+      "entry_kind": "built_in_function",
+      "category": "Our 10 featured functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.XMATCH",
+      "surface_name": "XMATCH",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.XNPV",
+      "surface_name": "XNPV",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.XOR",
+      "surface_name": "XOR",
+      "entry_kind": "built_in_function",
+      "category": "Logical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.YEAR",
+      "surface_name": "YEAR",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.YEARFRAC",
+      "surface_name": "YEARFRAC",
+      "entry_kind": "built_in_function",
+      "category": "Date and time functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.YIELD",
+      "surface_name": "YIELD",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.YIELDDISC",
+      "surface_name": "YIELDDISC",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.YIELDMAT",
+      "surface_name": "YIELDMAT",
+      "entry_kind": "built_in_function",
+      "category": "Financial functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.Z.TEST",
+      "surface_name": "Z.TEST",
+      "entry_kind": "built_in_function",
+      "category": "Statistical functions",
+      "admission": "supported"
+    },
+    {
+      "function_id": "FUNC.ZTEST",
+      "surface_name": "ZTEST",
+      "entry_kind": "built_in_function",
+      "category": "Compatibility",
+      "admission": "supported"
+    }
+  ]
+}

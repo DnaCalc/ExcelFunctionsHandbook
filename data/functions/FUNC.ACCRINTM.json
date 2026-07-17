@@ -1,0 +1,241 @@
+{
+  "function_id": "FUNC.ACCRINTM",
+  "surface_name": "ACCRINTM",
+  "published_row_id": "FUNC.ACCRINTM",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfAccrintm",
+    "code": "470"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ACCRINTM(issue, settlement, rate, par, [basis])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "issue",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "settlement",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rate",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "par",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "basis",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the accrued interest for a security that pays interest at maturity",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/accrintm-function-f62f01f9-5754-4cc4-805b-0e70199328a7",
+    "english_description": "Returns the accrued interest for a security that pays interest at maturity"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AUFGELZINSF"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "en-US",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "es-ES",
+      "name": "INT.ACUM.V"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KERTYNYT.KORKO.LOPUSSA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LEJÁRATI.KAMAT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "SAMENG.RENTE.V"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NAL.ODS.WYKUP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "JUROSACUMV"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАКОПДОХОДПОГАШ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "UPPLOBLRÄNTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GERÇEKFAİZV işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ACCRINTM"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ACCRINTM"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,247 @@
+{
+  "function_id": "FUNC.XMATCH",
+  "surface_name": "XMATCH",
+  "published_row_id": "FUNC.XMATCH",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "LookupMatchProfile",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "LookupMatch",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "XMATCH(lookup_value, lookup_array, [match_mode], [search_mode])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "lookup_value",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "lookup_array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "match_mode",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "search_mode",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the relative position of an item in an array or range of cells.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/xmatch-function-d966da31-7a6b-4a13-a1c6-5a33ed6a0312",
+    "english_description": "Returns the relative position of an item in an array or range of cells."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "XSAMMENLIGN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "en-US",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COINCIDIRX"
+    },
+    {
+      "locale": "et-EE",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "XVASTINE"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "EQUIVX*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "XHOL.VAN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "X.VERGELIJKEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "X.DOPASUJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "CORRESPX"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПОИСКПОЗX"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "XMATCHNING"
+    },
+    {
+      "locale": "th-TH",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇAPRAZEŞLEŞTİR"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "XMATCH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "XMATCH"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-XMATCH-001",
+    "lean_module": "OxFunc.Functions.Xmatch;OxFunc.Functions.XmatchSurface",
+    "rust_module": "oxfunc_core::functions::xmatch;oxfunc_core::functions::xmatch_surface",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,253 @@
+{
+  "function_id": "FUNC.AMORLINC",
+  "surface_name": "AMORLINC",
+  "published_row_id": "FUNC.AMORLINC",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfAmorlinc",
+    "code": "467"
+  },
+  "arity": {
+    "min": null,
+    "max": null
+  },
+  "classification": {},
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "AMORLINC(cost, date_purchased, first_period, salvage, period, rate, [basis])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "cost",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "date_purchased",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "first_period",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "salvage",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "period",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "rate",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "basis",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the depreciation for each accounting period",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/amorlinc-function-7d417b45-f7f5-4dba-a0a5-3451a81079a8",
+    "english_description": "Returns the depreciation for each accounting period"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "en-US",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "AMORTIZ.LIN"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "AMORLINC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÉRTÉKCSÖKK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "AMORT.LIN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "АМОРУВ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "AMORLINC işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AMORLINC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AMORLINC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

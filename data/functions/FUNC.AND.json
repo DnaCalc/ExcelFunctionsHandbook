@@ -1,0 +1,238 @@
+{
+  "function_id": "FUNC.AND",
+  "surface_name": "AND",
+  "published_row_id": "FUNC.AND",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAnd",
+    "code": "36"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "AND(logical1, [logical2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "logical1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "logical2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns TRUE if all of its arguments are TRUE",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/and-function-5f19b2e8-e1df-4408-897a-ce285a19e9d9",
+    "english_description": "Returns TRUE if all of its arguments are TRUE"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "AND"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "AND"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "AND"
+    },
+    {
+      "locale": "da-DK",
+      "name": "AND"
+    },
+    {
+      "locale": "de-DE",
+      "name": "UND"
+    },
+    {
+      "locale": "el-GR",
+      "name": "AND"
+    },
+    {
+      "locale": "en-AU",
+      "name": "AND"
+    },
+    {
+      "locale": "en-GB",
+      "name": "AND"
+    },
+    {
+      "locale": "en-US",
+      "name": "AND"
+    },
+    {
+      "locale": "es-ES",
+      "name": "Y"
+    },
+    {
+      "locale": "et-EE",
+      "name": "AND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "AND"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ET"
+    },
+    {
+      "locale": "he-IL",
+      "name": "AND"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "AND"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "AND"
+    },
+    {
+      "locale": "id-ID",
+      "name": "AND"
+    },
+    {
+      "locale": "it-IT",
+      "name": "AND"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "AND"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "AND"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "AND"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "AND"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "AND"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "AND"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "AND"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "AND"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "E"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "AND"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "AND"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "AND"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "AND"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "AND"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "OCH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "AND"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "VE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "AND"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "AND"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "AND"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "AND"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "AND"
+    }
+  ],
+  "artifacts": {
+    "contract_row_id": "FN-AND-001",
+    "lean_module": "OxFunc.Functions.AndFn",
+    "rust_module": "oxfunc_core::functions::and_fn",
+    "status": "provisional"
+  },
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

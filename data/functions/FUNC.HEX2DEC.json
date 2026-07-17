@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.HEX2DEC",
+  "surface_name": "HEX2DEC",
+  "published_row_id": "FUNC.HEX2DEC",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfHex2dec",
+    "code": "385"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "HEX2DEC(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a hexadecimal number to decimal",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/hex2dec-function-8c8c3155-9f37-45a5-a3ee-ee5379ef106e",
+    "english_description": "Converts a hexadecimal number to decimal"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HEX.TIL.DEC"
+    },
+    {
+      "locale": "de-DE",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "en-US",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "HEX.A.DEC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "HEKSADES"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "HEXDEC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HEX.DEC"
+    },
+    {
+      "locale": "id-ID",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "HEX.N.DEC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SZESN.NA.DZIES"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "HEXADEC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ШЕСТН.В.ДЕС"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HEX.TILL.DEC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "HEX2DEC işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "HEX2DEC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "HEX2DEC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

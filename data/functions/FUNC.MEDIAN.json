@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MEDIAN",
+  "surface_name": "MEDIAN",
+  "published_row_id": "FUNC.MEDIAN",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMedian",
+    "code": "227"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "AggregateDirectAndRangeDualPolicy",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MEDIAN(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the median of the given numbers",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/median-function-d0916313-4753-414c-8537-ce85bdd967d2",
+    "english_description": "Returns the median of the given numbers"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "en-US",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MEDIANA"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MEDIAANI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MEDIANE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "MEDIÁN"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MEDIANA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MEDIAAN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "MEDIANA"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MED"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "MED"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МЕДИАНА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ORTANCA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MEDIAN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MEDIAN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

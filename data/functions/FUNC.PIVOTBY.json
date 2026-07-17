@@ -1,0 +1,242 @@
+{
+  "function_id": "FUNC.PIVOTBY",
+  "surface_name": "PIVOTBY",
+  "published_row_id": "FUNC.PIVOTBY",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 4,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=true;error_collapse_sensitive=true;numerical_reduction_policy=SequentialLeftFold;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PIVOTBY(row_fields, column_fields, values, array_agg, ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "row_fields",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "column_fields",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "values",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "array_agg",
+        "optional": false,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Helps a user group, aggregate, sort, and filter data based on the row and column fields that you specify",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/pivotby-function-de86516a-90ad-4ced-8522-3a25fac389cf",
+    "english_description": "Helps a user group, aggregate, sort, and filter data based on the row and column fields that you specify"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "KONTPODLE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "PIVOTER.EFTER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "en-US",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PIVOTARPOR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PIVOT.ARVOJEN.MUKAAN"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CROISER.AVEC*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KIMUTATÁS.ALAP.SZERINT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DRAAIEN.PER"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PRZESTAWIAJ.WEDŁUG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DINAMIZARPOR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "СВОДПО"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PIVOTERAEFTER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÖZETÖLÇÜT"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PIVOTBY"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PIVOTBY"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

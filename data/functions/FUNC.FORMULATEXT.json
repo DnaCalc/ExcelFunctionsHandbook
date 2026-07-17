@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.FORMULATEXT",
+  "surface_name": "FORMULATEXT",
+  "published_row_id": "FUNC.FORMULATEXT",
+  "entry_kind": "built_in_function",
+  "category": "Lookup and reference functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfFormulatext",
+    "code": "588"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "RefOnly",
+    "host_interaction_class": "WorkbookState",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "HostSerialized",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": {
+    "display": "FORMULATEXT(reference)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "reference",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the formula at the given reference as text",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/formulatext-function-0a786771-54fd-4ae2-96ee-09cda35439c8",
+    "english_description": "Returns the formula at the given reference as text"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FORMELTEKST"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "en-US",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FORMULATEXTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KAAVA.TEKSTI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FORMULETEXTE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPLETSZÖVEG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "FORMULETEKST"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "FORMUŁA.TEKST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FÓRMULA.TEXTO"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "Ф.ТЕКСТ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FORMELTEXT"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "FORMÜLMETNİ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FORMULATEXT"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FORMULATEXT"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

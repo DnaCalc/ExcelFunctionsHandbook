@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.DAY",
+  "surface_name": "DAY",
+  "published_row_id": "FUNC.DAY",
+  "entry_kind": "built_in_function",
+  "category": "Date and time functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfDay",
+    "code": "67"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Converts a serial number to a day of the month",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/day-function-8a7d1cbb-6c7d-4ba1-8aea-25c134d03101",
+    "english_description": "Converts a serial number to a day of the month"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "DAY"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "DAY"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "DEN"
+    },
+    {
+      "locale": "da-DK",
+      "name": "DAY"
+    },
+    {
+      "locale": "de-DE",
+      "name": "DAY"
+    },
+    {
+      "locale": "el-GR",
+      "name": "DAY"
+    },
+    {
+      "locale": "en-AU",
+      "name": "DAY"
+    },
+    {
+      "locale": "en-GB",
+      "name": "DAY"
+    },
+    {
+      "locale": "en-US",
+      "name": "DAY"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DAY"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PÄEV"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PÄIVÄ"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "DAY"
+    },
+    {
+      "locale": "he-IL",
+      "name": "DAY"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "DAY"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "DAY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "DAY"
+    },
+    {
+      "locale": "it-IT",
+      "name": "DAY"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "DAY"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "DAY"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "DAY"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "DAY"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "DAG"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DAY"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "DAY (dzień)"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "DAY"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIA"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "DAY"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "DAY"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "DEŇ"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "DAN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "DAN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "DAY"
+    },
+    {
+      "locale": "th-TH",
+      "name": "วัน"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "GÜN"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ДЕНЬ"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "DAY"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "DAY"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "DAY"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "DAY"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

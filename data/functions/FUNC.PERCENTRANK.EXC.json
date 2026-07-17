@@ -1,0 +1,239 @@
+{
+  "function_id": "FUNC.PERCENTRANK.EXC",
+  "surface_name": "PERCENTRANK.EXC",
+  "published_row_id": "FUNC.PERCENTRANK.EXC",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfPercentrank_exc",
+    "code": "503"
+  },
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PERCENTRANK.EXC(array, x, [significance])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "significance",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the rank of a value in a data set as a percentage (0..1, exclusive) of the data set",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/percentrank-exc-function-d8afee96-b7e2-4a2f-8c01-8fcdedaa6314",
+    "english_description": "Returns the rank of a value in a data set as a percentage (0..1, exclusive) of the data set"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "PROCENTPLADS.UDELAD"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "en-US",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "RANGO.PERCENTIL.EXC"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PROSENTTIJÄRJESTYS.ULK"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "RANG.POURCENTAGE.EXCLURE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÁZALÉKRANG.KIZÁR"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PROCENTRANG.EXC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PROC.POZ.PRZEDZ.OTW"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ORDEM.PERCENTUAL.EXC"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПРОЦЕНТРАНГ.ИСКЛ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PROCENTRANG.EXK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "YÜZDERANK.HRC"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PERCENTRANK.EXC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PERCENTRANK.EXC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

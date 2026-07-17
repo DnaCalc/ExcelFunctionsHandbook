@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.VDB",
+  "surface_name": "VDB",
+  "published_row_id": "FUNC.VDB",
+  "entry_kind": "built_in_function",
+  "category": "Financial functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfVdb",
+    "code": "222"
+  },
+  "arity": {
+    "min": 5,
+    "max": 7
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the depreciation of an asset for a specified or partial period by using a declining balance method",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/vdb-function-dde4e207-f3fa-488d-91d2-66d55e861d73",
+    "english_description": "Returns the depreciation of an asset for a specified or partial period by using a declining balance method"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "VDB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "VDB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ODPIS.ZA.INT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VSA"
+    },
+    {
+      "locale": "de-DE",
+      "name": "VDB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "VDB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "VDB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "VDB"
+    },
+    {
+      "locale": "en-US",
+      "name": "VDB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "DVS"
+    },
+    {
+      "locale": "et-EE",
+      "name": "VDB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VDB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "VDB*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "VDB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "VDB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ÉCSRI"
+    },
+    {
+      "locale": "id-ID",
+      "name": "VDB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "VDB"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "VDB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "VDB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "VDB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "VDB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "VERDIAVS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VDB"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "VDB"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "VDB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BDV"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "VDB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПУО"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "VDB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "VDB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "VDB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VDEGRAVSKR"
+    },
+    {
+      "locale": "th-TH",
+      "name": "VDB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "DAB işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "VDB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "VDB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "VDB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "VDB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "VDB"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.ATAN2",
+  "surface_name": "ATAN2",
+  "published_row_id": "FUNC.ATAN2",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfAtan2",
+    "code": "97"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ATAN2(x_num, y_num)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "y_num",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the arctangent from x- and y-coordinates",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/atan2-function-c04592ab-b9e3-4908-b428-c96b3a565033",
+    "english_description": "Returns the arctangent from x- and y-coordinates"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ARCTG2"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARCTAN2"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "en-US",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ATAN2*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ARCTAN2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARCTAN2"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ATAN2 işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ATAN2"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ATAN2"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.NEGBINOM.DIST",
+  "surface_name": "NEGBINOM.DIST",
+  "published_row_id": "FUNC.NEGBINOM.DIST",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfNegbinom_dist",
+    "code": "538"
+  },
+  "arity": {
+    "min": 4,
+    "max": 4
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the negative binomial distribution",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/negbinom-dist-function-c8239f89-c2d0-45bd-b6af-172e570f8599",
+    "english_description": "Returns the negative binomial distribution"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "da-DK",
+      "name": "NEGBINOM.FORDELING"
+    },
+    {
+      "locale": "de-DE",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "el-GR",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "en-AU",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "en-GB",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "en-US",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "es-ES",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "et-EE",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BINOMI.JAKAUMA.NEG"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOI.BINOMIALE.NEG.N*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NEGBINOM.ELOSZLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "it-IT",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NEGBINOM.VERD"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ROZKŁ.DWUM.PRZEC"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "DIST.BINOM.NEG"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ОТРБИНОМ.РАСП"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "NEGBINOM.FÖRD"
+    },
+    {
+      "locale": "th-TH",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "NEGBİNOM.DAĞ"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "NEGBINOM.DIST"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "NEGBINOM.DIST"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

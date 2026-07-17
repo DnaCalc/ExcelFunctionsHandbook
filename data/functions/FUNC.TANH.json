@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.TANH",
+  "surface_name": "TANH",
+  "published_row_id": "FUNC.TANH",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfTanh",
+    "code": "231"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOrArrayElementwise",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "TANH(number)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the hyperbolic tangent of a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/tanh-function-017222f0-a0c3-4f69-9787-b3202295dc6c",
+    "english_description": "Returns the hyperbolic tangent of a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "TANH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "TANH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "TGH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "TANH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "TANH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "TANH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "TANH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "TANH"
+    },
+    {
+      "locale": "en-US",
+      "name": "TANH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "TANH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "TANH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "TANH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TANH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "TANH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "TANH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "TANH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "TANH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TANH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "TANH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "TANH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "TANH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "TANH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "TANH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "TANH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "TANH"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "TANH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "TANH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "TANH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "TANH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "TANH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "TANH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "TANH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "TANH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "TANH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "TANH Denklemi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "TANH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "TANH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "TANH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "TANH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "TANH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

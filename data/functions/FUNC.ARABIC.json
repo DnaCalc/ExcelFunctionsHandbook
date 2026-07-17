@@ -1,0 +1,227 @@
+{
+  "function_id": "FUNC.ARABIC",
+  "surface_name": "ARABIC",
+  "published_row_id": "FUNC.ARABIC",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfArabic",
+    "code": "583"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "ARABIC(text)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Converts a Roman number to Arabic, as a number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/arabic-function-9a8da418-c17b-4ef9-a657-9370a30a674f",
+    "english_description": "Converts a Roman number to Arabic, as a number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "da-DK",
+      "name": "ARABISK"
+    },
+    {
+      "locale": "de-DE",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "el-GR",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "en-AU",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "en-GB",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "en-US",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "es-ES",
+      "name": "NUMERO.ARABE"
+    },
+    {
+      "locale": "et-EE",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ARABIA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "ARABE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "ARAB"
+    },
+    {
+      "locale": "id-ID",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "it-IT",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ARABSKIE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "ÁRABE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ÁRABE"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "АРАБСКОЕ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "ARABŠČINA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "ARAPSKI"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "th-TH",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ARAP"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "ARABIC"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "ARABIC"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

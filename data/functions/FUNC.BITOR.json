@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.BITOR",
+  "surface_name": "BITOR",
+  "published_row_id": "FUNC.BITOR",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfBitor",
+    "code": "563"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "BITOR(number1, number2)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a bitwise OR of 2 numbers",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/bitor-function-f6ead5c8-5b98-4c9e-9053-8ad5234919b2",
+    "english_description": "Returns a bitwise OR of 2 numbers"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "BITOR"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "BITOR"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "BITOR"
+    },
+    {
+      "locale": "da-DK",
+      "name": "BITELLER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "BITOR"
+    },
+    {
+      "locale": "el-GR",
+      "name": "BITOR"
+    },
+    {
+      "locale": "en-AU",
+      "name": "BITOR"
+    },
+    {
+      "locale": "en-GB",
+      "name": "BITOR"
+    },
+    {
+      "locale": "en-US",
+      "name": "BITOR"
+    },
+    {
+      "locale": "es-ES",
+      "name": "BIT.O"
+    },
+    {
+      "locale": "et-EE",
+      "name": "BITOR"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "BITTI.TAI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "BITOU*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "BITOR"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "BITOR"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BIT.VAGY"
+    },
+    {
+      "locale": "id-ID",
+      "name": "BITOR"
+    },
+    {
+      "locale": "it-IT",
+      "name": "BITOR"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "BITOR"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "BITOR"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "BITOR"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "BITOR"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "BITOR"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "BIT.OF"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "BITOR"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "BITOR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "BIT.OU"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "BITOR"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "БИТ.ИЛИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "BITOR"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "BITOR"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "BITOR"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "BITELLER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "BITOR"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BİTVEYA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "BITOR"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "BITOR"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "BITOR"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "BITOR"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "BITOR"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

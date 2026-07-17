@@ -1,0 +1,236 @@
+{
+  "function_id": "FUNC.FILTER",
+  "surface_name": "FILTER",
+  "published_row_id": "FUNC.FILTER",
+  "entry_kind": "built_in_function",
+  "category": "Our 10 featured functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "FILTER(array, include, [if_empty])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "array",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "include",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "if_empty",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Use this function to filter a range of data based on criteria you define.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/filter-function-f4f7cb66-82eb-4767-8f7c-4877ad80c759",
+    "english_description": "Use this function to filter a range of data based on criteria you define."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FILTER"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FILTER"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FILTER"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FILTRER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FILTER"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FILTER"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FILTER"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FILTER"
+    },
+    {
+      "locale": "en-US",
+      "name": "FILTER"
+    },
+    {
+      "locale": "es-ES",
+      "name": "FILTRAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FILTER"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "SUODATA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "FILTRE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FILTER"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FILTER"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZŰRŐ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FILTER"
+    },
+    {
+      "locale": "it-IT",
+      "name": "FILTER"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FILTER"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FILTER"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FILTER"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FILTER"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FILTER"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "FILTER"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "FILTRUJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "FILTER"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "FILTRAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FILTER"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ФИЛЬТР"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FILTER"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FILTER"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FILTER"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "FILTER"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FILTER"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "FİLTRE"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FILTER"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FILTER"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FILTER"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FILTER"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FILTER"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

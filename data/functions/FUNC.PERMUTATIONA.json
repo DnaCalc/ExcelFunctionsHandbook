@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.PERMUTATIONA",
+  "surface_name": "PERMUTATIONA",
+  "published_row_id": "FUNC.PERMUTATIONA",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfPermutationa",
+    "code": "567"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "PERMUTATIONA(n, k)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "n",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "k",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the number of permutations for a given number of objects (with repetitions) that can be selected from the total objects",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/permutationa-function-6c7d7fdc-d657-44e6-aa19-2857b25cae4e",
+    "english_description": "Returns the number of permutations for a given number of objects (with repetitions) that can be selected from the total objects"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "da-DK",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "de-DE",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "el-GR",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "en-AU",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "en-GB",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "en-US",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "es-ES",
+      "name": "PERMUTACIONES.A"
+    },
+    {
+      "locale": "et-EE",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "PERMUTAATIOA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "PERMUTATIONA*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "VARIÁCIÓK.ISM"
+    },
+    {
+      "locale": "id-ID",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "it-IT",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "PERMUTATIE.A"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "PERMUTACJE.A"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PERMUTAR.R"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПЕРЕСТА"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "PERMÜTASYONA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "PERMUTATIONA"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "PERMUTATIONA"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

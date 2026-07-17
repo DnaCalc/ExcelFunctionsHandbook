@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.MULTINOMIAL",
+  "surface_name": "MULTINOMIAL",
+  "published_row_id": "FUNC.MULTINOMIAL",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfMultinomial",
+    "code": "474"
+  },
+  "arity": {
+    "min": 1,
+    "max": 255
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "MULTINOMIAL(number1, [number2], ...)",
+    "trailing_repeats": true,
+    "parameters": [
+      {
+        "name": "number1",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number2",
+        "optional": true,
+        "repeats": true,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the multinomial of a set of numbers",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/multinomial-function-6fa6373c-6533-41a2-a45e-a56db1db1bf6",
+    "english_description": "Returns the multinomial of a set of numbers"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "en-US",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "es-ES",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "MULTINOMI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "MULTINOMIALE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZORHÁNYFAKT"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "MULTINOMIAAL"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "WIELOMIAN"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "POLINOMIAL"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МУЛЬТИНОМ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ÇOKTERİMLİ işlevi"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MULTINOMIAL"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MULTINOMIAL"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

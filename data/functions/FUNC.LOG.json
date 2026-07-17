@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.LOG",
+  "surface_name": "LOG",
+  "published_row_id": "FUNC.LOG",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfLog",
+    "code": "109"
+  },
+  "arity": {
+    "min": 1,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "LOG(number, [base])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "base",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the logarithm of a number to a specified base",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/log-function-4e82f196-1ca9-4747-8fb0-6c4a3abb3280",
+    "english_description": "Returns the logarithm of a number to a specified base"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LOG"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LOG"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LOG"
+    },
+    {
+      "locale": "da-DK",
+      "name": "LOG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LOG"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LOG"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LOG"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LOG"
+    },
+    {
+      "locale": "en-US",
+      "name": "LOG"
+    },
+    {
+      "locale": "es-ES",
+      "name": "LOG"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LOG"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "LOG"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "LOG"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LOG"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LOG"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "LOG"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LOG"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LOG"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LOG"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LOG"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LOG"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LOG"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LOG"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LOG"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LOG"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LOG"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "LOG"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LOG"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "LOG"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LOG"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LOG"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LOG"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "LOG"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LOG"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "LOG"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LOG"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LOG"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LOG"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LOG"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LOG"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

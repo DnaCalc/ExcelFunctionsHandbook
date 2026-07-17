@@ -1,0 +1,216 @@
+{
+  "function_id": "FUNC.IMSINH",
+  "surface_name": "IMSINH",
+  "published_row_id": "FUNC.IMSINH",
+  "entry_kind": "built_in_function",
+  "category": "Engineering functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": {
+    "symbol": "xlfImsinh",
+    "code": "593"
+  },
+  "arity": {
+    "min": 1,
+    "max": 1
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "None",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Returns the hyperbolic sine of a complex number",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/imsinh-function-dfb9ec9e-8783-4985-8c42-b028e9e8da3d",
+    "english_description": "Returns the hyperbolic sine of a complex number"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "da-DK",
+      "name": "IMAGSINH"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "en-US",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IM.SENOH"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMPLEKSI.SINH"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMPLEXE.SINH*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÉPZ.SINH"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "C.SINH"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SINH.LICZBY.ZESP"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "IMSENOH"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "МНИМ.SINH"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SANSINH"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IMSINH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IMSINH"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

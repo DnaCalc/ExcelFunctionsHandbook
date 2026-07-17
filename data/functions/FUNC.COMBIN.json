@@ -1,0 +1,233 @@
+{
+  "function_id": "FUNC.COMBIN",
+  "surface_name": "COMBIN",
+  "published_row_id": "FUNC.COMBIN",
+  "entry_kind": "built_in_function",
+  "category": "Math and trigonometry functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfCombin",
+    "code": "276"
+  },
+  "arity": {
+    "min": 2,
+    "max": 2
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "UnaryNumericScalarOnly",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "NumsToNum",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "COMBIN(number, number_chosen)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "number",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "number_chosen",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns the number of combinations for a given number of objects",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/combin-function-12a3f276-0a21-423a-8de6-06990aaf638a",
+    "english_description": "Returns the number of combinations for a given number of objects"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "KOMBINACE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "KOMBIN"
+    },
+    {
+      "locale": "de-DE",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "en-AU",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "en-GB",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "en-US",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "es-ES",
+      "name": "COMBINAT"
+    },
+    {
+      "locale": "et-EE",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KOMBINAATIO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "COMBIN*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KOMBINÁCIÓK"
+    },
+    {
+      "locale": "id-ID",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "it-IT",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "COMBINATIES"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "KOMBINACJE"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "COMBINAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЧИСЛКОМБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "KOMBIN"
+    },
+    {
+      "locale": "th-TH",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "KOMBİNASYON"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "COMBIN"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "COMBIN"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

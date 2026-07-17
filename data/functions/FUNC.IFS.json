@@ -1,0 +1,213 @@
+{
+  "function_id": "FUNC.IFS",
+  "surface_name": "IFS",
+  "published_row_id": "FUNC.IFS",
+  "entry_kind": "built_in_function",
+  "category": "Logical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_curated",
+  "xlcall": null,
+  "arity": {
+    "min": 2,
+    "max": 254
+  },
+  "classification": {
+    "arg_preparation_profile": "RefsVisibleInAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "by_index_scalar_array_lift(positions=0|1|2)",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=by_index_scalar_array_lift(positions=0|1|2);precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=true;numerical_reduction_policy=none;error_algebra=CanonicalExcelLegacy",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=refs_visible_in_adapter"
+  },
+  "signature": null,
+  "signature_placeholder": true,
+  "descriptions": {
+    "short": "Checks whether one or more conditions are met and returns a value that corresponds to the first TRUE condition.",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/ifs-function-36329a26-37b2-467c-972b-4a39bd951d45",
+    "english_description": "Checks whether one or more conditions are met and returns a value that corresponds to the first TRUE condition."
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "IFS"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "IFS"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "IFS"
+    },
+    {
+      "locale": "da-DK",
+      "name": "HVISER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "IFS"
+    },
+    {
+      "locale": "el-GR",
+      "name": "IFS"
+    },
+    {
+      "locale": "en-AU",
+      "name": "IFS"
+    },
+    {
+      "locale": "en-GB",
+      "name": "IFS"
+    },
+    {
+      "locale": "en-US",
+      "name": "IFS"
+    },
+    {
+      "locale": "es-ES",
+      "name": "SI.CONJUNTO"
+    },
+    {
+      "locale": "et-EE",
+      "name": "IFS"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "JOS.JOUKKO"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "SI.CONDITIONS*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "IFS"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "IFS"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "HAELSŐIGAZ"
+    },
+    {
+      "locale": "id-ID",
+      "name": "IFS"
+    },
+    {
+      "locale": "it-IT",
+      "name": "IFS"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "IFS"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "IFS"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "IFS"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "IFS"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "IFS"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "ALS.VOORWAARDEN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "IFS"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "IFS"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SE.S"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "IFS"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЕСЛИМН"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "IFS"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "IFS"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "IFS"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "IFS"
+    },
+    {
+      "locale": "th-TH",
+      "name": "IFS"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "IFS"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "IFS"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "IFS"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "IFS"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "IFS"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "IFS"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}

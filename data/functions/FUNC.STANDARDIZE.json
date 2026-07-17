@@ -1,0 +1,239 @@
+{
+  "function_id": "FUNC.STANDARDIZE",
+  "surface_name": "STANDARDIZE",
+  "published_row_id": "FUNC.STANDARDIZE",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "supported",
+    "reason": null
+  },
+  "metadata_status": "function_meta_extracted",
+  "xlcall": {
+    "symbol": "xlfStandardize",
+    "code": "297"
+  },
+  "arity": {
+    "min": 3,
+    "max": 3
+  },
+  "classification": {
+    "arg_preparation_profile": "ValuesOnlyPreAdapter",
+    "coercion_lift_profile": "Custom",
+    "determinism_class": "Deterministic",
+    "fec_dependency_profile": "None",
+    "host_interaction_class": "None",
+    "kernel_signature_class": "Custom",
+    "surface_fec_dependency_profile": "RefOnly",
+    "thread_safety_class": "SafePure",
+    "volatility_class": "NonVolatile"
+  },
+  "axes": {
+    "lift_broadcast_profile": "surface_native",
+    "precision_rounding_profile": "default",
+    "real_result_policy": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+    "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
+    "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "signature": {
+    "display": "STANDARDIZE(x, mean, standard_dev)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "x",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "mean",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "standard_dev",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Returns a normalized value",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/office/standardize-function-81d66554-2d54-40ec-ba83-6437108ee775",
+    "english_description": "Returns a normalized value"
+  },
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "da-DK",
+      "name": "STANDARDISER"
+    },
+    {
+      "locale": "de-DE",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "el-GR",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "en-AU",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "en-GB",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "en-US",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "es-ES",
+      "name": "NORMALIZACION"
+    },
+    {
+      "locale": "et-EE",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "NORMITA"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CENTREE.REDUITE*"
+    },
+    {
+      "locale": "he-IL",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "NORMALIZÁLÁS"
+    },
+    {
+      "locale": "id-ID",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "it-IT",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "NORMALISEREN"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "NORMALIZUJ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "NORMALIZAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НОРМАЛИЗАЦИЯ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "STANDARDISERA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "STANDARTLAŞTIRMA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "STANDARDIZE"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "STANDARDIZE"
+    }
+  ],
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": "ordinary",
+  "admission_interface_kind": "ordinary_call",
+  "registry_backed": true
+}
