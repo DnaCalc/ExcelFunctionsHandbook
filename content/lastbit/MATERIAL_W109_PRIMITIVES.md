@@ -291,3 +291,18 @@ The identification broke a three-lane plateau by eleven points in one
 stroke, and closed windows that had scored 0/400 under ninety-six
 candidate op-graphs to 400/400. Same missing header, two engineers, two
 different repairs — both recovered from rounding patterns alone.
+
+## 16. The parenthesis (candidate: "Order of Operations")
+
+After the two-logs identification, one discrete mystery remained: on
+certain rows — deterministically, row by row — Excel's five-term log-sum
+landed one ULP away from every model. The hunt tested eleven ways to
+parenthesize the subtraction chain. One of them, and only one, predicted
+403 of the 475 observed flips with zero false alarms: Excel's code
+computes ((s1 − s2) − (s3 + b1)) − b2 — someone grouped the third and
+fourth terms in parentheses, perhaps for readability, perhaps by habit.
+That invisible pair of brackets moved one bit in a billion-scale
+computation often enough to be found, and its neighbors on the
+parse tree lose by twenty points. Three source lines recovered in one
+day, each from a different kind of shadow: a missing function, its
+homemade replacement, and now a parenthesis.
