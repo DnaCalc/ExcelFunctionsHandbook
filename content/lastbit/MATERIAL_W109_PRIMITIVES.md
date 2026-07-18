@@ -202,3 +202,20 @@ production took a different road. The fix was deletion. Twin lesson from
 the beta side: a capture proved Excel has NO integer fast path at all —
 the 2010 rewrite trusts its continued fractions everywhere. Sometimes the
 bug is the optimization you were proud of.
+
+## 11. Passed the gate, lost the election (candidate: "Fresh Rows")
+
+GAMMALN band-2, lane 4. The search produced a coefficient candidate that
+passed every formal check: held-out total up (317>316), band score up,
+worst-case improved, zero regressions. Textbook promotion material. But its
+staging had been CHOSEN by peeking at those same held-out rows — so before
+landing, 1,600 never-probed arguments were captured from live Excel. The
+verdict: the gate-passing candidate scored WORSE than the incumbent
+(505 vs 518), while the held-blind pick — selected purely by which op-graph
+had the lowest residual noise floor, never by score — won at 549. The
+noise-floor principle beat the scoreboard. Bonus archaeology: the fresh
+gate also settled the op-graph — Excel's band 2 runs fully-continuous
+x87 extended, one final rounding, the same evaluation class as band 4;
+the code's two middle bands are siblings after all. (And the audit found
+the original fit had quietly included 400 held-out rows — the
+contamination that made the old model look better than it was.)
