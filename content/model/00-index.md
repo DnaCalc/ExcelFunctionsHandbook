@@ -15,8 +15,9 @@ axes instead of re-explaining the machinery. Behavior chips on function pages li
 | [05 — Version and platform axes](05-version-axes.md) | Why exact-behavior claims carry build, workbook-mode, and platform scope; localized names |
 | [06 — Claim language and honesty](06-claim-language.md) | What a claim is, its statuses, scoping rules, and how to challenge one |
 | [07 — About implementation options](07-implementation-options.md) | The four flavours, how implementations are admitted, choosing between them |
+| [08 — Working and Explicit presentation lenses](08-presentation-lenses.md) | Compact truthful terminology, inline explanation, answer envelopes, and the Gneiss plumbing beneath both views |
 
 Grounding: chapters 01–05 are grounded in the OxFunc reference implementation and its
-specification corpus (each chapter lists its exact sources); chapters 06–07 are Handbook
+specification corpus (each chapter lists its exact sources); chapters 06–08 are Handbook
 doctrine. All chapters are drafts from the phase H1 review; ambiguities found during that
 review are filed in `docs/handoffs/`.

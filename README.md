@@ -19,12 +19,14 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 2. [OPERATIONS.md](OPERATIONS.md) — organs and ownership, sync doctrine, suite versioning,
    ratchets, evidence intake, phase register.
 3. [ledger/VOCABULARY.md](ledger/VOCABULARY.md) — the `efh.*` claim vocabulary (draft).
+4. [GNEISS-PROFILE.md](GNEISS-PROFILE.md) — the declared boundary and experimental realization
+   profile for the Handbook as a Gneiss Knowledge System.
 
 ## Layout
 
 - `data/` — machine projections from OxFunc (the only mechanically synced organ).
 - `content/` — curated prose: call-model chapters, function pages, "The Last Bit" series,
-  homepage exhibits.
+  homepage exhibits, and the versioned working-term explanation registry.
 - `implementations/` — per function × flavour × language; only suite-verified entries are
   published.
 - `vectors/` — versioned test suites (JSONL, bits-hex, hash-manifested).

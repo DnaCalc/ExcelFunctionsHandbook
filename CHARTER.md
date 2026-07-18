@@ -53,6 +53,10 @@ For each function it aims to provide:
 6. **Interaction toward improvement.** The Handbook welcomes evidence: counterexample vectors,
    Excel-build observations, implementation proposals. Submissions enter the record as proposed
    claims — reviewed, decided, and credited. There is no anonymous direct editing.
+7. **Progressive explicitness.** The default reading surface uses compact working terminology
+   that remains true without qualification-by-click. Every load-bearing qualified term has a
+   versioned plain-language expansion available locally and through an Explicit reading lens.
+   Changing the presentation lens never changes the underlying Gneiss answer, context, or receipt.
 
 ## 4. Scope
 
@@ -98,6 +102,11 @@ Three organs (detail in `OPERATIONS.md` section 2):
    names the suite version.
 5. Where published documentation and empirical behavior differ, both are shown and the
    divergence is stated with evidence.
+6. A compact label must be true on its own. Expansion may explain its boundary; it may not rescue
+   an overclaiming label.
+7. Working and Explicit views render the same answer envelope. The Explicit view states scope and
+   exclusions in plain language; Why, Sources, As of, Rules, History, Limits, and Replay remain
+   available beneath it.
 
 ## 8. Non-goals
 

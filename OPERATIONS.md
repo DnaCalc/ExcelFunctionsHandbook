@@ -12,6 +12,8 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
    repo's own process.
 3. The Gneiss library is consumed read-only from `C:\Work\FireHorseCoding\Gneiss`
    (ProjectReference or locally packed NuGet). Never write to the FireHorseCoding tree.
+4. A separately authorized Gneiss implementation session may act on a committed Handbook handoff.
+   The handoff remains the durable boundary record; ordinary Handbook work never writes across it.
 
 ## 2. Organs and Mutability
 
@@ -77,15 +79,32 @@ non-increasing. A regression fails CI.
 | `tools/efh` | C# (Gneiss.Cell) | Ledger append/ask/why/stale · site generate · suite packaging · feedback ingest · atlas |
 | `tests/` | per language | Vector runners, ratchets, determinism drills |
 
-## 9. Phase Register (sequence-only)
+## 9. Gneiss Realization Boundary
+
+1. Gneiss governs the Handbook's published load-bearing answers and their accountability
+   envelopes. It does not store every paragraph, projected field, source file, or vector.
+2. The Handbook owns Excel-domain predicates, observation contexts, suite warrant types,
+   terminology, pedagogy, and presentation. Gneiss owns assertion/decision/context semantics,
+   receipts, staleness, contest, typed missingness, and the generic answer-envelope contract.
+3. `Working` and `Explicit` are presentation lenses over one evaluated answer. They are not Gneiss
+   evaluation contexts and must carry the same answer identity, context hash, and receipt.
+4. A published build pins the Gneiss implementation/package, evaluator, Public Surface profile,
+   and Handbook explanation-registry versions it consumed.
+5. Candidate general lessons are first exercised locally, backed by a real page and drill, then
+   recorded in `docs/handoffs/gneiss/`. Gneiss may adopt, generalize, defer, or reject them through
+   its own process. No handoff silently changes either system's contract.
+6. The current realization claim is declared in `GNEISS-PROFILE.md`. Until the listed drills run,
+   it says "designed as" rather than claiming earned Gneiss conformance.
+
+## 10. Phase Register (sequence-only)
 
 | Phase | Content | State |
 |---|---|---|
 | H0 | Repo bootstrap: charter, operations, skeleton, vocabulary draft, mockups, public repo | complete (2026-07-18, github.com/DnaCalc/ExcelFunctionsHandbook) |
 | H1 | Evaluation-context review → `content/model/` chapters | complete (2026-07-18, chapters 00–07 draft; 36 findings handed off) |
 | H2 | `efh-ingest` + the basic 534-row list in `data/` | complete (2026-07-18, 541 entries from 534 rows; deterministic) |
-| H3 | Gneiss ledger bootstrap: vocabulary declared, baseline claims appended | planned |
-| H4 | Site v1: all pages honest-labeled, exhibits homepage, series scaffold, /coverage, /api | planned |
+| H3 | Gneiss ledger bootstrap: vocabulary + public-current context declared, baseline claims appended, experimental profile emitted | planned |
+| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | planned |
 | H5 | Depth tranche (~12 fns): curated pages, suites, claims, plates, references, first episodes; ABS+EXP full spread | planned |
 | H6 | Evidence feedback loop v1 | planned |
 | H7+ | Roadmap: tranche expansion, implementation forge, atlas index, locale surfaces, per-build contexts, OneCalc embed, conformance kit | planned |

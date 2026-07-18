@@ -238,3 +238,21 @@ the very same unknown that has held the erf lane at its 67% plateau for
 weeks. Two functions, one wall. And BINOM brought the siege equipment: five
 hundred rows where the extended argument is exactly known and the published
 answer is visible — the oracle the erf lane never had.
+
+## 13. The acquittal (candidate: "Sliding the Argument")
+
+The extended-entry exponential had been the prime suspect for weeks — the
+erf lane's 67% plateau was blamed on it, BINOM's 34% end-to-end was blamed
+on it. The trial: take each BINOM row's recovered 80-bit argument and SLIDE
+it, one 64-bit-ULP at a time, ±70 steps, asking the real hardware chain at
+each step whether it produces Excel's exact published bits. If the chain
+were guilty, no slide position would work. Verdict: for 76% of rows a
+consistent argument EXISTS — the chain, given the right 80-bit input,
+reproduces Excel perfectly. The suspect walked free. The real culprit is
+eleven invisible bits: the argument's content BELOW double precision,
+where the implied-argument decode cannot see but the chain's rounding can.
+Every simple hypothesis for those bits failed in a different way, and the
+holdouts cluster at extreme probabilities — the investigation continues,
+but the wall has a new name and a much smaller cross-section. Best line in
+the case file: the same acquittal likely applies to erf — weeks of
+"chain microdetail" theories may all have been argument-side.
