@@ -11,7 +11,7 @@ so claim keys never collide across siblings).
 | `fn:<function_id>` | A function/operator row, e.g. `fn:FUNC.GAMMALN` |
 | `impl:<function_id>:<flavour>:<lang>` | One implementation, e.g. `impl:FUNC.ABS:excel-bitexact:rust` |
 | `suite:<function_id>:v<N>` | One test-suite version |
-| `claim:bitexact:<function_id>:<excel-build>:<platform>` | One scoped bit-exactness claim |
+| `claim:compatibility:<function_id>:<observation-context>` | One Excel-compatibility claim family; rival assertions about the same scope deliberately share this subject |
 | `page:<function_id>` · `episode:<n>` | Curated content units |
 
 ## Predicates (v1, ≤10)
@@ -24,7 +24,7 @@ so claim keys never collide across siblings).
 | `efh.admission` | text: supported / deferred(reason) / … | from OxFunc admission policy join |
 | `efh.impl` | json: flavour, language, source path+hash | existence of an implementation |
 | `efh.impl.verification` | json: suite version, manifest hash, pass counts | impl passes suite |
-| `efh.bitexact` | json: excel build, platform, suite version, hash | always all three axes |
+| `efh.compatibility` | json: target, warrant, observation context, suite version+hash | `suite-exact` is distinct from stronger declared-domain bit-exactness |
 | `efh.suite` | json: version, count, sha256, oracle provenance | suite publication fact |
 | `efh.page` | json: path, content hash | curated page exists at this state |
 | `efh.story` | json: episode number, path, function ids | "The Last Bit" linkage |
@@ -33,10 +33,13 @@ so claim keys never collide across siblings).
 
 | Context | Policy |
 |---|---|
-| `current` | decided-only admission; the published belief view |
+| `public-current` | decided-only admission; the default published belief view with a pinned observation baseline |
 | `as-published-<snapshot>` | pinned view for each site publication |
 
 Per-Excel-build/platform contexts arrive with multi-build oracle data (roadmap).
+
+`working` and `explicit` are presentation lenses, not ledger contexts. Both render one answer and
+must preserve its context hash, result hash, and receipt.
 
 ## Rules
 
@@ -46,3 +49,6 @@ Per-Excel-build/platform contexts arrive with multi-build oracle data (roadmap).
    manifest hash, submission reference).
 3. References (books/papers/code) are curated content, not ledger claims, in v1; substrate
    identification statements that carry evidentiary weight are claims.
+4. Working-term definitions and explanation templates live in the curated content organ at
+   `content/vocabulary/working-terms.json`. Predicate declarations and rendered claims reference
+   its version; the prose templates themselves are not duplicated as ledger assertions.

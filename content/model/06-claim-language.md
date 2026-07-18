@@ -24,28 +24,33 @@ Claims live in an append-only record. Corrections never rewrite history; they ar
 that supersede old ones, with reasons. Every page that renders a claim also renders enough of
 its basis to audit it ("Basis: … · receipt … · why?").
 
-## The status vocabulary
+## Status is several independent questions
 
-| Status | Meaning |
-|---|---|
-| accepted | Reviewed and admitted to the published view; evidence on record |
-| proposed | Submitted (by research or by a contributor) but not yet decided |
-| contested | Credible evidence points both ways; both sides are shown |
-| stale | The claim's inputs have changed since it was verified; re-affirmation pending |
-| superseded | Replaced by a later claim; kept in the record for history |
-| open problem | An explicitly unresolved question, published as such |
+The Handbook does not compress epistemic state, domain warrant, evidence survival, and content
+depth into one badge. A displayed answer may carry values on each of these independent dimensions:
 
-Contested and stale are ordinary published states, not embarrassments. When two sources
-disagree — Excel's documentation against observed behavior, or a contributor's counterexample
-against our verification — the page says so.
+| Dimension | Examples | Question answered |
+|---|---|---|
+| testimony/admission | proposed, admitted, not admitted | Has this testimony entered the published view? |
+| current belief | accepted, defeated, contested, missing | What does this view conclude? |
+| sensitivity | fresh, stale | Did a consumed input or watched frontier change? |
+| domain warrant | documented, observed, suite-exact, characterized | How was the Excel-domain claim supported? |
+| evidence survival | grounded, archive-backed, attested, basis lost | What material still survives for inspection or replay? |
+| content depth | projected, curated, deep, open problem | How much Handbook work exists here? |
+
+Supersession is decision/history, not a universal current-status label. An open problem is curated
+content describing an unresolved question, not a substitute for Gneiss typed missingness or
+contest. Contested and stale are ordinary published results, never embarrassments.
 
 ## Scoping rules
 
 1. **No unqualified completeness.** "Done", "complete", "verified", and "exact" always name
    their scope. A statement with no scope is a defect.
-2. **Bit-exactness has three mandatory axes.** Any claim that an implementation returns
-   exactly Excel's bits names the Excel build, the platform, and the test-suite version it was
-   verified against. See the version-axes chapter for why all three are load-bearing.
+2. **Compatibility warrant is named.** Passing a finite suite is rendered as `suite-exact`, not
+   as universal bit-exactness. It names the observation context (Excel build/channel, workbook
+   mode, locale, platform/CPU where material) and verification artifact (suite version, manifest
+   hash, capture route). Stronger `characterized bit-exact` or `bit-exact over declared domain`
+   wording requires the additional domain/mechanism evidence stated by the claim.
 3. **Coverage is counted, not gestured.** Coverage statements are absolute counts against the
    full 534-row function surface ("12 of 534 functions curated"), never percentages of an
    undisclosed base.
@@ -54,6 +59,21 @@ against our verification — the page says so.
 5. **Documentation is cited, behavior is evidenced.** Where Microsoft's documentation and
    observed behavior differ, the page shows both and states the divergence with evidence.
    Neither is silently preferred.
+
+## Two reading registers
+
+The default **Working** lens uses compact domain terminology. Every working label is true without
+being expanded. The **Explicit** lens expands registered qualifications inline with their plain
+meaning, scope, and exclusions. A reader may also expand one working term in place.
+
+Working and Explicit are presentation lenses, not evaluation contexts. They render the same
+Gneiss answer, context, result hash, and receipt. Changing lenses must not strengthen or weaken a
+claim. Evidence and record detail remain one level beneath both through Why, Sources, As of,
+Rules, History, Limits, and Replay.
+
+Substantive explanations never exist only in a hover tooltip or transient pop-up. Definitions and
+templates live in the versioned `content/vocabulary/working-terms.json` registry so pages cannot
+quietly drift into different meanings for the same working term.
 
 ## What the Handbook does not do
 
@@ -76,13 +96,13 @@ it is collaboratively corrected.
 
 | Label | Meaning |
 |---|---|
-| supported | The function's core behavior is characterized and implemented against the current baseline |
-| deferred | Intentionally out of the current implementation surface; the reason is shown |
+| reference engine: available | OxFunc currently admits the function to its implementation surface |
+| reference engine: deferred | OxFunc intentionally defers the function; the reason is shown |
 | not yet curated | The entry exists with projected metadata only; no curated content yet |
 | placeholder | A metadata field (e.g. a signature) is not yet real and is suppressed, not faked |
-| verified, suite vN | Passed every vector of that suite version; badge links to the claim |
-| bit-exact (build, platform, suite vN) | Bitwise equality with Excel under exactly those three scopes |
-| current baseline | The reference Excel build and platform the Handbook currently verifies against |
+| suite-exact, vN | Matched the named oracle bit-for-bit for every vector in suite vN; no claim outside the suite |
+| characterized bit-exact | Mechanism and declared input domain are characterized under the named observation context |
+| current baseline | The pinned observation context used by the `public-current` view; the complete scope is inspectable |
 | open problem | A published, explicitly unresolved behavior question |
 
 ## Sources

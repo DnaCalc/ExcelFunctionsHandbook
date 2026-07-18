@@ -1,0 +1,76 @@
+{
+  "schema": "gneiss.experimental-gks-profile/v0",
+  "system": {
+    "id": "excel-functions-handbook",
+    "name": "The Handbook of Excel Functions"
+  },
+  "categoryClaim": "designed",
+  "modes": ["foundation"],
+  "scope": {
+    "coveredBoundaries": [
+      "published load-bearing function and operator answers",
+      "implementation and suite verification answers",
+      "curated page and story publication answers"
+    ],
+    "claimFamilies": [
+      "efh.identity",
+      "efh.signature",
+      "efh.classification",
+      "efh.admission",
+      "efh.impl",
+      "efh.impl.verification",
+      "efh.compatibility",
+      "efh.suite",
+      "efh.page",
+      "efh.story"
+    ],
+    "excluded": [
+      "ordinary teaching prose without independently challengeable claims",
+      "bulk vector payloads",
+      "source repositories and generated projections as storage"
+    ]
+  },
+  "versions": {
+    "protocol": "candidate-v0",
+    "publicSurface": "working-v0",
+    "evaluator": "not-yet-integrated",
+    "realization": "efh-profile-design-v1",
+    "termRegistry": "efh.working-terms/v1"
+  },
+  "defaultView": {
+    "name": "public-current"
+  },
+  "evidenceOrgans": [
+    { "id": "handbook-git", "kind": "git", "standing": "repository-backed" },
+    { "id": "oxfunc-projection", "kind": "generated projection", "standing": "source-versioned" },
+    { "id": "function-suites", "kind": "hash-manifested vector suites", "standing": "planned" },
+    { "id": "external-references", "kind": "documents and source archives", "standing": "reference-dependent" }
+  ],
+  "presentation": {
+    "lenses": ["working", "explicit"],
+    "sameAnswerAcrossLenses": true,
+    "compactLabelsTruthfulWithoutExpansion": true,
+    "registryVersion": "efh.working-terms/v1"
+  },
+  "drills": [
+    { "id": "PL-01-same-answer-two-lenses", "status": "planned" },
+    { "id": "PL-02-compact-label-honesty", "status": "planned" },
+    { "id": "PL-03-explicit-reachability", "status": "planned" },
+    { "id": "PL-04-semantic-state-parity", "status": "planned" },
+    { "id": "PL-05-seven-doors", "status": "planned" },
+    { "id": "PL-06-versioned-rendering", "status": "planned" }
+  ],
+  "limitations": [
+    "The H3 Gneiss ledger and public-current context do not yet exist.",
+    "Mockup receipts and claim identifiers are illustrative.",
+    "No Gneiss conformance profile has been ratified.",
+    "Presentation drills are specified but not yet wired into CI."
+  ],
+  "localExtensions": [
+    "efh.working-terms/v1",
+    "Excel observation-context and suite-warrant vocabulary"
+  ],
+  "steward": {
+    "name": "DNA Kode"
+  }
+}

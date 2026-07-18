@@ -1,0 +1,62 @@
+{
+  "schema": "efh.working-terms/v1",
+  "version": 1,
+  "terms": [
+    {
+      "id": "efh.verification.suite-exact",
+      "label": "suite-exact, v{suite_version}",
+      "plain": "Matched the named Excel oracle bit-for-bit for every one of the {vector_count} inputs in suite {suite_version} under the stated observation context.",
+      "boundary": "Inputs outside this suite are not covered by this claim.",
+      "requires": ["suite_version", "manifest_hash", "vector_count", "excel_build", "platform", "capture_route"],
+      "doors": ["why", "sources", "as-of", "rules", "history", "limits", "replay"]
+    },
+    {
+      "id": "efh.verification.characterized-bit-exact",
+      "label": "characterized bit-exact",
+      "plain": "Claims bitwise agreement with Excel over the declared input domain using the recorded mechanism and observation context.",
+      "boundary": "The claim does not extend beyond its declared domain, Excel build, workbook mode, locale, or platform scope.",
+      "requires": ["declared_domain", "mechanism_basis", "excel_build", "workbook_mode", "platform", "suite_version", "manifest_hash"],
+      "doors": ["why", "sources", "as-of", "rules", "history", "limits", "replay"]
+    },
+    {
+      "id": "efh.admission.reference-engine-available",
+      "label": "reference engine: available",
+      "plain": "The current OxFunc projection admits this entry to its implementation surface.",
+      "boundary": "This does not by itself mean the Handbook page is curated or that an implementation has passed a published suite.",
+      "requires": ["projection_snapshot", "source_commit"],
+      "doors": ["why", "sources", "as-of", "history", "limits"]
+    },
+    {
+      "id": "efh.content.projected",
+      "label": "Handbook depth: projected",
+      "plain": "The page currently contains mechanically projected metadata rather than a fully curated Handbook treatment.",
+      "boundary": "Missing curation is shown explicitly; projected fields retain their upstream provenance and limitations.",
+      "requires": ["projection_snapshot"],
+      "doors": ["sources", "as-of", "history", "limits"]
+    },
+    {
+      "id": "efh.view.current-baseline",
+      "label": "current baseline",
+      "plain": "The default public view evaluated under the pinned Excel observation baseline named by this answer.",
+      "boundary": "Current is a named, inspectable view rather than a timeless or automatically advancing fact.",
+      "requires": ["context_id", "context_hash", "excel_build", "workbook_mode", "locale", "platform"],
+      "doors": ["as-of", "rules", "history", "limits", "replay"]
+    },
+    {
+      "id": "efh.answer.stale",
+      "label": "stale",
+      "plain": "A dependency or sensitivity-frontier input changed after this answer was produced.",
+      "boundary": "Stale is an invitation to re-evaluate; it is not automatically a defeat or proof that the value is wrong.",
+      "requires": ["receipt_id", "stale_causes"],
+      "doors": ["why", "history", "limits", "replay"]
+    },
+    {
+      "id": "efh.answer.contested",
+      "label": "contested",
+      "plain": "The current policy does not license one unique answer from the credible alternatives on record.",
+      "boundary": "The alternatives and the point at which resolution stopped remain visible.",
+      "requires": ["claim_key", "alternative_aids", "stopped_at_rule"],
+      "doors": ["why", "sources", "rules", "history", "limits"]
+    }
+  ]
+}

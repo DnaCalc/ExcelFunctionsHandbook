@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mockup — function page (GAMMALN), v3</title>
+<title>Mockup — function page (GAMMALN), v4 Working/Explicit</title>
 <style>
 :root{
   --surface-0:#faf9f5; --surface-1:#f1efe8; --surface-2:#ffffff;
-  --text-primary:#1a1a17; --text-secondary:#5f5e5a; --text-muted:#888780;
+  --text-primary:#1a1a17; --text-secondary:#5f5e5a; --text-muted:#6f6e68;
   --border:#d3d1c7; --border-strong:#b4b2a9;
   --bg-success:#eaf3de; --text-success:#3b6d11;
   --bg-warning:#faeeda; --text-warning:#854f0b;
@@ -17,7 +17,7 @@
 @media (prefers-color-scheme: dark){
   :root{
     --surface-0:#1d1d1b; --surface-1:#262624; --surface-2:#30302e;
-    --text-primary:#f1efe8; --text-secondary:#b4b2a9; --text-muted:#888780;
+    --text-primary:#f1efe8; --text-secondary:#b4b2a9; --text-muted:#aaa9a3;
     --border:#444441; --border-strong:#5f5e5a;
     --bg-success:#27500a; --text-success:#c0dd97;
     --bg-warning:#633806; --text-warning:#fac775;
@@ -33,17 +33,43 @@ a{color:var(--accent);}
   text-decoration:none; color:var(--text-secondary); display:inline-block; margin:0 4px 4px 0;}
 button{font:inherit; font-size:13px; padding:6px 12px; border:0.5px solid var(--border-strong);
   border-radius:var(--radius); background:var(--surface-2); color:var(--text-primary);}
+.lensbar{display:flex; justify-content:flex-end; align-items:center; gap:8px; margin-bottom:0.8rem;
+  color:var(--text-muted); font-size:12px;}
+.lensbar button{padding:3px 9px; color:var(--text-secondary);}
+.lensbar button[aria-pressed="true"]{background:var(--text-primary); color:var(--surface-2); border-color:var(--text-primary);}
+.statusline{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;}
+.status{font-size:12px; padding:4px 10px; border-radius:var(--radius); border:0.5px solid var(--border);}
+.status.available{background:var(--bg-success); color:var(--text-success); border-color:transparent;}
+.term{font:inherit; font-size:12px; padding:3px 10px; border:0.5px solid var(--border-strong);
+  border-radius:var(--radius); background:var(--surface-2); color:var(--text-primary); cursor:pointer;}
+.term::after{content:" +"; color:var(--text-muted);}
+.term[aria-expanded="true"]::after{content:" −";}
+.explain{display:none; margin:8px 0 0; padding:8px 10px; border-left:2px solid var(--border-accent);
+  color:var(--text-secondary); font-size:13px; background:color-mix(in srgb,var(--surface-2) 72%,var(--surface-1));}
+.explain[data-open="true"],body.explicit .explain{display:block;}
+.explain strong{color:var(--text-primary); font-weight:500;}
 .muted{color:var(--text-muted); font-size:12px;}
 .sec{color:var(--text-secondary); font-size:13px;}
 h1{font-family:var(--mono); font-size:24px; font-weight:500; margin:0;}
-h3{font-size:16px; font-weight:500; margin:1.2rem 0 4px;}
+h2{font-size:16px; font-weight:500; margin:1.2rem 0 4px;}
 p{margin:0.3rem 0;}
 .ref{font-size:13px; margin:0; padding:6px 0; border-top:0.5px solid var(--border);}
 .ref:first-child{border-top:none;}
+@media (max-width:560px){
+  body{padding:0.75rem;}
+  .wrap{padding:1rem;}
+  .lensbar{justify-content:flex-start;}
+  .statusline{justify-content:flex-start;}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
+<main class="wrap">
+  <nav class="lensbar" aria-label="Reading lens">
+    <span>Reading</span>
+    <button type="button" data-lens="working" aria-pressed="true">Working</button>
+    <button type="button" data-lens="explicit" aria-pressed="false">Explicit</button>
+  </nav>
   <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
     <div>
       <h1>GAMMALN</h1>
@@ -51,10 +77,18 @@ p{margin:0.3rem 0;}
         <span style="font-family:var(--mono);">FUNC.GAMMALN</span> · xlfGammaLn (271)</p>
       <p style="font-size:13px;"><a href="#">Microsoft docs</a> · <a href="#">37 localized names and docs</a> · <a href="#">history</a></p>
     </div>
-    <span style="background:var(--bg-success); color:var(--text-success); font-size:12px; padding:4px 12px; border-radius:var(--radius);">supported</span>
+    <div class="statusline" aria-label="Entry status">
+      <span class="status available">reference engine: available</span>
+      <span class="status">Handbook depth: curated example</span>
+    </div>
   </div>
   <p class="muted">Basis: OxFunc snapshot g47 · context <span style="font-family:var(--mono);">current</span> ·
     receipt 9f31…c2 · checked fresh 2026-07-15 · <a href="#">why?</a></p>
+  <p class="explain" data-explicit>
+    <strong>Two independent statements.</strong> “Reference engine: available” describes OxFunc
+    admission. “Handbook depth” describes curation. Neither one claims that every behavior is
+    characterized or that an implementation has passed a published suite.
+  </p>
 
   <div class="card" style="margin-top:0.8rem;">
     <p style="font-family:var(--mono); font-size:15px;">GAMMALN(<span style="color:var(--accent);">x</span>)</p>
@@ -67,12 +101,18 @@ p{margin:0.3rem 0;}
     <p class="muted">Each chip links to the call model — the uniform description of how every function is admitted, coerced, and evaluated.</p>
   </div>
 
-  <h3>Implementations</h3>
-  <p class="sec" style="margin:0 0 8px;">What we have today, verified against this function's test suite.</p>
+  <h2>Implementations</h2>
+  <p class="sec" style="margin:0 0 8px;">What exists today, with the warrant it has actually earned.</p>
   <div class="card" style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
     <div style="flex:1; min-width:220px;">
-      <p style="font-size:14px; font-weight:500;">Excel bit-exact · Rust</p>
-      <p class="sec">Returns exactly what Excel returns, quirks included. Verified on suite v3 (48,112 vectors) · Excel 2606 x64.</p>
+      <p style="font-size:14px; font-weight:500;">Excel compatibility · Rust</p>
+      <p class="sec"><button type="button" class="term" aria-expanded="false" aria-controls="suite-exact-detail">suite-exact, v3</button>
+        48,112 vectors · Excel 2606 · Windows x64/AMD</p>
+      <p class="explain" id="suite-exact-detail">
+        <strong>Suite-exact, not universal.</strong> This implementation matched Excel bit-for-bit
+        for all 48,112 inputs in suite v3 under the named Excel build and platform. Inputs outside
+        that suite are not covered by this claim.
+      </p>
     </div>
     <p style="font-size:13px;"><a href="#">source</a> · <a href="#">claim</a></p>
   </div>
@@ -80,7 +120,7 @@ p{margin:0.3rem 0;}
     (Excel bit-exact, natural best, portable reproducible, mathematically correct), the languages we target,
     how new implementations are built, verified, and admitted.</p>
 
-  <h3>References</h3>
+  <h2>References</h2>
   <p class="sec" style="margin:0 0 8px;">Where this function's mathematics and implementations are described elsewhere.</p>
   <div class="card" style="padding:0.5rem 1.25rem;">
     <p class="ref">Abramowitz and Stegun, §6.1 — the gamma function <span class="muted">· definitions and identities</span></p>
@@ -93,8 +133,11 @@ p{margin:0.3rem 0;}
   <div style="background:var(--bg-warning); border-radius:12px; padding:0.9rem 1.25rem; margin-top:1.2rem;">
     <p style="font-size:13px; font-weight:500; color:var(--text-warning);">Open problem</p>
     <p style="font-size:13px; color:var(--text-warning);">Excel's GAMMALN core carries a high-frequency ±1 ULP
-      residual (~40% of probes) whose exact operation graph is still unidentified. The bit-exact claim is scoped
-      to the verified corpus. <a href="#">Follow the hunt →</a></p>
+      residual (~40% of probes) whose exact operation graph is still unidentified. The published
+      compatibility warrant is therefore suite-exact rather than universal. <a href="#">Follow the hunt →</a></p>
+    <p class="explain" data-explicit><strong>Why this matters.</strong> Matching a large corpus is
+      powerful evidence, but an unidentified operation graph leaves open the possibility of an
+      input outside the suite that diverges.</p>
   </div>
 
   <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
@@ -122,8 +165,28 @@ p{margin:0.3rem 0;}
   </div>
 
   <div style="display:flex; gap:14px; border-top:0.5px solid var(--border); padding-top:0.8rem; margin-top:12px; flex-wrap:wrap; font-size:13px;">
-    <a href="#">Why</a><a href="#">Sources</a><a href="#">As of</a><a href="#">History</a><a href="#">Limits</a><a href="#">ULP Atlas plate</a>
+    <a href="#">Why</a><a href="#">Sources</a><a href="#">As of</a><a href="#">Rules</a><a href="#">History</a><a href="#">Limits</a><a href="#">Replay</a><a href="#">ULP Atlas plate</a>
   </div>
-</div>
+</main>
+<script>
+const lensButtons=[...document.querySelectorAll('[data-lens]')];
+const setLens=(lens,{updateUrl=true}={})=>{
+  document.body.classList.toggle('explicit',lens==='explicit');
+  lensButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.lens===lens)));
+  document.querySelectorAll('.term').forEach(button=>{
+    const detail=document.getElementById(button.getAttribute('aria-controls'));
+    button.setAttribute('aria-expanded',String(lens==='explicit'||detail.dataset.open==='true'));
+  });
+  if(updateUrl){const url=new URL(location.href);lens==='explicit'?url.searchParams.set('view','explicit'):url.searchParams.delete('view');history.replaceState(null,'',url);}
+};
+lensButtons.forEach(button=>button.addEventListener('click',()=>setLens(button.dataset.lens)));
+document.querySelectorAll('.term').forEach(button=>button.addEventListener('click',()=>{
+  const detail=document.getElementById(button.getAttribute('aria-controls'));
+  const open=button.getAttribute('aria-expanded')!=='true';
+  button.setAttribute('aria-expanded',String(open));
+  detail.dataset.open=String(open);
+}));
+setLens(new URL(location.href).searchParams.get('view')==='explicit'?'explicit':'working',{updateUrl:false});
+</script>
 </body>
 </html>

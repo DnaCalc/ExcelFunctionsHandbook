@@ -256,3 +256,20 @@ holdouts cluster at extreme probabilities — the investigation continues,
 but the wall has a new name and a much smaller cross-section. Best line in
 the case file: the same acquittal likely applies to erf — weeks of
 "chain microdetail" theories may all have been argument-side.
+
+## 14. Number for number (candidate: "The Same Wall Twice")
+
+The acquittal experiment was repeated at the other crime scene. The erf
+lane's argument — half the logarithm of z², carried at 80 bits — was slid
+one 64-bit-ULP at a time through the full C10r pipeline on 1,508
+development rows. The verdict came back with numbers that could have been
+photocopied from the BINOM case: a consistent argument exists for 76.5%
+of rows (BINOM: 76%); 23.5% are unreachable by any argument shift
+(BINOM: 24%); the argument deviations center on zero and scatter below
+double precision. Two functions, written by different hands from
+different papers — Loader's saddle-point and DiDonato-Morris's series —
+publishing through the same 1990s exponential, blocked by the same eleven
+invisible bits. Weeks of theories about the chain's microcode dissolved
+in an afternoon: the chain was never wrong. What remains is a question
+about compilers, not mathematics — how 32-bit code composes the last
+line before calling exp — asked once, answerable everywhere.

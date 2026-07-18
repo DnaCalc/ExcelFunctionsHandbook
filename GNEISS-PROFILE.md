@@ -7,6 +7,9 @@ System. It is committed now so the ledger bootstrap and site generator have a bo
 H3 will turn the profile's load-bearing statements into Gneiss answers; H4 will publish the machine
 manifest and drill results.
 
+The candidate machine-readable twin is `gneiss-profile.json`, shaped by Gneiss's experimental v0
+profile schema. It truthfully records planned drills rather than implying that they already pass.
+
 ## Category Claim
 
 The Handbook is **designed as a Gneiss Knowledge System**. After the ledger-backed vertical slice

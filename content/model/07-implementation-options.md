@@ -7,15 +7,16 @@ Status: draft (H1) · Sources: Handbook CHARTER
 Ask four careful engineers to implement GAMMALN and you can get four defensibly different
 functions. They will disagree in the last bits — and each can be the right choice, depending on
 what you need. The Handbook makes this explicit instead of pretending there is one true
-implementation. Every function is described in four flavours:
+implementation. Every function page uses the same four-flavour framework, while showing only
+implementations that actually exist and have passed their stated admission gate:
 
-### Excel bit-exact
+### Excel compatibility (`excel-bitexact`)
 
-Returns exactly what Excel returns, for every input — including Excel's own quirks,
-approximations, and historical accidents. This is the flavour you want for **compatibility and
-audit**: recomputing a workbook and getting identical bits, validating a migration, or proving
-that a discrepancy is real. Because Excel's own results can depend on its build and on the
-hardware it runs on, this flavour is always scoped: Excel build, platform, test-suite version.
+Targets Excel's observed behavior, including quirks, approximations, and historical accidents.
+This is the flavour you want for **compatibility and audit**: recomputing a workbook, validating a
+migration, or proving that a discrepancy is real. The flavour names the target; its warrant states
+what has actually been demonstrated. A finite corpus earns `suite-exact, vN`, not a universal
+claim. Stronger bit-exact wording names its declared input domain and complete observation context.
 
 ### Natural best
 
@@ -65,7 +66,7 @@ announced ahead of existence.
 
 | You need | Take |
 |---|---|
-| Identical bits to a specific Excel | Excel bit-exact (mind the build/platform scope) |
+| Compatibility with a specific Excel | Excel compatibility (read its warrant and observation scope) |
 | The best available answer for new code | Natural best |
 | Two machines that can never disagree | Portable reproducible |
 | A reference to measure against | Mathematically correct |
@@ -78,11 +79,13 @@ flavours actually are.
 
 | Label | Meaning |
 |---|---|
-| excel-bitexact | Bitwise-identical to Excel under the named build/platform/suite scope |
+| excel-bitexact | Implementation flavour targeting Excel compatibility; the adjacent warrant states what is demonstrated |
+| suite-exact, vN | Matched the named Excel oracle for every vector in suite vN; inputs outside the suite are not claimed |
+| characterized bit-exact | Bitwise claim over a declared domain with named mechanism/context evidence |
 | natural-best | Balanced state-of-the-art implementation of the intended function |
 | portable-reproducible | Bit-identical across CPUs, compilers, and platforms |
 | math-correct | Correctly rounded (or best-feasible) reference implementation |
-| verified, suite vN | Passed every vector of that suite version |
+| verification passed, suite vN | Passed every vector of that suite version; not by itself a universal claim |
 
 ## Sources
 
