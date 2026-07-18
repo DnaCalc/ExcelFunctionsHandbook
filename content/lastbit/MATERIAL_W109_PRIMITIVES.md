@@ -149,3 +149,56 @@ constraints; the per-row residual is what the op-graph must reproduce.
 - "The Last Bit: The Literal 0.7" (GAMMALN genealogy; code archaeology from
   bits alone)
 - "The Last Bit: The Grid Looks Back" (aliasing; measurement discipline)
+
+## 7. Reading the source line off the bits (candidate: "Division First")
+
+The WEIBULL.DIST pdf identification, four-lane sweep 2026-07-18. The naive
+form matched every β=1 test block at 100% and failed a third of everything
+else — including a β=2 block where every β-related operation is EXACT in
+floating point. That "impossible" failure was the tell: the only way a
+formula can be perfect at β=1 and wrong at β=2-with-exact-arithmetic is if
+Excel computes the powers of x and β SEPARATELY — because pow(1, anything)
+= exp(0·ln 1) = 1 exactly, β=1 makes both forms collapse to identical bits.
+The textbook writes the Weibull density α/βᵅ·x^(α−1)·e^(−(x/β)^α), and
+Microsoft's engineer typed it VERBATIM. The final race enumerated every
+association order × every spill pattern: the winner — division first,
+left-to-right, every op double-rounded through a spilled local — hit
+1,600/1,600. You can reconstruct the C expression, token by token, from
+rounding patterns alone. Held-out: 5,999/6,000.
+
+## 8. The window that couldn't see (candidate: "Route-Blind")
+
+A prior session had "proven" POISSON's pmf route via the k=0 window —
+POISSON(0,λ) publishes exp(−λ) raw, 34,000/34,000. This session found the
+proof was empty: at k=0, the direct product λ⁰·e^(−λ)/0! and the log-route
+exp(0·lnλ − λ − ln 0!) are THE SAME EXPRESSION — 0·lnλ = 0 exactly. The
+window validated the exp primitive perfectly and said nothing whatsoever
+about the route. Method rule banked: a window that publishes a common
+subexpression proves the subexpression, never the route. (The route turned
+out to be two-headed: a direct product for k=1, and Loader's saddle-point
+for k≥2 — one worksheet function, two algorithms.)
+
+## 9. Recognizing an author (candidate: "The 0.1 Branch")
+
+BINOM.DIST general-k refused every route family at the exact-bit level —
+direct, recurrence, log-composed, 256 spill-mask graphs. The break came
+from control flow, not arithmetic: Catherine Loader's dbinom (2000, the
+algorithm R uses) computes the k=0 case as n·ln(q) — except when p < 0.1,
+where it switches to a deviance form to protect accuracy. A 400-row capture
+at p < 0.1: Excel switches formulas at exactly that boundary, 383/400.
+You can identify an ALGORITHM'S AUTHOR from where its branches fall.
+Excel 2010's BINOM.DIST is Loader's dbinom — and POISSON k≥2 was already
+matching her dpois bit-for-bit through ±50-ULP saddle-point roundings.
+
+## 10. Reverse-engineering ourselves (candidate: "The Shortcut")
+
+The lane-3 re-score found the enemy within: OxFunc's own pre-campaign
+integer-shape "fast path" for GAMMA.DIST — a tidy closed-form sum any
+numerics textbook would endorse — had been silently overriding the
+painstakingly identified GRATIO kernel for every integer shape parameter.
+At small x it also cancels catastrophically: ±4,400 ULP. Months of corpus
+scores had measured the identified kernel directly and never noticed that
+production took a different road. The fix was deletion. Twin lesson from
+the beta side: a capture proved Excel has NO integer fast path at all —
+the 2010 rewrite trusts its continued fractions everywhere. Sometimes the
+bug is the optimization you were proud of.
