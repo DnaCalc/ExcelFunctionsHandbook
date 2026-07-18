@@ -219,3 +219,22 @@ x87 extended, one final rounding, the same evaluation class as band 4;
 the code's two middle bands are siblings after all. (And the audit found
 the original fit had quietly included 400 held-out rows — the
 contamination that made the old model look better than it was.)
+
+## 12. The bell that meant extended (candidate: "Two Functions, One Wall")
+
+BINOM's exp-argument was recovered to a twentieth of a ULP by taking the
+logarithm of every published probability at 200 digits. Racing 432 staging
+candidates got 87.5% of rows inside the error window — and then the residual
+histogram refused to behave: deviations at ±0.25 and ±0.5 of an argument-ULP.
+Two IEEE doubles cannot differ by a quarter of an ULP. The argument reaching
+the exponential was not a double at all. Model by model, the codegen story
+fell out: Loader's `lc` and `lf` really are double locals, faithful to her C
+source — but the final `lc − 0.5*lf` is evaluated on the x87 stack at 64-bit
+and flows into the exponential unrounded. 439 of 600 rows then sat at
+exactly d = 0.00. The end-to-end scoreboard still refused to close, and the
+diagnosis of THAT refusal was the session's real prize: the one remaining
+unknown — how the F2XM1 chain behaves when handed an 80-bit argument — is
+the very same unknown that has held the erf lane at its 67% plateau for
+weeks. Two functions, one wall. And BINOM brought the siege equipment: five
+hundred rows where the extended argument is exactly known and the published
+answer is visible — the oracle the erf lane never had.
