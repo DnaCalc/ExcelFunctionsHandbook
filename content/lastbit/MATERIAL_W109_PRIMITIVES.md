@@ -273,3 +273,21 @@ invisible bits. Weeks of theories about the chain's microcode dissolved
 in an afternoon: the chain was never wrong. What remains is a question
 about compilers, not mathematics — how 32-bit code composes the last
 line before calling exp — asked once, answerable everywhere.
+
+## 15. The missing function, patched twice (candidate: "Two Logs")
+
+The 2010 C runtime shipped without expm1 — and Excel's engineers built
+Kahan's correction by hand (story #1). The same runtime also shipped
+without log1p. This time the patch was plainer: where R's binomial code
+says log1p(−x/n), Excel computes ln(n−k) − ln(n) — two separate hardware
+logarithms. Nobody could see this for weeks: the difference hides below
+double precision in the exponential's argument, one ULP of a term that
+itself is only a correction. What betrayed it was a designed experiment —
+six different (k,n) anchors steered by a 200-digit bisection to publish
+from THE SAME argument, where any honest exponential must agree. The
+bodies disagreed, anchor by anchor, in a pattern of exactly ±1 ULP of the
+lf term: (0,0,0,−1,0,+1). Precisely one realization produces that vector.
+The identification broke a three-lane plateau by eleven points in one
+stroke, and closed windows that had scored 0/400 under ninety-six
+candidate op-graphs to 400/400. Same missing header, two engineers, two
+different repairs — both recovered from rounding patterns alone.

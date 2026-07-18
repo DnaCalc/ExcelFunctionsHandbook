@@ -3,7 +3,7 @@
 A comprehensive, honest, evidence-backed reference for every Excel worksheet function and
 operator — the Abramowitz & Stegun of Excel functions.
 
-For each of the 534 published functions and operators, the Handbook grows toward: uniform call
+For each of the 541 canonical entries (534 source functions plus 7 operators), the Handbook grows toward: uniform call
 semantics, full metadata and localized names, links to official documentation (and where reality
 diverges from it), implementations in four flavours across multiple languages, versioned and
 independently checkable test suites, curated references, residual-portrait plates (the ULP
@@ -38,8 +38,8 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 
 ## Status
 
-Phase H0 (bootstrap). Nothing is published yet; the phase register in
-[OPERATIONS.md](OPERATIONS.md) is the living status surface.
+Phase H2 (design foundation) is complete; H3 ledger bootstrap is planned. Nothing is published
+yet; the phase register in [OPERATIONS.md](OPERATIONS.md) is the living status surface.
 
 ## Licenses
 
