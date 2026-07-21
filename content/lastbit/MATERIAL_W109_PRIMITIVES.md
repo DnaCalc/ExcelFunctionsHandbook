@@ -451,3 +451,43 @@ unambiguously, that PMT wasn't using it — and that single fact converted a fiv
 old "±1 ULP, cause unknown" into "the residual is entirely in one transcendental, and
 here is which four routines it is *not*." The siblings disagree, and the disagreement
 is the measurement.
+
+---
+
+## §23 — Quotient First (the PMT combine, and a proof from seven numbers)
+
+For most of a day the payment function PMT would not yield its last bit. The
+formula is not in doubt — a payment is present-value times rate divided by the
+discount term, `pmt = pv·r/em`. The question was only the *order* the machine
+does it in, because at the ±1-ulp level order is everything: `(pv·r)/em` and
+`pv/em·r` round differently, and only one is Excel's.
+
+We tried them all with the presumption everyone shares — you compute the numerator
+`pv·r` first, then divide. Every such form, raced against 256 consecutive inputs at
+a fixed rate, topped out around two-thirds and stuck. Shared divisor, extended
+divisor, fused product, reciprocal-multiply — all the same wall. Two independent
+searches, thousands of probes, and a growing suspicion the answer wasn't in the
+family at all.
+
+The break came from asking a different question: not "what constant fits?" but
+"what does the *lineage* do?" Excel's financial functions descend from the
+Visual-Basic/BASIC runtime, and that code has a tell — it writes the quotient
+first and multiplies by the rate *last*: `(pv / em) * r`. Divide, then scale.
+
+What made it certain wasn't the 256-point fit — though that went to 256 out of 256
+at every rate the instant the order flipped. It was a proof from *seven numbers*.
+At `pv = 1.0` exactly, the product `pv·r` is just `r` — a fixed value, with no
+freedom. So in any product-first scheme the very first stage is *pinned*: it must
+step through the grid at a slope the rate dictates, `{0, 2, 3, 5, 6, 8, 10}`, and
+no divisor downstream can do anything but rescale that fixed staircase. The
+observed staircase was `{0, 1, 3, 4, 6, 9, 11}` — and it contains a **single step
+of three**. A one-rounding rescaling of a `{1,2}`-step sequence can never produce a
+three. Two coarse, input-dependent roundings are *required* — which is exactly what
+divide-then-multiply has and product-then-divide does not. Seven consecutive
+payments, and the entire product-first family is dead on arrival, not by score but
+by contradiction.
+
+The lesson is the one this whole project keeps relearning: the target is
+human-written, and humans wrote it in an order. When the parametrized search
+plateaus, stop adding parameters and go read what the *lineage* actually did — then
+prove the alternatives impossible from the cleanest handful of bits you have.
