@@ -306,3 +306,148 @@ computation often enough to be found, and its neighbors on the
 parse tree lose by twenty points. Three source lines recovered in one
 day, each from a different kind of shadow: a missing function, its
 homemade replacement, and now a parenthesis.
+
+## 18. The Days That Disagree (G6-03d, PRICE at Actual/360 — 2026-07-20)
+
+Ask Excel how many days lie between settling a bond on 2020-09-20 and
+its next coupon on 2021-01-01, and it answers: `=COUPDAYSNC(...)` says
+103. Ask Excel to price that same bond on the Actual/360 basis and it
+prices it as if the answer were 99.
+
+Both numbers are defensible. 103 is the actual day count. 99 is what
+you get if you insist the coupon period is exactly 180 days (360/2, the
+whole point of a /360 basis) and subtract the 81 days that have already
+accrued: 180 − 81 = 99. The Analysis ToolPak's PRICE routine apparently
+contains a single line — `dsc = e − a` — that derives the
+days-to-next-coupon from the period length and the accrued days, for
+every basis. On 30/360 and actual/actual bases the derivation agrees
+with the direct count, so nobody ever sees it. On Actual/360 and
+Actual/365 — where the period length is a fiction (180 or 182.5 days)
+but the accrual is real days — the derived number and the real number
+part company, and the price moves by whole cents: 114.5887 against the
+faithful-formula 114.5504. Not a last bit — a first-decimal
+discrepancy, hiding in the two least-used day-count bases.
+
+Every reimplementation we checked — including the F# library that
+half the open-source world ports its bond math from — computes the
+direct count, faithfully implementing the documented formula and
+faithfully disagreeing with Excel by 3.8 cents per hundred. The
+documentation shows a quantity called DSR; it does not show the
+subtraction. And Excel itself publishes the direct count through
+COUPDAYSNC while its own PRICE, in the same workbook, on the same
+arguments, uses the derived one. The oracle disagrees with itself —
+and both of its answers are deterministic, reproducible, and now,
+bit for bit, ours.
+
+(One hypothesis, one witness, first try: the guess `180 − 81` landed
+within rounding of Excel's published 114.5887 before we had captured a
+single new row. The 7,472-row settlement×yield lattice then confirmed
+it at the bit level: 0/3,664 exact became 3,474/3,664 at basis 2,
+0/3,664 became 3,446/3,664 at basis 3, residuals collapsing from
+trillions of ULPs to ±4.)
+
+## 19. The Same Pow Twice (G6-03d staging — 2026-07-20)
+
+After the day-count semantics fell, ~400 bond prices still wobbled by a
+bit or two. The culprit was the fractional discount power — and the fix
+was already sitting in our own source tree. The x87 exponent chain we
+had spent a week extracting from WEIBULL and the distribution family —
+exp(RN53(RN64(y·ln x))), the 1993 CRT pow — turned out to be, byte for
+byte, the routine pricing bonds. Two code paths written years apart in
+Redmond, two reverse-engineering lanes months apart here, one shared
+library function at the bottom of both. When the identification is
+right, it stops being a per-function fact and starts being a fact about
+the binary — and every later lane gets cheaper: this one took an
+afternoon because the hard primitive was already on the shelf.
+
+## 20. The Vanishing Coupons (G6-02, ACCRINT — 2026-07-20)
+
+ACCRINT's last parameter, calc_method, is documented as a choice of
+starting line: TRUE accrues from the issue date, FALSE from the first
+interest date. The documentation is wrong on both counts. Both paths
+start at issue. What FALSE actually selects — recovered from 145,620
+live oracle rows — is an older, stranger arithmetic: one flat fraction,
+no coupon schedule, except that when the issue date falls in an earlier
+coupon period than the schedule's last pre-first-interest date, every
+whole period in between simply vanishes from the sum. Bonds issued
+three quarters early accrue LESS than bonds issued one quarter early.
+For settlements early enough, the function returns NEGATIVE accrued
+interest — interest that un-accrues — and Excel publishes it without
+comment. We pinned one such witness in the regression suite:
+0xc01c_4333_3333_3333, accrued interest of minus seven dollars.
+
+And TRUE has its own tell: the per-period fractions are summed
+BACKWARD, settlement first, issue last. Forward summation — the way
+anyone would write it — lands one bit off on nine percent of rows.
+Somewhere in a Redmond source file there is a loop that walks the
+coupon schedule in reverse, probably because of how the dates were
+generated, and twenty years later that iteration order is the
+difference between matching a spreadsheet and not.
+
+The held-out battery earned its keep here twice. The first model of the
+vanishing-period rule measured the remainder from the wrong anchor and
+scored 99.99% on everything it had seen; 14,025 fresh rows disagreed.
+The revision scored 99.99% on data it had never touched. Same headline
+number, entirely different epistemic weight.
+
+## 21. The Order of Adjustments (G6-03c, DURATION — 2026-07-20)
+
+Two functions in the same codebase both compute "30/360 days between
+two dates," and both follow the same published convention: days on the
+31st count as the 30th, February's end counts as the 30th. They differ
+only in which adjustment they apply first. Ask them for the days from
+February 28th, 2025 to March 31st, 2025 and one says 30, the other 31 —
+because one collapses the 31 after noticing the start date was
+month-end, and the other checks for the 31 while the start is still a
+28. One integer apart, once a year, on month-end bonds only.
+
+Excel's DURATION uses the second ordering. Our port used the first. The
+error survived a 6,360-row identification corpus without appearing once
+— none of those settlements landed on a month-end — and then detonated
+on a held-out battery at twenty-five trillion ULPs, the largest
+residual this campaign has measured, all from a day count of 30 where
+Excel had 31. The fix was one line. The lesson wasn't the line; it was
+that we only met this bug because the gate battery was designed by
+asking "what date shapes has no corpus stressed yet?" — the same
+question, asked one battery earlier, would have found nothing, and
+asked one battery later, would have found it in production.
+
+---
+
+## §22 — The Siblings Who Disagree (PMT vs FV/PV; the metamorphic harvest)
+
+PMT, FV, and PV all solve the same five-variable equation — the time-value-of-money
+balance `fv + pv·(1+r)^n + pmt·(1+r·type)·((1+r)^n − 1)/r = 0`. Rearrange for `fv`,
+you get FV; for `pv`, PV; for `pmt`, PMT. Same equation, three faces. A reasonable
+person assumes one shared helper computes `(1+r)^n` and the annuity factor once, and
+the three functions just divide it out differently.
+
+Excel does not do that.
+
+FV and PV are bit-for-bit exact when you compute `(1+r)^n` the naivest possible way:
+`binexp` — square-and-multiply in plain double — then `(P−1)/r` for the annuity
+factor. 149 out of 149. 48 out of 48. No transcendentals, no cleverness. The forward
+factor is *pinned*: we can read Excel's exact internal `P` and `(1+r·type)·q` straight
+off the FV oracle by asking `FV(r, n, pmt=1, pv=0)` and `FV(r, n, pmt=0, pv=1)`.
+
+So we harvested Excel's own numbers and fed them into PMT's obvious formula,
+`−(pv·P + fv)/(tf·q)` — using *Excel's* P, *Excel's* q. If PMT shared the helper, it
+had to close. It scored zero out of a hundred and nine on every small-interest-rate
+row. Zero.
+
+That zero is the whole story. It means the programmer who wrote PMT looked at
+`(P−1)/r` — which loses almost all its significant digits when `r` is a few
+millionths and `P` is a hair above 1 — and refused to ship it. PMT was given a
+*different, cancellation-safe algorithm* than its own siblings: a discount form built
+on `expm1(−n·log1p(r))`, where the dangerous subtraction never happens. FV and PV
+kept the naive form because, multiplying rather than dividing, they never felt the
+cancellation. Three faces of one equation, and one of them was quietly rewritten by a
+more careful hand.
+
+The reverse-engineer's lesson is sharper than the trivia: **an intermediate you
+cannot see inside function A may be sitting in plain sight inside its algebraic
+sibling B.** FV's oracle is a window into the annuity factor. The window told us,
+unambiguously, that PMT wasn't using it — and that single fact converted a five-year-
+old "±1 ULP, cause unknown" into "the residual is entirely in one transcendental, and
+here is which four routines it is *not*." The siblings disagree, and the disagreement
+is the measurement.
