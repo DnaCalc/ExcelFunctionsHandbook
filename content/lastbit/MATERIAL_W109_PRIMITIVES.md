@@ -491,3 +491,75 @@ The lesson is the one this whole project keeps relearning: the target is
 human-written, and humans wrote it in an order. When the parametrized search
 plateaus, stop adding parameters and go read what the *lineage* actually did — then
 prove the alternatives impossible from the cleanest handful of bits you have.
+
+---
+
+## §24 — The Skeleton Key (a power of two opens the black box)
+
+To finish PMT we needed to see a number Excel never shows you: the internal
+discount term `em = (1+r)^-n − 1`, computed deep inside the payment formula and
+never surfaced. You cannot probe it. You can only probe `PMT` itself, and `PMT`
+launders `em` through a divide and a multiply before you see the result:
+`pmt = RN( RN(pv / em) · r )`. Two roundings stand between you and the number you
+want, and either one can hide a ULP.
+
+The key was to pick the rate. If `r` is a power of two — `2⁻⁵`, say — then the
+final `· r` is *exact*: multiplying a double by `2⁻⁵` only decrements its exponent,
+it cannot round. The two-rounding chain collapses to one. Now `pmt · 2⁵` recovers
+`RN(pv / em)` bit-for-bit, and by walking `pv` through 256 consecutive doubles and
+intersecting the constraints each one places on `em`, you pin Excel's private `em`
+to under a hundredth of a ULP — without ever seeing inside the function.
+
+It generalizes to a rule worth keeping: **when a hidden intermediate is trapped
+behind a chain of roundings, find the input that makes one of those operations
+exact, and the chain springs open.** A power-of-two rate turned out to be a
+skeleton key to the whole annuity engine — it pinned `em`, and through `em` it
+pinned the last primitive, `log1p`, one rate at a time.
+
+## §25 — The Beautiful Dual That Wasn't, and the Bug at the Bottom
+
+By the end, PMT was solved down to a single unknown: Excel's internal `log1p`. And
+`log1p` turned out to be *wrong* — a faithful routine, good to about six-tenths of a
+ULP, but not correctly rounded. After a full day spent chasing our own arithmetic,
+the last thing standing between us and a bit-exact match was a rounding error inside
+*Excel's* code that we now had to reproduce exactly. You do not get to fix it. The
+whole point is fidelity: if Excel is a half-ULP high, you must be a half-ULP high, in
+precisely the same places.
+
+The prettiest wrong answer of the session came here. We already knew Excel's `expm1`
+was Kahan's clever trick, `(u−1)·t/ln(u)`. There is a famous *dual* — Kahan's
+companion `log1p`, `ln(u)·r/(u−1)`, the same idea run backwards — and any library
+that ships one usually ships the other on the next line. Better still, its error has
+a signature: the routine hinges on `ε`, the tiny rounding left over when you form
+`1 + r`, and `ε` is a sawtooth whose period is exactly the binade — 256 consecutive
+doubles at `2⁻⁸`, eight at `2⁻³`. Our dense measurements showed a smooth ramp of
+period 256 at `2⁻⁸` and a ripple of period eight at `2⁻³`. The hypothesis *predicted
+the data*.
+
+And it was still wrong. The end-to-end test refuted it in one shot: every form of the
+companion trick made the well-behaved cases *worse*. The tell was hiding in the
+lattice. At the power-of-two rates where we'd measured the deviation, `1 + r` is
+exact — `ε = 0` — so the companion's correction factor collapses to 1 and the trick
+degenerates to a plain logarithm; those rates could never tell the two apart. On the
+*other* rates, where `ε ≠ 0` and the trick actually does something, Excel is
+correctly rounded and the companion is not. A period law that matched, a provenance
+that fit, an algebraic elegance that begged to be true — and a control that killed it.
+The routine is still unnamed. It is faithful, non-correctly-rounded, matches nothing
+standard, and it is the one primitive left to fingerprint. The bug at the bottom of
+the payment function is Excel's, and it kept its shape.
+
+## §26 — Where a Function Refuses to Answer
+
+`RATE` solves for an interest rate by iterating, and on some inputs it gives up and
+returns `#NUM!`. That refusal is not noise — it is the iteration narrating its own
+control flow. The *pattern* of which inputs converge and which fail is a fingerprint
+of the solver, printed on the outside of the black box.
+
+We first guessed the classic secant method, and on the plain numeric outputs it
+looked plausible. The error basin said otherwise. A two-point secant, seeded a
+particular way, false-converges on exactly the inputs where Excel returns `#NUM!` —
+so a secant model *converges where Excel errors*, and errors nowhere near the right
+places. Forward-difference Newton in rate-space, the sibling of the method Excel's
+`IRR` uses, reproduced the failure boundary on all 116 test cases without a single
+miss. Two models can agree on every answer a function gives and still be told apart
+by the answers it *declines* to give. The shape of a function's silence is data.
