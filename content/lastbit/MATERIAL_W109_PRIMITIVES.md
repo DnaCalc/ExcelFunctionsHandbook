@@ -614,3 +614,42 @@ here — an argument that makes two functions become one so you can query the on
 actually see. We had that key the whole time. It took a day of chasing our own tail to
 pick it up. The bug at the bottom of the payment function is still Excel's, and it still
 kept its shape — but it was never wearing the coat we'd hung on it.
+
+## §28 — The Function That Keeps Its Own expm1
+
+We had proven the last unknown was `expm1`, the routine that computes `e^x − 1` without
+losing precision when `x` is small. The natural next question: which `expm1`? Excel has
+one — surely the payment function just calls it. So we found a way to ask Excel for its
+`expm1` directly. There is no `EXPM1` worksheet function, but there is a back door: the
+exponential distribution's cumulative form, `EXPON.DIST(x, 1, TRUE)`, is exactly
+`1 − e^−x`, which is `−expm1(−x)`. Feed it the arguments the payment function uses, negate,
+and you are reading Excel's `expm1` with nothing in between.
+
+Excel's `expm1`, read this way, was the textbook Kahan recipe we already had — it matched
+our model on 232 of 234 points. Clean. And then the twist: the payment function's own
+value, at the *same arguments*, matched that same Kahan model only 165 times. Two readings
+of the same mathematical function, from the same spreadsheet, disagreeing. The only way
+that happens is if the payment function does **not** call the `expm1` the rest of Excel
+uses. It carries its own — a private copy, from an older layer of the code, subtly
+different from the public one. The "expm1 we solved" three sessions ago was Excel's; it
+just wasn't *this* function's.
+
+That reframed the hunt, and we came at it from every side at once — a dozen investigators
+in parallel, reading the source of every spreadsheet that ever cloned Excel's finances
+(LibreOffice, Gnumeric, the old Visual Basic runtime), and grinding the number itself
+through every arrangement of every operation. The verdicts converged, and every one was a
+"no." Not the extended-precision hardware path. Not a polynomial. Not a truncation. Not
+the correctly-rounded answer — Excel is, remarkably, *less* accurate than a correct `expm1`,
+which means it is nobody's library routine but a bespoke one. And crucially: the error is
+not random. Excel's payment `expm1` always leans the same way — it *underestimates*, every
+time, pulling the magnitude a hair toward zero. We confirmed that lean survives when you
+move off the tidy power-of-two rates onto ragged ones, so it is not an artifact of where we
+sampled; it is the fingerprint of the routine itself.
+
+So the payment function is closed down to one primitive, and that primitive is a small,
+consistent, deliberate-looking imprecision in a copy of `expm1` that Microsoft wrote once,
+by hand, before the standard library had the function — and then never touched again. It
+is the oldest code in the room, and the last bit belongs to it. When we reproduce Excel, we
+will reproduce this lean toward zero too, in exactly the places it leans, because that is
+what fidelity to a thirty-year-old routine means: not the answer it should have given, but
+the one it does.
