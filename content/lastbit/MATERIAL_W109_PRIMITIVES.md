@@ -563,3 +563,54 @@ places. Forward-difference Newton in rate-space, the sibling of the method Excel
 `IRR` uses, reproduced the failure boundary on all 116 test cases without a single
 miss. Two models can agree on every answer a function gives and still be told apart
 by the answers it *declines* to give. The shape of a function's silence is data.
+
+## §27 — The Bug That Wasn't There
+
+The section above this one ends with a confident verdict: the last unknown in the
+payment function is Excel's own `log1p`, a faithful-but-not-correctly-rounded routine,
+and the bug at the bottom is Excel's to keep. That verdict was wrong. There was no
+log1p bug. This is the story of how a phantom survived a full day of careful work, and
+what finally exposed it.
+
+The mistake was structural, and it is worth naming because it is easy to make. We never
+measured `log1p` directly. We measured the *payment* — a number that flows out of
+`log1p`, then through `expm1`, then through three roundings of the combine — and we
+back-solved for what `log1p` must have been. When the back-solved values disagreed with
+a correctly-rounded logarithm, we wrote down "non-CR log1p." But a residual attributed
+to the first link in a chain is only as trustworthy as your certainty about every link
+after it. We had proven the *later* links on friendly inputs and assumed they held
+everywhere. They did not.
+
+The blade that cut the knot was almost embarrassingly simple. `log1p(r)` is `ln(1+r)` —
+but only when `1+r` can be formed without error. Choose `r` so that `1+r` is *exactly
+representable* — any `r` that is a small multiple of a power of two — and the two
+functions coincide with nothing lost in between. And `ln` we can ask Excel about
+*directly*: it is a worksheet function. So we asked. A hundred and forty-eight exactly
+representable points, spanning the whole region where the payment function had looked
+wrong, and for every single one Excel's `LN(1+r)` was correctly rounded. Not faithful-
+but-off. Correct. The routine we had spent a day fingerprinting, the beautiful dual we
+had refuted, the sawtooth we had tried to name — all of it was chasing a rounding error
+that was never in the logarithm.
+
+So where was it? We asked Excel for its exponential too, at the exact arguments the
+payment function feeds it, and it matched our x87 model to the last bit — every one.
+That left exactly one suspect standing: `expm1`, the cancellation-free correction, on
+the narrow branch where its argument is small. And there, with the logarithm proven
+correct and the exponential proven exact and the intermediate value known to the bit,
+the plain double-precision Kahan form still misses about three inputs in ten — and *no*
+rearrangement closes the gap. Not the classic association, not the companion, not the
+extended-precision staging, not the hardware's own base-two shortcut. Twelve algebraic
+faces of the same formula, and the best of them agrees with Excel seven times in ten.
+The residual is real, it is a single ULP, and it lives in a place where every input is
+observable and every operation is known — which means it is not a mystery of hidden
+state but a genuine wall: Excel's `expm1` reaches its small-argument answers by a
+sequence of doubles we have not yet reconstructed.
+
+The lesson is the cheaper one, and it generalizes past this function. When a chain of
+operations produces a wrong number, do not infer which link failed — *isolate the link
+and ask it directly*. There is almost always an input that collapses the chain: a power
+of two that makes a multiply exact, an integer that makes a rounding vanish, or — as
+here — an argument that makes two functions become one so you can query the one you can
+actually see. We had that key the whole time. It took a day of chasing our own tail to
+pick it up. The bug at the bottom of the payment function is still Excel's, and it still
+kept its shape — but it was never wearing the coat we'd hung on it.
