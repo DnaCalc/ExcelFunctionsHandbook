@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f14-scan-limits.schema.json",
+  "title": "F14 - content/model/scan-limits.json",
+  "description": "The prose behind F2's exclusion_rule_id and limits[] ids. Created by A3-S7 so that two blocks of authored prose stop being duplicated 541 times inside the organ that may not be hand-edited.",
+  "efh": {
+    "family": "F14",
+    "organ": "content",
+    "path_glob": "content/model/scan-limits.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.7 lines 347-350",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; limits[] in id order L1..L9."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "version",
+    "exclusion_rules",
+    "limits",
+    "doc_mention_classification_rule"
+  ],
+  "required": [
+    "schema",
+    "version",
+    "exclusion_rules",
+    "limits",
+    "doc_mention_classification_rule"
+  ],
+  "properties": {
+    "schema": { "type": "string", "description": "R. FOUNDATION 2.7 line 347." },
+    "version": { "type": "integer", "minimum": 1, "description": "R." },
+    "exclusion_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["id", "text"],
+        "required": ["id", "text"],
+        "properties": {
+          "id": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      },
+      "description": "R. Must define EXCL-SURFACE-DISPATCH-1, which every F2 file references by id."
+    },
+    "limits": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["id", "text"],
+        "required": ["id", "text"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^L[1-9]$" },
+          "text": { "type": "string" }
+        }
+      },
+      "description": "R. The nine limits from impl-map-summary.md section 5, ONCE. Guard G-12 (FOUNDATION 6.1 line 1209): the build fails when data/presence references an id this file does not define, or when this file defines an id nothing references."
+    },
+    "doc_mention_classification_rule": {
+      "type": "string",
+      "description": "R. The declared file-name and section-header rule that decides F2 doc_mention_classification[].kind. FOUNDATION 2.6 line 327."
+    }
+  }
+}

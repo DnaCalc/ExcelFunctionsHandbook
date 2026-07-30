@@ -1,0 +1,113 @@
+{
+  "schema": "efh.battery/v1",
+  "function_id": "FUNC.SECH",
+  "surface_name": "SECH",
+  "battery_id": "EFH-B1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "runner_version": "efh-battery/0.1.0",
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "os": "windows"
+  },
+  "rows": [
+    {
+      "label": "zero",
+      "input_display": "SECH(0)",
+      "outcome_kind": "number",
+      "outcome_display": "1.0000000000000000e0",
+      "outcome_bits": "0x3ff0000000000000",
+      "host_scoped": false
+    },
+    {
+      "label": "negative-one",
+      "input_display": "SECH(-1)",
+      "outcome_kind": "number",
+      "outcome_display": "6.4805427366388546e-1",
+      "outcome_bits": "0x3fe4bcdc50ed6be8",
+      "host_scoped": false
+    },
+    {
+      "label": "empty-string",
+      "input_display": "SECH(\"\")",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "boolean-true",
+      "input_display": "SECH(TRUE)",
+      "outcome_kind": "number",
+      "outcome_display": "6.4805427366388546e-1",
+      "outcome_bits": "0x3fe4bcdc50ed6be8",
+      "host_scoped": false
+    },
+    {
+      "label": "empty-range",
+      "input_display": "SECH(<empty>)",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "error-na",
+      "input_display": "SECH(#N/A)",
+      "outcome_kind": "error",
+      "outcome_display": "#N/A",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "max-double",
+      "input_display": "SECH(1.7976931348623157e308)",
+      "outcome_kind": "number",
+      "outcome_display": "0.0000000000000000e0",
+      "outcome_bits": "0x0000000000000000",
+      "host_scoped": false
+    },
+    {
+      "label": "min-subnormal",
+      "input_display": "SECH(4.9406564584124654e-324)",
+      "outcome_kind": "number",
+      "outcome_display": "1.0000000000000000e0",
+      "outcome_bits": "0x3ff0000000000000",
+      "host_scoped": false
+    },
+    {
+      "label": "inline-array",
+      "input_display": "SECH({1,2;3,4})",
+      "outcome_kind": "array",
+      "outcome_display": "{6.4805427366388546e-1,2.6580222883407972e-1;9.9327927419433207e-2,3.6618993473686530e-2}",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "text-numeral",
+      "input_display": "SECH(\"2.5\")",
+      "outcome_kind": "number",
+      "outcome_display": "1.6307123192997780e-1",
+      "outcome_bits": "0x3fc4df84a407623e",
+      "host_scoped": false
+    },
+    {
+      "label": "too-few-args",
+      "input_display": "SECH()",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-many-args",
+      "input_display": "SECH(1, 1)",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    }
+  ],
+  "label": "OxFunc's own answers. No Excel was involved."
+}

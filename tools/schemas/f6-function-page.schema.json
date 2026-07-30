@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f6-function-page.schema.json",
+  "title": "F6 - content/functions/<function_id>.md (front matter)",
+  "description": "The curated per-function page. 0 files today (ratchet RC-1 = 0). Governs the YAML front matter only.",
+  "efh": {
+    "family": "F6",
+    "organ": "content",
+    "path_glob": "content/functions/*.md",
+    "governs": "front-matter-only",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 359-362 ('front matter as D1 2.6, with two additions'), resolving to D1-reference-structure.md 2.6 lines 305-340",
+    "propertyOrderBasis": "foundation-table-plus-declared-append",
+    "propertyOrderNote": "FOUNDATION 2.8 adds `family` and `role_in_family` and does NOT state where they insert. They are appended after body_sections and that placement is declared here rather than inferred from a source, because no source states it.",
+    "bodyContract": "Body is Markdown, hard-wrap ~95 columns, and MUST close with '## Page vocabulary' and '## Sources' or the build fails (FOUNDATION 2.8 line 362; T10 acceptance test (b) line 1190). Not expressible in JSON Schema; enforced by the site build.",
+    "keyOrderContract": "Emit front-matter keys in propertyOrder exactly."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "function_id",
+    "depth",
+    "curated_at_oxfunc_commit",
+    "description_override",
+    "description_override_reason",
+    "evidence_records",
+    "open_problems",
+    "references",
+    "episodes",
+    "related",
+    "axis_notes",
+    "body_sections",
+    "family",
+    "role_in_family"
+  ],
+  "required": [
+    "schema",
+    "function_id",
+    "depth",
+    "curated_at_oxfunc_commit",
+    "evidence_records",
+    "open_problems",
+    "references",
+    "episodes",
+    "body_sections",
+    "family",
+    "role_in_family"
+  ],
+  "properties": {
+    "schema": { "const": "efh.function-page/v1", "type": "string", "description": "R." },
+    "function_id": {
+      "type": "string",
+      "description": "R. Must match the filename and exist in data/functions/."
+    },
+    "depth": {
+      "type": "string",
+      "enum": ["curated", "deep", "open-problem"],
+      "description": "R. D1 2.6 line 310 lists four values including 'projected', but adds that 'projected pages have no file at all - the generator synthesises them; a file's existence implies >= curated'. Since this schema governs files that exist, 'projected' is excluded. A3-S4: `Handbook depth: deep` may not render as a chip until a field carries it; where no field carries it the page renders 'Handbook depth: not recorded'."
+    },
+    "curated_at_oxfunc_commit": { "type": "string", "description": "R. The OxFunc state the prose was written against." },
+    "description_override": { "type": "string", "description": "O. Only when data/ text is unusable." },
+    "description_override_reason": { "type": "string", "description": "C. Required iff description_override is present." },
+    "evidence_records": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^EV-[a-z-]+-[0-9]{4}$" },
+      "description": "R, may be empty; ordered; drives sections S10-S13."
+    },
+    "open_problems": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^OP-[0-9]{3}$" },
+      "description": "R, may be empty."
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["work", "locator", "role"],
+        "required": ["work", "locator", "role"],
+        "properties": {
+          "work": { "type": "string" },
+          "locator": { "type": ["string", "null"] },
+          "role": { "type": "string" }
+        }
+      },
+      "description": "R, may be empty; ids into F7."
+    },
+    "episodes": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "description": "R, may be empty; ints into F10."
+    },
+    "related": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["function_id", "relation", "evidence"],
+        "required": ["function_id", "relation", "evidence"],
+        "properties": {
+          "function_id": { "type": "string" },
+          "relation": { "type": "string" },
+          "evidence": { "type": ["string", "null"] }
+        }
+      },
+      "description": "O."
+    },
+    "axis_notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["axis_key", "note"],
+        "required": ["axis_key", "note"],
+        "properties": {
+          "axis_key": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      },
+      "description": "O. Per-axis curated caveat rendered next to the chip."
+    },
+    "body_sections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. Declares which authored sections exist, in order."
+    },
+    "family": {
+      "type": ["string", "null"],
+      "description": "R (new, FOUNDATION 2.8 line 360). <module-slug> joining F17, or null. Drives absence string A-55, the S14b family link (FOUNDATION 4.2 lines 927-930)."
+    },
+    "role_in_family": {
+      "type": ["string", "null"],
+      "description": "R (new, FOUNDATION 2.8 line 360). The sentence a family page's member list renders."
+    }
+  }
+}

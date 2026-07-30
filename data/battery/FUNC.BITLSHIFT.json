@@ -1,0 +1,113 @@
+{
+  "schema": "efh.battery/v1",
+  "function_id": "FUNC.BITLSHIFT",
+  "surface_name": "BITLSHIFT",
+  "battery_id": "EFH-B1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "runner_version": "efh-battery/0.1.0",
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "os": "windows"
+  },
+  "rows": [
+    {
+      "label": "zero",
+      "input_display": "BITLSHIFT(0, 0)",
+      "outcome_kind": "number",
+      "outcome_display": "0.0000000000000000e0",
+      "outcome_bits": "0x0000000000000000",
+      "host_scoped": false
+    },
+    {
+      "label": "negative-one",
+      "input_display": "BITLSHIFT(-1, -1)",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-string",
+      "input_display": "BITLSHIFT(\"\", \"\")",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "boolean-true",
+      "input_display": "BITLSHIFT(TRUE, TRUE)",
+      "outcome_kind": "number",
+      "outcome_display": "2.0000000000000000e0",
+      "outcome_bits": "0x4000000000000000",
+      "host_scoped": false
+    },
+    {
+      "label": "empty-range",
+      "input_display": "BITLSHIFT(<empty>, <empty>)",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "error-na",
+      "input_display": "BITLSHIFT(#N/A, #N/A)",
+      "outcome_kind": "error",
+      "outcome_display": "#N/A",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "max-double",
+      "input_display": "BITLSHIFT(1.7976931348623157e308, 1.7976931348623157e308)",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "min-subnormal",
+      "input_display": "BITLSHIFT(4.9406564584124654e-324, 4.9406564584124654e-324)",
+      "outcome_kind": "number",
+      "outcome_display": "0.0000000000000000e0",
+      "outcome_bits": "0x0000000000000000",
+      "host_scoped": false
+    },
+    {
+      "label": "inline-array",
+      "input_display": "BITLSHIFT({1,2;3,4}, {1,2;3,4})",
+      "outcome_kind": "array",
+      "outcome_display": "{2.0000000000000000e0,8.0000000000000000e0;2.4000000000000000e1,6.4000000000000000e1}",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "text-numeral",
+      "input_display": "BITLSHIFT(\"2.5\", \"2.5\")",
+      "outcome_kind": "number",
+      "outcome_display": "8.0000000000000000e0",
+      "outcome_bits": "0x4020000000000000",
+      "host_scoped": false
+    },
+    {
+      "label": "too-few-args",
+      "input_display": "BITLSHIFT(1)",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-many-args",
+      "input_display": "BITLSHIFT(1, 1, 1)",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    }
+  ],
+  "label": "OxFunc's own answers. No Excel was involved."
+}

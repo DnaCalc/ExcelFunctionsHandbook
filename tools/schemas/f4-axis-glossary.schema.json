@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f4-axis-glossary.schema.json",
+  "title": "F4 - content/model/axis-glossary.json",
+  "description": "Curated. One entry per axis VARIANT, because that is the granularity a chip renders at.",
+  "efh": {
+    "family": "F4",
+    "organ": "content",
+    "path_glob": "content/model/axis-glossary.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.7 lines 340-345 ('as D1 2.4 MINUS chip_suppression'), resolving to D1-reference-structure.md 2.4 lines 211-231",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; entries[] is ordinal-sorted by (axis_key, value)."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "efhForbiddenProperties": {
+    "entries[].chip_suppression": "A3-S8 (FOUNDATION line 81 and 2.7 line 340): chip_suppression is a TOTAL FUNCTION of data/ - F3 modal_share >= 0.90, F1 axis_provenance.<key>.oxfunc_tier in {B, C}, and the vacuity rule - so it may not be frozen in content/. It is computed at build time. This is one of the three fields the T1 acceptance test (c) allow-list names."
+  },
+  "propertyOrder": ["schema", "glossary_version", "entries"],
+  "required": ["schema", "glossary_version", "entries"],
+  "properties": {
+    "schema": { "const": "efh.axis-glossary/v1", "type": "string", "description": "R." },
+    "glossary_version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "R. Bumped on any text change; claims reference it. D1 2.4 line 218."
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "axis_key",
+          "value",
+          "chip_label",
+          "plain",
+          "boundary",
+          "gloss_basis",
+          "source_quote",
+          "source_path",
+          "provenance_class",
+          "oracle_assertion",
+          "chapter_anchor"
+        ],
+        "required": [
+          "axis_key",
+          "value",
+          "chip_label",
+          "plain",
+          "boundary",
+          "gloss_basis",
+          "source_path",
+          "provenance_class",
+          "oracle_assertion",
+          "chapter_anchor"
+        ],
+        "properties": {
+          "axis_key": { "type": "string", "description": "R. Joins F3 axes[].key; must exist in F3 or the build fails." },
+          "value": { "type": "string", "description": "R. Joins F3 variant value; must exist in F3 or the build fails." },
+          "chip_label": {
+            "type": ["string", "null"],
+            "description": "R. Lowercase reader-facing chip text; null means never render as a chip. A3-S2: chips render lowercase human prose, never raw machine tokens."
+          },
+          "plain": { "type": "string", "description": "R. One sentence." },
+          "boundary": {
+            "type": "string",
+            "minLength": 1,
+            "description": "R. What the value does NOT claim. Required, never empty. D1 2.4 line 223."
+          },
+          "gloss_basis": {
+            "type": "string",
+            "enum": ["oxfunc-documented", "handbook-inferred"],
+            "description": "R. handbook-inferred is MANDATORY for every variant of the 7 undocumented axes and forces .chip--provisional in the Working lens (A3-S4, FOUNDATION 2.7 lines 344-345)."
+          },
+          "source_quote": {
+            "type": "string",
+            "description": "C. Required iff gloss_basis == 'oxfunc-documented'. Verbatim doc comment."
+          },
+          "source_path": { "type": "string", "description": "R." },
+          "provenance_class": {
+            "type": "string",
+            "enum": ["excel-claimed", "default-unexamined", "implementation-fact"],
+            "description": "R. Same vocabulary as F1 axis_provenance.<key>.provenance_class."
+          },
+          "oracle_assertion": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "propertyOrder": ["build", "has_witness_path", "has_counts", "note"],
+                "required": ["build", "has_witness_path", "has_counts", "note"],
+                "properties": {
+                  "build": { "type": "string" },
+                  "has_witness_path": { "const": false, "type": "boolean" },
+                  "has_counts": { "const": false, "type": "boolean" },
+                  "note": { "type": "string" }
+                }
+              },
+              { "type": "null" }
+            ],
+            "description": "R, may be null. For excel-claimed only. The two false consts are const today: the five 'Verified live Excel 16.0 build 20026' phrases in OxFunc are doc-comment assertions with no witness path and no counts (D1 2.4 line 228)."
+          },
+          "chapter_anchor": {
+            "type": "string",
+            "description": "R. The chip's link target; must resolve or the build fails. A3-S2: every chip's href must be a distinct resolved chapter_anchor, and until the anchors exist chips render as non-links."
+          }
+        }
+      }
+    }
+  }
+}

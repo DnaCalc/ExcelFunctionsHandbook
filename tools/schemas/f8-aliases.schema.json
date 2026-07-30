@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f8-aliases.schema.json",
+  "title": "F8 - content/categories/aliases.json",
+  "description": "Legacy/modern surface pairings and the traps that come with them.",
+  "efh": {
+    "family": "F8",
+    "organ": "content",
+    "path_glob": "content/categories/aliases.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 372-373 ('as D1 2.7'), resolving to D1-reference-structure.md 2.7 lines 354-358",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; pairs[] ordinal-sorted by legacy."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": ["schema", "pairs"],
+  "required": ["schema", "pairs"],
+  "properties": {
+    "schema": { "type": "string", "description": "R." },
+    "pairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["legacy", "modern", "evidence_tier", "evidence", "trap", "note"],
+        "required": ["legacy", "modern", "evidence_tier", "evidence"],
+        "properties": {
+          "legacy": { "type": "string", "description": "R." },
+          "modern": { "type": ["string", "null"], "description": "R, null for JIS." },
+          "evidence_tier": {
+            "type": "string",
+            "enum": ["A", "B", "C"],
+            "description": "R. Tier C MUST render with 'pairing by convention; no statement of it was found in either repo' (C7 2.1, via D1 2.7 lines 357-358)."
+          },
+          "evidence": { "type": "string", "description": "R. The citation." },
+          "trap": {
+            "type": "string",
+            "enum": ["right-tail", "one-of-two-split", "spans-two", "behaviour-differs"],
+            "description": "O."
+          },
+          "note": { "type": "string", "description": "O." }
+        }
+      },
+      "description": "R. STEWARD DECISION SD-4 governs how a pairing is credited: legacy aliases are DEMOTED (F5 counts[].attribution = alias-sibling-inherited) and are never credited with a sibling's count."
+    }
+  }
+}

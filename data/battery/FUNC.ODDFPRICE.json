@@ -1,0 +1,113 @@
+{
+  "schema": "efh.battery/v1",
+  "function_id": "FUNC.ODDFPRICE",
+  "surface_name": "ODDFPRICE",
+  "battery_id": "EFH-B1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "runner_version": "efh-battery/0.1.0",
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "os": "windows"
+  },
+  "rows": [
+    {
+      "label": "zero",
+      "input_display": "ODDFPRICE(0, 0, 0, 0, 0, 0, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "negative-one",
+      "input_display": "ODDFPRICE(-1, -1, -1, -1, -1, -1, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-string",
+      "input_display": "ODDFPRICE(\"\", \"\", \"\", \"\", \"\", \"\", ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "boolean-true",
+      "input_display": "ODDFPRICE(TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-range",
+      "input_display": "ODDFPRICE(<empty>, <empty>, <empty>, <empty>, <empty>, <empty>, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "error-na",
+      "input_display": "ODDFPRICE(#N/A, #N/A, #N/A, #N/A, #N/A, #N/A, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#N/A",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "max-double",
+      "input_display": "ODDFPRICE(1.7976931348623157e308, 1.7976931348623157e308, 1.7976931348623157e308, 1.7976931348623157e308, 1.7976931348623157e308, 1.7976931348623157e308, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "min-subnormal",
+      "input_display": "ODDFPRICE(4.9406564584124654e-324, 4.9406564584124654e-324, 4.9406564584124654e-324, 4.9406564584124654e-324, 4.9406564584124654e-324, 4.9406564584124654e-324, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "inline-array",
+      "input_display": "ODDFPRICE({1,2;3,4}, {1,2;3,4}, {1,2;3,4}, {1,2;3,4}, {1,2;3,4}, {1,2;3,4}, ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "text-numeral",
+      "input_display": "ODDFPRICE(\"2.5\", \"2.5\", \"2.5\", \"2.5\", \"2.5\", \"2.5\", ...) [8 arguments]",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-few-args",
+      "input_display": "ODDFPRICE(1, 1, 1, 1, 1, 1, ...) [7 arguments]",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-many-args",
+      "input_display": "ODDFPRICE(1, 1, 1, 1, 1, 1, ...) [10 arguments]",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    }
+  ],
+  "label": "OxFunc's own answers. No Excel was involved."
+}

@@ -1,0 +1,20 @@
+[package]
+name = "efh-presence"
+version = "0.2.0"
+edition = "2021"
+license = "MIT"
+description = "T2 — the mechanical implementation-presence projection (F2) for the Excel Functions Handbook's 541 entries. Pure file scanning; no oxfunc_core dependency."
+
+# Standalone on purpose: NOT a member of any workspace, and no dependencies at
+# all, so a cold `cargo build --release` finishes in seconds and `data/presence`
+# can be regenerated without a Rust toolchain that can build OxFunc.
+[workspace]
+
+[dependencies]
+
+[[bin]]
+name = "efh-presence"
+path = "src/main.rs"
+
+[profile.release]
+opt-level = 2

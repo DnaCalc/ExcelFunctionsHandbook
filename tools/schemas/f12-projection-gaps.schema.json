@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f12-projection-gaps.schema.json",
+  "title": "F12 - content/projection-gaps.json",
+  "description": "Where the data/ projection differs from what is upstream, and what the page renders instead. This is where the inferences that A3-S6 evicted from mechanical data/ live.",
+  "efh": {
+    "family": "F12",
+    "organ": "content",
+    "path_glob": "content/projection-gaps.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 372-376 ('as D1 2.7 ... F12 gains kind lossy-text carrying suspected_lost and verified (A3-S6), and kind authorship-inference'), resolving to D1-reference-structure.md 2.7 lines 380-385",
+    "propertyOrderBasis": "foundation-table-plus-declared-append",
+    "propertyOrderNote": "FOUNDATION 2.8 line 375 adds suspected_lost and verified to the gap object and does NOT state where they insert. They are appended after citation and that placement is declared here rather than inferred from a source, because no source states it.",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; gaps[] ordinal-sorted by gap_id."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": ["schema", "gaps"],
+  "required": ["schema", "gaps"],
+  "properties": {
+    "schema": { "type": "string", "description": "R." },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "gap_id",
+          "affects",
+          "field",
+          "observed",
+          "upstream_actual",
+          "kind",
+          "render_as",
+          "fix_owner",
+          "citation",
+          "suspected_lost",
+          "verified"
+        ],
+        "required": [
+          "gap_id",
+          "affects",
+          "field",
+          "observed",
+          "upstream_actual",
+          "kind",
+          "render_as",
+          "fix_owner",
+          "citation"
+        ],
+        "properties": {
+          "gap_id": { "type": "string", "pattern": "^PG-", "description": "R. PG-<slug>." },
+          "affects": {
+            "oneOf": [
+              { "const": "all", "type": "string" },
+              { "type": "array", "items": { "type": "string" } }
+            ],
+            "description": "R. 'all' or a function-id array."
+          },
+          "field": { "type": "string", "description": "R." },
+          "observed": { "type": "string", "description": "R." },
+          "upstream_actual": { "type": ["string", "null"], "description": "R, null when unknown." },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "missing-in-projection-present-upstream",
+              "wrong-in-projection",
+              "lossy-text",
+              "derivation-artifact",
+              "absent-upstream-too",
+              "authorship-inference"
+            ],
+            "description": "R. D1 2.7 lines 382-384 gives the first five; FOUNDATION 2.8 lines 375-376 adds 'authorship-inference', which carries the 'differs-from-english-description' reading that A3-S6 evicted from F1 descriptions.short_source."
+          },
+          "render_as": { "type": "string", "description": "R. The exact string section 4 specifies." },
+          "fix_owner": {
+            "type": "string",
+            "enum": ["efh-ingest", "oxfunc", "unknown"],
+            "description": "R."
+          },
+          "citation": { "type": "string", "description": "R." },
+          "suspected_lost": {
+            "type": ["string", "null"],
+            "description": "C. Required iff kind == 'lossy-text'. A3-S6 (FOUNDATION line 79, 2.4 line 178): data/ keeps only { field, observed, contains_lossy_substitution: true }; suspected_lost and verified are INFERENCES and belong here, in content/."
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "C. Required iff kind == 'lossy-text'. A3-S6. For OP_TRIM_REF_BOTH.signature.display ('A @? B') the bytes are literal ASCII and whether upstream lost a character is UNVERIFIED - the field says so (D1 2.1 line 142)."
+          }
+        }
+      }
+    }
+  }
+}

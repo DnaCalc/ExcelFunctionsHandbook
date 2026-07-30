@@ -46,19 +46,36 @@ contest. Contested and stale are ordinary published results, never embarrassment
 
 1. **No unqualified completeness.** "Done", "complete", "verified", and "exact" always name
    their scope. A statement with no scope is a defect.
-2. **Compatibility warrant is named.** Passing a finite suite is rendered as `suite-exact`, not
-   as universal bit-exactness. It names the observation context (Excel build/channel, workbook
+2. **Compatibility warrant is named.** Passing a finite suite is rendered as `suite-exact`, never
+   as a universal exactness claim. It names the observation context (Excel build/channel, workbook
    mode, locale, platform/CPU where material) and verification artifact (suite version, manifest
-   hash, capture route). Stronger `characterized bit-exact` or `bit-exact over declared domain`
-   wording requires the additional domain/mechanism evidence stated by the claim.
+   hash, capture route). The stronger `characterized bit-exact` and `bit-exact over declared
+   domain` labels additionally require the domain/mechanism evidence stated by the claim — and are
+   unavailable today under rule 6 below.
 3. **Coverage is counted, not gestured.** Coverage statements are absolute counts against the
-   full 534-row function surface ("12 of 534 functions curated"), never percentages of an
-   undisclosed base.
+   full 541-entry function surface ("12 of 541 entries curated"), never percentages of an
+   undisclosed base. The reconciliation travels with the count: 541 entries = 518 functions +
+   23 operators = 534 published Excel rows + 7 split byte-variant rows. 534 is Microsoft's
+   published-row count; it is never used as a coverage denominator, because seven of those rows
+   document a byte-variant pair that the Handbook publishes as two entries.
 4. **Verification is named.** An implementation is shown only after passing its function's
    versioned test suite, and its badge names that suite version.
 5. **Documentation is cited, behavior is evidenced.** Where Microsoft's documentation and
    observed behavior differ, the page shows both and states the divergence with evidence.
    Neither is silently preferred.
+6. **The words "bit-exact" and "bit-for-bit" are not available to Handbook voice.** They may not
+   be used to state a claim, in prose or in a rendered label, until `vectors/` publishes a suite.
+   `CHARTER.md` rule 7.2 requires three axes — Excel build, platform, and suite version — and
+   `vectors/` holds zero suites, so the suite axis is unavailable for every claim the Handbook can
+   presently make: **as of today no claim in the Handbook satisfies rule 7.2 as written.** The
+   Handbook keeps the rule and drops the words, rather than relaxing the rule to fit what it can
+   currently prove. Two appearances are permitted: naming the phrases in order to define or forbid
+   them (as this rule does), and quoting an upstream record that uses them inside a captioned
+   quotation carrying that record's own axes. In its own voice the Handbook states what was
+   measured — "matched Excel on every one of N counted rows, Excel build …, platform …" — which is
+   the stronger sentence anyway, because it names its base. The flavour identifier `excel-bitexact`
+   names an implementation's target rather than a demonstrated result and stays in use. See
+   `CHARTER.md` section 7 rule 8.
 
 ## Two reading registers
 
@@ -100,8 +117,8 @@ it is collaboratively corrected.
 | reference engine: deferred | OxFunc intentionally defers the function; the reason is shown |
 | not yet curated | The entry exists with projected metadata only; no curated content yet |
 | placeholder | A metadata field (e.g. a signature) is not yet real and is suppressed, not faked |
-| suite-exact, vN | Matched the named oracle bit-for-bit for every vector in suite vN; no claim outside the suite |
-| characterized bit-exact | Mechanism and declared input domain are characterized under the named observation context |
+| suite-exact, vN | Every vector in suite vN returned the named oracle's exact result bits; no claim outside the suite. Unavailable until `vectors/` publishes (scoping rule 6) |
+| characterized bit-exact | Declared-domain label whose mechanism and input domain are characterized under the named observation context. Unavailable until `vectors/` publishes (scoping rule 6) |
 | current baseline | The pinned observation context used by the `public-current` view; the complete scope is inspectable |
 | open problem | A published, explicitly unresolved behavior question |
 

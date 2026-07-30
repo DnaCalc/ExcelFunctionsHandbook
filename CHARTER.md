@@ -16,7 +16,8 @@ For each function it aims to provide:
 4. implementations in four flavours, in multiple languages, showing only what actually exists,
 5. versioned, downloadable, independently checkable test suites,
 6. curated external references (books, papers, code sources),
-7. the research record of how bit-exact behavior was identified ("The Last Bit" series),
+7. the research record of how last-bit agreement with Excel was investigated ("The Last Bit"
+   series) — worded under section 7 rule 8,
 8. visual plates: function graphs and signed-ULP residual portraits (the ULP Atlas).
 
 ## 2. Identity and Relationship
@@ -39,8 +40,9 @@ For each function it aims to provide:
 1. **Honesty.** Show what exists; promise nothing. Uncurated, placeholder, and deferred entries
    are labeled as such, plainly. Claim language is always qualified (see section 7). Contested
    and stale are first-class published states, never suppressed.
-2. **Comprehensiveness.** All 534 published rows (511 functions + 23 operators) are present from
-   the first publication, each honestly labeled with its curation depth.
+2. **Comprehensiveness.** All 541 catalogued entries are present from the first publication, each
+   honestly labeled with its curation depth. 541 entries = 518 functions + 23 operators = 534
+   published Excel rows + 7 split byte-variant rows.
 3. **Evidence.** Every load-bearing fact is a claim in the ledger with typed provenance, or
    curated content that cites its sources. Bulk evidence lives in its organ (Git, suites,
    external archives); the ledger records claims and precise references.
@@ -60,9 +62,13 @@ For each function it aims to provide:
 
 ## 4. Scope
 
-1. The published Excel worksheet function/operator surface: 534 rows on the current reading
-   (511 functions + 23 operators), including the 17 currently deferred rows, which appear with
-   their deferral reasons.
+1. The published Excel worksheet function/operator surface. Microsoft's published row count on
+   the current reading is **534 rows** (511 functions + 23 operators); this figure is the
+   published-row statement and is not a coverage denominator. The Handbook catalogues that
+   surface as **541 entries**, because seven published rows each document a byte-variant pair
+   (e.g. `FIND, FINDB`) that the Handbook splits into two entries: 541 entries = 518 functions +
+   23 operators = 534 published Excel rows + 7 split byte-variant rows. Scope includes the 17
+   currently deferred rows, which appear with their deferral reasons.
 2. Four implementation flavours per function:
    - `excel-bitexact` — returns exactly what Excel returns, quirks included; always scoped to
      Excel build and platform,
@@ -96,8 +102,10 @@ Three organs (detail in `OPERATIONS.md` section 2):
 
 1. No unqualified "done", "complete", or "verified". Every such claim names its scope.
 2. Bit-exactness claims always carry three axes: Excel build, platform, and suite version.
-3. Coverage statements are counts against the full 534-row surface, never percentages of an
-   undisclosed base.
+3. Coverage statements are counts against the full 541-entry surface, never percentages of an
+   undisclosed base. Every coverage statement carries the reconciliation adjacent: 541 entries =
+   518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows. 534 is
+   the published-row count and is never used as a coverage denominator.
 4. An implementation is listed only after passing the function's versioned test suite; the badge
    names the suite version.
 5. Where published documentation and empirical behavior differ, both are shown and the
@@ -107,6 +115,20 @@ Three organs (detail in `OPERATIONS.md` section 2):
 7. Working and Explicit views render the same answer envelope. The Explicit view states scope and
    exclusions in plain language; Why, Sources, As of, Rules, History, Limits, and Replay remain
    available beneath it.
+8. **The phrases "bit-exact" and "bit-for-bit" may not be used to state a Handbook claim, in
+   Handbook-voice prose or in a rendered label, until `vectors/` publishes a suite.** Rule 2
+   requires three axes — Excel build, platform, and suite version — and `vectors/` currently holds
+   zero suites, so the suite axis is unavailable for every claim the Handbook can presently make.
+   Stated plainly: **as of today no claim in the Handbook satisfies rule 2 as written.** This
+   prohibition is how the Handbook stays inside its own rule rather than weakening it; rule 2 is
+   not amended, and the missing third axis remains a live obligation. Two appearances are
+   permitted: naming the phrases in order to define or forbid them (as this rule does), and
+   quoting an upstream record that uses them inside a captioned quotation carrying that record's
+   own axes. Handbook voice describes what was measured instead — "matched Excel on every one of
+   N counted rows, Excel build …, platform …". The flavour identifier `excel-bitexact` names an
+   implementation's target, not a demonstrated result, and remains in use; the claim labels
+   `characterized bit-exact` and `bit-exact over declared domain` are declared vocabulary that no
+   entry may carry until a suite publishes. Revisit this rule the day the first suite lands.
 
 ## 8. Non-goals
 

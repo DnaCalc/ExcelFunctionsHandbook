@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f8-category-page.schema.json",
+  "title": "F8 - content/categories/<slug>.md (front matter)",
+  "description": "One curated page per category slug. Governs the YAML front matter only.",
+  "efh": {
+    "family": "F8",
+    "organ": "content",
+    "path_glob": "content/categories/*.md",
+    "governs": "front-matter-only",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 372-375 ('as D1 2.7 ... F8 loses member_count and display_label_differs_from_ingested (derived - A3-S8)'), resolving to D1-reference-structure.md 2.7 lines 352-358",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit front-matter keys in propertyOrder exactly."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "efhForbiddenProperties": {
+    "member_count": "A3-S8 (FOUNDATION line 81, 2.8 line 374): a TOTAL FUNCTION of data/ - count the F0 rows carrying this category_string - so it may not be frozen in content/. Computed at build time. One of the three fields the T1 acceptance test (c) allow-list names.",
+    "display_label_differs_from_ingested": "A3-S8: a TOTAL FUNCTION of data/ - display_label != category_string, and category_string is itself a verbatim copy of the F0/F1 category field. Computed at build time. One of the three fields the T1 acceptance test (c) allow-list names."
+  },
+  "pendingRequired": {
+    "schema": "FOUNDATION 2.3 line 161 requires `schema` on every file. D1 2.7's F8 front-matter list does not name it. Recorded, not invented.",
+    "record_version": "FOUNDATION 2.3 line 161 requires record_version on every authored file. D1 2.7's F8 front-matter list does not name it. Recorded, not invented."
+  },
+  "propertyOrder": [
+    "category_string",
+    "display_label",
+    "provenance",
+    "reader_caveats"
+  ],
+  "required": [
+    "category_string",
+    "display_label",
+    "provenance",
+    "reader_caveats"
+  ],
+  "properties": {
+    "category_string": {
+      "type": "string",
+      "description": "R. Verbatim as ingested - joins F1.category."
+    },
+    "display_label": { "type": "string", "description": "R." },
+    "provenance": {
+      "type": "string",
+      "enum": ["microsoft-support-article", "oxfunc-label"],
+      "description": "R."
+    },
+    "reader_caveats": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R, may be empty."
+    }
+  }
+}

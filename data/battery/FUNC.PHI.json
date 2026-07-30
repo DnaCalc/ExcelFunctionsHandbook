@@ -1,0 +1,113 @@
+{
+  "schema": "efh.battery/v1",
+  "function_id": "FUNC.PHI",
+  "surface_name": "PHI",
+  "battery_id": "EFH-B1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "runner_version": "efh-battery/0.1.0",
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "os": "windows"
+  },
+  "rows": [
+    {
+      "label": "zero",
+      "input_display": "PHI(0)",
+      "outcome_kind": "number",
+      "outcome_display": "3.9894228040143270e-1",
+      "outcome_bits": "0x3fd9884533d43651",
+      "host_scoped": true
+    },
+    {
+      "label": "negative-one",
+      "input_display": "PHI(-1)",
+      "outcome_kind": "number",
+      "outcome_display": "2.4197072451914337e-1",
+      "outcome_bits": "0x3fcef8e58e331738",
+      "host_scoped": true
+    },
+    {
+      "label": "empty-string",
+      "input_display": "PHI(\"\")",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "boolean-true",
+      "input_display": "PHI(TRUE)",
+      "outcome_kind": "number",
+      "outcome_display": "2.4197072451914337e-1",
+      "outcome_bits": "0x3fcef8e58e331738",
+      "host_scoped": true
+    },
+    {
+      "label": "empty-range",
+      "input_display": "PHI(<empty>)",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "error-na",
+      "input_display": "PHI(#N/A)",
+      "outcome_kind": "error",
+      "outcome_display": "#N/A",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "max-double",
+      "input_display": "PHI(1.7976931348623157e308)",
+      "outcome_kind": "number",
+      "outcome_display": "0.0000000000000000e0",
+      "outcome_bits": "0x0000000000000000",
+      "host_scoped": true
+    },
+    {
+      "label": "min-subnormal",
+      "input_display": "PHI(4.9406564584124654e-324)",
+      "outcome_kind": "number",
+      "outcome_display": "3.9894228040143270e-1",
+      "outcome_bits": "0x3fd9884533d43651",
+      "host_scoped": true
+    },
+    {
+      "label": "inline-array",
+      "input_display": "PHI({1,2;3,4})",
+      "outcome_kind": "array",
+      "outcome_display": "{2.4197072451914337e-1,5.3990966513188063e-2;4.4318484119380075e-3,1.3383022576488537e-4}",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "text-numeral",
+      "input_display": "PHI(\"2.5\")",
+      "outcome_kind": "number",
+      "outcome_display": "1.7528300493568540e-2",
+      "outcome_bits": "0x3f91f2f0557f5257",
+      "host_scoped": true
+    },
+    {
+      "label": "too-few-args",
+      "input_display": "PHI()",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-many-args",
+      "input_display": "PHI(1, 1)",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    }
+  ],
+  "label": "OxFunc's own answers. No Excel was involved."
+}

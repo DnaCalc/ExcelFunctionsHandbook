@@ -1,0 +1,754 @@
+{
+  "schema": "efh.presence/v2",
+  "function_id": "FUNC.VALUE",
+  "surface_name": "VALUE",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "name_match_confidence": "high",
+  "name_match_rule": "word_boundary",
+  "impl_modules": [
+    "crates/oxfunc_core/src/functions/value_fn.rs",
+    "crates/oxfunc_core/src/locale_format.rs"
+  ],
+  "exclusion_rule_id": "EXCL-SURFACE-DISPATCH-1",
+  "mention_modules": [
+    "crates/oxfunc_core/src/functions/surface_dispatch.rs",
+    "crates/oxfunc_core/src/functions/value_fn.rs",
+    "crates/oxfunc_core/src/locale_format.rs"
+  ],
+  "module_shared_by": [
+    "FUNC.DOLLAR",
+    "FUNC.FIXED",
+    "FUNC.TEXT"
+  ],
+  "module_shared_by_count": 3,
+  "tests_in_impl_modules": 8,
+  "tests_are_module_level": true,
+  "tests_per_module": {
+    "crates/oxfunc_core/src/functions/value_fn.rs": 2,
+    "crates/oxfunc_core/src/locale_format.rs": 6
+  },
+  "module_tests_minus_sibling_count": {
+    "crates/oxfunc_core/src/functions/value_fn.rs": 1,
+    "crates/oxfunc_core/src/locale_format.rs": 2
+  },
+  "source_lines_per_module": {
+    "crates/oxfunc_core/src/functions/value_fn.rs": 192,
+    "crates/oxfunc_core/src/locale_format.rs": 1778
+  },
+  "lean_modules": [
+    "formal/lean/OxFunc/Functions/Value.lean",
+    "formal/lean/OxFunc/LocaleFormat.lean"
+  ],
+  "lean_parsed": false,
+  "registered_in": [
+    "crates/oxfunc_core/src/registry_context_seed.rs",
+    "crates/oxfunc_core/src/registry_signature_seed.rs"
+  ],
+  "dispatch_in": [
+    "crates/oxfunc_core/src/functions/surface_dispatch.rs"
+  ],
+  "declared_artifacts_present": true,
+  "declared_vs_scanned": {
+    "declared_found": [
+      "crates/oxfunc_core/src/functions/value_fn.rs",
+      "crates/oxfunc_core/src/locale_format.rs",
+      "formal/lean/OxFunc/Functions/Value.lean",
+      "formal/lean/OxFunc/LocaleFormat.lean"
+    ],
+    "declared_missing_on_disk": []
+  },
+  "doc_mention_counts": {
+    "discrepancy_catalog": 0,
+    "math_deviation_catalog": 0,
+    "known_exactness_deviations": 0,
+    "bug_stream_files": [
+      "docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md",
+      "docs/bugs/streams/BUG-FUNC-006_lookup_selection_array_lookup_value_lifting_gap.md",
+      "docs/bugs/streams/BUG-FUNC-007_text_slice_array_position_and_count_spill_gap.md",
+      "docs/bugs/streams/BUG-FUNC-008_text_scalar_and_delimiter_array_support_gap.md",
+      "docs/bugs/streams/BUG-FUNC-010_dynamic_array_sort_family_omitted_optional_argument_defaulting_gap.md",
+      "docs/bugs/streams/BUG-FUNC-011_countblank_range_only_parity_gap.md",
+      "docs/bugs/streams/BUG-FUNC-016_text_search_replace_array_support_gap.md",
+      "docs/bugs/streams/BUG-FUNC-017_math_scalar_numeric_array_lift_gap.md",
+      "docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md",
+      "docs/bugs/streams/BUG-FUNC-019_complex_aggregate_array_literal_gap.md",
+      "docs/bugs/streams/BUG-FUNC-020_expand_array_pad_with_panic.md",
+      "docs/bugs/streams/BUG-FUNC-022_abs_unary_array_lift_gap.md",
+      "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md",
+      "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md",
+      "docs/bugs/streams/BUG-FUNC-033_erf_erfc_over_coerce_logical.md",
+      "docs/bugs/streams/BUG-FUNC-041_regex_silent_escape_fallthrough_and_dead_translate_phrasebook.md"
+    ],
+    "function_lane_file_count": 138
+  },
+  "doc_mention_classification": [
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-006_lookup_selection_array_lookup_value_lifting_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-007_text_slice_array_position_and_count_spill_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-008_text_scalar_and_delimiter_array_support_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-010_dynamic_array_sort_family_omitted_optional_argument_defaulting_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-011_countblank_range_only_parity_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-016_text_search_replace_array_support_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-017_math_scalar_numeric_array_lift_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-019_complex_aggregate_array_literal_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-020_expand_array_pad_with_panic.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-022_abs_unary_array_lift_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-033_erf_erfc_over_coerce_logical.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/bugs/streams/BUG-FUNC-041_regex_silent_escape_fallthrough_and_dead_translate_phrasebook.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/ABS_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/ABS_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/COERCION_DECISION_TABLE.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/COERCION_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/EXCEL_FUNCTION_DEFINITION_PRELIM_CONFORMANCE.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FLOATING_POINT_BEHAVIOR_RESEARCH_NOTES.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/FLOATING_POINT_EXECUTION_RECORD.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FLOATING_POINT_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FORMAT_SHIM_AND_GET_INFO_REFERENCE_NOTES.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/FORMULA_ADMISSION_BEHAVIOR_NOTES.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_CATALOG_CURRENT_BASELINE_LOCAL.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_AND_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_ASIN_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_AVERAGE_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_CELL_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_CLEAN_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_COMPLEX_NUMBER_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_CORRELATION_LEDGER.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_COUNTA_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_COUNT_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_CRITERIA_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_DATABASE_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_DATABASE_FAMILY_CURRENT_BASELINE_PROMOTION_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_DATE_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_DATE_TIME_AND_BUSINESS_DAY_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_DATE_VALUE_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_DOLLAR_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_EXACT_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_FINANCIAL_CORE_MISC_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_FIXED_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_FUNCTIONAL_LAMBDA_AND_HELPER_STAGE1_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_FUNCTIONAL_LAMBDA_HELPERS_STAGE2_MAP_REDUCE_SCAN_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_FUNCTIONAL_LAMBDA_HELPERS_STAGE3_BYROW_BYCOL_MAKEARRAY_DEFINED_NAMES_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_HSTACK_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_IFERROR_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_IF_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_INDEX_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_INDIRECT_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_INFORMATION_PREDICATES_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_INFO_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_ISFORMULA_CONTRACT_PRELIM.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_ISNUMBER_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_LOOKUP_AND_LOGICAL_RESIDUALS_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_MATCH_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_MATH_MATRIX_AND_ROUNDING_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_NUMBERVALUE_LOCALE_DEFAULT_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_OFFSET_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_OP_IMPLICIT_INTERSECTION_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_RANDARRAY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_RANDBETWEEN_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_RAND_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_REGEX_TRIAD_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_ROUND_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_RTD_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_SEQUENCE_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_SIN_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_SUM_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_TEXTJOIN_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_TEXT_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_TEXT_CORE_AND_COMPATIBILITY_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_TEXT_DELIM_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_TODAY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_TRIMRANGE_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_VALUETOTEXT_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_VALUE_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_WEB_TEXT_XML_LOCAL_FUNCTIONS_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_XLOOKUP_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_XMATCH_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/IMPLICIT_INTERSECTION_OPERATOR_INVESTIGATION.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/INTERESTING_FUNCTIONS_INITIAL_CLASSIFICATION.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/LOCALE_AND_FORMAT_INTERFACE_OPTIONS.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/LOCALE_FORMAT_SEAM_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/OXFML_OXFUNC_LET_LAMBDA_PIN_DOWN_RESPONSE_V1.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/OXFUNC_KERNEL_METADATA_AND_ADMISSION_PROFILE_CONTRACT.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/OXFUNC_LIBRARY_CONTEXT_SNAPSHOT_EXPORT_V1.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/OXFUNC_SEMANTIC_WITNESS_SNAPSHOT_V2_TRANCHE_T1_ORDINARY_EXTRACTED.json",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/OXFUNC_SEMANTIC_WITNESS_SNAPSHOT_V2_W71_TRANCHE_T1_BATCH63.json",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/OXFUNC_SEMANTIC_WITNESS_SNAPSHOT_V2_W71_TRANCHE_T2_BATCH2.json",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/PHASE_SUMMARY_FUNCTION_CLOSURE_THROUGH_W13.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/STRING_BEHAVIOR_RESEARCH_NOTES.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/STRING_EXECUTION_RECORD.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/STRING_NORMALIZATION_AND_COMPARISON_POLICY_MAP.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/VALUE_PARSE_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/VALUE_UNIVERSE_PRELIM_SPEC.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W12_S2_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W13_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W13_S1_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W14_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W14_IMPLICIT_INTERSECTION_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W22_CRITERIA_SHAPE_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W22_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W23_DATABASE_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W23_ISFORMULA_RUNTIME_REQUIREMENTS.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W23_ISFORMULA_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH02_DATEVALUE_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH02_DATEVALUE_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH03_TEXT_DELIM_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH03_TEXT_DELIM_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH04_ARRAY_TEXT_SPLIT_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH04_ARRAY_TEXT_SPLIT_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH11_FINANCIAL_TIME_VALUE_EXECUTION_RECORD.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH11_FINANCIAL_TIME_VALUE_RUNTIME_REQUIREMENTS.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W26_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W26_HOST_PROFILE_PROVIDER_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W28_SUPPORT_FUNCTION_CATALOG_RECONCILIATION.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W30_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W33_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W33_PREPROBE_RESULTS.csv",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W33_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W35_EXECUTION_RECORD.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W35_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W38_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W38_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W38_STAGE2_MAP_REDUCE_SCAN_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W38_STAGE3_BYROW_BYCOL_MAKEARRAY_DEFINED_NAMES_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W39_EXECUTION_RECORD.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W41_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W41_WEB_TEXT_XML_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W43_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W47_TYPED_CONTEXT_QUERY_DEPENDENCY_MAP.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W51_INTERESTING_POST_FREEZE_LOCAL_WORK.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W56_GROUPED_AGGREGATION_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W60_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W63_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W65_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W66_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W67_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W68_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W69_SUPPORTED_SURFACE_WITNESS_GAP_INVENTORY.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W69_SUPPORTED_SURFACE_WITNESS_TRANCHE_REGISTER.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/XLCALL_CODE_CATALOG.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/XLL_ADDIN_BRIDGE_VALIDATION_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/XLL_REGISTRATION_FLAG_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/XLL_VERIFICATION_SEAM_LIMITATIONS.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/XMATCH_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/XMATCH_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    }
+  ],
+  "doc_mentions_are_not_verdicts": true,
+  "fuzzer_corpus_hit_files": [
+    "smart-fuzzer/corpus/context_sensitive_catalog/README.md",
+    "smart-fuzzer/corpus/context_sensitive_catalog/catalog-v0.json"
+  ],
+  "fixture_hits": [
+    "crates/oxfunc_core/tests/fixtures/function_meta_golden.txt"
+  ],
+  "scan_inventory": {
+    "rust_function_modules_scanned": 254,
+    "surface_dispatch_files": [
+      "crates/oxfunc_core/src/functions/surface_dispatch.rs",
+      "crates/oxfunc_core/src/functions/surface_dispatch_by_index_generated.rs",
+      "crates/oxfunc_core/src/functions/surface_dispatch_unary_numeric_spec_generator.rs"
+    ],
+    "registry_seed_files": [
+      "crates/oxfunc_core/src/registry_context_seed.rs",
+      "crates/oxfunc_core/src/registry_signature_seed.rs"
+    ],
+    "test_files_scanned": 17,
+    "lean_sources_scanned": 247,
+    "doc_trees_scanned": [
+      "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "docs/KNOWN_EXACTNESS_DEVIATIONS.md",
+      "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "docs/bugs/streams",
+      "docs/function-lane"
+    ]
+  },
+  "searched_where": [
+    "crates/oxfunc_core/src registry seeds -- 2 files",
+    "crates/oxfunc_core/src/functions/**/*.rs -- 254 files",
+    "crates/oxfunc_core/tests/** -- 17 files",
+    "docs/ deviation and discrepancy catalogs -- 3 files",
+    "docs/bugs/streams/** -- 42 files",
+    "docs/function-lane/** -- 563 files",
+    "formal/**/*.lean -- 247 files",
+    "rust modules named by data/functions/*.json artifacts that resolve outside crates/oxfunc_core/src/functions -- 1 file",
+    "smart-fuzzer/corpus/** -- 4 files"
+  ],
+  "limits": [
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "L9"
+  ]
+}

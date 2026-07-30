@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f2-presence.schema.json",
+  "title": "F2 - data/presence/<function_id>.json",
+  "description": "Mechanical presence map. This file makes no correctness claim and the schema forces it: there is no field for a pass, a match or a verdict. Field names are the names the 3.7 procedures read (A3-F1).",
+  "efh": {
+    "family": "F2",
+    "organ": "data",
+    "path_glob": "data/presence/*.json",
+    "writer": "tools/efh-presence (T2, Rust)",
+    "spec": "FOUNDATION.md 2.6, lines 298-332",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly. Object-valued fields (tests_per_module, module_tests_minus_sibling_count, source_lines_per_module, tests_per_module) are data-keyed and are emitted in ordinal key order per FOUNDATION 2.3 line 160."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "efhForbiddenProperties": {
+    "unit_tests_direct": "FOUNDATION 3.7 lines 761-763: 'The test predicate reads tests_in_impl_modules, never the raw unit_tests_direct - the latter includes surface_dispatch.rs's 110 own tests and is inflated for 526 of 541 entries.' The field must not exist in this schema at all, so a tool cannot read it by accident."
+  },
+  "propertyOrder": [
+    "schema",
+    "function_id",
+    "surface_name",
+    "oxfunc_commit",
+    "oxfunc_tree_clean",
+    "name_match_confidence",
+    "name_match_rule",
+    "impl_modules",
+    "exclusion_rule_id",
+    "mention_modules",
+    "module_shared_by",
+    "module_shared_by_count",
+    "tests_in_impl_modules",
+    "tests_are_module_level",
+    "tests_per_module",
+    "module_tests_minus_sibling_count",
+    "source_lines_per_module",
+    "lean_modules",
+    "lean_parsed",
+    "registered_in",
+    "dispatch_in",
+    "declared_artifacts_present",
+    "declared_vs_scanned",
+    "doc_mention_counts",
+    "doc_mention_classification",
+    "doc_mentions_are_not_verdicts",
+    "fuzzer_corpus_hit_files",
+    "fixture_hits",
+    "scan_inventory",
+    "searched_where",
+    "limits"
+  ],
+  "required": [
+    "schema",
+    "function_id",
+    "surface_name",
+    "oxfunc_commit",
+    "oxfunc_tree_clean",
+    "name_match_confidence",
+    "name_match_rule",
+    "impl_modules",
+    "exclusion_rule_id",
+    "mention_modules",
+    "module_shared_by",
+    "module_shared_by_count",
+    "tests_in_impl_modules",
+    "tests_are_module_level",
+    "tests_per_module",
+    "module_tests_minus_sibling_count",
+    "source_lines_per_module",
+    "lean_modules",
+    "lean_parsed",
+    "registered_in",
+    "dispatch_in",
+    "declared_artifacts_present",
+    "doc_mention_counts",
+    "doc_mention_classification",
+    "doc_mentions_are_not_verdicts",
+    "fuzzer_corpus_hit_files",
+    "fixture_hits",
+    "scan_inventory",
+    "searched_where",
+    "limits"
+  ],
+  "properties": {
+    "schema": {
+      "const": "efh.presence/v2",
+      "type": "string",
+      "description": "R. FOUNDATION 2.6 line 305."
+    },
+    "function_id": {
+      "type": "string",
+      "description": "R. Join key. FOUNDATION 2.6 line 306."
+    },
+    "surface_name": {
+      "type": "string",
+      "description": "R. Join key. FOUNDATION 2.6 line 306. Read by 3.7 line 672: s := P.surface_name."
+    },
+    "oxfunc_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$",
+      "description": "R. 40-hex. FOUNDATION 2.6 line 307."
+    },
+    "oxfunc_tree_clean": {
+      "type": "boolean",
+      "description": "R. false blocks publication. FOUNDATION 2.6 line 308."
+    },
+    "name_match_confidence": {
+      "type": "string",
+      "enum": ["high", "low"],
+      "description": "R. low iff surface name <=3 chars (53 of 541). FOUNDATION 2.6 line 309."
+    },
+    "name_match_rule": {
+      "type": "string",
+      "enum": ["word_boundary", "guarded_short_name"],
+      "description": "R. FOUNDATION 2.6 line 310."
+    },
+    "impl_modules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. Id-mention set minus basenames starting surface_dispatch; may be empty (15 entries). FOUNDATION 2.6 line 311. Read by 3.7 lines 716, 721, 725. 3.7 line 763: impl_modules, NEVER mention_modules - the latter puts ~525 siblings on almost every entry."
+    },
+    "exclusion_rule_id": {
+      "const": "EXCL-SURFACE-DISPATCH-1",
+      "type": "string",
+      "description": "R. Prose lives in F14 (A3-S7). FOUNDATION 2.6 line 312."
+    },
+    "mention_modules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. Unfiltered set, for audit. FOUNDATION 2.6 line 313. NOT read by the warrant or depth predicates - 3.7 line 763."
+    },
+    "module_shared_by": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. Sibling ids reaching the same module(s). FOUNDATION 2.6 line 314. Supplies the mechanical nearest-measured-relative sentence A-56 (4.2 lines 932-935)."
+    },
+    "module_shared_by_count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "R. FOUNDATION 2.6 line 315. Read by 3.7 lines 727-728, the D2/D3/D4 test-depth predicate."
+    },
+    "tests_in_impl_modules": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "R. #[test] count over impl_modules. FOUNDATION 2.6 line 316. Read by 3.7 lines 717, 718, 726. 3.7 line 761: this field, never unit_tests_direct."
+    },
+    "tests_are_module_level": {
+      "const": true,
+      "type": "boolean",
+      "description": "R. const true. No per-function test count exists in OxFunc. FOUNDATION 2.6 line 317."
+    },
+    "tests_per_module": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" },
+      "description": "R. module -> count, ordinal key order. FOUNDATION 2.6 line 318."
+    },
+    "module_tests_minus_sibling_count": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" },
+      "description": "R. module -> (#[test] count - ids mapped). Negative means at least that many siblings cannot have a test of their own. Required rendered field (A1-F2). FOUNDATION 2.6 line 319. Read by 3.7 line 719 (rendered with W2)."
+    },
+    "source_lines_per_module": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" },
+      "description": "R. FOUNDATION 2.6 line 320."
+    },
+    "lean_modules": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. Files under formal/ naming the id. Means 'a file exists', nothing more. FOUNDATION 2.6 line 321."
+    },
+    "lean_parsed": {
+      "const": false,
+      "type": "boolean",
+      "description": "R. const false. FOUNDATION 2.6 line 322."
+    },
+    "registered_in": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. FOUNDATION 2.6 line 323."
+    },
+    "dispatch_in": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. FOUNDATION 2.6 line 323."
+    },
+    "declared_artifacts_present": {
+      "type": "boolean",
+      "description": "R. 40 of 541. FOUNDATION 2.6 line 324."
+    },
+    "declared_vs_scanned": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["declared_found", "declared_missing_on_disk"],
+      "required": ["declared_found", "declared_missing_on_disk"],
+      "properties": {
+        "declared_found": { "type": "array", "items": { "type": "string" } },
+        "declared_missing_on_disk": { "type": "array", "items": { "type": "string" } }
+      },
+      "description": "O. Omitted entirely when absent. FOUNDATION 2.6 line 325."
+    },
+    "doc_mention_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": [
+        "discrepancy_catalog",
+        "math_deviation_catalog",
+        "known_exactness_deviations",
+        "bug_stream_files",
+        "function_lane_file_count"
+      ],
+      "required": [
+        "discrepancy_catalog",
+        "math_deviation_catalog",
+        "known_exactness_deviations",
+        "bug_stream_files",
+        "function_lane_file_count"
+      ],
+      "properties": {
+        "discrepancy_catalog": { "type": "integer" },
+        "math_deviation_catalog": { "type": "integer" },
+        "known_exactness_deviations": { "type": "integer" },
+        "bug_stream_files": { "type": "array", "items": { "type": "string" } },
+        "function_lane_file_count": { "type": "integer" }
+      },
+      "description": "R. FOUNDATION 2.6 line 326."
+    },
+    "doc_mention_classification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["path", "kind"],
+        "required": ["path", "kind"],
+        "properties": {
+          "path": { "type": "string" },
+          "kind": { "type": "string", "enum": ["bulk-inventory", "behavioural-finding"] }
+        }
+      },
+      "description": "R. Per mentioning file. Decided by a declared file-name and section-header rule stated in F14. This is what makes HARMEAN's best sentence generated rather than typed (A3-F2). FOUNDATION 2.6 line 327."
+    },
+    "doc_mentions_are_not_verdicts": {
+      "const": true,
+      "type": "boolean",
+      "description": "R. const true. FOUNDATION 2.6 line 328."
+    },
+    "fuzzer_corpus_hit_files": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. FOUNDATION 2.6 line 329."
+    },
+    "fixture_hits": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. FOUNDATION 2.6 line 329."
+    },
+    "scan_inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": [
+        "rust_function_modules_scanned",
+        "surface_dispatch_files",
+        "registry_seed_files",
+        "test_files_scanned",
+        "lean_sources_scanned",
+        "doc_trees_scanned"
+      ],
+      "required": [
+        "rust_function_modules_scanned",
+        "surface_dispatch_files",
+        "registry_seed_files",
+        "test_files_scanned",
+        "lean_sources_scanned",
+        "doc_trees_scanned"
+      ],
+      "properties": {
+        "rust_function_modules_scanned": { "type": "integer" },
+        "surface_dispatch_files": { "type": "array", "items": { "type": "string" } },
+        "registry_seed_files": { "type": "array", "items": { "type": "string" } },
+        "test_files_scanned": { "type": "integer" },
+        "lean_sources_scanned": { "type": "integer" },
+        "doc_trees_scanned": { "type": "array", "items": { "type": "string" } }
+      },
+      "description": "R. Required rendering field for W0/W1/W2 and D0/D1; it had no schema slot before A3-F2. FOUNDATION 2.6 line 330."
+    },
+    "searched_where": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. The human-readable list the absence block renders. FOUNDATION 2.6 line 331."
+    },
+    "limits": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^L[1-9]$" },
+      "description": "R. Limit IDS only ['L1'..'L9']; prose in F14 (A3-S7). Guard G-12: every id here must be defined in F14 and every F14 id must be referenced. FOUNDATION 2.6 line 332."
+    }
+  }
+}

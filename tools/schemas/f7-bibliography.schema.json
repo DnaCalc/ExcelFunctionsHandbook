@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f7-bibliography.schema.json",
+  "title": "F7 - content/references/bibliography.json",
+  "description": "Works cited. handbook_consulted is the field that keeps the bibliography honest.",
+  "efh": {
+    "family": "F7",
+    "organ": "content",
+    "path_glob": "content/references/bibliography.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 372-373 ('as D1 2.7'), resolving to D1-reference-structure.md 2.7 lines 344-350",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; works[] ordinal-sorted by work_id."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "pendingRequired": {
+    "record_version": "FOUNDATION 2.3 line 161 requires record_version on every authored file. D1 2.7's F7 shape is `{ schema, works[] }` and names no record_version. Recorded, not invented."
+  },
+  "propertyOrder": ["schema", "works"],
+  "required": ["schema", "works"],
+  "properties": {
+    "schema": { "type": "string", "description": "R." },
+    "works": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "work_id",
+          "kind",
+          "authors",
+          "title",
+          "year",
+          "identifier",
+          "gloss",
+          "access",
+          "handbook_consulted"
+        ],
+        "required": [
+          "work_id",
+          "kind",
+          "authors",
+          "title",
+          "year",
+          "gloss",
+          "access",
+          "handbook_consulted"
+        ],
+        "properties": {
+          "work_id": { "type": "string", "pattern": "^WK-", "description": "R. WK-<slug>." },
+          "kind": {
+            "type": "string",
+            "enum": ["book", "paper", "code", "spec", "web"],
+            "description": "R."
+          },
+          "authors": { "type": "string", "description": "R." },
+          "title": { "type": "string", "description": "R." },
+          "year": { "type": ["integer", "null"], "description": "R, may be null." },
+          "identifier": { "type": "string", "description": "O. DOI/ISBN/URL." },
+          "gloss": {
+            "type": "string",
+            "description": "R. <=12 words - the muted gloss slot. Word count is not expressible in JSON Schema and is checked by the site build."
+          },
+          "access": {
+            "type": "string",
+            "enum": ["open", "paywalled", "offline-only"],
+            "description": "R."
+          },
+          "handbook_consulted": {
+            "type": "boolean",
+            "description": "R. Whether anyone HERE actually read it. false renders as 'cited by an upstream source; not independently consulted'. D1 2.7 lines 349-350."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f3-axis-vocabulary.schema.json",
+  "title": "F3 - data/axes/vocabulary.json",
+  "description": "The declared behaviour axes, their variants and their occupancy over the 525-entry live registry.",
+  "efh": {
+    "family": "F3",
+    "organ": "data",
+    "path_glob": "data/axes/vocabulary.json",
+    "writer": "tools/efh-ingest (T3, Rust)",
+    "spec": "FOUNDATION.md 2.7 lines 336-338 ('unchanged from D1 2.3 except: modal_share stays ... and occupancy: 0 is published'), resolving to D1-reference-structure.md 2.3 lines 187-209",
+    "propertyOrderBasis": "foundation-table",
+    "propertyOrderNote": "Order is D1 2.3's table order, which FOUNDATION 2.7 adopts by reference. The generated organ at HEAD emits six extra fields (declared_kind, backing_field, default_value, unset_occupancy, extraction, oxfunc_tree_clean) and omits the table's required consumer_sites, documenting the omission in its own `extraction.fields_not_emitted`. That divergence is reported by efh-validate check, not absorbed here.",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; axes[] is ordinal-sorted by key."
+  },
+  "type": "object",
+  "additionalProperties": true,
+  "propertyOrder": ["schema", "oxfunc_commit", "catalog_size", "axes"],
+  "required": ["schema", "oxfunc_commit", "catalog_size", "axes"],
+  "properties": {
+    "schema": { "const": "efh.axis-vocabulary/v1", "type": "string", "description": "R. D1 2.3 line 191." },
+    "oxfunc_commit": { "type": "string", "description": "R. D1 2.3 line 192." },
+    "catalog_size": {
+      "type": "integer",
+      "description": "R. 525 at OxFunc 473efa3, from the live registry length. D1 2.3 line 193. Note this is the registry catalog, NOT the 541-entry Handbook denominator (SD-1)."
+    },
+    "axes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "propertyOrder": [
+          "key",
+          "enum_name",
+          "source_path",
+          "defaultable",
+          "oxfunc_tier",
+          "documented_in_source",
+          "consumer_sites",
+          "variants",
+          "modal_share"
+        ],
+        "required": [
+          "key",
+          "enum_name",
+          "source_path",
+          "defaultable",
+          "oxfunc_tier",
+          "documented_in_source",
+          "consumer_sites",
+          "variants",
+          "modal_share"
+        ],
+        "properties": {
+          "key": { "type": "string", "description": "R. snake_case key as it appears in F1." },
+          "enum_name": { "type": ["string", "null"], "description": "R. Rust type name." },
+          "source_path": { "type": "string", "description": "R." },
+          "defaultable": { "type": "boolean", "description": "R." },
+          "oxfunc_tier": { "type": "string", "enum": ["A", "B", "C"], "description": "R." },
+          "documented_in_source": {
+            "type": "boolean",
+            "description": "R. false for 7 of 13 axes. Forces gloss_basis: handbook-inferred on every F4 variant of those axes (FOUNDATION 2.7 lines 344-345)."
+          },
+          "consumer_sites": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "R per D1 2.3 line 201: non-test read sites; an empty array is a fact worth publishing (thread_safety has none). NOT EMITTED by the generator at HEAD, which states in extraction.fields_not_emitted that a textual grep is a different fact and 'would be published under a name that overstates it, so it is omitted rather than approximated'. The schema keeps the field required because FOUNDATION 2.7 adopts D1 2.3 unchanged on this point; efh-validate check reports the divergence."
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "propertyOrder": ["value", "occupancy", "exemplars"],
+              "required": ["value", "occupancy", "exemplars"],
+              "properties": {
+                "value": { "type": "string" },
+                "occupancy": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "R. 0 IS PUBLISHED for NotThreadSafe, PairwiseTree, KahanCompensated, ProducesErrorMetadata (FOUNDATION 2.7 line 338)."
+                },
+                "exemplars": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "modal_share": {
+            "type": ["number", "null"],
+            "description": "R. Occupancy of the modal variant / catalog_size. FOUNDATION 2.7 line 337: modal_share STAYS, because the chip-suppression rule reads it at build time - A3-S8 moved chip_suppression out of F4 and made it derived from this field, oxfunc_tier and the vacuity rule."
+          }
+        }
+      },
+      "description": "R. One per declared axis."
+    }
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f1-function.schema.json",
+  "title": "F1 - data/functions/<function_id>.json",
+  "description": "The 541 mechanical function records. FOUNDATION 2.4 gives deltas only; the base field set is the existing organ.",
+  "efh": {
+    "family": "F1",
+    "organ": "data",
+    "path_glob": "data/functions/*.json",
+    "writer": "tools/efh-ingest (T3, Rust)",
+    "spec": "FOUNDATION.md 2.4, lines 166-181 (deltas D-1..D-8 only)",
+    "propertyOrderBasis": "observed-in-generated-organ",
+    "propertyOrderEvidence": "All 541 files at data/functions/*.json emit exactly two key orders (537 files without text_integrity, 4 with it), and the 24-key order below is a prefix-consistent superset of both. FOUNDATION 2.4 line 168 says 'The existing 26 fields stay' but does not list them and does not state where the new fields insert; the observed order is the only traceable statement of the contract, so it is what is recorded here. The 26-vs-observed-21-base discrepancy is recorded in tools/schemas/README.md and not resolved by invention.",
+    "keyOrderContract": "Emit keys in propertyOrder exactly. axis_provenance, classification, axes and vintage are data-keyed objects emitted in ordinal key order per FOUNDATION 2.3 line 160."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "pendingRequired": {
+    "schema": "FOUNDATION 2.3 line 161 says 'Every file carries schema'. No F1 file at HEAD carries one and no delta in 2.4 adds one, so it is not in required. Recorded, not invented."
+  },
+  "propertyOrder": [
+    "function_id",
+    "surface_name",
+    "published_row_id",
+    "entry_kind",
+    "category",
+    "admission",
+    "metadata_status",
+    "xlcall",
+    "arity",
+    "classification",
+    "axes",
+    "axis_provenance",
+    "signature",
+    "signature_placeholder",
+    "descriptions",
+    "docs",
+    "localized_names",
+    "artifacts",
+    "version_marker",
+    "special_interface_kind",
+    "admission_interface_kind",
+    "registry_backed",
+    "text_integrity",
+    "oxfunc_tree_clean",
+    "vintage"
+  ],
+  "required": [
+    "function_id",
+    "surface_name",
+    "published_row_id",
+    "entry_kind",
+    "category",
+    "admission",
+    "metadata_status",
+    "xlcall",
+    "arity",
+    "classification",
+    "axes",
+    "axis_provenance",
+    "signature",
+    "signature_placeholder",
+    "descriptions",
+    "docs",
+    "localized_names",
+    "artifacts",
+    "version_marker",
+    "special_interface_kind",
+    "admission_interface_kind",
+    "registry_backed",
+    "oxfunc_tree_clean",
+    "vintage"
+  ],
+  "properties": {
+    "function_id": {
+      "type": "string",
+      "pattern": "^(FUNC|OP)\\.",
+      "description": "R. Join key for F2, F5.subjects, F6, F16."
+    },
+    "surface_name": { "type": "string", "description": "R." },
+    "published_row_id": { "type": ["string", "null"], "description": "R." },
+    "entry_kind": {
+      "type": "string",
+      "enum": ["built_in_function", "built_in_operator"],
+      "description": "R. 518 functions + 23 operators = 541 entries (F0 counts)."
+    },
+    "category": { "type": ["string", "null"], "description": "R." },
+    "admission": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["label", "reason"],
+      "required": ["label", "reason"],
+      "properties": {
+        "label": { "type": "string", "enum": ["supported", "deferred"] },
+        "reason": { "type": ["string", "null"] }
+      },
+      "description": "R."
+    },
+    "metadata_status": {
+      "type": ["string", "null"],
+      "description": "R. Stays in the file and is NEVER rendered - FOUNDATION 2.4 line 181."
+    },
+    "xlcall": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "propertyOrder": ["symbol", "code"],
+          "required": ["symbol", "code"],
+          "properties": {
+            "symbol": { "type": "string" },
+            "code": { "type": ["string", "null"] }
+          }
+        },
+        { "type": "null" }
+      ],
+      "description": "R, may be null."
+    },
+    "arity": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["min", "max"],
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": ["integer", "null"] },
+        "max": {
+          "oneOf": [
+            { "type": "integer" },
+            { "const": "unbounded", "type": "string" },
+            { "type": "null" }
+          ],
+          "description": "DELTA D-2 (FOUNDATION 2.4 line 176): render usize::MAX as 'unbounded', never 18446744073709551615."
+        }
+      },
+      "description": "R. DELTA D-1 (line 174): sourced from the live registry, not the 2026-04-02 dirty-tree CSV. Gated on STEWARD DECISION SD-2, which is decided: take delta D-1."
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "R. May be the empty object (13 entries at HEAD have no live-registry classification). DELTA D-1."
+    },
+    "axes": {
+      "oneOf": [
+        { "type": "object", "additionalProperties": { "type": ["string", "null"] } },
+        { "type": "null" }
+      ],
+      "description": "R, may be null. axes.axes_version stays in the file and is NEVER rendered - FOUNDATION 2.4 line 181."
+    },
+    "axis_provenance": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["provenance_class", "oxfunc_tier"],
+        "required": ["provenance_class", "oxfunc_tier"],
+        "properties": {
+          "provenance_class": {
+            "type": "string",
+            "enum": ["excel-claimed", "default-unexamined", "implementation-fact"],
+            "description": "DELTA D-3, FOUNDATION 2.4 line 174."
+          },
+          "oxfunc_tier": {
+            "type": "string",
+            "enum": ["A", "B", "C"],
+            "description": "DELTA D-4, FOUNDATION 2.4 line 175. Gates rendering; also feeds the build-time chip_suppression rule that A3-S8 removed from F4."
+          }
+        }
+      },
+      "description": "R (new, DELTA D-3). Per axis key."
+    },
+    "signature": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "propertyOrder": ["display", "trailing_repeats", "parameters"],
+          "required": ["display", "trailing_repeats", "parameters"],
+          "properties": {
+            "display": { "type": ["string", "null"] },
+            "trailing_repeats": {
+              "type": ["boolean", "null"],
+              "description": "DELTA D-5 (FOUNDATION 2.4 line 176): null when parameters is empty. The true on 8 operators is a derivation artifact and is false."
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "propertyOrder": ["name", "optional", "repeats", "description"],
+                "required": ["name", "optional", "repeats", "description"],
+                "properties": {
+                  "name": { "type": ["string", "null"] },
+                  "optional": { "type": "boolean" },
+                  "repeats": { "type": "boolean" },
+                  "description": { "type": ["string", "null"] }
+                }
+              }
+            }
+          }
+        },
+        { "type": "null" }
+      ],
+      "description": "R, may be null."
+    },
+    "signature_placeholder": { "type": "boolean", "description": "R." },
+    "descriptions": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["short", "short_source", "long"],
+      "required": ["short", "short_source", "long"],
+      "properties": {
+        "short": { "type": ["string", "null"] },
+        "short_source": {
+          "type": "string",
+          "enum": ["microsoft-english-verbatim", "differs-from-english-description"],
+          "description": "R (new, DELTA D-6, FOUNDATION 2.4 line 177). Renamed from 'oxfunc-authored' by A3-S6: authorship is an inference and belongs in F12 as an authorship-inference gap.",
+          "efhObservedValuesNotInSpec": ["no-short-description"],
+          "efhObservationNote": "Measured 2026-07-31 over all 541 files at data/functions/*.json: short_source is 'microsoft-english-verbatim' on 502 files and 'no-short-description' on 39 files; 'differs-from-english-description' occurs on 0 files. FOUNDATION 2.4 line 177 names only two values and 502 is the figure it states for the first. The third value is a real divergence between the spec table and the generated organ. It is reported by efh-validate check and is NOT added to the enum here, because adding it would silently amend the spec."
+        },
+        "long": { "type": ["string", "null"] }
+      },
+      "description": "R."
+    },
+    "docs": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "propertyOrder": ["microsoft_url", "english_description"],
+          "required": ["microsoft_url", "english_description"],
+          "properties": {
+            "microsoft_url": { "type": ["string", "null"] },
+            "english_description": { "type": ["string", "null"] }
+          }
+        },
+        { "type": "null" }
+      ],
+      "description": "R, may be null (23 operators)."
+    },
+    "localized_names": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["locale", "name"],
+        "required": ["locale", "name"],
+        "properties": {
+          "locale": { "type": "string" },
+          "name": { "type": "string" }
+        }
+      },
+      "description": "R. May be empty."
+    },
+    "artifacts": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "propertyOrder": ["contract_row_id", "lean_module", "rust_module", "status"],
+          "required": ["contract_row_id", "lean_module", "rust_module", "status"],
+          "properties": {
+            "contract_row_id": { "type": ["string", "null"] },
+            "lean_module": { "type": ["string", "null"] },
+            "rust_module": { "type": ["string", "null"] },
+            "status": { "type": ["string", "null"] }
+          }
+        },
+        { "type": "null" }
+      ],
+      "description": "R, may be null. Non-null on 40 of 541; F2.declared_artifacts_present mirrors it."
+    },
+    "version_marker": {
+      "type": ["string", "null"],
+      "description": "R. null in all 541 files - FOUNDATION 7.9 line 1324: the Handbook cannot answer 'from which Excel version' for any function."
+    },
+    "special_interface_kind": { "type": "string", "description": "R." },
+    "admission_interface_kind": { "type": "string", "description": "R." },
+    "registry_backed": { "type": "boolean", "description": "R." },
+    "text_integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["field", "observed", "contains_lossy_substitution"],
+      "required": ["field", "observed", "contains_lossy_substitution"],
+      "properties": {
+        "field": { "type": "string" },
+        "observed": { "type": "string" },
+        "contains_lossy_substitution": { "const": true, "type": "boolean" }
+      },
+      "description": "O (new, DELTA D-7, FOUNDATION 2.4 line 178). These three mechanical fields ONLY. A3-S6: suspected_lost and verified move to F12 as a lossy-text gap, because an inference may not sit in mechanical data/."
+    },
+    "oxfunc_tree_clean": {
+      "type": "boolean",
+      "description": "R (new, DELTA D-8, FOUNDATION 2.4 line 179). false blocks publication of this file. A3-S12."
+    },
+    "vintage": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "required": [
+        "identity",
+        "descriptions",
+        "docs",
+        "localized_names",
+        "category",
+        "xlcall",
+        "arity",
+        "classification",
+        "axes",
+        "artifacts"
+      ],
+      "description": "R (new, DELTA D-8, FOUNDATION 2.4 line 179). Maps each field group to the OxFunc state it came from. FOUNDATION names ten groups and required lists exactly those ten; the generated organ emits nineteen keys (a superset), which is permitted by additionalProperties and recorded in tools/schemas/README.md. Feeds absence string A-09's replacement, the permanent basis clause (FOUNDATION 4.2 lines 849-854)."
+    }
+  }
+}

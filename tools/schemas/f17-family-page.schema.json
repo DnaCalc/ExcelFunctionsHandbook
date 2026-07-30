@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f17-family-page.schema.json",
+  "title": "F17 - content/families/<module-slug>.md (front matter)",
+  "description": "One page per implementation module serving >=2 Handbook ids. Governs the YAML front matter only; the body is Markdown.",
+  "efh": {
+    "family": "F17",
+    "organ": "content",
+    "path_glob": "content/families/*.md",
+    "governs": "front-matter-only",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 364-370",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit front-matter keys in propertyOrder exactly; member_ids[] ordinal-sorted."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "module_path",
+    "module_slug",
+    "member_ids",
+    "curated_at_oxfunc_commit",
+    "what_the_family_shares",
+    "where_members_diverge",
+    "evidence_records",
+    "record_version"
+  ],
+  "required": [
+    "schema",
+    "module_path",
+    "module_slug",
+    "member_ids",
+    "curated_at_oxfunc_commit",
+    "what_the_family_shares",
+    "where_members_diverge",
+    "evidence_records",
+    "record_version"
+  ],
+  "properties": {
+    "schema": { "type": "string", "description": "R." },
+    "module_path": { "type": "string", "description": "R." },
+    "module_slug": { "type": "string", "description": "R. Must equal the filename stem." },
+    "member_ids": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string" },
+      "description": "R. MUST EQUAL the mechanically computed set (from F2 impl_modules / module_shared_by) or the build fails - FOUNDATION 2.8 line 366 and T10 acceptance test (a) line 1190."
+    },
+    "curated_at_oxfunc_commit": { "type": "string", "description": "R." },
+    "what_the_family_shares": { "type": "string", "description": "R." },
+    "where_members_diverge": { "type": "string", "description": "R." },
+    "evidence_records": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^EV-[a-z-]+-[0-9]{4}$" },
+      "description": "R. May be empty. Ids into F5."
+    },
+    "record_version": { "type": "integer", "minimum": 1, "description": "R. FOUNDATION 2.3 line 161: every authored file carries record_version." }
+  }
+}

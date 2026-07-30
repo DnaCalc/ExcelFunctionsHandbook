@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f16-battery.schema.json",
+  "title": "F16 - data/battery/<function_id>.json",
+  "description": "The reference engine's own answers on a fixed 12-input battery, published as state (b). The only mechanical source of BEHAVIOUR facts - as opposed to facts about another repository's file layout - the Handbook can generate today.",
+  "efh": {
+    "family": "F16",
+    "organ": "data",
+    "path_glob": "data/battery/*.json",
+    "writer": "tools/efh-battery (T7, Rust)",
+    "spec": "FOUNDATION.md 2.9, lines 378-404",
+    "stewardDecision": "SD-2 is decided: take BOTH delta D-1 (live registry) and organ F16 (the battery). OPERATIONS 4.1 is amended.",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly. rows[] is in the FIXED battery order given by rows[].label's enum - it is a SEMANTIC order, not ordinal, and FOUNDATION 2.3 line 159 exempts arrays whose schema names a semantic order from ordinal sorting."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "function_id",
+    "surface_name",
+    "battery_id",
+    "oxfunc_commit",
+    "oxfunc_tree_clean",
+    "runner_version",
+    "host",
+    "rows",
+    "label"
+  ],
+  "required": [
+    "schema",
+    "function_id",
+    "surface_name",
+    "battery_id",
+    "oxfunc_commit",
+    "oxfunc_tree_clean",
+    "runner_version",
+    "host",
+    "rows",
+    "label"
+  ],
+  "properties": {
+    "schema": { "const": "efh.battery/v1", "type": "string", "description": "R. FOUNDATION 2.9 line 386." },
+    "function_id": { "type": "string", "description": "R." },
+    "surface_name": { "type": "string", "description": "R." },
+    "battery_id": {
+      "const": "EFH-B1",
+      "type": "string",
+      "description": "R. The fixed 12-input battery, defined once in tools/efh-battery/BATTERY.md and versioned. FOUNDATION 2.9 line 388."
+    },
+    "oxfunc_commit": { "type": "string", "description": "R." },
+    "oxfunc_tree_clean": { "type": "boolean", "description": "R." },
+    "runner_version": { "type": "string", "description": "R." },
+    "host": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["arch", "cpu", "os"],
+      "required": ["arch", "cpu", "os"],
+      "properties": {
+        "arch": { "type": "string" },
+        "cpu": { "type": "string" },
+        "os": { "type": "string" }
+      },
+      "description": "R. Recorded because some OxFunc kernels route through real x87. FOUNDATION 2.9 line 390."
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "label",
+          "input_display",
+          "outcome_kind",
+          "outcome_display",
+          "outcome_bits",
+          "host_scoped"
+        ],
+        "required": [
+          "label",
+          "input_display",
+          "outcome_kind",
+          "outcome_display",
+          "outcome_bits",
+          "host_scoped"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "enum": [
+              "zero",
+              "negative-one",
+              "empty-string",
+              "boolean-true",
+              "empty-range",
+              "error-na",
+              "max-double",
+              "min-subnormal",
+              "inline-array",
+              "text-numeral",
+              "too-few-args",
+              "too-many-args"
+            ],
+            "description": "R. FOUNDATION 2.9 line 392. The enum order IS the fixed row order."
+          },
+          "input_display": { "type": "string", "description": "R. The formula as a reader would type it." },
+          "outcome_kind": {
+            "type": "string",
+            "enum": [
+              "number",
+              "text",
+              "boolean",
+              "error",
+              "array",
+              "refused-by-arity",
+              "not-dispatchable"
+            ],
+            "description": "R. FOUNDATION 2.9 line 394."
+          },
+          "outcome_display": {
+            "type": "string",
+            "description": "R. 17-significant-digit round-trip for numbers; the error code for errors. FOUNDATION 2.9 line 395."
+          },
+          "outcome_bits": {
+            "type": ["string", "null"],
+            "description": "R. Hex binary64 when outcome_kind == number, else null. FOUNDATION 2.9 line 396."
+          },
+          "host_scoped": {
+            "type": "boolean",
+            "description": "R. true when the kernel routes through hardware x87 for this input. FOUNDATION 2.9 line 397; T7 acceptance test (f) at line 1187 expects a cross-host run to differ ONLY on these rows. FOUNDATION 7.6 line 1297 names this as a host-dependent artifact sitting inside the organ whose whole contract is byte-stability."
+          }
+        }
+      },
+      "description": "R. 12 rows, fixed order."
+    },
+    "label": {
+      "const": "OxFunc's own answers. No Excel was involved.",
+      "type": "string",
+      "description": "R, const on every file. FOUNDATION 2.9 line 398."
+    }
+  }
+}

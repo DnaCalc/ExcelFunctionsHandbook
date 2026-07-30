@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f2i-presence-index.schema.json",
+  "title": "F2i - data/presence/index.json",
+  "description": "SPEC GAP. FOUNDATION names this family twice and gives it no field table anywhere.",
+  "efh": {
+    "family": "F2i",
+    "organ": "data",
+    "path_glob": "data/presence/index.json",
+    "writer": "tools/efh-presence (T2, Rust)",
+    "spec": "FOUNDATION.md 2.2 line 122 ('presence/index.json  F2i (new)') and 6 T2 line 1182 ('Outputs: data/presence/<id>.json x541; data/presence/index.json'). No field table exists in FOUNDATION, D1, D2 or D3.",
+    "propertyOrderBasis": "spec-gap-minimal",
+    "observedShapeAtHead": "Read from data/presence/index.json on 2026-07-31, after tools/efh-presence (T2) generated it: schema, oxfunc_commit, oxfunc_tree_clean, entry_count, exclusion_rule_id, limits, scan_inventory, searched_where. Recorded as an OBSERVATION only. It is deliberately NOT promoted into `required` or `propertyOrder`, because the spec still defines no field table and a generator's current output is not a specification. Promoting it would let this schema silently become the spec.",
+    "specGap": "FOUNDATION declares F2i as a family and never defines its fields. The only field this schema can ground is `schema`, from FOUNDATION 2.3 line 161 ('Every file carries schema'). Every other key is therefore permitted and unvalidated. This is the weakest reading available, published deliberately in place of an invented field list. Resolving it requires a steward decision or a spec amendment, not a guess by this tool.",
+    "keyOrderContract": "Undefined until the family is specified. Whatever T2 emits must be byte-stable across runs (FOUNDATION 2.3 line 156, T2 acceptance test (b) line 1182)."
+  },
+  "type": "object",
+  "additionalProperties": true,
+  "propertyOrder": ["schema"],
+  "required": ["schema"],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "description": "R by FOUNDATION 2.3 line 161. The version string itself is unspecified; F2 uses 'efh.presence/v2' and this schema does not assert a const, because FOUNDATION never states one for the index."
+    }
+  }
+}

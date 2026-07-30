@@ -1,0 +1,113 @@
+{
+  "schema": "efh.battery/v1",
+  "function_id": "FUNC.LOGNORM.DIST",
+  "surface_name": "LOGNORM.DIST",
+  "battery_id": "EFH-B1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "runner_version": "efh-battery/0.1.0",
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "os": "windows"
+  },
+  "rows": [
+    {
+      "label": "zero",
+      "input_display": "LOGNORM.DIST(0, 0, 0, 0)",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "negative-one",
+      "input_display": "LOGNORM.DIST(-1, -1, -1, -1)",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-string",
+      "input_display": "LOGNORM.DIST(\"\", \"\", \"\", \"\")",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "boolean-true",
+      "input_display": "LOGNORM.DIST(TRUE, TRUE, TRUE, TRUE)",
+      "outcome_kind": "number",
+      "outcome_display": "1.5865525393145707e-1",
+      "outcome_bits": "0x3fc44ed0bb7cb20c",
+      "host_scoped": true
+    },
+    {
+      "label": "empty-range",
+      "input_display": "LOGNORM.DIST(<empty>, <empty>, <empty>, <empty>)",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "error-na",
+      "input_display": "LOGNORM.DIST(#N/A, #N/A, #N/A, #N/A)",
+      "outcome_kind": "error",
+      "outcome_display": "#N/A",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "max-double",
+      "input_display": "LOGNORM.DIST(1.7976931348623157e308, 1.7976931348623157e308, 1.7976931348623157e308, 1.7976931348623157e308)",
+      "outcome_kind": "number",
+      "outcome_display": "1.5865525393145707e-1",
+      "outcome_bits": "0x3fc44ed0bb7cb20c",
+      "host_scoped": true
+    },
+    {
+      "label": "min-subnormal",
+      "input_display": "LOGNORM.DIST(4.9406564584124654e-324, 4.9406564584124654e-324, 4.9406564584124654e-324, 4.9406564584124654e-324)",
+      "outcome_kind": "number",
+      "outcome_display": "0.0000000000000000e0",
+      "outcome_bits": "0x0000000000000000",
+      "host_scoped": true
+    },
+    {
+      "label": "inline-array",
+      "input_display": "LOGNORM.DIST({1,2;3,4}, {1,2;3,4}, {1,2;3,4}, {1,2;3,4})",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "text-numeral",
+      "input_display": "LOGNORM.DIST(\"2.5\", \"2.5\", \"2.5\", \"2.5\")",
+      "outcome_kind": "number",
+      "outcome_display": "2.6320890857806833e-1",
+      "outcome_bits": "0x3fd0d86a2d96f43e",
+      "host_scoped": true
+    },
+    {
+      "label": "too-few-args",
+      "input_display": "LOGNORM.DIST(1, 1, 1)",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-many-args",
+      "input_display": "LOGNORM.DIST(1, 1, 1, 1, 1)",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    }
+  ],
+  "label": "OxFunc's own answers. No Excel was involved."
+}

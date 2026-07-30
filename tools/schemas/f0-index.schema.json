@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f0-index.schema.json",
+  "title": "F0 - data/index.json",
+  "description": "The entry index and its provenance. FOUNDATION 2.2 line 119 describes F0 as 'exists; unchanged shape, provenance extended' and gives no field table anywhere.",
+  "efh": {
+    "family": "F0",
+    "organ": "data",
+    "path_glob": "data/index.json",
+    "writer": "tools/efh-ingest (T3, Rust)",
+    "spec": "FOUNDATION.md 2.2 line 119 (one line, no table); counts semantics from 3 line 427 and A1-S10 line 67",
+    "propertyOrderBasis": "observed-in-generated-organ",
+    "propertyOrderEvidence": "Read from data/index.json at HEAD on 2026-07-31. FOUNDATION supplies no key table for F0, so the file itself is the only traceable statement of its order. Fields beyond the observed set are permitted (additionalProperties true on the sub-objects) because 'provenance extended' is the only instruction given.",
+    "keyOrderContract": "Emit keys in propertyOrder exactly. vintage_states is a data-keyed object emitted in ordinal key order."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "pendingRequired": {
+    "schema": "FOUNDATION 2.3 line 161 says 'Every file carries schema'. data/index.json at HEAD does not, and no delta adds one. Recorded, not invented."
+  },
+  "propertyOrder": ["provenance", "vintage_states", "counts", "rows"],
+  "required": ["provenance", "counts", "rows"],
+  "properties": {
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "propertyOrder": [
+        "export_snapshot_id",
+        "export_snapshot_generation",
+        "export_source_commit",
+        "export_source_tree_state",
+        "oxfunc_commit_at_ingest",
+        "oxfunc_commit_at_ingest_full",
+        "oxfunc_tree_clean",
+        "registry_snapshot_family",
+        "registry_generation",
+        "registry_content_fingerprint",
+        "tool"
+      ],
+      "required": [
+        "export_snapshot_id",
+        "export_snapshot_generation",
+        "export_source_commit",
+        "export_source_tree_state",
+        "oxfunc_commit_at_ingest",
+        "registry_snapshot_family",
+        "registry_generation",
+        "registry_content_fingerprint",
+        "tool"
+      ],
+      "properties": {
+        "export_snapshot_id": { "type": "string" },
+        "export_snapshot_generation": { "type": "string" },
+        "export_source_commit": { "type": "string" },
+        "export_source_tree_state": {
+          "type": "string",
+          "description": "FOUNDATION 7.10 line 1348 names 'dirty' here as a real defect in the basis of the most-read fields on every page, displayed rather than fixed."
+        },
+        "oxfunc_commit_at_ingest": { "type": "string" },
+        "oxfunc_commit_at_ingest_full": { "type": "string" },
+        "oxfunc_tree_clean": { "type": "boolean" },
+        "registry_snapshot_family": { "type": "string" },
+        "registry_generation": { "type": "integer" },
+        "registry_content_fingerprint": { "type": "string" },
+        "tool": { "type": "string" }
+      }
+    },
+    "vintage_states": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "O. Present in the organ at HEAD; not named in FOUNDATION. The per-field-group vintage map required by DELTA D-8 lives in F1; this is its site-wide legend."
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": true,
+      "propertyOrder": [
+        "total_entries",
+        "published_rows",
+        "split_combined_rows",
+        "functions",
+        "operators",
+        "registry_backed",
+        "export_only",
+        "deferred",
+        "placeholder_signatures",
+        "with_docs_link",
+        "with_localized_names",
+        "classification_from_live_registry",
+        "classification_from_export_snapshot",
+        "classification_empty",
+        "arity_from_live_registry",
+        "arity_from_export_snapshot",
+        "arity_max_unbounded",
+        "trailing_repeats_null",
+        "text_integrity_present",
+        "short_microsoft_english_verbatim",
+        "short_differs_from_english_description",
+        "short_no_english_description_to_compare",
+        "short_absent"
+      ],
+      "required": [
+        "total_entries",
+        "published_rows",
+        "split_combined_rows",
+        "functions",
+        "operators"
+      ],
+      "properties": {
+        "registry_backed": { "type": "integer", "description": "O." },
+        "export_only": { "type": "integer", "description": "O." },
+        "deferred": { "type": "integer", "description": "O. 17 deferred entries, each of which still gets a full page (FOUNDATION 3.6 line 656)." },
+        "placeholder_signatures": { "type": "integer", "description": "O." },
+        "with_docs_link": { "type": "integer", "description": "O." },
+        "with_localized_names": { "type": "integer", "description": "O." },
+        "classification_from_live_registry": { "type": "integer", "description": "O. DELTA D-1 accounting." },
+        "classification_from_export_snapshot": { "type": "integer", "description": "O. DELTA D-1 accounting." },
+        "classification_empty": { "type": "integer", "description": "O. DELTA D-1 accounting." },
+        "arity_from_live_registry": { "type": "integer", "description": "O. DELTA D-1 accounting." },
+        "arity_from_export_snapshot": { "type": "integer", "description": "O. DELTA D-1 accounting." },
+        "arity_max_unbounded": { "type": "integer", "description": "O. DELTA D-2 accounting." },
+        "trailing_repeats_null": { "type": "integer", "description": "O. DELTA D-5 accounting; T3 acceptance test (c) at FOUNDATION line 1183 pins it to the 8 symbolic operators with zero parameters." },
+        "text_integrity_present": { "type": "integer", "description": "O. DELTA D-7 accounting." },
+        "short_microsoft_english_verbatim": { "type": "integer", "description": "O. DELTA D-6 accounting." },
+        "short_differs_from_english_description": { "type": "integer", "description": "O. DELTA D-6 accounting." },
+        "short_no_english_description_to_compare": { "type": "integer", "description": "O. Not a value FOUNDATION 2.4 line 177 names; see f1-function.schema.json descriptions.short_source efhObservedValuesNotInSpec." },
+        "short_absent": { "type": "integer", "description": "O. Not a value FOUNDATION 2.4 line 177 names." },
+        "total_entries": {
+          "const": 541,
+          "type": "integer",
+          "description": "STEWARD DECISION SD-1: 541 entries is the coverage denominator; CHARTER 7.3, model chapter 06 and README line 6 are amended to match. FOUNDATION 3 line 427: 541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows."
+        },
+        "published_rows": { "const": 534, "type": "integer" },
+        "split_combined_rows": { "const": 7, "type": "integer" },
+        "functions": { "const": 518, "type": "integer" },
+        "operators": { "const": 23, "type": "integer" }
+      },
+      "description": "R. T3 acceptance test (g), FOUNDATION line 1183: data/index.json counts still reconciles 541 = 518 + 23 = 534 + 7."
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 541,
+      "maxItems": 541,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "function_id",
+          "surface_name",
+          "entry_kind",
+          "category",
+          "admission"
+        ],
+        "required": [
+          "function_id",
+          "surface_name",
+          "entry_kind",
+          "category",
+          "admission"
+        ],
+        "properties": {
+          "function_id": { "type": "string" },
+          "surface_name": { "type": "string" },
+          "entry_kind": { "type": "string", "enum": ["built_in_function", "built_in_operator"] },
+          "category": { "type": ["string", "null"] },
+          "admission": { "type": "string", "enum": ["supported", "deferred"] }
+        }
+      },
+      "description": "R. Exactly 541, per SD-1."
+    }
+  }
+}

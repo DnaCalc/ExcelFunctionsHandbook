@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f10-episodes.schema.json",
+  "title": "F10 - content/lastbit/EPISODES.json",
+  "description": "The Last Bit episode register. Episode numbers are monotonic and NEVER reused, even for a withdrawn episode.",
+  "efh": {
+    "family": "F10",
+    "organ": "content",
+    "path_glob": "content/lastbit/EPISODES.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 372-373 ('as D1 2.7'), resolving to D1-reference-structure.md 2.7 lines 365-369",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; episodes[] in ascending `number` order, which is a SEMANTIC order and therefore exempt from the ordinal-sort rule (FOUNDATION 2.3 line 159)."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": ["schema", "next_number", "episodes"],
+  "required": ["schema", "next_number", "episodes"],
+  "properties": {
+    "schema": { "type": "string", "description": "R." },
+    "next_number": { "type": "integer", "minimum": 1, "description": "R." },
+    "episodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "number",
+          "slug",
+          "title",
+          "path",
+          "subjects",
+          "evidence_records",
+          "status",
+          "material_sources"
+        ],
+        "required": [
+          "number",
+          "slug",
+          "title",
+          "path",
+          "subjects",
+          "evidence_records",
+          "status",
+          "material_sources"
+        ],
+        "properties": {
+          "number": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "R. Monotonic; NEVER reused even if an episode is withdrawn (D1 2.7 line 367)."
+          },
+          "slug": { "type": "string", "description": "R." },
+          "title": { "type": "string", "description": "R." },
+          "path": { "type": "string", "description": "R." },
+          "subjects": { "type": "array", "items": { "type": "string" }, "description": "R." },
+          "evidence_records": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^EV-[a-z-]+-[0-9]{4}$" },
+            "description": "R."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["published", "draft", "withdrawn"],
+            "description": "R."
+          },
+          "material_sources": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "R. Which content/lastbit/material/ sections the episode drew on."
+          }
+        }
+      }
+    }
+  }
+}

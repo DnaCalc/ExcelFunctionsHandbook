@@ -1,0 +1,113 @@
+{
+  "schema": "efh.battery/v1",
+  "function_id": "FUNC.IMLN",
+  "surface_name": "IMLN",
+  "battery_id": "EFH-B1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "runner_version": "efh-battery/0.1.0",
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "os": "windows"
+  },
+  "rows": [
+    {
+      "label": "zero",
+      "input_display": "IMLN(0)",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "negative-one",
+      "input_display": "IMLN(-1)",
+      "outcome_kind": "text",
+      "outcome_display": "3.14159265358979i",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-string",
+      "input_display": "IMLN(\"\")",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "boolean-true",
+      "input_display": "IMLN(TRUE)",
+      "outcome_kind": "error",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-range",
+      "input_display": "IMLN(<empty>)",
+      "outcome_kind": "error",
+      "outcome_display": "#NUM!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "error-na",
+      "input_display": "IMLN(#N/A)",
+      "outcome_kind": "error",
+      "outcome_display": "#N/A",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "max-double",
+      "input_display": "IMLN(1.7976931348623157e308)",
+      "outcome_kind": "text",
+      "outcome_display": "709.782712893384",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "min-subnormal",
+      "input_display": "IMLN(4.9406564584124654e-324)",
+      "outcome_kind": "text",
+      "outcome_display": "-744.440071921381",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "inline-array",
+      "input_display": "IMLN({1,2;3,4})",
+      "outcome_kind": "array",
+      "outcome_display": "{\"0\",\"0.693147180559945\";\"1.09861228866811\",\"1.38629436111989\"}",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "text-numeral",
+      "input_display": "IMLN(\"2.5\")",
+      "outcome_kind": "text",
+      "outcome_display": "0.916290731874155",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-few-args",
+      "input_display": "IMLN()",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-many-args",
+      "input_display": "IMLN(1, 1)",
+      "outcome_kind": "refused-by-arity",
+      "outcome_display": "#VALUE!",
+      "outcome_bits": null,
+      "host_scoped": false
+    }
+  ],
+  "label": "OxFunc's own answers. No Excel was involved."
+}

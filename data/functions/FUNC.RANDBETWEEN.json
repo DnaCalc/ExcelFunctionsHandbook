@@ -21,9 +21,11 @@
     "arg_preparation_profile": "ValuesOnlyPreAdapter",
     "coercion_lift_profile": "Custom",
     "determinism_class": "PseudoRandom",
+    "error_collapse_profile": "None",
     "fec_dependency_profile": "RandomProvider",
     "host_interaction_class": "ApplicationState",
     "kernel_signature_class": "Custom",
+    "rich_value_usage": "RichBlind",
     "surface_fec_dependency_profile": "RandomProvider",
     "thread_safety_class": "HostSerialized",
     "volatility_class": "VolatileFull"
@@ -35,6 +37,76 @@
     "axes_version": "function_spec_axes_metadata.v1;lift_broadcast_profile=surface_native;precision_rounding_profile=default;real_result_policy=real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
     "semantic_kernel_version": "semantic_kernel_metadata.v1;reduction_sensitive=false;error_collapse_sensitive=false;numerical_reduction_policy=none;error_algebra=none",
     "arg_admission_version": "arg_admission_metadata.v1;existing_arg_preparation=values_only_pre_adapter"
+  },
+  "axis_provenance": {
+    "arg_admission_version": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "A"
+    },
+    "arg_preparation_profile": {
+      "provenance_class": "default-unexamined",
+      "oxfunc_tier": "B"
+    },
+    "axes_version": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "A"
+    },
+    "coercion_lift_profile": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "determinism_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "error_collapse_profile": {
+      "provenance_class": "default-unexamined",
+      "oxfunc_tier": "C"
+    },
+    "fec_dependency_profile": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "host_interaction_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "kernel_signature_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "lift_broadcast_profile": {
+      "provenance_class": "default-unexamined",
+      "oxfunc_tier": "A"
+    },
+    "precision_rounding_profile": {
+      "provenance_class": "default-unexamined",
+      "oxfunc_tier": "A"
+    },
+    "real_result_policy": {
+      "provenance_class": "default-unexamined",
+      "oxfunc_tier": "A"
+    },
+    "rich_value_usage": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "A"
+    },
+    "semantic_kernel_version": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "A"
+    },
+    "surface_fec_dependency_profile": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "thread_safety_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "volatility_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    }
   },
   "signature": {
     "display": "RANDBETWEEN(bottom, top)",
@@ -57,6 +129,7 @@
   "signature_placeholder": false,
   "descriptions": {
     "short": "Returns a random number between the numbers you specify",
+    "short_source": "microsoft-english-verbatim",
     "long": null
   },
   "docs": {
@@ -229,5 +302,26 @@
   "version_marker": null,
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
-  "registry_backed": true
+  "registry_backed": true,
+  "oxfunc_tree_clean": true,
+  "vintage": {
+    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
+    "arity": "live-registry:473efa3:clean:undated",
+    "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
+    "axes": "live-registry:473efa3:clean:undated",
+    "axis_provenance": "live-registry:473efa3:clean:undated",
+    "category": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "classification": "live-registry:473efa3:clean:undated",
+    "descriptions": "live-registry:473efa3:clean:undated",
+    "docs": "lane-csv:FUNCTION_CATALOG_CURRENT_BASELINE_LOCAL.csv@473efa3:clean:undated",
+    "identity": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "interface_markers": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
+    "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
+    "registry_backed": "live-registry:473efa3:clean:undated",
+    "signature": "live-registry:473efa3:clean:undated",
+    "signature_placeholder": "live-registry:473efa3:clean:undated",
+    "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
+  }
 }

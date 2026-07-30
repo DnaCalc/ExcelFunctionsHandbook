@@ -1,0 +1,23 @@
+[package]
+name = "efh-validate"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "T1: validates any data/ or content/ JSON file against tools/schemas/, and runs the three FOUNDATION 6 T1 acceptance tests."
+
+# STANDALONE ON PURPOSE.
+#
+# This empty [workspace] table detaches the crate from any parent workspace, and there is
+# deliberately no dependency on oxfunc_core. FOUNDATION 6 line 1181 puts T1 at the root of the
+# dependency graph with "Depends on: -". Every other Rust tool in tools/ (efh-ingest, efh-presence,
+# efh-battery) needs a built OxFunc; this one must not, because it is the tool that checks them.
+[workspace]
+
+[dependencies]
+# preserve_order is load-bearing, not a convenience: FOUNDATION 2.3 line 156 makes object key ORDER
+# part of the byte-stability contract, so the validator has to see the order an instance file was
+# written in. serde_json + indexmap is the whole dependency tree.
+serde_json = { version = "1", features = ["preserve_order"] }
+
+[profile.release]
+opt-level = 2

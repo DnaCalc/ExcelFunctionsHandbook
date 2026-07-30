@@ -23,9 +23,16 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
 | `content/` | Handbook curation | Hand/agent-curated; never touched by sync |
 | `implementations/` | Handbook curation | Curated; admitted only via suite verification |
 | `vectors/` | Handbook curation | Versioned suites; append-mostly (section 5) |
-| `ledger/` | Gneiss ledger (single writer: efh tool) | Append-only; export committed |
+| `ledger/` (ledger database + canonical export) | Gneiss ledger (single writer: efh tool) | Append-only; export committed |
+| `ledger/*.md` (e.g. `VOCABULARY.md`) | Handbook curation | Hand/agent-curated documentation; not tool-written, not append-only |
 | `site/` | efh site generator | Regenerated from ledger + data + content |
 | `tools/`, `tests/` | Engineering | Ordinary code review |
+
+1. The `ledger/` organ holds two kinds of file under one directory name. The ledger database and
+   its canonical JSONL export are tool-written and append-only. The Markdown documents beside them
+   are ordinary curated content: `ledger/VOCABULARY.md` is hand-edited today, and the single-row
+   description of the organ as tool-owned and append-only was false about its own contents.
+   A Markdown file in `ledger/` is never appended to the ledger by virtue of living there.
 
 ## 3. Sync Doctrine (Handbook ↔ OxFunc)
 
@@ -37,22 +44,57 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
    (OxFunc snapshot generation + source commit).
 5. `CheckStale` runs over published receipts; affected pages carry a stale badge until their
    claims are re-affirmed.
-6. Divergences the Handbook discovers that belong upstream are filed to `docs/handoffs/`.
+6. **`upstream_anchor` re-check.** Every sync re-reads the OxFunc text each evidence record cites
+   and reports each record whose cited text has changed or disappeared. Affected pages render
+   `upstream_changed` until a curator re-affirms the record. The reason: OxFunc **deletes** a
+   discrepancy row when it signs the discrepancy off, so a Handbook that never re-checks its
+   anchors publishes stale open discrepancies indefinitely — false disagreement, which for a
+   reference work aimed at Excel users is the reputationally worse error.
+7. Divergences the Handbook discovers that belong upstream are filed to `docs/handoffs/`.
 
 ## 4. Determinism Requirements
 
-1. `data/` generation is byte-stable for a fixed OxFunc source state.
-2. The ledger rebuilds byte-stably from its canonical JSONL export.
+1. `data/` generation is byte-stable for a fixed OxFunc source state **built at a named commit
+   with the build inputs recorded**. Regeneration is not a file-to-file projection: it requires a
+   Rust toolchain and a successful build of `oxfunc_core`, because arity, classification, and the
+   reference-engine battery are read from the live registry rather than from a CSV. Some battery
+   rows are additionally **host-scoped**: certain OxFunc kernels route through hardware x87, so
+   those rows are byte-stable per host, not universally. Host-scoped rows carry `host_scoped` as a
+   published field; their non-portability is disclosed, not hidden. CI records the build inputs, or
+   "byte-stable" stops being a checkable sentence.
+2. The canonical JSONL export is byte-stable and is the ledger's **reviewable twin**, verified by
+   byte-equality on every build. The ledger does **not** rebuild from it: `Gneiss.Cell` has no
+   import operation and `ExportLedgerJsonl()` has no inverse. The export is also not a complete
+   representation — it covers `tx`, `assrt`, `dec`, and `just`, and notes are excluded — so a
+   rebuild-from-export clause would have been unsatisfiable in two independent ways. The durable
+   artifact is the ledger database; the export exists to be read, diffed, and reviewed.
 3. Site generation is byte-stable given identical ledger, data, and content inputs.
 4. ULP Atlas plates regenerate byte-stably from the suite version that produced them.
+
+### Mixed-vintage disclosure for `data/`
+
+`data/` fuses two "as of" bases, and the fusion is published rather than smoothed over:
+
+1. The **row spine** — the entry list and the fields only the export owns — comes from the
+   committed CSV export `OXFUNC_LIBRARY_CONTEXT_SNAPSHOT_EXPORT_V1.csv`: generation `2026-04-02`,
+   source commit `87ef585`, source tree state **`dirty`**.
+2. **Classification and signatures** come from the live `oxfunc_core` registry at the commit the
+   ingest tool was built against — currently `473efa3` (2026-07-25, clean tree).
+3. Because the export's own provenance records a dirty tree, **nobody — including us — can
+   regenerate those bytes from a commit.** This is a published limitation of `data/`, stated on
+   the pages that render export-sourced cells, not a footnote. The two bases carry different
+   dates (`2026-04-02` and `2026-07-25`) and an unknown working-tree delta.
+4. Re-cutting the export from a clean tree is an upstream fix; it is filed as
+   `docs/handoffs/oxfunc/EFH-HO-001-export-snapshot-provenance.md`.
 
 ## 5. Suite Versioning
 
 1. A suite is `vectors/<function_id>/vN/` containing `suite.jsonl` (bits-hex payloads) and
    `MANIFEST.json` (count, sha256, oracle provenance: Excel build, platform, capture route).
 2. Suites are append-mostly; any change to existing vectors bumps `N`.
-3. Verification and bit-exactness claims always name the suite version and manifest hash they
-   were verified against.
+3. Verification and exactness claims always name the suite version and manifest hash they
+   were verified against. Which words may state such a claim is governed by `CHARTER.md`
+   section 7 rule 8; until a suite publishes here, none of them may.
 4. Published suites are downloadable from the site and are part of the public API.
 
 ## 6. Ratchets (CI)
@@ -100,14 +142,16 @@ non-increasing. A regression fails CI.
 
 | Phase | Content | State |
 |---|---|---|
-| H0 | Repo bootstrap: charter, operations, skeleton, vocabulary draft, mockups, public repo | complete (2026-07-18, github.com/DnaCalc/ExcelFunctionsHandbook) |
-| H1 | Evaluation-context review → `content/model/` chapters | complete (2026-07-18, chapters 00–07 draft; 36 findings handed off) |
-| H2 | `efh-ingest` + the basic 534-row list in `data/` | complete (2026-07-18, 541 entries from 534 rows; deterministic) |
-| H3 | Gneiss ledger bootstrap: vocabulary + public-current context declared, baseline claims appended, experimental profile emitted | planned |
-| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | planned |
-| H5 | Depth tranche (~12 fns): curated pages, suites, claims, plates, references, first episodes; ABS+EXP full spread | planned |
-| H6 | Evidence feedback loop v1 | planned |
-| H7+ | Roadmap: tranche expansion, implementation forge, atlas index, locale surfaces, per-build contexts, OneCalc embed, conformance kit | planned |
+| H0 | Repo bootstrap: charter, operations, skeleton, vocabulary draft, mockups, public repo | `complete` (2026-07-18, github.com/DnaCalc/ExcelFunctionsHandbook) |
+| H1 | Evaluation-context review → `content/model/` chapters | `complete` (2026-07-18, chapters 00–07 draft; 36 findings handed off) |
+| H2 | `efh-ingest` + the entry list in `data/` | `complete` (2026-07-18, 541 entries from 534 published rows; byte-stable under section 4 clause 1) |
+| H3 | Gneiss ledger bootstrap: vocabulary + public-current context declared, baseline claims appended, experimental profile emitted | `in progress` — `ledger/` holds `VOCABULARY.md` only: no ledger database, no canonical export, no `efh` tool. Nothing appended. |
+| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | `in progress` — `site/` holds `mockups/` only: no generated pages, no `/coverage`, no `/api`. |
+| H5 | Depth tranche (~12 fns): curated pages, suites, claims, plates, references, first episodes; ABS+EXP full spread | `planned` — `vectors/` and `implementations/` hold `.gitkeep` only: 0 suites, 0 admitted implementations, 0 plates |
+| H6 | Evidence feedback loop v1 | `planned` |
+| H7+ | Roadmap: tranche expansion, implementation forge, atlas index, locale surfaces, per-build contexts, OneCalc embed, conformance kit | `planned` |
 
-The plan of record for these phases is the approved scoped plan (session-archived); this
-register is the living truth once phases start moving.
+`in progress` means work is under way and no listed deliverable is finished. It is not a partial
+completeness claim: a phase moves to `complete` only when every deliverable named in its row
+exists in the repository. The plan of record for these phases is the approved scoped plan
+(session-archived); this register is the living truth once phases start moving.

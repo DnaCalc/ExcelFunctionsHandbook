@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f15-name-debris.schema.json",
+  "title": "F15 - content/model/name-debris.json",
+  "description": "The search-index stop-list. Versioned because it is a curated list with no threshold, which by D1's own P-3 discriminator cannot live inside a generator (A3-S11).",
+  "efh": {
+    "family": "F15",
+    "organ": "content",
+    "path_glob": "content/model/name-debris.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.7 lines 352-355",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; trailing_tokens[] and trailing_glyphs[] ordinal-sorted."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "version",
+    "trailing_tokens",
+    "trailing_glyphs",
+    "trailing_digit_rule"
+  ],
+  "required": [
+    "schema",
+    "version",
+    "trailing_tokens",
+    "trailing_glyphs",
+    "trailing_digit_rule"
+  ],
+  "properties": {
+    "schema": { "type": "string", "description": "R." },
+    "version": { "type": "integer", "minimum": 1, "description": "R." },
+    "trailing_tokens": { "type": "array", "items": { "type": "string" }, "description": "R." },
+    "trailing_glyphs": { "type": "array", "items": { "type": "string" }, "description": "R." },
+    "trailing_digit_rule": { "type": "string", "description": "R." }
+  }
+}

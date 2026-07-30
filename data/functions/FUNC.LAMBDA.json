@@ -26,10 +26,49 @@
     "volatility_class": "NonVolatile"
   },
   "axes": null,
+  "axis_provenance": {
+    "arg_preparation_profile": {
+      "provenance_class": "default-unexamined",
+      "oxfunc_tier": "B"
+    },
+    "coercion_lift_profile": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "determinism_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "fec_dependency_profile": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "host_interaction_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "kernel_signature_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "surface_fec_dependency_profile": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "thread_safety_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    },
+    "volatility_class": {
+      "provenance_class": "implementation-fact",
+      "oxfunc_tier": "B"
+    }
+  },
   "signature": null,
   "signature_placeholder": false,
   "descriptions": {
     "short": null,
+    "short_source": "no-short-description",
     "long": null
   },
   "docs": {
@@ -202,5 +241,26 @@
   "version_marker": null,
   "special_interface_kind": "callable_helper_formation",
   "admission_interface_kind": "helper_formation",
-  "registry_backed": false
+  "registry_backed": false,
+  "oxfunc_tree_clean": true,
+  "vintage": {
+    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
+    "arity": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
+    "axes": "absent:no-live-registry-entry-for-this-id",
+    "axis_provenance": "absent:no-live-registry-entry-for-this-id",
+    "category": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "classification": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "descriptions": "absent:no-live-registry-entry-for-this-id",
+    "docs": "lane-csv:FUNCTION_CATALOG_CURRENT_BASELINE_LOCAL.csv@473efa3:clean:undated",
+    "identity": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "interface_markers": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
+    "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
+    "registry_backed": "live-registry:473efa3:clean:undated",
+    "signature": "absent:no-live-registry-entry-for-this-id",
+    "signature_placeholder": "absent:no-live-registry-entry-for-this-id",
+    "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
+  }
 }

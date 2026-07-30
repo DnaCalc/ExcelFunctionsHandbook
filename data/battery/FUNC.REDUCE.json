@@ -1,0 +1,113 @@
+{
+  "schema": "efh.battery/v1",
+  "function_id": "FUNC.REDUCE",
+  "surface_name": "REDUCE",
+  "battery_id": "EFH-B1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "runner_version": "efh-battery/0.1.0",
+  "host": {
+    "arch": "x86_64",
+    "cpu": "AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD",
+    "os": "windows"
+  },
+  "rows": [
+    {
+      "label": "zero",
+      "input_display": "REDUCE(0, 0, 0)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "negative-one",
+      "input_display": "REDUCE(-1, -1, -1)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-string",
+      "input_display": "REDUCE(\"\", \"\", \"\")",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "boolean-true",
+      "input_display": "REDUCE(TRUE, TRUE, TRUE)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "empty-range",
+      "input_display": "REDUCE(<empty>, <empty>, <empty>)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "error-na",
+      "input_display": "REDUCE(#N/A, #N/A, #N/A)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "max-double",
+      "input_display": "REDUCE(1.7976931348623157e308, 1.7976931348623157e308, 1.7976931348623157e308)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "min-subnormal",
+      "input_display": "REDUCE(4.9406564584124654e-324, 4.9406564584124654e-324, 4.9406564584124654e-324)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "inline-array",
+      "input_display": "REDUCE({1,2;3,4}, {1,2;3,4}, {1,2;3,4})",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "text-numeral",
+      "input_display": "REDUCE(\"2.5\", \"2.5\", \"2.5\")",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-few-args",
+      "input_display": "REDUCE(1, 1)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    },
+    {
+      "label": "too-many-args",
+      "input_display": "REDUCE(1, 1, 1, 1)",
+      "outcome_kind": "not-dispatchable",
+      "outcome_display": "cannot-call:requires-callable-argument",
+      "outcome_bits": null,
+      "host_scoped": false
+    }
+  ],
+  "label": "OxFunc's own answers. No Excel was involved."
+}

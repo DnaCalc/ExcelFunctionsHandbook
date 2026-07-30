@@ -1,0 +1,178 @@
+{
+  "schema": "efh.presence/v2",
+  "function_id": "FUNC.MIRR",
+  "surface_name": "MIRR",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "name_match_confidence": "high",
+  "name_match_rule": "word_boundary",
+  "impl_modules": [
+    "crates/oxfunc_core/src/functions/financial_time_value_family.rs"
+  ],
+  "exclusion_rule_id": "EXCL-SURFACE-DISPATCH-1",
+  "mention_modules": [
+    "crates/oxfunc_core/src/functions/financial_time_value_family.rs",
+    "crates/oxfunc_core/src/functions/surface_dispatch.rs"
+  ],
+  "module_shared_by": [
+    "FUNC.EFFECT",
+    "FUNC.FV",
+    "FUNC.FVSCHEDULE",
+    "FUNC.IPMT",
+    "FUNC.ISPMT",
+    "FUNC.NOMINAL",
+    "FUNC.NPER",
+    "FUNC.NPV",
+    "FUNC.PDURATION",
+    "FUNC.PMT",
+    "FUNC.PPMT",
+    "FUNC.PV",
+    "FUNC.RATE",
+    "FUNC.RRI"
+  ],
+  "module_shared_by_count": 14,
+  "tests_in_impl_modules": 27,
+  "tests_are_module_level": true,
+  "tests_per_module": {
+    "crates/oxfunc_core/src/functions/financial_time_value_family.rs": 27
+  },
+  "module_tests_minus_sibling_count": {
+    "crates/oxfunc_core/src/functions/financial_time_value_family.rs": 12
+  },
+  "source_lines_per_module": {
+    "crates/oxfunc_core/src/functions/financial_time_value_family.rs": 2119
+  },
+  "lean_modules": [
+    "formal/lean/OxFunc/Functions/FinancialTimeValueFamily.lean"
+  ],
+  "lean_parsed": false,
+  "registered_in": [
+    "crates/oxfunc_core/src/registry_context_seed.rs",
+    "crates/oxfunc_core/src/registry_signature_seed.rs"
+  ],
+  "dispatch_in": [
+    "crates/oxfunc_core/src/functions/surface_dispatch.rs"
+  ],
+  "declared_artifacts_present": false,
+  "doc_mention_counts": {
+    "discrepancy_catalog": 0,
+    "math_deviation_catalog": 0,
+    "known_exactness_deviations": 0,
+    "bug_stream_files": [],
+    "function_lane_file_count": 16
+  },
+  "doc_mention_classification": [
+    {
+      "path": "docs/function-lane/EXCEL_FUNCTION_DEFINITION_PRELIM_CONFORMANCE.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_CATALOG_CURRENT_BASELINE_LOCAL.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/FUNCTION_SLICE_FINANCIAL_TIME_VALUE_FAMILY_CONTRACT_PRELIM.md",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/OXFUNC_LIBRARY_CONTEXT_SNAPSHOT_EXPORT_V1.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/OXFUNC_SEMANTIC_WITNESS_SNAPSHOT_V2_TRANCHE_T2_ORDINARY_CURATED.json",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W16_SCOPE_RECONCILIATION.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH11_FINANCIAL_TIME_VALUE_EXECUTION_RECORD.md",
+      "kind": "behavioural-finding"
+    },
+    {
+      "path": "docs/function-lane/W24_BATCH11_FINANCIAL_TIME_VALUE_SCENARIO_MANIFEST_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_ORDINARY_FUNCTIONS_MEGA_BATCH_CHECKLIST.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W24_SCOPE_RECONCILIATION.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W28_SUPPORT_FUNCTION_CATALOG_RECONCILIATION.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W44_DOCUMENTED_COMPLETE_SNAPSHOT_STALE_INVENTORY.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W69_SUPPORTED_SURFACE_WITNESS_GAP_INVENTORY.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/W69_SUPPORTED_SURFACE_WITNESS_TRANCHE_REGISTER.csv",
+      "kind": "bulk-inventory"
+    },
+    {
+      "path": "docs/function-lane/XLCALL_CODE_CATALOG.csv",
+      "kind": "bulk-inventory"
+    }
+  ],
+  "doc_mentions_are_not_verdicts": true,
+  "fuzzer_corpus_hit_files": [],
+  "fixture_hits": [
+    "crates/oxfunc_core/tests/fixtures/function_meta_golden.txt"
+  ],
+  "scan_inventory": {
+    "rust_function_modules_scanned": 254,
+    "surface_dispatch_files": [
+      "crates/oxfunc_core/src/functions/surface_dispatch.rs",
+      "crates/oxfunc_core/src/functions/surface_dispatch_by_index_generated.rs",
+      "crates/oxfunc_core/src/functions/surface_dispatch_unary_numeric_spec_generator.rs"
+    ],
+    "registry_seed_files": [
+      "crates/oxfunc_core/src/registry_context_seed.rs",
+      "crates/oxfunc_core/src/registry_signature_seed.rs"
+    ],
+    "test_files_scanned": 17,
+    "lean_sources_scanned": 247,
+    "doc_trees_scanned": [
+      "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "docs/KNOWN_EXACTNESS_DEVIATIONS.md",
+      "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "docs/bugs/streams",
+      "docs/function-lane"
+    ]
+  },
+  "searched_where": [
+    "crates/oxfunc_core/src registry seeds -- 2 files",
+    "crates/oxfunc_core/src/functions/**/*.rs -- 254 files",
+    "crates/oxfunc_core/tests/** -- 17 files",
+    "docs/ deviation and discrepancy catalogs -- 3 files",
+    "docs/bugs/streams/** -- 42 files",
+    "docs/function-lane/** -- 563 files",
+    "formal/**/*.lean -- 247 files",
+    "rust modules named by data/functions/*.json artifacts that resolve outside crates/oxfunc_core/src/functions -- 1 file",
+    "smart-fuzzer/corpus/** -- 4 files"
+  ],
+  "limits": [
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "L9"
+  ]
+}

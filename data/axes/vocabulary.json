@@ -1,0 +1,1110 @@
+{
+  "schema": "efh.axis-vocabulary/v1",
+  "oxfunc_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+  "oxfunc_tree_clean": true,
+  "catalog_size": 525,
+  "extraction": {
+    "variant_source": "variant identifiers are read out of the `pub enum` declaration named in `source_path`; no variant list is typed into efh-ingest",
+    "line_span_rule": "1-based first line of the `pub enum` / `pub struct` header through its matching closing brace",
+    "documented_in_source_rule": "true iff the first non-attribute line immediately above the declaration begins with `///`",
+    "defaultable_rule": "true iff `function.rs` declares a `pub const DEFAULT_<AXIS>` associated const whose lowercased suffix equals the axis's backing field name",
+    "oxfunc_tier_rule": "A iff the backing field is a column of `registry::render_registry_metadata_csv` (OxFunc's own frozen + additive published contract); else B iff it is a `pub` field of `RegistryFunctionMeta`; else C",
+    "occupancy_population": "the 525 entries of `registry::builtin_registry()` at this commit",
+    "unset_occupancy_meaning": "entries carrying neither a declared variant nor a published string on this axis — the axis has no value for them at all",
+    "modal_share_rule": "highest declared-variant occupancy divided by catalog_size; where the declaration has no variants (a struct rendered to a composite key) the highest published-string occupancy is used instead",
+    "exemplars_rule": "surface names carrying the variant, ordinal-sorted, first 8; the complete set when occupancy <= 8",
+    "fields_not_emitted": [
+      "consumer_sites — D1 §2.3 asks for non-test read sites, which is a semantic analysis of which code consumes an axis. A textual grep is a different fact and would be published under a name that overstates it, so it is omitted rather than approximated."
+    ]
+  },
+  "axes": [
+    {
+      "key": "arg_domain_guard",
+      "declared_kind": "enum",
+      "enum_name": "ArgDomainGuard",
+      "backing_field": "arg_domain_guard",
+      "source_path": "crates/oxfunc_core/src/functions/excel_numeric.rs:15-20",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "C",
+      "documented_in_source": true,
+      "variants": [
+        {
+          "value": "None",
+          "occupancy": 519,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "CircularTrigOverflow",
+          "occupancy": 6,
+          "exemplars": [
+            "COS",
+            "COT",
+            "CSC",
+            "SEC",
+            "SIN",
+            "TAN"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.9885714285714285
+    },
+    {
+      "key": "arg_preparation_profile",
+      "declared_kind": "enum",
+      "enum_name": "ArgPreparationProfile",
+      "backing_field": "arg_preparation_profile",
+      "source_path": "crates/oxfunc_core/src/function.rs:62-71",
+      "defaultable": true,
+      "default_value": "ValuesOnlyPreAdapter",
+      "oxfunc_tier": "B",
+      "documented_in_source": true,
+      "variants": [
+        {
+          "value": "ValuesOnlyPreAdapter",
+          "occupancy": 420,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "RefsVisibleInAdapter",
+          "occupancy": 105,
+          "exemplars": [
+            "AGGREGATE",
+            "AREAS",
+            "AVERAGEIF",
+            "AVERAGEIFS",
+            "CALL",
+            "CELL",
+            "CHISQ.TEST",
+            "CHITEST"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.8
+    },
+    {
+      "key": "coercion_lift_profile",
+      "declared_kind": "enum",
+      "enum_name": "CoercionLiftProfile",
+      "backing_field": "coercion_lift_profile",
+      "source_path": "crates/oxfunc_core/src/function.rs:74-81",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "None",
+          "occupancy": 43,
+          "exemplars": [
+            "ASC",
+            "CHAR",
+            "CLEAN",
+            "CODE",
+            "DBCS",
+            "EXACT",
+            "FALSE",
+            "FIND"
+          ]
+        },
+        {
+          "value": "UnaryNumericScalarOnly",
+          "occupancy": 14,
+          "exemplars": [
+            "BITAND",
+            "BITLSHIFT",
+            "BITOR",
+            "BITRSHIFT",
+            "BITXOR",
+            "COMBIN",
+            "COMBINA",
+            "MOD"
+          ]
+        },
+        {
+          "value": "UnaryNumericScalarOrArrayElementwise",
+          "occupancy": 41,
+          "exemplars": [
+            "ABS",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ASIN",
+            "ASINH",
+            "ATAN"
+          ]
+        },
+        {
+          "value": "AggregateDirectAndRangeDualPolicy",
+          "occupancy": 33,
+          "exemplars": [
+            "AVEDEV",
+            "AVERAGE",
+            "AVERAGEA",
+            "COUNT",
+            "COUNTA",
+            "COUNTBLANK",
+            "DEVSQ",
+            "GEOMEAN"
+          ]
+        },
+        {
+          "value": "LookupMatchProfile",
+          "occupancy": 2,
+          "exemplars": [
+            "MATCH",
+            "XMATCH"
+          ]
+        },
+        {
+          "value": "Custom",
+          "occupancy": 392,
+          "exemplars": [
+            "ACCRINT",
+            "ACCRINTM",
+            "ADDRESS",
+            "AGGREGATE",
+            "AMORDEGRC",
+            "AMORLINC",
+            "AND",
+            "ARABIC"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.7466666666666667
+    },
+    {
+      "key": "determinism_class",
+      "declared_kind": "enum",
+      "enum_name": "DeterminismClass",
+      "backing_field": "determinism",
+      "source_path": "crates/oxfunc_core/src/function.rs:14-19",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "Deterministic",
+          "occupancy": 516,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "PseudoRandom",
+          "occupancy": 3,
+          "exemplars": [
+            "RAND",
+            "RANDARRAY",
+            "RANDBETWEEN"
+          ]
+        },
+        {
+          "value": "TimeDependent",
+          "occupancy": 2,
+          "exemplars": [
+            "NOW",
+            "TODAY"
+          ]
+        },
+        {
+          "value": "ExternalEventDependent",
+          "occupancy": 4,
+          "exemplars": [
+            "CALL",
+            "IMAGE",
+            "REGISTER.ID",
+            "RTD"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.9828571428571429
+    },
+    {
+      "key": "error_algebra",
+      "declared_kind": "enum",
+      "enum_name": "ErrorAlgebra",
+      "backing_field": "error_algebra",
+      "source_path": "crates/oxfunc_core/src/semantic_kernel.rs:21-23",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "A",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "CanonicalExcelLegacy",
+          "occupancy": 52,
+          "exemplars": [
+            "AGGREGATE",
+            "AVERAGE",
+            "AVERAGEA",
+            "AVERAGEIF",
+            "AVERAGEIFS",
+            "BYCOL",
+            "BYROW",
+            "CHOOSE"
+          ]
+        }
+      ],
+      "unset_occupancy": 473,
+      "modal_share": 0.09904761904761905
+    },
+    {
+      "key": "error_collapse_profile",
+      "declared_kind": "enum",
+      "enum_name": "ErrorCollapseProfile",
+      "backing_field": "error_collapse_profile",
+      "source_path": "crates/oxfunc_core/src/function.rs:190-210",
+      "defaultable": true,
+      "default_value": "None",
+      "oxfunc_tier": "C",
+      "documented_in_source": true,
+      "variants": [
+        {
+          "value": "None",
+          "occupancy": 473,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "ReductionFold",
+          "occupancy": 46,
+          "exemplars": [
+            "AGGREGATE",
+            "AVERAGE",
+            "AVERAGEA",
+            "AVERAGEIF",
+            "AVERAGEIFS",
+            "BYCOL",
+            "BYROW",
+            "COUNT"
+          ]
+        },
+        {
+          "value": "SelectorBranch",
+          "occupancy": 6,
+          "exemplars": [
+            "CHOOSE",
+            "IF",
+            "IFERROR",
+            "IFNA",
+            "IFS",
+            "SWITCH"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.900952380952381
+    },
+    {
+      "key": "fec_dependency_profile",
+      "declared_kind": "enum",
+      "enum_name": "FecDependencyProfile",
+      "backing_field": "fec_dependency_profile",
+      "source_path": "crates/oxfunc_core/src/function.rs:296-305",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "None",
+          "occupancy": 420,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "RefOnly",
+          "occupancy": 74,
+          "exemplars": [
+            "AREAS",
+            "AVERAGEIF",
+            "AVERAGEIFS",
+            "CHISQ.TEST",
+            "CHITEST",
+            "COLUMNS",
+            "COUNTIF",
+            "COUNTIFS"
+          ]
+        },
+        {
+          "value": "CallerContext",
+          "occupancy": 5,
+          "exemplars": [
+            "CELL",
+            "COLUMN",
+            "INDIRECT",
+            "OFFSET",
+            "ROW"
+          ]
+        },
+        {
+          "value": "TimeProvider",
+          "occupancy": 2,
+          "exemplars": [
+            "NOW",
+            "TODAY"
+          ]
+        },
+        {
+          "value": "RandomProvider",
+          "occupancy": 3,
+          "exemplars": [
+            "RAND",
+            "RANDARRAY",
+            "RANDBETWEEN"
+          ]
+        },
+        {
+          "value": "ExternalProvider",
+          "occupancy": 5,
+          "exemplars": [
+            "CALL",
+            "IMAGE",
+            "REGISTER.ID",
+            "RTD",
+            "TRANSLATE"
+          ]
+        },
+        {
+          "value": "LocaleProfile",
+          "occupancy": 7,
+          "exemplars": [
+            "DATEVALUE",
+            "DOLLAR",
+            "FIXED",
+            "NUMBERVALUE",
+            "TEXT",
+            "TIMEVALUE",
+            "VALUE"
+          ]
+        },
+        {
+          "value": "Composite",
+          "occupancy": 9,
+          "exemplars": [
+            "AGGREGATE",
+            "ASC",
+            "DBCS",
+            "HYPERLINK",
+            "INFO",
+            "ISFORMULA",
+            "JIS",
+            "SHEET"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.8
+    },
+    {
+      "key": "host_interaction_class",
+      "declared_kind": "enum",
+      "enum_name": "HostInteractionClass",
+      "backing_field": "host_interaction",
+      "source_path": "crates/oxfunc_core/src/function.rs:29-35",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "None",
+          "occupancy": 485,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "WorkbookState",
+          "occupancy": 26,
+          "exemplars": [
+            "AGGREGATE",
+            "CELL",
+            "COLUMN",
+            "COLUMNS",
+            "FORMULATEXT",
+            "HLOOKUP",
+            "INDEX",
+            "INDIRECT"
+          ]
+        },
+        {
+          "value": "ApplicationState",
+          "occupancy": 10,
+          "exemplars": [
+            "ASC",
+            "CALL",
+            "DBCS",
+            "JIS",
+            "NOW",
+            "RAND",
+            "RANDARRAY",
+            "RANDBETWEEN"
+          ]
+        },
+        {
+          "value": "EnvironmentState",
+          "occupancy": 1,
+          "exemplars": [
+            "HYPERLINK"
+          ]
+        },
+        {
+          "value": "ExternalProvider",
+          "occupancy": 3,
+          "exemplars": [
+            "IMAGE",
+            "RTD",
+            "TRANSLATE"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.9238095238095239
+    },
+    {
+      "key": "kernel_signature_class",
+      "declared_kind": "enum",
+      "enum_name": "KernelSignatureClass",
+      "backing_field": "kernel_signature_class",
+      "source_path": "crates/oxfunc_core/src/function.rs:286-293",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "NullaryConst",
+          "occupancy": 1,
+          "exemplars": [
+            "PI"
+          ]
+        },
+        {
+          "value": "NumToNum",
+          "occupancy": 24,
+          "exemplars": [
+            "ABS",
+            "ACOT",
+            "ASINH",
+            "ATAN",
+            "COS",
+            "COSH",
+            "DEGREES",
+            "EVEN"
+          ]
+        },
+        {
+          "value": "NumsToNum",
+          "occupancy": 57,
+          "exemplars": [
+            "ATAN2",
+            "AVEDEV",
+            "AVERAGE",
+            "AVERAGEA",
+            "BITAND",
+            "BITLSHIFT",
+            "BITOR",
+            "BITRSHIFT"
+          ]
+        },
+        {
+          "value": "TextToText",
+          "occupancy": 11,
+          "exemplars": [
+            "ARRAYTOTEXT",
+            "CLEAN",
+            "ENCODEURL",
+            "HYPERLINK",
+            "LOWER",
+            "OP_CONCAT",
+            "TEXTAFTER",
+            "TEXTBEFORE"
+          ]
+        },
+        {
+          "value": "LookupMatch",
+          "occupancy": 5,
+          "exemplars": [
+            "HLOOKUP",
+            "MATCH",
+            "VLOOKUP",
+            "XLOOKUP",
+            "XMATCH"
+          ]
+        },
+        {
+          "value": "Custom",
+          "occupancy": 427,
+          "exemplars": [
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOTH",
+            "ADDRESS",
+            "AGGREGATE",
+            "AMORDEGRC"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.8133333333333334
+    },
+    {
+      "key": "lift_broadcast_profile",
+      "declared_kind": "enum",
+      "enum_name": "LiftBroadcastProfile",
+      "backing_field": "lift_broadcast_profile",
+      "source_path": "crates/oxfunc_core/src/function.rs:135-147",
+      "defaultable": true,
+      "default_value": "surface_native",
+      "oxfunc_tier": "A",
+      "documented_in_source": true,
+      "variants": [
+        {
+          "value": "SurfaceNative",
+          "occupancy": 457,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "AGGREGATE"
+          ]
+        },
+        {
+          "value": "ByIndexScalarArrayLift",
+          "occupancy": 68,
+          "exemplars": [
+            "ADDRESS",
+            "BETADIST",
+            "BETAINV",
+            "BINOMDIST",
+            "CHIDIST",
+            "CHIINV",
+            "COMPLEX",
+            "CONCATENATE"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.8704761904761905,
+      "published_value_occupancy": [
+        {
+          "value": "by_index_scalar_array_lift(positions=0)",
+          "occupancy": 24
+        },
+        {
+          "value": "by_index_scalar_array_lift(positions=0|1)",
+          "occupancy": 7
+        },
+        {
+          "value": "by_index_scalar_array_lift(positions=0|1|2)",
+          "occupancy": 21
+        },
+        {
+          "value": "by_index_scalar_array_lift(positions=0|1|2|3)",
+          "occupancy": 2
+        },
+        {
+          "value": "by_index_scalar_array_lift(positions=0|1|2|3|4)",
+          "occupancy": 1
+        },
+        {
+          "value": "by_index_scalar_array_lift(positions=0|1|3)",
+          "occupancy": 1
+        },
+        {
+          "value": "by_index_scalar_array_lift(positions=1)",
+          "occupancy": 7
+        },
+        {
+          "value": "by_index_scalar_array_lift(positions=1|2)",
+          "occupancy": 5
+        },
+        {
+          "value": "surface_native",
+          "occupancy": 457
+        }
+      ]
+    },
+    {
+      "key": "non_finite",
+      "declared_kind": "enum",
+      "enum_name": "NonFinite",
+      "backing_field": "non_finite",
+      "source_path": "crates/oxfunc_core/src/functions/excel_numeric.rs:24-32",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "C",
+      "documented_in_source": true,
+      "variants": [
+        {
+          "value": "Allow",
+          "occupancy": 511,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "Num",
+          "occupancy": 13,
+          "exemplars": [
+            "COS",
+            "COSH",
+            "COT",
+            "CSC",
+            "DEGREES",
+            "EXP",
+            "FACT",
+            "FACTDOUBLE"
+          ]
+        },
+        {
+          "value": "SaturateSign",
+          "occupancy": 1,
+          "exemplars": [
+            "COTH"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.9733333333333334
+    },
+    {
+      "key": "numerical_reduction_policy",
+      "declared_kind": "enum",
+      "enum_name": "NumericalReductionPolicy",
+      "backing_field": "numerical_reduction_policy",
+      "source_path": "crates/oxfunc_core/src/semantic_kernel.rs:4-8",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "A",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "SequentialLeftFold",
+          "occupancy": 46,
+          "exemplars": [
+            "AGGREGATE",
+            "AVERAGE",
+            "AVERAGEA",
+            "AVERAGEIF",
+            "AVERAGEIFS",
+            "BYCOL",
+            "BYROW",
+            "COUNT"
+          ]
+        },
+        {
+          "value": "PairwiseTree",
+          "occupancy": 0,
+          "exemplars": []
+        },
+        {
+          "value": "KahanCompensated",
+          "occupancy": 0,
+          "exemplars": []
+        }
+      ],
+      "unset_occupancy": 479,
+      "modal_share": 0.08761904761904762
+    },
+    {
+      "key": "precision_rounding_profile",
+      "declared_kind": "enum",
+      "enum_name": "PrecisionRoundingProfile",
+      "backing_field": "precision_rounding_profile",
+      "source_path": "crates/oxfunc_core/src/function.rs:259-272",
+      "defaultable": true,
+      "default_value": "default",
+      "oxfunc_tier": "A",
+      "documented_in_source": true,
+      "variants": [
+        {
+          "value": "Default",
+          "occupancy": 524,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "IntegerExponentPublication",
+          "occupancy": 1,
+          "exemplars": [
+            "POWER"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.9980952380952381,
+      "published_value_occupancy": [
+        {
+          "value": "default",
+          "occupancy": 524
+        },
+        {
+          "value": "integer_exponent_publication",
+          "occupancy": 1
+        }
+      ]
+    },
+    {
+      "key": "real_result_policy",
+      "declared_kind": "struct",
+      "enum_name": "ExcelRealPolicy",
+      "backing_field": "real_result_policy",
+      "source_path": "crates/oxfunc_core/src/functions/excel_numeric.rs:44-49",
+      "defaultable": true,
+      "default_value": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+      "oxfunc_tier": "A",
+      "documented_in_source": true,
+      "variants": [],
+      "unset_occupancy": 0,
+      "modal_share": 0.9733333333333334,
+      "published_value_occupancy": [
+        {
+          "value": "real_result_policy.v1;arg_domain_guard=circular_trig_overflow;non_finite=num",
+          "occupancy": 6
+        },
+        {
+          "value": "real_result_policy.v1;arg_domain_guard=none;non_finite=allow",
+          "occupancy": 511
+        },
+        {
+          "value": "real_result_policy.v1;arg_domain_guard=none;non_finite=num",
+          "occupancy": 7
+        },
+        {
+          "value": "real_result_policy.v1;arg_domain_guard=none;non_finite=saturate_sign",
+          "occupancy": 1
+        }
+      ]
+    },
+    {
+      "key": "rich_value_usage",
+      "declared_kind": "enum",
+      "enum_name": "RichValueUsage",
+      "backing_field": "rich_value_usage",
+      "source_path": "crates/oxfunc_core/src/registry.rs:120-125",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "A",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "RichBlind",
+          "occupancy": 521,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "ProducesPresentation",
+          "occupancy": 3,
+          "exemplars": [
+            "HYPERLINK",
+            "NOW",
+            "TODAY"
+          ]
+        },
+        {
+          "value": "ProducesRichObject",
+          "occupancy": 1,
+          "exemplars": [
+            "IMAGE"
+          ]
+        },
+        {
+          "value": "ProducesErrorMetadata",
+          "occupancy": 0,
+          "exemplars": []
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.9923809523809524
+    },
+    {
+      "key": "surface_fec_dependency_profile",
+      "declared_kind": "enum",
+      "enum_name": "FecDependencyProfile",
+      "backing_field": "surface_fec_dependency_profile",
+      "source_path": "crates/oxfunc_core/src/function.rs:296-305",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "None",
+          "occupancy": 62,
+          "exemplars": [
+            "ADDRESS",
+            "AMORDEGRC",
+            "AMORLINC",
+            "BESSELI",
+            "BESSELJ",
+            "BESSELK",
+            "BESSELY",
+            "BETA.DIST"
+          ]
+        },
+        {
+          "value": "RefOnly",
+          "occupancy": 431,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "AND"
+          ]
+        },
+        {
+          "value": "CallerContext",
+          "occupancy": 5,
+          "exemplars": [
+            "CELL",
+            "COLUMN",
+            "INDIRECT",
+            "OFFSET",
+            "ROW"
+          ]
+        },
+        {
+          "value": "TimeProvider",
+          "occupancy": 2,
+          "exemplars": [
+            "NOW",
+            "TODAY"
+          ]
+        },
+        {
+          "value": "RandomProvider",
+          "occupancy": 3,
+          "exemplars": [
+            "RAND",
+            "RANDARRAY",
+            "RANDBETWEEN"
+          ]
+        },
+        {
+          "value": "ExternalProvider",
+          "occupancy": 4,
+          "exemplars": [
+            "IMAGE",
+            "REGISTER.ID",
+            "RTD",
+            "TRANSLATE"
+          ]
+        },
+        {
+          "value": "LocaleProfile",
+          "occupancy": 1,
+          "exemplars": [
+            "NUMBERVALUE"
+          ]
+        },
+        {
+          "value": "Composite",
+          "occupancy": 17,
+          "exemplars": [
+            "AGGREGATE",
+            "ASC",
+            "CALL",
+            "DATEVALUE",
+            "DBCS",
+            "DOLLAR",
+            "FIXED",
+            "HYPERLINK"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.820952380952381
+    },
+    {
+      "key": "thread_safety_class",
+      "declared_kind": "enum",
+      "enum_name": "ThreadSafetyClass",
+      "backing_field": "thread_safety",
+      "source_path": "crates/oxfunc_core/src/function.rs:38-42",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "SafePure",
+          "occupancy": 496,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "HostSerialized",
+          "occupancy": 29,
+          "exemplars": [
+            "AGGREGATE",
+            "ASC",
+            "CALL",
+            "CELL",
+            "COLUMN",
+            "COLUMNS",
+            "DBCS",
+            "FORMULATEXT"
+          ]
+        },
+        {
+          "value": "NotThreadSafe",
+          "occupancy": 0,
+          "exemplars": []
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.9447619047619048
+    },
+    {
+      "key": "volatility_class",
+      "declared_kind": "enum",
+      "enum_name": "VolatilityClass",
+      "backing_field": "volatility",
+      "source_path": "crates/oxfunc_core/src/function.rs:22-26",
+      "defaultable": false,
+      "default_value": null,
+      "oxfunc_tier": "B",
+      "documented_in_source": false,
+      "variants": [
+        {
+          "value": "NonVolatile",
+          "occupancy": 514,
+          "exemplars": [
+            "ABS",
+            "ACCRINT",
+            "ACCRINTM",
+            "ACOS",
+            "ACOSH",
+            "ACOT",
+            "ACOTH",
+            "ADDRESS"
+          ]
+        },
+        {
+          "value": "VolatileFull",
+          "occupancy": 5,
+          "exemplars": [
+            "NOW",
+            "RAND",
+            "RANDARRAY",
+            "RANDBETWEEN",
+            "TODAY"
+          ]
+        },
+        {
+          "value": "VolatileContextual",
+          "occupancy": 6,
+          "exemplars": [
+            "CALL",
+            "CELL",
+            "INDIRECT",
+            "INFO",
+            "OFFSET",
+            "RTD"
+          ]
+        }
+      ],
+      "unset_occupancy": 0,
+      "modal_share": 0.979047619047619
+    }
+  ]
+}

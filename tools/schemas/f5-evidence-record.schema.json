@@ -1,0 +1,518 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f5-evidence-record.schema.json",
+  "title": "F5 - content/evidence/records/<record_id>.json",
+  "description": "The single curated evidence family. FOUNDATION.md 2.5 gives this table in full because it is the schema the whole honesty spine reads.",
+  "efh": {
+    "family": "F5",
+    "organ": "content",
+    "path_glob": "content/evidence/records/*.json",
+    "writer": "tools/efh/evidence-import (T6 table row T4, C#/.NET 10)",
+    "spec": "FOUNDATION.md 2.5, lines 183-259",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly. FOUNDATION.md 2.3 line 156: 'object keys in the order given in the schema table (the order is part of the byte-stability contract)'."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "record_id",
+    "record_version",
+    "class",
+    "subjects",
+    "subject_role",
+    "title",
+    "upstream_row_id",
+    "upstream_register",
+    "upstream_status_verbatim",
+    "upstream_anchor",
+    "severity",
+    "maturity",
+    "maturity_is_inherited",
+    "status_plain",
+    "counts",
+    "oracle",
+    "evidence_locality",
+    "evidence_locality_note",
+    "substrate",
+    "substrate_bands",
+    "ruled_out",
+    "retractions",
+    "open_question",
+    "open_problem_ref",
+    "reader_warning",
+    "citations",
+    "basis_repo",
+    "basis_commit",
+    "handbook_reverified"
+  ],
+  "required": [
+    "schema",
+    "record_id",
+    "record_version",
+    "class",
+    "subjects",
+    "title",
+    "upstream_row_id",
+    "upstream_register",
+    "upstream_status_verbatim",
+    "upstream_anchor",
+    "severity",
+    "maturity",
+    "maturity_is_inherited",
+    "status_plain",
+    "counts",
+    "oracle",
+    "evidence_locality",
+    "substrate",
+    "ruled_out",
+    "retractions",
+    "open_question",
+    "open_problem_ref",
+    "reader_warning",
+    "citations",
+    "basis_repo",
+    "basis_commit",
+    "handbook_reverified"
+  ],
+  "properties": {
+    "schema": {
+      "const": "efh.evidence-record/v2",
+      "type": "string",
+      "description": "R. FOUNDATION 2.5 line 190."
+    },
+    "record_id": {
+      "type": "string",
+      "pattern": "^EV-[a-z-]+-[0-9]{4}$",
+      "description": "R. EV-<class>-<nnnn>; minted once, never reused; registered in F5r. FOUNDATION 2.5 line 191."
+    },
+    "record_version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "R. Bumped on any content change. FOUNDATION 2.5 line 192."
+    },
+    "class": {
+      "type": "string",
+      "enum": [
+        "open-discrepancy",
+        "live-verification",
+        "structural-verification",
+        "local-verification",
+        "excel-math-deviation",
+        "substrate-identification",
+        "defect-stream",
+        "deferral",
+        "alias-pairing",
+        "projection-gap"
+      ],
+      "description": "R. FOUNDATION 2.5 line 193. Read by the 3.7 pseudocode at lines 677, 699, 705, 707."
+    },
+    "subjects": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "R. >=1 function id; all must exist in data/functions/. FOUNDATION 2.5 line 194. Read by 3.7 line 670-671 ('whose subjects contain this id') and line 714 ('any comparison record naming s')."
+    },
+    "subject_role": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["header", "body-only", "inherited", "contrast"]
+      },
+      "description": "O. Per subject. FOUNDATION 2.5 line 195. CORRECTION R22-R24 (ATTRIBUTION-CORRECTIONS.md 2.1 lines 152-160): MATCH, XMATCH and DELTA must carry subject_role 'contrast' - BUG-FUNC-004 says four times that these three are the deliberately excluded exact-match control group. The corrections note that 2.5's schema 'already defines an unused contrast subject_role for exactly this'."
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 90,
+      "description": "R. <=90 chars, no completeness words. FOUNDATION 2.5 line 196. Rendered as <title> in absence string A-52 (FOUNDATION 4.2 line 901) for every open defect stream, which 3.7 line 755 requires adjacent to any 'matched' label."
+    },
+    "upstream_row_id": {
+      "type": ["string", "null"],
+      "description": "R. G3-02, XMD-001, BUG-FUNC-022, KED-FIN-001, FPD-003. FOUNDATION 2.5 line 197. Rendered as <stream_id> in A-52 (line 901)."
+    },
+    "upstream_register": {
+      "type": "string",
+      "enum": [
+        "catalogue",
+        "residual-register",
+        "defect-stream",
+        "math-deviation",
+        "identification-note",
+        "none"
+      ],
+      "description": "R. FOUNDATION 2.5 line 198. 'residual-register' carries the four KED rows that A1-S3 requires be fed into the open-row set."
+    },
+    "upstream_status_verbatim": {
+      "type": ["string", "null"],
+      "description": "R. The upstream status string exactly. FOUNDATION 2.5 line 199. Read by 3.7 line 708: streams are the defect-stream records whose status normalises to {open, repair-landed-unsigned}."
+    },
+    "upstream_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["file", "row_id", "section", "cited_text_sha256"],
+      "required": ["file", "row_id", "section", "cited_text_sha256"],
+      "properties": {
+        "file": { "type": "string" },
+        "row_id": { "type": ["string", "null"] },
+        "section": { "type": ["string", "null"] },
+        "cited_text_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      },
+      "description": "R. A3-S10. efh ingest --diff re-checks it every sync. FOUNDATION 2.5 line 200."
+    },
+    "severity": {
+      "type": ["string", "null"],
+      "enum": ["STR", "NUM-L", "NUM-S", null],
+      "description": "R. FOUNDATION 2.5 line 201."
+    },
+    "maturity": {
+      "type": ["string", "null"],
+      "enum": ["M0", "M1", "M2", "M3", "HO", null],
+      "description": "R. M0-M3 | HO | null. FOUNDATION 2.5 line 202."
+    },
+    "maturity_is_inherited": {
+      "type": "boolean",
+      "description": "R. true for body-only/inherited subjects. FOUNDATION 2.5 line 203."
+    },
+    "status_plain": {
+      "type": "string",
+      "description": "R. The honest paragraph; no completeness word without its scope. FOUNDATION 2.5 line 204."
+    },
+    "counts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/count" },
+      "description": "R. May be empty; every numeric figure the record asserts. FOUNDATION 2.5 line 205. Read by 3.7 lines 678 and 706."
+    },
+    "oracle": {
+      "oneOf": [{ "$ref": "#/$defs/oracle" }, { "type": "null" }],
+      "description": "R, may be null. FOUNDATION 2.5 line 206 and the oracle table at lines 246-259."
+    },
+    "evidence_locality": {
+      "type": "string",
+      "enum": ["in-repo", "local-only", "mixed"],
+      "description": "R. local-only for anything behind smart-fuzzer/{runs,work,cache} or .tmp/. FOUNDATION 2.5 line 207."
+    },
+    "evidence_locality_note": {
+      "type": "string",
+      "description": "C. Required iff evidence_locality != 'in-repo'; template in 4.4 A-24. FOUNDATION 2.5 line 208."
+    },
+    "substrate": {
+      "type": ["string", "null"],
+      "description": "R. The identified algorithm. FOUNDATION 2.5 line 209. Read by 3.7 line 706: xmd_witness := any(len(r.counts) > 0 or r.substrate != null)."
+    },
+    "substrate_bands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["band", "identified", "per_band_figure", "fingerprint", "citation"],
+        "required": ["band", "identified", "per_band_figure", "fingerprint", "citation"],
+        "properties": {
+          "band": { "type": "string" },
+          "identified": { "type": "boolean" },
+          "per_band_figure": { "type": ["string", "null"] },
+          "fingerprint": { "type": ["string", "null"] },
+          "citation": { "type": "string" }
+        }
+      },
+      "description": "C. Required iff class == substrate-identification. A3-S13. FOUNDATION 2.5 line 210."
+    },
+    "ruled_out": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "R. May be empty. Published negative results. FOUNDATION 2.5 line 211."
+    },
+    "retractions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": ["withdrawn_claim", "withdrawn_on", "superseded_by", "citation"],
+        "required": ["withdrawn_claim", "withdrawn_on", "superseded_by", "citation"],
+        "properties": {
+          "withdrawn_claim": { "type": "string" },
+          "withdrawn_on": { "type": ["string", "null"] },
+          "superseded_by": { "type": ["string", "null"] },
+          "citation": { "type": "string" }
+        }
+      },
+      "description": "R. May be empty. Required whenever the upstream record contains a reversal. FOUNDATION 2.5 line 212."
+    },
+    "open_question": {
+      "type": ["string", "null"],
+      "description": "R. FOUNDATION 2.5 line 213."
+    },
+    "open_problem_ref": {
+      "type": ["string", "null"],
+      "pattern": "^OP-[0-9]{3}$",
+      "description": "R. OP-<nnn>. FOUNDATION 2.5 line 214."
+    },
+    "reader_warning": {
+      "type": ["string", "null"],
+      "description": "R. The 'do not read this as...' sentence. FOUNDATION 2.5 line 215."
+    },
+    "citations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "R. >=1. FOUNDATION 2.5 line 216."
+    },
+    "basis_repo": {
+      "const": "OxFunc",
+      "type": "string",
+      "description": "R. const 'OxFunc' for this harvest. FOUNDATION 2.5 line 217."
+    },
+    "basis_commit": {
+      "type": "string",
+      "description": "R. 473efa3 for this harvest. FOUNDATION 2.5 line 218."
+    },
+    "handbook_reverified": {
+      "const": false,
+      "type": "boolean",
+      "description": "R. const false today for every record. FOUNDATION 2.5 line 219. This is what stops the Handbook wearing OxFunc's evidence as its own."
+    }
+  },
+  "$defs": {
+    "count": {
+      "$comment": "FOUNDATION 2.5 lines 221-244: 'every field is required; there are no optional fields in a count'. The table lists 20 rows. FOUNDATION 6 T4 acceptance test (b) at line 1184 says 'all 21 required fields'. The table is the schema authority, so 20 are encoded here and the 20-vs-21 discrepancy is recorded in tools/schemas/README.md rather than resolved by inventing a 21st field.",
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": [
+        "figure",
+        "passed",
+        "total",
+        "axis",
+        "comparison_predicate",
+        "count_scope",
+        "group_members",
+        "attribution",
+        "measurement_subject",
+        "held_out",
+        "held_out_rows",
+        "corpus_was_repair_target",
+        "residual_attribution",
+        "measurement_found",
+        "divergence_measured",
+        "full_pass_only",
+        "corpus_or_build",
+        "corpus_tracked",
+        "measured_as_of",
+        "citation"
+      ],
+      "required": [
+        "figure",
+        "passed",
+        "total",
+        "axis",
+        "comparison_predicate",
+        "count_scope",
+        "group_members",
+        "attribution",
+        "measurement_subject",
+        "held_out",
+        "held_out_rows",
+        "corpus_was_repair_target",
+        "residual_attribution",
+        "measurement_found",
+        "divergence_measured",
+        "full_pass_only",
+        "corpus_or_build",
+        "corpus_tracked",
+        "measured_as_of",
+        "citation"
+      ],
+      "properties": {
+        "figure": {
+          "type": "string",
+          "efhForbiddenRead": true,
+          "description": "R. Verbatim upstream string. DISPLAY ONLY. Guard G-9 (FOUNDATION 6.1 line 1206) fails the build if any tool parses it. 3.7 line 682: 'c.figure is NEVER read.'"
+        },
+        "passed": {
+          "type": ["integer", "null"],
+          "description": "R. null only when the source publishes no numerator. FOUNDATION 2.5 line 226. Read by 3.7 lines 690, 695, 696, 700."
+        },
+        "total": {
+          "type": ["integer", "null"],
+          "description": "R. null only when the source publishes no denominator. FOUNDATION 2.5 line 227. Read by 3.7 lines 690, 695, 696."
+        },
+        "axis": {
+          "type": "string",
+          "enum": ["numeric-bits", "structural-admission"],
+          "description": "R. FOUNDATION 2.5 line 228. Read by 3.7 line 691, and by the axis-state rungs at lines 733-749."
+        },
+        "comparison_predicate": {
+          "type": "string",
+          "enum": ["exact-typed-bit-match", "15-significant-digit-truncation"],
+          "description": "R. FOUNDATION 2.5 line 229; travels with every count per A1-F3. CORRECTION R22-R24 (ATTRIBUTION-CORRECTIONS.md 2.1 lines 152-164) INVERTS FOUNDATION 3.4 line 605-607 for three of the six surfaces it names: MATCH, XMATCH and DELTA use raw IEEE == (delta_fn.rs:26 'if lhs == rhs', xmatch.rs:240 'a == b', match_fn.rs shares xmatch's comparator, none imports excel_numeric_compare) and therefore carry 'exact-typed-bit-match', not '15-significant-digit-truncation'. Only SWITCH, COUNTIF and SUMIF carry the tolerant value, and the corrections require that value be worded 'quantise-then-compare', never 'tolerant': the helper truncates each operand independently to 15 significant digits and then compares exactly, so values arbitrarily close but astride a bucket boundary compare unequal."
+        },
+        "count_scope": {
+          "type": "string",
+          "enum": ["per-surface", "group"],
+          "description": "R. FOUNDATION 2.5 line 230. Read by 3.7 line 693 (prefer_per_surface) and asserted at line 757."
+        },
+        "group_members": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "R. Empty iff count_scope == per-surface. FOUNDATION 2.5 line 231. Supplies {k} for the 'covering {k} functions jointly' clause that 3.7 line 757 asserts and guard G-3a enforces."
+        },
+        "attribution": {
+          "type": "string",
+          "enum": [
+            "measured-for-this-surface",
+            "alias-sibling-inherited",
+            "named-but-not-measured",
+            "disclaimed-by-source",
+            "model-or-candidate-score"
+          ],
+          "description": "R. FOUNDATION 2.5 line 232. Read by 3.7 lines 679 (the attribution gate) and 684 (named_only). STEWARD DECISION SD-4: legacy aliases are DEMOTED to alias-sibling-inherited and are never credited with a sibling's count."
+        },
+        "measurement_subject": {
+          "type": "string",
+          "enum": [
+            "production-oxfunc",
+            "research-model-or-candidate",
+            "excel-vs-truth",
+            "excel-vs-excel-identity",
+            "instrument-validation",
+            "internal-regression",
+            "sibling",
+            "attribution-unclear"
+          ],
+          "description": "R. FOUNDATION 2.5 line 233. Read by 3.7 line 679 (the subject gate, A1-F7) and lines 700-702 (open_class)."
+        },
+        "held_out": {
+          "type": "string",
+          "enum": ["true", "false", "partial", "source-does-not-state"],
+          "$comment": "String enum, not boolean: FOUNDATION 2.5 line 234 lists four values including 'partial' and 'source-does-not-state'.",
+          "description": "R. FOUNDATION 2.5 line 234. Read by 3.7 line 697 (held_out := any(c.held_out in {true, partial})), which selects W5 over W4."
+        },
+        "held_out_rows": {
+          "type": ["integer", "null"],
+          "description": "R. Required non-null when held_out in {true, partial} unless the source does not split, in which case null renders as 'the source does not split the count'. FOUNDATION 2.5 line 235."
+        },
+        "corpus_was_repair_target": {
+          "oneOf": [
+            { "type": "boolean" },
+            { "const": "source-does-not-state", "type": "string" }
+          ],
+          "description": "R. FOUNDATION 2.5 line 236; A1-S9. STEWARD DECISION SD-5: PMT's in-sample 2,304/2,304 is published carrying corpus_was_repair_target: true and its N1 open-divergence state in the same visual unit."
+        },
+        "residual_attribution": {
+          "type": ["string", "null"],
+          "description": "R. Where a group residual is known to belong to a surface outside the group. FOUNDATION 2.5 line 237. Rendered in the S6 label per 3.4 line 563."
+        },
+        "measurement_found": {
+          "type": "boolean",
+          "description": "R. Explicit boolean, replaces prose parsing (A1-F7, A3-F1). FOUNDATION 2.5 line 238."
+        },
+        "divergence_measured": {
+          "type": "boolean",
+          "description": "R. FOUNDATION 2.5 line 239."
+        },
+        "full_pass_only": {
+          "type": "boolean",
+          "description": "R. FOUNDATION 2.5 line 240."
+        },
+        "corpus_or_build": {
+          "type": "string",
+          "description": "R. FOUNDATION 2.5 line 241."
+        },
+        "corpus_tracked": {
+          "type": "boolean",
+          "description": "R. Whether the corpus artifacts are in version control. FOUNDATION 2.5 line 242."
+        },
+        "measured_as_of": {
+          "type": ["string", "null"],
+          "description": "R. Date or workset id from the source; null renders as 'the source does not date this measurement' (A1-M3). FOUNDATION 2.5 line 243."
+        },
+        "citation": {
+          "type": "string",
+          "description": "R. Repo-relative path + line/section. FOUNDATION 2.5 line 244."
+        }
+      }
+    },
+    "oracle": {
+      "$comment": "FOUNDATION 2.5 lines 246-259. platform is structured, per A1-S5.",
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": [
+        "builds",
+        "build_ambiguity",
+        "arch",
+        "cpu",
+        "cpu_scoped",
+        "excel_bitness",
+        "workbook_mode",
+        "locale",
+        "plumbing",
+        "capture_route"
+      ],
+      "required": [
+        "builds",
+        "build_ambiguity",
+        "arch",
+        "cpu",
+        "cpu_scoped",
+        "excel_bitness",
+        "workbook_mode",
+        "locale",
+        "plumbing",
+        "capture_route"
+      ],
+      "properties": {
+        "builds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "R. Normalised build ids, e.g. ['16.0.20131']. FOUNDATION 2.5 line 250. Read by 3.7 line 758: every counted label contains a build string."
+        },
+        "build_ambiguity": {
+          "type": "string",
+          "enum": [
+            "single-build",
+            "single-build-not-restated-on-the-scored-line",
+            "two-builds-named",
+            "sources-contradict"
+          ],
+          "description": "R. FOUNDATION 2.5 line 251; A1-S6. {build} may never render from free text."
+        },
+        "arch": {
+          "type": "string",
+          "description": "R. 'x86-64' | 'not-stated-in-this-record'. FOUNDATION 2.5 line 252. Read by 3.7 line 758."
+        },
+        "cpu": {
+          "type": "string",
+          "description": "R. 'AMD Ryzen 7 4800H (Zen2)' | 'not-stated-in-this-record'. FOUNDATION 2.5 line 253. Read by 3.7 line 758. Where the record names no CPU the page renders 'host CPU not restated in this record' and inherits nothing (4.4 line 996)."
+        },
+        "cpu_scoped": {
+          "type": "boolean",
+          "description": "R. true iff the claim depends on F2XM1/FYL2X/FSIN/FPTAN microcode. FOUNDATION 2.5 line 254."
+        },
+        "excel_bitness": {
+          "type": "string",
+          "description": "R. '64-bit' | 'not-stated-in-this-record'. FOUNDATION 2.5 line 255."
+        },
+        "workbook_mode": {
+          "type": "string",
+          "description": "R. 'Compatibility Version 2' | 'not-stated-in-this-record'. FOUNDATION 2.5 line 256."
+        },
+        "locale": {
+          "type": "string",
+          "description": "R. 'not-stated-in-this-record' for every record today. FOUNDATION 2.5 line 257."
+        },
+        "plumbing": {
+          "type": "string",
+          "enum": [
+            "Range.Value2",
+            "cell_value2_matrix",
+            "formula-literal",
+            "not-stated-in-this-record"
+          ],
+          "description": "R. FOUNDATION 2.5 line 258."
+        },
+        "capture_route": {
+          "type": "string",
+          "description": "R. The script/battery. FOUNDATION 2.5 line 259."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+[package]
+name = "efh-battery"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Runs the fixed EFH-B1 input battery against the OxFunc reference engine and publishes its own answers (read-only against OxFunc)."
+
+[dependencies]
+oxfunc_core = { path = "../../../OxFunc/crates/oxfunc_core" }
+
+[profile.release]
+debug = false

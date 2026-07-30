@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f5r-evidence-register.schema.json",
+  "title": "F5r - content/evidence/REGISTER.json",
+  "description": "SPEC GAP (partial). The register of minted F5 record ids. FOUNDATION names the family and gives it no field table.",
+  "efh": {
+    "family": "F5r",
+    "organ": "content",
+    "path_glob": "content/evidence/REGISTER.json",
+    "writer": "tools/efh/evidence-import (T4, C#/.NET 10)",
+    "spec": "FOUNDATION.md 2.2 line 132 ('evidence/REGISTER.json  F5r (new)'), 2.5 line 191 ('minted once, never reused; registered in F5r'), 6 T4 line 1184 (an output). D1-reference-structure.md 2.5 line 261 says only 'register at content/evidence/REGISTER.json'. No field table exists.",
+    "propertyOrderBasis": "spec-gap-minimal",
+    "specGap": "Only three keys are grounded: `schema` and `record_version` from FOUNDATION 2.3 line 161 ('Every file carries schema; every authored file also carries record_version'), and a list of minted record ids from 2.5 line 191's function ('minted once, never reused; registered in F5r'). The list's KEY NAME is not stated by any source; `record_ids` is this schema's declared choice and is flagged as such. additionalProperties is true so T4 may carry more without this schema silently blessing an invented shape.",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; record_ids ordinal-sorted."
+  },
+  "type": "object",
+  "additionalProperties": true,
+  "propertyOrder": ["schema", "record_version", "record_ids"],
+  "required": ["schema", "record_version"],
+  "properties": {
+    "schema": { "type": "string", "description": "R by FOUNDATION 2.3 line 161. No const is asserted; no source states the version string." },
+    "record_version": { "type": "integer", "minimum": 1, "description": "R by FOUNDATION 2.3 line 161 (authored file)." },
+    "record_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^EV-[a-z-]+-[0-9]{4}$" },
+      "description": "DECLARED KEY NAME, not sourced. The function is sourced (FOUNDATION 2.5 line 191); the spelling is not. Not in required, because requiring a key no source names would be an invention with the force of a schema."
+    }
+  }
+}

@@ -4,11 +4,71 @@
     "export_snapshot_generation": "2026-04-02",
     "export_source_commit": "87ef585",
     "export_source_tree_state": "dirty",
-    "oxfunc_commit_at_ingest": "4093700",
+    "oxfunc_commit_at_ingest": "473efa3",
+    "oxfunc_commit_at_ingest_full": "473efa37db60e565ce04241d7cedf74fb3227777",
+    "oxfunc_tree_clean": true,
     "registry_snapshot_family": "oxfunc.function_registry.v1",
     "registry_generation": 0,
     "registry_content_fingerprint": "1f4b1600bdfad07e",
-    "tool": "efh-ingest 0.1.0"
+    "tool": "efh-ingest 0.2.0"
+  },
+  "vintage_states": {
+    "absent:no-live-registry-entry-for-this-id": {
+      "basis": "absent",
+      "source": "no source consulted carries this field group for this entry",
+      "as_of": "not-dated-by-this-basis",
+      "source_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+      "source_tree_state": "clean",
+      "regenerable_from_named_commit": true
+    },
+    "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02": {
+      "basis": "export-snapshot",
+      "source": "docs/function-lane/OXFUNC_LIBRARY_CONTEXT_SNAPSHOT_EXPORT_V1.csv",
+      "as_of": "2026-04-02",
+      "source_commit": "87ef585",
+      "source_tree_state": "dirty",
+      "regenerable_from_named_commit": false
+    },
+    "lane-csv:FUNCTION_CATALOG_CURRENT_BASELINE_LOCAL.csv@473efa3:clean:undated": {
+      "basis": "lane-csv",
+      "source": "docs/function-lane/FUNCTION_CATALOG_CURRENT_BASELINE_LOCAL.csv",
+      "as_of": "not-dated-by-this-basis",
+      "source_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+      "source_tree_state": "clean",
+      "regenerable_from_named_commit": true
+    },
+    "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated": {
+      "basis": "lane-csv",
+      "source": "docs/function-lane/FUNCTION_SLICE_CORRELATION_LEDGER.csv",
+      "as_of": "not-dated-by-this-basis",
+      "source_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+      "source_tree_state": "clean",
+      "regenerable_from_named_commit": true
+    },
+    "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated": {
+      "basis": "lane-csv",
+      "source": "docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv",
+      "as_of": "not-dated-by-this-basis",
+      "source_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+      "source_tree_state": "clean",
+      "regenerable_from_named_commit": true
+    },
+    "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated": {
+      "basis": "lane-csv",
+      "source": "docs/function-lane/W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv",
+      "as_of": "not-dated-by-this-basis",
+      "source_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+      "source_tree_state": "clean",
+      "regenerable_from_named_commit": true
+    },
+    "live-registry:473efa3:clean:undated": {
+      "basis": "live-registry",
+      "source": "oxfunc_core::registry::builtin_registry()",
+      "as_of": "not-dated-by-this-basis",
+      "source_commit": "473efa37db60e565ce04241d7cedf74fb3227777",
+      "source_tree_state": "clean",
+      "regenerable_from_named_commit": true
+    }
   },
   "counts": {
     "total_entries": 541,
@@ -21,7 +81,19 @@
     "deferred": 17,
     "placeholder_signatures": 229,
     "with_docs_link": 518,
-    "with_localized_names": 517
+    "with_localized_names": 517,
+    "classification_from_live_registry": 525,
+    "classification_from_export_snapshot": 16,
+    "classification_empty": 13,
+    "arity_from_live_registry": 525,
+    "arity_from_export_snapshot": 16,
+    "arity_max_unbounded": 2,
+    "trailing_repeats_null": 8,
+    "text_integrity_present": 4,
+    "short_microsoft_english_verbatim": 502,
+    "short_differs_from_english_description": 0,
+    "short_no_english_description_to_compare": 0,
+    "short_absent": 39
   },
   "rows": [
     {

@@ -3,13 +3,15 @@
 A comprehensive, honest, evidence-backed reference for every Excel worksheet function and
 operator — the Abramowitz & Stegun of Excel functions.
 
-For each of the 541 canonical entries (534 source functions plus 7 operators), the Handbook grows toward: uniform call
+For each of the 541 canonical entries — 541 entries = 518 functions + 23 operators = 534 published
+Excel rows + 7 split byte-variant rows — the Handbook grows toward: uniform call
 semantics, full metadata and localized names, links to official documentation (and where reality
 diverges from it), implementations in four flavours across multiple languages, versioned and
 independently checkable test suites, curated references, residual-portrait plates (the ULP
-Atlas), and the research record of how bit-exact behavior was found ("The Last Bit").
+Atlas), and the research record of how last-bit agreement with Excel was investigated ("The Last
+Bit").
 
-Built on the DNA Calc program's OxFunc lane (function semantics, bit-exact Excel parity work)
+Built on the DNA Calc program's OxFunc lane (function semantics, last-bit Excel parity work)
 and on Gneiss (accountable-knowledge ledger: claims, contexts, receipts). The Handbook is its
 own knowledge system: OxFunc is its strongest evidence source, not its definition.
 
@@ -34,12 +36,17 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 - `site/` — generated static site (plus `site/mockups/` — approved design mockups).
 - `tools/` — `efh-ingest` (Rust) and `efh` (C#).
 - `tests/` — vector runners, ratchets, determinism drills.
+- `docs/decisions/` — steward decision records (`EFH-DR-nnn`).
 - `docs/handoffs/` — outbound notes to sibling repos.
 
 ## Status
 
-Phase H2 (design foundation) is complete; H3 ledger bootstrap is planned. Nothing is published
-yet; the phase register in [OPERATIONS.md](OPERATIONS.md) is the living status surface.
+Phase H2 (design foundation) is complete. H3 (ledger bootstrap) and H4 (site v1) are `in progress`:
+the build specification is under execution, `ledger/` contains `VOCABULARY.md` only — no ledger
+database, no canonical export, and no `efh` tool exists yet — and `site/` contains `mockups/` only.
+`vectors/` is empty, so no claim in the Handbook currently satisfies `CHARTER.md` rule 7.2 and the
+words "bit-exact" and "bit-for-bit" are not available to Handbook voice (rule 7.8). Nothing is
+published yet; the phase register in [OPERATIONS.md](OPERATIONS.md) is the living status surface.
 
 ## Licenses
 

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f11-operator-syntax.schema.json",
+  "title": "F11 - content/operators/syntax.json",
+  "description": "What a reader actually types for each of the 23 operators, and where that spelling came from.",
+  "efh": {
+    "family": "F11",
+    "organ": "content",
+    "path_glob": "content/operators/syntax.json",
+    "writer": "T10 curation pass (human/agent)",
+    "spec": "FOUNDATION.md 2.8 lines 372-373 ('as D1 2.7'), resolving to D1-reference-structure.md 2.7 lines 371-378",
+    "propertyOrderBasis": "foundation-table",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; operators[] ordinal-sorted by function_id."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": ["schema", "operators"],
+  "required": ["schema", "operators"],
+  "properties": {
+    "schema": { "type": "string", "description": "R." },
+    "operators": {
+      "type": "array",
+      "minItems": 23,
+      "maxItems": 23,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "function_id",
+          "typed_form",
+          "typed_form_source",
+          "reader_name",
+          "slug",
+          "arity_shape",
+          "family",
+          "notes"
+        ],
+        "required": [
+          "function_id",
+          "typed_form",
+          "typed_form_source",
+          "reader_name",
+          "slug",
+          "arity_shape",
+          "family"
+        ],
+        "properties": {
+          "function_id": { "type": "string", "pattern": "^OP\\.", "description": "R." },
+          "typed_form": {
+            "type": "string",
+            "description": "R. What a reader types: +, :, #, @, a single space."
+          },
+          "typed_form_source": {
+            "type": "string",
+            "enum": ["oxfunc-signature-display", "handbook-supplied"],
+            "description": "R. OP_IMPLICIT_INTERSECTION and OP_TRIM_REF_BOTH MUST be handbook-supplied: the first has signature: null, the second publishes 'A @? B', which is not a spelling anyone can type (D1 2.7 lines 376-378)."
+          },
+          "reader_name": { "type": "string", "description": "R. 'addition', 'range (colon)'." },
+          "slug": { "type": "string", "description": "R." },
+          "arity_shape": {
+            "type": "string",
+            "enum": ["infix", "prefix", "postfix"],
+            "description": "R."
+          },
+          "family": {
+            "type": "string",
+            "enum": ["arithmetic", "comparison", "text", "reference"],
+            "description": "R."
+          },
+          "notes": { "type": "string", "description": "O." }
+        }
+      },
+      "description": "R. All 23 required (D1 2.7 line 376); F0 counts.operators == 23."
+    }
+  }
+}
