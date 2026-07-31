@@ -1,0 +1,103 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0004",
+  "record_version": 1,
+  "class": "open-discrepancy",
+  "subjects": [
+    "FUNC.MINVERSE"
+  ],
+  "subject_role": {
+    "FUNC.MINVERSE": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "MINVERSE Doolittle-LU landing: 598 of 607 cells, 556 of them fresh",
+  "upstream_row_id": "G5-01",
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "open",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md",
+    "row_id": "G5-01",
+    "section": "BUG-FUNC-025 Doolittle-LU landing",
+    "line_range": "101-111",
+    "cited_text_sha256": "036aaa4e05e5a1883ac47bd513a98cf84e18e84bf2413b7f771564676a677fca"
+  },
+  "severity": "NUM-S",
+  "maturity": "M3",
+  "maturity_is_inherited": false,
+  "status_plain": "The shipping inverse_kernel was Gauss-Jordan on [A|I] - the algorithm W109 had already ruled out - while the catalogue claimed OxFunc already implemented the identified Doolittle LU. Commit d195c17 on 2026-07-13 swapped in Doolittle LU with partial pivot and per-column unit-vector solves, and the source verifies it end-to-end through the compiled surface against cached live-Excel bits at build 20131: 3x3 went from 80 to 150 of 159 cells and 4x4 from 102 to 448 of 448, published as 182 -> 598 of 607, a strict superset with zero regressions. The 607 cells are three corpora, not one: 51 original fitting rows, 108 fresh 3x3 rows that CAUGHT an overfit (a bottom-row reciprocal-multiply back-substitution scored 51/51 on the 51-row set but only 147/159 held out, worse than plain all-division at 150/159), and 448 fresh 4x4 cells harvested separately. So 556 of the 607 cells are held out, and the source uses the words \"held-out\" and \"fresh\" for them. The stream is still open with its closure checklist entirely unchecked: nine residual +1/+2-ULP cells on ill-conditioned 3x3 matrices remain, and the residual direction flips, so the source calls it a genuinely different op-graph for those cells.",
+  "counts": [
+    {
+      "figure": "Net **+416 cells** (`182 → 598` of `607`)",
+      "passed": 598,
+      "total": 607,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "partial",
+      "held_out_rows": 556,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": true,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.20131"
+      ],
+      "build_ambiguity": "single-build",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "eval_surface_value_call via matrix_local_eval, scored against cached live-Excel bits",
+      "corpus_or_build": "607 result cells (159 3x3 + 448 4x4) against cached live-Excel bits, build 20131",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-07-13",
+      "quoted_source_sentence": "Net **+416 cells** (`182 → 598` of `607`). The old-kernel passing set is a\nstrict subset of the new (0 regressions, confirmed cell-by-cell).",
+      "citation": "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md:110-111 (figure); docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md:101-104 (compiled surface and build 20131); docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md:105-108 (the 3x3 / 4x4 split)"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The three witness corpora (smart-fuzzer/work/w109/G5-01-answers-minverse.json 51 rows, G5-01-answers-minverse-r1.json 108 rows, G5-01-answers-m4b.json 448 rows) are not in version control. The counts are quoted from the committed bug stream and catalogue row.",
+  "substrate": "crates/oxfunc_core/src/functions/matrix_family.rs::inverse_kernel — Doolittle LU with partial pivoting, forward substitution through the unit lower factor with no division, then division-form back substitution through the upper factor, per column against a permuted unit vector, plain binary64 with no FMA contraction",
+  "substrate_bands": null,
+  "ruled_out": [
+    "Adjugate / cofactor adj(A)/det — 51/155 on 3x3 and 85/448 on 4x4.",
+    "Gauss-Jordan on [A|I] — 80/159 on 3x3 and 102/448 on 4x4; this was the shipping kernel until d195c17.",
+    "A 32-variant solve-ordering sweep (forward/back x stream/sum-then-subtract x ascending/descending x division/reciprocal) — all scored <= 150.",
+    "An x87 80-bit extended body with double stores — best 110 of 159, strictly worse; MINVERSE is plain SSE2 double.",
+    "Bottom-row reciprocal-multiply back-substitution — 51/51 on the 51-row fitting set but 147/159 on the 108 fresh 3x3 rows, i.e. worse than plain all-division at 150/159. Recorded in the ruled-out ledger as an OVERFIT."
+  ],
+  "retractions": [
+    {
+      "withdrawn_claim": "A Python float64 emulation scoring 448/448 on the held-out 4x4 confirms OxFunc implements the identified algorithm.",
+      "withdrawn_on": "2026-07-13",
+      "superseded_by": "commit d195c17, which found the shipping Rust kernel was still Gauss-Jordan and had to land Doolittle LU",
+      "citation": "OxFunc git commit 04f21e9 (2026-07-12) commit message, superseded by commit d195c17 (2026-07-13); docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:147"
+    }
+  ],
+  "open_question": "Nine residual +1/+2-ULP cells on ill-conditioned 3x3 matrices are unexplained, and the residual direction flips between matrix families, so the source treats them as a distinct op-graph rather than a rounding-count difference.",
+  "open_problem_ref": null,
+  "reader_warning": "The 598/607 is a count of result CELLS, not of matrices and not of calls. And the 448/448 that belongs on this page is the one re-scored through the compiled surface at d195c17 - not the identically-numbered Python-emulation figure from the day before, whose accompanying conclusion was false and was retracted.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md:5 (Status: open)",
+    "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md:101-104 (verified end-to-end through the compiled surface, build 20131)",
+    "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md:105-111 (the corpus table and the 598 of 607)",
+    "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md:154-160 (closure checklist, every box unchecked)",
+    "crates/oxfunc_core/src/functions/matrix_family.rs:180-188 (the Doolittle LU comment and the 150/159 versus 80/159 recon)",
+    "docs/function-lane/DISCREPANCY_RULED_OUT_LEDGER.csv:31 (the held-out enrichment corpus of 108 fresh 3x3 rows disconfirmed the single-corpus fit)",
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:147 (G5-01 row: KERNEL LANDED, the prior \"already implements\" note was WRONG)",
+    "docs/KNOWN_EXACTNESS_DEVIATIONS.md:157 (KED-MATRIX-001 Status: open)",
+    "OxFunc git commit d195c17 (2026-07-13, W109 MINVERSE: land Doolittle-LU kernel)",
+    "OxFunc git commit 04f21e9 (2026-07-12, 448 fresh 4x4 inverse elements harvested, live build 20131)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

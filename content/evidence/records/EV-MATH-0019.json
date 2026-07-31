@@ -1,0 +1,98 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MATH-0019",
+  "record_version": 1,
+  "class": "substrate-identification",
+  "subjects": [
+    "FUNC.PERMUT"
+  ],
+  "subject_role": {},
+  "title": "PERMUT: 702 of 702, build restated inline, held-out split not published",
+  "upstream_row_id": "G4-04",
+  "upstream_register": "identification-note",
+  "upstream_status_verbatim": "PERMUT resolved out (W109 2026-07-11: ascending x87 spill-loop product, `702/702` live rows)",
+  "upstream_anchor": {
+    "file": "docs/function-lane/W109_PERMUT_COMBIN_FINDINGS_20260711.md",
+    "row_id": "G4-04",
+    "section": "PERMUT -- identified and signed off",
+    "cited_lines": "1-24",
+    "cited_text_sha256": "dfbd43aae00fb09a6372bc8354c677a3ec985caf446adf46db8bc9da9fa181e1",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "The production kernel matched Excel on all 702 counted rows, across discovery and fresh held-out sweeps, with the Excel build restated in the same sentence as the figure. The source does not say how many of the 702 were held out, so the held-out row slot cannot honestly be filled. The identification corpus was 402 live witnesses, which bounds the held-out portion at no more than 300.",
+  "counts": [
+    {
+      "figure": "**702/702 bit-exact**",
+      "figure_display_only": true,
+      "passed": 702,
+      "total": 702,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "partial",
+      "held_out_rows": null,
+      "corpus_was_repair_target": "source-does-not-state",
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.20131"
+      ],
+      "build_ambiguity": "single-build",
+      "build_note": "\"(build 20131)\" is inside the sentence carrying the figure.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": true,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "discovery (402 live witnesses) + fresh held-out sweeps, 702 rows total",
+      "corpus_tracked": false,
+      "measured_as_of": "W109, 2026-07-11",
+      "currency": "current",
+      "ambiguity_note": "The source does not split the count. The identification corpus is 402 live witnesses and the cached PERMUT shard holds exactly 702 rows, so the held-out portion is at most 300 -- but that bound is derived, not published.",
+      "source_sentence": "Unique surviving candidate out of 6 stagings (strict/spill/extended x forward/reverse) over 402 live witnesses; production kernel (`permut_fn::permut_kernel`) verified **702/702 bit-exact** across discovery + fresh held-out sweeps (build 20131).",
+      "citation": "OxFunc:docs/function-lane/W109_PERMUT_COMBIN_FINDINGS_20260711.md:5-9"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The PERMUT discovery and held-out sweeps live under `smart-fuzzer/work/` and the oracle cache under `smart-fuzzer/cache/`, both gitignored in OxFunc.",
+  "substrate": "the ascending legacy x87 spill-loop product `acc = RN53(RN64(acc * f))` for f = n-k+1 ..= n",
+  "substrate_bands": [],
+  "ruled_out": [
+    "the factorial-ratio n!/(n-k)! staging: 1 ULP off on the catalogue witness PERMUT(61,20) and spuriously overflowing for n > 170",
+    "five of the six raced stagings (strict/spill/extended x forward/reverse)"
+  ],
+  "retractions": [],
+  "open_question": null,
+  "open_problem_ref": null,
+  "reader_warning": "The label may not fill a held-out row count: the source says \"discovery + fresh held-out sweeps\" and never splits the 702.",
+  "citations": [
+    "OxFunc:docs/function-lane/W109_PERMUT_COMBIN_FINDINGS_20260711.md:1-24",
+    "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:127",
+    "content/evidence/harvest/RV-gamma-lgamma.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

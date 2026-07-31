@@ -1,0 +1,162 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-FIN-0022",
+  "record_version": 1,
+  "class": "substrate-identification",
+  "subjects": [
+    "FUNC.PRICE",
+    "FUNC.YIELD"
+  ],
+  "subject_role": {
+    "FUNC.PRICE": "header",
+    "FUNC.YIELD": "contrast"
+  },
+  "title": "The 15/15 and 10/10 under the YIELD row are PRICE data scoring a candidate",
+  "upstream_row_id": "G6-03",
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "NUM-L | M2",
+  "upstream_anchor": {
+    "file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+    "row_id": "G6-03",
+    "section": "G6 financial exactness/solver open rows",
+    "cited_lines": "161-161",
+    "cited_text_sha256": "a61a4a5b7624ee3874a6e2af47e13fab0edf1605304eae061ec88cf56be9d2dc",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": "NUM-L",
+  "maturity": "M2",
+  "maturity_is_inherited": false,
+  "status_plain": "This is the sharpest attribution trap in the financial domain. Two figures, 15 of 15 identification and 10 of 10 held out, sit inside the catalogue's YIELD row. They are not YIELD's. They were measured on 25 live-Excel PRICE points across five bonds, and they score a CANDIDATE -- binexp for integer exponents, powf for fractional, coupons first -- in a sentence whose own subject is that the shipping forward kernel was wrong. Landing them on PRICE as a production figure would overclaim by a full kernel generation; landing them on YIELD would credit a surface that was never measured. They are recorded on PRICE, as candidate scores, with YIELD present only as the contrast that explains where they were found.",
+  "counts": [
+    {
+      "figure": "25 live-Excel PRICE points / 5 bonds: **15/15 ident + 10/10 held-out**",
+      "figure_display_only": true,
+      "passed": 15,
+      "total": 15,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "model-or-candidate-score",
+      "measurement_subject": "research-model-or-candidate",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": "The rows are PRICE points. No part of either figure belongs to YIELD, in whose catalogue row they are printed.",
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "build_note": "No Excel build is named on catalogue line 161. Not inherited.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": true,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "the identification half of 25 live-Excel PRICE points over 5 bonds",
+      "corpus_tracked": false,
+      "measured_as_of": "W109, 2026-07-13",
+      "currency": "current",
+      "ambiguity_note": "The identification half: fitted, so held_out is false. The companion 10-of-10 half is described as held out in the same sentence and is recorded as its own count below. The 25 points here are the same 25 that PRICE's superseded 25-of-25 ladder used, but that figure scores the LANDED kernel and this one scores the candidate; they are not the same measurement.",
+      "source_sentence": "IDENTIFIED + held-out validated (25 live-Excel PRICE points / 5 bonds: **15/15 ident + 10/10 held-out** for binexp-integer + powf-fractional + coupons-first)",
+      "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:161"
+    },
+    {
+      "figure": "10/10 held-out",
+      "figure_display_only": true,
+      "passed": 10,
+      "total": 10,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "model-or-candidate-score",
+      "measurement_subject": "research-model-or-candidate",
+      "held_out": "true",
+      "held_out_rows": 10,
+      "corpus_was_repair_target": false,
+      "residual_attribution": "The rows are PRICE points, not YIELD points.",
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "build_note": "No Excel build is named on catalogue line 161. Not inherited.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": true,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "the held-out half of 25 live-Excel PRICE points over 5 bonds",
+      "corpus_tracked": false,
+      "measured_as_of": "W109, 2026-07-13",
+      "currency": "current",
+      "ambiguity_note": "Ten rows. Held out relative to the 15-row identification half, and still a candidate score, not a kernel measurement. The rival candidates were scored on the same ten and are recorded in ruled_out, which is what makes this a race rather than a validation.",
+      "source_sentence": "IDENTIFIED + held-out validated (25 live-Excel PRICE points / 5 bonds: **15/15 ident + 10/10 held-out** for binexp-integer + powf-fractional + coupons-first)",
+      "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:161"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The writeup is `work/w109/G6-solvers/YIELD_PRICE_FORWARD_KERNEL.md` under the gitignored W109 work tree; no artifact is tracked at commit 473efa3.",
+  "substrate": "binary exponentiation for integer discount exponents, powf for fractional exponents, coupons accumulated first -- the candidate that won this race and later became the landed `excel_bond_pow`",
+  "substrate_bands": [
+    {
+      "band": "integer discount exponents",
+      "identified": true,
+      "per_band_figure": "15/15 ident + 10/10 held-out over 25 PRICE points",
+      "fingerprint": "the C-runtime pow integer special case (binary exponentiation), not Rust powf",
+      "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:161"
+    },
+    {
+      "band": "the YIELD residual after the forward fix",
+      "identified": false,
+      "per_band_figure": null,
+      "fingerprint": "plateau publication: corrected PRICE is flat at exactly 95 across a roughly 20-ULP yield band while Excel publishes a specific point",
+      "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:161"
+    }
+  ],
+  "ruled_out": [
+    "naive repeated-multiply: 5/10, breaks at exponent 4 and above",
+    "powf with an x87 log for integer exponents: 6/10",
+    "the getPrice_ redemption-first order: 2/5"
+  ],
+  "retractions": [
+    {
+      "withdrawn_claim": "the dive-plan premise \"forward kernel already bit-exact, YIELD is 100% schedule\"",
+      "withdrawn_on": "W109, 2026-07-13",
+      "superseded_by": "The forward PRICE kernel was not bit-exact: `pcomp` computed base^(off+k) via `base.powf`, which is exp times ln even for integer exponents.",
+      "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:161"
+    }
+  ],
+  "open_question": "Fixing pcomp alone with the current bisection regresses the par witness from 6 to about 40 ULP, so the forward fix and the schedule have to land together. That coupling is why the YIELD row is still M2.",
+  "open_problem_ref": null,
+  "reader_warning": "These two figures are printed inside the YIELD catalogue row but were measured on PRICE inputs and score a candidate model, in a sentence that simultaneously declares the shipping kernel wrong. They may not be rendered as a YIELD figure, and they may not be rendered as a production PRICE figure. YIELD itself has no pass-rate figure anywhere; see EV-FIN-0023.",
+  "citations": [
+    "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:161",
+    "content/evidence/harvest/RV-financial-bond.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "must_not_render_alone": true,
+  "render_together_with": [
+    "EV-FIN-0023"
+  ],
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure.",
+    "counts[].figure_display_only — const true; FOUNDATION §2.5 guard G-9.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — carried PER COUNT.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn.",
+    "counts[].ambiguity_note — nullable.",
+    "counts[].measurement_subject gains 'handbook-recomputation-over-cached-corpus'.",
+    "counts[].build_ambiguity gains 'not-stated-in-this-record'.",
+    "upstream_anchor.cited_text_sha256_basis and upstream_anchor.cited_lines.",
+    "counts[].build_note — where in the document a build IS named, when it is not on the scored line; builds[] stays empty.",
+    "must_not_render_alone / render_together_with — the candidate figures may not render without YIELD's own no-figure state beside them.",
+    "subject_role 'contrast' is used here for YIELD: it is named so the reader knows where the figures were printed, NOT because any part of them belongs to it."
+  ]
+}

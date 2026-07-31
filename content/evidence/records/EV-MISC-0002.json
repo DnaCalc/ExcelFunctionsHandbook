@@ -1,0 +1,85 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0002",
+  "record_version": 1,
+  "class": "live-verification",
+  "subjects": [
+    "FUNC.BESSELJ"
+  ],
+  "subject_role": {
+    "FUNC.BESSELJ": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "BESSELJ 56-row probe: three enumerated misses, all inherited from Excel COS",
+  "upstream_row_id": "BUG-FUNC-024",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "closed_signed_off (2026-07-02; 93/93 live-Excel bit-exact, run oxf-xp6p-bugfunc024-repair-validation-20260702)",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md",
+    "row_id": "BUG-FUNC-024",
+    "section": "Validation (live Excel 16.0 b19929, cell-ref plumbing, 2026-07-02)",
+    "line_range": "133-140",
+    "cited_text_sha256": "f24bc47d2a521a5858205fb80eea57c5de2c10128f562e28ed99d5bd212e3e5e"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "BESSELJ was probed separately from BESSELY: a 56-row two-way probe over orders 0, 1, 2, 3, 5 and 10 with x in [1.5, 400]. The source says every row was bit-exact except three - BESSELJ(50,0) and BESSELJ(150,0) at 1 ULP and BESSELJ(50,2) at 2 ULP - and attributes all three away from Bessel: Excel's COS is 1 ULP off at the reduced arguments 49.214601836 and 149.214601836, probed directly, with SIN exact; J0 inherits cos at full weight. So a denominator (56) and a closed, enumerated miss set (3) both exist, and a 53-of-56 reading is derivable - but the source publishes NO fraction, and this record does not compose one. The three rows close automatically when SIN/COS parity lands; they are tracked with BUG-FUNC-027 CLASS-C3. Whether the 56 validation rows are disjoint from the 92 BESSELJ/I/K probe rows that fed the coefficient fit is not stated.",
+  "counts": [
+    {
+      "figure": "56-row two-way probe (orders `0,1,2,3,5,10`, `x` in `[1.5,400]`) — all bit-exact **except** `BESSELJ(50,0)`, `BESSELJ(150,0)` (1 ULP) and `BESSELJ(50,2)` (2 ULP)",
+      "passed": null,
+      "total": 56,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": "source-does-not-state",
+      "residual_attribution": "Excel's own COS at the reduced arguments 49.214601836 and 149.214601836, not a BESSELJ defect",
+      "measurement_found": true,
+      "divergence_measured": true,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.19929"
+      ],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "cell-ref plumbing",
+      "capture_route": "tools/elem-probe/run-elem-probe.ps1",
+      "corpus_or_build": "56-row two-way probe, live Excel 16.0 b19929 (build stated in the section header, not on the BESSELJ line)",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-07-02",
+      "quoted_source_sentence": "- BESSELJ: 56-row two-way probe (`tools/elem-probe/run-elem-probe.ps1`; orders\n  `0,1,2,3,5,10`, `x` in `[1.5,400]`) — all bit-exact **except** `BESSELJ(50,0)`,\n  `BESSELJ(150,0)` (1 ULP) and `BESSELJ(50,2)` (2 ULP, recurrence-inherited), which\n  are **not Bessel defects**: Excel's `COS` is 1 ULP off ours at the reduced arguments\n  `49.214601836` / `149.214601836` (probed directly: Excel `COS` `0x…5409`/`0x…d970`\n  vs UCRT/Rust `0x…5408`/`0x…d96f`, `SIN` exact). J0 inherits `cos` at full weight\n  (`cos*ans1` dominant). Tracked with the large-argument trig lane (BUG-FUNC-027\n  CLASS-C3); those rows close automatically when SIN/COS parity lands.",
+      "citation": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:133-140 (figure); docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:128 (build)"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The probe was run by tools/elem-probe/run-elem-probe.ps1; that directory is not present in the tree at 473efa3 and the run outputs are not in version control.",
+  "substrate": "crates/oxfunc_core/src/functions/bessel_convert_family.rs",
+  "substrate_bands": null,
+  "ruled_out": [
+    "A BESSELJ defect as the cause of the three residual rows: Excel COS was probed directly at the reduced arguments and is 1 ULP off, with SIN exact."
+  ],
+  "retractions": [],
+  "open_question": "The source does not say whether the 56 validation rows are disjoint from the 92-row BESSELJ/I/K probe set that fed the coefficient fit.",
+  "open_problem_ref": null,
+  "reader_warning": "passed is null on purpose. 53 of 56 is derivable by subtraction, but no OxFunc source publishes it, so the Handbook does not print it as a measured figure.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:133-140 (the 56-row probe and the three enumerated misses)",
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:101-104 (fresh 92-row BESSELJ/I/K probes fed the coefficient fit)",
+    "docs/KNOWN_EXACTNESS_DEVIATIONS.md:144-146 (the three rows inherit Excel's 1-ULP COS, tracked with BUG-FUNC-027 CLASS-C3)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

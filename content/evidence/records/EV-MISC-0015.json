@@ -1,0 +1,93 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0015",
+  "record_version": 1,
+  "class": "open-discrepancy",
+  "subjects": [
+    "FUNC.COMBIN"
+  ],
+  "subject_role": {
+    "FUNC.COMBIN": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "COMBIN 6 of 16 on the discriminating capture, on the shipped multiply-first loop",
+  "upstream_row_id": "G4-04",
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "COMBIN = multiplicative product but **NOT bit-exact**",
+  "upstream_anchor": {
+    "file": "docs/function-lane/DISCREPANCY_RULED_OUT_LEDGER.csv",
+    "row_id": "G4-04-combin",
+    "section": "ruled-out ledger",
+    "line_range": "62-62",
+    "cited_text_sha256": "d29be496bcc92c8e8d84cc595e4299b16c52e6205d8d64340c8c8ad13f77526a"
+  },
+  "severity": "NUM-S",
+  "maturity": "M2",
+  "maturity_is_inherited": false,
+  "status_plain": "A cycle-2 design-for-divergence capture put 16 discriminating (n, k) pairs with representable results against Excel and found that Excel matches OxFunc's multiply-first form only 6 of 16 times; ratio-first scores 2 of 16, exact-integer 6 of 16, and neither 8 of 16. Excel sits 1 to 3 ULP BELOW the multiply-first product at larger n and k. The multiply-first form named in that sentence, (acc*(n-k+i))/i, is verbatim what OxFunc ships: combinatorics_common.rs::combinations_of_int reduces k to min(k, n-k) and then loops acc *= (n-k+i) followed by acc /= i. So 6 of 16 is a PRODUCTION count, not a refutation of a candidate. It also corrected an earlier over-claim: a cycle-1 \"bit-exact below 2^53\" claim rested on a non-discriminating 7-point corpus where every form agrees below about 2^40, and it is now recorded as disproven. Every plain-double and x87-prec64 product ordering scores the same 6 of 16, so the residual is an op-graph question, not an accumulation-order one, and the row stays open.",
+  "counts": [
+    {
+      "figure": "on 16 discriminating (n,k) with representable results Excel matches OxFunc multiply-first only 6/16, ratio-first 2/16, neither 8/16",
+      "passed": 6,
+      "total": 16,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": false,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": true,
+      "full_pass_only": false,
+      "builds": [],
+      "build_ambiguity": "build-not-stated-in-this-record",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "W109 sweep cycle-2 design-for-divergence capture / c2_combin_out.json",
+      "corpus_or_build": "16 discriminating (n, k) pairs; neither the ledger row nor the catalogue row names an Excel build",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-07-14",
+      "quoted_source_sentence": "\"G4-04-combin\",\"bit-exact-under-2p53\",\"COMBIN as a plain-double or x87-prec64 multiplicative product (any order) bit-exact below 2^53 (cycle-1 workflow claim)\",\"DISPROVEN by cycle-2 design-for-divergence capture: on 16 discriminating (n,k) with representable results Excel matches OxFunc multiply-first only 6/16, ratio-first 2/16, neither 8/16; Excel sits 1-3 ULP BELOW the multiply-first product on larger n,k. All product orderings (double + x87-prec64) score 6/16 => op-graph residual in the PERMUT x87-spill-product family, NOT closed. Original 7-pt corpus was non-discriminating (<2^40)\",\"2026-07-14\",\"W109 sweep cycle-2 / c2_combin_out.json\"",
+      "citation": "docs/function-lane/DISCREPANCY_RULED_OUT_LEDGER.csv:62; restated at docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:127"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The capture output c2_combin_out.json is not in version control; the counts are quoted from the committed ruled-out ledger and catalogue row.",
+  "substrate": "crates/oxfunc_core/src/functions/combinatorics_common.rs:3-14 :: combinations_of_int — k reduced to min(k, n-k), then acc *= (n-k+i); acc /= i. The catalogue names the leading hypothesis for Excel as an internal extended lgamma/exp substrate, and points at the PERMUT x87 spill-product family (closed at 702/702) as the substrate to race against.",
+  "substrate_bands": null,
+  "ruled_out": [
+    "Ratio-first product ordering — 2 of 16.",
+    "Neither-form (a third ordering) — 8 of 16.",
+    "All product-loop, factorial-ratio, reciprocal-multiply and published-GAMMALN-composition kernels, on a 505-row live corpus.",
+    "x87-prec64 product orderings — every ordering, double and x87 alike, scores 6 of 16."
+  ],
+  "retractions": [
+    {
+      "withdrawn_claim": "COMBIN as a plain-double or x87-prec64 multiplicative product (any order) is bit-exact below 2^53.",
+      "withdrawn_on": "2026-07-14",
+      "superseded_by": "the cycle-2 design-for-divergence capture; the original 7-point corpus was non-discriminating (all forms agree below about 2^40)",
+      "citation": "docs/function-lane/DISCREPANCY_RULED_OUT_LEDGER.csv:62"
+    }
+  ],
+  "open_question": "The op-graph residual is not closed. The catalogue proposes racing COMBIN against the PERMUT x87 spill-product family.",
+  "open_problem_ref": null,
+  "reader_warning": "This 6/16 is scored on the shipping kernel, so it is a production pass rate on a corpus built specifically to discriminate between candidate op-graphs - not a random sample. The 82/505 figure that appears elsewhere for this lane is a candidate score, not this.",
+  "citations": [
+    "docs/function-lane/DISCREPANCY_RULED_OUT_LEDGER.csv:62 (G4-04-combin, the cycle-2 capture and the 6/16)",
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:127 (G4-04 catalogue row restating the same numbers)",
+    "crates/oxfunc_core/src/functions/combinatorics_common.rs:3-14 (combinations_of_int, the shipped multiply-first loop)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

@@ -1,0 +1,175 @@
+{
+  "schema": "efh.name-debris/v1",
+  "version": 1,
+  "what_this_file_is": "The search-index stop-list. It is a curated list with no threshold in it, so by the Handbook's own discriminator it cannot live inside a generator: a program with no judgement in it could not decide that 'işlevi' is a Turkish word for 'function' rather than part of a function's name. It is versioned for the same reason.",
+  "applies_to": "match_keys only — the search surface. Never the display surface.",
+  "the_rule_that_governs_it": "localized_names[].name is always displayed exactly as harvested. Stripping happens only when building a search key, and any entry whose key differs from its displayed name carries name_quality: suspect so the page can say the raw string is what was sourced. The Handbook must not display a cleaned name as if it had been sourced clean, and must not fail to match a name a reader actually typed.",
+  "measured_over": {
+    "corpus": "data/functions/*.json :: localized_names[].name",
+    "entries": 541,
+    "localized_name_rows": 24280,
+    "measured_at_oxfunc_commit": "473efa3",
+    "note": "The counts below are observations over the projection as it stands today. They are here so the list is auditable, not because any of them is evidence about a function."
+  },
+  "trailing_glyphs": [
+    {
+      "glyph": "*",
+      "codepoint": "U+002A",
+      "action": "strip-from-search-key",
+      "observed_rows": 387,
+      "observed_locales": ["fr-FR"],
+      "observed_distribution": "Exactly one starred row per surface, and every one of them is fr-FR. It is a systematic marker in the French scrape, not a per-name accident.",
+      "example": "GAMMALN fr-FR — the harvested string ends in an asterisk",
+      "basis": "scan of data/functions/*.json. No OxFunc document names the fr-FR asterisk; the observation is the Handbook's own, and no cleaned name is displayed anywhere because of it."
+    },
+    {
+      "glyph": ":",
+      "codepoint": "U+003A",
+      "action": "strip-from-search-key",
+      "observed_rows": 3,
+      "observed_locales": [],
+      "observed_distribution": "Three rows end in a colon. A trailing colon cannot be part of a function name in any Excel formula grammar; it is the range operator.",
+      "example": null,
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "glyph": "–",
+      "codepoint": "U+2013",
+      "action": "strip-from-search-key",
+      "observed_rows": 3,
+      "observed_locales": [],
+      "observed_distribution": "Three rows end in an en dash, which reads as a truncated article title rather than a name.",
+      "example": null,
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "glyph": "”",
+      "codepoint": "U+201D",
+      "action": "strip-from-search-key",
+      "observed_rows": 1,
+      "observed_locales": [],
+      "observed_distribution": "One row ends in a closing double quotation mark.",
+      "example": null,
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "glyph": "‘",
+      "codepoint": "U+2018",
+      "action": "strip-from-search-key",
+      "observed_rows": 1,
+      "observed_locales": [],
+      "observed_distribution": "One row ends in an opening single quotation mark.",
+      "example": null,
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "glyph": ",",
+      "codepoint": "U+002C",
+      "action": "strip-from-search-key",
+      "observed_rows": 1,
+      "observed_locales": [],
+      "observed_distribution": "One row ends in a comma, i.e. a list separator that survived the scrape.",
+      "example": null,
+      "basis": "scan of data/functions/*.json"
+    }
+  ],
+  "trailing_glyphs_deliberately_not_stripped": [
+    {
+      "glyphs": ["ี", "่", "้"],
+      "codepoints": ["U+0E35", "U+0E48", "U+0E49"],
+      "observed_rows": 5,
+      "why_kept": "These are Thai vowel and tone marks. They are combining characters that belong to the preceding syllable, and stripping them would corrupt a real Thai name rather than clean it. They appear as 'trailing non-alphanumeric characters' to a naive scan and are the reason this list is curated rather than derived from a character-class test.",
+      "basis": "scan of data/functions/*.json, Unicode general category"
+    }
+  ],
+  "trailing_tokens": [
+    {
+      "token": "işlevi",
+      "language": "Turkish",
+      "means": "\"function of\" / \"the function\"",
+      "action": "strip-from-search-key",
+      "observed_rows": 208,
+      "observed_locales": ["tr-TR"],
+      "example": "GAMALN işlevi",
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "token": "işlevleri",
+      "language": "Turkish",
+      "means": "\"functions\" (plural, on the shared documentation pages that title two surfaces at once)",
+      "action": "strip-from-search-key",
+      "observed_rows": 10,
+      "observed_locales": ["tr-TR"],
+      "example": "SOLDAN, SOLB işlevleri",
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "token": "Denklemi",
+      "language": "Turkish",
+      "means": "\"equation of\"",
+      "action": "strip-from-search-key",
+      "observed_rows": 4,
+      "observed_locales": ["tr-TR"],
+      "example": "BESSELI Denklemi ; KORELASYON Denklemi ; GEOORT Denklemi ; TANH Denklemi",
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "token": "(funksjon)",
+      "language": "Norwegian Bokmål",
+      "means": "\"(function)\"",
+      "action": "strip-from-search-key",
+      "observed_rows": 2,
+      "observed_locales": ["nb-NO"],
+      "example": "DAG.ETTER (funksjon) ; PROSENTDEL (funksjon)",
+      "basis": "scan of data/functions/*.json"
+    }
+  ],
+  "trailing_tokens_deliberately_not_stripped": [
+    {
+      "pattern": "a trailing parenthetical that is itself a name, e.g. \"ADDRESS (ADRESA)\" (hr-HR, sk-SK), \"ADDRESS (位址)\", \"ADDRESS (AADRESS)\"",
+      "observed_rows_by_parenthetical": {"(ADRESA)": 2, "(位址)": 2, "(funksjon)": 2, "(TYP)": 2, "(ТИП)": 2, "(類型)": 2, "(AADRESS)": 1, "(ADRESSE)": 1, "(Cím)": 1, "(Adres)": 1, "(АДРЕС)": 1},
+      "observed_rows_note": "the twelve most frequent trailing parentheticals; the tail was not enumerated",
+      "why_kept": "These parentheticals are alternative spellings of the same function, not article debris. Stripping them would lose a name a reader might genuinely type. The right handling is to emit BOTH the outer and the inner string as search keys — which is an indexing decision, not a stop-list one.",
+      "basis": "scan of data/functions/*.json"
+    },
+    {
+      "pattern": "a trailing token that is a second function name on a shared documentation page, e.g. \"LEFTB\", \"MIDB\", \"RIGHTB\", \"LENB\", \"REPLACEB\", \"FINDB\", \"SEARCHB\"",
+      "observed_rows_by_token": {"LEFTB": 50, "MIDB": 50, "RIGHTB": 50, "LENB": 48, "REPLACEB": 48, "FINDB": 42, "SEARCHB": 40},
+      "why_kept": "Microsoft titles several documentation pages for two surfaces at once (\"FIND, FINDB functions\"), so the second token is a real function name, not debris. It must remain a search key.",
+      "basis": "scan of data/functions/*.json"
+    }
+  ],
+  "trailing_digit_rule": {
+    "rule": "DO NOT strip trailing digits.",
+    "why": "A trailing digit is load-bearing in this corpus, not debris. 348 localized-name rows end in a digit and they are names such as ATAN2, LOG10, BIN2OCT, SUMX2MY2, IMLOG2 and their translations. Stripping trailing digits would merge ATAN2 with ATAN, LOG10 with LOG, and BIN2OCT with BIN2, which is the exact failure a search index must not have.",
+    "corrects": "The earlier reference design described the BETA.INVn artifact as \"trailing digits appended by the scrape\". It is not a digit: the trailing character is a lowercase Latin n. Implementing the rule as written would have destroyed 348 real names to repair 37.",
+    "measured": {
+      "rows_ending_in_a_digit": 348,
+      "rows_matching_the_BETA_INVn_shape": 37
+    }
+  },
+  "id_scoped_repairs": [
+    {
+      "repair_id": "ND-BETA-INV-N",
+      "applies_to": ["FUNC.BETA.INV"],
+      "observed": "BETA.INVn",
+      "search_key_added": "BETA.INV",
+      "observed_rows": 37,
+      "scope_note": "A regex for the shape ([A-Z]n$) matches exactly 37 rows in the whole corpus and every one of them is BETA.INV, so the general rule and the id-scoped repair are the same set today. It is written as an id-scoped repair anyway, because a general \"strip a trailing lowercase n from an uppercase name\" rule has no principle behind it and would silently start eating real names the moment the corpus grows.",
+      "display_unchanged": true,
+      "basis": "OxFunc docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_DISCOVERY_PRELIM.md:43 and :97 (BETA.INVn is a support-page typo; BETA.INV exists), and the Handbook handoff docs/handoffs/H1_FINDINGS_VERSION_AXES.md item 8, which says the seed CSV carries BETA.INVn in all 36 locale rows and no clean BETA.INV row. The Handbook projection today carries 37 such rows, one more than the handoff states; the discrepancy is unresolved and both figures are published rather than reconciled."
+    }
+  ],
+  "normalisation_applied_before_matching": [
+    "Unicode NFKC",
+    "case fold, invariant",
+    "collapse internal runs of whitespace to a single space",
+    "trim leading and trailing whitespace"
+  ],
+  "invariants": [
+    "The English surface name is always the first search key for an entry.",
+    "Search keys deduplicate: for ABS only three of the forty locales differ from ABS, so the key list is four entries rather than forty-one.",
+    "Any entry whose stripped key differs from its harvested name renders name_quality: suspect, and the harvested name is what is displayed.",
+    "Localized names are a display and entry surface, not an identity. They never appear as a page's h1."
+  ]
+}

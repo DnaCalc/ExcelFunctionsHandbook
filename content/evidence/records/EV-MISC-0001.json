@@ -1,0 +1,95 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0001",
+  "record_version": 1,
+  "class": "live-verification",
+  "subjects": [
+    "FUNC.BESSELY"
+  ],
+  "subject_role": {
+    "FUNC.BESSELY": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "BESSELY resweep: 93 of 93 on the grid the repair was solved against",
+  "upstream_row_id": "BUG-FUNC-024",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "closed_signed_off (2026-07-02; 93/93 live-Excel bit-exact, run oxf-xp6p-bugfunc024-repair-validation-20260702)",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md",
+    "row_id": "BUG-FUNC-024",
+    "section": "Validation (live Excel 16.0 b19929, cell-ref plumbing, 2026-07-02)",
+    "line_range": "128-132",
+    "cited_text_sha256": "50fee9d748a554ab51b9a0bce2608246f2b802343af3572ad73ff1443ef59575"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "BESSELY is closed and signed off. A 93-case (x, n) grid around BESSELY(2.5,1) was re-scored against live Excel 16.0 b19929 through the repaired shipping kernel and returned 93 exact typed bit matches with 0 drifts, up from 92 of 93. The build is stated in the section header immediately above the figure, and it is b19929 - not the 20131 that most catalogue figures carry. The 93 rows are NOT held out: the five coefficient corrections were root-caused by solving per-coefficient deltas as linear systems against those same live-Excel bit witnesses, so the validation re-scores the fitting set. No held-out BESSELY corpus exists. Two OxFunc documents contradict each other about BESSELY's state: the Excel-math-deviation catalogue still lists BESSELY order >= 1 as \"still 1e8-1e11 ULP off\" in its inverse-class section. That sentence is stale - it predates the repair - but both documents are live, so the contradiction is published here rather than silently resolved.",
+  "counts": [
+    {
+      "figure": "`93` cases, `93` exact typed bit matches, `0` drifts (was `1`/`92`)",
+      "passed": 93,
+      "total": 93,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.19929"
+      ],
+      "build_ambiguity": "sources-contradict",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "cell-ref plumbing",
+      "capture_route": "Run-BesselyResweep.ps1, run smart-fuzzer/runs/oxf-xp6p-bugfunc024-repair-validation-20260702/",
+      "corpus_or_build": "W097 93-case (x, n) grid, live Excel 16.0 b19929",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-07-02",
+      "quoted_source_sentence": "- BESSELY: `Run-BesselyResweep.ps1` run\n  `smart-fuzzer/runs/oxf-xp6p-bugfunc024-repair-validation-20260702/` — `93` cases,\n  `93` exact typed bit matches, `0` drifts (was `1`/`92`).",
+      "citation": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:130-132 (figure); docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:128 (build)"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The 93-case run lives under smart-fuzzer/runs/oxf-xp6p-bugfunc024-repair-validation-20260702/, outside version control. Only the summary sentences in BUG-FUNC-024 and KNOWN_EXACTNESS_DEVIATIONS are committed.",
+  "substrate": "crates/oxfunc_core/src/functions/bessel_convert_family.rs — Excel's Numerical-Recipes-derived bessy/bessj coefficient tables, including NR's truncated 9-digit 2/pi constant",
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [
+    {
+      "withdrawn_claim": "BESSELY order >= 1 at x >= 8 is still 1e8-1e11 ULP off Excel.",
+      "withdrawn_on": "not stated; the claim was superseded by the 2026-07-02 closure but the sentence was never edited",
+      "superseded_by": "BUG-FUNC-024 closure at 93/93, 2026-07-02",
+      "citation": "docs/EXCEL_MATH_DEVIATION_CATALOG.md:260-262 (the stale sentence, still live in the tree at 473efa3)"
+    }
+  ],
+  "open_question": "The Excel-math-deviation catalogue and BUG-FUNC-024 disagree about BESSELY's state, and both are live at 473efa3. The Handbook publishes the closed reading and the contradiction together; the source does not resolve it.",
+  "open_problem_ref": null,
+  "reader_warning": "The 93 rows are the corpus the five coefficient corrections were fitted to. They show the repair closed the drift it was built to close; they are not a blind test. And a reader who reaches only the Excel-math-deviation catalogue gets the opposite answer about this surface.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:6-7 (Status: closed_signed_off, 2026-07-02)",
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:101-104 (the coefficient deltas were solved against the W097 93-case grid)",
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:128 (Validation header: live Excel 16.0 b19929, cell-ref plumbing)",
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:130-132 (the 93/93 figure)",
+    "docs/KNOWN_EXACTNESS_DEVIATIONS.md:134 (Status: closed_signed_off)",
+    "docs/KNOWN_EXACTNESS_DEVIATIONS.md:141-143 (93/93 BESSELY grid rows bit-exact vs live Excel 16.0 b19929)",
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:232 (the BESSELY order-0 sub-lane names build 20026)",
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:260-262 (the stale inverse-class sentence)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

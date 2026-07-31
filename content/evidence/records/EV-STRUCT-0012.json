@@ -1,0 +1,88 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-STRUCT-0012",
+  "record_version": 1,
+  "class": "structural-verification",
+  "subjects": [
+    "FUNC.MDETERM",
+    "FUNC.MINVERSE",
+    "FUNC.MMULT"
+  ],
+  "subject_role": {
+    "FUNC.MDETERM": "body-only",
+    "FUNC.MINVERSE": "body-only",
+    "FUNC.MMULT": "body-only"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "Matrix family structural COM probe: pinned values, provisional tier, no count",
+  "upstream_row_id": "W16-BATCH45-MATRIX-FAMILY-20260316",
+  "upstream_register": "identification-note",
+  "upstream_status_verbatim": "provisional",
+  "upstream_anchor": {
+    "file": "docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md",
+    "row_id": "W16-BATCH45-MATRIX-FAMILY-20260316",
+    "section": "Function-lane evidence id registry",
+    "line_range": "88-88",
+    "cited_text_sha256": "e118b4f635b4a678b319fcdf92d953a861b4a1d24406615f6fc021faac608efd"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "Native Excel COM probe rows on 2026-03-16 pinned square-matrix, scalar-1x1, singular-inverse and nonnumeric-cell lanes for the matrix family, including MDETERM({1,2;3,4}) -> -2, MINVERSE(5) -> 0.2, MMULT(5,2) -> 10 and MMULT({1,2;3,4},{5;6;7}) -> #VALUE!. The registry tier is provisional and no numerator or denominator is published. So a structural Excel comparison IS on record for all three surfaces - \"no record names this function\" is not true of MDETERM or MMULT - but no row count was extracted and none can be. Separately, the discrepancy catalogue records that MINVERSE(5) and MMULT(5,2) are deliberately absent from the Category-2 comparison boundary: nested TYPE evidence proves their function results remain 1x1 arrays and Excel's final-cell scalar appearance belongs to the Category-1 worksheet publication seam, tracked as publication_shape rows CSC-0024 and CSC-0025 with downstream handoff HO-FN-010.",
+  "counts": [
+    {
+      "figure": "Native Excel COM probe rows on `2026-03-16` pinned square-matrix, scalar-1x1, singular-inverse, and nonnumeric-cell lanes",
+      "passed": null,
+      "total": null,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "group",
+      "group_members": [
+        "FUNC.MDETERM",
+        "FUNC.MINVERSE",
+        "FUNC.MMULT"
+      ],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": "source-does-not-state",
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": false,
+      "builds": [],
+      "build_ambiguity": "build-not-stated-in-this-record",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "native Excel COM probe",
+      "corpus_or_build": ".tmp/w16-batch45-matrix-probe.csv and .tmp/w16-batch45-matrix-edge-probe.csv; no Excel build is named",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-03-16",
+      "quoted_source_sentence": "| `W16-BATCH45-MATRIX-FAMILY-20260316` | W16 Batch 45 matrix baseline (`MDETERM`,`MINVERSE`,`MMULT`,`MUNIT`) | provisional | `docs/HISTORY.md`; `docs/function-lane/W16_BATCH45_MATRIX_FAMILY_NOTES.md`; `docs/function-lane/W16_EXECUTION_RECORD.md`; `.tmp/w16-batch45-matrix-probe.csv`; `.tmp/w16-batch45-matrix-edge-probe.csv`; `crates/oxfunc_core/src/functions/matrix_family.rs`; `formal/lean/OxFunc/Functions/MatrixFamily.lean` | Native Excel COM probe rows on `2026-03-16` pinned square-matrix, scalar-1x1, singular-inverse, and nonnumeric-cell lanes, including `MDETERM({1,2;3,4}) -> -2`, `MINVERSE(5) -> 0.2`, `MMULT(5,2) -> 10`, and `MMULT({1,2;3,4},{5;6;7}) -> #VALUE!`. |",
+      "citation": "docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md:88"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The probe rows live under .tmp/ (w16-batch45-matrix-probe.csv, w16-batch45-matrix-edge-probe.csv) and are not in version control; only the registry summary sentence is committed.",
+  "substrate": null,
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "No Excel build, architecture or CPU is named for this probe, and the evidence tier is provisional.",
+  "open_problem_ref": null,
+  "reader_warning": "A provisional spot probe with pinned values and no count is close to nothing, but it is not nothing. Do not render \"no record names this function\" for MDETERM or MMULT, and do not read this record as any evidence about numeric results.",
+  "citations": [
+    "docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md:88 (W16 Batch 45 matrix baseline, provisional tier, pinned probe values)",
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:149-153 (MINVERSE(5) and MMULT(5,2) are deliberately absent from Category-2; publication_shape rows CSC-0024/CSC-0025 under HO-FN-010)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-STRUCT-0014",
+  "record_version": 1,
+  "class": "substrate-identification",
+  "subjects": [
+    "FUNC.MULTINOMIAL"
+  ],
+  "subject_role": {
+    "FUNC.MULTINOMIAL": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "MULTINOMIAL owns a private Lanczos lgamma and has no numeric evidence at all",
+  "upstream_row_id": null,
+  "upstream_register": "none",
+  "upstream_status_verbatim": null,
+  "upstream_anchor": {
+    "file": "crates/oxfunc_core/src/functions/multinomial.rs",
+    "row_id": null,
+    "section": "MULTINOMIAL_LANCZOS_G / MULTINOMIAL_LANCZOS_COEFFS",
+    "line_range": "41-54",
+    "cited_text_sha256": "1d87d1010f5dd23ad3122d7c7137b6d1b02936fa1182ae759934a266afdc9246"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "MULTINOMIAL does not route through any shared gamma path. It carries its OWN Lanczos log-gamma: a g of 7.0 and a nine-coefficient table declared in multinomial.rs at lines 41-50, together with two publication ULP clamps (a 3-ULP clamp for the two-positive case and a 4-ULP radius for the multi-positive case). That places it on the same substrate class as the GAMMA and COMBIN wall - the family of surfaces whose residual is an internal extended-precision lgamma/exp composition. It appears in no discrepancy catalogue row, in no Excel-math-deviation entry and in no numeric sweep, so it has ZERO numeric evidence against Excel. Everything MULTINOMIAL is credited with comes from one group total on the structural axis: it is a named member of the 46-of-47 array-lift resweep, where it contributed the aggregate-to-a-scalar case MULTINOMIAL({2;3}) -> 10. The ULP clamps are themselves a disclosure: a kernel that clamps its own publication to within 3 or 4 ULP is not asserting bit agreement with anything.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "crates/oxfunc_core/src/functions/multinomial.rs:41-52 — a private Lanczos log-gamma (MULTINOMIAL_LANCZOS_G = 7.0, MULTINOMIAL_LANCZOS_COEFFS 9 terms) with MULTINOMIAL_TWO_POSITIVE_PUBLICATION_ULP_CLAMP = 3 and MULTINOMIAL_MULTI_POSITIVE_PUBLICATION_ULP_RADIUS = 4",
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "No MULTINOMIAL-versus-Excel numeric comparison exists at any size. Whether its private Lanczos table reproduces Excel's combinatorial substrate is unmeasured.",
+  "open_problem_ref": null,
+  "reader_warning": "MULTINOMIAL's entire warrant is one array-admission case inside a 14-way structural group total. It must never be read as evidence that MULTINOMIAL's numbers match Excel's - nobody has looked.",
+  "citations": [
+    "crates/oxfunc_core/src/functions/multinomial.rs:41-52 (private Lanczos g, coefficients and publication ULP clamps)",
+    "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md:13-17 (MULTINOMIAL named in the array-lift resweep group, MULTINOMIAL({2;3}) -> 10)",
+    "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md:91-99 (MULTINOMIAL in the 812-case Candidate Surfaces list)",
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:105-107 (G2 structural kind/shape/admission: no current open rows)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

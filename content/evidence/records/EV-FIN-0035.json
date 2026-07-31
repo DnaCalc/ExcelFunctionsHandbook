@@ -1,0 +1,99 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-FIN-0035",
+  "record_version": 1,
+  "class": "structural-verification",
+  "subjects": [
+    "FUNC.DOLLARFR"
+  ],
+  "subject_role": {},
+  "title": "DOLLARFR: one row inside a ten-formula structural sign-off on build 20026",
+  "upstream_row_id": "BUG-FUNC-018",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "`closed_signed_off`",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md",
+    "row_id": "BUG-FUNC-018",
+    "section": "Excel Sign-Off (2026-06-20)",
+    "cited_lines": "10-12",
+    "cited_text_sha256": "6963c2f284b9a40cd95fc5af828d665af26216037753831c2f1b8e6736234837",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": "STR",
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "DOLLARFR's only Excel evidence is structural and it is a GROUP result. The scalar-parameter array-lift gap was signed off against live Excel with all ten representative reopened formulas re-evaluated, and DOLLARFR supplies one of those ten rows: =DOLLARFR(,{16,16}) returns a 1-by-2 array of #N/A where OxFunc had returned #VALUE!. The build is named on the sign-off sentence, which is unusual and worth crediting. What DOLLARFR does NOT have is any numeric bit-exactness evidence: nothing in this stream or anywhere else compares DOLLARFR's arithmetic to Excel's.",
+  "counts": [
+    {
+      "figure": "All ten representative reopened scalar-parameter array-lift formulas were re-evaluated in Excel",
+      "figure_display_only": true,
+      "passed": 10,
+      "total": 10,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "group",
+      "group_members": [
+        "FUNC.DOLLARFR"
+      ],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": "The other nine of the ten formulas belong to surfaces outside this domain; the source enumerates them in the same table.",
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "build_note": "The build is named on the sentence carrying the result: \"Signed off against **live Excel 16.0 build 20026** (workbook compatibility 2). All ten\". The workbook mode is on the same sentence.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "Compatibility Version 2",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "ten representative reopened array-lift formulas, of which `=DOLLARFR(,{16,16})` is one",
+      "corpus_tracked": true,
+      "measured_as_of": "2026-06-20",
+      "currency": "current",
+      "ambiguity_note": "A GROUP count over ten formulas covering several surfaces jointly, of which DOLLARFR contributes one row. It must render with the covering-jointly clause: ten of ten here means my one case passed alongside nine others, not that DOLLARFR was swept. It is also the fix's own sign-off matrix, so corpus_was_repair_target is true.",
+      "source_sentence": "Signed off against **live Excel 16.0 build 20026** (workbook compatibility 2). All ten\nrepresentative reopened scalar-parameter array-lift formulas were re-evaluated in Excel and",
+      "citation": "OxFunc:docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md:11-12"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "DOLLARFR has no numeric bit-exactness evidence of any kind. Its whole Excel record is this structural row.",
+  "open_problem_ref": null,
+  "reader_warning": "Ten of ten is a GROUP figure covering several functions jointly and DOLLARFR is one row of it; rendered without the covering-jointly clause it reads as a per-surface pass rate for something that was never swept. It is structural only: no numeric comparison for DOLLARFR exists. DOLLARDE must not inherit it.",
+  "citations": [
+    "OxFunc:docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md:10-12",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md:21",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md:6",
+    "content/evidence/harvest/RV-financial-bond.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "must_not_render_alone": false,
+  "render_together_with": [],
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure.",
+    "counts[].figure_display_only — const true; FOUNDATION §2.5 guard G-9.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — carried PER COUNT.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn.",
+    "counts[].ambiguity_note — nullable.",
+    "counts[].measurement_subject gains 'handbook-recomputation-over-cached-corpus'.",
+    "counts[].build_ambiguity gains 'not-stated-in-this-record'.",
+    "upstream_anchor.cited_text_sha256_basis and upstream_anchor.cited_lines.",
+    "counts[].build_note — where the build is named; here it IS on the scored sentence, so builds[] is populated.",
+    "must_not_render_alone / render_together_with."
+  ]
+}

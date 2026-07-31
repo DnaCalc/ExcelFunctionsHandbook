@@ -1,0 +1,88 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0003",
+  "record_version": 1,
+  "class": "live-verification",
+  "subjects": [
+    "FUNC.BESSELI",
+    "FUNC.BESSELK"
+  ],
+  "subject_role": {
+    "FUNC.BESSELI": "body-only",
+    "FUNC.BESSELK": "body-only"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "BESSELI and BESSELK: one joint 18/18 over the x >= 8 band",
+  "upstream_row_id": "BUG-FUNC-024",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "closed_signed_off (2026-07-02; 93/93 live-Excel bit-exact, run oxf-xp6p-bugfunc024-repair-validation-20260702)",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md",
+    "row_id": "BUG-FUNC-024",
+    "section": "Validation (live Excel 16.0 b19929, cell-ref plumbing, 2026-07-02)",
+    "line_range": "141-142",
+    "cited_text_sha256": "cf93c357ced5b2ea12564a6f60b73db12988e51c39548f9315cb77e4df3b0b53"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "A similar-risk scan probed BESSELI and BESSELK together over the x >= 8 band, which the source describes as previously unprobed, and reports 18 of 18 live rows bit-exact with no action taken. This is ONE figure over TWO surfaces: no per-surface split exists anywhere. The W109 work tree has no Bessel batch or answers files at all, the elem-probe directory is absent from the tree, and bessel_convert_family.rs carries witness-table regression tests only for bessely and besselj - there is no BESSELI or BESSELK pin test. Nothing was fitted to these 18 rows because no BESSELI/BESSELK fix was made, and the band is called previously unprobed, so they are effectively fresh - but the source never uses the word held-out. Note that the same sentence's rows may overlap the 92-row BESSELJ/I/K probe set that fed the coefficient fit; the source does not resolve that.",
+  "counts": [
+    {
+      "figure": "Similar-risk scan: BESSELI/BESSELK (shared family, `x>=8` previously unprobed) — 18/18 live rows bit-exact; no action.",
+      "passed": 18,
+      "total": 18,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "group",
+      "group_members": [
+        "FUNC.BESSELI",
+        "FUNC.BESSELK"
+      ],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": false,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.19929"
+      ],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "cell-ref plumbing",
+      "capture_route": "similar-risk scan inside the BUG-FUNC-024 validation section",
+      "corpus_or_build": "18 live rows in the x >= 8 band, live Excel 16.0 b19929 (build stated in the section header, not on the scan line)",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-07-02",
+      "quoted_source_sentence": "- Similar-risk scan: BESSELI/BESSELK (shared family, `x>=8` previously unprobed) —\n  18/18 live rows bit-exact; no action.",
+      "citation": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:141-142 (figure); docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:128 (build); restated at docs/KNOWN_EXACTNESS_DEVIATIONS.md:144"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "No BESSELI or BESSELK probe corpus exists in version control; smart-fuzzer/work/w109/ contains no Bessel files and tools/elem-probe/ is absent from the tree at 473efa3.",
+  "substrate": "crates/oxfunc_core/src/functions/bessel_convert_family.rs (BESSELI_META / BESSELK_META and dispatch only; no pin test)",
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "Whether the 18 rows are a subset of the 92-row BESSELJ/I/K probe set named as the fit input is not resolvable from the source. No per-surface split of the 18 exists.",
+  "open_problem_ref": null,
+  "reader_warning": "Neither BESSELI nor BESSELK may be shown \"18/18\" on its own page as a per-surface pass rate. The 18 rows are one scan covering both, in one band, as a no-action confirmation.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:141-142 (the joint 18/18)",
+    "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md:151-152 (closure checklist restating BESSELI/BESSELK 18/18 exact)",
+    "docs/KNOWN_EXACTNESS_DEVIATIONS.md:144 (BESSELI/BESSELK x>=8 probed clean (18/18))"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

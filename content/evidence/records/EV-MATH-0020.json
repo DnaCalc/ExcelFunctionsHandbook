@@ -1,0 +1,57 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MATH-0020",
+  "record_version": 1,
+  "class": "projection-gap",
+  "subjects": [
+    "FUNC.MULTINOMIAL"
+  ],
+  "subject_role": {},
+  "title": "MULTINOMIAL: a private Lanczos lgamma, no discrepancy row, no numeric evidence",
+  "upstream_row_id": "W16-BATCH8-COMBINATORICS-20260315",
+  "upstream_register": "none",
+  "upstream_status_verbatim": "provisional",
+  "upstream_anchor": {
+    "file": "docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md",
+    "row_id": "W16-BATCH8-COMBINATORICS-20260315",
+    "section": "function-lane evidence id registry",
+    "cited_lines": "49-49",
+    "cited_text_sha256": "9cef0604ce1fe97b1c1167986832f9e3d0ab9d215a58e30ce97b3abd452afd25",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "MULTINOMIAL's only Excel evidence is a 2026-03-15 native-COM spot probe that pinned truncation and domain lanes -- MULTINOMIAL(0,0) -> 1 -- with no count. It appears in no discrepancy row. Yet it carries its OWN private Lanczos lgamma table in the kernel, which places it on the same substrate class as the GAMMA/COMBIN wall with zero numeric evidence either way. That is an evidence gap, not a clean result.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "mixed",
+  "evidence_locality_note": "The probe CSVs cited by the registry entry are under `.tmp/`, gitignored in OxFunc.",
+  "substrate": "its own private Lanczos lgamma (`MULTINOMIAL_LANCZOS_G` / `MULTINOMIAL_LANCZOS_COEFFS`), distinct from the shared internal lgamma",
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "MULTINOMIAL has never been compared to Excel on numeric bits, and its private Lanczos lgamma is the same class of substrate that GAMMA and COMBIN are known to diverge on.",
+  "open_problem_ref": null,
+  "reader_warning": "This record publishes no numeric count. Any warrant MULTINOMIAL holds is earned on structural group evidence recorded elsewhere and must not be read as numeric agreement.",
+  "citations": [
+    "OxFunc:docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md:49",
+    "OxFunc:crates/oxfunc_core/src/functions/multinomial.rs:41-42",
+    "content/evidence/harvest/RV-gamma-lgamma.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0011",
+  "record_version": 1,
+  "class": "open-discrepancy",
+  "subjects": [
+    "FUNC.GROWTH"
+  ],
+  "subject_role": {
+    "FUNC.GROWTH": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "GROWTH: two counted witnesses, both drifting 11 and 13 ULP",
+  "upstream_row_id": "G3-04",
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "Exponential-regression drift around `11`-`13` ULP on the bounded witnesses.",
+  "upstream_anchor": {
+    "file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+    "row_id": "G3-04",
+    "section": "G3 catalogue row",
+    "line_range": "116-116",
+    "cited_text_sha256": "0f54d94ec78bb741b359506899eb46d0a326bca96e138ccb40a11127028c8e74"
+  },
+  "severity": "NUM-L",
+  "maturity": "M1",
+  "maturity_is_inherited": false,
+  "status_plain": "GROWTH has exactly two counted rows against a live oracle and both of them miss: the catalogue witness drifts 11 ULP and the geometric witness 13 ULP. Both sit in the version-controlled 2026-07-10 reconnaissance corpus, whose reference environment is Excel 16.0 build 20131 on an x86-64 host with Compatibility Version 2, stated once for the pass and not restated on the G3-04 row. No GROWTH pass figure exists, and the lane survey states that no GROWTH live witness corpus exists at all on either exact-geometric or noisy data. A conditional decomposition result does exist alongside TREND's - given the coefficients, GROWTH(x*) = b*m^x* reproduces Excel at 0 ULP - but that is a statement about the prediction step, not about GROWTH.",
+  "counts": [
+    {
+      "figure": "G3-04-growth,growth-catalog,GROWTH,numeric_drift_gt1ulp,11 / G3-04-growth,growth-geometric,GROWTH,numeric_drift_gt1ulp,13",
+      "passed": 0,
+      "total": 2,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": false,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": true,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.20131"
+      ],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "arch": "x86-64",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "Compatibility Version 2",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "not-stated-in-this-record",
+      "corpus_or_build": "DISCREPANCY_RECON_RESULTS_20260710.csv, Excel 16.0 build 20131",
+      "corpus_tracked": true,
+      "measured_as_of": "2026-07-10",
+      "quoted_source_sentence": "G3-04-growth,growth-catalog,GROWTH,numeric_drift_gt1ulp,11,number:0x401c48c6001f0ab5,number:0x401c48c6001f0ac0\nG3-04-growth,growth-geometric,GROWTH,numeric_drift_gt1ulp,13,number:0x403ffffffffffff1,number:0x403ffffffffffffe",
+      "citation": "docs/function-lane/DISCREPANCY_RECON_RESULTS_20260710.csv:8-9 (rows); docs/function-lane/DISCREPANCY_RECONNAISSANCE_PASS_20260710.md:27-28 (reference environment)"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": null,
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "No GROWTH witness corpus exists on exact-geometric or noisy data.",
+  "open_problem_ref": null,
+  "reader_warning": "Two rows, both misses. Do not read the catalogue's conditional \"the PREDICTION path is bit-exact\" as a statement that GROWTH matches Excel; it is conditional on being handed the coefficients.",
+  "citations": [
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:116 (G3-04 catalogue row)",
+    "docs/function-lane/DISCREPANCY_RECON_RESULTS_20260710.csv:8-9 (the two counted rows)",
+    "docs/function-lane/DISCREPANCY_RECONNAISSANCE_PASS_20260710.md:27-28 (Reference environment: Excel 16.0 build 20131, x86-64)",
+    "docs/function-lane/W109_LANE_SURVEY_20260713.json:140 (no GROWTH/LOGEST live witness corpus exists today)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

@@ -1,0 +1,103 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-FIN-0012",
+  "record_version": 1,
+  "class": "defect-stream",
+  "subjects": [
+    "FUNC.NPV",
+    "FUNC.FV",
+    "FUNC.PV"
+  ],
+  "subject_role": {},
+  "title": "NPV, FV and PV negative-base-rate lanes: three witnesses, fix not landed",
+  "upstream_row_id": "BUG-FUNC-038",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "**Fixed in ref**: `not yet fixed` (working-tree patch present; checkpoint not landed)",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-038_npv_fv_pv_negative_base_rate_lanes.md",
+    "row_id": "BUG-FUNC-038",
+    "section": "Live Excel Verification (2026-06-18)",
+    "cited_lines": "9-12",
+    "cited_text_sha256": "359b089eb6ae0ee171e7e86c38576f5c7cf4a2434c8cd2f381ba740621ec0d3f",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": "STR",
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "Three live-Excel witnesses on the negative-base-rate lanes, one each for NPV, FV and PV, all matching, on build 20026 restated on the sentence that carries them. The contrast witness is the point: PMT(-2,3,1000) publishes #NUM! because the rate <= -1 rejection is preserved there, while NPV, FV and PV compute. This stream is the reason the three surfaces cannot render as having no open defect: its status line reads not yet fixed, its closure box for a landed fix is unchecked, and the only patch is in a working tree. That is the repair-landed-unsigned condition. There is no count here; three witnesses is not a corpus.",
+  "counts": [
+    {
+      "figure": "`NPV(-2,100)` = `-100`, `FV(-1,3,-100,0)` = `100`, `PV(-2,3,-100,0)` = `-100`",
+      "figure_display_only": true,
+      "passed": null,
+      "total": null,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "group",
+      "group_members": [
+        "FUNC.NPV",
+        "FUNC.FV",
+        "FUNC.PV"
+      ],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "build_note": "The build is named on the sentence carrying the result: \"OxFunc local value surface vs live Excel 16.0 build 20026, all match\". Not inherited.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "three witnesses on the negative-base-rate lanes, plus one contrast witness on PMT; the stream's own durable probe",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-06-18",
+      "currency": "current",
+      "ambiguity_note": "passed and total are null because the source publishes three witnesses and no numerator. The source calls it \"the durable probe the stream needed\", which is a validation artifact for the stream's own patch, so corpus_was_repair_target is true. The count is group-scoped over three surfaces and carries no per-surface split.",
+      "source_sentence": "OxFunc local value surface vs live Excel 16.0 build 20026, all match:\n`NPV(-2,100)` = `-100`, `FV(-1,3,-100,0)` = `100`, `PV(-2,3,-100,0)` = `-100`;\ncontrast `PMT(-2,3,1000)` = `#NUM!` (rate<=-1 rejection preserved). This is the",
+      "citation": "OxFunc:docs/bugs/streams/BUG-FUNC-038_npv_fv_pv_negative_base_rate_lanes.md:10-12"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "The stream's fix is not landed. Its status line reads \"**Fixed in ref**: `not yet fixed` (working-tree patch present; checkpoint not landed)\" (:19) and its closure checklist still shows \"- [ ] fix landed or non-OxFunc ownership recorded\" (:97), while validation and root cause are both checked.",
+  "open_problem_ref": null,
+  "reader_warning": "Three witnesses, not a count, covering three surfaces jointly. This stream is open by its own closure checklist, so NPV, FV and PV each carry an unsigned repair. Any label describing these surfaces as matched must render this stream's title adjacent.",
+  "citations": [
+    "OxFunc:docs/bugs/streams/BUG-FUNC-038_npv_fv_pv_negative_base_rate_lanes.md:9-12",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-038_npv_fv_pv_negative_base_rate_lanes.md:19",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-038_npv_fv_pv_negative_base_rate_lanes.md:97",
+    "content/evidence/harvest/RV-financial-annuity.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "must_not_render_alone": false,
+  "render_together_with": [],
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure.",
+    "counts[].figure_display_only — const true; FOUNDATION §2.5 guard G-9.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — carried PER COUNT.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn.",
+    "counts[].ambiguity_note — nullable.",
+    "counts[].measurement_subject gains 'handbook-recomputation-over-cached-corpus'.",
+    "counts[].build_ambiguity gains 'not-stated-in-this-record'.",
+    "upstream_anchor.cited_text_sha256_basis and upstream_anchor.cited_lines.",
+    "counts[].build_note — where the build is named; here it IS on the scored sentence, so builds[] is populated.",
+    "must_not_render_alone / render_together_with."
+  ]
+}

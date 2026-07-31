@@ -1,0 +1,85 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0014",
+  "record_version": 1,
+  "class": "excel-math-deviation",
+  "subjects": [
+    "FUNC.SQRTPI"
+  ],
+  "subject_role": {
+    "FUNC.SQRTPI": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "SQRTPI 30 of 30 - the sentence scores powf against pow, not SQRTPI calls",
+  "upstream_row_id": "XMD-003",
+  "upstream_register": "math-deviation",
+  "upstream_status_verbatim": "See heuristic in `OXFUNC_FIX_LEARNING_LOG`.",
+  "upstream_anchor": {
+    "file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+    "row_id": "XMD-003",
+    "section": "XMD-003 - SQRTPI computed via pow, not correctly-rounded sqrt",
+    "line_range": "95-113",
+    "cited_text_sha256": "6dfefc204e13ad0e469be969c44e5e4ccd4f81741aa4b25aeb93d425a388d814"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "Excel computes SQRTPI as (n*pi)^0.5 through its pow routine, which is not correctly-rounded: it agrees with a correctly-rounded sqrt at normal magnitudes but is 1 ULP off at scattered points near overflow. The source names the exact witness - at the input where n*pi equals f64::MAX, correctly-rounded sqrt gives 0x5fefffffffffffff and Excel's pow gives 0x5ff0000000000000, one ULP high, and Excel is the LESS accurate of the two. This is explicitly not an x87 effect; 64-bit Excel and Rust are both SSE2. OxFunc reproduces it by using (n*pi).powf(0.5). The figure \"30/30 sampled inputs\" is real and the build (16.0 build 20026) is stated two lines later - but the sentence's grammatical subject is Rust's powf reproducing Excel's pow, not SQRTPI. Whether the 30 inputs were SQRTPI worksheet calls or direct pow probes is not resolvable from the text, so this record flags the attribution rather than publishing a clean SQRTPI pass rate.",
+  "counts": [
+    {
+      "figure": "Rust's `powf` reproduces Excel's `pow` bit-for-bit: 30/30 sampled inputs",
+      "passed": 30,
+      "total": 30,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "attribution-unclear",
+      "measurement_subject": "attribution-unclear",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": "source-does-not-state",
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": ".tmp/sqrtpi-broad-oracle.ps1 + sqrtpi-boundary-oracle.ps1",
+      "corpus_or_build": "30 sampled inputs; live Excel 16.0 build 20026 (stated two lines below the figure)",
+      "corpus_tracked": false,
+      "measured_as_of": null,
+      "quoted_source_sentence": "- **OxFunc reproduction:** `sqrtpi_kernel` uses `(n·π).powf(0.5)` (Rust's `powf` reproduces\n  Excel's `pow` bit-for-bit: 30/30 sampled inputs).\n- **Evidence:** live Excel 16.0 build 20026 (`.tmp/sqrtpi-broad-oracle.ps1` +\n  `sqrtpi-boundary-oracle.ps1`); bead `oxf-quxx`. See heuristic in `OXFUNC_FIX_LEARNING_LOG`.",
+      "citation": "docs/EXCEL_MATH_DEVIATION_CATALOG.md:110-113"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The oracle scripts named (.tmp/sqrtpi-broad-oracle.ps1, sqrtpi-boundary-oracle.ps1) live under .tmp/ and are not in version control.",
+  "substrate": "sqrtpi_kernel — (n*pi).powf(0.5), reproducing Excel's pow rather than a correctly-rounded sqrt",
+  "substrate_bands": null,
+  "ruled_out": [
+    "x87 / extended precision as the cause: 64-bit Excel and Rust are both SSE2.",
+    "A dedicated correctly-rounded sqrt as Excel's routine: it would not produce the 1-ULP-high value observed at the n*pi = f64::MAX input."
+  ],
+  "retractions": [],
+  "open_question": "The source's sentence scores pow. Whether the 30 inputs were SQRTPI worksheet calls is not resolvable from the text.",
+  "open_problem_ref": null,
+  "reader_warning": "Do not publish 30/30 as a clean SQRTPI pass rate. The measured object in that sentence is a power routine, and SQRTPI is one caller of it.",
+  "citations": [
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:95-113 (XMD-003, including the 30/30 and the build)",
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:79-93 (XMD-002, the separate SQRTPI overflow-to-#NUM! departure)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-STRUCT-0002",
+  "record_version": 1,
+  "class": "local-verification",
+  "subjects": [
+    "FUNC.DCOUNT",
+    "FUNC.DSUM"
+  ],
+  "subject_role": {
+    "FUNC.DCOUNT": "body-only",
+    "FUNC.DSUM": "body-only"
+  },
+  "subject_internal_equality_predicate": {
+    "FUNC.DCOUNT": "15-significant-digit-truncation-then-exact-compare",
+    "FUNC.DSUM": "15-significant-digit-truncation-then-exact-compare"
+  },
+  "title": "Database criteria route through the shared comparison helper; lib tests only, no live rows",
+  "upstream_row_id": "BUG-FUNC-004",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "closed_signed_off",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md",
+    "row_id": "BUG-FUNC-004",
+    "section": "Excel Sign-Off (2026-06-20)",
+    "line_range": "23-24",
+    "cited_text_sha256": "dd05e0bbb5bb493d62be94133567daf37da306cb69603728e93863d94dacdca6"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": true,
+  "status_plain": "The database family reaches the same 15-significant-digit truncation helper as the criteria family (database_family.rs:8 imports compare_excel_numbers, used at :375). But the BUG-FUNC-004 sign-off does NOT include DCOUNT or DSUM among its 16 live lanes. The source disclaims them in the same breath as the figure: they \"pass their lib tests\", i.e. internal Rust regression tests, not a live-Excel comparison, and the source asks for a row to be re-added \"only on a fresh witness\". Live DCOUNT/DSUM observations do exist, but only in the 2026-04-08 pre-fix intake list, with no build restated for that date. There is no counted DCOUNT or DSUM comparison against Excel.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "crates/oxfunc_core/src/functions/database_family.rs:8,375 — compare_excel_numbers",
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "No fresh live-Excel witness for DCOUNT or DSUM exists.",
+  "open_problem_ref": null,
+  "reader_warning": "Do not let DCOUNT or DSUM borrow the 16/16. The source excludes them from the live lanes explicitly and rests them on internal unit tests.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md:23-24 (\"route through the same helper and pass their lib tests; re-add a row only on a fresh witness\")",
+    "docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md:66 (2026-04-08 pre-fix intake DCOUNT/DSUM observations, no build restated)",
+    "crates/oxfunc_core/src/functions/database_family.rs:8,375"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

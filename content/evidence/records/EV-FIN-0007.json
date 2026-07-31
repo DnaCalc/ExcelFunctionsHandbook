@@ -1,0 +1,105 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-FIN-0007",
+  "record_version": 1,
+  "class": "structural-verification",
+  "subjects": [
+    "FUNC.NPER"
+  ],
+  "subject_role": {},
+  "title": "NPER error lane: 7 of 7 typed-error rows matched, on the structural axis",
+  "upstream_row_id": "G6-08",
+  "upstream_register": "identification-note",
+  "upstream_status_verbatim": "identified and signed off `1286/1286` + `7/7` error rows (catalogue reconcile 2026-07-11; the G6-08 row was removed)",
+  "upstream_anchor": {
+    "file": "docs/function-lane/W109_NPER_IDENTIFICATION_20260711.md",
+    "row_id": "G6-08",
+    "section": "Sign-off",
+    "cited_lines": "52-54",
+    "cited_text_sha256": "850176df702eed5049a39571f295c378b89a5838d77e801176ba80db104c5b26",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "Seven of NPER's rows are typed error results rather than numbers, and the production kernel matched Excel on all seven. Matching an error placement is the structural-admission axis by the honesty spine's own definition, not the numeric-bits axis, so this count is recorded here and not beside the 1,286 numeric rows. The repair the seven rows pin is a real behavioural change: NPER(0, 0, ..) publishes #DIV/0! where OxFunc previously published #NUM!. Recording these seven rows on the numeric axis, as the earlier harvest did by adding them to 1,286, both fabricates a figure and leaves NPER reading as having no structural comparison record when it holds an error-lane sign-off.",
+  "counts": [
+    {
+      "figure": "error rows 7/7",
+      "figure_display_only": true,
+      "passed": 7,
+      "total": 7,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "partial",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "build_note": "The document's section header at line 8 names \"live Excel 16.0 build 20131, x86-64\" but governs a different section; this figure sits under \"## Sign-off\" and restates no build. Not inherited.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "the typed-error rows among every deduplicated answered NPER witness, replayed by `calc_graph_racer verify_nper_promotion`",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-07-11",
+      "currency": "current",
+      "ambiguity_note": "Seven rows is a very small structural corpus. \"7 of 7\" here means the error CODE and its placement matched, which is a different predicate in spirit from bit equality even though the comparison is exact. The source does not enumerate all seven; one is named: \"- `NPER(0, 0, ..)` publishes `#DIV/0!` (OxFunc previously `#NUM!`).\"",
+      "source_sentence": "- Production-kernel replay over every deduplicated answered witness:\n  **numeric 1286/1286 bit-exact, error rows 7/7**\n  (`calc_graph_racer verify_nper_promotion`).",
+      "citation": "OxFunc:docs/function-lane/W109_NPER_IDENTIFICATION_20260711.md:52-54"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "The NPER oracle witnesses live under `smart-fuzzer/cache/oracle/`, which is gitignored in OxFunc; no artifact for this replay is tracked at commit 473efa3.",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [
+    {
+      "withdrawn_claim": "OxFunc publishing `#NUM!` for `NPER(0, 0, ..)`",
+      "withdrawn_on": "W109, 2026-07-11",
+      "superseded_by": "Live Excel publishes `#DIV/0!` there, and the identified graph now does too.",
+      "citation": "OxFunc:docs/function-lane/W109_NPER_IDENTIFICATION_20260711.md:32"
+    }
+  ],
+  "open_question": "How many of the seven error rows were held out is not published.",
+  "open_problem_ref": null,
+  "reader_warning": "Seven rows, on the structural axis. This must never be added to NPER's 1,286 numeric rows; their sum exists in no OxFunc source and merging them puts typed-error rows on the numeric axis.",
+  "citations": [
+    "OxFunc:docs/function-lane/W109_NPER_IDENTIFICATION_20260711.md:52-54",
+    "OxFunc:docs/function-lane/W109_NPER_IDENTIFICATION_20260711.md:32",
+    "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:16",
+    "content/evidence/harvest/RV-financial-annuity.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "must_not_render_alone": false,
+  "render_together_with": [
+    "EV-FIN-0006"
+  ],
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure.",
+    "counts[].figure_display_only — const true; FOUNDATION §2.5 guard G-9.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — carried PER COUNT.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn.",
+    "counts[].ambiguity_note — nullable.",
+    "counts[].measurement_subject gains 'handbook-recomputation-over-cached-corpus'.",
+    "counts[].build_ambiguity gains 'not-stated-in-this-record'.",
+    "upstream_anchor.cited_text_sha256_basis and upstream_anchor.cited_lines.",
+    "counts[].build_note — where in the document a build IS named, when it is not on the scored line; builds[] stays empty.",
+    "must_not_render_alone / render_together_with."
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-DIST-0024",
+  "record_version": 1,
+  "class": "structural-verification",
+  "subjects": [
+    "FUNC.ERF",
+    "FUNC.ERF.PRECISE",
+    "FUNC.ERFC",
+    "FUNC.ERFC.PRECISE"
+  ],
+  "subject_role": {},
+  "title": "BUG-FUNC-033: the ERF/ERFC family rejects a logical operand, checked against Excel",
+  "upstream_row_id": "BUG-FUNC-033",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "- **Ref notes**: live Excel COM, Excel `16.0` build `20026`, exact typed equality.",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-033_erf_erfc_over_coerce_logical.md",
+    "row_id": "BUG-FUNC-033",
+    "section": "Ownership And Root Cause",
+    "cited_lines": "14-25",
+    "cited_text_sha256": "3eff029b5921a9188b63704a83e8836f87cd9103229c63a81ecd9ecddec7ab93",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": "STR",
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "All four ERF/ERFC surfaces coerced a logical operand to a number and computed, where Excel returns #VALUE!. The Excel differential re-check confirms all four now return a value error and match Excel, while ERF still accepts numeric text and the sibling GAMMA/GAMMALN family still accepts logicals -- so the rejection is scoped to ERF/ERFC and is not a property of the shared unary special-dist path. This is a live-Excel COM structural comparison at build 20026 under exact typed equality, on the structural-admission axis. It never reached a counted verification record, which is why all four surfaces would otherwise render as having no structural comparison at all.",
+  "counts": [
+    {
+      "figure": "all four ERF/ERFC `arg0_logical` probes now `error:Value` (match Excel)",
+      "figure_display_only": true,
+      "passed": null,
+      "total": null,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "group",
+      "group_members": [
+        "FUNC.ERF",
+        "FUNC.ERF.PRECISE",
+        "FUNC.ERFC",
+        "FUNC.ERFC.PRECISE"
+      ],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": false,
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "build_note": "\"live Excel COM, Excel `16.0` build `20026`, exact typed equality\" is stated in the stream's Ref notes at line 14.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "Excel differential `erf-logical-recheck-001`, the four arg0_logical probes",
+      "corpus_tracked": false,
+      "measured_as_of": "BUG-FUNC-033 validation",
+      "currency": "current",
+      "ambiguity_note": "\"All four probes\" is a phrase, not a published fraction. No numerator or denominator is extracted here: the weaker reading is that a structural comparison is on record with no count. The corpus is also the repair's own validation set.",
+      "source_sentence": "- Excel differential `erf-logical-recheck-001`: all four ERF/ERFC `arg0_logical` probes now `error:Value` (match Excel); ERF `arg0_text_number` still matches (text accepted); GAMMALN.PRECISE still accepts logical.",
+      "citation": "OxFunc:docs/bugs/streams/BUG-FUNC-033_erf_erfc_over_coerce_logical.md:54-56"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "a `reject_logical` flag on the shared `eval_unary_prepared`, set true for ERF/ERF.PRECISE/ERFC/ERFC.PRECISE and false for GAMMA/GAMMALN/GAMMALN.PRECISE",
+  "substrate_bands": [],
+  "ruled_out": [
+    "scoping the logical rejection to the shared unary special-dist path: the GAMMA/GAMMALN family accepts logicals, so the rejection is ERF/ERFC-specific"
+  ],
+  "retractions": [],
+  "open_question": "A remaining ERFC `arg0_text_number` 2-ULP drift and a GAMMALN.PRECISE(TRUE) near-zero drift are separate numeric-drift findings, not coercion.",
+  "open_problem_ref": null,
+  "reader_warning": "This is admission behaviour -- which operand types Excel accepts and what error it publishes -- not numeric agreement. It says nothing about the bits of any ERF or ERFC result.",
+  "citations": [
+    "OxFunc:docs/bugs/streams/BUG-FUNC-033_erf_erfc_over_coerce_logical.md:14-25",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-033_erf_erfc_over_coerce_logical.md:45-62",
+    "content/evidence/harvest/RV-normal-discrete.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0013",
+  "record_version": 1,
+  "class": "excel-math-deviation",
+  "subjects": [
+    "FUNC.ATAN2"
+  ],
+  "subject_role": {
+    "FUNC.ATAN2": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "ATAN2 18 of 18 at build 20026 - what was counted is the #NUM! boundary",
+  "upstream_row_id": "XMD-007",
+  "upstream_register": "math-deviation",
+  "upstream_status_verbatim": "Confidence **high**.",
+  "upstream_anchor": {
+    "file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+    "row_id": "XMD-007",
+    "section": "XMD-007 - ATAN2 -> #NUM! when the y/x ratio overflows",
+    "line_range": "166-178",
+    "cited_text_sha256": "77192cc3a99be1c8c9dd4e954680d9bc7c84ea2a948c420369fa90fa60ba2e30"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "Excel returns #NUM! from ATAN2 exactly when x is nonzero and the implicit y/x ratio overflows to infinity - ATAN2(1e-200,1e108) is finite, ATAN2(1e-200,1e109) is #NUM! - while the axis case x = 0 stays valid. The four-quadrant angle is finite everywhere off the origin, so this is Excel forming the ratio first and inheriting its overflow; a two-argument atan2 would never do it. OxFunc reproduces the departure deliberately: atan2_kernel guards x != 0 && (y/x).is_infinite() -> #NUM!. The evidence line reads \"live Excel 16.0 build 20026 (18/18 bit-exact)\" - the build is restated on the same line as the figure, which is rare in this evidence base. The ambiguity that must ride along: the entry is about an ERROR-PLACEMENT boundary and the phrase used is \"bit-exact\". This record publishes the weaker reading - the boundary was measured, not the angle - and carries the count on the numeric axis only because the Excel-math-deviation catalogue is a numeric register by the Handbook's own axis rule.",
+  "counts": [
+    {
+      "figure": "live Excel 16.0 build 20026 (18/18 bit-exact); BUG-FUNC-027 B3, commit `8dea9cd`.",
+      "passed": 18,
+      "total": 18,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "excel-vs-truth",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": "source-does-not-state",
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "not-stated-in-this-record",
+      "corpus_or_build": "18 rows, live Excel 16.0 build 20026",
+      "corpus_tracked": false,
+      "measured_as_of": null,
+      "quoted_source_sentence": "- **Evidence:** live Excel 16.0 build 20026 (18/18 bit-exact); BUG-FUNC-027 B3, commit `8dea9cd`.\n  Confidence **high**.",
+      "citation": "docs/EXCEL_MATH_DEVIATION_CATALOG.md:177-178"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "atan2_kernel — guards x != 0 && (y/x).is_infinite() -> #NUM!",
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "The source calls an error-boundary sweep \"bit-exact\". Whether any of the 18 rows scored a finite ATAN2 angle against Excel is not resolvable from the text.",
+  "open_problem_ref": null,
+  "reader_warning": "The boundary, not the angle, was measured. No numeric-exactness count for the ATAN2 angle exists anywhere.",
+  "citations": [
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:166-178 (XMD-007, including the 18/18 and build 20026 on the evidence line)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

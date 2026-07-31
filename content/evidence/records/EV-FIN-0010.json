@@ -1,0 +1,97 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-FIN-0010",
+  "record_version": 1,
+  "class": "defect-stream",
+  "subjects": [
+    "FUNC.XNPV"
+  ],
+  "subject_role": {},
+  "title": "XNPV sign-change gate removed: one bit-exact witness on build 20026",
+  "upstream_row_id": "BUG-FUNC-037",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "XNPV wrongly inherits sign change gate",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-037_xnpv_wrongly_inherits_sign_change_gate.md",
+    "row_id": "BUG-FUNC-037",
+    "section": "Live Excel Verification (2026-06-18)",
+    "cited_lines": "9-13",
+    "cited_text_sha256": "34fec3fdde4c955e9c0d607c96f8612c73d4adea1e91943e11c3510de3038913",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": "STR",
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "A separate and older XNPV structural verification, on a different Excel build from the W109 identification. One witness was replayed against live Excel and agreed to the bit: OxFunc and Excel both return the same f64 bits, and OxFunc computes a value rather than publishing #NUM!, which is what confirms the sign-change precondition was wrongly inherited and correctly removed for pure discounting. This is one witness, not a count. The build here is 20026, restated on the sentence carrying the result; XNPV's W109 numeric and error-lane sign-offs are on build 20131 and a year of kernel work apart. The two must not be merged.",
+  "counts": [
+    {
+      "figure": "f64 bits `0x40808e043b3d5af9` on **both** OxFunc and Excel 16.0 build 20026 — bit-exact",
+      "figure_display_only": true,
+      "passed": null,
+      "total": null,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "build_note": "The build is named on the sentence carrying the result: \"on **both** OxFunc and Excel 16.0 build 20026\". Not inherited.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "one witness, `XNPV(0.1,{100,200,300},{43831,44196,44561})`, the stream's own repair target",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-06-18",
+      "currency": "current",
+      "ambiguity_note": "passed and total are null because the source publishes one witness and no numerator. It is recorded on the structural axis because what it establishes is an admission fact -- that XNPV computes rather than refusing -- even though the agreement itself is at the bit level. The witness is the stream's own repair target, so corpus_was_repair_target is true.",
+      "source_sentence": "`XNPV(0.1,{100,200,300},{43831,44196,44561})` = `529.7520661157024`, f64 bits\n`0x40808e043b3d5af9` on **both** OxFunc and Excel 16.0 build 20026 — bit-exact, and\nit computes (no `#NUM!`), confirming the sign-change precondition was correctly\nremoved for pure discounting. PMT/IPMT/XIRR keep their sign-change requirement.",
+      "citation": "OxFunc:docs/bugs/streams/BUG-FUNC-037_xnpv_wrongly_inherits_sign_change_gate.md:10-13"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [
+    "extending the sign-change precondition to XNPV: the same sentence records that PMT, IPMT and XIRR keep theirs, so the removal is scoped to pure discounting and does not generalise"
+  ],
+  "retractions": [],
+  "open_question": null,
+  "open_problem_ref": null,
+  "reader_warning": "One witness on one build. It is not a count and it is not XNPV's W109 sign-off, which is a different measurement on a different build. Do not merge it with EV-FIN-0008 or EV-FIN-0009.",
+  "citations": [
+    "OxFunc:docs/bugs/streams/BUG-FUNC-037_xnpv_wrongly_inherits_sign_change_gate.md:9-13",
+    "content/evidence/harvest/RV-financial-annuity.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "must_not_render_alone": false,
+  "render_together_with": [],
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure.",
+    "counts[].figure_display_only — const true; FOUNDATION §2.5 guard G-9.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — carried PER COUNT.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn.",
+    "counts[].ambiguity_note — nullable.",
+    "counts[].measurement_subject gains 'handbook-recomputation-over-cached-corpus'.",
+    "counts[].build_ambiguity gains 'not-stated-in-this-record'.",
+    "upstream_anchor.cited_text_sha256_basis and upstream_anchor.cited_lines.",
+    "counts[].build_note — where the build is named; here it IS on the scored sentence, so builds[] is populated.",
+    "must_not_render_alone / render_together_with."
+  ]
+}

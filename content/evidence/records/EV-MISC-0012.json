@@ -1,0 +1,121 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0012",
+  "record_version": 1,
+  "class": "live-verification",
+  "subjects": [
+    "FUNC.MOD"
+  ],
+  "subject_role": {
+    "FUNC.MOD": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "MOD: 11 of 11 on the #NUM! threshold, 8 of 8 on the drift, both at b20026",
+  "upstream_row_id": "BUG-FUNC-027",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "**FIXED (2026-06-20).** ... **FIXED (2026-06-21).** ... Removed from catalog G4.",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-027_broad_scalar_invocation_space_findings.md",
+    "row_id": "BUG-FUNC-027 CLASS-B1",
+    "section": "CLASS-B1 MOD #NUM! threshold",
+    "line_range": "135-143",
+    "cited_text_sha256": "0af915c8132f3fe1431b1827a5f3d153cb2ad1eb3d29c59d22bb6408c17c0ed2"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "MOD carries two per-surface counts and both restate the Excel build ON the scored line, which almost nothing else in this evidence base does. The first is structural: Excel refuses MOD with #NUM! once the QUOTIENT |n/d| crosses a precise, divisor-independent threshold - not once |n| is large - and the boundary was bisected against live Excel 16.0 b20026 to the exact double, flipping between 1125899999999.9998 and 1125900000000. After the guard was moved to the quotient, 11 of 11 cases matched Excel bit-exactly, covering both witnesses, the boundary itself and the quotient rule under several divisors. The second is numeric: the kernel had computed number - divisor*floor(number/divisor), which catastrophically cancels for large quotients, and was replaced with the exact IEEE remainder plus Excel's divisor-sign adjustment; 8 of 8 probed cases then matched live Excel 16.0 b20026 bit-exactly, including all three witnesses, and MOD was removed from catalogue G4. Both corpora are the probe sets built to pin the fixes, so both are repair-target scores. Note the third fact that is true simultaneously: the #NUM! threshold is a documented Excel DEPARTURE from mathematics, catalogued as XMD-006, and OxFunc deliberately reproduces it.",
+  "counts": [
+    {
+      "figure": "11/11 bit-exact vs Excel incl. both witnesses, the boundary, and the quotient rule under several divisors.",
+      "passed": 11,
+      "total": 11,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "not-stated-in-this-record",
+      "corpus_or_build": "the bisection probe set, live Excel 16.0 b20026",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-06-20",
+      "quoted_source_sentence": "- **FIXED (2026-06-20).** The guard is on the **quotient** `|n/d|`, not `|n|`\n  (`MOD(2^45, 2^10)` → `0` despite `|n|=2^45`; `MOD(2^51, 2^10)` → `#NUM!` at\n  quotient `2^41`), and the boundary is a **precise, d-independent threshold**.\n  Bisected against live Excel 16.0 b20026 to the exact double: `MOD(q,1)` flips\n  from a number to `#NUM!` between `1125899999999.9998` (`0x4270624de9afffff`)\n  and `1125900000000` (`0x4270624de9b00000`). `mod_kernel` now returns `#NUM!`\n  when `|number/divisor| >= 1_125_900_000_000.0`. 11/11 bit-exact vs Excel incl.\n  both witnesses, the boundary, and the quotient rule under several divisors.\n  Regression test `mod_fn::tests::mod_large_quotient_matches_excel_num_threshold`.",
+      "citation": "docs/bugs/streams/BUG-FUNC-027_broad_scalar_invocation_space_findings.md:135-143 (CLASS-B1; the build is restated at :138)"
+    },
+    {
+      "figure": "8/8 probed cases bit-exact vs live Excel 16.0 b20026 incl. all three witnesses.",
+      "passed": 8,
+      "total": 8,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "not-stated-in-this-record",
+      "corpus_or_build": "the CLASS-C2 probe set, live Excel 16.0 b20026",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-06-21",
+      "quoted_source_sentence": "- **FIXED (2026-06-21).** The kernel computed `number - divisor*floor(number/divisor)`,\n  which catastrophically cancels for large quotients (the two terms are ~equal and\n  ~`1e10`, so the `O(1)` remainder loses up to `~9.5e10` ULP). Replaced with the exact\n  IEEE remainder (`%` == fmod, no rounding) plus Excel's divisor-sign adjustment:\n  `r = n % d; if r != 0 && sign(r) != sign(d) { r + d } else { r }`. 8/8 probed cases\n  bit-exact vs live Excel 16.0 b20026 incl. all three witnesses. The `#NUM!` quotient\n  guard (CLASS-B1) is unchanged. Regression\n  `mod_fn::tests::mod_large_quotient_is_bit_exact_via_fmod`. Removed from catalog G4.",
+      "citation": "docs/bugs/streams/BUG-FUNC-027_broad_scalar_invocation_space_findings.md:187-194 (CLASS-C2; the build is restated at :192)"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "mod_kernel — r = n % d (exact IEEE remainder, no rounding); if r != 0 and sign(r) != sign(d) then r + d else r; plus a #NUM! guard when |number/divisor| >= 1_125_900_000_000.0",
+  "substrate_bands": null,
+  "ruled_out": [
+    "A guard on |n| rather than on the quotient: MOD(2^45, 2^10) returns 0 despite |n| = 2^45, while MOD(2^51, 2^10) is #NUM! at quotient 2^41.",
+    "number - divisor*floor(number/divisor) as the remainder computation: it cancels catastrophically for large quotients, losing up to ~9.5e10 ULP."
+  ],
+  "retractions": [],
+  "open_question": null,
+  "open_problem_ref": null,
+  "reader_warning": "Both figures score the probe sets built to pin the two fixes. Eleven cases and eight cases are small, and the 11/11 is an error-placement measurement on the structural axis - it is not evidence about MOD's numbers. Also note that \"matches Excel\" here partly means \"reproduces an Excel departure from mathematics\": OxFunc returns #NUM! where the true remainder exists, because Excel does.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-027_broad_scalar_invocation_space_findings.md:135-143 (CLASS-B1: the quotient guard, the bisected boundary, 11/11 at b20026)",
+    "docs/bugs/streams/BUG-FUNC-027_broad_scalar_invocation_space_findings.md:187-194 (CLASS-C2: the fmod replacement, 8/8 at b20026, removed from catalog G4)",
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:150-157 (XMD-006: Excel MOD -> #NUM! once the quotient |n/d| >= 1.1259e12)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

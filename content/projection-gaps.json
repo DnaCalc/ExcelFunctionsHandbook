@@ -1,0 +1,171 @@
+{
+  "schema": "efh.projection-gaps/v1",
+  "record_version": 1,
+  "what_this_file_is": "The register of places where the Handbook's projection of OxFunc and OxFunc itself do not line up, or where a value in data/ is an inference rather than a fact. It lives in content/ because every entry asserts that something is missing, wrong, lossy or inferred — and that is a claim about OxFunc, not a projection of it. It is what lets a page say 'the projection is missing this, OxFunc is not' without hard-coding prose per entry.",
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "measured_over": "data/functions/*.json (541 entries) as they stand at the time of writing, against the OxFunc tree at 473efa3",
+  "honesty_note": "Every 'observed' string below was read out of the published data file and every 'upstream_actual' was read out of the named OxFunc file at the named line. Where the upstream value could not be established, upstream_actual is null and the gap says so. Nothing here was inferred from a description of the data.",
+  "staleness_warning": "The affects[] lists are function ids, which are stable. The counts alongside them are observations of a directory that another tool regenerates; a build that consumes this file should recompute the membership from data/ and fail if it disagrees, rather than trusting the numbers here.",
+  "gaps": [
+    {
+      "gap_id": "PG-help-seed-question-mark-substitution",
+      "affects": [
+        "FUNC.BAHTTEXT",
+        "FUNC.GAMMALN",
+        "FUNC.GAMMALN.PRECISE"
+      ],
+      "field": "descriptions.short",
+      "observed": "Converts a number to text, using the ? (baht) currency format / Returns the natural logarithm of the gamma function, ?(x)",
+      "upstream_actual": "byte-identical. The character in OxFunc's own source is ASCII 0x3F, a literal question mark, not a mangled multi-byte sequence — verified by hex dump of crates/oxfunc_core/src/registry_help_seed.rs at lines 194, 1322 and 1328.",
+      "kind": "absent-upstream-too",
+      "suspected_lost": {
+        "FUNC.BAHTTEXT": "the Thai baht sign, U+0E3F",
+        "FUNC.GAMMALN": "the Greek capital letter gamma, U+0393",
+        "FUNC.GAMMALN.PRECISE": "the Greek capital letter gamma, U+0393"
+      },
+      "verified": false,
+      "verification_note": "The replacement characters above are the Handbook's inference from context, not a reading of any source. No document in either repository states what the original character was, and the Microsoft documentation text that would settle it is not in the tree. They are recorded so a reader knows what is probably missing; they must never be substituted into a rendered description.",
+      "render_as": "OxFunc's own description of this function contains a literal question mark where a symbol should be. The substitution happened before the Handbook saw it — the projection is faithful — so the Handbook cannot restore the character.",
+      "fix_owner": "oxfunc",
+      "citation": "crates/oxfunc_core/src/registry_help_seed.rs:194 (BAHTTEXT), :1322 (GAMMALN), :1328 (GAMMALN.PRECISE); data/functions/FUNC.BAHTTEXT.json, FUNC.GAMMALN.json, FUNC.GAMMALN.PRECISE.json :: text_integrity",
+      "corrects": "data/functions/<id>.json carries text_integrity.contains_lossy_substitution: true on these three entries. That field is right about the OBSERVED string and could be read as accusing the Handbook's ingest of losing the character. It did not: the loss is upstream of the projection."
+    },
+    {
+      "gap_id": "PG-op-trim-ref-both-signature-display",
+      "affects": [
+        "FUNC.OP_TRIM_REF_BOTH"
+      ],
+      "field": "signature.display",
+      "observed": "A @? B",
+      "upstream_actual": "A @? B — byte-identical. The bytes at crates/oxfunc_core/src/registry_signature_seed.rs:2609 are 41 20 40 3F 20 42, i.e. the question mark is ASCII 0x3F and is literally what OxFunc declares.",
+      "kind": "absent-upstream-too",
+      "suspected_lost": null,
+      "verified": true,
+      "verification_note": "Verified by hex dump. The two sibling trim-reference operators declare '@A' (OP_TRIM_REF_LEADING) and 'A@' (OP_TRIM_REF_TRAILING) with no parameters, while OP_TRIM_REF_BOTH declares two parameters A and B. A separate OxFunc inventory lists this operator's typed form as '<trim-both>', a placeholder. So the source itself does not settle what a reader would type, and no inference about the missing spelling is available.",
+      "render_as": "OxFunc publishes this operator's signature as 'A @? B'. That is not a spelling anyone can type, and it is what OxFunc declares — the Handbook has not altered it. The typed form shown on this page is Handbook-supplied.",
+      "fix_owner": "oxfunc",
+      "citation": "crates/oxfunc_core/src/registry_signature_seed.rs:2609 (and :2615, :2621 for the two siblings); docs/function-lane/W45_NON_AT_OPERATOR_INVENTORY.csv:23 ('<trim-both>'); data/functions/FUNC.OP_TRIM_REF_BOTH.json :: text_integrity",
+      "corrects": "data/functions/FUNC.OP_TRIM_REF_BOTH.json carries text_integrity.contains_lossy_substitution: true. Nothing was substituted in the projection; the string is exactly OxFunc's bytes. The flag should read as 'this string is not typable', not as 'a character was lost in transit'.",
+      "consequence": "F11 content/operators/syntax.json must give this operator typed_form_source: handbook-supplied. OP_IMPLICIT_INTERSECTION must too, for a different reason: its signature is null."
+    },
+    {
+      "gap_id": "PG-short-description-present-upstream-absent-in-projection",
+      "affects": [
+        "FUNC.CUBESETCOUNT",
+        "FUNC.CUBEVALUE",
+        "FUNC.DETECTLANGUAGE",
+        "FUNC.GETPIVOTDATA",
+        "FUNC.LET",
+        "FUNC.PHONETIC",
+        "FUNC.STOCKHISTORY",
+        "FUNC.WEBSERVICE"
+      ],
+      "field": "descriptions.short / descriptions.short_source",
+      "observed": "descriptions.short is null and descriptions.short_source is \"no-short-description\" for all eight.",
+      "upstream_actual": "crates/oxfunc_core/src/registry_help_seed.rs carries a short_description for every one of them — for example CUBEVALUE at :752 \"Returns an aggregated value from the cube.\", PHONETIC at :2512 \"Extracts the phonetic (furigana) characters from a text string\", LET at :1949, WEBSERVICE at :3483. For all eight the seed string is byte-identical to the docs.english_description already published in the same Handbook file.",
+      "kind": "missing-in-projection-present-upstream",
+      "render_as": "The projection reports no short description for this function. OxFunc's help seed carries one, and the identical text is already on this page under its documentation description.",
+      "fix_owner": "unknown",
+      "fix_owner_note": "Both readings are live and the source does not settle it. Reading A: the ingest sources descriptions from the LIVE registry, and each of these eight entries has vintage.descriptions = \"absent:no-live-registry-entry-for-this-id\", so the live registry filters them out and the projection is faithfully reporting what the live registry says. Reading B: the seed text exists in the tree at 473efa3 and a reader is told 'no short description' on a page that displays the very sentence two fields away, which is a projection defect. Until the ingest's sourcing rule is written down, this stays 'unknown'.",
+      "citation": "crates/oxfunc_core/src/registry_help_seed.rs:745, :751, :891, :1359, :1949, :2511, :3019, :3483; data/functions/<id>.json :: descriptions and vintage.descriptions",
+      "measured": {
+        "help_seed_rows_carrying_a_short_description": 353,
+        "handbook_entries_reporting_no_short_description": 39,
+        "of_those_that_have_one_upstream": 8
+      }
+    },
+    {
+      "gap_id": "PG-classification-null",
+      "affects": [
+        "FUNC.COPILOT",
+        "FUNC.CUBEKPIMEMBER",
+        "FUNC.CUBEMEMBER",
+        "FUNC.CUBEMEMBERPROPERTY",
+        "FUNC.CUBERANKEDMEMBER",
+        "FUNC.CUBESET",
+        "FUNC.CUBESETCOUNT",
+        "FUNC.CUBEVALUE",
+        "FUNC.DETECTLANGUAGE",
+        "FUNC.GETPIVOTDATA",
+        "FUNC.PHONETIC",
+        "FUNC.STOCKHISTORY",
+        "FUNC.WEBSERVICE"
+      ],
+      "field": "classification",
+      "observed": "classification is null for these 13 entries.",
+      "upstream_actual": "OxFunc's registry_context_seed.rs does carry a metadata block for these ids (COPILOT at :1769, with metadata_status \"catalog_only\"), but it carries no behavioural classification profile for them. The null is a faithful projection of an absence upstream, not a dropped value.",
+      "kind": "absent-upstream-too",
+      "render_as": "OxFunc records this entry in its catalogue but assigns it no behavioural classification. That is an absence in OxFunc, not a gap in the projection — nothing about how this function coerces, lifts or fails has been recorded anywhere.",
+      "fix_owner": "oxfunc",
+      "citation": "crates/oxfunc_core/src/registry_context_seed.rs:1769 and following (COPILOT, metadata_status catalog_only); data/functions/<id>.json :: classification",
+      "history_note": "An earlier projection published 115 further entries as the string \"unclassified\", sourced from a 2026-04-02 dirty-tree export rather than the live registry. Those rows were false and are gone; the 13 here are the residue that is genuinely unclassified upstream. The number 128 that appears in earlier Handbook design documents describes the superseded state and must not be published."
+    },
+    {
+      "gap_id": "PG-xlcall-null",
+      "affects": "all",
+      "affects_note": "93 of the 541 entries carry xlcall: null. The membership is a total function of data/ and must be recomputed at build time, not read from here.",
+      "field": "xlcall",
+      "observed": "xlcall is null.",
+      "upstream_actual": null,
+      "kind": "absent-upstream-too",
+      "render_as": "No XLL entry point is recorded in the projection for this entry.",
+      "fix_owner": "oxfunc",
+      "citation": "data/functions/*.json :: xlcall",
+      "measured": {
+        "entries_with_xlcall_null": 93,
+        "of": 541
+      }
+    },
+    {
+      "gap_id": "PG-declared-artifacts-absent",
+      "affects": "all",
+      "affects_note": "501 of 541 entries have no artifacts recorded; 40 do. Recompute from data/ at build time.",
+      "field": "artifacts",
+      "observed": "artifacts is empty or absent.",
+      "upstream_actual": null,
+      "kind": "absent-upstream-too",
+      "render_as": "OxFunc declares no artifacts for this entry.",
+      "fix_owner": "oxfunc",
+      "citation": "data/functions/*.json :: artifacts",
+      "measured": {
+        "entries_with_no_artifacts": 501,
+        "of": 541
+      }
+    },
+    {
+      "gap_id": "PG-docs-null",
+      "affects": "all",
+      "affects_note": "23 of 541 entries carry docs: null, i.e. no Microsoft documentation URL and no English description at all. Recompute from data/ at build time.",
+      "field": "docs",
+      "observed": "docs is null.",
+      "upstream_actual": null,
+      "kind": "absent-upstream-too",
+      "render_as": "No Microsoft documentation page is recorded for this entry, so the page has no documentation description and no external link.",
+      "fix_owner": "oxfunc",
+      "citation": "data/functions/*.json :: docs",
+      "measured": {
+        "entries_with_docs_null": 23,
+        "of": 541
+      }
+    },
+    {
+      "gap_id": "PG-short-description-authorship-is-an-inference",
+      "affects": "all",
+      "field": "descriptions.short_source",
+      "observed": "descriptions.short_source takes the values \"microsoft-english-verbatim\" (502 entries) and \"no-short-description\" (39 entries). No entry today carries \"differs-from-english-description\".",
+      "upstream_actual": null,
+      "kind": "authorship-inference",
+      "render_as": "Where a short description differs from the Microsoft English description, that difference is a mechanical fact. Reading it as 'OxFunc wrote this sentence' is an inference the Handbook does not make: OxFunc's help seed does not record authorship, and a differing string could equally be a different Microsoft revision, a truncation, or an editorial pass by anyone.",
+      "fix_owner": "unknown",
+      "citation": "data/functions/*.json :: descriptions.short_source; crates/oxfunc_core/src/registry_help_seed.rs (no authorship field exists in the seed struct)",
+      "why_this_gap_is_registered_while_empty": "The field's third value is the reason this register exists: the value was originally named \"oxfunc-authored\", which is a claim about who wrote a sentence, and it was renamed to the purely mechanical \"differs-from-english-description\" precisely so that the authorship reading would have to live here instead of in data/. Registering it while the population is zero keeps the rename from being quietly undone the first time an entry lands in that bucket.",
+      "measured": {
+        "microsoft_english_verbatim": 502,
+        "no_short_description": 39,
+        "differs_from_english_description": 0,
+        "of": 541
+      }
+    }
+  ]
+}

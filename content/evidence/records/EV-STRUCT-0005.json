@@ -1,0 +1,61 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-STRUCT-0005",
+  "record_version": 1,
+  "class": "deferral",
+  "subjects": [
+    "FUNC.OP_IMPLICIT_INTERSECTION",
+    "FUNC.OP_INTERSECTION_REF",
+    "FUNC.OP_RANGE_REF",
+    "FUNC.OP_SPILL_REF",
+    "FUNC.OP_TRIM_REF_BOTH",
+    "FUNC.OP_TRIM_REF_LEADING",
+    "FUNC.OP_TRIM_REF_TRAILING",
+    "FUNC.OP_UNION_REF"
+  ],
+  "subject_role": {
+    "FUNC.OP_IMPLICIT_INTERSECTION": "header",
+    "FUNC.OP_INTERSECTION_REF": "header",
+    "FUNC.OP_RANGE_REF": "header",
+    "FUNC.OP_SPILL_REF": "header",
+    "FUNC.OP_TRIM_REF_BOTH": "header",
+    "FUNC.OP_TRIM_REF_LEADING": "header",
+    "FUNC.OP_TRIM_REF_TRAILING": "header",
+    "FUNC.OP_UNION_REF": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "The eight reference operators were not covered by any Excel comparison",
+  "upstream_row_id": "BUG-FUNC-029",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "not covered by this run; they need a reference-fixture generator",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-029_unary_plus_over_coerces_text_and_logical.md",
+    "row_id": "BUG-FUNC-029",
+    "section": "Similar-Risk Scan",
+    "line_range": "69-72",
+    "cited_text_sha256": "89e10d0d29341d849819d5b6680c991f950426593bd8f27dbfea92a40351034f"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "Eight of the 23 operators - OP_RANGE_REF, OP_INTERSECTION_REF, OP_UNION_REF, OP_SPILL_REF, the three OP_TRIM_REF_* and OP_IMPLICIT_INTERSECTION - carry no Excel comparison of any kind. The operator structural sweep says so directly and gives the reason: they need a reference-fixture generator that does not exist. Two other streams corroborate independently, both noting that the reference operators use RefsVisibleInAdapter and are a different structural family. This is an affirmative finding of absence, and it is why the 99/99 and the 21-case sweep must never be described as covering \"the operators\".",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": null,
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "A reference-fixture generator does not exist; no reference-operator corpus exists.",
+  "open_problem_ref": null,
+  "reader_warning": "No number on any other operator record reaches these eight. They are not \"assumed correct\"; they are unmeasured.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-029_unary_plus_over_coerces_text_and_logical.md:69-72 (the reference operators are not covered by this run)",
+    "docs/bugs/streams/BUG-FUNC-001_binary_operator_array_lift_value_surface_gap.md:88 (reference operators use RefsVisibleInAdapter, a different structural family)",
+    "docs/bugs/streams/BUG-FUNC-002_ordinary_operator_broadcast_semantics_gap.md:82 (same finding from the broadcast stream)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

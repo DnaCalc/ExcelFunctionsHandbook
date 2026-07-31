@@ -1,0 +1,89 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-STRUCT-0013",
+  "record_version": 1,
+  "class": "alias-pairing",
+  "subjects": [
+    "FUNC.OP_POWER",
+    "FUNC.POWER"
+  ],
+  "subject_role": {
+    "FUNC.OP_POWER": "header",
+    "FUNC.POWER": "contrast"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "OP_POWER and POWER share power_kernel but their Excel evidence is on different builds",
+  "upstream_row_id": "XMD-004",
+  "upstream_register": "math-deviation",
+  "upstream_status_verbatim": "Confidence **high**.",
+  "upstream_anchor": {
+    "file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+    "row_id": "XMD-004",
+    "section": "XMD-004 — POWER publishes integer exponents via repeated multiplication",
+    "line_range": "117-131",
+    "cited_text_sha256": "127b8591757bc7d464453cb2985fc607af05c3c5cf86ef673f3eccb6c1aedf9a"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": true,
+  "status_plain": "OP_POWER binds the same numeric kernel as the POWER function: surface_dispatch.rs:2934 reads FUNC_ID_OP_POWER => power_kernel(lhs, rhs), and a generator comment states plainly that OP_POWER and POWER both bind power_kernel. POWER's 715/715 figure is therefore inheritable onto OP_POWER by shared-kernel identity in code - but it is an inference, not a measurement: the sentence publishing 715/715 names POWER, and no ^ split is published. What has not been disclosed anywhere until now is that the operator's own evidence and its sibling's are not even on the same Excel build. Every witness that names the ^ operator explicitly - XMD-004 integer-exponent binary exponentiation, XMD-008 overflow to #NUM! versus #DIV/0!, XMD-009 negative-base reciprocal-odd-root - is on live Excel 16.0 build 20026. POWER's 715/715 is on live Excel 16.0 build 20131, 64-bit, AMD Zen2, Value2 cell-ref plumbing. None of the ^ witnesses carries a count.",
+  "counts": [
+    {
+      "figure": "live Excel 16.0 build 20026 (e.g. `POWER(1.05,10)`); W105 bead `oxf-y2uw.8`, commit `edf7c47`.",
+      "passed": null,
+      "total": null,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "named-but-not-measured",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": "source-does-not-state",
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": true,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "capture_route": "not-stated-in-this-record",
+      "corpus_or_build": "XMD-004/008/009 witnesses naming the ^ operator, live Excel 16.0 build 20026",
+      "corpus_tracked": false,
+      "measured_as_of": null,
+      "quoted_source_sentence": "- **Evidence:** live Excel 16.0 build 20026 (e.g. `POWER(1.05,10)`); W105 bead `oxf-y2uw.8`,\n  commit `edf7c47`.",
+      "citation": "docs/EXCEL_MATH_DEVIATION_CATALOG.md:117-131 (XMD-004, evidence at :130-131); docs/EXCEL_MATH_DEVIATION_CATALOG.md:180-198 (XMD-008, evidence at :197-198); docs/EXCEL_MATH_DEVIATION_CATALOG.md:202-216 (XMD-009, evidence at :214-216)"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "power_kernel — the x87 exp(y*ln x) chain with a double-rounded product, plus binary-exponentiation publication for exact-integer exponents and detect_reciprocal_odd_integer for negative bases",
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "No ^ / OP_POWER pass rate exists on any build. Whether the 715 rows measured on build 20131 through POWER worksheet calls would reproduce through the ^ operator on build 20026 has not been measured.",
+  "open_problem_ref": null,
+  "reader_warning": "OP_POWER has no counted figure of its own. If a page shows it 715/715, that number was measured on POWER, on a different Excel build (20131) from every witness that names the ^ operator (20026). The alias attribution is right; the build divergence is the part that is easy to lose.",
+  "citations": [
+    "crates/oxfunc_core/src/functions/surface_dispatch.rs:2934 (FUNC_ID_OP_POWER => power_kernel(lhs, rhs))",
+    "crates/oxfunc_core/src/functions/surface_dispatch_unary_numeric_spec_generator.rs:346 (OP_POWER and POWER both bind power_kernel)",
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:117-131 (XMD-004, ^ named, build 20026)",
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:180-198 (XMD-008, ^ named, build 20026)",
+    "docs/EXCEL_MATH_DEVIATION_CATALOG.md:202-216 (XMD-009, ^ named, build 20026)",
+    "docs/bugs/streams/BUG-FUNC-042_power_fractional_exponent_exp_of_y_lnx.md:5 (POWER reproduced on live Excel 16.0 build 20131, 64-bit, AMD Zen2, Value2 cell-ref plumbing)",
+    "docs/bugs/streams/BUG-FUNC-042_power_fractional_exponent_exp_of_y_lnx.md:10-11 (POWER 715/715: 315 reverse-engineering ground truth + 400 fresh confirmation)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

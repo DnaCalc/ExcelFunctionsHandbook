@@ -1,0 +1,61 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-DIST-0016",
+  "record_version": 1,
+  "class": "projection-gap",
+  "subjects": [
+    "FUNC.GAMMAINV",
+    "FUNC.GAMMA.INV"
+  ],
+  "subject_role": {
+    "FUNC.GAMMAINV": "header",
+    "FUNC.GAMMA.INV": "contrast"
+  },
+  "title": "GAMMAINV: named in the open row, given no W109 figure, and not inheritable",
+  "upstream_row_id": "G3-01",
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "NUM-L | M2",
+  "upstream_anchor": {
+    "file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+    "row_id": "G3-01",
+    "section": "G3/G4 open rows",
+    "cited_lines": "113-113",
+    "cited_text_sha256": "47e118a90e4fe7217f7e7c6bcd59328cd5fb16b1b64c711e018d72a0e33bc5a4",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": "NUM-L",
+  "maturity": "M2",
+  "maturity_is_inherited": true,
+  "status_plain": "GAMMAINV is named in the G3-01 row header while every figure in the row body is published against GAMMA.INV, the modern spelling. That is not an oversight that can be repaired by inheritance: the B1 multi-view collapse proves legacy equals modern for the five FORWARD CDFs only, and no inverse pair is proven identical anywhere in OxFunc. GAMMA.INV's 18 of 60 therefore may not be placed on GAMMAINV. GAMMAINV's only published fraction is its pre-W109 W097 R-D row, recorded on EV-DIST-0012.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "local-only",
+  "evidence_locality_note": "Every W109 battery (b14, b19, b20, b21, b22, b26, b30, b31) lives under `smart-fuzzer/work/` or `smart-fuzzer/cache/`, both gitignored in OxFunc.",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "Whether Excel's GAMMAINV and GAMMA.INV publish the same bits has never been probed.",
+  "open_problem_ref": null,
+  "reader_warning": "Membership by row header is not membership by figure. This record credits GAMMAINV with no W109 count and forbids inheriting GAMMA.INV's.",
+  "citations": [
+    "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:113",
+    "OxFunc:docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md:17-18",
+    "content/evidence/harvest/RV-distributions.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

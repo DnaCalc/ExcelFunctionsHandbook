@@ -1,0 +1,51 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0010",
+  "record_version": 1,
+  "class": "open-discrepancy",
+  "subjects": [
+    "FUNC.LINEST",
+    "FUNC.LOGEST"
+  ],
+  "subject_role": {
+    "FUNC.LINEST": "header",
+    "FUNC.LOGEST": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "LINEST and LOGEST are named in an open row; neither has a measurement",
+  "upstream_row_id": "G3-03",
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "The ONLY open stage is the LINEST **coefficient** kernel",
+  "upstream_anchor": {
+    "file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+    "row_id": "G3-03",
+    "section": "G3 catalogue row",
+    "line_range": "115-115",
+    "cited_text_sha256": "a16c303d83041cdc7976bbedec88280cdf5443ebf4e991666998191724a788b9"
+  },
+  "severity": "NUM-L",
+  "maturity": "M2",
+  "maturity_is_inherited": true,
+  "status_plain": "The G3-03 catalogue row is titled for TREND, LINEST and LOGEST, and its open stage is described as the LINEST coefficient kernel with a deterministic 2-ULP-low slope bias. But every measured row in that lane is a TREND row. There is no LINEST batch or answers file in smart-fuzzer/work/w109/ (the G3-03 files are forecast, fc-adv, slope, intercept and trend only), no LINEST row in the recon CSV, and the lane survey lists multivariate LINEST witnesses under machinery still needed - the only regime that separates QR from normal equations is entirely unprobed. The 2-ULP-low slope bias is derived by backing a slope out of TREND's result bits, so it is a TREND measurement used to reason about LINEST's kernel. LOGEST is worse off still: the survey states that no GROWTH/LOGEST live witness corpus exists today. The one Excel comparison either surface has is structural and uncounted: LINEST(...,FALSE) returns a trailing intercept cell of 0 rather than a shortened row, LOGEST(...,FALSE) a trailing base cell of 1, and both return multivariate coefficients in reverse predictor order.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": null,
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "No LINEST or LOGEST live witness corpus exists. Multivariate witnesses with two to three predictors and const TRUE/FALSE are named as needed machinery; for GROWTH and LOGEST the survey says the corpus does not exist at all.",
+  "open_problem_ref": null,
+  "reader_warning": "Being named in an open divergence row is not the same as having been measured. Nothing in this record scores LINEST or LOGEST against Excel, and the \"2-ULP-low slope bias\" was read off TREND.",
+  "citations": [
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:115 (G3-03 row title and the LINEST coefficient-kernel open stage)",
+    "docs/function-lane/W109_LANE_SURVEY_20260713.json:136 (multivariate live witnesses listed as machinery still needed)",
+    "docs/function-lane/W109_LANE_SURVEY_20260713.json:140 (GROWTH/LOGEST live witness corpus - none exists today)",
+    "docs/function-lane/W24_BATCH09_REGRESSION_FORECAST_EXECUTION_RECORD.md:45-47 (structural findings for LINEST and LOGEST, no count)",
+    "docs/function-lane/W24_BATCH09_REGRESSION_FORECAST_EXECUTION_RECORD.md:52 (LINEST and LOGEST raw-result publication matches the current baseline for const=FALSE, no count)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

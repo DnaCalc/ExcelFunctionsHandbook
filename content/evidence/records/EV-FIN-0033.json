@@ -1,0 +1,103 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-FIN-0033",
+  "record_version": 1,
+  "class": "projection-gap",
+  "subjects": [
+    "FUNC.YIELDDISC"
+  ],
+  "subject_role": {},
+  "title": "YIELDDISC: a one-row three-way replay on build 20131, and no corpus",
+  "upstream_row_id": null,
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "The row and bead `oxf-pzav` were retired on 2026-07-10.",
+  "upstream_anchor": {
+    "file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+    "row_id": null,
+    "section": "retired rows",
+    "cited_lines": "203-206",
+    "cited_text_sha256": "e3de589149c490d1ed11e05bc2c181df751029491f6b72f2feaa44928f007a41",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "YIELDDISC's row was retired because it was stale: the rate-first formula repair had already landed, the in-crate bit target is pinned, and a fresh three-way replay showed OxFunc, the F-sharp reference and Excel all agreeing. That replay is ONE row. It names its Excel build on the sentence itself, which is unusual in this domain and worth crediting, but a one-row replay is not a corpus figure and YIELDDISC has no count.",
+  "counts": [
+    {
+      "figure": "a fresh three-way replay on Excel 16.0 build 20131 is `all_bit_exact` (OxFunc = F# = Excel)",
+      "figure_display_only": true,
+      "passed": null,
+      "total": null,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": false,
+      "builds": [
+        "16.0.20131"
+      ],
+      "build_ambiguity": "single-build",
+      "build_note": "The build is named on the sentence carrying the result: \"a fresh\" / \"three-way replay on Excel 16.0 build 20131 is `all_bit_exact`\". This is one of only two figures in the bond domain with the build on the scored sentence.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "one row: the former catalogue witness `YIELDDISC(44013,44562,95,100,0)`, replayed three ways",
+      "corpus_tracked": true,
+      "measured_as_of": "2026-07-10",
+      "currency": "current",
+      "ambiguity_note": "ONE ROW. passed and total are null because a single replayed witness is not a corpus figure. The word fresh describes the replay being re-run, not a fresh corpus, and the row is the repair's own former witness -- hence corpus_was_repair_target true.",
+      "source_sentence": "formula repair already landed, the in-crate bit target is pinned, and a fresh\nthree-way replay on Excel 16.0 build 20131 is `all_bit_exact` (OxFunc = F# =\nExcel). The row and bead `oxf-pzav` were retired on 2026-07-10.",
+      "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:204-206"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [
+    {
+      "withdrawn_claim": "the former `YIELDDISC(44013,44562,95,100,0)` discrepancy row",
+      "withdrawn_on": "2026-07-10",
+      "superseded_by": "The row was stale: the rate-first formula repair had already landed and the three-way replay is all_bit_exact.",
+      "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:203-206"
+    }
+  ],
+  "open_question": "No YIELDDISC corpus exists. The surface's whole numeric evidence is one replayed witness.",
+  "open_problem_ref": null,
+  "reader_warning": "One row is not a corpus and YIELDDISC has no count. Agreement on a single retired witness must not be rendered as a pass rate or a coverage claim.",
+  "citations": [
+    "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:203-206",
+    "OxFunc:docs/function-lane/G6_THREEWAY_LEDGER.csv:25",
+    "content/evidence/harvest/RV-financial-bond.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "must_not_render_alone": false,
+  "render_together_with": [],
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure.",
+    "counts[].figure_display_only — const true; FOUNDATION §2.5 guard G-9.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — carried PER COUNT.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn.",
+    "counts[].ambiguity_note — nullable.",
+    "counts[].measurement_subject gains 'handbook-recomputation-over-cached-corpus'.",
+    "counts[].build_ambiguity gains 'not-stated-in-this-record'.",
+    "upstream_anchor.cited_text_sha256_basis and upstream_anchor.cited_lines.",
+    "counts[].build_note — where the build is named; here it IS on the scored sentence, so builds[] is populated.",
+    "must_not_render_alone / render_together_with."
+  ]
+}

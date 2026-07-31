@@ -1,0 +1,61 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-DIST-0028",
+  "record_version": 1,
+  "class": "projection-gap",
+  "subjects": [
+    "FUNC.BINOMDIST",
+    "FUNC.BINOM.DIST"
+  ],
+  "subject_role": {
+    "FUNC.BINOMDIST": "header",
+    "FUNC.BINOM.DIST": "body-only"
+  },
+  "title": "BINOMDIST: a live-Excel numeric result on record with no count attached",
+  "upstream_row_id": "BUG-FUNC-021",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "3. `BINOM.DIST.RANGE`: small finite ranges now sum direct binomial masses",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-021_w090_statistical_numeric_exactness_drift.md",
+    "row_id": "BUG-FUNC-021",
+    "section": "repair notes",
+    "cited_lines": "79-86",
+    "cited_text_sha256": "bce0b175ba4ce832b4e362e846fdf92cab39682766b04c8807b7683d535b65db",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": true,
+  "status_plain": "BUG-FUNC-021 records that BINOM.DIST and BINOMDIST retained their prior log/exp path because the W090 replay showed those rows were already exact. That is a live-Excel numeric result -- rows were exact -- stated without any count, and scoped to \"those rows\", the W090 replay rows only. BINOMDIST was not separately measured in W109; lane 8 names BINOM.DIST.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "mixed",
+  "evidence_locality_note": "The W090 replay run directories are gitignored; the defect stream is tracked.",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "How many rows, and which, is not stated. The claim is scoped to the W090 replay set and cannot be generalised.",
+  "open_problem_ref": null,
+  "reader_warning": "This record publishes no count. It records only that a numeric comparison exists on record for these surfaces without a denominator -- which is different both from having no evidence and from having a measured pass rate.",
+  "citations": [
+    "OxFunc:docs/bugs/streams/BUG-FUNC-021_w090_statistical_numeric_exactness_drift.md:81-83",
+    "OxFunc:docs/function-lane/FUNCTION_SLICE_STATISTICAL_DISTRIBUTIONS_AND_COMPAT_A_CONTRACT_PRELIM.md:50",
+    "content/evidence/harvest/RV-normal-discrete.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

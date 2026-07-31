@@ -1,0 +1,103 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MATH-0003",
+  "record_version": 1,
+  "class": "alias-pairing",
+  "subjects": [
+    "FUNC.OP_POWER",
+    "FUNC.POWER"
+  ],
+  "subject_role": {
+    "FUNC.OP_POWER": "header",
+    "FUNC.POWER": "contrast"
+  },
+  "title": "The `^` operator: no operator-side row count exists anywhere in OxFunc",
+  "upstream_row_id": "BUG-FUNC-042",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "Status: `RESOLVED` -- bit-exact, landed in `power_kernel` (commit `af79125`)",
+  "upstream_anchor": {
+    "file": "docs/EXCEL_POWER_SPEC_AND_TEST_CASES.md",
+    "row_id": "BUG-FUNC-042",
+    "section": "test-case harness",
+    "cited_lines": "218-222",
+    "cited_text_sha256": "cc27b1d7a06f6fe77cd6e4d67f4a57baf55b4c94b20165755700b2e624826d53",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": true,
+  "status_plain": "`^` and POWER bind the same kernel (`FUNC_ID_OP_POWER => power_kernel`), and the claim sentences name the operator. But every counted row in the POWER lane is a `=POWER(A1, B1)` worksheet call: there is no `^` column, no `^` row count, and the W108 plan's B3 operator sweep was never executed (no `w108-b3` run directory exists). The operator therefore inherits POWER's warrant without a measurement of its own. Its only operator-specific Excel evidence is uncounted -- three math-deviation entries, all on a different Excel build (20026) from POWER's sign-off build (20131).",
+  "counts": [
+    {
+      "figure": "no `^` count is published",
+      "figure_display_only": true,
+      "passed": null,
+      "total": null,
+      "axis": "numeric-bits",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "per-surface",
+      "group_members": [],
+      "attribution": "alias-sibling-inherited",
+      "measurement_subject": "sibling",
+      "held_out": "source-does-not-state",
+      "held_out_rows": null,
+      "corpus_was_repair_target": "source-does-not-state",
+      "residual_attribution": null,
+      "measurement_found": false,
+      "divergence_measured": false,
+      "full_pass_only": false,
+      "builds": [],
+      "build_ambiguity": "not-stated-in-this-record",
+      "build_note": "XMD-004, XMD-008 and XMD-009 -- the only entries carrying operator-specific witnesses -- cite live Excel build 20026, a different build from POWER's 20131 sign-off. None publishes a count.",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "not-stated-in-this-record",
+      "plumbing": "not-stated-in-this-record",
+      "corpus_or_build": "POWER worksheet calls only; no operator corpus exists",
+      "corpus_tracked": false,
+      "measured_as_of": null,
+      "currency": "current",
+      "ambiguity_note": "The mechanism of the inheritance is a shared kernel, confirmed in code at surface_dispatch.rs:2934. The only in-repo joint check is a single-row unit test asserting 0^0 -> #NUM! for both ids.",
+      "source_sentence": "`POWER(x, y)` (and `x ^ y`) for a **fractional exponent with a positive base** currently calls `f64::powf` (UCRT).",
+      "citation": "OxFunc:docs/bugs/streams/BUG-FUNC-042_power_fractional_exponent_exp_of_y_lnx.md:30-31"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "shared `power_kernel` with POWER",
+  "substrate_bands": [],
+  "ruled_out": [
+    "a dedicated operator kernel: OP_POWER and POWER both bind `power_kernel`"
+  ],
+  "retractions": [],
+  "open_question": "Whether Excel's `^` operator and its POWER function publish identical bits has never been measured. The W108 plan named the sweep (B3) and it was not run.",
+  "open_problem_ref": null,
+  "reader_warning": "POWER's 715/715 is not the operator's result. It is a count of POWER worksheet calls, and this record credits `^` with no count.",
+  "citations": [
+    "OxFunc:docs/EXCEL_POWER_SPEC_AND_TEST_CASES.md:13",
+    "OxFunc:docs/EXCEL_POWER_SPEC_AND_TEST_CASES.md:218-222",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-042_power_fractional_exponent_exp_of_y_lnx.md:30-31",
+    "OxFunc:crates/oxfunc_core/src/functions/surface_dispatch.rs:2934",
+    "OxFunc:docs/EXCEL_MATH_DEVIATION_CATALOG.md:115-125",
+    "OxFunc:docs/EXCEL_MATH_DEVIATION_CATALOG.md:180-198",
+    "content/evidence/harvest/RV-w108-elementary.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

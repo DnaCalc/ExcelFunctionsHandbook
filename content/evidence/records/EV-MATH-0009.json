@@ -1,0 +1,58 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MATH-0009",
+  "record_version": 1,
+  "class": "excel-math-deviation",
+  "subjects": [
+    "FUNC.ASINH"
+  ],
+  "subject_role": {},
+  "title": "XMD-001: ASINH's overflow boundary is identified by witness, with no row count",
+  "upstream_row_id": "XMD-001",
+  "upstream_register": "math-deviation",
+  "upstream_status_verbatim": "Confidence **high**",
+  "upstream_anchor": {
+    "file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+    "row_id": "XMD-001",
+    "section": "XMD-001",
+    "cited_lines": "61-78",
+    "cited_text_sha256": "fddc66a6c4be198750ea1b8ea1f947066e28feafe1f311b907010279f0d712e7",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "Excel evaluates the literal `ln(x + sqrt(x^2+1))`, so the x^2 intermediate overflows f64 and publishes #NUM! well below where the mathematical result would. The mechanism is identified; no count is published. The kernel additionally claims agreement in every bit on the disputed lanes where platform libm asinh differs by one or more ULP -- also with no denominator.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "mixed",
+  "evidence_locality_note": "The oracle script cited by the entry (`.tmp/asinh-sqrtpi-oracle2.ps1`) is under `.tmp/`, which is gitignored in OxFunc.",
+  "substrate": "the literal `ln(x + sqrt(x^2+1))`, overflowing at the x^2 intermediate",
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": null,
+  "open_problem_ref": null,
+  "reader_warning": "An exactness claim with no denominator is not a count. This record publishes none.",
+  "citations": [
+    "OxFunc:docs/EXCEL_MATH_DEVIATION_CATALOG.md:61-78",
+    "OxFunc:crates/oxfunc_core/src/functions/asinh.rs:35-40",
+    "OxFunc:docs/function-lane/W53_NUMERIC_FORENSICS_20260326.md:23",
+    "content/evidence/harvest/RV-w108-elementary.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

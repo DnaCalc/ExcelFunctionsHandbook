@@ -1,0 +1,2155 @@
+{
+  "schema": "efh.evidence-register/v1",
+  "record_version": 1,
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "what_this_file_is": "A mechanical index of every file in content/evidence/records/. It carries no figure of its own: every number in it counts records, subjects or fields, never passes or rows. Nothing here may be read as a measurement.",
+  "reading_rules": [
+    "Per-count oracle fields are authoritative. Every counts[] element carries its own builds[], build_ambiguity, arch, cpu, excel_bitness, workbook_mode and plumbing, and the record-level `oracle` object is null on every record written by this pass. A build, an architecture or a CPU is never inherited from elsewhere in a document; where the source is silent the field reads not-stated-in-this-record and builds[] is empty with build_ambiguity build-not-stated-in-this-record.",
+    "counts[].figure is a verbatim display string. No tool may parse it. passed and total are the only machine-readable numbers, and they are null wherever the source publishes no numerator or no denominator.",
+    "handbook_reverified is false on every record. Nothing in this evidence layer has been independently re-measured by the Handbook.",
+    "A group-scoped count may never be rendered as a per-surface figure for any of its group_members."
+  ],
+  "schema_extensions_declared_by_this_pass": [
+    {
+      "field": "counts[].quoted_source_sentence",
+      "why": "The build mandate requires the quoted source sentence to travel with every figure. FOUNDATION 2.5 has citation but no slot for the sentence itself."
+    },
+    {
+      "field": "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / locale / plumbing / capture_route",
+      "why": "FOUNDATION 2.5 puts these on a record-level oracle object. Hoisting them into each count is what makes \"never inherit a build from elsewhere in the document\" enforceable when one record carries two counts on two builds (EV-STRUCT-0011, EV-STRUCT-0003)."
+    },
+    {
+      "field": "counts[].build_ambiguity value \"build-not-stated-in-this-record\"",
+      "why": "FOUNDATION 2.5 offers single-build, single-build-not-restated-on-the-scored-line, two-builds-named and sources-contradict. None of them is honest for a rollup that names no build at all - and three do (BUG-FUNC-017 initial run, BUG-FUNC-028 812-case run, the W16 Batch 45 matrix probe). Without this value the only alternatives are to assert a build the source does not state, or to inherit one, both forbidden."
+    },
+    {
+      "field": "record.subject_internal_equality_predicate",
+      "why": "counts[].comparison_predicate is the predicate used to compare OxFunc to Excel. The 15-significant-digit truncation helper is a property of the SURFACE UNDER TEST, not of the oracle comparison. Conflating the two is what inverted FOUNDATION 3.4 on MATCH/XMATCH/DELTA. This field carries each subject's own equality semantics separately, with a code citation."
+    },
+    {
+      "field": "counts[].line_range inside upstream_anchor",
+      "why": "cited_text_sha256 is only checkable if the byte range it was computed over is published. Every anchor written by this pass records the line range it hashed."
+    }
+  ],
+  "snapshot_warning": "This index is a directory listing taken at one moment. It was written while several agents were producing records into the same directory concurrently, and at least one of them cleared the directory before writing its own set. Treat records_indexed and record_id_prefixes_present as a snapshot to be re-derived, never as a completeness claim: a prefix missing from this listing means the listing was taken before that set landed, or after it was removed, not that the records do not exist. Regenerate this file as the last step of any build.",
+  "record_id_prefixes_present": {
+    "EV-DIST": 33,
+    "EV-MATH": 20,
+    "EV-MISC": 15,
+    "EV-STRUCT": 14
+  },
+  "records_indexed": 82,
+  "distinct_subjects_referenced": 151,
+  "distinct_excel_builds_named_across_all_counts": [
+    "16.0.19929",
+    "16.0.20026",
+    "16.0.20131"
+  ],
+  "malformed_files_skipped": [],
+  "records": [
+    {
+      "record_id": "EV-DIST-0001",
+      "path": "content/evidence/records/EV-DIST-0001.json",
+      "class": "open-discrepancy",
+      "title": "CHIDIST: 152 of 195 counted rows on the campaign's own fitted corpus",
+      "subjects": [
+        "FUNC.CHIDIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 4,
+      "counts_with_a_published_numerator": 3,
+      "counts_with_a_published_denominator": 3,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0002",
+      "path": "content/evidence/records/EV-DIST-0002.json",
+      "class": "open-discrepancy",
+      "title": "GAMMA.DIST: three separate figures - fitted cdf, held-out integer-a gate, and pdf",
+      "subjects": [
+        "FUNC.GAMMA.DIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 8,
+      "counts_with_a_published_numerator": 5,
+      "counts_with_a_published_denominator": 7,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0003",
+      "path": "content/evidence/records/EV-DIST-0003.json",
+      "class": "open-discrepancy",
+      "title": "GAMMA.INV: 18 of 60 on the corpus the inverter was validated on",
+      "subjects": [
+        "FUNC.GAMMA.INV"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 4,
+      "counts_with_a_published_numerator": 3,
+      "counts_with_a_published_denominator": 4,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0004",
+      "path": "content/evidence/records/EV-DIST-0004.json",
+      "class": "open-discrepancy",
+      "title": "CHIINV: 15 of 40 on a fresh never-raced gate, and 16 of 60 on the fitted corpus",
+      "subjects": [
+        "FUNC.CHIINV"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 5,
+      "counts_with_a_published_numerator": 4,
+      "counts_with_a_published_denominator": 4,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0005",
+      "path": "content/evidence/records/EV-DIST-0005.json",
+      "class": "open-discrepancy",
+      "title": "BETA.DIST: 136 of 288, inside a 671-row battery total that is not a surface figure",
+      "subjects": [
+        "FUNC.BETA.DIST",
+        "FUNC.FDIST",
+        "FUNC.TDIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 8,
+      "counts_with_a_published_numerator": 7,
+      "counts_with_a_published_denominator": 8,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0006",
+      "path": "content/evidence/records/EV-DIST-0006.json",
+      "class": "open-discrepancy",
+      "title": "BETAINV: 12 of 30 after the chain-exp landing, on the corpus it was validated on",
+      "subjects": [
+        "FUNC.BETAINV"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 4,
+      "counts_with_a_published_numerator": 3,
+      "counts_with_a_published_denominator": 3,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0007",
+      "path": "content/evidence/records/EV-DIST-0007.json",
+      "class": "open-discrepancy",
+      "title": "FDIST and TINV: W109 moved their worst-case residuals and never published a count",
+      "subjects": [
+        "FUNC.FDIST",
+        "FUNC.TINV"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0008",
+      "path": "content/evidence/records/EV-DIST-0008.json",
+      "class": "open-discrepancy",
+      "title": "FINV: 3 of 32 on the b19 fresh never-raced gate, up from zero",
+      "subjects": [
+        "FUNC.FINV"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0009",
+      "path": "content/evidence/records/EV-DIST-0009.json",
+      "class": "open-discrepancy",
+      "title": "TDIST: 14 of 60 on the b22 held-out gate",
+      "subjects": [
+        "FUNC.TDIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0010",
+      "path": "content/evidence/records/EV-DIST-0010.json",
+      "class": "substrate-identification",
+      "title": "The bpser branch differential: a research-model score, not a production pass rate",
+      "subjects": [
+        "FUNC.F.DIST.RT",
+        "FUNC.FDIST",
+        "FUNC.TDIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0011",
+      "path": "content/evidence/records/EV-DIST-0011.json",
+      "class": "alias-pairing",
+      "title": "The B1 multi-view collapse: five legacy-modern pairs proved identical, inverses not",
+      "subjects": [
+        "FUNC.CHISQ.DIST.RT",
+        "FUNC.F.DIST.RT",
+        "FUNC.T.DIST.RT",
+        "FUNC.GAMMADIST",
+        "FUNC.BETADIST",
+        "FUNC.CHIDIST",
+        "FUNC.FDIST",
+        "FUNC.TDIST",
+        "FUNC.GAMMA.DIST",
+        "FUNC.BETA.DIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 6,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0012",
+      "path": "content/evidence/records/EV-DIST-0012.json",
+      "class": "open-discrepancy",
+      "title": "The W097 R-D histogram: sixteen per-surface counts, five of them the only ones",
+      "subjects": [
+        "FUNC.BETADIST",
+        "FUNC.BETAINV",
+        "FUNC.CHIDIST",
+        "FUNC.CHIINV",
+        "FUNC.CONFIDENCE.T",
+        "FUNC.FDIST",
+        "FUNC.FINV",
+        "FUNC.GAMMADIST",
+        "FUNC.GAMMAINV",
+        "FUNC.HYPGEOMDIST",
+        "FUNC.NEGBINOMDIST",
+        "FUNC.NORMSDIST",
+        "FUNC.NORMSINV",
+        "FUNC.TDIST",
+        "FUNC.TINV",
+        "FUNC.Z.TEST"
+      ],
+      "upstream_row_id": "BUG-FUNC-021",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-021_w090_statistical_numeric_exactness_drift.md",
+      "counts_declared": 16,
+      "counts_with_a_published_numerator": 16,
+      "counts_with_a_published_denominator": 16,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0013",
+      "path": "content/evidence/records/EV-DIST-0013.json",
+      "class": "open-discrepancy",
+      "title": "CHISQ.TEST and CHITEST: an identity decomposition and two single-row ULP witnesses",
+      "subjects": [
+        "FUNC.CHISQ.TEST",
+        "FUNC.CHITEST"
+      ],
+      "upstream_row_id": "G3-05",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0014",
+      "path": "content/evidence/records/EV-DIST-0014.json",
+      "class": "open-discrepancy",
+      "title": "F.TEST and FTEST: an identity decomposition and two single-row ULP witnesses",
+      "subjects": [
+        "FUNC.F.TEST",
+        "FUNC.FTEST"
+      ],
+      "upstream_row_id": "G3-06",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0015",
+      "path": "content/evidence/records/EV-DIST-0015.json",
+      "class": "projection-gap",
+      "title": "CHISQ.INV: one figureless mention that may not even be about this surface",
+      "subjects": [
+        "FUNC.CHISQ.INV"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0016",
+      "path": "content/evidence/records/EV-DIST-0016.json",
+      "class": "projection-gap",
+      "title": "GAMMAINV: named in the open row, given no W109 figure, and not inheritable",
+      "subjects": [
+        "FUNC.GAMMAINV",
+        "FUNC.GAMMA.INV"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0017",
+      "path": "content/evidence/records/EV-DIST-0017.json",
+      "class": "open-discrepancy",
+      "title": "KED-STAT-001: four replay run totals over a fifteen-function residual family",
+      "subjects": [
+        "FUNC.BETAINV",
+        "FUNC.CHIDIST",
+        "FUNC.CHIINV",
+        "FUNC.FDIST",
+        "FUNC.FINV",
+        "FUNC.GAMMADIST",
+        "FUNC.GAMMAINV",
+        "FUNC.HYPGEOMDIST",
+        "FUNC.NEGBINOMDIST",
+        "FUNC.NORMSDIST",
+        "FUNC.NORMSINV",
+        "FUNC.TDIST",
+        "FUNC.TINV",
+        "FUNC.CONFIDENCE.T",
+        "FUNC.Z.TEST"
+      ],
+      "upstream_row_id": "KED-STAT-001",
+      "upstream_register": "residual-register",
+      "upstream_anchor_file": "docs/KNOWN_EXACTNESS_DEVIATIONS.md",
+      "counts_declared": 4,
+      "counts_with_a_published_numerator": 4,
+      "counts_with_a_published_denominator": 4,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0018",
+      "path": "content/evidence/records/EV-DIST-0018.json",
+      "class": "live-verification",
+      "title": "The BUG-FUNC-013 ten-witness re-sweep: 8 of 10, one pinned row per surface",
+      "subjects": [
+        "FUNC.NORM.DIST",
+        "FUNC.NORM.INV",
+        "FUNC.NORMSDIST",
+        "FUNC.NORMSINV",
+        "FUNC.NORM.S.DIST",
+        "FUNC.NORM.S.INV",
+        "FUNC.ERF",
+        "FUNC.ERFC",
+        "FUNC.GAUSS",
+        "FUNC.PHI"
+      ],
+      "upstream_row_id": "BUG-FUNC-013",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "smart-fuzzer/planning/W097-R-GH-closed-streams-cell-ref-resweep.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0019",
+      "path": "content/evidence/records/EV-DIST-0019.json",
+      "class": "projection-gap",
+      "title": "NORMDIST has no bit-level numeric datum, and the 8 of 10 was never about it",
+      "subjects": [
+        "FUNC.NORMDIST"
+      ],
+      "upstream_row_id": "BUG-FUNC-013",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "smart-fuzzer/planning/W097-R-GH-closed-streams-cell-ref-resweep.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": true,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0020",
+      "path": "content/evidence/records/EV-DIST-0020.json",
+      "class": "projection-gap",
+      "title": "NORMINV, LOGNORM.DIST and LOGNORMDIST: rounded witnesses only, no comparison",
+      "subjects": [
+        "FUNC.NORMINV",
+        "FUNC.LOGNORM.DIST",
+        "FUNC.LOGNORMDIST"
+      ],
+      "upstream_row_id": null,
+      "upstream_register": "none",
+      "upstream_anchor_file": ".tmp/w62-statistical-distributions-compat-b-results.csv",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": true,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0021",
+      "path": "content/evidence/records/EV-DIST-0021.json",
+      "class": "substrate-identification",
+      "title": "The b24 LOGNORM decode measures Excel's internal ln, not either LOGNORM surface",
+      "subjects": [
+        "FUNC.LOGNORM.DIST",
+        "FUNC.LOGNORMDIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0022",
+      "path": "content/evidence/records/EV-DIST-0022.json",
+      "class": "substrate-identification",
+      "title": "PHI: 764 of 764 answered rows, on the corpus the rival stagings were killed on",
+      "subjects": [
+        "FUNC.PHI"
+      ],
+      "upstream_row_id": "G3-07",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0023",
+      "path": "content/evidence/records/EV-DIST-0023.json",
+      "class": "open-discrepancy",
+      "title": "GAUSS: a 2 ULP witness and an open row waiting on the erf substrate",
+      "subjects": [
+        "FUNC.GAUSS"
+      ],
+      "upstream_row_id": "G3-07",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0024",
+      "path": "content/evidence/records/EV-DIST-0024.json",
+      "class": "structural-verification",
+      "title": "BUG-FUNC-033: the ERF/ERFC family rejects a logical operand, checked against Excel",
+      "subjects": [
+        "FUNC.ERF",
+        "FUNC.ERF.PRECISE",
+        "FUNC.ERFC",
+        "FUNC.ERFC.PRECISE"
+      ],
+      "upstream_row_id": "BUG-FUNC-033",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-033_erf_erfc_over_coerce_logical.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0025",
+      "path": "content/evidence/records/EV-DIST-0025.json",
+      "class": "excel-math-deviation",
+      "title": "ERFC: about 20 of 48 positive witnesses, on the corpus the kernel was fitted to",
+      "subjects": [
+        "FUNC.ERFC",
+        "FUNC.ERFC.PRECISE"
+      ],
+      "upstream_row_id": "XMD-011",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 3,
+      "counts_with_a_published_denominator": 3,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0026",
+      "path": "content/evidence/records/EV-DIST-0026.json",
+      "class": "substrate-identification",
+      "title": "ERF.PRECISE and ERFC.PRECISE: every figure is truth, identity or model - none production",
+      "subjects": [
+        "FUNC.ERF.PRECISE",
+        "FUNC.ERFC.PRECISE"
+      ],
+      "upstream_row_id": "G4-04",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 7,
+      "counts_with_a_published_numerator": 7,
+      "counts_with_a_published_denominator": 7,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0027",
+      "path": "content/evidence/records/EV-DIST-0027.json",
+      "class": "substrate-identification",
+      "title": "BINOM.DIST: identified as R's dbinom_raw, scored in percentages and still open",
+      "subjects": [
+        "FUNC.BINOM.DIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_CAMPAIGN_RESUME_20260718.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0028",
+      "path": "content/evidence/records/EV-DIST-0028.json",
+      "class": "projection-gap",
+      "title": "BINOMDIST: a live-Excel numeric result on record with no count attached",
+      "subjects": [
+        "FUNC.BINOMDIST",
+        "FUNC.BINOM.DIST"
+      ],
+      "upstream_row_id": "BUG-FUNC-021",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-021_w090_statistical_numeric_exactness_drift.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0029",
+      "path": "content/evidence/records/EV-DIST-0029.json",
+      "class": "open-discrepancy",
+      "title": "NEGBINOM: two percentages that name no surface, and one witness with no count",
+      "subjects": [
+        "FUNC.NEGBINOM.DIST",
+        "FUNC.NEGBINOMDIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_CAMPAIGN_RESUME_20260718.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0030",
+      "path": "content/evidence/records/EV-DIST-0030.json",
+      "class": "substrate-identification",
+      "title": "POISSON.DIST: a 4,000-row held-out gate on the k=0 window, and k>=1 wide open",
+      "subjects": [
+        "FUNC.POISSON.DIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 7,
+      "counts_with_a_published_numerator": 5,
+      "counts_with_a_published_denominator": 5,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0031",
+      "path": "content/evidence/records/EV-DIST-0031.json",
+      "class": "substrate-identification",
+      "title": "WEIBULL.DIST: 5,999 of 6,000 on a fresh held-out gate against the production kernel",
+      "subjects": [
+        "FUNC.WEIBULL.DIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 3,
+      "counts_with_a_published_denominator": 3,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0032",
+      "path": "content/evidence/records/EV-DIST-0032.json",
+      "class": "substrate-identification",
+      "title": "EXPON.DIST: 4,000 of 4,000 held out - and a second, conflicting figure in OxFunc",
+      "subjects": [
+        "FUNC.EXPON.DIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-DIST-0033",
+      "path": "content/evidence/records/EV-DIST-0033.json",
+      "class": "alias-pairing",
+      "title": "WEIBULL, EXPONDIST and POISSON: three legacy aliases with no measurement of their own",
+      "subjects": [
+        "FUNC.WEIBULL",
+        "FUNC.EXPONDIST",
+        "FUNC.POISSON",
+        "FUNC.WEIBULL.DIST",
+        "FUNC.EXPON.DIST",
+        "FUNC.POISSON.DIST"
+      ],
+      "upstream_row_id": "G3-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0001",
+      "path": "content/evidence/records/EV-MATH-0001.json",
+      "class": "live-verification",
+      "title": "W108 Phase A: EXP, LN, LOG10 and LOG against a fresh 396-row live Excel sweep",
+      "subjects": [
+        "FUNC.EXP",
+        "FUNC.LN",
+        "FUNC.LOG10",
+        "FUNC.LOG"
+      ],
+      "upstream_row_id": null,
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/worksets/W108_EXCEL_NUMERIC_CORE_AND_FINANCIAL_POWER_EXACTNESS.md",
+      "counts_declared": 6,
+      "counts_with_a_published_numerator": 6,
+      "counts_with_a_published_denominator": 6,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": true,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0002",
+      "path": "content/evidence/records/EV-MATH-0002.json",
+      "class": "live-verification",
+      "title": "POWER fractional exponent: 715 counted live rows, none cleanly held out",
+      "subjects": [
+        "FUNC.POWER"
+      ],
+      "upstream_row_id": "BUG-FUNC-042",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-042_power_fractional_exponent_exp_of_y_lnx.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 3,
+      "counts_with_a_published_denominator": 3,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0003",
+      "path": "content/evidence/records/EV-MATH-0003.json",
+      "class": "alias-pairing",
+      "title": "The `^` operator: no operator-side row count exists anywhere in OxFunc",
+      "subjects": [
+        "FUNC.OP_POWER",
+        "FUNC.POWER"
+      ],
+      "upstream_row_id": "BUG-FUNC-042",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/EXCEL_POWER_SPEC_AND_TEST_CASES.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0004",
+      "path": "content/evidence/records/EV-MATH-0004.json",
+      "class": "substrate-identification",
+      "title": "The trig six: per-surface sweeps with 460 held-out rows each, plus one group replay",
+      "subjects": [
+        "FUNC.SIN",
+        "FUNC.COS",
+        "FUNC.TAN",
+        "FUNC.SEC",
+        "FUNC.CSC",
+        "FUNC.COT"
+      ],
+      "upstream_row_id": "G4-01",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_TRIG_IDENTIFICATION_20260711.md",
+      "counts_declared": 7,
+      "counts_with_a_published_numerator": 7,
+      "counts_with_a_published_denominator": 7,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0005",
+      "path": "content/evidence/records/EV-MATH-0005.json",
+      "class": "substrate-identification",
+      "title": "ATANH: 344 of ~350 counted rows, with six open +1 ULP rows in the switch band",
+      "subjects": [
+        "FUNC.ATANH"
+      ],
+      "upstream_row_id": "G4-02",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_ATANH_IDENTIFICATION_20260712.md",
+      "counts_declared": 4,
+      "counts_with_a_published_numerator": 4,
+      "counts_with_a_published_denominator": 4,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0006",
+      "path": "content/evidence/records/EV-MATH-0006.json",
+      "class": "open-discrepancy",
+      "title": "ACOTH: 53 of 56 counted rows, three pair-branch rows still open",
+      "subjects": [
+        "FUNC.ACOTH"
+      ],
+      "upstream_row_id": "G4-03",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0007",
+      "path": "content/evidence/records/EV-MATH-0007.json",
+      "class": "excel-math-deviation",
+      "title": "ATAN2: 18 of 18 counted rows on the y/x-overflow error boundary, build 20026",
+      "subjects": [
+        "FUNC.ATAN2"
+      ],
+      "upstream_row_id": "XMD-007",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0008",
+      "path": "content/evidence/records/EV-MATH-0008.json",
+      "class": "excel-math-deviation",
+      "title": "XMD-008: Excel never publishes an infinity - the FINITE family, no row count",
+      "subjects": [
+        "FUNC.EXP",
+        "FUNC.SINH",
+        "FUNC.COSH",
+        "FUNC.FACT",
+        "FUNC.FACTDOUBLE",
+        "FUNC.DEGREES",
+        "FUNC.PERMUTATIONA",
+        "FUNC.POWER",
+        "FUNC.OP_POWER"
+      ],
+      "upstream_row_id": "XMD-008",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0009",
+      "path": "content/evidence/records/EV-MATH-0009.json",
+      "class": "excel-math-deviation",
+      "title": "XMD-001: ASINH's overflow boundary is identified by witness, with no row count",
+      "subjects": [
+        "FUNC.ASINH"
+      ],
+      "upstream_row_id": "XMD-001",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0010",
+      "path": "content/evidence/records/EV-MATH-0010.json",
+      "class": "excel-math-deviation",
+      "title": "COTH saturates to the sign of its argument: one live witness, no row count",
+      "subjects": [
+        "FUNC.COTH"
+      ],
+      "upstream_row_id": null,
+      "upstream_register": "none",
+      "upstream_anchor_file": "crates/oxfunc_core/src/functions/coth.rs",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0011",
+      "path": "content/evidence/records/EV-MATH-0011.json",
+      "class": "excel-math-deviation",
+      "title": "SQRTPI: a 30 of 30 count whose grammatical subject is `pow`, not SQRTPI",
+      "subjects": [
+        "FUNC.SQRTPI"
+      ],
+      "upstream_row_id": "XMD-003",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0012",
+      "path": "content/evidence/records/EV-MATH-0012.json",
+      "class": "substrate-identification",
+      "title": "GAMMALN's own fresh gate: b32, 1,600 never-probed rows across two bands",
+      "subjects": [
+        "FUNC.GAMMALN"
+      ],
+      "upstream_row_id": "G3-02",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_GAMMALN_IDENTIFICATION_20260711.md",
+      "counts_declared": 5,
+      "counts_with_a_published_numerator": 5,
+      "counts_with_a_published_denominator": 5,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0013",
+      "path": "content/evidence/records/EV-MATH-0013.json",
+      "class": "substrate-identification",
+      "title": "The GAMMALN held-out gates were captured through GAMMALN.PRECISE, not GAMMALN",
+      "subjects": [
+        "FUNC.GAMMALN.PRECISE",
+        "FUNC.GAMMALN"
+      ],
+      "upstream_row_id": "G3-02",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_GAMMALN_IDENTIFICATION_20260711.md",
+      "counts_declared": 7,
+      "counts_with_a_published_numerator": 7,
+      "counts_with_a_published_denominator": 7,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0014",
+      "path": "content/evidence/records/EV-MATH-0014.json",
+      "class": "alias-pairing",
+      "title": "GAMMALN and GAMMALN.PRECISE publish identical bits on build 20131",
+      "subjects": [
+        "FUNC.GAMMALN",
+        "FUNC.GAMMALN.PRECISE"
+      ],
+      "upstream_row_id": "G3-02",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_GAMMALN_PUBLISHED_COEFFICIENTS.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0015",
+      "path": "content/evidence/records/EV-MATH-0015.json",
+      "class": "open-discrepancy",
+      "title": "GAMMA: zero of 79 positive rows exact, and the landed GAMMALN kernel did not touch it",
+      "subjects": [
+        "FUNC.GAMMA"
+      ],
+      "upstream_row_id": "G3-02",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 3,
+      "counts_with_a_published_numerator": 3,
+      "counts_with_a_published_denominator": 3,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0016",
+      "path": "content/evidence/records/EV-MATH-0016.json",
+      "class": "open-discrepancy",
+      "title": "COMBIN: 6 of 16 discriminating pairs, and the earlier exactness claim withdrawn",
+      "subjects": [
+        "FUNC.COMBIN",
+        "FUNC.COMBINA"
+      ],
+      "upstream_row_id": "G4-04",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 8,
+      "counts_with_a_published_numerator": 7,
+      "counts_with_a_published_denominator": 7,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0017",
+      "path": "content/evidence/records/EV-MATH-0017.json",
+      "class": "open-discrepancy",
+      "title": "COMBINA sits on the GAMMALN wall: one decisive witness, no pass count",
+      "subjects": [
+        "FUNC.COMBINA"
+      ],
+      "upstream_row_id": "G4-04",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0018",
+      "path": "content/evidence/records/EV-MATH-0018.json",
+      "class": "live-verification",
+      "title": "FACTDOUBLE: a seven-row spot check, all seven matching",
+      "subjects": [
+        "FUNC.FACTDOUBLE"
+      ],
+      "upstream_row_id": "G4-04",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0019",
+      "path": "content/evidence/records/EV-MATH-0019.json",
+      "class": "substrate-identification",
+      "title": "PERMUT: 702 of 702, build restated inline, held-out split not published",
+      "subjects": [
+        "FUNC.PERMUT"
+      ],
+      "upstream_row_id": "G4-04",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/W109_PERMUT_COMBIN_FINDINGS_20260711.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MATH-0020",
+      "path": "content/evidence/records/EV-MATH-0020.json",
+      "class": "projection-gap",
+      "title": "MULTINOMIAL: a private Lanczos lgamma, no discrepancy row, no numeric evidence",
+      "subjects": [
+        "FUNC.MULTINOMIAL"
+      ],
+      "upstream_row_id": "W16-BATCH8-COMBINATORICS-20260315",
+      "upstream_register": "none",
+      "upstream_anchor_file": "docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0001",
+      "path": "content/evidence/records/EV-MISC-0001.json",
+      "class": "live-verification",
+      "title": "BESSELY resweep: 93 of 93 on the grid the repair was solved against",
+      "subjects": [
+        "FUNC.BESSELY"
+      ],
+      "upstream_row_id": "BUG-FUNC-024",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0002",
+      "path": "content/evidence/records/EV-MISC-0002.json",
+      "class": "live-verification",
+      "title": "BESSELJ 56-row probe: three enumerated misses, all inherited from Excel COS",
+      "subjects": [
+        "FUNC.BESSELJ"
+      ],
+      "upstream_row_id": "BUG-FUNC-024",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0003",
+      "path": "content/evidence/records/EV-MISC-0003.json",
+      "class": "live-verification",
+      "title": "BESSELI and BESSELK: one joint 18/18 over the x >= 8 band",
+      "subjects": [
+        "FUNC.BESSELI",
+        "FUNC.BESSELK"
+      ],
+      "upstream_row_id": "BUG-FUNC-024",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-024_bessely_current_baseline_exactness_drift.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0004",
+      "path": "content/evidence/records/EV-MISC-0004.json",
+      "class": "open-discrepancy",
+      "title": "MINVERSE Doolittle-LU landing: 598 of 607 cells, 556 of them fresh",
+      "subjects": [
+        "FUNC.MINVERSE"
+      ],
+      "upstream_row_id": "G5-01",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-025_minverse_matrix_numeric_exactness_drift.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0005",
+      "path": "content/evidence/records/EV-MISC-0005.json",
+      "class": "deferral",
+      "title": "MDETERM shares the LU elimination with MINVERSE and has no numeric evidence",
+      "subjects": [
+        "FUNC.MDETERM"
+      ],
+      "upstream_row_id": "G5",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0006",
+      "path": "content/evidence/records/EV-MISC-0006.json",
+      "class": "open-discrepancy",
+      "title": "CONVERT: one 1-ULP drift, one degenerate control, and a self-declared overfit 1/1",
+      "subjects": [
+        "FUNC.CONVERT"
+      ],
+      "upstream_row_id": "G4-05",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0007",
+      "path": "content/evidence/records/EV-MISC-0007.json",
+      "class": "live-verification",
+      "title": "FORECAST 65 of 65 on its own corpus; FORECAST.LINEAR has no probe",
+      "subjects": [
+        "FUNC.FORECAST",
+        "FUNC.FORECAST.LINEAR"
+      ],
+      "upstream_row_id": "G3-03",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_SWEEP_20260712.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0008",
+      "path": "content/evidence/records/EV-MISC-0008.json",
+      "class": "live-verification",
+      "title": "SLOPE 4 of 4 and INTERCEPT 4 of 4: two per-surface figures, four rows each",
+      "subjects": [
+        "FUNC.INTERCEPT",
+        "FUNC.SLOPE"
+      ],
+      "upstream_row_id": "G3-03",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_SWEEP_20260712.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0009",
+      "path": "content/evidence/records/EV-MISC-0009.json",
+      "class": "open-discrepancy",
+      "title": "TREND: 1 of 12 as shipped, 7 of 12 under the candidate, same 12 rows",
+      "subjects": [
+        "FUNC.TREND"
+      ],
+      "upstream_row_id": "G3-03",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/W109_SWEEP_20260712.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0010",
+      "path": "content/evidence/records/EV-MISC-0010.json",
+      "class": "open-discrepancy",
+      "title": "LINEST and LOGEST are named in an open row; neither has a measurement",
+      "subjects": [
+        "FUNC.LINEST",
+        "FUNC.LOGEST"
+      ],
+      "upstream_row_id": "G3-03",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0011",
+      "path": "content/evidence/records/EV-MISC-0011.json",
+      "class": "open-discrepancy",
+      "title": "GROWTH: two counted witnesses, both drifting 11 and 13 ULP",
+      "subjects": [
+        "FUNC.GROWTH"
+      ],
+      "upstream_row_id": "G3-04",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0012",
+      "path": "content/evidence/records/EV-MISC-0012.json",
+      "class": "live-verification",
+      "title": "MOD: 11 of 11 on the #NUM! threshold, 8 of 8 on the drift, both at b20026",
+      "subjects": [
+        "FUNC.MOD"
+      ],
+      "upstream_row_id": "BUG-FUNC-027",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-027_broad_scalar_invocation_space_findings.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "numeric-bits",
+        "structural-admission"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0013",
+      "path": "content/evidence/records/EV-MISC-0013.json",
+      "class": "excel-math-deviation",
+      "title": "ATAN2 18 of 18 at build 20026 - what was counted is the #NUM! boundary",
+      "subjects": [
+        "FUNC.ATAN2"
+      ],
+      "upstream_row_id": "XMD-007",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0014",
+      "path": "content/evidence/records/EV-MISC-0014.json",
+      "class": "excel-math-deviation",
+      "title": "SQRTPI 30 of 30 - the sentence scores powf against pow, not SQRTPI calls",
+      "subjects": [
+        "FUNC.SQRTPI"
+      ],
+      "upstream_row_id": "XMD-003",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-MISC-0015",
+      "path": "content/evidence/records/EV-MISC-0015.json",
+      "class": "open-discrepancy",
+      "title": "COMBIN 6 of 16 on the discriminating capture, on the shipped multiply-first loop",
+      "subjects": [
+        "FUNC.COMBIN"
+      ],
+      "upstream_row_id": "G4-04",
+      "upstream_register": "catalogue",
+      "upstream_anchor_file": "docs/function-lane/DISCREPANCY_RULED_OUT_LEDGER.csv",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": true,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0001",
+      "path": "content/evidence/records/EV-STRUCT-0001.json",
+      "class": "live-verification",
+      "title": "Comparison family split: 16 lanes over a tolerant arm and an exact-match control arm",
+      "subjects": [
+        "FUNC.COUNTIF",
+        "FUNC.DELTA",
+        "FUNC.MATCH",
+        "FUNC.OP_EQUAL",
+        "FUNC.OP_GREATER_EQUAL",
+        "FUNC.OP_GREATER_THAN",
+        "FUNC.OP_LESS_EQUAL",
+        "FUNC.OP_LESS_THAN",
+        "FUNC.OP_NOT_EQUAL",
+        "FUNC.SUMIF",
+        "FUNC.SWITCH",
+        "FUNC.XMATCH"
+      ],
+      "upstream_row_id": "BUG-FUNC-004",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0002",
+      "path": "content/evidence/records/EV-STRUCT-0002.json",
+      "class": "local-verification",
+      "title": "Database criteria route through the shared comparison helper; lib tests only, no live rows",
+      "subjects": [
+        "FUNC.DCOUNT",
+        "FUNC.DSUM"
+      ],
+      "upstream_row_id": "BUG-FUNC-004",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0003",
+      "path": "content/evidence/records/EV-STRUCT-0003.json",
+      "class": "structural-verification",
+      "title": "Operator structural sweep: 99 cases over 15 scalar/value operators, before and after",
+      "subjects": [
+        "FUNC.OP_ADD",
+        "FUNC.OP_CONCAT",
+        "FUNC.OP_DIVIDE",
+        "FUNC.OP_EQUAL",
+        "FUNC.OP_GREATER_EQUAL",
+        "FUNC.OP_GREATER_THAN",
+        "FUNC.OP_LESS_EQUAL",
+        "FUNC.OP_LESS_THAN",
+        "FUNC.OP_MULTIPLY",
+        "FUNC.OP_NEGATE",
+        "FUNC.OP_NOT_EQUAL",
+        "FUNC.OP_PERCENT",
+        "FUNC.OP_POWER",
+        "FUNC.OP_SUBTRACT",
+        "FUNC.OP_UNARY_PLUS"
+      ],
+      "upstream_row_id": "BUG-FUNC-029",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-029_unary_plus_over_coerces_text_and_logical.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0004",
+      "path": "content/evidence/records/EV-STRUCT-0004.json",
+      "class": "structural-verification",
+      "title": "21-case operator array-lift and broadcast sweep over 12 operators, reported twice",
+      "subjects": [
+        "FUNC.OP_ADD",
+        "FUNC.OP_CONCAT",
+        "FUNC.OP_DIVIDE",
+        "FUNC.OP_EQUAL",
+        "FUNC.OP_GREATER_EQUAL",
+        "FUNC.OP_GREATER_THAN",
+        "FUNC.OP_LESS_EQUAL",
+        "FUNC.OP_LESS_THAN",
+        "FUNC.OP_MULTIPLY",
+        "FUNC.OP_NOT_EQUAL",
+        "FUNC.OP_POWER",
+        "FUNC.OP_SUBTRACT"
+      ],
+      "upstream_row_id": "BUG-FUNC-001",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-001_binary_operator_array_lift_value_surface_gap.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0005",
+      "path": "content/evidence/records/EV-STRUCT-0005.json",
+      "class": "deferral",
+      "title": "The eight reference operators were not covered by any Excel comparison",
+      "subjects": [
+        "FUNC.OP_IMPLICIT_INTERSECTION",
+        "FUNC.OP_INTERSECTION_REF",
+        "FUNC.OP_RANGE_REF",
+        "FUNC.OP_SPILL_REF",
+        "FUNC.OP_TRIM_REF_BOTH",
+        "FUNC.OP_TRIM_REF_LEADING",
+        "FUNC.OP_TRIM_REF_TRAILING",
+        "FUNC.OP_UNION_REF"
+      ],
+      "upstream_row_id": "BUG-FUNC-029",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-029_unary_plus_over_coerces_text_and_logical.md",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0006",
+      "path": "content/evidence/records/EV-STRUCT-0006.json",
+      "class": "structural-verification",
+      "title": "Scalar-parameter array lift: ten reopened formulas re-evaluated, 10/10 typed bit matches",
+      "subjects": [
+        "FUNC.ADDRESS",
+        "FUNC.BINOMDIST",
+        "FUNC.COMPLEX",
+        "FUNC.DOLLARFR",
+        "FUNC.IFS",
+        "FUNC.NORMDIST",
+        "FUNC.SWITCH"
+      ],
+      "upstream_row_id": "BUG-FUNC-018",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-018_successor_scalar_parameter_array_lift_gap.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0007",
+      "path": "content/evidence/records/EV-STRUCT-0007.json",
+      "class": "structural-verification",
+      "title": "Array-lift resweep: 46 of 47 probe cases; the one miss belongs outside the group",
+      "subjects": [
+        "FUNC.ARRAYTOTEXT",
+        "FUNC.BIN2OCT",
+        "FUNC.DATEDIF",
+        "FUNC.DATEVALUE",
+        "FUNC.DAYS360",
+        "FUNC.GCD",
+        "FUNC.ISEVEN",
+        "FUNC.LCM",
+        "FUNC.MULTINOMIAL",
+        "FUNC.QUOTIENT",
+        "FUNC.ROMAN",
+        "FUNC.TBILLEQ",
+        "FUNC.TBILLPRICE",
+        "FUNC.TIMEVALUE"
+      ],
+      "upstream_row_id": "BUG-FUNC-028",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0008",
+      "path": "content/evidence/records/EV-STRUCT-0008.json",
+      "class": "structural-verification",
+      "title": "Error propagation through the date/text value family: 7 of 7 vs Excel",
+      "subjects": [
+        "FUNC.ARRAYTOTEXT",
+        "FUNC.DATEDIF",
+        "FUNC.DATEVALUE",
+        "FUNC.DAYS360",
+        "FUNC.TIMEVALUE"
+      ],
+      "upstream_row_id": "BUG-FUNC-028",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 1,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0009",
+      "path": "content/evidence/records/EV-STRUCT-0009.json",
+      "class": "structural-verification",
+      "title": "ARABIC and DECIMAL inside the 812-case unswept structural sweep: on record, no count",
+      "subjects": [
+        "FUNC.ARABIC",
+        "FUNC.DECIMAL"
+      ],
+      "upstream_row_id": "BUG-FUNC-028",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0010",
+      "path": "content/evidence/records/EV-STRUCT-0010.json",
+      "class": "structural-verification",
+      "title": "REGEXTEST escape battery: 18 divergences before the repair, 40/40 after, same cases",
+      "subjects": [
+        "FUNC.REGEXEXTRACT",
+        "FUNC.REGEXREPLACE",
+        "FUNC.REGEXTEST"
+      ],
+      "upstream_row_id": "BUG-FUNC-041",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-041_regex_silent_escape_fallthrough_and_dead_translate_phrasebook.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 1,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0011",
+      "path": "content/evidence/records/EV-STRUCT-0011.json",
+      "class": "structural-verification",
+      "title": "W090 array-lift tranche: 2 of 34 before the fix, 34 of 34 after, across 14 surfaces",
+      "subjects": [
+        "FUNC.ATAN2",
+        "FUNC.BASE"
+      ],
+      "upstream_row_id": "BUG-FUNC-017",
+      "upstream_register": "defect-stream",
+      "upstream_anchor_file": "docs/bugs/streams/BUG-FUNC-017_math_scalar_numeric_array_lift_gap.md",
+      "counts_declared": 2,
+      "counts_with_a_published_numerator": 2,
+      "counts_with_a_published_denominator": 2,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": true,
+      "has_retraction": false,
+      "evidence_locality": "mixed",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0012",
+      "path": "content/evidence/records/EV-STRUCT-0012.json",
+      "class": "structural-verification",
+      "title": "Matrix family structural COM probe: pinned values, provisional tier, no count",
+      "subjects": [
+        "FUNC.MDETERM",
+        "FUNC.MINVERSE",
+        "FUNC.MMULT"
+      ],
+      "upstream_row_id": "W16-BATCH45-MATRIX-FAMILY-20260316",
+      "upstream_register": "identification-note",
+      "upstream_anchor_file": "docs/function-lane/FUNCTION_LANE_EVIDENCE_ID_REGISTRY.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "structural-admission"
+      ],
+      "has_group_scoped_count": true,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "local-only",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0013",
+      "path": "content/evidence/records/EV-STRUCT-0013.json",
+      "class": "alias-pairing",
+      "title": "OP_POWER and POWER share power_kernel but their Excel evidence is on different builds",
+      "subjects": [
+        "FUNC.OP_POWER",
+        "FUNC.POWER"
+      ],
+      "upstream_row_id": "XMD-004",
+      "upstream_register": "math-deviation",
+      "upstream_anchor_file": "docs/EXCEL_MATH_DEVIATION_CATALOG.md",
+      "counts_declared": 1,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [
+        "numeric-bits"
+      ],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    },
+    {
+      "record_id": "EV-STRUCT-0014",
+      "path": "content/evidence/records/EV-STRUCT-0014.json",
+      "class": "substrate-identification",
+      "title": "MULTINOMIAL owns a private Lanczos lgamma and has no numeric evidence at all",
+      "subjects": [
+        "FUNC.MULTINOMIAL"
+      ],
+      "upstream_row_id": null,
+      "upstream_register": "none",
+      "upstream_anchor_file": "crates/oxfunc_core/src/functions/multinomial.rs",
+      "counts_declared": 0,
+      "counts_with_a_published_numerator": 0,
+      "counts_with_a_published_denominator": 0,
+      "axes_present": [],
+      "has_group_scoped_count": false,
+      "has_repair_target_count": false,
+      "has_retraction": false,
+      "evidence_locality": "in-repo",
+      "record_version": 1,
+      "handbook_reverified": false
+    }
+  ]
+}

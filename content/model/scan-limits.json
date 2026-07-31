@@ -1,0 +1,107 @@
+{
+  "schema": "efh.scan-limits/v1",
+  "version": 1,
+  "what_this_file_is": "The prose for the scan limits and exclusion rules that data/presence/<function_id>.json references by id only. It exists because data/ is mechanical and may not carry two blocks of authored prose repeated 541 times. A presence file says limits: [\"L1\", ... , \"L9\"]; this file says what each id means, once.",
+  "applies_to": "data/presence/<function_id>.json — every file, every entry",
+  "basis": "The presence map is a scan of the OxFunc tree at commit 473efa3. These limits describe what that scan can and cannot establish; they are properties of the method, not of any function.",
+  "exclusion_rules": [
+    {
+      "id": "EXCL-SURFACE-DISPATCH-1",
+      "applies_to": "impl_modules[]",
+      "rule": "A module is excluded from impl_modules[] if and only if its file basename starts with the literal string \"surface_dispatch\". The prefix is the whole rule: no threshold, no hand-picked list, no judgement per entry.",
+      "why": "crates/oxfunc_core/src/functions/surface_dispatch.rs names 526 of the 541 Handbook ids and contains 110 #[test] functions of its own across 8762 source lines. Counting it as \"the module implementing function X\" would make almost every entry report two or more modules, 110-plus tests, roughly 11,000 source lines and 525 siblings — which is to say it would make every per-entry number meaningless.",
+      "what_is_kept": "mention_modules[] keeps the unfiltered set, dispatch tables included, so the exclusion is auditable rather than hidden.",
+      "source": "impl-map-summary.md section 0b, \"The one judgement call in this script, stated openly\""
+    }
+  ],
+  "limits": [
+    {
+      "id": "L1",
+      "short": "Says nothing about agreement with Excel",
+      "text": "No value in the presence map came from comparing an OxFunc result against a live Excel oracle, or against any oracle at all. cargo test was not run; no workbook was opened. A function with 137 tests and a Lean module may still disagree with Excel on every input, and a function with no tests may be exactly right. The four states that matter — checked against live Excel with counts; agrees on a local corpus with no live oracle; a known open discrepancy; nobody ever checked — are not distinguishable from anything in this file, and the last of them is not ruled out for any of the 541 entries by it.",
+      "source": "impl-map-summary.md section 5 item 1"
+    },
+    {
+      "id": "L2",
+      "short": "Both test counts are module-level",
+      "text": "Where a module serves a family, every sibling reports the same number, so the count is an upper bound on per-function coverage and often a very loose one: 256 of 541 entries share their module with five or more siblings. It counts test functions, not assertions, cases or inputs — a #[test] asserting one trivial value counts the same as one sweeping a million. It does not count table-driven or proptest! cases inside a test body, and it does not record whether any test passes.",
+      "source": "impl-map-summary.md section 5 item 2"
+    },
+    {
+      "id": "L3",
+      "short": "registered and dispatch_present only mean the id is spelled in a table",
+      "text": "They do not mean the dispatch arm computes anything, returns a correct value, or is reachable at runtime. A stub returning #VALUE! registers identically to a finished implementation. registered is 541 of 541, which is a fact about text in two seed files and nothing more.",
+      "source": "impl-map-summary.md section 5 item 3"
+    },
+    {
+      "id": "L4",
+      "short": "The module relation is a text mention, not a call graph",
+      "text": "A module is listed because the quoted id string occurs somewhere in it, or because the Handbook declared it. The occurrence could be a comment, a TODO, a deny-list entry or a test-only reference. No compilation, macro expansion or name resolution was performed, so macro-generated dispatch is invisible to this scan in both directions.",
+      "source": "impl-map-summary.md section 5 item 4"
+    },
+    {
+      "id": "L5",
+      "short": "A Lean file existing is not a proof",
+      "text": "A .lean file existing and naming a function says nothing about whether it contains a proved theorem, a sorry, an axiom, or only a definition. The scan did not parse Lean, did not run lake build, and did not grep for sorry. 525 of 541 entries have a Lean module by this measure; that number means \"a file exists\", full stop. lean_parsed is const false for this reason.",
+      "source": "impl-map-summary.md section 5 item 5"
+    },
+    {
+      "id": "L6",
+      "short": "Documentation mentions count words, not verdicts",
+      "text": "A hit in the discrepancy catalogue may be an open discrepancy, a closed one, a ruled-out lead, or a passing mention in a table header. Every count is a pointer to go read that file, never a status. Likewise a hit on a docs/bugs/streams/ filename says only that a document mentions the name.",
+      "source": "impl-map-summary.md section 5 item 6"
+    },
+    {
+      "id": "L7",
+      "short": "Short-name counts are leads, not facts",
+      "text": "The 53 entries whose surface name is three characters or shorter (T, N, IF, PI, SUM, PV and the rest) were matched with a guarded rule and carry name_match_confidence: low. Guarding still admits false positives — SUM( inside prose about aggregation in general — and still misses real prose mentions such as \"the T function\". Nothing downstream may promote a low-confidence name match to evidence.",
+      "source": "impl-map-summary.md section 5 item 7"
+    },
+    {
+      "id": "L8",
+      "short": "Absence of a hit is weak evidence of absence",
+      "text": "Family-level naming, localized names, generated code, or documentation that discusses a family without naming its members all read as zero here. A zero in this map is a statement about the scan, not about OxFunc.",
+      "source": "impl-map-summary.md section 5 item 8"
+    },
+    {
+      "id": "L9",
+      "short": "This is a snapshot",
+      "text": "The map is pinned to one OxFunc tree state — commit 473efa3, working tree clean. Nothing in it auto-updates; it must be regenerated after any OxFunc change, and a presence file whose oxfunc_commit no longer matches the tree is stale by definition.",
+      "source": "impl-map-summary.md section 5 item 9"
+    }
+  ],
+  "doc_mention_classification_rule": {
+    "produces": "data/presence/<function_id>.json :: doc_mention_classification[].kind",
+    "values": [
+      "bulk-inventory",
+      "behavioural-finding"
+    ],
+    "rule": "A mentioning document is classified bulk-inventory when its file name matches one of the declared inventory patterns below, OR when every section header enclosing the mention matches one of the declared inventory header patterns. Otherwise it is classified behavioural-finding. The rule is evaluated per (function_id, path) pair and is a total function of the file name and the enclosing header text — it makes no judgement about content.",
+    "inventory_file_name_patterns": [
+      "*_INVENTORY*.csv",
+      "*_INVENTORY*.md",
+      "*_SEED*.csv",
+      "*_LIBRARY_CONTEXT_SNAPSHOT_EXPORT*.csv",
+      "*_CORRELATION_LEDGER*.csv",
+      "*_CATALOG_CURRENT_BASELINE_LOCAL.csv",
+      "*_SCOPE_RECONCILIATION*.csv",
+      "*_LANE_SURVEY_*.json"
+    ],
+    "inventory_header_patterns": [
+      "## Scope*",
+      "## Inventory*",
+      "## Coverage*",
+      "## Current Summary",
+      "## Cache state",
+      "## Adjacent families to check"
+    ],
+    "why_this_matters": "It is what lets an absence block say \"the only documents naming this function are inventories\" as a generated sentence rather than a typed one. A bulk-inventory hit is not a behavioural finding and must never be rendered as one.",
+    "known_risk": "This rule is authored here, in content/. If the tool that generates data/presence/ implements a different rule or a different set of patterns, the two will disagree and the build guard that requires every referenced kind to be defined here will not catch it — the values are the same two strings either way. The rule text and the generator must be reconciled before publication.",
+    "gloss_basis": "handbook-authored"
+  },
+  "build_guards": [
+    "The build fails when data/presence references a limit id this file does not define.",
+    "The build fails when this file defines a limit id nothing references.",
+    "The build fails when data/presence references an exclusion_rule_id this file does not define."
+  ]
+}

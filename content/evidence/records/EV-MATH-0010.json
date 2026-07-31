@@ -1,0 +1,57 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MATH-0010",
+  "record_version": 1,
+  "class": "excel-math-deviation",
+  "subjects": [
+    "FUNC.COTH"
+  ],
+  "subject_role": {},
+  "title": "COTH saturates to the sign of its argument: one live witness, no row count",
+  "upstream_row_id": null,
+  "upstream_register": "none",
+  "upstream_status_verbatim": null,
+  "upstream_anchor": {
+    "file": "crates/oxfunc_core/src/functions/coth.rs",
+    "row_id": null,
+    "section": "COTH_META real_result_policy",
+    "cited_lines": "22-27",
+    "cited_text_sha256": "4c0e361b10ff3f2eb1c8857060587852845ee13a1f63ce571c258772565a5e4b",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "For large |n| the ratio cosh/sinh becomes Inf/Inf, i.e. NaN. Excel saturates COTH to sign(n). The record is a single verified witness -- COTH(800)=1 on live Excel 16.0 b20026 -- with no denominator, and it lives in a code comment rather than in any catalogue row.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "`ExcelRealPolicy::SATURATE_SIGN`",
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": null,
+  "open_problem_ref": null,
+  "reader_warning": "One witness is not a count. COTH has no numeric-bits comparison count anywhere in OxFunc.",
+  "citations": [
+    "OxFunc:crates/oxfunc_core/src/functions/coth.rs:24-25",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-027_broad_scalar_invocation_space_findings.md:77-105",
+    "content/evidence/harvest/RV-w108-elementary.md — the primary-source re-derivation this record follows"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure (mandated: every figure must be traceable to a quoted sentence).",
+    "counts[].figure_display_only — const true; makes FOUNDATION §2.5's 'figure is display only, guard G-9' explicit on the datum itself.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — FOUNDATION puts these in a record-level `oracle` object. They are carried PER COUNT here so that no count can inherit an environment from a sibling count in the same record.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn. Answers ATTRIBUTION-CORRECTIONS §2.3 item 2: a superseded figure must be dispositioned 'superseded', not silently absent.",
+    "counts[].ambiguity_note — nullable; the published statement of an unresolved source ambiguity attached to this specific figure.",
+    "counts[].measurement_subject gains the value 'handbook-recomputation-over-cached-corpus' — a computation over stored bits performed by an agent, NOT a live-Excel oracle run. Required by the re-measurement rule; such counts always carry handbook_reverified:false and may never be shelved beside an oracle run.",
+    "counts[].build_ambiguity gains the value 'not-stated-in-this-record' for sources that name no Excel build anywhere.",
+    "upstream_anchor.cited_text_sha256_basis — 'git-object-at-473efa3' or 'working-tree-untracked-path' (smart-fuzzer/work, smart-fuzzer/cache and .tmp are gitignored in OxFunc, so no object exists at the commit).",
+    "upstream_anchor.cited_lines — the line range the sha256 was computed over.",
+    "counts[].build_note — nullable; where in the document a build IS named, when it is not named on the scored line. builds[] itself stays EMPTY in that case, because a build may never be inherited from elsewhere in the document."
+  ]
+}

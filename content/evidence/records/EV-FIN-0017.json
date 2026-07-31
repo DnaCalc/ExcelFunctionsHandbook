@@ -1,0 +1,62 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-FIN-0017",
+  "record_version": 1,
+  "class": "defect-stream",
+  "subjects": [
+    "FUNC.IPMT",
+    "FUNC.PPMT",
+    "FUNC.CUMIPMT",
+    "FUNC.CUMPRINC"
+  ],
+  "subject_role": {},
+  "title": "Type-1 first-period interest: four witnesses agreeing to ten decimal places",
+  "upstream_row_id": "BUG-FUNC-034",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "**Pending**: live-Excel bit pinning of the type=1 witnesses on the probe lane",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-034_ipmt_ppmt_type_one_interest_omits_beginning_payment.md",
+    "row_id": "BUG-FUNC-034",
+    "section": "Live Excel Verification (2026-06-18)",
+    "cited_lines": "9-15",
+    "cited_text_sha256": "617166c94d6ad78f675c7f81609075c4ee6a9c6138a064899b2c540f901e0682",
+    "cited_text_sha256_basis": "git-object-at-473efa3"
+  },
+  "severity": "NUM-S",
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "The type-1 defect on IPMT, PPMT, CUMIPMT and CUMPRINC was verified against live Excel on build 20026 with four witnesses, and they agree -- but to TEN DECIMAL PLACES, not to bits. That predicate is neither of the two the evidence schema admits, so this record deliberately publishes NO COUNT rather than folding a tolerant comparison into either enum value. The source itself flags the gap: bit pinning of the type-1 witnesses is listed as pending, and the numeric closed-form pins use a tight tolerance while the exact publication bits remain to be pinned. A page that renders these four surfaces as bit-exact on the strength of this stream is quoting a tolerant comparison as an exact one.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "substrate": null,
+  "substrate_bands": [],
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "The exact f64 publication bits for the type-1 witnesses are not pinned. The source: \"- **Pending**: live-Excel bit pinning of the type=1 witnesses on the probe lane\" and \"(numeric closed-form pins use a tight tolerance; the exact f64 publication bits remain to be pinned).\"",
+  "open_problem_ref": null,
+  "reader_warning": "This record carries no count on purpose. The source's predicate is agreement \"to 10 decimal places\", which neither `exact-typed-bit-match` nor `15-significant-digit-truncation` describes, and inventing a fit for it would misrepresent the strength of the evidence. Four witnesses at a tolerant predicate is not a corpus and not a bit-exactness claim. The existing type=0 Excel-bit witnesses are a separate, stronger thing and are not counted here either.",
+  "citations": [
+    "OxFunc:docs/bugs/streams/BUG-FUNC-034_ipmt_ppmt_type_one_interest_omits_beginning_payment.md:9-15",
+    "OxFunc:docs/bugs/streams/BUG-FUNC-034_ipmt_ppmt_type_one_interest_omits_beginning_payment.md:78-83",
+    "content/evidence/harvest/RV-financial-annuity.md — the primary-source re-derivation this record follows",
+    "ATTRIBUTION-CORRECTIONS.md §2.3 item 9 — the rule that a predicate neither enum value covers is recorded as no-comparison rather than folded into one"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false,
+  "must_not_render_alone": false,
+  "render_together_with": [],
+  "schema_additions": [
+    "counts[].source_sentence — the verbatim source sentence carrying the figure. No counts exist in this record, by design.",
+    "counts[].figure_display_only — const true; FOUNDATION §2.5 guard G-9.",
+    "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / plumbing — carried PER COUNT.",
+    "counts[].currency — enum current | current-and-only | superseded | pre-repair-baseline | stale-in-source | withdrawn.",
+    "counts[].ambiguity_note — nullable.",
+    "counts[].measurement_subject gains 'handbook-recomputation-over-cached-corpus'.",
+    "counts[].build_ambiguity gains 'not-stated-in-this-record'.",
+    "upstream_anchor.cited_text_sha256_basis and upstream_anchor.cited_lines.",
+    "counts[].build_note — where in the document a build IS named, when it is not on the scored line; builds[] stays empty.",
+    "must_not_render_alone / render_together_with."
+  ]
+}

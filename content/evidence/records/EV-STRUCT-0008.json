@@ -1,0 +1,97 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-STRUCT-0008",
+  "record_version": 1,
+  "class": "structural-verification",
+  "subjects": [
+    "FUNC.ARRAYTOTEXT",
+    "FUNC.DATEDIF",
+    "FUNC.DATEVALUE",
+    "FUNC.DAYS360",
+    "FUNC.TIMEVALUE"
+  ],
+  "subject_role": {
+    "FUNC.ARRAYTOTEXT": "body-only",
+    "FUNC.DATEDIF": "body-only",
+    "FUNC.DATEVALUE": "body-only",
+    "FUNC.DAYS360": "body-only",
+    "FUNC.TIMEVALUE": "body-only"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "Error propagation through the date/text value family: 7 of 7 vs Excel",
+  "upstream_row_id": "BUG-FUNC-028",
+  "upstream_register": "defect-stream",
+  "upstream_status_verbatim": "Error-propagation sub-finding — fixed (2026-06-20).",
+  "upstream_anchor": {
+    "file": "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md",
+    "row_id": "BUG-FUNC-028",
+    "section": "Error-propagation sub-finding",
+    "line_range": "27-33",
+    "cited_text_sha256": "f4581b968ad9756a85550a4b6cabf635917ed46b7d2b11ed0e519b4fdc75eae4"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "DATEVALUE and TIMEVALUE (with their in-file siblings DAYS360 and DATEDIF) collapsed any error argument to #VALUE!, and ARRAYTOTEXT stringified it to the text \"#N/A\". After the fix all five propagate the incoming error unchanged with its code preserved, while errors inside an array argument stay textified. The source scores this \"7/7 vs Excel\" - a group total over seven probe cases across the five surfaces, not a per-surface figure. The 7/7 sentence does not restate a build; the build for the resweep it sits inside is live Excel 16.0 build 20026, stated in the section header and the Ref notes.",
+  "counts": [
+    {
+      "figure": "7/7 vs Excel",
+      "passed": 7,
+      "total": 7,
+      "axis": "structural-admission",
+      "comparison_predicate": "exact-typed-bit-match",
+      "count_scope": "group",
+      "group_members": [
+        "FUNC.ARRAYTOTEXT",
+        "FUNC.DATEDIF",
+        "FUNC.DATEVALUE",
+        "FUNC.DAYS360",
+        "FUNC.TIMEVALUE"
+      ],
+      "attribution": "measured-for-this-surface",
+      "measurement_subject": "production-oxfunc",
+      "held_out": "false",
+      "held_out_rows": null,
+      "corpus_was_repair_target": true,
+      "residual_attribution": null,
+      "measurement_found": true,
+      "divergence_measured": false,
+      "full_pass_only": true,
+      "builds": [
+        "16.0.20026"
+      ],
+      "build_ambiguity": "single-build-not-restated-on-the-scored-line",
+      "arch": "not-stated-in-this-record",
+      "cpu": "not-stated-in-this-record",
+      "cpu_scoped": false,
+      "excel_bitness": "not-stated-in-this-record",
+      "workbook_mode": "Compatibility Version 2",
+      "locale": "not-stated-in-this-record",
+      "plumbing": "cell-ref plumbing in CellRefBatch.psm1",
+      "capture_route": "live Excel COM",
+      "corpus_or_build": "2026-06-20 error-propagation probes, live Excel 16.0 build 20026",
+      "corpus_tracked": false,
+      "measured_as_of": "2026-06-20",
+      "quoted_source_sentence": "- **Error-propagation sub-finding — fixed (2026-06-20).** `DATEVALUE`/`TIMEVALUE` (and their\n  in-file siblings `DAYS360`/`DATEDIF`) collapsed any error argument to `#VALUE!` via\n  `coerce_*.map_err(|_| Coercion)`; `ARRAYTOTEXT` stringified it to the text \"#N/A\". All now\n  propagate the incoming error unchanged with its code preserved (`first_error_arg` /\n  scalar-error guard), while errors *inside* an array argument stay textified\n  (`ARRAYTOTEXT({1;#N/A})` → \"1, #N/A\"). 7/7 vs Excel; regression test\n  `date_value_family::tests::error_args_propagate_unchanged_through_value_family`.",
+      "citation": "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md:27-33 (figure and finding); docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md:9 and :40-42 (build)"
+    }
+  ],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": null,
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": null,
+  "open_problem_ref": null,
+  "reader_warning": "This is an error-placement measurement on the structural axis. It says nothing about any of these five surfaces' numeric results.",
+  "citations": [
+    "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md:27-33 (the error-propagation sub-finding and the 7/7)",
+    "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md:161 (closure checklist restating error-prop 7/7)",
+    "docs/bugs/streams/BUG-FUNC-028_unswept_conversion_text_date_array_lift_and_coercion_gap.md:40-42 (Ref notes: build 20026, no CPU, no arch)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}

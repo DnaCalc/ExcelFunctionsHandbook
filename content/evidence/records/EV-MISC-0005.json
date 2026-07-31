@@ -1,0 +1,49 @@
+{
+  "schema": "efh.evidence-record/v2",
+  "record_id": "EV-MISC-0005",
+  "record_version": 1,
+  "class": "deferral",
+  "subjects": [
+    "FUNC.MDETERM"
+  ],
+  "subject_role": {
+    "FUNC.MDETERM": "header"
+  },
+  "subject_internal_equality_predicate": null,
+  "title": "MDETERM shares the LU elimination with MINVERSE and has no numeric evidence",
+  "upstream_row_id": "G5",
+  "upstream_register": "catalogue",
+  "upstream_status_verbatim": "| G5 matrix numeric/shape | 1 |",
+  "upstream_anchor": {
+    "file": "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md",
+    "row_id": "G5",
+    "section": "Current Summary",
+    "line_range": "72-72",
+    "cited_text_sha256": "107a6398cb51637732c1d304c698b7e0a9d5010608493853771b286b1f02c210"
+  },
+  "severity": null,
+  "maturity": null,
+  "maturity_is_inherited": false,
+  "status_plain": "MDETERM has NO numeric comparison against Excel and no counted comparison of any kind. The catalogue's G5 group holds exactly one row and it is MINVERSE. The 2026-07-10 recon corpus has two G5-01-minverse rows and zero MDETERM rows. smart-fuzzer/work/w109/ has G5-01 files for MINVERSE only. The W109 lane survey names MDETERM only as adjacent, observing that its determinant_kernel already implements the exact Doolittle forward elimination MINVERSE needed - and that is a statement about OxFunc's internals, confirmed in source at matrix_family.rs:134-178 (LU forward elimination with partial pivot, determinant as the product of the pivots), not a measurement against Excel. The only Excel-versus-MDETERM evidence anywhere is one provisional structural COM probe pinning MDETERM({1,2;3,4}) -> -2, carried in a separate record. MDETERM must not inherit MINVERSE's 598/607: sharing an elimination step is not sharing a measurement, and the two surfaces publish different things from it.",
+  "counts": [],
+  "oracle": null,
+  "evidence_locality": "in-repo",
+  "evidence_locality_note": null,
+  "substrate": "crates/oxfunc_core/src/functions/matrix_family.rs:134-178 — LU forward elimination with partial pivot; the determinant is the product of the pivots. Shared with MINVERSE's inverse_kernel by construction, not by measurement.",
+  "substrate_bands": null,
+  "ruled_out": [],
+  "retractions": [],
+  "open_question": "No MDETERM-versus-Excel numeric corpus exists at any size.",
+  "open_problem_ref": null,
+  "reader_warning": "Do not let MDETERM borrow MINVERSE's numbers. Nothing published anywhere in OxFunc scores MDETERM against Excel.",
+  "citations": [
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:72 (Current Summary: G5 matrix numeric/shape = 1)",
+    "docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:147 (the single G5 row is G5-01 MINVERSE)",
+    "docs/function-lane/DISCREPANCY_RECON_RESULTS_20260710.csv (two G5-01-minverse rows; zero MDETERM rows)",
+    "docs/function-lane/W109_LANE_SURVEY_20260713.json:158 and the survey's functions list (\"MDETERM (adjacent - already Doolittle LU)\")",
+    "crates/oxfunc_core/src/functions/matrix_family.rs:134-178 (determinant_kernel: LU forward elimination, det = product of pivots)"
+  ],
+  "basis_repo": "OxFunc",
+  "basis_commit": "473efa3",
+  "handbook_reverified": false
+}
