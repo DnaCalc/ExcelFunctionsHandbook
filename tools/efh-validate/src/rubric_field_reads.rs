@@ -668,15 +668,15 @@ pub const FIELD_READS: &[FieldRead] = &[
         foundation_lines: "715, 458-461, 43",
         quote: "-> W3 (+ why_no_count, enumerated) / why_no_count (required at W3, enumerated): \
                 count-published-in-prose-not-extracted, only-percentages-published, \
-                named-in-a-group-record-not-itself-measured, figure-disclaimed-by-source, \
+                named-in-a-group-record-not-itself-measured, count-disclaimed-by-source, \
                 figure-is-a-model-or-candidate-score, qualitative-verdict-only, \
-                open-row-with-no-figure",
+                open-row-with-no-count",
         note: "A1-F1's disposition (line 43) says 'why_no_count BECOMES AN ENUMERATED REQUIRED \
                FIELD (3.2)', but 3.2 states the enum without giving it a home in any 2 schema \
                table, and no F5 or F2 field carries it. Three of its seven values map onto \
                counts[].attribution (disclaimed-by-source, model-or-candidate-score, \
                named-but-not-measured); the other four - count-published-in-prose-not-extracted, \
-               only-percentages-published, qualitative-verdict-only, open-row-with-no-figure - are \
+               only-percentages-published, qualitative-verdict-only, open-row-with-no-count - are \
                derivable from no declared field. It is recorded here as a gap rather than \
                materialised into a schema this tool has no authority to write.",
     },

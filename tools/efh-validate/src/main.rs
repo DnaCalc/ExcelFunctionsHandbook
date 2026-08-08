@@ -235,13 +235,31 @@ fn squash(s: &str) -> String {
     s.split_whitespace().collect::<Vec<_>>().join(" ")
 }
 
-fn cmd_check(reg: &Registry, paths: &[String]) -> i32 {
+fn cmd_check(reg: &Registry, args: &[String]) -> i32 {
+    let mut forced: Option<String> = None;
+    let mut paths: Vec<String> = Vec::new();
+    let mut i = 0;
+    while i < args.len() {
+        if args[i] == "--as" && i + 1 < args.len() {
+            forced = Some(args[i + 1].clone());
+            i += 2;
+        } else {
+            paths.push(args[i].clone());
+            i += 1;
+        }
+    }
     if paths.is_empty() {
-        eprintln!("efh-validate check: give at least one path");
+        eprintln!("efh-validate check [--as <schema-file>] <path>...");
         return 2;
     }
+    if let Some(f) = &forced {
+        if reg.get(f).is_none() {
+            eprintln!("efh-validate check: no schema named `{}` in tools/schemas/", f);
+            return 2;
+        }
+    }
     let mut files: Vec<PathBuf> = Vec::new();
-    for p in paths {
+    for p in &paths {
         let path = PathBuf::from(p);
         if path.is_dir() {
             collect_json(&path, &mut files);
@@ -250,7 +268,7 @@ fn cmd_check(reg: &Registry, paths: &[String]) -> i32 {
         }
     }
     files.sort();
-    check_files(reg, &files)
+    check_files_with(reg, &files, forced.as_deref())
 }
 
 fn cmd_check_organ(reg: &Registry) -> i32 {
@@ -285,6 +303,10 @@ fn collect_json(dir: &Path, out: &mut Vec<PathBuf>) {
 }
 
 fn check_files(reg: &Registry, files: &[PathBuf]) -> i32 {
+    check_files_with(reg, files, None)
+}
+
+fn check_files_with(reg: &Registry, files: &[PathBuf], forced: Option<&str>) -> i32 {
     let mut unrouted: Vec<String> = Vec::new();
     let mut per_schema: std::collections::BTreeMap<String, (usize, usize)> = Default::default();
     let mut findings_printed = 0usize;
@@ -292,7 +314,11 @@ fn check_files(reg: &Registry, files: &[PathBuf]) -> i32 {
 
     for f in files {
         let rel = relativise(&reg.repo_root, f);
-        let schema = match reg.route(&rel) {
+        let routed = match forced {
+            Some(name) => reg.get(name),
+            None => reg.route(&rel),
+        };
+        let schema = match routed {
             Some(s) => s,
             None => {
                 unrouted.push(rel);
@@ -375,7 +401,9 @@ fn relativise(root: &Path, p: &Path) -> String {
         Ok(r) => r.to_string_lossy().to_string(),
         Err(_) => abs.to_string_lossy().to_string(),
     };
-    s.replace('\\', "/")
+    let s = s.replace('\\', "/");
+    // Windows canonicalize() yields a \\?\ verbatim prefix; strip it so paths read normally.
+    s.trim_start_matches("//?/").to_string()
 }
 
 #[cfg(test)]
@@ -448,6 +476,116 @@ mod tests {
             let got = r.route(p).map(|s| s.file_name.clone());
             assert_eq!(got.as_deref(), Some(want), "routing {}", p);
         }
+    }
+
+    // ---- negative controls: proof that the instance validator is not vacuous ----
+
+    fn f5_minimal_count() -> serde_json::Value {
+        serde_json::json!({
+            "figure": "4/4",
+            "passed": 4,
+            "total": 4,
+            "axis": "numeric-bits",
+            "comparison_predicate": "exact-typed-bit-match",
+            "count_scope": "per-surface",
+            "group_members": [],
+            "attribution": "measured-for-this-surface",
+            "measurement_subject": "production-oxfunc",
+            "held_out": "source-does-not-state",
+            "held_out_rows": null,
+            "corpus_was_repair_target": false,
+            "residual_attribution": null,
+            "measurement_found": true,
+            "divergence_measured": false,
+            "full_pass_only": true,
+            "corpus_or_build": "",
+            "corpus_tracked": false,
+            "measured_as_of": null,
+            "citation": ""
+        })
+    }
+
+    #[test]
+    fn negative_control_key_order_violation_is_caught() {
+        let r = reg();
+        let s = r.get("f16-battery.schema.json").unwrap();
+        // surface_name emitted BEFORE function_id, which the schema orders the other way.
+        let bad = serde_json::json!({
+            "schema": "efh.battery/v1",
+            "surface_name": "PMT",
+            "function_id": "FUNC.PMT",
+            "battery_id": "EFH-B1",
+            "oxfunc_commit": "x",
+            "oxfunc_tree_clean": true,
+            "runner_version": "v",
+            "host": { "arch": "x86-64", "cpu": "c", "os": "o" },
+            "rows": [],
+            "label": "OxFunc's own answers. No Excel was involved."
+        });
+        let f = s.validate(&bad);
+        assert!(
+            f.iter().any(|x| x.message.contains("key order violates the byte-stability contract")),
+            "key order violation not reported: {:#?}",
+            f
+        );
+    }
+
+    #[test]
+    fn negative_control_missing_required_count_field_is_caught() {
+        let r = reg();
+        let s = r.get("f5-evidence-record.schema.json").unwrap();
+        let mut c = f5_minimal_count();
+        c.as_object_mut().unwrap().remove("corpus_was_repair_target");
+        let f = s.validate(&serde_json::json!({ "counts": [c] }));
+        assert!(
+            f.iter().any(|x| x.message.contains("missing required key `corpus_was_repair_target`")),
+            "missing count field not reported: {:#?}",
+            f
+        );
+    }
+
+    #[test]
+    fn negative_control_held_out_typed_as_a_boolean_is_caught() {
+        // FOUNDATION 2.5 line 234 makes held_out a FOUR-valued string enum. A schema or a writer
+        // that treats it as a boolean silently turns "source-does-not-state" into a false, which
+        // is the difference between W4 and W5.
+        let r = reg();
+        let s = r.get("f5-evidence-record.schema.json").unwrap();
+        let mut c = f5_minimal_count();
+        c["held_out"] = serde_json::json!(false);
+        let f = s.validate(&serde_json::json!({ "counts": [c] }));
+        assert!(
+            f.iter().any(|x| x.message.contains("expected type") && x.path.contains("held_out")),
+            "boolean held_out not reported: {:#?}",
+            f
+        );
+    }
+
+    #[test]
+    fn negative_control_handbook_reverified_true_is_caught() {
+        // FOUNDATION 2.5 line 219: const false today for every record. It is what stops the
+        // Handbook wearing OxFunc's evidence as its own.
+        let r = reg();
+        let s = r.get("f5-evidence-record.schema.json").unwrap();
+        let f = s.validate(&serde_json::json!({ "handbook_reverified": true }));
+        assert!(
+            f.iter().any(|x| x.path.contains("handbook_reverified") && x.message.contains("const")),
+            "handbook_reverified: true not reported: {:#?}",
+            f
+        );
+    }
+
+    #[test]
+    fn negative_control_undeclared_key_is_caught() {
+        let r = reg();
+        let s = r.get("f2-presence.schema.json").unwrap();
+        // the exact field FOUNDATION 3.7 line 761 forbids the test predicate from reading
+        let f = s.validate(&serde_json::json!({ "unit_tests_direct": 110 }));
+        assert!(
+            f.iter().any(|x| x.message.contains("undeclared key `unit_tests_direct`")),
+            "undeclared key not reported: {:#?}",
+            f
+        );
     }
 
     #[test]

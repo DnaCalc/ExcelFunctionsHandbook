@@ -1,0 +1,276 @@
+{
+  "schema": "efh.ratchets/v1",
+  "rubric_version": "rubric-derivation/v1.0.0",
+  "denominator_sentence": "541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows",
+  "denominator": 541,
+  "evidence_records_at_baseline": 117,
+  "baseline_caveat": "This baseline was taken while content/evidence/records was still being written. Regenerate with 'efh rubric emit' once the evidence layer is complete; the RATCHETED counters may only rise, so a baseline taken too early is safe, and a baseline taken from an over-complete state would wedge the build.",
+  "ratcheted": [
+    {
+      "id": "RC-1",
+      "counter": "entries with curated Handbook prose (content/functions/*.md)",
+      "today": 375,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-2",
+      "counter": "curated family pages (content/families/*.md)",
+      "today": 0,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-3",
+      "counter": "evidence records (content/evidence/records/*.json)",
+      "today": 117,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-4",
+      "counter": "published vector suites (vectors/**/MANIFEST.json)",
+      "today": 0,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-5",
+      "counter": "admitted Handbook implementations (implementations/*)",
+      "today": 0,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-6",
+      "counter": "entries with a numeric-bits counted record",
+      "today": 65,
+      "direction": "up",
+      "note": "Handbook-controlled: it moves only when the Handbook extracts or binds another count."
+    },
+    {
+      "id": "RC-7",
+      "counter": "entries with a held-out counted record",
+      "today": 18,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-8",
+      "counter": "entries with a per-surface count",
+      "today": 40,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-9",
+      "counter": "entries with a battery row set (data/battery)",
+      "today": 541,
+      "direction": "up",
+      "note": "CI-red if it falls."
+    },
+    {
+      "id": "RC-10",
+      "counter": "evidence records with an unresolved upstream_changed marker",
+      "today": 0,
+      "direction": "down-to-zero",
+      "note": "Must return to zero. No upstream_changed marker exists in the records today."
+    }
+  ],
+  "ratcheted_contract": "Handbook-controlled counters. A fall is a red build.",
+  "reported": [
+    {
+      "id": "RP-W0",
+      "counter": "entries at W0",
+      "today": 15,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about the read-only OxFunc tree."
+    },
+    {
+      "id": "RP-W1",
+      "counter": "entries at W1",
+      "today": 42,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about the read-only OxFunc tree."
+    },
+    {
+      "id": "RP-W2",
+      "counter": "entries at W2",
+      "today": 312,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about the read-only OxFunc tree."
+    },
+    {
+      "id": "RP-W3",
+      "counter": "entries at W3",
+      "today": 64,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's evidence, as harvested."
+    },
+    {
+      "id": "RP-W3R",
+      "counter": "entries at W3R",
+      "today": 0,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "Handbook recomputations over stored OxFunc corpora."
+    },
+    {
+      "id": "RP-W4",
+      "counter": "entries at W4",
+      "today": 90,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's measurements."
+    },
+    {
+      "id": "RP-W5",
+      "counter": "entries at W5",
+      "today": 18,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's measurements."
+    },
+    {
+      "id": "RP-D0D1",
+      "counter": "entries at D0 or D1",
+      "today": 59,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's test layout."
+    },
+    {
+      "id": "RP-D2",
+      "counter": "entries at D2",
+      "today": 256,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's module layout."
+    },
+    {
+      "id": "RP-D3",
+      "counter": "entries at D3",
+      "today": 106,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's module layout."
+    },
+    {
+      "id": "RP-D4",
+      "counter": "entries at D4",
+      "today": 120,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's module layout."
+    },
+    {
+      "id": "RP-N1",
+      "counter": "entries at N1",
+      "today": 45,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's open discrepancy register."
+    },
+    {
+      "id": "RP-N2",
+      "counter": "entries at N2",
+      "today": 7,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's open discrepancy register."
+    },
+    {
+      "id": "RP-N8",
+      "counter": "entries at N8",
+      "today": 402,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about what OxFunc has measured."
+    },
+    {
+      "id": "RP-S8",
+      "counter": "entries at S8",
+      "today": 469,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about what OxFunc has measured."
+    },
+    {
+      "id": "RP-GROUP",
+      "counter": "entries whose only counted evidence is a group total",
+      "today": 68,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about how OxFunc scoped its corpora."
+    },
+    {
+      "id": "RP-STREAMS-REC",
+      "counter": "entries with an open OxFunc defect-stream record",
+      "today": 1,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's own defect tracker."
+    },
+    {
+      "id": "RP-STREAMS-FILE",
+      "counter": "entries named in an OxFunc defect-stream file (any status)",
+      "today": 313,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "data/presence records the stream file path and not its status, so this counter cannot distinguish open from closed."
+    },
+    {
+      "id": "RP-NORECORD",
+      "counter": "entries with no evidence record of any kind",
+      "today": 356,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "Falls as the evidence layer is written; a rise is a review note."
+    },
+    {
+      "id": "RP-ARTIFACTS",
+      "counter": "entries with declared artifacts present",
+      "today": 40,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about the read-only OxFunc tree."
+    },
+    {
+      "id": "RP-REPAIRTARGET",
+      "counter": "entries whose counted corpus was the repair target",
+      "today": 66,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about how OxFunc fitted its repairs."
+    },
+    {
+      "id": "RP-NOCPU",
+      "counter": "entries holding a counted record whose host CPU is not stated",
+      "today": 108,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's disclosure."
+    },
+    {
+      "id": "RP-NOBUILD",
+      "counter": "entries holding a counted record with a non-single build",
+      "today": 89,
+      "on_rise": "review note",
+      "never": "a red build",
+      "note": "A fact about OxFunc's disclosure."
+    }
+  ],
+  "reported_contract": "Facts about the read-only OxFunc repository and about what OxFunc has measured. A rise produces a review note and never a red build: the Handbook does not control them, and ratcheting a fact about somebody else's repository would either be vacuous or would make an honest re-derivation fail CI.",
+  "tooling_metrics": [
+    {
+      "id": "TM-1",
+      "counter": "entries with name_match_confidence low",
+      "today": 53,
+      "note": "A tooling metric, not an evidence state. It is constant unless the matching rule changes."
+    }
+  ]
+}
