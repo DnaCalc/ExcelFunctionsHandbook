@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: now_fn
 role_in_family: "The current-instant reader: the category's canonical volatile, time-dependent
   function, implemented in its own module."

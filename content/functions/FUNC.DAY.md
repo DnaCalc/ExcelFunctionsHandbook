@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_parts_family
 role_in_family: "Extracts the day-of-month component from a date serial; the decomposer on which
   the 1900 leap-year artefact is directly observable."

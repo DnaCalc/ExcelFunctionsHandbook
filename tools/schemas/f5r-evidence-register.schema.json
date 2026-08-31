@@ -7,7 +7,7 @@
     "family": "F5r",
     "organ": "content",
     "path_glob": "content/evidence/REGISTER.json",
-    "writer": "tools/efh/evidence-import (T4, C#/.NET 10)",
+    "writer": "tools/efh `efh evidence register` (F5r-only, C#/.NET 10)",
     "spec": "FOUNDATION.md 2.2 line 132 ('evidence/REGISTER.json  F5r (new)'), 2.5 line 191 ('minted once, never reused; registered in F5r'), 6 T4 line 1184 (an output). D1-reference-structure.md 2.5 line 261 says only 'register at content/evidence/REGISTER.json'. No field table exists.",
     "propertyOrderBasis": "spec-gap-minimal",
     "specGap": "Only three keys are grounded: `schema` and `record_version` from FOUNDATION 2.3 line 161 ('Every file carries schema; every authored file also carries record_version'), and a list of minted record ids from 2.5 line 191's function ('minted once, never reused; registered in F5r'). The list's KEY NAME is not stated by any source; `record_ids` is this schema's declared choice and is flagged as such. additionalProperties is true so T4 may carry more without this schema silently blessing an invented shape.",

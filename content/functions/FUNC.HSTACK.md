@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: hstack
 role_in_family: >-
   Concatenates arrays side by side into one wider array, padding short columns; the

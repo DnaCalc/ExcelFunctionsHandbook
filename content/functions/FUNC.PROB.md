@@ -147,7 +147,7 @@ decides whether a real workbook computes or shows `#NUM!`.
   `FREQUENCY`'s counts through a division by the sample size and you have a `prob_range` that
   `PROB` will accept.
 - **[BINOM.DIST](FUNC.BINOM.DIST.md), [POISSON.DIST](FUNC.POISSON.DIST.md),
-  [HYPGEOM.DIST](FUNC.HYPGEOM.DIST.md)** are the named discrete distributions. Their cumulative
+  `HYPGEOM.DIST`** are the named discrete distributions. Their cumulative
   forms answer the same question `PROB` answers, but from a parameterized family rather than from
   a tabulated one. `PROB` is what you use when the distribution came from data or from a model
   Excel does not name.
@@ -155,7 +155,7 @@ decides whether a real workbook computes or shows `#NUM!`.
   `SUMIFS(prob, x, ">="&a, x, "<="&b)`. What `SUMIFS` will not do is check that `prob` is a
   probability vector — which is `PROB`'s entire added value and the source of both of its
   `#NUM!` conditions.
-- **[MODE.MULT](FUNC.MODE.MULT.md) and [LOOKUP](FUNC.LOOKUP.md)** share `PROB`'s implementing
+- **`MODE.MULT` and [LOOKUP](FUNC.LOOKUP.md)** share `PROB`'s implementing
   module in the reference engine. That is a packaging fact about parallel-vector handling, not a
   semantic relationship.
 - Readers confuse `PROB` with `PERCENTILE`/`QUARTILE`, which invert an *empirical* distribution

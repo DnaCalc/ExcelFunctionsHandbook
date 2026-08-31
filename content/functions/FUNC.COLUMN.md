@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: column_fn
 role_in_family: >-
   Reports the column coordinate of a reference, or of the calling cell when called with no

@@ -158,7 +158,7 @@ No documented `#NUM!`, `#DIV/0!` or empty-input error; the documented empty-inpu
   two pages together are the evidence that the defect is editorial and family-wide.
 - **The rest of the `A` suffix family**: [AVERAGEA](FUNC.AVERAGEA.md),
   [COUNTA](FUNC.COUNTA.md), [STDEVA](FUNC.STDEVA.md), [STDEVPA](FUNC.STDEVPA.md),
-  [VARA](FUNC.VARA.md), [VARPA](FUNC.VARPA.md). Shared *intent*, not one shared rule.
+  `VARA`, `VARPA`. Shared *intent*, not one shared rule.
   `COUNTA` in particular counts non-empty values without converting them. Read each page.
 - **[MINIFS](FUNC.MINIFS.md)** — the conditional minimum, which applies `MIN`-style numeric
   admission after criteria selection, not `MINA`-style conversion.

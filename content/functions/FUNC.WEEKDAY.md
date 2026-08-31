@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_week_family
 role_in_family: "Maps a date serial to its day of the week under one of ten documented numbering
   conventions; the function Microsoft itself names as damaged by the 1900 leap-year artefact."

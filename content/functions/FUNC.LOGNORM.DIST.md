@@ -84,7 +84,7 @@ usable self-check.
 
 The reference engine declares an arity of exactly 4: unlike several distribution surfaces
 where `cumulative` is documented as optional, here every argument must be supplied. That is
-also the visible difference from the legacy [LOGNORMDIST](FUNC.LOGNORMDIST.md), which takes
+also the visible difference from the legacy `LOGNORMDIST`, which takes
 three arguments and computes only the cumulative form.
 
 All four are scalar slots governed by ordinary to-number and to-logical coercion — see
@@ -135,7 +135,7 @@ Handbook's record.
 
 ## Relationships
 
-- **[LOGNORMDIST](FUNC.LOGNORMDIST.md)** — the legacy three-argument, cumulative-only
+- **`LOGNORMDIST`** — the legacy three-argument, cumulative-only
   spelling, retained in the Compatibility category. The documented relationship is
   `LOGNORMDIST(x, μ, σ) = LOGNORM.DIST(x, μ, σ, TRUE)`. **That is an equality of documented
   meaning, not a demonstrated equality of computation.** Two surfaces that document the same

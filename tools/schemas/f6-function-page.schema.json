@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://excelfunctionshandbook.local/schemas/f6-function-page.schema.json",
   "title": "F6 - content/functions/<function_id>.md (front matter)",
-  "description": "The curated per-function page. 0 files today (ratchet RC-1 = 0). Governs the YAML front matter only.",
+  "description": "The curated per-function page. Governs the YAML front matter only.",
   "efh": {
     "family": "F6",
     "organ": "content",
@@ -63,7 +63,7 @@
     "description_override_reason": { "type": "string", "description": "C. Required iff description_override is present." },
     "evidence_records": {
       "type": "array",
-      "items": { "type": "string", "pattern": "^EV-[a-z-]+-[0-9]{4}$" },
+      "items": { "type": "string", "pattern": "^EV-[A-Z-]+-[0-9]{4}$" },
       "description": "R, may be empty; ordered; drives sections S10-S13."
     },
     "open_problems": {

@@ -102,7 +102,7 @@ Returns `Number`.
 - **`n = 1`.** The rank position is `h = 1 + k·0 = 1` for every `k`, so the single value is
   returned for all admissible `k`. This is well defined here, and it is exactly the case where
   the exclusive sibling has nothing to return — see
-  [PERCENTILE.EXC](FUNC.PERCENTILE.EXC.md).
+  `PERCENTILE.EXC`.
 - **`k = 0` and `k = 1`** are admissible and give the sample extremes. The reference engine's
   battery renders the both-zero row; its outcome shows beside this page.
 - **Repeated values** are handled by the ordering with no special case; the interpolation simply
@@ -141,7 +141,7 @@ Error values in either argument propagate under the ordinary coercion rules.
   Excel dispatches compatibility functions as their own surfaces, the reference engine puts them
   in different implementation modules, and no evidence record in the Handbook names either
   surface. The identity is an expectation, not a finding.
-- **[PERCENTILE.EXC](FUNC.PERCENTILE.EXC.md)** is the exclusive definition — Hyndman and Fan's
+- **`PERCENTILE.EXC`** is the exclusive definition — Hyndman and Fan's
   type 6 — with rank position `h = k(n+1)` instead of `1 + k(n−1)`, a restricted domain, and no
   `k = 0` or `k = 1`. **The two functions return different numbers for the same data and the
   same `k`**, and neither is wrong; they estimate the population quantile under different
@@ -152,7 +152,7 @@ Error values in either argument propagate under the ordinary coercion rules.
   Excel surfaces.
 - **`MEDIAN`** is `PERCENTILE.INC(array, 0.5)`, exactly, for every `n`.
 - **`MIN`** and **`MAX`** are the `k = 0` and `k = 1` endpoints.
-- **[PERCENTRANK.INC](FUNC.PERCENTRANK.INC.md)** is the inverse direction — value in, fraction
+- **`PERCENTRANK.INC`** is the inverse direction — value in, fraction
   out — and the two are *not* exact inverses of one another, because `PERCENTRANK.INC` truncates
   its result to a fixed number of significant digits by default. That asymmetry is documented on
   that page and is a real trap.

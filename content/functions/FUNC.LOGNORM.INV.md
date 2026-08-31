@@ -140,7 +140,7 @@ transcribed. Nobody has checked any of it against Excel within the Handbook's re
 - **[LOGNORM.DIST](FUNC.LOGNORM.DIST.md)** — the forward distribution, and the exact inverse.
   Note the argument-count asymmetry: the forward surface takes a `cumulative` flag and the
   inverse does not, because only the CDF can be inverted. A density has no quantile.
-- **[LOGINV](FUNC.LOGINV.md)** — the legacy spelling, retained in the Compatibility category
+- **`LOGINV`** — the legacy spelling, retained in the Compatibility category
   with the same three arguments. The documented relationship is that `LOGINV(p, μ, σ)` and
   `LOGNORM.INV(p, μ, σ)` compute the same quantity. **Documented equivalence is not
   demonstrated identity of computation.** The two are separate registered surfaces and may

@@ -134,7 +134,7 @@ propagate. The mechanically rendered battery beside this page shows the boundary
 
 ## Relationships
 
-- **[FLOOR.PRECISE](FUNC.FLOOR.PRECISE.md)** — the same function without the `mode` argument,
+- **`FLOOR.PRECISE`** — the same function without the `mode` argument,
   documented as always returning the mathematical floor irrespective of both signs. It should
   therefore equal `FLOOR.MATH` with `mode` omitted, on every input. Whether it does bitwise —
   including at a zero significance, where only `FLOOR.PRECISE`'s page documents an answer — is
@@ -275,7 +275,7 @@ Inputs I would probe first:
 - IEEE 754-2019 — `roundToIntegral` and the exactness of power-of-two scaling.
 - Muller et al., *Handbook of Floating-Point Arithmetic*; Kahan's lecture notes — composing
   roundings and the failure of naive grid arithmetic.
-- Handbook, [FLOOR.PRECISE](FUNC.FLOOR.PRECISE.md) and [EVEN](FUNC.EVEN.md);
+- Handbook, `FLOOR.PRECISE` and [EVEN](FUNC.EVEN.md);
   [Coercion and lifting](../model/02-coercion-and-lifting.md).
 - Handbook projections `data/functions/FUNC.FLOOR.MATH.json` (arity 1–3, `signature_placeholder`
   true, `Custom` coercion and kernel classifications) and `data/presence/FUNC.FLOOR.MATH.json`

@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_week_family
 role_in_family: "The ISO 8601 week number, as a dedicated function rather than a WEEKNUM option."
 ---

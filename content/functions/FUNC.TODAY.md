@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: today_fn
 role_in_family: "The current-date reader: NOW's date-only sibling, volatile and clock-dependent,
   implemented in its own module."

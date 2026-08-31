@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: concat_family
 role_in_family: "The modern member: joins text across ranges as well as scalars, with no delimiter."
 ---

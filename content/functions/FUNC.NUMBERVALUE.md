@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: number_regex_translate_family
 role_in_family: The explicit-separator text-to-number parser; the locale-independent alternative to VALUE.
 ---

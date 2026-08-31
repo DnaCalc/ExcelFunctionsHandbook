@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_b_compat_family
 role_in_family: "The byte-counting member: LEN's unit changed from characters to bytes."
 ---

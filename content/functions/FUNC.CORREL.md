@@ -144,7 +144,7 @@ which subsumes the documented empty-array row.
   `CORREL` squared, which means any error in `CORREL` is doubled in relative terms in `RSQ`, and
   `RSQ` cannot be more accurate than `CORREL`. Whether Excel composes them the same way is
   unchecked, and `RSQ(x,y)` against `CORREL(x,y)^2` is a good identity probe.
-- **[COVARIANCE.P](FUNC.COVARIANCE.P.md) / [COVARIANCE.S](FUNC.COVARIANCE.S.md)** — the unnormalized
+- **`COVARIANCE.P` / `COVARIANCE.S`** — the unnormalized
   cousins. `CORREL` is covariance divided by the product of the standard deviations, and the
   population/sample choice cancels out of that ratio.
 - **[SLOPE](FUNC.SLOPE.md)** — related by `slope = r · s_y / s_x`. `SLOPE` and `CORREL` share the

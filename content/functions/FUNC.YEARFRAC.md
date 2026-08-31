@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: discount_bill_yearfrac_family
 role_in_family: "The day-count engine: converts a date interval into a fraction of a year on a
   selectable basis, and is the shared substrate the discount and bill-pricing functions measure time

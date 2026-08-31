@@ -18,8 +18,9 @@ body_sections:
   - Page vocabulary
   - Sources
 family: is_predicates_family
-role_in_family: The error test with #N/A carved out — the member defined by an exclusion rather
-  than by a kind.
+role_in_family: >-
+  The error test with #N/A carved out — the member defined by an exclusion rather than by a
+  kind.
 ---
 
 ## What it computes

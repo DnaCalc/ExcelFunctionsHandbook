@@ -192,7 +192,7 @@ who needs small `p`-values.
 
 1. **The sample standard deviation.** With `sigma` omitted, the default path computes a variance,
    and the usual accumulation argument applies — never `Σx² − (Σx)²/n`; see
-   [VAR.S](FUNC.VAR.S.md) and Higham's §1.9. A data set with a large mean relative to its spread
+   `VAR.S` and Higham's §1.9. A data set with a large mean relative to its spread
    can lose most of the digits of `s` before the statistic is formed.
 2. **The mean difference.** `x̄ − x` is a subtraction of near-equal quantities exactly when the
    null hypothesis is nearly true, which is the interesting case.

@@ -127,7 +127,7 @@ non-finite numeric argument.
   0, k)` and `BINOM.DIST(k, n, p, TRUE)` are the same number; `BINOM.DIST.RANGE(n, p, k)` and
   `BINOM.DIST(k, n, p, FALSE)` are the same number. In the reference engine they are **not the
   same computation**, which makes the pair a free differential probe — see below.
-- **[BINOM.INV](FUNC.BINOM.INV.md)** — the quantile of the same distribution.
+- **`BINOM.INV`** — the quantile of the same distribution.
 - **`BINOMDIST` / `CRITBINOM`** — the legacy names for the mass/cumulative and quantile forms.
   `BINOM.DIST.RANGE` has no legacy counterpart; it was introduced with the dotted-name
   generation, which is why its argument order follows no older convention.

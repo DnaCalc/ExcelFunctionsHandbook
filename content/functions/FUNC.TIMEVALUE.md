@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_value_family
 role_in_family: "The text-to-fraction parser for times; the mirror image of DATEVALUE and equally
   locale-dependent."

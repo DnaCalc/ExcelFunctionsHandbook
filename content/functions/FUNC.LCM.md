@@ -122,7 +122,7 @@ is first on the list below.
   computing one from the other; the safe form is `a / GCD(a,b) * b`, which divides before
   multiplying and so avoids an intermediate that overflows when the answer would not.
 - **[MOD](FUNC.MOD.md)** — the divisibility primitive underneath both.
-- **[MULTINOMIAL](FUNC.MULTINOMIAL.md)** — the other variadic exact-integer function in this
+- **`MULTINOMIAL`** — the other variadic exact-integer function in this
   category, sharing `LCM`'s group structural evidence record and its 2^53-scale
   representability problem.
 - Readers most often reach for `LCM` for common denominators and for period alignment ("both

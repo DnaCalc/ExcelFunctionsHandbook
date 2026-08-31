@@ -155,7 +155,7 @@ behaviour that has not been compared against Excel.
 - **[STDEVPA](FUNC.STDEVPA.md)** is the population form of this function — same inclusion rule,
   `n` divisor. The exact relation `STDEVPA = STDEVA * sqrt((n-1)/n)` holds with `n` counting the
   admitted values.
-- **[VARA](FUNC.VARA.md)** is the square: `STDEVA = SQRT(VARA)`, and that is how the reference
+- **`VARA`** is the square: `STDEVA = SQRT(VARA)`, and that is how the reference
   engine computes it.
 - **[AVERAGEA](FUNC.AVERAGEA.md)** supplies the same `xbar` under the same inclusion rule, and
   **[COUNTA](FUNC.COUNTA.md)** is *not* the same count — `COUNTA` counts every non-empty cell

@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_slice_family
 role_in_family: "The measuring member: returns the length that LEFT, RIGHT and MID index into."
 ---

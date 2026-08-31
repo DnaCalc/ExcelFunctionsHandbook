@@ -121,7 +121,7 @@ as documented.
   requirement than either function meets in general.
 - **There is no real `LOG2` in Excel.** Base 2 goes through `LOG(x, 2)`. Given how often base-2
   logarithms appear in sizing and information-theoretic calculations, this is a notable absence,
-  and the complex-valued [IMLOG2](FUNC.IMLOG2.md) exists while the real one does not.
+  and the complex-valued `IMLOG2` exists while the real one does not.
 - **`INT(LOG10(n)) + 1` for the digit count** is the single most common use of this function and
   the single most common way to get a wrong answer from it — see below.
 

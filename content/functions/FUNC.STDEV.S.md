@@ -133,13 +133,13 @@ Returns `Number`, non-negative, in the units of the data.
   exactly: `STDEV.P = STDEV.S * sqrt((n-1)/n)`, so the population value is always the smaller.
   Choosing between them is a statistical question — is this data the whole population, or a
   sample from a larger one — and not a matter of preference.
-- **[VAR.S](FUNC.VAR.S.md)** is the square of this function: `STDEV.S = SQRT(VAR.S)`, and that
+- **`VAR.S`** is the square of this function: `STDEV.S = SQRT(VAR.S)`, and that
   is literally how the reference engine computes it. Anything true of `VAR.S`'s accuracy is true
   of `STDEV.S`'s, halved in relative terms by the square root.
 - **[STDEVA](FUNC.STDEVA.md)** uses the same `n - 1` divisor with a different inclusion rule:
   text in a range counts as `0` and logicals count as `1`/`0`. It is the same estimator over a
   different data set.
-- **[STDEV](FUNC.STDEV.md)** is the legacy Compatibility-category name. Microsoft's replacement
+- **`STDEV`** is the legacy Compatibility-category name. Microsoft's replacement
   guidance points `STDEV` at `STDEV.S`, and the two are documented as computing the same
   quantity. **The Handbook does not treat that as an identity.** A legacy alias and its modern
   name are two registered entry points, and Excel is free to route them to two different code
@@ -149,7 +149,7 @@ Returns `Number`, non-negative, in the units of the data.
   in the product.
 - **[AVERAGE](FUNC.AVERAGE.md)** supplies `xbar` and shares the scan policy exactly, so
   `COUNT` and `AVERAGE` over the same range see the same `n` and the same values `STDEV.S` does.
-- **[DEVSQ](FUNC.DEVSQ.md)** returns the numerator `sum (x - xbar)^2` on its own, and is the
+- **`DEVSQ`** returns the numerator `sum (x - xbar)^2` on its own, and is the
   right function to inspect when diagnosing which of the two divisors a discrepancy came from.
 - **[SKEW](FUNC.SKEW.md) and [KURT](FUNC.KURT.md)** use this same `s` as their standardising
   scale.

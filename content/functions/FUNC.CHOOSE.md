@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: choose_ifs_family
 role_in_family: >-
   Selects one argument by ordinal position; the family's index-driven selector, as against

@@ -175,7 +175,7 @@ sample `s` takes `CONFIDENCE.T` — and not the argument prose.
 - **[CONFIDENCE.NORM](FUNC.CONFIDENCE.NORM.md)** — the known-`σ` sibling. Same shape, `z_{1−α/2}`
   in place of `t_{1−α/2,n−1}`. Not a legacy/modern pair: both are current, and both were introduced
   in Excel 2010 alongside the legacy `CONFIDENCE`.
-- **[CONFIDENCE](FUNC.CONFIDENCE.md)** — the pre-2010 spelling, which corresponds to the *normal*
+- **`CONFIDENCE`** — the pre-2010 spelling, which corresponds to the *normal*
   function. There is no legacy spelling of `CONFIDENCE.T`; it is new function surface, not a
   rename. This matters when reading migration tables that treat every dotted name as a rename.
 - **[T.INV.2T](FUNC.T.INV.2T.md)** — the two-tailed t quantile.

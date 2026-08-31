@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: t_fn
 role_in_family: Sole member — the text-kind filter, implemented in its own module.
 ---

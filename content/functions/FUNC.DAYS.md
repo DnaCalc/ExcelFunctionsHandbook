@@ -18,6 +18,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_parts_family
 role_in_family: "Measures an interval: the signed number of days between two dates. The only
   member of the parts family that consumes two serials rather than decomposing one."

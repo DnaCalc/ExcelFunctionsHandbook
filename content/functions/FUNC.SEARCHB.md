@@ -16,6 +16,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_b_compat_family
 role_in_family: The byte-position locator; SEARCH's DBCS twin, and the one that returns coordinates FINDB and REPLACEB can consume.
 ---

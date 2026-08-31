@@ -18,6 +18,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_parts_family
 role_in_family: "Extracts the month-of-year component from a date serial, as an integer 1 through
   12."

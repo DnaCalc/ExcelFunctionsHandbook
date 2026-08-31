@@ -121,7 +121,7 @@ checked any of this against Excel within the Handbook's record.
   with different argument shapes: `MAX` takes a variadic argument list, `LARGE` takes exactly
   one array. `MAX` also has a documented "returns 0 if there are no numbers" behaviour where
   `LARGE` errors — the two disagree deliberately on the empty case.
-- **[PERCENTILE.INC](FUNC.PERCENTILE.INC.md)** / **[PERCENTILE.EXC](FUNC.PERCENTILE.EXC.md)**
+- **[PERCENTILE.INC](FUNC.PERCENTILE.INC.md)** / **`PERCENTILE.EXC`**
   / **[QUARTILE.INC](FUNC.QUARTILE.INC.md)** — the interpolating relatives. `PERCENTILE.INC`
   at `p = (n−k)/(n−1)` equals `LARGE(array, k)` exactly, because at the knots the linear
   interpolation is degenerate. Away from the knots they differ, and that is the whole point.

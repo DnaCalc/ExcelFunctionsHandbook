@@ -158,7 +158,7 @@ return a confidently meaningless value.
 - **[STDEVA](FUNC.STDEVA.md)** is the sample form of this function — same inclusion rule, `n - 1`
   divisor — related exactly by `STDEVPA = STDEVA * sqrt((n-1)/n)` with `n` counting the admitted
   values.
-- **[VARPA](FUNC.VARPA.md)** is the square: `STDEVPA = SQRT(VARPA)`, and that is how the reference
+- **`VARPA`** is the square: `STDEVPA = SQRT(VARPA)`, and that is how the reference
   engine computes it.
 - **[AVERAGEA](FUNC.AVERAGEA.md)** supplies the same `xbar` under the same inclusion rule.
   **[COUNTA](FUNC.COUNTA.md)** is *not* the matching count — it counts every non-empty cell

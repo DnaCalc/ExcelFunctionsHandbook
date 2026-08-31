@@ -8,6 +8,7 @@ open_problems: []
 references: []
 episodes: []
 body_sections:
+  - "Status: export-only, not deferred"
   - What it computes
   - Arguments
   - Result and edge cases

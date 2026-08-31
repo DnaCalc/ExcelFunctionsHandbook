@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_value_family
 role_in_family: "Interval measurement on the accounting 30/360 convention, in two mutually
   incompatible national variants."

@@ -120,11 +120,11 @@ the formula. Nobody has checked any of it against Excel within the Handbook's re
 - **[SKEW.P](FUNC.SKEW.P.md)** — the population (plug-in) skewness. Note the asymmetry in the
   published surface: Excel offers both a sample and a population *skewness*, but only the
   bias-corrected sample *kurtosis*. There is no `KURT.P`. A reader who wants the plug-in
-  `g₂ = μ₄/μ₂² − 3` must compute it from [DEVSQ](FUNC.DEVSQ.md) and a fourth-power sum by
+  `g₂ = μ₄/μ₂² − 3` must compute it from `DEVSQ` and a fourth-power sum by
   hand, or invert the `G₂` correction algebraically.
-- **[STDEV.S](FUNC.STDEV.S.md)** and **[VAR.S](FUNC.VAR.S.md)** — supply the `s` in the
+- **[STDEV.S](FUNC.STDEV.S.md)** and **`VAR.S`** — supply the `s` in the
   denominator; any disagreement about `s` propagates to the fourth power.
-- **[DEVSQ](FUNC.DEVSQ.md)** — the second-moment building block, and the natural surface to
+- **`DEVSQ`** — the second-moment building block, and the natural surface to
   compare against when checking whether the centred sums agree.
 - **Confused with:** "peakedness". See above. Also confused with `SKEW`, since both are called
   "shape statistics" and both fail on small samples, but they fail at different `n`.
@@ -201,7 +201,7 @@ Inputs I would probe first, and why:
    deviation to the fourth power does not.
 5. **Subnormal spread** — four values differing by a few ulps near `10⁻³⁰⁵` — the underflow
    mirror of the previous probe.
-6. **`KURT` against a hand-computed `G₂` built from [DEVSQ](FUNC.DEVSQ.md) and
+6. **`KURT` against a hand-computed `G₂` built from `DEVSQ` and
    [STDEV.S](FUNC.STDEV.S.md)** on the same data, as a metamorphic check that the
    bias-correction factors are the documented ones rather than a plug-in variant.
 

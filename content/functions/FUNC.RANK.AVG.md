@@ -126,7 +126,7 @@ Returns `Number` — an exact integer or exact half-integer.
   built on: the reference engine computes `RANK.EQ` and adds `(m-1)/2`. They agree exactly when
   `number` is unique in `ref`, and differ by `(m-1)/2` otherwise. `RANK.EQ` is for scoreboards;
   `RANK.AVG` is for statistics.
-- **[RANK](FUNC.RANK.md)**, the legacy Compatibility-category name, corresponds to
+- **`RANK`**, the legacy Compatibility-category name, corresponds to
   [RANK.EQ](FUNC.RANK.EQ.md), **not** to this function. `RANK.AVG` has no legacy predecessor: it
   arrived with the dotted names because averaged ranking was not previously available in Excel at
   all. That asymmetry matters when reading migration guidance — the `.EQ`/`.AVG` pair is one old
@@ -134,10 +134,10 @@ Returns `Number` — an exact integer or exact half-integer.
 - **[CORREL](FUNC.CORREL.md)** over two `RANK.AVG` columns is Spearman's rank correlation
   coefficient, and is the reason `RANK.AVG` exists in a spreadsheet. Excel publishes no
   `SPEARMAN`; this composition is the standard route, and it is only correct with averaged ranks.
-- **[COUNTIF](FUNC.COUNTIF.md)** reproduces the definition:
+- **`COUNTIF`** reproduces the definition:
   `COUNTIF(ref,">"&number) + (COUNTIF(ref,"="&number)+1)/2` is the descending midrank, without
   the presence check.
-- **[PERCENTRANK.INC](FUNC.PERCENTRANK.INC.md)** answers the same question on a `[0, 1]` scale and
+- **`PERCENTRANK.INC`** answers the same question on a `[0, 1]` scale and
   does interpolate for absent values.
 - **[SMALL](FUNC.SMALL.md) and [LARGE](FUNC.LARGE.md)**: the inverse identity that holds for
   `RANK.EQ` fails here, because a midrank on tied data is not a valid order-statistic index.

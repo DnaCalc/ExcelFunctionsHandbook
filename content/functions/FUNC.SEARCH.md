@@ -17,6 +17,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_search_replace_family
 role_in_family: The case-insensitive, wildcard-accepting locator; FIND's permissive counterpart.
 ---

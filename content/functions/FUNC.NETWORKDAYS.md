@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: workday_networkdays_family
 role_in_family: "Counts working days in an interval with the weekend fixed at Saturday and Sunday;
   the original, un-generalized member of the family."

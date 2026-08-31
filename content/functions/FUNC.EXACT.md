@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: exact_fn
 role_in_family: "The sole member: case-sensitive text equality, returned as a logical."
 ---

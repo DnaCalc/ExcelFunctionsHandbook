@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: columns_fn
 role_in_family: >-
   Measures the width of an array or reference; the column-axis counterpart of ROWS and the

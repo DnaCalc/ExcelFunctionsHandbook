@@ -18,6 +18,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_value_family
 role_in_family: "The text-to-serial parser for dates; the family's locale-dependent entry point and
   the only member whose answer depends on state outside its arguments."

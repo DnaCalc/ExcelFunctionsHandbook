@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: dollar_fn
 role_in_family: "The sole member: currency-formatted number-to-text conversion under the host locale."
 ---

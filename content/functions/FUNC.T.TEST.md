@@ -184,7 +184,7 @@ Three separable difficulties, and the third is the one that decides the answer.
 Welford accumulation is the fix, and the argument is Higham's §1.9 and Chan–Golub–LeVeque. This
 matters more here than in `VAR.S` itself, because the variance feeds a ratio whose numerator is
 *also* a difference of nearly equal means — so the cancellation compounds. See
-[VAR.S](FUNC.VAR.S.md) for the one-variable treatment.
+`VAR.S` for the one-variable treatment.
 
 **The mean difference.** `x̄₁ − x̄₂` is a subtraction of nearly equal quantities under the null
 hypothesis — which is precisely the regime the test is designed for. When the two means agree to

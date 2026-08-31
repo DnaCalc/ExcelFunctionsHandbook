@@ -119,7 +119,7 @@ this function, and the Handbook has not observed either in Excel.
   `MODE` and `MODE.SNGL` share a code path inside Excel is an empirical question, and the
   reference engine's own presence projection puts them in different implementation modules.
   Proving identity requires evidence, and none is attached here.
-- **[MODE.MULT](FUNC.MODE.MULT.md)** is the honest sibling: it returns the whole set `A` as a
+- **`MODE.MULT`** is the honest sibling: it returns the whole set `A` as a
   vertical array, which is what the mathematics actually produces. Where `MODE.SNGL` hides a
   tie, `MODE.MULT` exposes it. If you care whether your data has one mode or several, that is
   the function to use, and `COUNT(MODE.MULT(…))` is the direct test.

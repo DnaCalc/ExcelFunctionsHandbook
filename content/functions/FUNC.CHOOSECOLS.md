@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: dynamic_array_reshape_family
 role_in_family: >-
   Projects an array onto a chosen list of columns, in the order given; the family's

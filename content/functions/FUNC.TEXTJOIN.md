@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: textjoin
 role_in_family: Sole member — the delimiter-aware concatenator, implemented in its own module.
 ---

@@ -114,10 +114,10 @@ returns for `MROUND(5, 0)`.
   `MROUND(x, 0.01)` are the same idea expressed two ways, and they can disagree, because the first
   scales by a power of ten and the second divides by an inexact binary constant. Which of the two
   a reader should use is decided by that difference, not by taste.
-- **[ISO.CEILING](FUNC.ISO.CEILING.md)**, **[CEILING.MATH](FUNC.CEILING.MATH.md)**,
+- **[ISO.CEILING](FUNC.ISO.CEILING.md)**, **`CEILING.MATH`**,
   **[FLOOR.MATH](FUNC.FLOOR.MATH.md)** — the directed round-to-multiple family. `MROUND` is the
   nearest-multiple member and the only one that can move a value in either direction.
-- **[CEILING](FUNC.CEILING.md)** — the legacy directed form, and `MROUND`'s closest relative in
+- **`CEILING`** — the legacy directed form, and `MROUND`'s closest relative in
   temperament: both **reject** mismatched signs where the modern `.MATH` surfaces accept them.
   The sign policy, not the rounding direction, is what dates a function in this neighbourhood.
 - **[MOD](FUNC.MOD.md)** — the primitive `MROUND`'s documented rule is phrased in terms of ("the

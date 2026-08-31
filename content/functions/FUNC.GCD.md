@@ -138,7 +138,7 @@ the answer is the single most valuable probe on this page.
   repeated `MOD` converges to.
 - **[QUOTIENT](FUNC.QUOTIENT.md)** and **[INT](FUNC.INT.md)** — the other truncating integer
   operations; each truncates by a different rule, and only `INT` floors.
-- **[MULTINOMIAL](FUNC.MULTINOMIAL.md)** — the other variadic integer-combinatorial function in
+- **`MULTINOMIAL`** — the other variadic integer-combinatorial function in
   this category, and one that shares `GCD`'s group structural evidence record.
 - Readers reach for `GCD` most often to reduce a fraction: `n/GCD(n,d)` over `d/GCD(n,d)`. That
   usage never approaches the documented 2^53 ceiling, which is why the ceiling is so rarely

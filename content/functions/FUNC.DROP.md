@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: dynamic_array_reshape_family
 role_in_family: >-
   Removes a contiguous band of rows or columns from an array's edge; the family's

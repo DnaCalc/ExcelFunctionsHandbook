@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: fixed_fn
 role_in_family: "The sole member: fixed-decimal number-to-text conversion with optional grouping."
 ---

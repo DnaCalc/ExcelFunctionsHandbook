@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: dynamic_array_reshape_family
 role_in_family: >-
   Selects an ordered list of rows from an array; the row-axis twin of CHOOSECOLS and the

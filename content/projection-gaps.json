@@ -1,6 +1,6 @@
 {
   "schema": "efh.projection-gaps/v1",
-  "record_version": 1,
+  "record_version": 2,
   "what_this_file_is": "The register of places where the Handbook's projection of OxFunc and OxFunc itself do not line up, or where a value in data/ is an inference rather than a fact. It lives in content/ because every entry asserts that something is missing, wrong, lossy or inferred — and that is a claim about OxFunc, not a projection of it. It is what lets a page say 'the projection is missing this, OxFunc is not' without hard-coding prose per entry.",
   "basis_repo": "OxFunc",
   "basis_commit": "473efa3",
@@ -48,32 +48,6 @@
       "citation": "crates/oxfunc_core/src/registry_signature_seed.rs:2609 (and :2615, :2621 for the two siblings); docs/function-lane/W45_NON_AT_OPERATOR_INVENTORY.csv:23 ('<trim-both>'); data/functions/FUNC.OP_TRIM_REF_BOTH.json :: text_integrity",
       "corrects": "data/functions/FUNC.OP_TRIM_REF_BOTH.json carries text_integrity.contains_lossy_substitution: true. Nothing was substituted in the projection; the string is exactly OxFunc's bytes. The flag should read as 'this string is not typable', not as 'a character was lost in transit'.",
       "consequence": "F11 content/operators/syntax.json must give this operator typed_form_source: handbook-supplied. OP_IMPLICIT_INTERSECTION must too, for a different reason: its signature is null."
-    },
-    {
-      "gap_id": "PG-short-description-present-upstream-absent-in-projection",
-      "affects": [
-        "FUNC.CUBESETCOUNT",
-        "FUNC.CUBEVALUE",
-        "FUNC.DETECTLANGUAGE",
-        "FUNC.GETPIVOTDATA",
-        "FUNC.LET",
-        "FUNC.PHONETIC",
-        "FUNC.STOCKHISTORY",
-        "FUNC.WEBSERVICE"
-      ],
-      "field": "descriptions.short / descriptions.short_source",
-      "observed": "descriptions.short is null and descriptions.short_source is \"no-short-description\" for all eight.",
-      "upstream_actual": "crates/oxfunc_core/src/registry_help_seed.rs carries a short_description for every one of them — for example CUBEVALUE at :752 \"Returns an aggregated value from the cube.\", PHONETIC at :2512 \"Extracts the phonetic (furigana) characters from a text string\", LET at :1949, WEBSERVICE at :3483. For all eight the seed string is byte-identical to the docs.english_description already published in the same Handbook file.",
-      "kind": "missing-in-projection-present-upstream",
-      "render_as": "The projection reports no short description for this function. OxFunc's help seed carries one, and the identical text is already on this page under its documentation description.",
-      "fix_owner": "unknown",
-      "fix_owner_note": "Both readings are live and the source does not settle it. Reading A: the ingest sources descriptions from the LIVE registry, and each of these eight entries has vintage.descriptions = \"absent:no-live-registry-entry-for-this-id\", so the live registry filters them out and the projection is faithfully reporting what the live registry says. Reading B: the seed text exists in the tree at 473efa3 and a reader is told 'no short description' on a page that displays the very sentence two fields away, which is a projection defect. Until the ingest's sourcing rule is written down, this stays 'unknown'.",
-      "citation": "crates/oxfunc_core/src/registry_help_seed.rs:745, :751, :891, :1359, :1949, :2511, :3019, :3483; data/functions/<id>.json :: descriptions and vintage.descriptions",
-      "measured": {
-        "help_seed_rows_carrying_a_short_description": 353,
-        "handbook_entries_reporting_no_short_description": 39,
-        "of_those_that_have_one_upstream": 8
-      }
     },
     {
       "gap_id": "PG-classification-null",
@@ -153,7 +127,7 @@
       "gap_id": "PG-short-description-authorship-is-an-inference",
       "affects": "all",
       "field": "descriptions.short_source",
-      "observed": "descriptions.short_source takes the values \"microsoft-english-verbatim\" (502 entries) and \"no-short-description\" (39 entries). No entry today carries \"differs-from-english-description\".",
+      "observed": "descriptions.short_source takes the values \"microsoft-english-verbatim\" (518 built-in functions) and \"no-short-description\" (23 built-in operators). No entry today carries \"differs-from-english-description\".",
       "upstream_actual": null,
       "kind": "authorship-inference",
       "render_as": "Where a short description differs from the Microsoft English description, that difference is a mechanical fact. Reading it as 'OxFunc wrote this sentence' is an inference the Handbook does not make: OxFunc's help seed does not record authorship, and a differing string could equally be a different Microsoft revision, a truncation, or an editorial pass by anyone.",
@@ -161,8 +135,8 @@
       "citation": "data/functions/*.json :: descriptions.short_source; crates/oxfunc_core/src/registry_help_seed.rs (no authorship field exists in the seed struct)",
       "why_this_gap_is_registered_while_empty": "The field's third value is the reason this register exists: the value was originally named \"oxfunc-authored\", which is a claim about who wrote a sentence, and it was renamed to the purely mechanical \"differs-from-english-description\" precisely so that the authorship reading would have to live here instead of in data/. Registering it while the population is zero keeps the rename from being quietly undone the first time an entry lands in that bucket.",
       "measured": {
-        "microsoft_english_verbatim": 502,
-        "no_short_description": 39,
+        "microsoft_english_verbatim": 518,
+        "no_short_description": 23,
         "differs_from_english_description": 0,
         "of": 541
       }

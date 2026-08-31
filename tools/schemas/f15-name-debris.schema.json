@@ -2,37 +2,282 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://excelfunctionshandbook.local/schemas/f15-name-debris.schema.json",
   "title": "F15 - content/model/name-debris.json",
-  "description": "The search-index stop-list. Versioned because it is a curated list with no threshold, which by D1's own P-3 discriminator cannot live inside a generator (A3-S11).",
+  "description": "The versioned, evidence-rich search-index stop-list. Raw harvested names remain display truth; these curated rules affect search keys only.",
   "efh": {
     "family": "F15",
     "organ": "content",
     "path_glob": "content/model/name-debris.json",
     "writer": "T10 curation pass (human/agent)",
-    "spec": "FOUNDATION.md 2.7 lines 352-355",
-    "propertyOrderBasis": "foundation-table",
-    "keyOrderContract": "Emit keys in propertyOrder exactly; trailing_tokens[] and trailing_glyphs[] ordinal-sorted."
+    "spec": "FOUNDATION.md 2.7 lines 352-355, extended by the raw-display honesty register carried in this curated file",
+    "propertyOrderBasis": "curated-register-v2",
+    "keyOrderContract": "Emit root and record keys in propertyOrder exactly. Preserve the explicitly declared distribution-map order; array order is curated evidence order."
   },
   "type": "object",
   "additionalProperties": false,
   "propertyOrder": [
     "schema",
     "version",
-    "trailing_tokens",
+    "what_this_file_is",
+    "applies_to",
+    "the_rule_that_governs_it",
+    "measured_over",
     "trailing_glyphs",
-    "trailing_digit_rule"
+    "trailing_glyphs_deliberately_not_stripped",
+    "trailing_tokens",
+    "trailing_tokens_deliberately_not_stripped",
+    "trailing_digit_rule",
+    "id_scoped_repairs",
+    "normalisation_applied_before_matching",
+    "invariants"
   ],
   "required": [
     "schema",
     "version",
-    "trailing_tokens",
+    "what_this_file_is",
+    "applies_to",
+    "the_rule_that_governs_it",
+    "measured_over",
     "trailing_glyphs",
-    "trailing_digit_rule"
+    "trailing_glyphs_deliberately_not_stripped",
+    "trailing_tokens",
+    "trailing_tokens_deliberately_not_stripped",
+    "trailing_digit_rule",
+    "id_scoped_repairs",
+    "normalisation_applied_before_matching",
+    "invariants"
   ],
   "properties": {
-    "schema": { "type": "string", "description": "R." },
-    "version": { "type": "integer", "minimum": 1, "description": "R." },
-    "trailing_tokens": { "type": "array", "items": { "type": "string" }, "description": "R." },
-    "trailing_glyphs": { "type": "array", "items": { "type": "string" }, "description": "R." },
-    "trailing_digit_rule": { "type": "string", "description": "R." }
+    "schema": { "const": "efh.name-debris/v1", "type": "string" },
+    "version": { "const": 2, "type": "integer" },
+    "what_this_file_is": { "$ref": "#/$defs/nonEmptyString" },
+    "applies_to": { "$ref": "#/$defs/nonEmptyString" },
+    "the_rule_that_governs_it": { "$ref": "#/$defs/nonEmptyString" },
+    "measured_over": { "$ref": "#/$defs/measuredOver" },
+    "trailing_glyphs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/trailingGlyph" }
+    },
+    "trailing_glyphs_deliberately_not_stripped": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/protectedGlyphs" }
+    },
+    "trailing_tokens": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/trailingToken" }
+    },
+    "trailing_tokens_deliberately_not_stripped": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/protectedParentheticals" },
+          { "$ref": "#/$defs/protectedSharedTokens" }
+        ]
+      }
+    },
+    "trailing_digit_rule": { "$ref": "#/$defs/trailingDigitRule" },
+    "id_scoped_repairs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/idScopedRepair" }
+    },
+    "normalisation_applied_before_matching": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "invariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "measuredOver": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["corpus", "raw_rows", "locales", "english_rows", "unique_function_article_guids", "measured_at_oxfunc_commit", "source_sha256", "note"],
+      "required": ["corpus", "raw_rows", "locales", "english_rows", "unique_function_article_guids", "measured_at_oxfunc_commit", "source_sha256", "note"],
+      "properties": {
+        "corpus": { "const": "data/localization/microsoft-support-function-index.json :: rows[].localized_name", "type": "string" },
+        "raw_rows": { "const": 20360, "type": "integer" },
+        "locales": { "const": 40, "type": "integer" },
+        "english_rows": { "const": 509, "type": "integer" },
+        "unique_function_article_guids": { "const": 500, "type": "integer" },
+        "measured_at_oxfunc_commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "note": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "trailingGlyph": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["glyph", "codepoint", "action", "observed_rows", "observed_locales", "observed_distribution", "example", "basis"],
+      "required": ["glyph", "codepoint", "action", "observed_rows", "observed_locales", "observed_distribution", "example", "basis"],
+      "properties": {
+        "glyph": { "$ref": "#/$defs/nonEmptyString" },
+        "codepoint": { "type": "string", "pattern": "^U\\+[0-9A-F]+$" },
+        "action": { "const": "strip-from-search-key", "type": "string" },
+        "observed_rows": { "type": "integer", "minimum": 1 },
+        "observed_locales": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/localeTag" } },
+        "observed_distribution": { "$ref": "#/$defs/nonEmptyString" },
+        "example": { "type": ["string", "null"] },
+        "basis": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "protectedGlyphs": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["glyphs", "codepoints", "observed_rows", "why_kept", "basis"],
+      "required": ["glyphs", "codepoints", "observed_rows", "why_kept", "basis"],
+      "properties": {
+        "glyphs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/nonEmptyString" } },
+        "codepoints": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^U\\+[0-9A-F]+$" } },
+        "observed_rows": { "type": "integer", "minimum": 1 },
+        "why_kept": { "$ref": "#/$defs/nonEmptyString" },
+        "basis": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "trailingToken": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["token", "language", "means", "action", "observed_rows", "observed_locales", "example", "basis"],
+      "required": ["token", "language", "means", "action", "observed_rows", "observed_locales", "example", "basis"],
+      "properties": {
+        "token": { "$ref": "#/$defs/nonEmptyString" },
+        "language": { "$ref": "#/$defs/nonEmptyString" },
+        "means": { "$ref": "#/$defs/nonEmptyString" },
+        "action": { "const": "strip-from-search-key", "type": "string" },
+        "observed_rows": { "type": "integer", "minimum": 1 },
+        "observed_locales": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/localeTag" } },
+        "example": { "$ref": "#/$defs/nonEmptyString" },
+        "basis": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "protectedParentheticals": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["pattern", "observed_rows_by_parenthetical", "observed_rows_note", "why_kept", "basis"],
+      "required": ["pattern", "observed_rows_by_parenthetical", "observed_rows_note", "why_kept", "basis"],
+      "properties": {
+        "pattern": { "$ref": "#/$defs/nonEmptyString" },
+        "observed_rows_by_parenthetical": { "$ref": "#/$defs/parentheticalDistribution" },
+        "observed_rows_note": { "$ref": "#/$defs/nonEmptyString" },
+        "why_kept": { "$ref": "#/$defs/nonEmptyString" },
+        "basis": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "parentheticalDistribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["(ADRESA)", "(funksjon)", "(TYP)", "(ТИП)", "(位址)", "(類型)", "(AADRESS)", "(Adres)", "(ADRESSE)", "(Cím)", "(dzień)", "(godzina)", "(internal rate of return, interna stopa povrata)", "(klaidinga)", "(miesiąc)", "(minuta)", "(NASLOV)", "(net present value, neto trenutna vrijednost)", "(rok)", "(sekunda)", "(TÍPUS)", "(TYPE)", "(Tyyppi)", "(VRSTA)", "(АДРЕС)", "(АДРЕСА)", "(종류)"],
+      "required": ["(ADRESA)", "(funksjon)", "(TYP)", "(ТИП)", "(位址)", "(類型)", "(AADRESS)", "(Adres)", "(ADRESSE)", "(Cím)", "(dzień)", "(godzina)", "(internal rate of return, interna stopa povrata)", "(klaidinga)", "(miesiąc)", "(minuta)", "(NASLOV)", "(net present value, neto trenutna vrijednost)", "(rok)", "(sekunda)", "(TÍPUS)", "(TYPE)", "(Tyyppi)", "(VRSTA)", "(АДРЕС)", "(АДРЕСА)", "(종류)"],
+      "properties": {
+        "(ADRESA)": { "type": "integer", "minimum": 1 },
+        "(funksjon)": { "type": "integer", "minimum": 1 },
+        "(TYP)": { "type": "integer", "minimum": 1 },
+        "(ТИП)": { "type": "integer", "minimum": 1 },
+        "(位址)": { "type": "integer", "minimum": 1 },
+        "(類型)": { "type": "integer", "minimum": 1 },
+        "(AADRESS)": { "type": "integer", "minimum": 1 },
+        "(Adres)": { "type": "integer", "minimum": 1 },
+        "(ADRESSE)": { "type": "integer", "minimum": 1 },
+        "(Cím)": { "type": "integer", "minimum": 1 },
+        "(dzień)": { "type": "integer", "minimum": 1 },
+        "(godzina)": { "type": "integer", "minimum": 1 },
+        "(internal rate of return, interna stopa povrata)": { "type": "integer", "minimum": 1 },
+        "(klaidinga)": { "type": "integer", "minimum": 1 },
+        "(miesiąc)": { "type": "integer", "minimum": 1 },
+        "(minuta)": { "type": "integer", "minimum": 1 },
+        "(NASLOV)": { "type": "integer", "minimum": 1 },
+        "(net present value, neto trenutna vrijednost)": { "type": "integer", "minimum": 1 },
+        "(rok)": { "type": "integer", "minimum": 1 },
+        "(sekunda)": { "type": "integer", "minimum": 1 },
+        "(TÍPUS)": { "type": "integer", "minimum": 1 },
+        "(TYPE)": { "type": "integer", "minimum": 1 },
+        "(Tyyppi)": { "type": "integer", "minimum": 1 },
+        "(VRSTA)": { "type": "integer", "minimum": 1 },
+        "(АДРЕС)": { "type": "integer", "minimum": 1 },
+        "(АДРЕСА)": { "type": "integer", "minimum": 1 },
+        "(종류)": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "protectedSharedTokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["pattern", "observed_rows_by_token", "why_kept", "basis"],
+      "required": ["pattern", "observed_rows_by_token", "why_kept", "basis"],
+      "properties": {
+        "pattern": { "$ref": "#/$defs/nonEmptyString" },
+        "observed_rows_by_token": { "$ref": "#/$defs/sharedTokenDistribution" },
+        "why_kept": { "$ref": "#/$defs/nonEmptyString" },
+        "basis": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "sharedTokenDistribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["LEFTB", "MIDB", "RIGHTB", "LENB", "REPLACEB", "FINDB", "SEARCHB"],
+      "required": ["LEFTB", "MIDB", "RIGHTB", "LENB", "REPLACEB", "FINDB", "SEARCHB"],
+      "properties": {
+        "LEFTB": { "type": "integer", "minimum": 1 },
+        "MIDB": { "type": "integer", "minimum": 1 },
+        "RIGHTB": { "type": "integer", "minimum": 1 },
+        "LENB": { "type": "integer", "minimum": 1 },
+        "REPLACEB": { "type": "integer", "minimum": 1 },
+        "FINDB": { "type": "integer", "minimum": 1 },
+        "SEARCHB": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "trailingDigitRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["rule", "why", "corrects", "measured"],
+      "required": ["rule", "why", "corrects", "measured"],
+      "properties": {
+        "rule": { "$ref": "#/$defs/nonEmptyString" },
+        "why": { "$ref": "#/$defs/nonEmptyString" },
+        "corrects": { "$ref": "#/$defs/nonEmptyString" },
+        "measured": { "$ref": "#/$defs/digitMeasurements" }
+      }
+    },
+    "digitMeasurements": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["rows_ending_in_a_digit", "rows_matching_exact_BETA_INVn", "rows_matching_spaced_BETA_INVn_variants", "rows_matching_the_BETA_INVn_shape"],
+      "required": ["rows_ending_in_a_digit", "rows_matching_exact_BETA_INVn", "rows_matching_spaced_BETA_INVn_variants", "rows_matching_the_BETA_INVn_shape"],
+      "properties": {
+        "rows_ending_in_a_digit": { "type": "integer", "minimum": 0 },
+        "rows_matching_exact_BETA_INVn": { "type": "integer", "minimum": 0 },
+        "rows_matching_spaced_BETA_INVn_variants": { "type": "integer", "minimum": 0 },
+        "rows_matching_the_BETA_INVn_shape": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "idScopedRepair": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["repair_id", "applies_to", "observed", "search_key_added", "observed_rows", "scope_note", "display_unchanged", "basis"],
+      "required": ["repair_id", "applies_to", "observed", "search_key_added", "observed_rows", "scope_note", "display_unchanged", "basis"],
+      "properties": {
+        "repair_id": { "type": "string", "pattern": "^ND-" },
+        "applies_to": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/functionId" } },
+        "observed": { "$ref": "#/$defs/nonEmptyString" },
+        "search_key_added": { "$ref": "#/$defs/nonEmptyString" },
+        "observed_rows": { "type": "integer", "minimum": 1 },
+        "scope_note": { "$ref": "#/$defs/nonEmptyString" },
+        "display_unchanged": { "const": true, "type": "boolean" },
+        "basis": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "localeTag": { "type": "string", "pattern": "^[A-Za-z]+-" },
+    "functionId": { "type": "string", "pattern": "^FUNC\\." }
   }
 }

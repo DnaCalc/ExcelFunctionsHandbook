@@ -138,12 +138,12 @@ It is the condition most likely to reach a real workbook, because small groups a
   default of R and NumPy. It admits `quart` `0` through `4`, is defined for every non-empty
   sample, and returns a narrower interquartile range. The two agree only at `quart = 2`. Neither
   supersedes the other.
-- **[QUARTILE](FUNC.QUARTILE.md)**, the legacy Compatibility-category name, corresponds to the
+- **`QUARTILE`**, the legacy Compatibility-category name, corresponds to the
   *inclusive* convention, not this one. `QUARTILE.EXC` has no legacy predecessor: it was added
   when the dotted names arrived, because the exclusive convention was not previously available in
   Excel at all. That asymmetry is worth stating, since it means the `.INC`/`.EXC` pair is not a
   renaming of one old function into two — it is one old function plus one genuinely new one.
-- **[PERCENTILE.EXC](FUNC.PERCENTILE.EXC.md)** is the general form; the reference engine
+- **`PERCENTILE.EXC`** is the general form; the reference engine
   implements `QUARTILE.EXC(A, q)` as `PERCENTILE.EXC(A, q/4)`. `PERCENTILE.EXC` inherits the same
   small-sample restriction in a sharper form: it requires `1/(n+1) <= k <= n/(n+1)`.
 - **[MEDIAN](FUNC.MEDIAN.md)** is the `quart = 2` case and the point of agreement with

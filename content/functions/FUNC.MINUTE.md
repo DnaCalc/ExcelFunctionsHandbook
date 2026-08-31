@@ -18,6 +18,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_parts_family
 role_in_family: "Extracts the minute component from the fractional part of a serial, as an integer
   0 through 59."

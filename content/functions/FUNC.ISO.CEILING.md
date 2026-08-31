@@ -109,7 +109,7 @@ shared call model:
 | propagated | An error value in either argument surfaces as that error |
 
 The reference engine additionally reports `#VALUE!` for arity failures. The absence of a
-documented `#NUM!` is a real difference from the legacy [CEILING](FUNC.CEILING.md), whose
+documented `#NUM!` is a real difference from the legacy `CEILING`, whose
 documentation *does* carry a sign-mismatch error — because `ISO.CEILING` takes the absolute
 value of significance, it has no sign mismatch to reject.
 
@@ -118,17 +118,17 @@ value of significance, it has no sign mismatch to reject.
 This is the most crowded neighbourhood in the math category, and the differences are entirely
 about **what happens to negatives**.
 
-- **[CEILING.PRECISE](FUNC.CEILING.PRECISE.md)** — documented with the same rule: absolute value
+- **`CEILING.PRECISE`** — documented with the same rule: absolute value
   of significance, mathematical ceiling regardless of signs. On the documented behaviour the two
   are the same function under two names, one carrying the ISO lineage and one the Excel-native
   naming scheme. This page does **not** assert that they share a code path or that they agree in
   every bit; it asserts only that the two published rules coincide.
-- **[CEILING](FUNC.CEILING.md)** — the legacy function `ISO.CEILING` was introduced to correct.
+- **`CEILING`** — the legacy function `ISO.CEILING` was introduced to correct.
   Its documented rule is sign-dependent, and it is the one that surprises people.
-- **[CEILING.MATH](FUNC.CEILING.MATH.md)** — the modern general form, with an explicit third
+- **`CEILING.MATH`** — the modern general form, with an explicit third
   argument choosing the direction for negative numbers. `ISO.CEILING` is the fixed-mode case.
-- **[FLOOR.PRECISE](FUNC.FLOOR.PRECISE.md)**, **[FLOOR.MATH](FUNC.FLOOR.MATH.md)**,
-  **[FLOOR](FUNC.FLOOR.md)** — the downward mirrors, one for one.
+- **`FLOOR.PRECISE`**, **[FLOOR.MATH](FUNC.FLOOR.MATH.md)**,
+  **`FLOOR`** — the downward mirrors, one for one.
 - **[INT](FUNC.INT.md)** — the plain floor. `ISO.CEILING(x)` and `-INT(-x)` are the same number.
 - **[MROUND](FUNC.MROUND.md)** — rounds to the *nearest* multiple rather than up.
 - All seven of the ceiling/floor surfaces are implemented in one shared module in the reference

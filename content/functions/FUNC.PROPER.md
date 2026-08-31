@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_search_replace_family
 role_in_family: The case transformer with a word-boundary rule; the only member that rewrites letters rather than locating or substituting them.
 ---

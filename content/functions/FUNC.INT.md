@@ -112,7 +112,7 @@ there is nothing to refuse.
   argument, which `INT` does not. If a formula was written by someone thinking in C or in most
   BASIC dialects, they meant `TRUNC`.
 - **[ISO.CEILING](FUNC.ISO.CEILING.md)** — the reflection, ⌈x⌉ = −⌊−x⌋.
-- **[FLOOR.MATH](FUNC.FLOOR.MATH.md)** and **[CEILING.MATH](FUNC.CEILING.MATH.md)** — the
+- **[FLOOR.MATH](FUNC.FLOOR.MATH.md)** and **`CEILING.MATH`** — the
   generalizations to an arbitrary multiple, with an explicit mode argument for the direction on
   negatives. `INT(x)` is `FLOOR.MATH(x)` with default arguments.
 - **[MOD](FUNC.MOD.md)** — Microsoft's `MOD` page defines the remainder *in terms of this

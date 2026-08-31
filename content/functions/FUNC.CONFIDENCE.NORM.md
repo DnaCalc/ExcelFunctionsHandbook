@@ -143,7 +143,7 @@ coercion rules.
 
 ## Relationships
 
-- **[CONFIDENCE](FUNC.CONFIDENCE.md)** — the legacy spelling. Excel's Compatibility category keeps
+- **`CONFIDENCE`** — the legacy spelling. Excel's Compatibility category keeps
   it, and OxFunc's statistical-distribution contract states that `CONFIDENCE` and
   `CONFIDENCE.NORM` share the same current-baseline normal-confidence kernel. That is a statement
   about the reference engine. **It is not proof that Excel computes the two identically**: proving

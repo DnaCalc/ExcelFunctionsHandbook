@@ -16,6 +16,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_fn
 role_in_family: The general number-format renderer; the family's full-format engine, of which DOLLAR and FIXED are fixed-format special cases.
 ---

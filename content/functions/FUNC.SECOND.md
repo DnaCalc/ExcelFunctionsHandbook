@@ -18,6 +18,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_parts_family
 role_in_family: "Extracts the second component from the fractional part of a serial; the finest
   projection Excel's time model exposes, and the one where floating-point rounding is visible."

@@ -119,7 +119,7 @@ overflow and has no domain restriction.
   `CEILING.MATH(x, 2, 1)` is the away-from-zero reading and coincides with `EVEN` there;
   `CEILING.MATH(x, 2)` with the default mode rounds negatives toward `-∞` and does **not**
   match `EVEN`. Substituting one for the other on a column containing negatives changes results.
-- **[FLOOR.MATH](FUNC.FLOOR.MATH.md), [FLOOR.PRECISE](FUNC.FLOOR.PRECISE.md)** — the downward
+- **[FLOOR.MATH](FUNC.FLOOR.MATH.md), `FLOOR.PRECISE`** — the downward
   family, for contrast: they round toward `-∞`, where `EVEN` rounds away from zero. The
   worksheet's rounding functions do not share a single direction convention, and knowing which
   convention a given one uses is most of the skill in choosing between them.

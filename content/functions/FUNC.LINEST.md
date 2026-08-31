@@ -177,7 +177,7 @@ Excel within the Handbook's record.
   reference engine.
 - **[LOGEST](FUNC.LOGEST.md)** — `LINEST` applied to `ln y`, reported multiplicatively. See
   that page for why its statistics describe the log-scale fit.
-- **[GROWTH](FUNC.GROWTH.md)** — `LOGEST` as `TREND` is to `LINEST`.
+- **`GROWTH`** — `LOGEST` as `TREND` is to `LINEST`.
 - **[SLOPE](FUNC.SLOPE.md)** and **[INTERCEPT](FUNC.INTERCEPT.md)** — the scalar single-predictor
   special cases. `LINEST(y, x)` returns exactly those two numbers, in that order.
 - **[RSQ](FUNC.RSQ.md)**, **[STEYX](FUNC.STEYX.md)**, **[PEARSON](FUNC.PEARSON.md)**,

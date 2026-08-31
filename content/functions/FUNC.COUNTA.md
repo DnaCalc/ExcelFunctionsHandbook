@@ -118,13 +118,13 @@ implementation fact, not documented behaviour.
 
 ## Relationships
 
-- **[COUNT](FUNC.COUNT.md)** — the numeric-only counterpart, and the comparison Microsoft's own page
+- **`COUNT`** — the numeric-only counterpart, and the comparison Microsoft's own page
   draws: use `COUNT` if you do not need to count logical values, text, or error values. `COUNT`
   applies a coercion policy; `COUNTA` applies a classification. On a clean numeric column they
   agree; on any real column they do not, and the difference is the diagnostic.
 - **[COUNTBLANK](FUNC.COUNTBLANK.md)** — the complement, except that it is not a complement. Both
   count a cell holding `""`. See the arithmetic note above.
-- **[COUNTIF](FUNC.COUNTIF.md) / [COUNTIFS](FUNC.COUNTIFS.md)** — the conditional counters
+- **`COUNTIF` / `COUNTIFS`** — the conditional counters
   Microsoft's page points to. Note that `COUNTIF(range,"<>")` is *not* a `COUNTA` substitute: it
   runs the criteria matcher with its own blank-handling rules rather than the non-emptiness
   predicate.

@@ -143,7 +143,7 @@ already established to be strictly positive.
   deviation is a statistical decision that `STANDARDIZE` does not make and cannot see.
 - **[Z.TEST](FUNC.Z.TEST.md)** is the hypothesis test built on the same standardisation, with the
   standard error `sigma/sqrt(n)` in place of `sigma`.
-- **[PERCENTRANK.INC](FUNC.PERCENTRANK.INC.md)** is the non-parametric alternative for "where
+- **`PERCENTRANK.INC`** is the non-parametric alternative for "where
   does this value sit": it uses the empirical distribution instead of a location-scale model, and
   needs no parameters.
 - Readers confuse `STANDARDIZE` with normalisation to `[0, 1]`, which is `(x - min)/(max - min)`

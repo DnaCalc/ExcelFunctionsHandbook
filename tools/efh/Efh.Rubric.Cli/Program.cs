@@ -3,10 +3,20 @@ using Efh.Rubric;
 var args0 = args.Length > 0 ? args[0] : "";
 var args1 = args.Length > 1 ? args[1] : "";
 
+if (args0 == "evidence" && args1 == "register")
+{
+    var registerRoot = FindRoot(args);
+    EvidenceRegisterGenerator.Emit(registerRoot);
+    Console.WriteLine($"handbook root: {registerRoot}");
+    Console.WriteLine("wrote content/evidence/REGISTER.json");
+    return 0;
+}
+
 if (args0 != "rubric" || args1 is not ("emit" or "report"))
 {
     Console.Error.WriteLine("usage: efh rubric emit   [--root <handbook-root>]");
     Console.Error.WriteLine("       efh rubric report [--root <handbook-root>]");
+    Console.Error.WriteLine("       efh evidence register [--root <handbook-root>]");
     return 2;
 }
 

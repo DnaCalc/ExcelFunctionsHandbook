@@ -145,8 +145,8 @@ non-increasing. A regression fails CI.
 | H0 | Repo bootstrap: charter, operations, skeleton, vocabulary draft, mockups, public repo | `complete` (2026-07-18, github.com/DnaCalc/ExcelFunctionsHandbook) |
 | H1 | Evaluation-context review → `content/model/` chapters | `complete` (2026-07-18, chapters 00–07 draft; 36 findings handed off) |
 | H2 | `efh-ingest` + the entry list in `data/` | `complete` (2026-07-18, 541 entries from 534 published rows; byte-stable under section 4 clause 1) |
-| H3 | Gneiss ledger bootstrap: vocabulary + public-current context declared, baseline claims appended, experimental profile emitted | `in progress` — `ledger/` holds `VOCABULARY.md` only: no ledger database, no canonical export, no `efh` tool. Nothing appended. |
-| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | `in progress` — `site/` holds `mockups/` only: no generated pages, no `/coverage`, no `/api`. |
+| H3 | Gneiss ledger bootstrap: vocabulary + public-current context declared, baseline claims appended, experimental profile emitted | `in progress` — a rubric-focused `efh` tool exists, but `ledger/` holds `VOCABULARY.md` only: no ledger database or canonical export. Nothing appended. |
+| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | `in progress` — `site/` holds `mockups/` plus rubric derivation artifacts under `/api`: no generated function pages, no `/coverage`, and no Working/Explicit lenses. |
 | H5 | Depth tranche (~12 fns): curated pages, suites, claims, plates, references, first episodes; ABS+EXP full spread | `planned` — `vectors/` and `implementations/` hold `.gitkeep` only: 0 suites, 0 admitted implementations, 0 plates |
 | H6 | Evidence feedback loop v1 | `planned` |
 | H7+ | Roadmap: tranche expansion, implementation forge, atlas index, locale surfaces, per-build contexts, OneCalc embed, conformance kit | `planned` |

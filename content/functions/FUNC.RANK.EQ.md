@@ -61,7 +61,7 @@ people:
 `number` must **occur** in `ref`. `RANK.EQ` is not an interpolating position function: it does
 not tell you where a value *would* go, it tells you where a value that is present *is*. A
 `number` absent from `ref` yields `#N/A`, not a fractional or bracketing rank. That is the
-behaviour that distinguishes `RANK.EQ` from [PERCENTRANK.INC](FUNC.PERCENTRANK.INC.md), which
+behaviour that distinguishes `RANK.EQ` from `PERCENTRANK.INC`, which
 does interpolate.
 
 ## Arguments
@@ -122,7 +122,7 @@ Returns `Number` — a positive integer, always an exact integer value.
   midrank. The two functions agree exactly when `number` has no duplicates in `ref`. `RANK.AVG`
   is the one to use whenever the ranks feed further statistics, because its ranks always sum to
   `n(n+1)/2`.
-- **[RANK](FUNC.RANK.md)** is the legacy Compatibility-category name. Microsoft's replacement
+- **`RANK`** is the legacy Compatibility-category name. Microsoft's replacement
   guidance points `RANK` at `RANK.EQ`, and the two are documented as computing the same quantity.
   **The Handbook does not treat that as an identity.** A legacy alias and its modern name are two
   registered entry points, and Excel is free to route them to two different code paths; that they
@@ -133,9 +133,9 @@ Returns `Number` — a positive integer, always an exact integer value.
   `LARGE(ref, RANK.EQ(x, ref))` recovers `x` when `x` occurs in `ref`, because competition rank
   and the descending order-statistic index are the same number. The corresponding identity for
   `RANK.AVG` fails on ties, since its rank need not be an integer.
-- **[PERCENTRANK.INC](FUNC.PERCENTRANK.INC.md)** answers the same question on a `[0, 1]` scale
+- **`PERCENTRANK.INC`** answers the same question on a `[0, 1]` scale
   and *does* interpolate for values not present, which is exactly the behaviour `RANK.EQ` refuses.
-- **[COUNTIF](FUNC.COUNTIF.md)** reproduces the definition directly:
+- **`COUNTIF`** reproduces the definition directly:
   `COUNTIF(ref, ">"&number) + 1` is the descending rank, without the presence check. Readers who
   want a rank for an absent value write this, and should know they have given up the `#N/A`
   diagnostic in the process.

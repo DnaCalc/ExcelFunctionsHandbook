@@ -138,9 +138,9 @@ anchor at all.
 
 - **[COUNTA](FUNC.COUNTA.md)** — the near-complement that is not a complement, because both count
   empty-text cells. The pair is the clearest illustration in Excel that "blank" is not one concept.
-- **[COUNT](FUNC.COUNT.md)** — counts numbers only; `0` counts there and does not count here, which
+- **`COUNT`** — counts numbers only; `0` counts there and does not count here, which
   is the one place all three functions agree in spirit.
-- **[COUNTIF](FUNC.COUNTIF.md)** — `COUNTIF(range,"")` and `COUNTIF(range,"<>")` are the usual
+- **`COUNTIF`** — `COUNTIF(range,"")` and `COUNTIF(range,"<>")` are the usual
   attempted substitutes. They run the criteria matcher's own blank-and-empty-text rules, which are
   a third definition again, so they are not reliable stand-ins. If you need a specific definition of
   blank, write it explicitly with `ISBLANK` or `LEN`.

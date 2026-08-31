@@ -165,12 +165,12 @@ checked any of it against Excel within the Handbook's record.
   two agree in their last bits is a question requiring evidence; the composition route and the
   direct route can differ by where the logarithm is taken and how the statistics are
   accumulated.
-- **[GROWTH](FUNC.GROWTH.md)** — returns fitted `y` values from the same fit, as
+- **`GROWTH`** — returns fitted `y` values from the same fit, as
   [TREND](FUNC.TREND.md) does for `LINEST`. `GROWTH` is the function to use for prediction;
   `LOGEST` for the parameters.
 - **[TREND](FUNC.TREND.md)** — the linear-scale predictor, for the comparison a reader should
   make before choosing an exponential model.
-- **[RRI](FUNC.RRI.md)** and **[PDURATION](FUNC.PDURATION.md)** — the financial two-point
+- **`RRI`** and **`PDURATION`** — the financial two-point
   exponential-growth surfaces. `RRI` is exactly `LOGEST` on two observations with the
   constant fitted, expressed as a rate; it uses no least squares because two points determine
   the curve.

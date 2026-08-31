@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: reference_metadata_family
 role_in_family: >-
   Builds a cell address as text from numeric coordinates; the family's only member that

@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: workday_networkdays_family
 role_in_family: "Working-day offsetting with the weekend fixed at Saturday and Sunday; the inverse
   operation to NETWORKDAYS."

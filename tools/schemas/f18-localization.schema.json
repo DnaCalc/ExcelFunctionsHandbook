@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f18-localization.schema.json",
+  "title": "F18 - raw Microsoft Support function-index localization harvest",
+  "description": "The complete deterministic projection of OxFunc's W28 eight-column localization harvest. It preserves source strings without cleaning; only relative Microsoft Support URLs are made absolute.",
+  "efh": {
+    "family": "F18",
+    "organ": "data",
+    "path_glob": "data/localization/microsoft-support-function-index.json",
+    "writer": "tools/efh-ingest (T3, Rust)",
+    "spec": "Handbook localization completeness extension; CHARTER 1.2-1.3 and raw-display honesty rule in content/model/name-debris.json",
+    "propertyOrderBasis": "source-columns-plus-declared-metadata",
+    "propertyOrderEvidence": "rows[] follows W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv's eight-column order exactly; root metadata precedes the raw row array by declaration here",
+    "keyOrderContract": "Emit root, source, counts, and row keys in propertyOrder exactly. Preserve input row order."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": ["schema", "source", "counts", "rows"],
+  "required": ["schema", "source", "counts", "rows"],
+  "properties": {
+    "schema": {
+      "const": "efh.localization.microsoft-support-function-index/v1",
+      "type": "string"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["scope", "repository", "path", "commit", "sha256"],
+      "required": ["scope", "repository", "path", "commit", "sha256"],
+      "properties": {
+        "scope": { "const": "microsoft-support-function-index", "type": "string" },
+        "repository": { "const": "OxFunc", "type": "string" },
+        "path": { "const": "docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv", "type": "string" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "sha256": {
+          "const": "b248fbe16fc977c8287ed99b3996218393543c1855d08c1e8436470b28193231",
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["raw_rows", "locales", "english_rows"],
+      "required": ["raw_rows", "locales", "english_rows"],
+      "properties": {
+        "raw_rows": { "const": 20360, "type": "integer" },
+        "locales": { "const": 40, "type": "integer" },
+        "english_rows": { "const": 509, "type": "integer" }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "minItems": 20360,
+      "maxItems": 20360,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "propertyOrder": [
+          "locale_tag",
+          "list_article_guid",
+          "function_article_guid",
+          "localized_name",
+          "localized_function_url",
+          "version_marker",
+          "localized_category",
+          "localized_description"
+        ],
+        "required": [
+          "locale_tag",
+          "list_article_guid",
+          "function_article_guid",
+          "localized_name",
+          "localized_function_url",
+          "version_marker",
+          "localized_category",
+          "localized_description"
+        ],
+        "properties": {
+          "locale_tag": { "type": "string", "minLength": 1 },
+          "list_article_guid": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          },
+          "function_article_guid": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          },
+          "localized_name": { "type": "string", "minLength": 1 },
+          "localized_function_url": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^https://support\\.microsoft\\.com/.*[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          },
+          "version_marker": { "type": "string" },
+          "localized_category": { "type": "string", "minLength": 1 },
+          "localized_description": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

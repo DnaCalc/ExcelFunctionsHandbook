@@ -16,6 +16,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_search_replace_family
 role_in_family: The by-content editor — matches literal text and rewrites every occurrence, or one chosen occurrence.
 ---

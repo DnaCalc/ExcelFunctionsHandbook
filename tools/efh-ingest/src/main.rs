@@ -18,8 +18,9 @@ use serde::Serialize;
 use serde_json::Value as JsonValue;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
+use std::io::{self, ErrorKind};
 use std::path::{Path, PathBuf};
-use std::process::Command;
+use std::process::{self, Command};
 
 use oxfunc_core::function::{
     ArgPreparationProfile, CoercionLiftProfile, DeterminismClass, ErrorCollapseProfile,
@@ -53,6 +54,7 @@ struct FunctionDoc {
     descriptions: Descriptions,
     docs: Option<DocsLink>,
     localized_names: Vec<LocalizedName>,
+    localization: Option<LocalizationAssociation>,
     artifacts: Option<Artifacts>,
     version_marker: Option<String>,
     special_interface_kind: Option<String>,
@@ -138,6 +140,68 @@ struct LocalizedName {
 }
 
 #[derive(Serialize)]
+struct LocalizationAssociation {
+    raw_organ: &'static str,
+    function_article_guid: Option<String>,
+    scope: &'static str,
+    status: &'static str,
+    article_row_count: usize,
+    resolved_name_count: usize,
+}
+
+// ---------------------------------------------------------------- F18 raw localization shape
+
+const LOCALIZATION_RAW_ORGAN: &str =
+    "data/localization/microsoft-support-function-index.json";
+const MICROSOFT_SUPPORT_ORIGIN: &str = "https://support.microsoft.com";
+const LOCALIZATION_SOURCE_SHA256: &str =
+    "b248fbe16fc977c8287ed99b3996218393543c1855d08c1e8436470b28193231";
+const LOCALIZATION_EXPECTED_ROWS: usize = 20_360;
+const LOCALIZATION_EXPECTED_LOCALES: usize = 40;
+const LOCALIZATION_EXPECTED_ROWS_PER_LOCALE: usize = 509;
+const LOCALIZATION_EXPECTED_ARTICLE_GUIDS: usize = 500;
+
+#[derive(Serialize)]
+struct LocalizationIndexDoc<'a> {
+    schema: &'static str,
+    source: LocalizationSource,
+    counts: LocalizationCounts,
+    rows: &'a [LocalizationSourceRow],
+}
+
+#[derive(Serialize)]
+struct LocalizationSource {
+    scope: &'static str,
+    repository: &'static str,
+    path: String,
+    commit: String,
+    sha256: String,
+}
+
+#[derive(Serialize)]
+struct LocalizationCounts {
+    raw_rows: usize,
+    locales: usize,
+    english_rows: usize,
+}
+
+/// The property order intentionally matches the eight CSV source columns. Seven values are
+/// copied without trimming or normalization. `localized_function_url` is the sole transform:
+/// Microsoft-relative links are made absolute, valid HTTPS Microsoft links remain unchanged,
+/// and other absolute origins or schemes are rejected before publication.
+#[derive(Serialize)]
+struct LocalizationSourceRow {
+    locale_tag: String,
+    list_article_guid: String,
+    function_article_guid: String,
+    localized_name: String,
+    localized_function_url: String,
+    version_marker: String,
+    localized_category: String,
+    localized_description: String,
+}
+
+#[derive(Serialize)]
 struct Artifacts {
     contract_row_id: Option<String>,
     lean_module: Option<String>,
@@ -203,6 +267,15 @@ struct Counts {
     placeholder_signatures: usize,
     with_docs_link: usize,
     with_localized_names: usize,
+    localization_raw_rows: usize,
+    localization_locales: usize,
+    localization_english_rows: usize,
+    localization_resolved_name_pages: usize,
+    localization_article_unique_name_pages: usize,
+    localization_english_name_match_pages: usize,
+    localization_shared_published_row_pages: usize,
+    localization_unresolved_shared_article_pages: usize,
+    localization_missing_source_row_pages: usize,
     classification_from_live_registry: usize,
     classification_from_export_snapshot: usize,
     classification_empty: usize,
@@ -307,6 +380,261 @@ fn read_csv(path: &Path) -> Result<(Vec<String>, Vec<Vec<String>>), Box<dyn std:
     Ok((headers, rows))
 }
 
+fn invalid_data(message: impl Into<String>) -> io::Error {
+    io::Error::new(ErrorKind::InvalidData, message.into())
+}
+
+fn absolute_microsoft_support_url(raw: &str) -> io::Result<String> {
+    if raw.starts_with("https://support.microsoft.com/") {
+        return Ok(raw.to_string());
+    }
+    if raw.contains("://") {
+        return Err(invalid_data(format!(
+            "localization URL must use https://support.microsoft.com/: {raw}"
+        )));
+    }
+    if raw.starts_with('/') {
+        Ok(format!("{MICROSOFT_SUPPORT_ORIGIN}{raw}"))
+    } else {
+        Ok(format!("{MICROSOFT_SUPPORT_ORIGIN}/{raw}"))
+    }
+}
+
+fn is_lowercase_guid(value: &str) -> bool {
+    value.len() == 36
+        && value.chars().enumerate().all(|(i, c)| match i {
+            8 | 13 | 18 | 23 => c == '-',
+            _ => matches!(c, '0'..='9' | 'a'..='f'),
+        })
+}
+
+fn validate_localization_source(
+    rows: &[LocalizationSourceRow],
+    source_sha256: &str,
+) -> io::Result<()> {
+    if source_sha256 != LOCALIZATION_SOURCE_SHA256 {
+        return Err(invalid_data(format!(
+            "localization source SHA-256 changed: expected {LOCALIZATION_SOURCE_SHA256}, got {source_sha256}"
+        )));
+    }
+    if rows.len() != LOCALIZATION_EXPECTED_ROWS {
+        return Err(invalid_data(format!(
+            "localization source row count changed: expected {LOCALIZATION_EXPECTED_ROWS}, got {}",
+            rows.len()
+        )));
+    }
+
+    let mut locale_counts: BTreeMap<&str, usize> = BTreeMap::new();
+    let mut guid_counts: BTreeMap<&str, usize> = BTreeMap::new();
+    let mut guid_locale_counts: BTreeMap<(&str, &str), usize> = BTreeMap::new();
+    for (index, row) in rows.iter().enumerate() {
+        if !is_lowercase_guid(&row.list_article_guid) {
+            return Err(invalid_data(format!(
+                "localization row {index} has invalid list_article_guid: {}",
+                row.list_article_guid
+            )));
+        }
+        if !is_lowercase_guid(&row.function_article_guid) {
+            return Err(invalid_data(format!(
+                "localization row {index} has invalid function_article_guid: {}",
+                row.function_article_guid
+            )));
+        }
+        if !row
+            .localized_function_url
+            .starts_with("https://support.microsoft.com/")
+        {
+            return Err(invalid_data(format!(
+                "localization row {index} has a non-Microsoft or non-HTTPS URL: {}",
+                row.localized_function_url
+            )));
+        }
+        if guid_of_url(&row.localized_function_url).as_deref()
+            != Some(row.function_article_guid.as_str())
+        {
+            return Err(invalid_data(format!(
+                "localization row {index} URL/GUID mismatch: {} vs {}",
+                row.localized_function_url, row.function_article_guid
+            )));
+        }
+        for (field, value) in [
+            ("locale_tag", row.locale_tag.as_str()),
+            ("localized_name", row.localized_name.as_str()),
+            ("localized_category", row.localized_category.as_str()),
+            ("localized_description", row.localized_description.as_str()),
+        ] {
+            if value.trim().is_empty() {
+                return Err(invalid_data(format!(
+                    "localization row {index} has blank {field}"
+                )));
+            }
+        }
+
+        *locale_counts.entry(&row.locale_tag).or_default() += 1;
+        *guid_counts.entry(&row.function_article_guid).or_default() += 1;
+        *guid_locale_counts
+            .entry((&row.function_article_guid, &row.locale_tag))
+            .or_default() += 1;
+    }
+
+    if locale_counts.len() != LOCALIZATION_EXPECTED_LOCALES
+        || locale_counts
+            .values()
+            .any(|count| *count != LOCALIZATION_EXPECTED_ROWS_PER_LOCALE)
+    {
+        return Err(invalid_data(format!(
+            "localization locale matrix changed: expected {LOCALIZATION_EXPECTED_LOCALES} locales with {LOCALIZATION_EXPECTED_ROWS_PER_LOCALE} rows each, got {locale_counts:?}"
+        )));
+    }
+    if locale_counts.get("en-US") != Some(&LOCALIZATION_EXPECTED_ROWS_PER_LOCALE) {
+        return Err(invalid_data("localization source must contain 509 en-US rows"));
+    }
+    if guid_counts.len() != LOCALIZATION_EXPECTED_ARTICLE_GUIDS {
+        return Err(invalid_data(format!(
+            "localization article-GUID count changed: expected {LOCALIZATION_EXPECTED_ARTICLE_GUIDS}, got {}",
+            guid_counts.len()
+        )));
+    }
+    let forty_row_guids = guid_counts.values().filter(|count| **count == 40).count();
+    let four_hundred_row_guids = guid_counts.values().filter(|count| **count == 400).count();
+    if forty_row_guids != 499
+        || four_hundred_row_guids != 1
+        || forty_row_guids + four_hundred_row_guids != guid_counts.len()
+    {
+        return Err(invalid_data(format!(
+            "localization article cardinality changed: expected 499 GUIDs x 40 rows and 1 GUID x 400 rows, got {forty_row_guids} x 40 and {four_hundred_row_guids} x 400"
+        )));
+    }
+    for (guid, row_count) in &guid_counts {
+        let expected_per_locale = *row_count / LOCALIZATION_EXPECTED_LOCALES;
+        for locale in locale_counts.keys() {
+            if guid_locale_counts.get(&(*guid, *locale)) != Some(&expected_per_locale) {
+                return Err(invalid_data(format!(
+                    "localization GUID/locale matrix is ragged for {guid} / {locale}: expected {expected_per_locale}, got {}",
+                    guid_locale_counts.get(&(*guid, *locale)).copied().unwrap_or(0)
+                )));
+            }
+        }
+    }
+    Ok(())
+}
+
+fn exactly_one<T>(items: &[T]) -> Option<&T> {
+    match items {
+        [only] => Some(only),
+        _ => None,
+    }
+}
+
+fn classify_localization(
+    is_combined_published_row: bool,
+    article_row_count: usize,
+    locale_count: usize,
+    article_function_count: usize,
+    english_name_matches: bool,
+) -> (&'static str, &'static str, bool) {
+    if is_combined_published_row {
+        ("shared_published_row", "combined_row", false)
+    } else if article_row_count == 0 {
+        ("function", "missing_source_row", false)
+    } else if article_row_count > locale_count {
+        ("shared_article", "unresolved_shared_guid", false)
+    } else if article_row_count == locale_count && article_function_count == 1 {
+        ("function", "article_unique", true)
+    } else if article_row_count == locale_count
+        && article_function_count > 1
+        && english_name_matches
+    {
+        ("shared_article", "english_name_match", true)
+    } else {
+        ("function", "missing_source_row", false)
+    }
+}
+
+/// Dependency-free SHA-256 for source-artifact identity. Keeping this here avoids making the
+/// ingest tool's build graph depend on a hashing CLI whose availability or output format varies
+/// by host.
+fn sha256_hex(bytes: &[u8]) -> String {
+    const INITIAL: [u32; 8] = [
+        0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a,
+        0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19,
+    ];
+    const K: [u32; 64] = [
+        0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
+        0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+        0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
+        0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+        0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc,
+        0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+        0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+        0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+        0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13,
+        0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+        0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3,
+        0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+        0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5,
+        0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+        0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+        0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+    ];
+
+    let bit_len = (bytes.len() as u64).wrapping_mul(8);
+    let mut padded = Vec::with_capacity((bytes.len() + 72) & !63);
+    padded.extend_from_slice(bytes);
+    padded.push(0x80);
+    while padded.len() % 64 != 56 {
+        padded.push(0);
+    }
+    padded.extend_from_slice(&bit_len.to_be_bytes());
+
+    let mut state = INITIAL;
+    for chunk in padded.chunks_exact(64) {
+        let mut w = [0u32; 64];
+        for (i, word) in chunk.chunks_exact(4).enumerate() {
+            w[i] = u32::from_be_bytes([word[0], word[1], word[2], word[3]]);
+        }
+        for i in 16..64 {
+            let s0 = w[i - 15].rotate_right(7)
+                ^ w[i - 15].rotate_right(18)
+                ^ (w[i - 15] >> 3);
+            let s1 = w[i - 2].rotate_right(17)
+                ^ w[i - 2].rotate_right(19)
+                ^ (w[i - 2] >> 10);
+            w[i] = w[i - 16]
+                .wrapping_add(s0)
+                .wrapping_add(w[i - 7])
+                .wrapping_add(s1);
+        }
+
+        let [mut a, mut b, mut c, mut d, mut e, mut f, mut g, mut h] = state;
+        for i in 0..64 {
+            let sum1 = e.rotate_right(6) ^ e.rotate_right(11) ^ e.rotate_right(25);
+            let choose = (e & f) ^ ((!e) & g);
+            let t1 = h
+                .wrapping_add(sum1)
+                .wrapping_add(choose)
+                .wrapping_add(K[i])
+                .wrapping_add(w[i]);
+            let sum0 = a.rotate_right(2) ^ a.rotate_right(13) ^ a.rotate_right(22);
+            let majority = (a & b) ^ (a & c) ^ (b & c);
+            let t2 = sum0.wrapping_add(majority);
+            h = g;
+            g = f;
+            f = e;
+            e = d.wrapping_add(t1);
+            d = c;
+            c = b;
+            b = a;
+            a = t1.wrapping_add(t2);
+        }
+        for (slot, value) in state.iter_mut().zip([a, b, c, d, e, f, g, h]) {
+            *slot = slot.wrapping_add(value);
+        }
+    }
+
+    state.iter().map(|word| format!("{word:08x}")).collect()
+}
+
 fn col(headers: &[String], name: &str) -> usize {
     headers
         .iter()
@@ -319,11 +647,359 @@ fn guid_of_url(url: &str) -> Option<String> {
         return None;
     }
     let tail = &url[url.len() - 36..];
-    let ok = tail.chars().enumerate().all(|(i, c)| match i {
-        8 | 13 | 18 | 23 => c == '-',
-        _ => c.is_ascii_hexdigit(),
-    });
-    if ok { Some(tail.to_ascii_lowercase()) } else { None }
+    is_lowercase_guid(tail).then(|| tail.to_string())
+}
+
+struct PublishTarget {
+    staged: PathBuf,
+    live: PathBuf,
+    backup: PathBuf,
+}
+
+fn remove_path(path: &Path) -> io::Result<()> {
+    match fs::metadata(path) {
+        Ok(metadata) if metadata.is_dir() => fs::remove_dir_all(path),
+        Ok(_) => fs::remove_file(path),
+        Err(error) if error.kind() == ErrorKind::NotFound => Ok(()),
+        Err(error) => Err(error),
+    }
+}
+
+fn rollback_publication(
+    targets: &[PublishTarget],
+    installed: &[usize],
+    backed_up: &[usize],
+) -> io::Result<()> {
+    for index in installed.iter().rev() {
+        remove_path(&targets[*index].live)?;
+    }
+    for index in backed_up.iter().rev() {
+        let target = &targets[*index];
+        if let Some(parent) = target.live.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        fs::rename(&target.backup, &target.live)?;
+    }
+    Ok(())
+}
+
+fn publication_failure(
+    primary: io::Error,
+    rollback: io::Result<()>,
+    work_root: &Path,
+) -> io::Error {
+    match rollback {
+        Ok(()) => {
+            let _ = fs::remove_dir_all(work_root);
+            primary
+        }
+        Err(rollback_error) => io::Error::new(
+            ErrorKind::Other,
+            format!(
+                "publication failed ({primary}) and rollback failed ({rollback_error}); recovery files remain at {}",
+                work_root.display()
+            ),
+        ),
+    }
+}
+
+fn swap_staged_outputs(data_dir: &Path, work_root: &Path) -> io::Result<()> {
+    let staged = work_root.join("staging");
+    let backup = work_root.join("backup");
+    fs::create_dir(&backup)?;
+    let targets = [
+        PublishTarget {
+            staged: staged.join("functions"),
+            live: data_dir.join("functions"),
+            backup: backup.join("functions"),
+        },
+        PublishTarget {
+            staged: staged.join("localization"),
+            live: data_dir.join("localization"),
+            backup: backup.join("localization"),
+        },
+        PublishTarget {
+            staged: staged.join("axes").join("vocabulary.json"),
+            live: data_dir.join("axes").join("vocabulary.json"),
+            backup: backup.join("vocabulary.json"),
+        },
+        PublishTarget {
+            staged: staged.join("index.json"),
+            live: data_dir.join("index.json"),
+            backup: backup.join("index.json"),
+        },
+    ];
+
+    let mut backed_up = Vec::new();
+    for (index, target) in targets.iter().enumerate() {
+        if target.live.exists() {
+            if let Err(error) = fs::rename(&target.live, &target.backup) {
+                let rollback = rollback_publication(&targets, &[], &backed_up);
+                return Err(publication_failure(error, rollback, work_root));
+            }
+            backed_up.push(index);
+        }
+    }
+
+    let mut installed = Vec::new();
+    for (index, target) in targets.iter().enumerate() {
+        if let Some(parent) = target.live.parent() {
+            if let Err(error) = fs::create_dir_all(parent) {
+                let rollback = rollback_publication(&targets, &installed, &backed_up);
+                return Err(publication_failure(error, rollback, work_root));
+            }
+        }
+        if let Err(error) = fs::rename(&target.staged, &target.live) {
+            let rollback = rollback_publication(&targets, &installed, &backed_up);
+            return Err(publication_failure(error, rollback, work_root));
+        }
+        installed.push(index);
+    }
+
+    if let Err(error) = fs::remove_dir_all(work_root) {
+        eprintln!(
+            "efh-ingest: publication succeeded, but temporary cleanup failed at {}: {error}",
+            work_root.display()
+        );
+    }
+    Ok(())
+}
+
+fn create_publish_work_root(data_dir: &Path) -> io::Result<PathBuf> {
+    for attempt in 0..100 {
+        let candidate = data_dir.join(format!(
+            ".efh-ingest-publish-{}-{attempt}",
+            process::id()
+        ));
+        match fs::create_dir(&candidate) {
+            Ok(()) => return Ok(candidate),
+            Err(error) if error.kind() == ErrorKind::AlreadyExists => continue,
+            Err(error) => return Err(error),
+        }
+    }
+    Err(io::Error::new(
+        ErrorKind::AlreadyExists,
+        "could not allocate an efh-ingest staging directory",
+    ))
+}
+
+fn publish_generated_data(
+    data_dir: &Path,
+    function_outputs: &[(String, String)],
+    localization_json: &str,
+    vocabulary_json: &str,
+    index_json: &str,
+) -> io::Result<()> {
+    let work_root = create_publish_work_root(data_dir)?;
+    let staged = work_root.join("staging");
+    let stage_result = (|| -> io::Result<()> {
+        let functions = staged.join("functions");
+        let localization = staged.join("localization");
+        let axes = staged.join("axes");
+        fs::create_dir_all(&functions)?;
+        fs::create_dir_all(&localization)?;
+        fs::create_dir_all(&axes)?;
+        for (file_name, json) in function_outputs {
+            fs::write(functions.join(file_name), json)?;
+        }
+        fs::write(
+            localization.join("microsoft-support-function-index.json"),
+            localization_json,
+        )?;
+        fs::write(axes.join("vocabulary.json"), vocabulary_json)?;
+        fs::write(staged.join("index.json"), index_json)?;
+        Ok(())
+    })();
+    if let Err(error) = stage_result {
+        let _ = fs::remove_dir_all(&work_root);
+        return Err(error);
+    }
+    let result = swap_staged_outputs(data_dir, &work_root);
+    if result.is_err() && !work_root.join("backup").exists() {
+        let _ = fs::remove_dir_all(&work_root);
+    }
+    result
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{
+        absolute_microsoft_support_url, classify_localization, exactly_one, sha256_hex,
+        publish_generated_data, swap_staged_outputs,
+    };
+    use std::fs;
+    use std::path::{Path, PathBuf};
+    use std::process;
+    use std::time::{SystemTime, UNIX_EPOCH};
+
+    #[test]
+    fn sha256_matches_the_standard_abc_vector() {
+        assert_eq!(
+            sha256_hex(b"abc"),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        );
+    }
+
+    #[test]
+    fn support_urls_are_absolutized_once() {
+        assert_eq!(
+            absolute_microsoft_support_url("/fr-fr/office/abs-3420200f").unwrap(),
+            "https://support.microsoft.com/fr-fr/office/abs-3420200f"
+        );
+        assert_eq!(
+            absolute_microsoft_support_url("https://support.microsoft.com/en-us/office/abs")
+                .unwrap(),
+            "https://support.microsoft.com/en-us/office/abs"
+        );
+        assert!(absolute_microsoft_support_url("http://support.microsoft.com/en-us/office/abs")
+            .is_err());
+        assert!(absolute_microsoft_support_url("https://example.com/en-us/office/abs").is_err());
+    }
+
+    #[test]
+    fn exactly_one_is_total_for_zero_one_and_many_items() {
+        assert_eq!(exactly_one::<u8>(&[]), None);
+        assert_eq!(exactly_one(&[7]), Some(&7));
+        assert_eq!(exactly_one(&[7, 8]), None);
+    }
+
+    #[test]
+    fn association_status_distinguishes_article_identity_from_english_disambiguation() {
+        assert_eq!(
+            classify_localization(false, 40, 40, 1, true),
+            ("function", "article_unique", true)
+        );
+        assert_eq!(
+            classify_localization(false, 40, 40, 2, true),
+            ("shared_article", "english_name_match", true)
+        );
+        assert_eq!(
+            classify_localization(false, 40, 40, 2, false),
+            ("function", "missing_source_row", false)
+        );
+    }
+
+    fn temporary_root(label: &str) -> PathBuf {
+        let nonce = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        std::env::temp_dir().join(format!(
+            "efh-ingest-{label}-{}-{nonce}",
+            process::id()
+        ))
+    }
+
+    fn write(path: &Path, value: &str) {
+        fs::create_dir_all(path.parent().unwrap()).unwrap();
+        fs::write(path, value).unwrap();
+    }
+
+    #[test]
+    fn failed_staged_swap_restores_every_published_output() {
+        let root = temporary_root("rollback");
+        let data = root.join("data");
+        let work = root.join("work");
+        write(&data.join("functions").join("old.json"), "old function");
+        write(
+            &data.join("localization").join("old.json"),
+            "old localization",
+        );
+        write(
+            &data.join("axes").join("vocabulary.json"),
+            "old vocabulary",
+        );
+        write(&data.join("index.json"), "old index");
+
+        write(
+            &work.join("staging").join("functions").join("new.json"),
+            "new function",
+        );
+        // Intentionally omit staging/localization so installation fails after the functions
+        // directory has moved. The rollback must restore all four original targets.
+        write(
+            &work
+                .join("staging")
+                .join("axes")
+                .join("vocabulary.json"),
+            "new vocabulary",
+        );
+        write(&work.join("staging").join("index.json"), "new index");
+
+        assert!(swap_staged_outputs(&data, &work).is_err());
+        assert_eq!(
+            fs::read_to_string(data.join("functions").join("old.json")).unwrap(),
+            "old function"
+        );
+        assert_eq!(
+            fs::read_to_string(data.join("localization").join("old.json")).unwrap(),
+            "old localization"
+        );
+        assert_eq!(
+            fs::read_to_string(data.join("axes").join("vocabulary.json")).unwrap(),
+            "old vocabulary"
+        );
+        assert_eq!(fs::read_to_string(data.join("index.json")).unwrap(), "old index");
+        assert!(!work.exists());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn staged_publication_replaces_only_the_ingest_owned_outputs() {
+        let root = temporary_root("publish");
+        let data = root.join("data");
+        write(&data.join("functions").join("stale.json"), "stale function");
+        write(
+            &data.join("localization").join("stale.json"),
+            "stale localization",
+        );
+        write(
+            &data.join("axes").join("vocabulary.json"),
+            "stale vocabulary",
+        );
+        write(&data.join("index.json"), "stale index");
+        write(&data.join("battery").join("keep.json"), "unrelated organ");
+
+        publish_generated_data(
+            &data,
+            &[("new.json".to_string(), "new function".to_string())],
+            "new localization",
+            "new vocabulary",
+            "new index",
+        )
+        .unwrap();
+
+        assert!(!data.join("functions").join("stale.json").exists());
+        assert_eq!(
+            fs::read_to_string(data.join("functions").join("new.json")).unwrap(),
+            "new function"
+        );
+        assert_eq!(
+            fs::read_to_string(
+                data.join("localization")
+                    .join("microsoft-support-function-index.json")
+            )
+            .unwrap(),
+            "new localization"
+        );
+        assert_eq!(
+            fs::read_to_string(data.join("axes").join("vocabulary.json")).unwrap(),
+            "new vocabulary"
+        );
+        assert_eq!(fs::read_to_string(data.join("index.json")).unwrap(), "new index");
+        assert_eq!(
+            fs::read_to_string(data.join("battery").join("keep.json")).unwrap(),
+            "unrelated organ"
+        );
+        assert!(fs::read_dir(&data).unwrap().all(|entry| {
+            !entry
+                .unwrap()
+                .file_name()
+                .to_string_lossy()
+                .starts_with(".efh-ingest-publish-")
+        }));
+        fs::remove_dir_all(root).unwrap();
+    }
 }
 
 // ---------------------------------------------------------------- axis value rendering
@@ -696,8 +1372,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap_or_else(|_| repo_root.parent().expect("DnaCalc tree").join("OxFunc"));
     let lane = oxfunc_root.join("docs").join("function-lane");
     let data_dir = repo_root.join("data");
-    let functions_dir = data_dir.join("functions");
-    let axes_dir = data_dir.join("axes");
 
     // ---- publication gate (D-8 / A3-S12). Abort before anything is written or removed.
     let oxfunc_root_str = oxfunc_root
@@ -774,25 +1448,71 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         catalog.insert(r[c_name].clone(), (r[c_url].clone(), none_if_empty(&r[c_desc])));
     }
 
-    // Localization seed: article guid -> [(locale, localized name)].
+    // Localization seed: retain the complete eight-column source rows, then build only the
+    // indexes needed to make honest per-function associations. Article GUID alone is not a
+    // function identity: the IS family shares one GUID, seven byte-function pages carry combined
+    // labels, and FORECAST.LINEAR shares FORECAST's article without a distinct harvested row.
     let locale_csv_name = "W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv";
-    let (lh, lrows) = read_csv(&lane.join(locale_csv_name))?;
+    let locale_csv_path = lane.join(locale_csv_name);
+    let locale_source_bytes = fs::read(&locale_csv_path)?;
+    let locale_source_sha256 = sha256_hex(&locale_source_bytes);
+    let (lh, lrows) = read_csv(&locale_csv_path)?;
+    let expected_locale_headers = [
+        "locale_tag",
+        "list_article_guid",
+        "function_article_guid",
+        "localized_name",
+        "localized_function_url",
+        "version_marker",
+        "localized_category",
+        "localized_description",
+    ];
+    if lh.iter().map(String::as_str).collect::<Vec<_>>() != expected_locale_headers {
+        return Err(std::io::Error::new(
+            std::io::ErrorKind::InvalidData,
+            format!(
+                "{locale_csv_name} columns changed: expected {expected_locale_headers:?}, got {lh:?}"
+            ),
+        )
+        .into());
+    }
     let l_locale = col(&lh, "locale_tag");
+    let l_list_guid = col(&lh, "list_article_guid");
     let l_guid = col(&lh, "function_article_guid");
     let l_name = col(&lh, "localized_name");
-    let mut locales: BTreeMap<String, Vec<LocalizedName>> = BTreeMap::new();
+    let l_url = col(&lh, "localized_function_url");
+    let l_version = col(&lh, "version_marker");
+    let l_category = col(&lh, "localized_category");
+    let l_description = col(&lh, "localized_description");
+    let mut localization_rows = Vec::with_capacity(lrows.len());
+    let mut localization_rows_by_guid: BTreeMap<String, Vec<usize>> = BTreeMap::new();
     for r in &lrows {
-        locales
+        let row_index = localization_rows.len();
+        localization_rows.push(LocalizationSourceRow {
+            locale_tag: r[l_locale].clone(),
+            list_article_guid: r[l_list_guid].clone(),
+            function_article_guid: r[l_guid].clone(),
+            localized_name: r[l_name].clone(),
+            localized_function_url: absolute_microsoft_support_url(&r[l_url])?,
+            version_marker: r[l_version].clone(),
+            localized_category: r[l_category].clone(),
+            localized_description: r[l_description].clone(),
+        });
+        localization_rows_by_guid
             .entry(r[l_guid].to_ascii_lowercase())
             .or_default()
-            .push(LocalizedName {
-                locale: r[l_locale].clone(),
-                name: r[l_name].clone(),
-            });
+            .push(row_index);
     }
-    for v in locales.values_mut() {
-        v.sort_by(|a, b| a.locale.cmp(&b.locale));
-    }
+    let localization_locale_count = localization_rows
+        .iter()
+        .map(|r| r.locale_tag.as_str())
+        .collect::<BTreeSet<_>>()
+        .len();
+    let localization_english_row_count = localization_rows
+        .iter()
+        .filter(|r| r.locale_tag == "en-US")
+        .count();
+    validate_localization_source(&localization_rows, &locale_source_sha256)?;
 
     // Correlation ledger: function id -> artifact bindings.
     let ledger_csv_name = "FUNCTION_SLICE_CORRELATION_LEDGER.csv";
@@ -1026,12 +1746,45 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     spine.sort_by(|a, b| a.function_id.cmp(&b.function_id));
 
-    // Only now is anything removed from `data/`.
-    if functions_dir.exists() {
-        fs::remove_dir_all(&functions_dir)?;
+    // Number of Handbook functions that point at each Microsoft article. This is part of the
+    // resolution rule: a single harvested row can be assigned as a function name only when the
+    // article is function-unique, or when the English harvested name exactly names this function.
+    let mut handbook_functions_by_article_guid: BTreeMap<String, usize> = BTreeMap::new();
+    for entry_row in &spine {
+        if entry_row.row[e_kind] != "built_in_function" {
+            continue;
+        }
+        if let Some((url, _)) = catalog
+            .get(&entry_row.surface_name)
+            .or_else(|| catalog.get(&entry_row.row[e_name]))
+        {
+            if let Some(guid) = guid_of_url(url) {
+                *handbook_functions_by_article_guid.entry(guid).or_default() += 1;
+            }
+        }
     }
-    fs::create_dir_all(&functions_dir)?;
-    fs::create_dir_all(&axes_dir)?;
+
+    // Build and validate every output byte before the published `data/` paths are touched.
+    // Publication later uses a same-volume staging tree plus rollback backups.
+    let localization_counts = LocalizationCounts {
+        raw_rows: localization_rows.len(),
+        locales: localization_locale_count,
+        english_rows: localization_english_row_count,
+    };
+    let localization_doc = LocalizationIndexDoc {
+        schema: "efh.localization.microsoft-support-function-index/v1",
+        source: LocalizationSource {
+            scope: "microsoft-support-function-index",
+            repository: "OxFunc",
+            path: format!("docs/function-lane/{locale_csv_name}"),
+            commit: oxfunc_commit_full.clone(),
+            sha256: locale_source_sha256,
+        },
+        counts: localization_counts,
+        rows: &localization_rows,
+    };
+    let mut localization_json = serde_json::to_string_pretty(&localization_doc)?;
+    localization_json.push('\n');
 
     let mut counts = Counts {
         total_entries: 0,
@@ -1045,6 +1798,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         placeholder_signatures: 0,
         with_docs_link: 0,
         with_localized_names: 0,
+        localization_raw_rows: localization_rows.len(),
+        localization_locales: localization_locale_count,
+        localization_english_rows: localization_english_row_count,
+        localization_resolved_name_pages: 0,
+        localization_article_unique_name_pages: 0,
+        localization_english_name_match_pages: 0,
+        localization_shared_published_row_pages: 0,
+        localization_unresolved_shared_article_pages: 0,
+        localization_missing_source_row_pages: 0,
         classification_from_live_registry: 0,
         classification_from_export_snapshot: 0,
         classification_empty: 0,
@@ -1059,6 +1821,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         short_absent: 0,
     };
     let mut index_rows = Vec::new();
+    let mut function_outputs = Vec::with_capacity(spine.len());
 
     for entry_row in &spine {
         let row = entry_row.row;
@@ -1213,19 +1976,59 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             counts.export_only += 1;
         }
 
-        let docs = catalog
+        let mut docs = catalog
             .get(&name)
             .or_else(|| catalog.get(&row[e_name]))
             .map(|(url, desc)| DocsLink {
                 microsoft_url: url.clone(),
                 english_description: desc.clone(),
             });
+        let mut docs_vintage = vs_catalog.clone();
+
+        // COPILOT and JIS are the two current catalog rows whose URL exists but whose English
+        // description is blank. Use the complete en-US W28 row as one indivisible docs object:
+        // URL and description then have one honest vintage rather than a composite attribution.
+        if docs
+            .as_ref()
+            .is_some_and(|d| d.english_description.is_none())
+        {
+            let english_w28 = docs
+                .as_ref()
+                .and_then(|d| guid_of_url(&d.microsoft_url))
+                .and_then(|guid| localization_rows_by_guid.get(&guid))
+                .and_then(|indexes| {
+                    let matches: Vec<&LocalizationSourceRow> = indexes
+                        .iter()
+                        .map(|i| &localization_rows[*i])
+                        .filter(|r| r.locale_tag == "en-US")
+                        .collect();
+                    exactly_one(&matches).copied()
+                });
+            if let Some(source_row) = english_w28 {
+                docs = Some(DocsLink {
+                    microsoft_url: source_row.localized_function_url.clone(),
+                    english_description: Some(source_row.localized_description.clone()),
+                });
+                docs_vintage = vs_locale.clone();
+            }
+        }
         if docs.is_some() {
             counts.with_docs_link += 1;
         }
 
-        // ---- D-6 --------------------------------------------------------------------
+        // ---- D-6 + official-English fallback ----------------------------------------
+        let mut descriptions_vintage = if entry.is_some() {
+            vs_registry.clone()
+        } else {
+            vs_absent.clone()
+        };
         let english = docs.as_ref().and_then(|d| d.english_description.clone());
+        if short.is_none() {
+            if let Some(official_english) = &english {
+                short = Some(official_english.clone());
+                descriptions_vintage = docs_vintage.clone();
+            }
+        }
         let short_source: &'static str = match (&short, &english) {
             (None, _) => {
                 counts.short_absent += 1;
@@ -1245,19 +2048,98 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         };
 
-        let localized_names: Vec<LocalizedName> = docs
+        let function_article_guid = docs
             .as_ref()
-            .and_then(|d| guid_of_url(&d.microsoft_url))
-            .and_then(|g| locales.get(&g))
-            .map(|v| {
-                v.iter()
-                    .map(|ln| LocalizedName {
-                        locale: ln.locale.clone(),
-                        name: ln.name.clone(),
-                    })
-                    .collect()
+            .and_then(|d| guid_of_url(&d.microsoft_url));
+        let article_indexes = function_article_guid
+            .as_ref()
+            .and_then(|g| localization_rows_by_guid.get(g));
+        let article_row_count = article_indexes.map_or(0, Vec::len);
+        let article_function_count = function_article_guid
+            .as_ref()
+            .and_then(|g| handbook_functions_by_article_guid.get(g))
+            .copied()
+            .unwrap_or(0);
+        let english_name_matches = article_indexes.is_some_and(|indexes| {
+            indexes.iter().any(|i| {
+                let r = &localization_rows[*i];
+                r.locale_tag == "en-US" && r.localized_name == name
             })
-            .unwrap_or_default();
+        });
+        let is_combined_published_row = entry_row.published_row_id != id;
+
+        let mut localized_names = Vec::new();
+        let localization = if kind == "built_in_operator" {
+            None
+        } else {
+            let (scope, status, resolve_names) = classify_localization(
+                is_combined_published_row,
+                article_row_count,
+                localization_locale_count,
+                article_function_count,
+                english_name_matches,
+            );
+
+            if resolve_names {
+                localized_names = article_indexes
+                    .into_iter()
+                    .flatten()
+                    .map(|i| {
+                        let source_row = &localization_rows[*i];
+                        LocalizedName {
+                            locale: source_row.locale_tag.clone(),
+                            name: source_row.localized_name.clone(),
+                        }
+                    })
+                    .collect();
+                localized_names.sort_by(|a, b| {
+                    a.locale.cmp(&b.locale).then_with(|| a.name.cmp(&b.name))
+                });
+                let unique_locales = localized_names
+                    .iter()
+                    .map(|r| r.locale.as_str())
+                    .collect::<BTreeSet<_>>()
+                    .len();
+                if localized_names.len() != localization_locale_count
+                    || unique_locales != localization_locale_count
+                {
+                    return Err(std::io::Error::new(
+                        std::io::ErrorKind::InvalidData,
+                        format!(
+                            "{id}: resolved localization ({status}) must contain exactly one row for each of {localization_locale_count} locales; got {} rows / {unique_locales} locales",
+                            localized_names.len()
+                        ),
+                    )
+                    .into());
+                }
+            }
+
+            match status {
+                "article_unique" => {
+                    counts.localization_resolved_name_pages += 1;
+                    counts.localization_article_unique_name_pages += 1;
+                }
+                "english_name_match" => {
+                    counts.localization_resolved_name_pages += 1;
+                    counts.localization_english_name_match_pages += 1;
+                }
+                "combined_row" => counts.localization_shared_published_row_pages += 1,
+                "unresolved_shared_guid" => {
+                    counts.localization_unresolved_shared_article_pages += 1
+                }
+                "missing_source_row" => counts.localization_missing_source_row_pages += 1,
+                _ => unreachable!("closed localization status set"),
+            }
+
+            Some(LocalizationAssociation {
+                raw_organ: LOCALIZATION_RAW_ORGAN,
+                function_article_guid,
+                scope,
+                status,
+                article_row_count,
+                resolved_name_count: localized_names.len(),
+            })
+        };
         if !localized_names.is_empty() {
             counts.with_localized_names += 1;
         }
@@ -1346,11 +2228,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         vintage.insert("axis_provenance".into(), registry_or_absent.clone());
         vintage.insert("signature".into(), registry_or_absent.clone());
         vintage.insert("signature_placeholder".into(), registry_or_absent.clone());
-        vintage.insert("descriptions".into(), registry_or_absent.clone());
+        vintage.insert("descriptions".into(), descriptions_vintage);
         vintage.insert("registry_backed".into(), vs_registry.clone());
         vintage.insert("oxfunc_tree_clean".into(), vs_registry.clone());
-        vintage.insert("docs".into(), vs_catalog.clone());
+        vintage.insert("docs".into(), docs_vintage);
         vintage.insert("localized_names".into(), vs_locale.clone());
+        vintage.insert("localization".into(), vs_locale.clone());
         // The correlation ledger is consulted for every entry; a `null` here means the ledger
         // has no row for this id, not that no source was consulted.
         vintage.insert("artifacts".into(), vs_ledger.clone());
@@ -1385,6 +2268,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             descriptions: Descriptions { short, short_source, long },
             docs,
             localized_names,
+            localization,
             artifacts: artifacts_value,
             version_marker: none_if_empty(&row[e_vm]),
             special_interface_kind: none_if_empty(&row[e_sik]),
@@ -1395,10 +2279,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             vintage,
         };
 
-        let path = functions_dir.join(format!("{id}.json"));
         let mut json = serde_json::to_string_pretty(&doc)?;
         json.push('\n');
-        fs::write(&path, json)?;
+        function_outputs.push((format!("{id}.json"), json));
 
         index_rows.push(IndexRow {
             function_id: id,
@@ -1422,9 +2305,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         oxfunc_tree_clean,
         catalog_size,
     );
-    let mut json = serde_json::to_string_pretty(&vocabulary)?;
-    json.push('\n');
-    fs::write(axes_dir.join("vocabulary.json"), json)?;
+    let mut vocabulary_json = serde_json::to_string_pretty(&vocabulary)?;
+    vocabulary_json.push('\n');
 
     // ---- F0 index -------------------------------------------------------------------
 
@@ -1446,9 +2328,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         counts,
         rows: index_rows,
     };
-    let mut json = serde_json::to_string_pretty(&index)?;
-    json.push('\n');
-    fs::write(data_dir.join("index.json"), json)?;
+    let mut index_json = serde_json::to_string_pretty(&index)?;
+    index_json.push('\n');
+
+    publish_generated_data(
+        &data_dir,
+        &function_outputs,
+        &localization_json,
+        &vocabulary_json,
+        &index_json,
+    )?;
 
     let c = &index.counts;
     println!(
@@ -1482,6 +2371,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         c.short_differs_from_english_description,
         c.short_no_english_description_to_compare,
         c.short_absent
+    );
+    println!(
+        "efh-ingest: localization raw rows {} = {} locales x {} English rows; pages resolved {} (article-unique {} / English-name match {}) / shared published row {} / unresolved shared article {} / missing source row {}",
+        c.localization_raw_rows,
+        c.localization_locales,
+        c.localization_english_rows,
+        c.localization_resolved_name_pages,
+        c.localization_article_unique_name_pages,
+        c.localization_english_name_match_pages,
+        c.localization_shared_published_row_pages,
+        c.localization_unresolved_shared_article_pages,
+        c.localization_missing_source_row_pages
     );
     Ok(())
 }

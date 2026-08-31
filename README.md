@@ -23,6 +23,8 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 3. [ledger/VOCABULARY.md](ledger/VOCABULARY.md) — the `efh.*` claim vocabulary (draft).
 4. [GNEISS-PROFILE.md](GNEISS-PROFILE.md) — the declared boundary and experimental realization
    profile for the Handbook as a Gneiss Knowledge System.
+5. [Current function-help completeness audit](docs/audits/FUNCTION_HELP_COMPLETENESS_20260824.md)
+   — measured coverage, localization limits, and the exact remaining page inventory.
 
 ## Layout
 
@@ -43,7 +45,12 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 
 Phase H2 (design foundation) is complete. H3 (ledger bootstrap) and H4 (site v1) are `in progress`:
 the build specification is under execution, `ledger/` contains `VOCABULARY.md` only — no ledger
-database, no canonical export, and no `efh` tool exists yet — and `site/` contains `mockups/` only.
+database and no canonical export. A rubric-focused `efh` tool now exists and emits pre-ledger
+derivation artifacts under `site/api/`; it is not the site-v1 generator, and `site/` has no generated
+function pages or `/coverage`.
+The 2026-08-24 completeness audit also identifies four Microsoft-listed `FORECAST.ETS*` functions
+outside the current OxFunc/Handbook spine; they are retained as an explicit upstream inventory gap,
+not hidden behind the 541-entry denominator.
 `vectors/` is empty, so no claim in the Handbook currently satisfies `CHARTER.md` rule 7.2 and the
 words "bit-exact" and "bit-for-bit" are not available to Handbook voice (rule 7.8). Nothing is
 published yet; the phase register in [OPERATIONS.md](OPERATIONS.md) is the living status surface.

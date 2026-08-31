@@ -155,7 +155,7 @@ the documented empty-input answer is `0`.
   which is the more frequently encountered version of the trap.
 - **The rest of the `A` suffix family**: [AVERAGEA](FUNC.AVERAGEA.md),
   [COUNTA](FUNC.COUNTA.md), [STDEVA](FUNC.STDEVA.md), [STDEVPA](FUNC.STDEVPA.md),
-  [VARA](FUNC.VARA.md), [VARPA](FUNC.VARPA.md). These share an *intent* — count more kinds of
+  `VARA`, `VARPA`. These share an *intent* — count more kinds of
   value — and do **not** share one uniform rule. `COUNTA` in particular counts anything
   non-empty including text, without converting it. Each page states its own table; do not
   generalise from this one.

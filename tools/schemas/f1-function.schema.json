@@ -36,6 +36,7 @@
     "descriptions",
     "docs",
     "localized_names",
+    "localization",
     "artifacts",
     "version_marker",
     "special_interface_kind",
@@ -63,6 +64,7 @@
     "descriptions",
     "docs",
     "localized_names",
+    "localization",
     "artifacts",
     "version_marker",
     "special_interface_kind",
@@ -212,10 +214,9 @@
         "short": { "type": ["string", "null"] },
         "short_source": {
           "type": "string",
-          "enum": ["microsoft-english-verbatim", "differs-from-english-description"],
-          "description": "R (new, DELTA D-6, FOUNDATION 2.4 line 177). Renamed from 'oxfunc-authored' by A3-S6: authorship is an inference and belongs in F12 as an authorship-inference gap.",
-          "efhObservedValuesNotInSpec": ["no-short-description"],
-          "efhObservationNote": "Measured 2026-07-31 over all 541 files at data/functions/*.json: short_source is 'microsoft-english-verbatim' on 502 files and 'no-short-description' on 39 files; 'differs-from-english-description' occurs on 0 files. FOUNDATION 2.4 line 177 names only two values and 502 is the figure it states for the first. The third value is a real divergence between the spec table and the generated organ. It is reported by efh-validate check and is NOT added to the enum here, because adding it would silently amend the spec."
+          "enum": ["microsoft-english-verbatim", "differs-from-english-description", "no-short-description"],
+          "description": "R (new, DELTA D-6, FOUNDATION 2.4 line 177). 'no-short-description' is reserved for built-in operators, whose syntax tokens have no Microsoft function-help article.",
+          "efhObservationNote": "The complete-help projection emits 'microsoft-english-verbatim' on all 518 built-in functions, using the official English help text when the registry short is absent. The 23 operators remain honestly exempt with 'no-short-description'. 'differs-from-english-description' occurs on 0 files."
         },
         "long": { "type": ["string", "null"] }
       },
@@ -249,7 +250,63 @@
           "name": { "type": "string" }
         }
       },
-      "description": "R. May be empty."
+      "description": "R. Contains only function-resolved harvested names. Shared published-row labels, unresolved shared-article rows, and missing function-specific rows remain in F18 and leave this array empty; `localization` states why."
+    },
+    "localization": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "propertyOrder": [
+            "raw_organ",
+            "function_article_guid",
+            "scope",
+            "status",
+            "article_row_count",
+            "resolved_name_count"
+          ],
+          "required": [
+            "raw_organ",
+            "function_article_guid",
+            "scope",
+            "status",
+            "article_row_count",
+            "resolved_name_count"
+          ],
+          "properties": {
+            "raw_organ": {
+              "const": "data/localization/microsoft-support-function-index.json",
+              "type": "string"
+            },
+            "function_article_guid": {
+              "type": ["string", "null"],
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "description": "Microsoft Support article GUID extracted from the selected docs object; null only when no function article is known."
+            },
+            "scope": {
+              "type": "string",
+              "enum": ["function", "shared_published_row", "shared_article"]
+            },
+            "status": {
+              "type": "string",
+              "enum": ["article_unique", "english_name_match", "combined_row", "unresolved_shared_guid", "missing_source_row"],
+              "description": "Allowed pairs are function/article_unique, shared_article/english_name_match, shared_published_row/combined_row, shared_article/unresolved_shared_guid, and function/missing_source_row. Completeness tests enforce the pairs and current inventories."
+            },
+            "article_row_count": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Rows in F18 carrying this article GUID: 40 for a complete one-row-per-locale article, 400 for the shared ten-row IS article, or 0 when absent."
+            },
+            "resolved_name_count": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Must equal localized_names length; 40 only for article_unique or english_name_match, otherwise 0."
+            }
+          }
+        },
+        { "type": "null" }
+      ],
+      "description": "R. Object for every built-in function; null explicitly marks operators as outside the function-name localization source."
     },
     "artifacts": {
       "oneOf": [
@@ -300,6 +357,7 @@
         "descriptions",
         "docs",
         "localized_names",
+        "localization",
         "category",
         "xlcall",
         "arity",

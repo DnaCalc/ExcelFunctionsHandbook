@@ -134,11 +134,11 @@ Note the shorter table compared with [STDEV.S](FUNC.STDEV.S.md): with an `n` div
   `STDEV.P = STDEV.S * sqrt((n-1)/n)`. Choosing between them is a statistical decision about what
   the data represents, not a stylistic one. The common workbook error is using `STDEV.P` because
   it gives the smaller number.
-- **[VAR.P](FUNC.VAR.P.md)** is the square: `STDEV.P = SQRT(VAR.P)`, and that is literally how
+- **`VAR.P`** is the square: `STDEV.P = SQRT(VAR.P)`, and that is literally how
   the reference engine computes it.
 - **[STDEVPA](FUNC.STDEVPA.md)** uses the same `n` divisor with a different inclusion rule — text
   in a range counts as `0`, logicals as `1`/`0`. Same estimator, different data set.
-- **[STDEVP](FUNC.STDEVP.md)** is the legacy Compatibility-category name. Microsoft's replacement
+- **`STDEVP`** is the legacy Compatibility-category name. Microsoft's replacement
   guidance points `STDEVP` at `STDEV.P`, and the two are documented as computing the same
   quantity. **The Handbook does not treat that as an identity.** A legacy alias and its modern
   name are two registered entry points, and Excel is free to route them to different code; that
@@ -146,7 +146,7 @@ Note the shorter table compared with [STDEV.S](FUNC.STDEV.S.md): with an `n` div
   algorithms were changed at Excel 2003 with both names still in the product, which is exactly
   the situation in which an unverified alias assumption is worth least.
 - **[AVERAGE](FUNC.AVERAGE.md)** supplies `xbar` and shares the scan policy exactly.
-- **[DEVSQ](FUNC.DEVSQ.md)** returns the numerator alone, and is the right diagnostic when a
+- **`DEVSQ`** returns the numerator alone, and is the right diagnostic when a
   discrepancy might be a divisor question rather than an algorithm question.
 - **[SKEW.P](FUNC.SKEW.P.md)** uses this same `sigma` as its standardising scale, which is why
   the population skewness and the population standard deviation fail on the same data.

@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: reference_metadata_family
 role_in_family: >-
   Counts the rectangular areas inside a reference; the family's structural interrogator, the

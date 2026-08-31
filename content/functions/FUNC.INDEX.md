@@ -16,6 +16,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: index
 role_in_family: >-
   Retrieves a value or a reference at given coordinates, in two distinct forms; the catalog's

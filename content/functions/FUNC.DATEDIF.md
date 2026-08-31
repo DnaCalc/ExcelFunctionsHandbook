@@ -18,6 +18,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_value_family
 role_in_family: "Interval measurement in calendar units, with six unit codes of markedly uneven
   quality; the category's compatibility survivor."

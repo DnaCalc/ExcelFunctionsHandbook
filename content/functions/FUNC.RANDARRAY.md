@@ -105,7 +105,7 @@ Returns an `Array` — a spilled dynamic array on the worksheet.
   request larger than the available space spills into `#SPILL!` territory, which is an engine
   behaviour rather than a function behaviour and is not modelled here.
 
-**A divergence between two siblings in the same engine.** [SEQUENCE](FUNC.SEQUENCE.md) — the other
+**A divergence between two siblings in the same engine.** `SEQUENCE` — the other
 dimension-taking generator, in the same category, written in the same reference engine — *rejects*
 a non-integral `rows` with an error where `RANDARRAY` truncates it. Two functions that take the
 same argument in the same position and disagree about what a decimal means is precisely the sort of
@@ -135,7 +135,7 @@ for any of these cases, and has not been able to read what Microsoft documents.
 - **[RANDBETWEEN](FUNC.RANDBETWEEN.md)** — the scalar integer draw. `RANDARRAY`'s whole-number
   mode reproduces it, including the inclusive-both-ends convention and the same
   `⌈min⌉`/`⌊max⌋` normalisation of non-integral bounds.
-- **[SEQUENCE](FUNC.SEQUENCE.md)** — the deterministic twin: same shape arguments, no randomness.
+- **`SEQUENCE`** — the deterministic twin: same shape arguments, no randomness.
   The two are usually learned together and, as noted above, do not agree on non-integral
   dimensions in the reference engine.
 - **`SORTBY(range, RANDARRAY(ROWS(range)))`** — the idiomatic shuffle. It is a genuine random
@@ -198,7 +198,7 @@ Inputs I would probe first:
 4. **`RANDARRAY(1, 1, 5, 4)` and `RANDARRAY(1, 1, 5, 4, TRUE)`** — the `min > max` error code in
    each mode, which the reference engine gives as `#NUM!` and Microsoft may document differently.
 5. **`RANDARRAY(0)` and `RANDARRAY(-1)`** — the zero and negative dimensions, where
-   [SEQUENCE](FUNC.SEQUENCE.md) is recorded as splitting `#CALC!` from `#VALUE!`; whether
+   `SEQUENCE` is recorded as splitting `#CALC!` from `#VALUE!`; whether
    `RANDARRAY` splits them the same way is unknown.
 6. **`RANDARRAY(1, 1, 1E308, 1.0000001E308)`** — the overflow-in-the-subtraction case, which
    distinguishes the naive interpolation from the monotone one.
@@ -225,7 +225,7 @@ Inputs I would probe first:
   `randArray` entry; the documented surface there does not include one).
 - L'Ecuyer & Simard, "TestU01", ACM TOMS 33(4), 2007; Lemire, "Fast random integer generation in
   an interval", ACM TOMACS 4(1), 2019 — the bias analysis for the whole-number construction.
-- Handbook, [RAND](FUNC.RAND.md) and [SEQUENCE](FUNC.SEQUENCE.md) — the scalar generator and the
+- Handbook, [RAND](FUNC.RAND.md) and `SEQUENCE` — the scalar generator and the
   deterministic twin.
 - Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md),
   [Claim language and honesty](../model/06-claim-language.md).

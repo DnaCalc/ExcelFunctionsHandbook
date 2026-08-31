@@ -49,7 +49,7 @@ a pole: it is unbounded but integrable, and ln x → −∞ slowly enough that x
 log z = ln|z| + i(arg z + 2πk) — and the principal branch is made single-valued by cutting along
 the negative real axis, where the imaginary part jumps by 2π. `LN` is a real function and simply
 refuses the cut and everything left of it. Readers who need the other branch want
-[IMLN](FUNC.IMLN.md), which returns the principal complex logarithm.
+`IMLN`, which returns the principal complex logarithm.
 
 **The identities**, all of which a reader may want and none of which the documentation states:
 
@@ -129,7 +129,7 @@ against Excel is a one-cell probe.
   engine rather than a wrapper.
 - **`POWER` and `^`** — `x^y` is conventionally computed as exp(y·ln x), which makes `LN`'s
   accuracy a lower bound on the accuracy of every non-integer power.
-- **[IMLN](FUNC.IMLN.md)** — the complex principal logarithm, defined across the branch cut `LN`
+- **`IMLN`** — the complex principal logarithm, defined across the branch cut `LN`
   refuses.
 - **What Excel does not publish: there is no `LN1P`.** The standard remedy for the cancellation
   described below — C99's `log1p`, computing ln(1+x) accurately for tiny *x* — has no worksheet

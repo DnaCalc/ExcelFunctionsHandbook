@@ -18,6 +18,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_parts_family
 role_in_family: "The time constructor: assembles a fraction-of-a-day from hour, minute and second,
   and is the only member of the parts family that builds rather than decomposes."

@@ -152,11 +152,11 @@ Microsoft's page documents exactly one error condition. It does not document a `
   `MAX` takes a variadic value list and applies the direct-versus-scan coercion split, while
   `MAXIFS` takes ranges only and applies the criteria family's comparison rules. They are not
   the same reduction wearing a filter.
-- **[SUMIFS](FUNC.SUMIFS.md)**, **[AVERAGEIFS](FUNC.AVERAGEIFS.md)**,
-  **[COUNTIFS](FUNC.COUNTIFS.md)** — the rest of the multi-criteria family, sharing the
+- **`SUMIFS`**, **[AVERAGEIFS](FUNC.AVERAGEIFS.md)**,
+  **`COUNTIFS`** — the rest of the multi-criteria family, sharing the
   selection stage. `COUNTIFS` with the same criteria is the standard way to distinguish "no
   match" from "the maximum is zero".
-- **[SUMIF](FUNC.SUMIF.md)**, **[AVERAGEIF](FUNC.AVERAGEIF.md)**, **[COUNTIF](FUNC.COUNTIF.md)**
+- **[SUMIF](FUNC.SUMIF.md)**, **[AVERAGEIF](FUNC.AVERAGEIF.md)**, **`COUNTIF`**
   — the single-criterion ancestors, whose argument order differs (range first, then criterion,
   then the sum range last) from the `…IFS` order (result range first). That reversal is the
   most common editing mistake when converting between them, and it is silent when the ranges

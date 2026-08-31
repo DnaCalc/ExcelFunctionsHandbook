@@ -16,6 +16,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: indirect
 role_in_family: >-
   Converts reference text into a live reference at evaluation time; the catalog's text-to-

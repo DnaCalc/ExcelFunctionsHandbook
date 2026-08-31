@@ -119,7 +119,7 @@ in the Handbook's record says what Excel returns.
   surfaces disagree in the same way is unobserved, and the comparison is the sharpest available
   test of the "no special-casing" finding below.
 - **`POWER` and `^`** — the inverse relation: `POWER(b, LOG(x, b))` is *x*, up to rounding.
-- **[IMLOG10](FUNC.IMLOG10.md) / [IMLOG2](FUNC.IMLOG2.md)** — the complex-valued counterparts.
+- **`IMLOG10` / `IMLOG2`** — the complex-valued counterparts.
   Excel publishes a complex base-2 logarithm but **no real one**: there is no `LOG2`. Base 2 on
   the worksheet goes through `LOG(x, 2)`, which is exactly the case the finding below is about.
 

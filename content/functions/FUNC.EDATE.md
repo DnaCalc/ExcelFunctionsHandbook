@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_week_family
 role_in_family: "Month-offset arithmetic: the same day-of-month a whole number of months away."
 ---

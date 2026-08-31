@@ -1,7 +1,8 @@
 # `tools/schemas/` — the schema set
 
-Twenty JSON Schema 2020-12 files, one per file family that `FOUNDATION.md` §2 specifies. They are
-the contract every other tool in `tools/` is checked against, and they are checked by
+Twenty-one JSON Schema 2020-12 files cover the file families specified by `FOUNDATION.md` §2 plus
+the deterministic F18 localization source organ declared by the Handbook. They are the contract
+every other tool in `tools/` is checked against, and they are checked by
 `tools/efh-validate`.
 
 ```
@@ -32,9 +33,10 @@ measured **2.6 s**.
 | `f2i-presence-index.schema.json` | F2i | `data/` | `data/presence/index.json` | `tools/efh-presence` (T2, Rust) | §2.2 line 122 — **no field table exists** |
 | `f3-axis-vocabulary.schema.json` | F3 | `data/` | `data/axes/vocabulary.json` | `tools/efh-ingest` (T3, Rust) | §2.7 lines 336–338 → D1 §2.3 |
 | `f16-battery.schema.json` | F16 | `data/` | `data/battery/*.json` | `tools/efh-battery` (T7, Rust) | §2.9 lines 378–404 |
+| `f18-localization.schema.json` | F18 | `data/` | `data/localization/microsoft-support-function-index.json` | `tools/efh-ingest` (T3, Rust) | Handbook localization completeness extension; CHARTER 1.2–1.3 |
 | `f4-axis-glossary.schema.json` | F4 | `content/` | `content/model/axis-glossary.json` | T10 curation | §2.7 lines 340–345 → D1 §2.4 |
 | `f5-evidence-record.schema.json` | F5 | `content/` | `content/evidence/records/*.json` | `tools/efh/evidence-import` (T4, C#) | §2.5 lines 183–259 |
-| `f5r-evidence-register.schema.json` | F5r | `content/` | `content/evidence/REGISTER.json` | `tools/efh/evidence-import` (T4, C#) | §2.2 line 132 — **no field table exists** |
+| `f5r-evidence-register.schema.json` | F5r | `content/` | `content/evidence/REGISTER.json` | `tools/efh` (`efh evidence register`, F5r-only, C#) | §2.2 line 132 — **no field table exists** |
 | `f6-function-page.schema.json` | F6 | `content/` | `content/functions/*.md` (front matter) | T10 curation | §2.8 lines 359–362 → D1 §2.6 |
 | `f7-bibliography.schema.json` | F7 | `content/` | `content/references/bibliography.json` | T10 curation | §2.8 → D1 §2.7 lines 344–350 |
 | `f8-category-page.schema.json` | F8 | `content/` | `content/categories/*.md` (front matter) | T10 curation | §2.8 lines 372–375 → D1 §2.7 |
@@ -53,6 +55,13 @@ it. Its absence is a scope decision, not an oversight.
 
 `vectors/<function_id>/vN/{suite.jsonl,MANIFEST.json}` is also not in this set: §2.2 line 143 lists
 it in the tree and **no section gives it a schema table**. See §5 below.
+
+**F18 is a declared Handbook extension, not a claim that FOUNDATION already specified this
+file.** It is a byte-stable projection of the complete eight-column OxFunc W28 harvest. Keeping the
+raw 20,360 rows in their own routed organ prevents F1 from converting a shared Microsoft article
+GUID into a false per-function-name mapping. F1 links to F18 and publishes an explicit association
+status; shared and missing rows remain visible in F18 rather than being discarded or silently
+cleaned.
 
 ### The discriminator this set enforces
 
@@ -139,12 +148,11 @@ else is a typo and fails acceptance test (a).
 These are recorded rather than absorbed. A schema that quietly widened to match whatever a generator
 emits would stop being a specification.
 
-**4.1 F1 `descriptions.short_source` — a third value.** §2.4 line 177 names two values,
-`microsoft-english-verbatim` and `differs-from-english-description`, and states 502 for the first.
-Measured over all 541 files on 2026-07-31: `microsoft-english-verbatim` 502,
-**`no-short-description` 39**, `differs-from-english-description` 0. The 502 matches; the third value
-is not in the spec. The enum is left as FOUNDATION writes it, the observation is recorded in the
-schema, and `check-organ` reports 39 findings.
+**4.1 F1 `descriptions.short_source` — operator exemption.** The complete-help projection emits
+`microsoft-english-verbatim` for all 518 built-in functions, falling back to the official English
+help text when the registry short is absent. The 23 operators remain honestly exempt with
+`no-short-description`; `differs-from-english-description` occurs on 0 files. The F1 schema keeps
+the operator-only value explicit rather than inventing help text for syntax tokens.
 
 **4.2 F3 — six extra fields, one missing required field.** §2.7 line 336 adopts D1 §2.3 unchanged
 apart from `modal_share` and the zero occupancies. The generated file adds `declared_kind`,

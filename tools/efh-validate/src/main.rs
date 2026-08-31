@@ -460,6 +460,10 @@ mod tests {
             ("data/presence/index.json", "f2i-presence-index.schema.json"),
             ("data/axes/vocabulary.json", "f3-axis-vocabulary.schema.json"),
             ("data/battery/FUNC.PMT.json", "f16-battery.schema.json"),
+            (
+                "data/localization/microsoft-support-function-index.json",
+                "f18-localization.schema.json",
+            ),
             ("content/model/axis-glossary.json", "f4-axis-glossary.schema.json"),
             ("content/model/scan-limits.json", "f14-scan-limits.schema.json"),
             ("content/model/name-debris.json", "f15-name-debris.schema.json"),

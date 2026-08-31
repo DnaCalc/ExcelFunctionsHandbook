@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: workday_networkdays_family
 role_in_family: "The generalized working-day offset: same operation as WORKDAY, with the weekend
   definition promoted to an argument."

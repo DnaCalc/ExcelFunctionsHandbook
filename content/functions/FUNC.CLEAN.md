@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: clean_fn
 role_in_family: "The sole member: a filter that deletes a fixed set of nonprinting characters from text."
 ---

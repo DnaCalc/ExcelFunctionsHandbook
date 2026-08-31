@@ -140,14 +140,14 @@ Returns `Number`.
   **[QUARTILE.INC](FUNC.QUARTILE.INC.md)** at `quart = 2` compute the same quantity by the same
   interpolation convention, so all three must agree. They are separate registered surfaces and
   may reach the answer by different code; whether they agree in bits is a first-class question
-  the Handbook has not settled. **[PERCENTILE.EXC](FUNC.PERCENTILE.EXC.md)** at `p = 0.5` also
+  the Handbook has not settled. **`PERCENTILE.EXC`** at `p = 0.5` also
   equals the median, because the two percentile conventions coincide exactly at the centre —
   which makes the centre a poor place to test the difference between them, and a good place to
   test that they agree.
 - **[LARGE](FUNC.LARGE.md)** / **[SMALL](FUNC.SMALL.md)** — the general order-statistic
   selectors. On an odd count, `MEDIAN` equals `LARGE(array, (n+1)/2)` exactly; on an even count
   it does not equal any `LARGE`.
-- **[MODE.SNGL](FUNC.MODE.SNGL.md)** / **[MODE.MULT](FUNC.MODE.MULT.md)** — the third classical
+- **[MODE.SNGL](FUNC.MODE.SNGL.md)** / **`MODE.MULT`** — the third classical
   measure of centre. Mean, median and mode answer different questions and coincide only for
   symmetric unimodal data.
 - **[TRIMMEAN](FUNC.TRIMMEAN.md)** — the tunable compromise between mean and median, discarding

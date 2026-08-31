@@ -24,6 +24,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_fn
 role_in_family: "The constructor: builds a date serial from a year/month/day triple, and is the
   page that carries this Handbook's account of the serial-number model itself."

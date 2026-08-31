@@ -147,11 +147,11 @@ Microsoft's page documents exactly one error condition. There is no documented `
 - **[MIN](FUNC.MIN.md)** — the unconditional minimum. The two differ in more than the filter:
   `MIN` takes a variadic value list and applies the direct-versus-scan coercion split, while
   `MINIFS` takes ranges only and applies the criteria family's comparison rules.
-- **[SUMIFS](FUNC.SUMIFS.md)**, **[AVERAGEIFS](FUNC.AVERAGEIFS.md)**,
-  **[COUNTIFS](FUNC.COUNTIFS.md)** — the rest of the multi-criteria family, sharing the
+- **`SUMIFS`**, **[AVERAGEIFS](FUNC.AVERAGEIFS.md)**,
+  **`COUNTIFS`** — the rest of the multi-criteria family, sharing the
   selection stage. `COUNTIFS` on the same criteria is the standard way to tell "no match" from
   "the minimum is zero".
-- **[SUMIF](FUNC.SUMIF.md)**, **[AVERAGEIF](FUNC.AVERAGEIF.md)**, **[COUNTIF](FUNC.COUNTIF.md)**
+- **[SUMIF](FUNC.SUMIF.md)**, **[AVERAGEIF](FUNC.AVERAGEIF.md)**, **`COUNTIF`**
   — the single-criterion ancestors, with the *opposite* argument order: criteria range first,
   result range last, where the `…IFS` functions put the result range first. Converting between
   them is the most common silent editing mistake in the family.

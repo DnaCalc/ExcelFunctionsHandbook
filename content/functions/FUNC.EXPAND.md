@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: dynamic_array_reshape_family
 role_in_family: >-
   Pads an array out to a requested rectangle with a fill value; the family's only growing

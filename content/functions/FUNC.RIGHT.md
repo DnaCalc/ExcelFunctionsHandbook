@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_slice_family
 role_in_family: The tail-anchored slice; the mirror of LEFT, and the member whose count argument is optional.
 ---

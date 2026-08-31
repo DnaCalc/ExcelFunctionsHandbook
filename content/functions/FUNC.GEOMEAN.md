@@ -135,7 +135,7 @@ values at all yields `#NUM!`.
 
 - **`AVERAGE`** — the arithmetic mean; the upper bound of the chain. Use it for quantities that
   add.
-- **[HARMEAN](FUNC.HARMEAN.md)** — the harmonic mean; the lower bound. Use it for rates defined
+- **`HARMEAN`** — the harmonic mean; the lower bound. Use it for rates defined
   per unit of something (speeds over fixed distances, price–earnings ratios).
 - **A documented statement that is false in one case.** Microsoft's `HarMean` page asserts: "The
   harmonic mean is always less than the geometric mean, which is always less than the arithmetic

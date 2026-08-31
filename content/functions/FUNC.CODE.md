@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_scalar_misc
 role_in_family: "The character-to-code direction of the text/number pair; CHAR is its inverse."
 ---

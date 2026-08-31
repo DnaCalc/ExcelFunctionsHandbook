@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_scalar_misc
 role_in_family: "The code-point-to-character direction of the text/number pair; CODE is its inverse."
 ---

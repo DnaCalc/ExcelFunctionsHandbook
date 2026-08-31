@@ -145,7 +145,7 @@ does not name it. Recorded here as a documentation gap rather than a contradicti
   **not** the same computation: the reference engine sums masses directly, and for moderate
   `trials` uses a different mass evaluation altogether. The two routes can disagree in the last
   bits; see that page.
-- **[BINOM.INV](FUNC.BINOM.INV.md)** — the quantile: the smallest \(k\) whose cumulative
+- **`BINOM.INV`** — the quantile: the smallest \(k\) whose cumulative
   probability reaches a criterion. It is built directly on this function's cumulative form, so
   this page's accuracy bounds it.
 - **`BINOMDIST`** — the legacy compatibility name with the same four arguments. The reference

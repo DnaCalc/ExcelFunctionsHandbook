@@ -16,6 +16,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: lookup_prob_frequency_family
 role_in_family: >-
   Finds the largest key not exceeding a search value in sorted data and returns the aligned

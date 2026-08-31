@@ -138,7 +138,7 @@ range-check then truncate — is not settled by the documentation and has not be
   undefined on small samples. The two agree at `quart = 2` and disagree at `quart = 1` and `3`
   for essentially every data set. Neither supersedes the other; Excel publishes both because the
   statistical community uses both.
-- **[QUARTILE](FUNC.QUARTILE.md)** is the legacy name, retained in the Compatibility category.
+- **`QUARTILE`** is the legacy name, retained in the Compatibility category.
   Microsoft's replacement guidance points `QUARTILE` at `QUARTILE.INC`, and the two are
   documented as computing the same quantity. **The Handbook does not treat that as an identity.**
   A legacy alias and its modern name are two entry points that Excel is free to route to two

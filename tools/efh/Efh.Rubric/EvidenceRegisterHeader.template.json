@@ -1,0 +1,36 @@
+{
+  "schema": "efh.evidence-register/v1",
+  "record_version": 1,
+  "basis_repo": null,
+  "basis_commit": null,
+  "what_this_file_is": "A mechanical index of every file in content/evidence/records/. It carries no figure of its own: every number in it counts records, subjects or fields, never passes or rows. Nothing here may be read as a measurement.",
+  "reading_rules": [
+    "Per-count oracle fields are authoritative. Every counts[] element carries its own builds[], build_ambiguity, arch, cpu, excel_bitness, workbook_mode and plumbing, and the record-level `oracle` object is null on every record written by this pass. A build, an architecture or a CPU is never inherited from elsewhere in a document; where the source is silent the field reads not-stated-in-this-record and builds[] is empty with build_ambiguity build-not-stated-in-this-record.",
+    "counts[].figure is a verbatim display string. No tool may parse it. passed and total are the only machine-readable numbers, and they are null wherever the source publishes no numerator or no denominator.",
+    "handbook_reverified is false on every record. Nothing in this evidence layer has been independently re-measured by the Handbook.",
+    "A group-scoped count may never be rendered as a per-surface figure for any of its group_members."
+  ],
+  "schema_extensions_declared_by_this_pass": [
+    {
+      "field": "counts[].quoted_source_sentence",
+      "why": "The build mandate requires the quoted source sentence to travel with every figure. FOUNDATION 2.5 has citation but no slot for the sentence itself."
+    },
+    {
+      "field": "counts[].builds / build_ambiguity / arch / cpu / cpu_scoped / excel_bitness / workbook_mode / locale / plumbing / capture_route",
+      "why": "FOUNDATION 2.5 puts these on a record-level oracle object. Hoisting them into each count is what makes \"never inherit a build from elsewhere in the document\" enforceable when one record carries two counts on two builds (EV-STRUCT-0011, EV-STRUCT-0003)."
+    },
+    {
+      "field": "counts[].build_ambiguity value \"build-not-stated-in-this-record\"",
+      "why": "FOUNDATION 2.5 offers single-build, single-build-not-restated-on-the-scored-line, two-builds-named and sources-contradict. None of them is honest for a rollup that names no build at all - and three do (BUG-FUNC-017 initial run, BUG-FUNC-028 812-case run, the W16 Batch 45 matrix probe). Without this value the only alternatives are to assert a build the source does not state, or to inherit one, both forbidden."
+    },
+    {
+      "field": "record.subject_internal_equality_predicate",
+      "why": "counts[].comparison_predicate is the predicate used to compare OxFunc to Excel. The 15-significant-digit truncation helper is a property of the SURFACE UNDER TEST, not of the oracle comparison. Conflating the two is what inverted FOUNDATION 3.4 on MATCH/XMATCH/DELTA. This field carries each subject's own equality semantics separately, with a code citation."
+    },
+    {
+      "field": "counts[].line_range inside upstream_anchor",
+      "why": "cited_text_sha256 is only checkable if the byte range it was computed over is published. Every anchor written by this pass records the line range it hashed."
+    }
+  ],
+  "snapshot_warning": "This index is a deterministic snapshot re-derived from every JSON record present under content/evidence/records/ at generation time. records_indexed and record_id_prefixes_present describe that on-disk set; they are not evidence-completeness claims and do not assert that every relevant upstream fact has a record. Regenerate this file after all record changes."
+}

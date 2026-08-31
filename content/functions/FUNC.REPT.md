@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: text_scalar_misc
 role_in_family: The only length-multiplying member; the family's one route to the text cap.
 ---

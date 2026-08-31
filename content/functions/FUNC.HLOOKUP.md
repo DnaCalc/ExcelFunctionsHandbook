@@ -15,6 +15,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: vhlookup_family
 role_in_family: >-
   Searches the top row of a table and returns a value from a row below it; the horizontal twin

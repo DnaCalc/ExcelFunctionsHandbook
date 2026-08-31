@@ -21,6 +21,8 @@ body_sections:
   - Relationships
   - Notes for implementers
   - What has not been checked
+  - Page vocabulary
+  - Sources
 family: date_week_family
 role_in_family: "Numbers the week of the year that a date falls in, under either of two
   incompatible week-numbering systems."
