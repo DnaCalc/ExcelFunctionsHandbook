@@ -30,10 +30,12 @@ role_in_family: Sole member — the text-kind filter, implemented in its own mod
 > If `value` is or refers to text, `T` returns `value`. If `value` does not refer to text, `T`
 > returns `""` (empty text).
 
-Read that twice, because the function's name and its one-line catalogue summary (which speaks
-of converting to text) both point away from what it does. `T` does not render a
+Read that twice, because the function's name and its one-line catalogue description
+("Converts its arguments to text") both point away from what it does. `T` does not render a
 number as text. `T(42)` is **not** `"42"` — it is the empty string. A number is not text, so
 the filter rejects it.
+
+*The quoted one-line description is Microsoft's text, from its support article <https://support.microsoft.com/en-us/office/t-function-fb83aeec-45e7-4924-af95-53e073541228>.*
 
 Stated as a rule over the value universe:
 

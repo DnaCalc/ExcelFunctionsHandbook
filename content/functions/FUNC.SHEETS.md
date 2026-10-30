@@ -26,9 +26,11 @@ role_in_family: The sheet-count member — the cardinality answer to SHEET's ind
 `SHEETS([reference])` returns **how many sheets** a reference spans, or — with the argument
 omitted — how many sheets the containing workbook has.
 
-Microsoft's one-line summary covers only the counting of sheets in a reference; its argument
-description adds the omitted case, which counts the sheets of the workbook that holds the
-formula.
+Microsoft's description is one line: "Returns the number of sheets in a reference." The argument
+description supplies the omitted case: "If Reference is omitted, SHEETS returns the number of
+sheets in the workbook that contains the function."
+
+*The quoted one-line description is Microsoft's text, from its support article <https://support.microsoft.com/en-us/office/sheets-function-770515eb-e1e8-45ce-8066-b557e5e4b80b>.*
 
 So the function has two quite different jobs depending on whether you give it an argument, and
 the two are worth separating:

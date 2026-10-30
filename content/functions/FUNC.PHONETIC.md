@@ -25,8 +25,9 @@ role_in_family: null
 
 `PHONETIC(reference)` returns the **furigana** stored alongside the text in a cell.
 
-Microsoft's one-line summary describes it as extracting those phonetic (furigana) characters
-from a text.
+Microsoft's description: "Extracts the phonetic (furigana) characters from a text string."
+
+*The quoted one-line description is Microsoft's text, from its support article <https://support.microsoft.com/en-us/office/phonetic-function-9a329dac-0c0f-42f8-9a55-639086988554>.*
 
 Understanding this function requires one fact about Japanese text in Excel that has no analogue
 in the rest of the worksheet surface: **a cell can carry a second string that is not its value.**

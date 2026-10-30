@@ -128,7 +128,7 @@
   },
   "docs": {
     "microsoft_url": "https://support.microsoft.com/en-us/office/bahttext-function-5ba4d0b4-abd3-4325-8d22-7a92d59aab9c",
-    "english_description": null
+    "english_description": "Converts a number to text, using the ? (baht) currency format"
   },
   "localized_names": [
     {
@@ -293,7 +293,7 @@
     }
   ],
   "localization": {
-    "raw_organ": "data/localization/function-name-index.json",
+    "raw_organ": "data/localization/microsoft-support-function-index.json",
     "function_article_guid": "5ba4d0b4-abd3-4325-8d22-7a92d59aab9c",
     "scope": "function",
     "status": "article_unique",
@@ -305,6 +305,11 @@
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": true,
+  "text_integrity": {
+    "field": "docs.english_description",
+    "observed": "Converts a number to text, using the ? (baht) currency format",
+    "contains_lossy_substitution": true
+  },
   "oxfunc_tree_clean": true,
   "vintage": {
     "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
@@ -314,7 +319,7 @@
     "axis_provenance": "live-registry:473efa3:clean:undated",
     "category": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
     "classification": "live-registry:473efa3:clean:undated",
-    "descriptions": "live-registry:473efa3:clean:undated",
+    "descriptions": "handbook-content:content/descriptions/dna-calc-own.json",
     "docs": "lane-csv:FUNCTION_CATALOG_CURRENT_BASELINE_LOCAL.csv@473efa3:clean:undated",
     "identity": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
     "interface_markers": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",

@@ -57,7 +57,7 @@ has published function pages.
 
 The machine-readable sources for these counts are
 [`data/index.json`](../../data/index.json),
-[`data/localization/function-name-index.json`](../../data/localization/function-name-index.json),
+[`data/localization/microsoft-support-function-index.json`](../../data/localization/microsoft-support-function-index.json),
 and the 541 records under [`data/functions/`](../../data/functions/).
 
 ## Localization cases that cannot be split honestly

@@ -155,8 +155,8 @@ list is not empty:
 
 - Microsoft, "NA function" —
   <https://support.microsoft.com/en-us/office/na-function-5469c2d1-a90c-4fb5-9bbc-64bd9bb6b47c>.
-  The documentation of record for this function. The Handbook's short description is its own
-  wording.
+  The documentation of record for this function; the Handbook's projected short description,
+  "Returns the error value #N/A", is Microsoft's English verbatim.
 - Handbook, [the value universe](../model/01-value-universe.md) — errors as first-class values
   and the place of `#N/A` in the closed code registry.
 - Handbook, [the call pipeline](../model/03-call-pipeline.md) — `NullaryConst` kernels,
@@ -165,3 +165,5 @@ list is not empty:
   engine law, which is what makes `NA()` useful.
 - `data/functions/FUNC.NA.json` — identity (`xlfNa`, code 10), the published signature `NA()`,
   arity 0–0, declared axes, as projected at OxFunc `473efa3`.
+
+*The quoted one-line description is Microsoft's text, from its support article <https://support.microsoft.com/en-us/office/na-function-5469c2d1-a90c-4fb5-9bbc-64bd9bb6b47c>.*

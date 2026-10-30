@@ -216,7 +216,7 @@
           "type": "string",
           "enum": ["dna-calc-own", "microsoft-english-verbatim", "differs-from-english-description", "no-short-description"],
           "description": "R (new, DELTA D-6, FOUNDATION 2.4 line 177). 'no-short-description' is reserved for built-in operators, whose syntax tokens have no Microsoft function-help article.",
-          "efhObservationNote": "Since 2026-10-30 (DnaCalc dc-96l.5) the projection emits 'dna-calc-own' on all 518 built-in functions: the short descriptions are DNA Calc's own text and no Microsoft English description is carried. The 23 operators remain honestly exempt with 'no-short-description'. 'differs-from-english-description' occurs on 0 files."
+          "efhObservationNote": "The complete-help projection emits 'microsoft-english-verbatim' on all 518 built-in functions, using the official English help text when the registry short is absent. The 23 operators remain honestly exempt with 'no-short-description'. 'differs-from-english-description' occurs on 0 files."
         },
         "long": { "type": ["string", "null"] }
       },
@@ -275,7 +275,7 @@
           ],
           "properties": {
             "raw_organ": {
-              "const": "data/localization/function-name-index.json",
+              "const": "data/localization/microsoft-support-function-index.json",
               "type": "string"
             },
             "function_article_guid": {

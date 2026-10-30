@@ -53,10 +53,13 @@ sibling page opens with a one-line statement of what the function returns — "R
 of days from the beginning of the coupon period to the settlement date", and so on. The
 `CoupPcd` page goes straight from the title to the Syntax heading. The parameter table, the basis
 table, the date notes and the four error conditions are all present; only the sentence saying
-what the function is for is absent. Microsoft's worksheet-surface support page, which was not
-retrieved for this entry, summarises the function as giving the coupon date before settlement.
+what the function is for is absent. The description carried in the Handbook's own projection —
+"Returns the previous coupon date before the settlement date" — comes from Microsoft's
+worksheet-surface support page, which was not retrieved for this entry.
 
-Note also that Microsoft's summary puts the date strictly **before** settlement, while the
+*The quoted one-line description is Microsoft's text, from its support article <https://support.microsoft.com/en-us/office/couppcd-function-2eb50473-6ee9-4052-a206-77a9a385d5b3>.*
+
+Note also that the projected description says "**before** the settlement date", while the
 reference engine returns `settlement` itself when settlement lands exactly on a coupon date. On
 that input the description and the reference engine disagree, and Microsoft's Learn page says
 nothing either way.

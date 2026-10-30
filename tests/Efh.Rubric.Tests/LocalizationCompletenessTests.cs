@@ -12,9 +12,9 @@ namespace Efh.Rubric.Tests;
 /// </summary>
 public class LocalizationCompletenessTests
 {
-    private const string RawOrgan = "data/localization/function-name-index.json";
+    private const string RawOrgan = "data/localization/microsoft-support-function-index.json";
     private const string SourceSha256 = "b248fbe16fc977c8287ed99b3996218393543c1855d08c1e8436470b28193231";
-    private const string RowsSha256 = "fed477527136c40f9230320ca999e36f6a03685d4f28ccf9c4d07315eb07eb25";
+    private const string RowsSha256 = "0eab64c51aeea35f3c0d1b89be8846c90ec90a5440cee13829343d5b2d2c78fe";
 
     private static readonly HashSet<string> CombinedRows = new(StringComparer.Ordinal)
     {
@@ -44,9 +44,9 @@ public class LocalizationCompletenessTests
     {
         using var raw = Open(RawOrgan);
         var root = raw.RootElement;
-        Assert.Equal("efh.localization.function-name-index/v2", root.GetProperty("schema").GetString());
+        Assert.Equal("efh.localization.microsoft-support-function-index/v1", root.GetProperty("schema").GetString());
         var source = root.GetProperty("source");
-        Assert.Equal("function-name-index", source.GetProperty("scope").GetString());
+        Assert.Equal("microsoft-support-function-index", source.GetProperty("scope").GetString());
         Assert.Equal("OxFunc", source.GetProperty("repository").GetString());
         Assert.EndsWith("W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv",
             source.GetProperty("path").GetString(), StringComparison.Ordinal);
@@ -83,7 +83,7 @@ public class LocalizationCompletenessTests
         foreach (var row in rows)
         {
             foreach (var field in new[] { "locale_tag", "list_article_guid", "function_article_guid",
-                         "localized_name", "localized_function_url", "localized_category" })
+                         "localized_name", "localized_function_url", "localized_category", "localized_description" })
                 Assert.False(string.IsNullOrWhiteSpace(Text(row, field)), $"blank raw localization field {field}");
             AssertExactGuid(Text(row, "list_article_guid"));
             var functionGuid = Text(row, "function_article_guid");
@@ -201,8 +201,7 @@ public class LocalizationCompletenessTests
         foreach (var page in pages.Where(p => Text(p, "entry_kind") == "built_in_function"))
         {
             Assert.False(string.IsNullOrWhiteSpace(Text(page.GetProperty("docs"), "microsoft_url")));
-            // No Microsoft English description is carried (DnaCalc dc-96l.5, 2026-10-30).
-            Assert.Equal(JsonValueKind.Null, page.GetProperty("docs").GetProperty("english_description").ValueKind);
+            Assert.False(string.IsNullOrWhiteSpace(Text(page.GetProperty("docs"), "english_description")));
             Assert.False(string.IsNullOrWhiteSpace(Text(page.GetProperty("descriptions"), "short")));
             Assert.Equal("dna-calc-own", Text(page.GetProperty("descriptions"), "short_source"));
         }
@@ -212,7 +211,7 @@ public class LocalizationCompletenessTests
             var page = pages.Single(p => Text(p, "function_id") == id);
             var vintage = page.GetProperty("vintage");
             Assert.Equal(Text(vintage, "localization"), Text(vintage, "docs"));
-            Assert.Equal(Text(vintage, "docs"), Text(vintage, "descriptions"));
+            Assert.Equal("handbook-content:content/descriptions/dna-calc-own.json", Text(vintage, "descriptions"));
             Assert.Contains("W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv", Text(vintage, "docs"), StringComparison.Ordinal);
         }
 
@@ -239,7 +238,7 @@ public class LocalizationCompletenessTests
         using var debris = Open("content/model/name-debris.json");
         var root = debris.RootElement;
         var measured = root.GetProperty("measured_over");
-        Assert.Equal("data/localization/function-name-index.json :: rows[].localized_name",
+        Assert.Equal("data/localization/microsoft-support-function-index.json :: rows[].localized_name",
             Text(measured, "corpus"));
         Assert.Equal(20_360, measured.GetProperty("raw_rows").GetInt32());
         Assert.Equal(SourceSha256, Text(measured, "source_sha256"));

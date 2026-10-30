@@ -461,7 +461,7 @@ mod tests {
             ("data/axes/vocabulary.json", "f3-axis-vocabulary.schema.json"),
             ("data/battery/FUNC.PMT.json", "f16-battery.schema.json"),
             (
-                "data/localization/function-name-index.json",
+                "data/localization/microsoft-support-function-index.json",
                 "f18-localization.schema.json",
             ),
             ("content/model/axis-glossary.json", "f4-axis-glossary.schema.json"),

@@ -42,8 +42,10 @@ are not in V at all: they are neither counted in the denominator nor treated as 
 empty the quotient is undefined and the function is in error territory (see *Result and edge
 cases*).
 
-Two things this definition deliberately makes explicit, because Microsoft's one-line summary
-(the average of the selected database entries) does not:
+Two things this definition deliberately makes explicit, because Microsoft's one-line
+description ("Returns the average of selected database entries") does not:
+
+*The quoted one-line description is Microsoft's text, from its support article <https://support.microsoft.com/en-us/office/daverage-function-a6a2d5ac-4b4b-48cd-a1d8-7b37834e5aee>.*
 
 1. **Selection and aggregation are separate stages.** The criteria mechanism picks *rows*; the
    field argument picks a *column*; the aggregate runs over the intersection. Every one of the

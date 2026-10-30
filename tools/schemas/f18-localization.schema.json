@@ -6,7 +6,7 @@
   "efh": {
     "family": "F18",
     "organ": "data",
-    "path_glob": "data/localization/function-name-index.json",
+    "path_glob": "data/localization/microsoft-support-function-index.json",
     "writer": "tools/efh-ingest (T3, Rust)",
     "spec": "Handbook localization completeness extension; CHARTER 1.2-1.3 and raw-display honesty rule in content/model/name-debris.json",
     "propertyOrderBasis": "source-columns-plus-declared-metadata",
@@ -19,7 +19,7 @@
   "required": ["schema", "source", "counts", "rows"],
   "properties": {
     "schema": {
-      "const": "efh.localization.function-name-index/v2",
+      "const": "efh.localization.microsoft-support-function-index/v1",
       "type": "string"
     },
     "source": {
@@ -28,7 +28,7 @@
       "propertyOrder": ["scope", "repository", "path", "commit", "sha256"],
       "required": ["scope", "repository", "path", "commit", "sha256"],
       "properties": {
-        "scope": { "const": "function-name-index", "type": "string" },
+        "scope": { "const": "microsoft-support-function-index", "type": "string" },
         "repository": { "const": "OxFunc", "type": "string" },
         "path": { "const": "docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv", "type": "string" },
         "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
@@ -64,7 +64,8 @@
           "localized_name",
           "localized_function_url",
           "version_marker",
-          "localized_category"
+          "localized_category",
+          "localized_description"
         ],
         "required": [
           "locale_tag",
@@ -73,7 +74,8 @@
           "localized_name",
           "localized_function_url",
           "version_marker",
-          "localized_category"
+          "localized_category",
+          "localized_description"
         ],
         "properties": {
           "locale_tag": { "type": "string", "minLength": 1 },
@@ -92,7 +94,8 @@
             "pattern": "^https://support\\.microsoft\\.com/.*[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           },
           "version_marker": { "type": "string" },
-          "localized_category": { "type": "string", "minLength": 1 }
+          "localized_category": { "type": "string", "minLength": 1 },
+          "localized_description": { "type": "string", "minLength": 1 }
         }
       }
     }

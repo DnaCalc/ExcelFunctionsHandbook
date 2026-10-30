@@ -33,7 +33,7 @@ measured **2.6 s**.
 | `f2i-presence-index.schema.json` | F2i | `data/` | `data/presence/index.json` | `tools/efh-presence` (T2, Rust) | §2.2 line 122 — **no field table exists** |
 | `f3-axis-vocabulary.schema.json` | F3 | `data/` | `data/axes/vocabulary.json` | `tools/efh-ingest` (T3, Rust) | §2.7 lines 336–338 → D1 §2.3 |
 | `f16-battery.schema.json` | F16 | `data/` | `data/battery/*.json` | `tools/efh-battery` (T7, Rust) | §2.9 lines 378–404 |
-| `f18-localization.schema.json` | F18 | `data/` | `data/localization/function-name-index.json` | `tools/efh-ingest` (T3, Rust) | Handbook localization completeness extension; CHARTER 1.2–1.3 |
+| `f18-localization.schema.json` | F18 | `data/` | `data/localization/microsoft-support-function-index.json` | `tools/efh-ingest` (T3, Rust) | Handbook localization completeness extension; CHARTER 1.2–1.3 |
 | `f4-axis-glossary.schema.json` | F4 | `content/` | `content/model/axis-glossary.json` | T10 curation | §2.7 lines 340–345 → D1 §2.4 |
 | `f5-evidence-record.schema.json` | F5 | `content/` | `content/evidence/records/*.json` | `tools/efh/evidence-import` (T4, C#) | §2.5 lines 183–259 |
 | `f5r-evidence-register.schema.json` | F5r | `content/` | `content/evidence/REGISTER.json` | `tools/efh` (`efh evidence register`, F5r-only, C#) | §2.2 line 132 — **no field table exists** |
@@ -148,9 +148,9 @@ else is a typo and fails acceptance test (a).
 These are recorded rather than absorbed. A schema that quietly widened to match whatever a generator
 emits would stop being a specification.
 
-**4.1 F1 `descriptions.short_source` — operator exemption.** Since 2026-10-30 (DnaCalc dc-96l.5)
-the short descriptions are DNA Calc's own text, not Microsoft's, and the projection emits
-`dna-calc-own` for all 518 built-in functions; `docs.english_description` is null. The 23 operators remain honestly exempt with
+**4.1 F1 `descriptions.short_source` — operator exemption.** The complete-help projection emits
+`microsoft-english-verbatim` for all 518 built-in functions, falling back to the official English
+help text when the registry short is absent. The 23 operators remain honestly exempt with
 `no-short-description`; `differs-from-english-description` occurs on 0 files. The F1 schema keeps
 the operator-only value explicit rather than inventing help text for syntax tokens.
 

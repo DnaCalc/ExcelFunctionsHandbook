@@ -84,12 +84,14 @@ and a unary numeric scalar-or-array lift profile, so arrays lift elementwise. Or
 under the shared coercion rules — see
 [Coercion and lifting](../model/02-coercion-and-lifting.md).
 
-Microsoft's support article gives `ATAN` a one-line summary and nothing the Handbook holds
-beyond it: unlike its siblings,
+Microsoft's projection description for this surface is "Returns the arctangent of a number", and
+that one line is the only documented text the Handbook holds for `ATAN`: unlike its siblings,
 `ATAN` has no `WorksheetFunction` page on Microsoft Learn (the VBA-visible name for this operation
 is the language intrinsic `Atn`), and the worksheet article was not retrievable for this pass. So
 the documentary basis for this page is thinner than for `ASIN` or `ACOS`, and the page says so
 rather than borrowing their statements.
+
+*The quoted one-line description is Microsoft's text, from its support article <https://support.microsoft.com/en-us/office/atan-function-50746fa8-630a-406b-81d0-4a2aed395543>.*
 
 The misunderstood point is the *quadrant*. `ATAN` cannot tell you which quadrant a point is in,
 because it receives only a ratio: `ATAN(y/x)` gives the same answer for `(1, 1)` and `(-1, -1)`.

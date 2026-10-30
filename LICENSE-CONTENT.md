@@ -14,4 +14,8 @@ Code in this repository (`tools/`, `implementations/`, `tests/`, and other sourc
 licensed separately under the MIT license — see `LICENSE.md`.
 
 Microsoft, Excel, and related marks are trademarks of Microsoft Corporation. This project is not
-affiliated with or endorsed by Microsoft. Official documentation is linked, not reproduced.
+affiliated with or endorsed by Microsoft. Official documentation is linked; where the Handbook
+reproduces Microsoft's own text (the official one-line function descriptions in English and in
+40 languages, and short quotations on function pages), that text is Microsoft's, copyright
+Microsoft Corporation, attributed with its source URL, and not covered by the CC BY 4.0 licence
+above. `data/README.md` lists the fields that hold it.
