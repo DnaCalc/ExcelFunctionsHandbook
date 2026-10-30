@@ -264,11 +264,11 @@
         "cpu"
       ],
       "status": "expected-untested",
-      "statement": "Handbook evidence record EV-MATH-0001 marks 6 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23); Intel against AMD is untested.",
+      "statement": "Handbook evidence record EV-MATH-0001 marks 6 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23); Intel against AMD is untested. The Handbook's model chapter 05 (version axes) states the same mechanism, that on about one in two thousand of the hardest inputs the last bit tracks the microcode of the CPU Excel runs on; it and the Last Bit material reason about Intel against AMD but record no Intel reading.",
       "evidence": [
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "581edc011c5fe3bfc1a4e5559bc3b100150cdc25",
+          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
           "path": "content/evidence/records/EV-MATH-0001.json",
           "locator": "counts[].cpu_scoped",
           "sha256": "b0f289b88f240c21a3dedcb8c2c9cdee9f99377b29e63e65d9913a49ad8a74cf",
@@ -281,6 +281,14 @@
           "locator": "lines 236-244",
           "sha256": "e06a6f65235403069aef46216717f1e11bc9f83ab1bd7af13f0400ac4aafee1c",
           "note": null
+        },
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "path": "content/model/05-version-axes.md",
+          "locator": "lines 87-91",
+          "sha256": "cfe41fe778e0e83b8221685d0d741e5c673b01b8cb2b0683de79166b1f535a19",
+          "note": "reasoning, not a measurement"
         }
       ]
     }

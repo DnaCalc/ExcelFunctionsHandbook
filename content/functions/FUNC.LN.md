@@ -263,7 +263,10 @@ whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the w
 CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows
 the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87
 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of
-3,157 rows (2026-08-23); Intel against AMD is untested.
+3,157 rows (2026-08-23); Intel against AMD is untested. The Handbook's model chapter 05
+(version axes) states the same mechanism, that on about one in two thousand of the hardest
+inputs the last bit tracks the microcode of the CPU Excel runs on; it and the Last Bit material
+reason about Intel against AMD but record no Intel reading.
 
 Evidence for every row: [`content/evidence/environments/FUNC.LN.json`](../../content/evidence/environments/FUNC.LN.json). All known differences: [Excel environment differences](../evidence/EXCEL-ENVIRONMENTS.md).
 

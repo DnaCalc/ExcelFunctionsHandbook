@@ -268,7 +268,19 @@ for fid in sorted(fids):
                      " inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1"
                      " host (Excel only on the first) differed on none of 3,157 rows (2026-08-23); Intel"
                      " against AMD is untested.")
+            stmt += (" The Handbook's model chapter 05 (version axes) states the same mechanism, that on about"
+                     " one in two thousand of the hardest inputs the last bit tracks the microcode of the CPU"
+                     " Excel runs on; it and the Last Bit material reason about Intel against AMD but record"
+                     " no Intel reading.")
             evs.append(ev(W108, locator="lines 236-244"))
+            evs.append({
+                "repository": "ExcelFunctionsHandbook",
+                "commit": HB_COMMIT,
+                "path": "content/model/05-version-axes.md",
+                "locator": "lines 87-91",
+                "sha256": hashlib.sha256(open(os.path.join(HB, "content", "model", "05-version-axes.md"), "rb").read()).hexdigest(),
+                "note": "reasoning, not a measurement",
+            })
         sensitivities.append({"sensitivity_id": None, "axis": ["cpu"], "status": "expected-untested",
                               "statement": stmt, "evidence": evs})
     for i, s in enumerate(sensitivities, 1):
