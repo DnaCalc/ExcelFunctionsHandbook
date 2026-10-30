@@ -1,0 +1,59 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.HYPGEOM.DIST",
+  "surface_name": "HYPGEOM.DIST",
+  "status_plain": "Readings of HYPGEOM.DIST with a recorded Excel build: 3,653 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20430, all on Windows; none of these captures records the CPU. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "inputs_read": 3653,
+      "first_observed": "2026-09-29",
+      "last_observed": "2026-09-29",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-distribution-branch-20260929/answers-hypgeom.dist.json",
+          "locator": null,
+          "sha256": "82dbbf7a00c2efa216f1ce7ae5fd351d6e5be7639a95f81e0030c1777c31f7c0",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json",
+          "locator": null,
+          "sha256": "e25d6598b9ab40eca219b913dbaa8d80fa230b336dea2d5e8ad9365bae325689",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-distribution-final-heldout-20260929/answers-hypgeom.dist.json",
+          "locator": null,
+          "sha256": "06bd829642fa580d5fc0672314dbff5d885f6508d6500ea852cf46c58b144cfe",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

@@ -75,3 +75,106 @@ published row it came from.
   supplies `descriptions.short`. COPILOT and JIS take their complete English docs object (URL plus
   description) from the W28 en-US row because the baseline catalog descriptions are blank; their
   `vintage.docs` and `vintage.descriptions` both name that W28 basis.
+
+## Excel environment differences
+
+Excel's function results are assumed to be the same in every Excel build, on every platform
+(Windows, Mac, web; 32- or 64-bit) and on every CPU. Every reading records the build, platform and
+CPU it was taken in where these are known; a difference, once found, is rechecked and recorded. The
+record of that is family **F19**, one file per function at
+`content/evidence/environments/<function_id>.json` (schema
+`tools/schemas/f19-excel-environments.schema.json`, checked by `efh-validate check-organ`; cross
+references checked by the rubric tests). It lives in the curated evidence organ beside the F5
+records, not in `data/`, because it is measurement evidence rather than a projection of OxFunc, and
+`efh-ingest` never writes it. `efh environments render` (in `tools/efh`) generates
+`content/evidence/EXCEL-ENVIRONMENTS.md` (every known difference, every same-input comparison, the
+untested sensitivities, and where each function's readings come from) and a section
+"Excel versions, platforms and CPUs" on each affected page in `content/functions/`;
+`efh environments check` fails when either is stale.
+
+A record holds, for one function:
+
+- `environments[]`: each Excel environment the record names: `excel_version`, `excel_build`,
+  `platform` (`windows`, `mac`, `web`, ...), `os`, `excel_bitness`, `cpu`, `cpu_vendor`,
+  `cpu_microarchitecture`, `workbook_compatibility`, `update_channel`, each `not-recorded` when
+  the capture did not record it, and `basis` (where the fields come from). `env_id` is
+  `<platform>-<bitness>-<version>.<build>-<cpu>` with `nr` for an unrecorded part.
+- `readings[]`: which environments the readings come from, with the number of distinct inputs read,
+  first and last observation date, and the evidence. One environment and no comparison means
+  "only measured on one build", which the pages never present as "no difference".
+- `comparisons[]`: checks that read the same inputs in two or more environments: axis (which
+  environment fields differ), inputs compared, inputs with different results, method, evidence.
+  "No difference known" rests on these.
+- `differences[]`: one entry per input whose result differs: the inputs (`kind`, `display`, and the
+  exact binary64 `bits` for numbers), each observed result with its environment, date and evidence,
+  the recheck state (`not-rechecked`, `confirmed`, `not-reproduced`) and a one-sentence note.
+- `sensitivities[]`: reasons to expect a difference that no Excel-to-Excel comparison has settled
+  (for example a result that follows x87 microcode, which differs by CPU vendor in principle).
+
+Every evidence entry names `repository` (OxFunc, OxFunc-Evidence, ExcelFunctionsHandbook or
+DnaCalc), the full `commit`, the `path` (a file or a folder), an optional `locator` and the raw
+`sha256` where one file is cited.
+
+### Seed (2026-10-30, DnaCalc dc-dfl.1)
+
+The seed was harvested from the Excel answers in OxFunc-Evidence (`cache/`, `runs/` and the W109
+banks under `work/w109/`) and OxFunc's committed `docs/function-lane/evidence/`, keyed by function
+and exact argument bits. Accepted as readings: `oracle-cache-v1` records, cell-reference
+`*_excel_comparison*` records, and `answers-*.json` files whose environment is recorded (in the
+file's `capture_provenance`, a `capture_provenance.json` beside it, the run's rollup, DnaCalc's
+folder label in `migration/evidence/oxfunc-smart-fuzzer.json`, or a `build<NNNNN>` file name).
+Excluded: formula-literal runs (Excel reads a typed number literal to 15 significant digits, so
+their inputs are not the bits the record names; the two cross-build "differences" the first pass
+found were exactly this), model or prediction files, and answers whose build is not recorded.
+Prose comparisons in OxFunc's notes (COMBIN, builds 20131 and 20228) and the CPU-scoped counts of
+the F5 records are seeded as comparisons and sensitivities with their citations.
+
+### Future feed: the DnaCalc witness judge
+
+DnaCalc's witness judge (`cargo xtask witness judge`, DnaCalc dc-ymjf.2, with the build-drift
+recapture of dc-ymjf.3) is to hand over environment conflicts as one JSON file per run, which a
+Handbook ingest step maps onto F19 without inference. Format `dnacalc-excel-environment-report/1`:
+
+```json
+{
+  "format": "dnacalc-excel-environment-report/1",
+  "producer": {"repository": "DnaCalc", "commit": "<40 hex>", "command": "cargo xtask witness judge --bank full"},
+  "environments": [
+    {"env_key": "<producer's own id>", "excel_version": "16.0", "excel_build": "20527",
+     "platform": "windows", "os": "Windows (64-bit) NT 10.00", "excel_bitness": "64-bit",
+     "cpu": "<processor name as Windows reports it>", "workbook_compatibility": "2",
+     "update_channel": "<or not-recorded>", "input_plumbing": "cell_value2_bulk"}
+  ],
+  "functions": [
+    {
+      "function": "EXP",
+      "readings": [
+        {"env_key": "...", "rows": 1224, "first_captured_utc": "...", "last_captured_utc": "...",
+         "sources": [{"repository": "...", "commit": "<40 hex>", "path": "...", "sha256": "<64 hex>"}]}
+      ],
+      "comparisons": [
+        {"env_keys": ["...", "..."], "rows_compared": 200, "rows_differing": 1,
+         "sources": [{"repository": "...", "commit": "...", "path": "...", "sha256": "..."}]}
+      ],
+      "conflicts": [
+        {"args": [{"kind": "number", "bits": "0x3ff0000000000001"}],
+         "observations": [
+           {"env_key": "...", "result": {"kind": "number", "bits": "0x4005bf0a8b14576a"},
+            "captured_utc": "...", "source": {"repository": "...", "commit": "...", "path": "...",
+            "sha256": "...", "row_id": "<witness id>"}}
+         ],
+         "recaptured": {"status": "not-rechecked | confirmed | not-reproduced", "captured_utc": null}}
+      ]
+    }
+  ]
+}
+```
+
+Rules for the producer: one report covers whole banks (a function absent from `functions[]` was not
+judged); every row is keyed by exact argument bits, never by formula text; a result is typed
+(`number` with bits, `text`, `logical`, `error` with Excel's literal, `blank`, `array`); a conflict
+lists every environment that read the input, including those that agree; a conflict is reported
+when found, with `recaptured.status` `not-rechecked` until the input has been read again in each
+environment involved; nothing is dropped as noise. The ingest step adds `display` (shortest round-trip decimal),
+derives `axis` from the environment fields that differ, mints `XC-`/`XD-` ids, merges readings by
+environment, and never edits a conflict once recorded: a later recapture appends to its recheck.

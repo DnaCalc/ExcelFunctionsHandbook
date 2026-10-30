@@ -1,0 +1,51 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.DAYS360",
+  "surface_name": "DAYS360",
+  "status_plain": "Readings of DAYS360 with a recorded Excel build: 3,061 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20430, all on Windows; where a CPU is recorded it is an AMD Zen 2. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS, CPU. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "inputs_read": 3061,
+      "first_observed": "2026-09-24",
+      "last_observed": "2026-09-25",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle-20430/build-20430/DAYS360.jsonl",
+          "locator": null,
+          "sha256": "f6bf20afe08a96bd47231f92c60fb8fb37040ec3ad2fe0f984c7529a1e0764e2",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-5-20260924/answers/answers-w1115-days360.json",
+          "locator": null,
+          "sha256": "afbe3b7cc4c8aa98ee86343c8d43893239a5510e9d98b4e18d093a5bb1050d07",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

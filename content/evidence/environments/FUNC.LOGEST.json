@@ -1,0 +1,51 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.LOGEST",
+  "surface_name": "LOGEST",
+  "status_plain": "Readings of LOGEST with a recorded Excel build: 180 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20228, all on Windows; none of these captures records the CPU. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "excel_version": "16.0",
+      "excel_build": "20228",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "inputs_read": 180,
+      "first_observed": "2026-08-09",
+      "last_observed": "2026-08-09",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G3-04-growth/answers-logest-paired-discovery-v1.json",
+          "locator": null,
+          "sha256": "dbf185671f0fd56685f2e16eaea2c850c63e9e1220da738bb57dc0ecbed005e0",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G3-04-growth/answers-logest-refinement-v2.json",
+          "locator": null,
+          "sha256": "022c46d8992f479661bb644c963048e7c8dc47ab6b3381a965bffe83d488f5b5",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

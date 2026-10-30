@@ -1,0 +1,51 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.NORMSINV",
+  "surface_name": "NORMSINV",
+  "status_plain": "Readings of NORMSINV with a recorded Excel build: 2 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 19929, all on Windows; none of these captures records the CPU. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "excel_version": "16.0",
+      "excel_build": "19929",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build. Not recorded: bitness, OS, CPU. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "inputs_read": 2,
+      "first_observed": null,
+      "last_observed": null,
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-D-stat-distribution-cellref-smoke/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "daede19335d30fdbb1007bc37efff1237b53acd35de35d16a34578eb1a06bf0e",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-D-stat-distribution-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "d64d83ec999066a31739983c23fc80f5baffc5809828a35232fce0e1448834e6",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

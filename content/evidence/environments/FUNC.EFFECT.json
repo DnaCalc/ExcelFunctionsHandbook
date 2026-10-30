@@ -1,0 +1,121 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.EFFECT",
+  "surface_name": "EFFECT",
+  "status_plain": "Readings of EFFECT with a recorded Excel build: 2,265 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 20228, 20430, all on Windows; none of these captures records the CPU. 319 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "excel_version": "16.0",
+      "excel_build": "20228",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "inputs_read": 1030,
+      "first_observed": "2026-08-09",
+      "last_observed": "2026-08-09",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-solvers/answers-effect-heldout-20260809.json",
+          "locator": null,
+          "sha256": "64b42a8b394612fa90cb9c1711d4897970661d8241c1f251d30df2e13ec7c732",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-solvers/answers-effect-huge-domain-scratch.json",
+          "locator": null,
+          "sha256": "eb7cba416c3a4c7145a1661adcebc6d3a3fc7645750f2caf0e7e8a592d8430c0",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "inputs_read": 1235,
+      "first_observed": "2026-09-29",
+      "last_observed": "2026-09-29",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-extended-regenerated-20260929/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1534/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1735/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-wrap-1952/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/function-lane/evidence/w111-broad-20260929/snapshot-wrap-1952/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-extended-numeric-20260929/answers/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

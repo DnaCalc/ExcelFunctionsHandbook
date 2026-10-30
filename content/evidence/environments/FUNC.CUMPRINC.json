@@ -1,0 +1,62 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.CUMPRINC",
+  "surface_name": "CUMPRINC",
+  "status_plain": "Readings of CUMPRINC with a recorded Excel build: 540 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20228, all on Windows; none of these captures records the CPU. No input has been read in two environments, so no difference is known and none is ruled out. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "excel_version": "16.0",
+      "excel_build": "20228",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "inputs_read": 540,
+      "first_observed": "2026-08-09",
+      "last_observed": "2026-08-09",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-cumprinc/answers-cumprinc-exact-discriminator-20260809.json",
+          "locator": null,
+          "sha256": "989a0ecd6330736aedc28060bf390804d7ae0f543074b294ce735d2668e33ca0",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": [
+    {
+      "sensitivity_id": "XS-CUMPRINC-001",
+      "axis": [
+        "cpu"
+      ],
+      "status": "expected-untested",
+      "statement": "Handbook evidence record EV-FIN-0005 marks 7 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out.",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "581edc011c5fe3bfc1a4e5559bc3b100150cdc25",
+          "path": "content/evidence/records/EV-FIN-0005.json",
+          "locator": "counts[].cpu_scoped",
+          "sha256": "0ad5968955eee37fcb60c9a9aaf5511a51d8f2a360bd7711bac46746f880dcc3",
+          "note": null
+        }
+      ]
+    }
+  ]
+}

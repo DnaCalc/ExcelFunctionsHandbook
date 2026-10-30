@@ -1,0 +1,316 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.POWER",
+  "surface_name": "POWER",
+  "status_plain": "Readings of POWER with a recorded Excel build: 62,752 input(s) over 3 recorded environment(s), Excel 16.0 build(s) 19929, 20131, 20430, all on Windows; where a CPU is recorded it is an AMD Zen 2. 697 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. 1 same-input comparison(s) between builds over 27 input-pair(s): no result differs. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "excel_version": "16.0",
+      "excel_build": "19929",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build. Not recorded: bitness, OS, CPU. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "inputs_read": 129,
+      "first_observed": null,
+      "last_observed": null,
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-B-validation-cellref-module/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-010-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-011-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-012-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-013-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-014-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function; 1 further folder(s) not listed"
+        }
+      ]
+    },
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "inputs_read": 697,
+      "first_observed": "2026-07-23",
+      "last_observed": "2026-07-23",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/POWER.jsonl",
+          "locator": null,
+          "sha256": "647b7ae667d350fad0c3e48760d47c3d834e1901973f4c1da9fefb565d2d63fe",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "inputs_read": 61926,
+      "first_observed": "2026-09-29",
+      "last_observed": "2026-09-29",
+      "evidence": [
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/function-lane/evidence/w111-broad-20260929/power-integer-thresholds/",
+          "locator": null,
+          "sha256": null,
+          "note": "3 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-extended-regenerated-20260929/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1534/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1735/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-wrap-1952/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/function-lane/evidence/w111-broad-20260929/elementary-publication/discovery/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function; 8 further folder(s) not listed"
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison_id": "XC-POWER-001",
+      "axis": [
+        "excel-build"
+      ],
+      "env_ids": [
+        "win-nr-16.0.19929-nr",
+        "win-x64-16.0.20430-nr"
+      ],
+      "inputs_compared": 27,
+      "inputs_differing": 0,
+      "method": "Harvest (tools/efh-environments/harvest.py): Excel answers keyed by function and exact argument bits; every input read in both environments, results compared as typed values (numbers by their binary64 bits). Formula-literal captures excluded.",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "b7f060ba4bff562ee5e2ad695f43d9067938e006a86dfd2274dd57016f296a66",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-010-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "b7f060ba4bff562ee5e2ad695f43d9067938e006a86dfd2274dd57016f296a66",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-011-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "30a77b065080093b3d56f009ef4ae9e3d318b03a3f1009d603d52d4c09e363ac",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-012-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "79234fbbdfcf44dbc6b13309385c920b6ab82c86bb1655e9b07ee3c7b9be0e78",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-extended-regenerated-20260929/answers-power.json",
+          "locator": null,
+          "sha256": "2feb537f80d6f184f491d7f121802fc6f7b712f3d69f346cabf55a157b49af05",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1534/inputs/extended/answers-power.json",
+          "locator": null,
+          "sha256": "2feb537f80d6f184f491d7f121802fc6f7b712f3d69f346cabf55a157b49af05",
+          "note": null
+        },
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/function-lane/evidence/w111-broad-20260929/elementary-publication/discovery/answers-power.json",
+          "locator": null,
+          "sha256": "a1a4e3869dc23bacfee84a7afd4480f5ec0d022389c412223373f15d90809403",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-log-power-midpoint-20260929/answers-power.json",
+          "locator": null,
+          "sha256": "a1a4e3869dc23bacfee84a7afd4480f5ec0d022389c412223373f15d90809403",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "differences": [],
+  "sensitivities": [
+    {
+      "sensitivity_id": "XS-POWER-001",
+      "axis": [
+        "cpu"
+      ],
+      "status": "expected-untested",
+      "statement": "Handbook evidence record EV-MATH-0002 marks 3 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23); Intel against AMD is untested.",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "581edc011c5fe3bfc1a4e5559bc3b100150cdc25",
+          "path": "content/evidence/records/EV-MATH-0002.json",
+          "locator": "counts[].cpu_scoped",
+          "sha256": "e671c9e501bf57f1634ba8a34d0f5c61f34b1310a698759da16aa99ff0bf43c7",
+          "note": null
+        },
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/worksets/W108_EXCEL_NUMERIC_CORE_AND_FINANCIAL_POWER_EXACTNESS.md",
+          "locator": "lines 236-244",
+          "sha256": "e06a6f65235403069aef46216717f1e11bc9f83ab1bd7af13f0400ac4aafee1c",
+          "note": null
+        }
+      ]
+    },
+    {
+      "sensitivity_id": "XS-POWER-002",
+      "axis": [
+        "cpu"
+      ],
+      "status": "expected-untested",
+      "statement": "Handbook evidence record EV-STRUCT-0013 marks 1 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23); Intel against AMD is untested.",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "581edc011c5fe3bfc1a4e5559bc3b100150cdc25",
+          "path": "content/evidence/records/EV-STRUCT-0013.json",
+          "locator": "counts[].cpu_scoped",
+          "sha256": "39409fcdd29970ff3ef79f65158de834433772ae81f9f8d3268bcfcb99653dff",
+          "note": null
+        },
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/worksets/W108_EXCEL_NUMERIC_CORE_AND_FINANCIAL_POWER_EXACTNESS.md",
+          "locator": "lines 236-244",
+          "sha256": "e06a6f65235403069aef46216717f1e11bc9f83ab1bd7af13f0400ac4aafee1c",
+          "note": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.MROUND",
+  "surface_name": "MROUND",
+  "status_plain": "Readings of MROUND with a recorded Excel build: 50,890 input(s) over 3 recorded environment(s), Excel 16.0 build(s) 19929, 20430, all on Windows; where a CPU is recorded it is an AMD Zen 2. 1 same-input comparison(s) between builds over 3 input-pair(s): no result differs. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "excel_version": "16.0",
+      "excel_build": "19929",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build. Not recorded: bitness, OS, CPU. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS, CPU. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "inputs_read": 108,
+      "first_observed": null,
+      "last_observed": null,
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-B-validation-cellref-module/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-010-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-011-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-012-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-013-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-014-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function; 1 further folder(s) not listed"
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "inputs_read": 1999,
+      "first_observed": "2026-09-25",
+      "last_observed": "2026-09-25",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle-20430/build-20430/MROUND.jsonl",
+          "locator": null,
+          "sha256": "7ce5b937a181473c5274d161c1fe0144ed32597776a0dac6653c79a7664168e7",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "inputs_read": 48783,
+      "first_observed": "2026-09-29",
+      "last_observed": "2026-09-29",
+      "evidence": [
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/function-lane/evidence/w111-broad-20260929/mround/",
+          "locator": null,
+          "sha256": null,
+          "note": "5 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-extended-regenerated-20260929/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1534/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1735/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-wrap-1952/inputs/extended/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/function-lane/evidence/w111-broad-20260929/aggregate-publication/discovery/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function; 7 further folder(s) not listed"
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison_id": "XC-MROUND-001",
+      "axis": [
+        "excel-build"
+      ],
+      "env_ids": [
+        "win-nr-16.0.19929-nr",
+        "win-x64-16.0.20430-nr"
+      ],
+      "inputs_compared": 3,
+      "inputs_differing": 0,
+      "method": "Harvest (tools/efh-environments/harvest.py): Excel answers keyed by function and exact argument bits; every input read in both environments, results compared as typed values (numbers by their binary64 bits). Formula-literal captures excluded.",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-010-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "b7f060ba4bff562ee5e2ad695f43d9067938e006a86dfd2274dd57016f296a66",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-011-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "30a77b065080093b3d56f009ef4ae9e3d318b03a3f1009d603d52d4c09e363ac",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-012-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "79234fbbdfcf44dbc6b13309385c920b6ab82c86bb1655e9b07ee3c7b9be0e78",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-extended-regenerated-20260929/answers-mround.json",
+          "locator": null,
+          "sha256": "062ffc1ae501ef4657df3f77d45340931da4712c3fc15dd1103e056cc4668af1",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/w111-snapshot-1534/inputs/extended/answers-mround.json",
+          "locator": null,
+          "sha256": "062ffc1ae501ef4657df3f77d45340931da4712c3fc15dd1103e056cc4668af1",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-aggregate-rounding-discovery-20260929/answers-mround.json",
+          "locator": null,
+          "sha256": "182977c8f9401ddd98c87ffac2aece09961e06bf2c84982b2e3cafd57cd8ef2c",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-mround-cutoff-heldout-20260929/answers-mround.json",
+          "locator": null,
+          "sha256": "57965451c90555ed0fabe7d80bf2aadb983fda4358f8167edbb3ff4b89b8765f",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "differences": [],
+  "sensitivities": []
+}

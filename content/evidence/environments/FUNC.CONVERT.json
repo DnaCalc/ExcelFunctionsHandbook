@@ -1,0 +1,43 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.CONVERT",
+  "surface_name": "CONVERT",
+  "status_plain": "Readings of CONVERT with a recorded Excel build: 33,972 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20228, all on Windows; none of these captures records the CPU. 29,745 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "excel_version": "16.0",
+      "excel_build": "20228",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "inputs_read": 33972,
+      "first_observed": "2026-08-09",
+      "last_observed": "2026-08-09",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G4-convert/",
+          "locator": null,
+          "sha256": null,
+          "note": "8 file(s) in this folder hold readings of this function"
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

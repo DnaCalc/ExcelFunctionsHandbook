@@ -1,0 +1,43 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.FORECAST",
+  "surface_name": "FORECAST",
+  "status_plain": "Readings of FORECAST with a recorded Excel build: 70 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20131, all on Windows; where a CPU is recorded it is an AMD Zen 2. 70 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "inputs_read": 70,
+      "first_observed": "2026-07-12",
+      "last_observed": "2026-07-12",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/FORECAST.jsonl",
+          "locator": null,
+          "sha256": "a97468f4e391ef33ae1002fbc6abbf708b194eaba6f950f8ead468c4bf80c931",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

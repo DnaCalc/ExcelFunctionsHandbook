@@ -1,0 +1,89 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.F.TEST",
+  "surface_name": "F.TEST",
+  "status_plain": "Readings of F.TEST with a recorded Excel build: 78 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 20131, 20228, all on Windows; where a CPU is recorded it is an AMD Zen 2. 3 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "excel_version": "16.0",
+      "excel_build": "20228",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "inputs_read": 3,
+      "first_observed": "2026-07-12",
+      "last_observed": "2026-07-12",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/F.TEST.jsonl",
+          "locator": null,
+          "sha256": "a5cc54b006f1558f8860465ebadecb376e8aa7985704db62a2da8d323da92760",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "inputs_read": 75,
+      "first_observed": "2026-08-09",
+      "last_observed": "2026-08-09",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G3-06-ftest-variance/answers-ftest-current-discovery-v1.json",
+          "locator": null,
+          "sha256": "bfdb32ca6640d7ee4cea634d22f408f756bc82ba1a6b4c2628585d6328c0bb7d",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G3-06-ftest-variance/answers-ftest-variance-discovery-v2.json",
+          "locator": null,
+          "sha256": "22f79ca91ca6a509228f1e1c1d9baf82adedeea619072e681a50750a27729fb7",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G3-06-ftest-variance/answers-ftest-wrapper-heldout-v1.json",
+          "locator": null,
+          "sha256": "491b35108754c73ac4f230609bdfc332c66c262998e36f7753ce9d20bc1953e0",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

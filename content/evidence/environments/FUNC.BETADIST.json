@@ -1,0 +1,81 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.BETADIST",
+  "surface_name": "BETADIST",
+  "status_plain": "Readings of BETADIST with a recorded Excel build: 322 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 19929, 20131, all on Windows; where a CPU is recorded it is an AMD Zen 2. 294 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "excel_version": "16.0",
+      "excel_build": "19929",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build. Not recorded: bitness, OS, CPU. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "inputs_read": 28,
+      "first_observed": null,
+      "last_observed": null,
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-D-stat-distribution-cellref-smoke/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "daede19335d30fdbb1007bc37efff1237b53acd35de35d16a34578eb1a06bf0e",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-D-stat-distribution-cellref/comparisons/excel_sample_comparisons.jsonl",
+          "locator": null,
+          "sha256": "d64d83ec999066a31739983c23fc80f5baffc5809828a35232fce0e1448834e6",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "inputs_read": 294,
+      "first_observed": "2026-07-16",
+      "last_observed": "2026-07-17",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/BETADIST.jsonl",
+          "locator": null,
+          "sha256": "095a66569f18feab1aa9bd61e63a5cb9e7390d973258f85a072aa2019b841e40",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

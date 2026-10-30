@@ -12,11 +12,33 @@ if (args0 == "evidence" && args1 == "register")
     return 0;
 }
 
+if (args0 == "environments" && args1 is "render" or "check")
+{
+    var envRoot = FindRoot(args);
+    Console.WriteLine($"handbook root: {envRoot}");
+    if (args1 == "render")
+    {
+        var changed = ExcelEnvironments.Render(envRoot);
+        foreach (var path in changed)
+            Console.WriteLine($"wrote {path}");
+        Console.WriteLine($"{changed.Count} file(s) changed");
+        return 0;
+    }
+    var stale = ExcelEnvironments.Stale(envRoot);
+    foreach (var path in stale)
+        Console.WriteLine($"stale {path}");
+    Console.WriteLine(stale.Count == 0
+        ? "environment pages are up to date"
+        : $"{stale.Count} file(s) stale; run 'efh environments render'");
+    return stale.Count == 0 ? 0 : 1;
+}
+
 if (args0 != "rubric" || args1 is not ("emit" or "report"))
 {
     Console.Error.WriteLine("usage: efh rubric emit   [--root <handbook-root>]");
     Console.Error.WriteLine("       efh rubric report [--root <handbook-root>]");
     Console.Error.WriteLine("       efh evidence register [--root <handbook-root>]");
+    Console.Error.WriteLine("       efh environments render|check [--root <handbook-root>]");
     return 2;
 }
 

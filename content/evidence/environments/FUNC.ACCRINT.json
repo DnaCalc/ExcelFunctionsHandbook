@@ -1,0 +1,113 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.ACCRINT",
+  "surface_name": "ACCRINT",
+  "status_plain": "Readings of ACCRINT with a recorded Excel build: 146,688 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 20131, 20228, all on Windows; where a CPU is recorded it is an AMD Zen 2. 145,458 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. 1 same-input comparison(s) between builds over 780 input-pair(s): no result differs. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "excel_version": "16.0",
+      "excel_build": "20228",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "inputs_read": 145458,
+      "first_observed": "2026-07-19",
+      "last_observed": "2026-07-20",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/ACCRINT.jsonl",
+          "locator": null,
+          "sha256": "84c89ffc796b709f94a519508312744e5254b9caa052fae1a1aeac22eb6cf904",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "inputs_read": 1230,
+      "first_observed": "2026-08-09",
+      "last_observed": "2026-08-09",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-b2b3/answers-accrint-publication-heldout-20260809.json",
+          "locator": null,
+          "sha256": "d0a6f58585aae4e8c5727fd0ee5e792b686e970ff1b721b6d1cbd257c301b58c",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-b2b3/answers-b43-accrint-build20228-20260809.json",
+          "locator": null,
+          "sha256": "ce2cb4b34fd46dee40ddcd4724769471f255ba2ece81d957546ba079d4cdf847",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison_id": "XC-ACCRINT-001",
+      "axis": [
+        "excel-build"
+      ],
+      "env_ids": [
+        "win-nr-16.0.20131-amd-zen2",
+        "win-x64-16.0.20228-nr"
+      ],
+      "inputs_compared": 780,
+      "inputs_differing": 0,
+      "method": "Harvest (tools/efh-environments/harvest.py): Excel answers keyed by function and exact argument bits; every input read in both environments, results compared as typed values (numbers by their binary64 bits). Formula-literal captures excluded.",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/ACCRINT.jsonl",
+          "locator": null,
+          "sha256": "84c89ffc796b709f94a519508312744e5254b9caa052fae1a1aeac22eb6cf904",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-b2b3/answers-b43-accrint-build20228-20260809.json",
+          "locator": null,
+          "sha256": "ce2cb4b34fd46dee40ddcd4724769471f255ba2ece81d957546ba079d4cdf847",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "differences": [],
+  "sensitivities": []
+}

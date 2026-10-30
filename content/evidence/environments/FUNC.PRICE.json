@@ -1,0 +1,132 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.PRICE",
+  "surface_name": "PRICE",
+  "status_plain": "Readings of PRICE with a recorded Excel build: 8,625 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 20131, 20228, all on Windows; where a CPU is recorded it is an AMD Zen 2. 8,417 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. 1 same-input comparison(s) between builds over 2 input-pair(s): no result differs. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "excel_version": "16.0",
+      "excel_build": "20228",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "inputs_read": 8417,
+      "first_observed": "2026-07-19",
+      "last_observed": "2026-07-19",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/PRICE.jsonl",
+          "locator": null,
+          "sha256": "3f602dbaae9acbc5556a57c378e9f7f333f7d9c410485b88391d4dd30d4cd18a",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20228-nr",
+      "inputs_read": 208,
+      "first_observed": "2026-08-09",
+      "last_observed": "2026-08-09",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-price-duration-exact/answers-price-residual-companion-discovery-20260809.json",
+          "locator": null,
+          "sha256": "6c1895b31203fc2f0f1c98e8e43bf34ab20695e18c1e9bbae916ead1ffca6550",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-solvers/answers-price-yield-companion-discovery-20260809.json",
+          "locator": null,
+          "sha256": "2cfc211814251ea706d71cef5b0b19fe1149faeaee4b0eeee8f434f103deb5d0",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "comparison_id": "XC-PRICE-001",
+      "axis": [
+        "excel-build"
+      ],
+      "env_ids": [
+        "win-nr-16.0.20131-amd-zen2",
+        "win-x64-16.0.20228-nr"
+      ],
+      "inputs_compared": 2,
+      "inputs_differing": 0,
+      "method": "Harvest (tools/efh-environments/harvest.py): Excel answers keyed by function and exact argument bits; every input read in both environments, results compared as typed values (numbers by their binary64 bits). Formula-literal captures excluded.",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/PRICE.jsonl",
+          "locator": null,
+          "sha256": "3f602dbaae9acbc5556a57c378e9f7f333f7d9c410485b88391d4dd30d4cd18a",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "work/w109/G6-solvers/answers-price-yield-companion-discovery-20260809.json",
+          "locator": null,
+          "sha256": "2cfc211814251ea706d71cef5b0b19fe1149faeaee4b0eeee8f434f103deb5d0",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "differences": [],
+  "sensitivities": [
+    {
+      "sensitivity_id": "XS-PRICE-001",
+      "axis": [
+        "cpu"
+      ],
+      "status": "expected-untested",
+      "statement": "Handbook evidence record EV-FIN-0022 marks 2 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out.",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "581edc011c5fe3bfc1a4e5559bc3b100150cdc25",
+          "path": "content/evidence/records/EV-FIN-0022.json",
+          "locator": "counts[].cpu_scoped",
+          "sha256": "d355b6a0cfe3e7cfc2f600287bc4ffb005a271e859c048b6a90fb19bded6b023",
+          "note": null
+        }
+      ]
+    }
+  ]
+}

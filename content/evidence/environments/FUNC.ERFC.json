@@ -1,0 +1,121 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.ERFC",
+  "surface_name": "ERFC",
+  "status_plain": "Readings of ERFC with a recorded Excel build: 585 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 19929, 20430, all on Windows; none of these captures records the CPU. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "excel_version": "16.0",
+      "excel_build": "19929",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build. Not recorded: bitness, OS, CPU. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "not-recorded",
+      "cpu_vendor": "not-recorded",
+      "cpu_microarchitecture": "not-recorded",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS. Not recorded: CPU. Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.19929-nr",
+      "inputs_read": 41,
+      "first_observed": null,
+      "last_observed": null,
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/W097-R-B-validation-cellref-module/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-010-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-011-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-012-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-013-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function"
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/broad-scalar-cycle-014-cellref/comparisons/",
+          "locator": null,
+          "sha256": null,
+          "note": "1 file(s) in this folder hold readings of this function; 1 further folder(s) not listed"
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20430-nr",
+      "inputs_read": 544,
+      "first_observed": "2026-09-29",
+      "last_observed": "2026-09-29",
+      "evidence": [
+        {
+          "repository": "OxFunc",
+          "commit": "05196c394f5400eb329c79b01b4a8d2bac7c228b",
+          "path": "docs/function-lane/evidence/w111-broad-20260929/distribution-surface/cdf-research/dependency-answers-erfc.json",
+          "locator": null,
+          "sha256": "522a67a4475db847b2f5336af2a730514d694b875c037783d08aca79802a6cb6",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-normal-cdf-dependencies-20260929/answers-erfc.json",
+          "locator": null,
+          "sha256": "522a67a4475db847b2f5336af2a730514d694b875c037783d08aca79802a6cb6",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

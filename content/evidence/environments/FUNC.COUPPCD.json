@@ -1,0 +1,81 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.COUPPCD",
+  "surface_name": "COUPPCD",
+  "status_plain": "Readings of COUPPCD with a recorded Excel build: 4,072 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 20131, 20430, all on Windows; where a CPU is recorded it is an AMD Zen 2. 1,060 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "not-recorded",
+      "excel_bitness": "not-recorded",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS, CPU. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-nr-16.0.20131-amd-zen2",
+      "inputs_read": 1060,
+      "first_observed": "2026-07-19",
+      "last_observed": "2026-07-19",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle/build-20131/COUPPCD.jsonl",
+          "locator": null,
+          "sha256": "3b4fb2a258cde67ae8a6570f76a335000dde2dc2b4874fb224bbcd33e763f459",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "inputs_read": 3012,
+      "first_observed": "2026-09-24",
+      "last_observed": "2026-09-25",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle-20430/build-20430/COUPPCD.jsonl",
+          "locator": null,
+          "sha256": "46e461096c6472977c2d4ae3c7d025f73f8eec66a0c70e1219b97bda0a219698",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-5-20260924/answers/answers-w1115-couppcd.json",
+          "locator": null,
+          "sha256": "d35e1f8edb250f9196b1377f610c865dbf2a7dd5d57a7559db988993ed1ad3d7",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}

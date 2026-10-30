@@ -1,0 +1,51 @@
+{
+  "schema": "efh.excel-environments/v1",
+  "function_id": "FUNC.WORKDAY.INTL",
+  "surface_name": "WORKDAY.INTL",
+  "status_plain": "Readings of WORKDAY.INTL with a recorded Excel build: 4,800 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20430, all on Windows; where a CPU is recorded it is an AMD Zen 2. No input has been read in two environments, so no difference is known and none is ruled out. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "environments": [
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20430",
+      "platform": "windows",
+      "os": "Windows (64-bit) NT 10.00",
+      "excel_bitness": "64-bit",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "2",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by the capture or its run rollup: Excel version and build, bitness, OS, CPU. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version 2 as recorded. Update channel never recorded."
+    }
+  ],
+  "readings": [
+    {
+      "env_id": "win-x64-16.0.20430-amd-zen2",
+      "inputs_read": 4800,
+      "first_observed": "2026-09-24",
+      "last_observed": "2026-09-25",
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "cache/oracle-20430/build-20430/WORKDAY.INTL.jsonl",
+          "locator": null,
+          "sha256": "441f3477c36ba8e0a880714af75417d73e4ece3d993a001c024a44b5ee90e205",
+          "note": null
+        },
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "1a47dfcec7db3cf8b8343da312af474cbd3ddcf1",
+          "path": "runs/w111-5-20260924/answers/answers-w1115-workday.intl.json",
+          "locator": null,
+          "sha256": "3203724a7dcfc79a8486f1edbf95d2721ee9ddd94bd8c8047d7e0e4bf6e4d74c",
+          "note": null
+        }
+      ]
+    }
+  ],
+  "comparisons": [],
+  "differences": [],
+  "sensitivities": []
+}
