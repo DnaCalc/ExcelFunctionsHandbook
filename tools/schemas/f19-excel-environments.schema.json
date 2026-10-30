@@ -1,0 +1,297 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f19-excel-environments.schema.json",
+  "title": "F19 - content/evidence/environments/<function_id>.json",
+  "description": "Per function: which Excel environments (build, platform, bitness, CPU) the Handbook's readings come from, which of them have been compared on the same inputs, and every observed difference in Excel's result between environments, with the exact inputs and results and where each observation is kept. Excel's results are assumed stable across versions, platforms and CPUs; this family records the evidence for and against that assumption, function by function. A function without a file has no reading recorded in this family.",
+  "efh": {
+    "family": "F19",
+    "organ": "content",
+    "path_glob": "content/evidence/environments/*.json",
+    "writer": "Handbook curation (seed: dc-dfl.1 harvest of OxFunc and OxFunc-Evidence); later: ingest of the DnaCalc witness judge's environment conflicts (data/README.md, 'Excel environment differences')",
+    "spec": "Handbook extension (DnaCalc dc-dfl.1, 2026-10-30); not specified by FOUNDATION.md. Rendered by `efh environments render` into content/evidence/EXCEL-ENVIRONMENTS.md and a generated section of each affected content/functions page.",
+    "propertyOrderBasis": "declared-by-this-schema",
+    "keyOrderContract": "Emit keys in propertyOrder exactly. environments[] sorted by env_id; readings[] in environments[] order; comparisons[], differences[] and sensitivities[] sorted by their ids."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "function_id",
+    "surface_name",
+    "status_plain",
+    "environments",
+    "readings",
+    "comparisons",
+    "differences",
+    "sensitivities"
+  ],
+  "required": [
+    "schema",
+    "function_id",
+    "surface_name",
+    "status_plain",
+    "environments",
+    "readings",
+    "comparisons",
+    "differences",
+    "sensitivities"
+  ],
+  "properties": {
+    "schema": { "const": "efh.excel-environments/v1", "type": "string" },
+    "function_id": {
+      "type": "string",
+      "pattern": "^(FUNC|OP)\\.",
+      "description": "R. Must exist in data/functions/ and equal the file name."
+    },
+    "surface_name": { "type": "string" },
+    "status_plain": {
+      "type": "string",
+      "minLength": 1,
+      "description": "R. One honest paragraph: what has been read where, what has been compared, what differs. Rendered on the page above the tables."
+    },
+    "environments": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/environment" },
+      "description": "R. Every Excel environment named by a reading, comparison or difference in this file. Empty only when the record holds nothing but sensitivities."
+    },
+    "readings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/reading" },
+      "description": "R. Which environments the Handbook's readings of this function come from. One entry per environment with readings. An empty comparisons[] with a single reading environment means 'only measured on one build', never 'no difference'."
+    },
+    "comparisons": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/comparison" },
+      "description": "R. Checks in which the same inputs were read under two or more environments and the results compared by their binary64 bits (or typed value). A comparison with inputs_differing 0 is what 'no difference known' rests on."
+    },
+    "differences": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/difference" },
+      "description": "R. One entry per input whose Excel result differs between environments."
+    },
+    "sensitivities": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sensitivity" },
+      "description": "R. Reasons to expect (or to rule out) a difference that no Excel-to-Excel comparison has yet settled, for example a result that depends on x87 microcode."
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["repository", "commit", "path", "locator", "sha256", "note"],
+      "required": ["repository", "commit", "path", "locator", "sha256", "note"],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "enum": ["OxFunc", "OxFunc-Evidence", "ExcelFunctionsHandbook", "DnaCalc"],
+          "description": "R. The repository holding the evidence (github.com/DnaCalc/<repository>)."
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$",
+          "description": "R. Full commit at which the cited path holds the cited content."
+        },
+        "path": { "type": "string", "minLength": 1, "description": "R. Repository-relative path." },
+        "locator": {
+          "type": ["string", "null"],
+          "description": "R, may be null. Line, record key or witness id inside the file."
+        },
+        "sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "R, may be null. SHA-256 of the raw file (for OxFunc-Evidence: the manifest's raw SHA-256 of the archived file, whose blob is <path>.gz)."
+        },
+        "note": { "type": ["string", "null"] }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": [
+        "env_id",
+        "excel_version",
+        "excel_build",
+        "platform",
+        "os",
+        "excel_bitness",
+        "cpu",
+        "cpu_vendor",
+        "cpu_microarchitecture",
+        "workbook_compatibility",
+        "update_channel",
+        "basis"
+      ],
+      "required": [
+        "env_id",
+        "excel_version",
+        "excel_build",
+        "platform",
+        "os",
+        "excel_bitness",
+        "cpu",
+        "cpu_vendor",
+        "cpu_microarchitecture",
+        "workbook_compatibility",
+        "update_channel",
+        "basis"
+      ],
+      "properties": {
+        "env_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]*$",
+          "description": "R. Stable id, conventionally <platform>-<bitness>-<version>.<build>-<cpu>, e.g. win-x64-16.0.20131-amd-zen2. Unknown parts are written 'nr' (not recorded)."
+        },
+        "excel_version": { "type": "string", "description": "R. e.g. '16.0', or 'not-recorded'." },
+        "excel_build": {
+          "type": "string",
+          "description": "R. The build number as Excel reports it (Application.Build), e.g. '20131', or 'not-recorded'."
+        },
+        "platform": {
+          "type": "string",
+          "enum": ["windows", "mac", "web", "ios", "android", "not-recorded"]
+        },
+        "os": { "type": "string", "description": "R. As recorded, e.g. 'Windows (64-bit) NT 10.00', or 'not-recorded'." },
+        "excel_bitness": { "type": "string", "enum": ["64-bit", "32-bit", "not-applicable", "not-recorded"] },
+        "cpu": { "type": "string", "description": "R. The processor name as recorded, or 'not-recorded'." },
+        "cpu_vendor": { "type": "string", "enum": ["AMD", "Intel", "Apple", "ARM", "not-applicable", "not-recorded"] },
+        "cpu_microarchitecture": {
+          "type": "string",
+          "description": "R. e.g. 'Zen 2', or 'not-recorded'. Stated only when derivable from the recorded processor name."
+        },
+        "workbook_compatibility": { "type": "string", "description": "R. Workbook Compatibility Version, e.g. '2', or 'not-recorded'." },
+        "update_channel": { "type": "string", "description": "R. Update channel, or 'not-recorded'." },
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "description": "R. Where the environment fields come from (the capture record, the run rollup, a prose statement), and which were not recorded."
+        }
+      }
+    },
+    "reading": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["env_id", "inputs_read", "first_observed", "last_observed", "evidence"],
+      "required": ["env_id", "inputs_read", "first_observed", "last_observed", "evidence"],
+      "properties": {
+        "env_id": { "type": "string" },
+        "inputs_read": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "R, may be null. Distinct inputs read in this environment across the cited evidence; null when the source states readings without a count."
+        },
+        "first_observed": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "last_observed": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence" } }
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["comparison_id", "axis", "env_ids", "inputs_compared", "inputs_differing", "method", "evidence"],
+      "required": ["comparison_id", "axis", "env_ids", "inputs_compared", "inputs_differing", "method", "evidence"],
+      "properties": {
+        "comparison_id": { "type": "string", "pattern": "^XC-[A-Z0-9._]+-[0-9]{3}$" },
+        "axis": { "$ref": "#/$defs/axis" },
+        "env_ids": { "type": "array", "minItems": 2, "items": { "type": "string" } },
+        "inputs_compared": { "type": "integer", "minimum": 1 },
+        "inputs_differing": { "type": "integer", "minimum": 0 },
+        "method": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence" } }
+      }
+    },
+    "axis": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["excel-build", "excel-version", "platform", "os", "bitness", "cpu", "workbook-compatibility", "update-channel"]
+      },
+      "description": "Which environment fields differ between the environments involved."
+    },
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["kind", "display", "bits"],
+      "required": ["kind", "display", "bits"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["number", "text", "logical", "error", "blank", "array"] },
+        "display": {
+          "type": "string",
+          "description": "R. For a number, the shortest decimal that round-trips to the bits (not Excel's 15-digit display); for text, the text; for an error, Excel's error literal."
+        },
+        "bits": {
+          "type": ["string", "null"],
+          "pattern": "^0x[0-9a-f]{16}$",
+          "description": "R. The IEEE 754 binary64 bit pattern for a number; null otherwise."
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["env_id", "result", "observed_on", "evidence"],
+      "required": ["env_id", "result", "observed_on", "evidence"],
+      "properties": {
+        "env_id": { "type": "string" },
+        "result": { "$ref": "#/$defs/value" },
+        "observed_on": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "evidence": { "$ref": "#/$defs/evidence" }
+      }
+    },
+    "difference": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["difference_id", "axis", "formula", "inputs", "observations", "recheck", "note"],
+      "required": ["difference_id", "axis", "formula", "inputs", "observations", "recheck", "note"],
+      "properties": {
+        "difference_id": { "type": "string", "pattern": "^XD-[A-Z0-9._]+-[0-9]{3}$" },
+        "axis": { "$ref": "#/$defs/axis" },
+        "formula": {
+          "type": ["string", "null"],
+          "description": "R, may be null. The formula as entered, when the capture entered one; the inputs below are authoritative."
+        },
+        "inputs": { "type": "array", "items": { "$ref": "#/$defs/value" } },
+        "observations": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/observation" },
+          "description": "R. At least two, from at least two environments, with at least two distinct results."
+        },
+        "recheck": {
+          "type": "object",
+          "additionalProperties": false,
+          "propertyOrder": ["status", "rechecked_on", "note"],
+          "required": ["status", "rechecked_on", "note"],
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["not-rechecked", "confirmed", "not-reproduced"],
+              "description": "R. 'confirmed': a later reading in the same environments gave the same two results."
+            },
+            "rechecked_on": { "type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+            "note": { "type": ["string", "null"] }
+          }
+        },
+        "note": { "type": "string", "minLength": 1, "description": "R. What differs, in a sentence." }
+      }
+    },
+    "sensitivity": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["sensitivity_id", "axis", "status", "statement", "evidence"],
+      "required": ["sensitivity_id", "axis", "status", "statement", "evidence"],
+      "properties": {
+        "sensitivity_id": { "type": "string", "pattern": "^XS-[A-Z0-9._]+-[0-9]{3}$" },
+        "axis": { "$ref": "#/$defs/axis" },
+        "status": {
+          "type": "string",
+          "enum": ["expected-untested", "tested-no-difference-found", "observed"],
+          "description": "R. expected-untested: a mechanism predicts a difference and no Excel comparison has tested it."
+        },
+        "statement": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence" } }
+      }
+    }
+  }
+}
