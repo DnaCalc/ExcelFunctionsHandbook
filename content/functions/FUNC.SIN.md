@@ -170,7 +170,7 @@ numerical one, and a page like this one should say which position an implementat
 rather than treat one as correct.
 
 **What the attached evidence record says about substrate.** `EV-MATH-0004` is a
-substrate-identification record covering the trig six. It names, for the family, the legacy CRT
+substrate-identification record covering the trig six. It names, for the family, the x87
 `FSIN`/`FPTAN` chain with `FPREM1` argument reduction against the x87 ROM value of `pi`, and it
 carries a host-CPU microcode caveat on those instructions. The consequence a reader should take
 from it is structural, not numeric: an x87-`FPREM1`-based reduction uses a fixed, finite

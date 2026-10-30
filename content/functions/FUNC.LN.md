@@ -181,7 +181,7 @@ error in the function versus error inherited from the argument — is the one to
 reading any accuracy claim about `LN`.
 
 **The substrate identified upstream.** The evidence record attached to this page identifies the
-substrate as a legacy Microsoft x87 CRT transcendental sequence, and rules out every modern
+substrate as an x87 transcendental instruction sequence, and rules out every modern
 libm — UCRT, glibc, MKL-VML, SVML — *and the correctly-rounded value* at the bit level. The
 consequence for anyone implementing compatibility: the last bit of the x87 instructions involved
 is CPU microcode, so on the hardest inputs agreement is a property of the **host CPU**, not of

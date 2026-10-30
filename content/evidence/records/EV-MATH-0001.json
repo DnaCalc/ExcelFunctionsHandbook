@@ -247,7 +247,7 @@
   "oracle": null,
   "evidence_locality": "mixed",
   "evidence_locality_note": "The 396-row sweep artifact (`x87lab`) and the 294-row corpus (`C:/Temp/ExcelExpFunction`) are outside version control; only `x87_excel_ground_truth.tsv` (the 249 rows) is tracked.",
-  "substrate": "legacy Microsoft x87 CRT transcendental sequence (`87tran.asm` fFEXP/fFLN/fFLOGm, control word 0x133F, one final store to binary64)",
+  "substrate": "x87 transcendental instruction sequence (F2XM1/FYL2X at 64-bit precision, control word 0x133F as measured against live Excel, one final store to binary64)",
   "substrate_bands": [],
   "ruled_out": [
     "every modern libm for these surfaces: UCRT, glibc, MKL-VML, SVML, and the correctly-rounded value are all ruled out at the bit level (W108:238-240)",

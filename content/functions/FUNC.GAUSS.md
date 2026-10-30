@@ -44,8 +44,8 @@ role_in_family: >-
 
 `GAUSS(z)` returns the probability that a standard normal variable falls between 0 and z —
 that is, the standard normal cumulative distribution function shifted so that the origin maps to
-zero. Microsoft's one-line description says it exactly: "Returns 0.5 less than the standard
-normal cumulative distribution."
+zero. Microsoft's one-line summary says the same: the standard normal cumulative distribution
+minus one half.
 
     GAUSS(z)  =  Φ(z) − ½  =  (1/√(2π)) ∫₀^z e^{−t²/2} dt  =  ½ · erf( z / √2 )
 
@@ -220,8 +220,7 @@ Inputs I would probe first, and why:
 
 - Microsoft Learn, "WorksheetFunction.Gauss method (Excel)" —
   <https://learn.microsoft.com/en-us/office/vba/api/excel.worksheetfunction.gauss>
-  (the description "Returns 0.5 less than the standard normal cumulative distribution", the
-  single parameter, and the `Double` return type; **no Remarks and no documented error
+  (a one-line summary of the function, the single parameter, and the `Double` return type; **no Remarks and no documented error
   condition**). The worksheet-surface page at `support.microsoft.com` was not retrievable at
   curation time.
 - Abramowitz & Stegun, *Handbook of Mathematical Functions*, §7.1 (error function) and §26.2

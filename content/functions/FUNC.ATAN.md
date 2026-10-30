@@ -84,8 +84,8 @@ and a unary numeric scalar-or-array lift profile, so arrays lift elementwise. Or
 under the shared coercion rules — see
 [Coercion and lifting](../model/02-coercion-and-lifting.md).
 
-Microsoft's projection description for this surface is "Returns the arctangent of a number", and
-that one line is the only documented text the Handbook holds for `ATAN`: unlike its siblings,
+Microsoft's support article gives `ATAN` a one-line summary and nothing the Handbook holds
+beyond it: unlike its siblings,
 `ATAN` has no `WorksheetFunction` page on Microsoft Learn (the VBA-visible name for this operation
 is the language intrinsic `Atn`), and the worksheet article was not retrievable for this pass. So
 the documentary basis for this page is thinner than for `ASIN` or `ACOS`, and the page says so

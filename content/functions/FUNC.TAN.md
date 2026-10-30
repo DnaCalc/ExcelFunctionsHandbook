@@ -146,7 +146,7 @@ between `t` and `-1/t` from the parity of the reduction quotient, so the reducti
 once and the reciprocal branch reuses it.
 
 **Substrate, as recorded.** `EV-MATH-0004` names, for the trig six in the reference engine, the
-legacy CRT `FSIN`/`FPTAN` chain with `FPREM1` argument reduction against the x87 ROM `pi`, with
+x87 `FSIN`/`FPTAN` chain with `FPREM1` argument reduction against the x87 ROM `pi`, with
 a host-CPU microcode caveat, and rules out Cody-Waite reduction against an extended `pi`. The
 structural consequence for `TAN` is the one stated above: a fixed-length `pi` in the reduction
 means the near-pole values are where any two implementations will diverge first and worst.

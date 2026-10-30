@@ -122,7 +122,7 @@ documentation, not in the mathematics.
 
 - **`TAN`** — the reciprocal, and the surface `COT` is built from. `EV-MATH-0004` records that
   the three reciprocal surfaces are formed as `excel_x87_recip` of the *published* primaries;
-  for `COT` the primary is the tangent chain (`fFPTAN`). That construction is the single most
+  for `COT` the primary is the tangent chain (`FPTAN`). That construction is the single most
   useful implementation fact on this page.
 - **[COS](FUNC.COS.md), `SIN`** — the ratio definition. Note that `COS(x)/SIN(x)` and
   `1/TAN(x)` are **different computations** with different error, even though they are the same
@@ -143,7 +143,7 @@ Cotangent inherits every difficulty of the tangent and adds one of its own.
 **The reduction problem, inherited.** As on [COS](FUNC.COS.md), evaluating a circular function
 at a large argument requires reducing modulo `π/2` against a sufficiently precise `π`. `COT`'s
 documented `2^27` bound is a declaration of exactly where the implementation's reduction gives
-up. `EV-MATH-0004` identifies the substrate as the legacy CRT `fFSIN`/`fFPTAN` chain with
+up. `EV-MATH-0004` identifies the substrate as the x87 `FSIN`/`FPTAN` chain with
 `FPREM1` reduction against the 64-bit ROM `π`, with the reciprocal surfaces formed from the
 published primaries, and it rules out Cody–Waite reduction against extended `π`. All six
 circular surfaces in that record inherit a host-CPU microcode caveat, so the last bits here are

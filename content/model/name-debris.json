@@ -5,7 +5,7 @@
   "applies_to": "match_keys only — the search surface. Never the display surface.",
   "the_rule_that_governs_it": "rows[].localized_name in the raw localization organ is always preserved exactly as harvested, and any honestly resolved copy in data/functions/*.json localized_names[].name is displayed exactly as harvested. Stripping happens only when building a search key, and any entry whose key differs from its displayed name carries name_quality: suspect so the page can say the raw string is what was sourced. The Handbook must not display a cleaned name as if it had been sourced clean, and must not fail to match a name a reader actually typed.",
   "measured_over": {
-    "corpus": "data/localization/microsoft-support-function-index.json :: rows[].localized_name",
+    "corpus": "data/localization/function-name-index.json :: rows[].localized_name",
     "raw_rows": 20360,
     "locales": 40,
     "english_rows": 509,
@@ -23,7 +23,7 @@
       "observed_locales": ["fr-FR"],
       "observed_distribution": "Exactly 372 fr-FR rows end in an asterisk, and no row in another locale does. This is a locale-scoped scrape marker, not a character the Handbook may silently remove from display.",
       "example": "GAMMALN fr-FR — the harvested string ends in an asterisk",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name. No OxFunc document names the fr-FR asterisk; the observation is the Handbook's own, and no cleaned name is displayed anywhere because of it."
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name. No OxFunc document names the fr-FR asterisk; the observation is the Handbook's own, and no cleaned name is displayed anywhere because of it."
     },
     {
       "glyph": ":",
@@ -33,7 +33,7 @@
       "observed_locales": ["hu-HU", "sk-SK"],
       "observed_distribution": "Two rows end in a colon. A trailing colon cannot be part of a function name in any Excel formula grammar; it is the range operator.",
       "example": null,
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "glyph": "–",
@@ -43,7 +43,7 @@
       "observed_locales": ["fi-FI", "hu-HU", "uk-UA"],
       "observed_distribution": "Three rows end in an en dash, which reads as a truncated article title rather than a name.",
       "example": null,
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "glyph": "”",
@@ -53,7 +53,7 @@
       "observed_locales": ["lt-LT"],
       "observed_distribution": "One row ends in a closing double quotation mark.",
       "example": null,
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "glyph": "‘",
@@ -63,7 +63,7 @@
       "observed_locales": ["he-IL"],
       "observed_distribution": "One row ends in an opening single quotation mark.",
       "example": null,
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "glyph": ",",
@@ -73,7 +73,7 @@
       "observed_locales": ["nb-NO"],
       "observed_distribution": "One row ends in a comma, i.e. a list separator that survived the scrape.",
       "example": null,
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     }
   ],
   "trailing_glyphs_deliberately_not_stripped": [
@@ -82,7 +82,7 @@
       "codepoints": ["U+0E35", "U+0E48", "U+0E49"],
       "observed_rows": 5,
       "why_kept": "These are Thai vowel and tone marks. They are combining characters that belong to the preceding syllable, and stripping them would corrupt a real Thai name rather than clean it. They appear as 'trailing non-alphanumeric characters' to a naive scan and are the reason this list is curated rather than derived from a character-class test.",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name, Unicode general category"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name, Unicode general category"
     }
   ],
   "trailing_tokens": [
@@ -94,7 +94,7 @@
       "observed_rows": 199,
       "observed_locales": ["tr-TR"],
       "example": "GAMALN işlevi",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "token": "işlevleri",
@@ -104,7 +104,7 @@
       "observed_rows": 5,
       "observed_locales": ["tr-TR"],
       "example": "SOLDAN, SOLB işlevleri",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "token": "Denklemi",
@@ -114,7 +114,7 @@
       "observed_rows": 4,
       "observed_locales": ["tr-TR"],
       "example": "BESSELI Denklemi ; KORELASYON Denklemi ; GEOORT Denklemi ; TANH Denklemi",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "token": "(funksjon)",
@@ -124,7 +124,7 @@
       "observed_rows": 2,
       "observed_locales": ["nb-NO"],
       "example": "DAG.ETTER (funksjon) ; PROSENTDEL (funksjon)",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     }
   ],
   "trailing_tokens_deliberately_not_stripped": [
@@ -133,13 +133,13 @@
       "observed_rows_by_parenthetical": {"(ADRESA)": 2, "(funksjon)": 2, "(TYP)": 2, "(ТИП)": 2, "(位址)": 2, "(類型)": 2, "(AADRESS)": 1, "(Adres)": 1, "(ADRESSE)": 1, "(Cím)": 1, "(dzień)": 1, "(godzina)": 1, "(internal rate of return, interna stopa povrata)": 1, "(klaidinga)": 1, "(miesiąc)": 1, "(minuta)": 1, "(NASLOV)": 1, "(net present value, neto trenutna vrijednost)": 1, "(rok)": 1, "(sekunda)": 1, "(TÍPUS)": 1, "(TYPE)": 1, "(Tyyppi)": 1, "(VRSTA)": 1, "(АДРЕС)": 1, "(АДРЕСА)": 1, "(종류)": 1},
       "observed_rows_note": "complete raw-corpus distribution: 33 rows across 27 distinct trailing parentheticals",
       "why_kept": "These parentheticals are alternative spellings of the same function, not article debris. Stripping them would lose a name a reader might genuinely type. The right handling is to emit BOTH the outer and the inner string as search keys — which is an indexing decision, not a stop-list one.",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     },
     {
       "pattern": "a trailing token that is a second function name on a shared documentation page, e.g. \"LEFTB\", \"MIDB\", \"RIGHTB\", \"LENB\", \"REPLACEB\", \"FINDB\", \"SEARCHB\"",
       "observed_rows_by_token": {"LEFTB": 29, "MIDB": 29, "RIGHTB": 29, "LENB": 29, "REPLACEB": 28, "FINDB": 26, "SEARCHB": 25},
       "why_kept": "Microsoft titles several documentation pages for two surfaces at once (\"FIND, FINDB functions\"), so the second token is a real function name, not debris. It must remain a search key.",
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name"
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name"
     }
   ],
   "trailing_digit_rule": {
@@ -162,7 +162,7 @@
       "observed_rows": 38,
       "scope_note": "The raw corpus has 36 exact BETA.INVn rows plus two space/case variants, BETA. INVn and BETA. INVN. All 38 belong to FUNC.BETA.INV. The repair remains id-scoped because a general rule for deleting a trailing n, changing case, or closing punctuation gaps has no principle behind it and could silently eat real names when the corpus grows.",
       "display_unchanged": true,
-      "basis": "scan of data/localization/microsoft-support-function-index.json :: rows[].localized_name, preserving the source strings; OxFunc docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_DISCOVERY_PRELIM.md:43 and :97 identifies BETA.INVn as a support-page typo."
+      "basis": "scan of data/localization/function-name-index.json :: rows[].localized_name, preserving the source strings; OxFunc docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_DISCOVERY_PRELIM.md:43 and :97 identifies BETA.INVn as a support-page typo."
     }
   ],
   "normalisation_applied_before_matching": [

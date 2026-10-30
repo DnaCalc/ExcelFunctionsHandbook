@@ -9,29 +9,6 @@
   "staleness_warning": "The affects[] lists are function ids, which are stable. The counts alongside them are observations of a directory that another tool regenerates; a build that consumes this file should recompute the membership from data/ and fail if it disagrees, rather than trusting the numbers here.",
   "gaps": [
     {
-      "gap_id": "PG-help-seed-question-mark-substitution",
-      "affects": [
-        "FUNC.BAHTTEXT",
-        "FUNC.GAMMALN",
-        "FUNC.GAMMALN.PRECISE"
-      ],
-      "field": "descriptions.short",
-      "observed": "Converts a number to text, using the ? (baht) currency format / Returns the natural logarithm of the gamma function, ?(x)",
-      "upstream_actual": "byte-identical. The character in OxFunc's own source is ASCII 0x3F, a literal question mark, not a mangled multi-byte sequence — verified by hex dump of crates/oxfunc_core/src/registry_help_seed.rs at lines 194, 1322 and 1328.",
-      "kind": "absent-upstream-too",
-      "suspected_lost": {
-        "FUNC.BAHTTEXT": "the Thai baht sign, U+0E3F",
-        "FUNC.GAMMALN": "the Greek capital letter gamma, U+0393",
-        "FUNC.GAMMALN.PRECISE": "the Greek capital letter gamma, U+0393"
-      },
-      "verified": false,
-      "verification_note": "The replacement characters above are the Handbook's inference from context, not a reading of any source. No document in either repository states what the original character was, and the Microsoft documentation text that would settle it is not in the tree. They are recorded so a reader knows what is probably missing; they must never be substituted into a rendered description.",
-      "render_as": "OxFunc's own description of this function contains a literal question mark where a symbol should be. The substitution happened before the Handbook saw it — the projection is faithful — so the Handbook cannot restore the character.",
-      "fix_owner": "oxfunc",
-      "citation": "crates/oxfunc_core/src/registry_help_seed.rs:194 (BAHTTEXT), :1322 (GAMMALN), :1328 (GAMMALN.PRECISE); data/functions/FUNC.BAHTTEXT.json, FUNC.GAMMALN.json, FUNC.GAMMALN.PRECISE.json :: text_integrity",
-      "corrects": "data/functions/<id>.json carries text_integrity.contains_lossy_substitution: true on these three entries. That field is right about the OBSERVED string and could be read as accusing the Handbook's ingest of losing the character. It did not: the loss is upstream of the projection."
-    },
-    {
       "gap_id": "PG-op-trim-ref-both-signature-display",
       "affects": [
         "FUNC.OP_TRIM_REF_BOTH"
@@ -135,7 +112,8 @@
       "citation": "data/functions/*.json :: descriptions.short_source; crates/oxfunc_core/src/registry_help_seed.rs (no authorship field exists in the seed struct)",
       "why_this_gap_is_registered_while_empty": "The field's third value is the reason this register exists: the value was originally named \"oxfunc-authored\", which is a claim about who wrote a sentence, and it was renamed to the purely mechanical \"differs-from-english-description\" precisely so that the authorship reading would have to live here instead of in data/. Registering it while the population is zero keeps the rename from being quietly undone the first time an entry lands in that bucket.",
       "measured": {
-        "microsoft_english_verbatim": 518,
+        "dna_calc_own": 518,
+        "microsoft_english_verbatim": 0,
         "no_short_description": 23,
         "differs_from_english_description": 0,
         "of": 541

@@ -14,9 +14,10 @@ metadata so they change only when their content changes.
 
 - `functions/<function_id>.json` — one file per function entry (541 entries).
 - `index.json` — provenance, counts, and the row list.
-- `localization/microsoft-support-function-index.json` — the complete 20,360-row, 40-locale
-  Microsoft Support alphabetical-index harvest from OxFunc W28. The eight source columns are
-  preserved as harvested; only relative Microsoft Support links are made absolute.
+- `localization/function-name-index.json` — the complete 20,360-row, 40-locale index of Excel's
+  localized function names, categories and Microsoft Support links from OxFunc W28. Seven source
+  columns are kept; Microsoft's localized descriptions are not carried (DnaCalc dc-96l.5,
+  2026-10-30); only relative Microsoft Support links are made absolute.
 
 ## The spine, and the 534 → 541 reconciliation
 

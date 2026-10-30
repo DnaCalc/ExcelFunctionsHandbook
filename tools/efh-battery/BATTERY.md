@@ -156,7 +156,7 @@ of them is a signal to raise the budget, not a result.
 ## 5. `host_scoped` — the pinned x87 scope
 
 Some OxFunc kernels deliberately execute on real **x87 80-bit hardware** (`excel_numeric::x87`),
-because that is how the legacy Microsoft CRT computed the corresponding results. Values from those
+because that is how Excel's results for them were measured to arise. Values from those
 kernels are legitimately **not portable** across architectures. `host_scoped` is how that becomes a
 published fact instead of a hidden one.
 

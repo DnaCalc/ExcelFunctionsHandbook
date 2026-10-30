@@ -135,8 +135,8 @@ than `SIN` in relative terms. The bad one: it is never *better* either, and near
 sine's own relative error is at its worst, because that is where `sin` is small and its
 argument reduction dominates.
 
-**The reduction problem, inherited.** `EV-MATH-0004` identifies the substrate as the legacy CRT
-`fFSIN`/`fFPTAN` chain with `FPREM1` reduction against the 64-bit ROM `π`, rules out Cody–Waite
+**The reduction problem, inherited.** `EV-MATH-0004` identifies the substrate as the x87
+`FSIN`/`FPTAN` chain with `FPREM1` reduction against the 64-bit ROM `π`, rules out Cody–Waite
 reduction against extended `π`, and attaches a host-CPU microcode caveat to all six circular
 surfaces. The record states each of the six was scored individually, so `CSC` is a measured
 surface rather than one whose status was inherited from `SIN`. Its figures render in the

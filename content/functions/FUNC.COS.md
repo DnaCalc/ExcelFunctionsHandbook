@@ -158,8 +158,8 @@ The three standard answers:
    66 bits. Fast, and its accuracy ceiling is that constant.
 
 **What the evidence says.** `EV-MATH-0004` is a substrate identification covering all six
-circular surfaces, each scored individually. It names the substrate as the legacy CRT
-`fFSIN`/`fFPTAN` chain with `FPREM1` argument reduction against the 64-bit ROM `π`, and it
+circular surfaces, each scored individually. It names the substrate as the x87
+`FSIN`/`FPTAN` chain with `FPREM1` argument reduction against the 64-bit ROM `π`, and it
 records that Cody–Waite reduction against extended `π` is *ruled out* — the pre-sign-off
 catalogue row recorded large argument-reduction drift in the moderate-to-large range, which is
 the fingerprint of a limited-precision reduction constant rather than a bad polynomial. The

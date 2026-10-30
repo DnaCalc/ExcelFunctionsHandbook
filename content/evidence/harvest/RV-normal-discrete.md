@@ -396,7 +396,7 @@ the identification landed 2026-07-11 — consistent, not contradictory.
   > "**Wiring PROVEN by cross-view**: `GAMMA.DIST(k²/1024, ½, 1, TRUE) ≡ ERF.PRECISE(k/32)`
   > and `CHIDIST(k²/512, 1) ≡ ERFC.PRECISE(k/32)` — **160/160 AND 160/160 bit-exact**"
   > — `…GRATIO…:68-70`
-- **Research model**, not production: "true-x87 Rust race (`check_erf190.rs`, Ext80 fFEXP/fFLN,
+- **Research model**, not production: "true-x87 Rust race (`check_erf190.rs`, Ext80 exponential and logarithm chains,
   512 spill configs): 663/1218 on z<0.5 (misses ±1, one ±2) … ~92% of rows within ±1"
   (`…GRATIO…:127-131`); "C10r composite 67.65%" (`…W109_CAMPAIGN_RESUME…:49`); j-scan
   "windowed **1,154/1,508 = 76.5%**" on a *development* corpus (`…GRATIO…:1203`).

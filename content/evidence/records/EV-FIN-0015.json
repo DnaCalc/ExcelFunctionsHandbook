@@ -22,7 +22,7 @@
   "severity": "NUM-L",
   "maturity": "M1",
   "maturity_is_inherited": false,
-  "status_plain": "RATE's schedule and substrate were identified -- forward-difference Newton in r-space, with the power computed by the x87 87tran exp-times-ln chain -- but exact bits remain open and no fix has landed. The one count RATE has is a #NUM! error basin, 116 of 116 across five corpora, and that is the structural-admission axis: it is error placement, not arithmetic. Its subject is genuinely unclear. The sentence sits inside the agent-R identification narrative, the row is M1, and nothing on the line says production-kernel replay -- which is exactly what the NPER and XNPV sign-offs do say. It is therefore recorded as attribution-unclear rather than resolved by plausibility. RATE's numeric side is not a figure at all: the source publishes an interval, exact bits 0-2 of 101, which cannot be parsed as passed over total and is recorded as a divergence with no numerator.",
+  "status_plain": "RATE's schedule and substrate were identified -- forward-difference Newton in r-space, with the power computed by the x87 exp-times-ln chain -- but exact bits remain open and no fix has landed. The one count RATE has is a #NUM! error basin, 116 of 116 across five corpora, and that is the structural-admission axis: it is error placement, not arithmetic. Its subject is genuinely unclear. The sentence sits inside the agent-R identification narrative, the row is M1, and nothing on the line says production-kernel replay -- which is exactly what the NPER and XNPV sign-offs do say. It is therefore recorded as attribution-unclear rather than resolved by plausibility. RATE's numeric side is not a figure at all: the source publishes an interval, exact bits 0-2 of 101, which cannot be parsed as passed over total and is recorded as a divergence with no numerator.",
   "counts": [
     {
       "figure": "**`#NUM!` basin 116/116** across all 5 corpora",
@@ -55,7 +55,7 @@
       "corpus_tracked": false,
       "measured_as_of": "W109 agent-R, 2026-07-21",
       "currency": "current",
-      "ambiguity_note": "AMBIGUOUS IN SOURCE, published in the weaker reading. measurement_subject is attribution-unclear because the sentence sits inside an identification narrative on a row marked M1 (no fix landed), and unlike the NPER and XNPV sign-offs it never says \"production-kernel replay\". Whether this scores production OxFunc or the identified candidate schedule is not resolvable from the text and is not resolved here. cpu_scoped is true because the same line attributes the power to the x87 87tran chain.",
+      "ambiguity_note": "AMBIGUOUS IN SOURCE, published in the weaker reading. measurement_subject is attribution-unclear because the sentence sits inside an identification narrative on a row marked M1 (no fix landed), and unlike the NPER and XNPV sign-offs it never says \"production-kernel replay\". Whether this scores production OxFunc or the identified candidate schedule is not resolvable from the text and is not resolved here. cpu_scoped is true because the same line attributes the power to the x87 exp-times-ln chain.",
       "source_sentence": "**`#NUM!` basin 116/116** across all 5 corpora (rate-B numeric only for guess∈[0.02,0.3]; rate-A `#NUM!` only at {−0.5,−0.3})",
       "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:166"
     },
@@ -168,13 +168,13 @@
   "oracle": null,
   "evidence_locality": "mixed",
   "evidence_locality_note": "The two recon witnesses are in `docs/function-lane/DISCREPANCY_RECON_RESULTS_20260710.csv`, which is tracked. The five RATE corpora and the racer `race_rate.rs` outputs are under the gitignored `smart-fuzzer/` subtrees.",
-  "substrate": "forward-difference Newton in r-space (the r-space sibling of IRR's v-space FD-Newton), with the power (1+r)^nper computed by the x87 87tran exp-times-ln chain, an iteration cap near 100, and #NUM! on cap-exceeded, on domain 1+r<=0, or on non-finite",
+  "substrate": "forward-difference Newton in r-space (the r-space sibling of IRR's v-space FD-Newton), with the power (1+r)^nper computed by the x87 exp-times-ln chain, an iteration cap near 100, and #NUM! on cap-exceeded, on domain 1+r<=0, or on non-finite",
   "substrate_bands": [
     {
       "band": "the `#NUM!` error basin",
       "identified": true,
       "per_band_figure": "116/116",
-      "fingerprint": "x87 87tran exp-times-ln power chain; the basin is what discriminates it (15/15 against 10/15)",
+      "fingerprint": "x87 exp-times-ln power chain; the basin is what discriminates it (15/15 against 10/15)",
       "citation": "OxFunc:docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:166"
     },
     {

@@ -152,9 +152,8 @@ documented there.
 
 **What the evidence says about Excel's route.** `EV-MATH-0001` is a live-verification record
 naming `EXP` as one of four log/exp surfaces, and its substrate identification is unusually
-specific: the legacy Microsoft x87 CRT transcendental sequence — the `87tran.asm` `fFEXP`
-routine, driven by the `F2XM1` and `FYL2X` instructions with a named control word, and one final
-store to binary64. It records that **every modern libm is ruled out at the bit level** for these
+specific: an x87 instruction sequence — `F2XM1` and `FYL2X` at 64-bit precision (control word
+`0x133F`, as measured against live Excel), with one final store to binary64. It records that **every modern libm is ruled out at the bit level** for these
 surfaces, including UCRT, glibc, MKL-VML, SVML, and the correctly-rounded value itself. The
 record also carries an honest structural caveat: the source calls its sweep "fresh" and never
 uses the words "held out", so the held-out state is published as partial; and the per-surface

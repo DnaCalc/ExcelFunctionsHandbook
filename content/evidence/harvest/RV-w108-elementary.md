@@ -26,8 +26,8 @@ Everything below cites `C:/Work/DnaCalc/OxFunc` (read-only) unless marked otherw
 `docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md:77-84`:
 
 > "W108 resolved (bit-exact via the x87 backend, removed from tracking): `EXP`, `LN`, `LOG10`,
-> `LOG(x, base)`, and `POWER` — 64-bit Excel computes these with the legacy x87 CRT
-> transcendental chain (`87tran.asm`, CW `0x133F`), reproduced bit-for-bit by
+> `LOG(x, base)`, and `POWER` — 64-bit Excel computes these with an x87
+> transcendental chain (64-bit precision, CW `0x133F`, as measured), reproduced bit-for-bit by
 > [`crate::excel_numeric::x87`] on the reference x86-64 host. `POWER` (BUG-FUNC-042, signed
 > off) is the fractional-path `exp(y·ln x)` with the `y<0` reciprocal staging and the
 > `|y|==0.5→sqrt` special case (715/715 live rows). `EXP`/`LN`/`LOG10`/`LOG` were never catalog

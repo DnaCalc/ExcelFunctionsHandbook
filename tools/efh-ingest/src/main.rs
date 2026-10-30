@@ -152,10 +152,12 @@ struct LocalizationAssociation {
 // ---------------------------------------------------------------- F18 raw localization shape
 
 const LOCALIZATION_RAW_ORGAN: &str =
-    "data/localization/microsoft-support-function-index.json";
+    "data/localization/function-name-index.json";
 const MICROSOFT_SUPPORT_ORIGIN: &str = "https://support.microsoft.com";
+/// SHA-256 of OxFunc's W28 CSV as checked out on Windows from OxFunc 2c3c61aa on, where the
+/// `localized_description` column (Microsoft's text) is empty (DnaCalc dc-96l.5).
 const LOCALIZATION_SOURCE_SHA256: &str =
-    "b248fbe16fc977c8287ed99b3996218393543c1855d08c1e8436470b28193231";
+    "7679442721d85c52345ad3db08f53320ada5a8f028410a4091817103a615c513";
 const LOCALIZATION_EXPECTED_ROWS: usize = 20_360;
 const LOCALIZATION_EXPECTED_LOCALES: usize = 40;
 const LOCALIZATION_EXPECTED_ROWS_PER_LOCALE: usize = 509;
@@ -185,8 +187,9 @@ struct LocalizationCounts {
     english_rows: usize,
 }
 
-/// The property order intentionally matches the eight CSV source columns. Seven values are
-/// copied without trimming or normalization. `localized_function_url` is the sole transform:
+/// The property order intentionally matches the first seven CSV source columns; the eighth,
+/// `localized_description`, held Microsoft's text and is neither read nor published (DnaCalc
+/// dc-96l.5). Six values are copied without trimming or normalization. `localized_function_url` is the sole transform:
 /// Microsoft-relative links are made absolute, valid HTTPS Microsoft links remain unchanged,
 /// and other absolute origins or schemes are rejected before publication.
 #[derive(Serialize)]
@@ -198,7 +201,6 @@ struct LocalizationSourceRow {
     localized_function_url: String,
     version_marker: String,
     localized_category: String,
-    localized_description: String,
 }
 
 #[derive(Serialize)]
@@ -284,6 +286,7 @@ struct Counts {
     arity_max_unbounded: usize,
     trailing_repeats_null: usize,
     text_integrity_present: usize,
+    short_dna_calc_own: usize,
     short_microsoft_english_verbatim: usize,
     short_differs_from_english_description: usize,
     short_no_english_description_to_compare: usize,
@@ -461,7 +464,6 @@ fn validate_localization_source(
             ("locale_tag", row.locale_tag.as_str()),
             ("localized_name", row.localized_name.as_str()),
             ("localized_category", row.localized_category.as_str()),
-            ("localized_description", row.localized_description.as_str()),
         ] {
             if value.trim().is_empty() {
                 return Err(invalid_data(format!(
@@ -519,6 +521,7 @@ fn validate_localization_source(
     Ok(())
 }
 
+#[cfg(test)]
 fn exactly_one<T>(items: &[T]) -> Option<&T> {
     match items {
         [only] => Some(only),
@@ -803,7 +806,7 @@ fn publish_generated_data(
             fs::write(functions.join(file_name), json)?;
         }
         fs::write(
-            localization.join("microsoft-support-function-index.json"),
+            localization.join("function-name-index.json"),
             localization_json,
         )?;
         fs::write(axes.join("vocabulary.json"), vocabulary_json)?;
@@ -977,7 +980,7 @@ mod tests {
         assert_eq!(
             fs::read_to_string(
                 data.join("localization")
-                    .join("microsoft-support-function-index.json")
+                    .join("function-name-index.json")
             )
             .unwrap(),
             "new localization"
@@ -1483,7 +1486,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let l_url = col(&lh, "localized_function_url");
     let l_version = col(&lh, "version_marker");
     let l_category = col(&lh, "localized_category");
-    let l_description = col(&lh, "localized_description");
     let mut localization_rows = Vec::with_capacity(lrows.len());
     let mut localization_rows_by_guid: BTreeMap<String, Vec<usize>> = BTreeMap::new();
     for r in &lrows {
@@ -1496,7 +1498,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             localized_function_url: absolute_microsoft_support_url(&r[l_url])?,
             version_marker: r[l_version].clone(),
             localized_category: r[l_category].clone(),
-            localized_description: r[l_description].clone(),
         });
         localization_rows_by_guid
             .entry(r[l_guid].to_ascii_lowercase())
@@ -1772,9 +1773,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         english_rows: localization_english_row_count,
     };
     let localization_doc = LocalizationIndexDoc {
-        schema: "efh.localization.microsoft-support-function-index/v1",
+        schema: "efh.localization.function-name-index/v2",
         source: LocalizationSource {
-            scope: "microsoft-support-function-index",
+            scope: "function-name-index",
             repository: "OxFunc",
             path: format!("docs/function-lane/{locale_csv_name}"),
             commit: oxfunc_commit_full.clone(),
@@ -1815,6 +1816,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         arity_max_unbounded: 0,
         trailing_repeats_null: 0,
         text_integrity_present: 0,
+        short_dna_calc_own: 0,
         short_microsoft_english_verbatim: 0,
         short_differs_from_english_description: 0,
         short_no_english_description_to_compare: 0,
@@ -1976,75 +1978,36 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             counts.export_only += 1;
         }
 
-        let mut docs = catalog
+        let docs = catalog
             .get(&name)
             .or_else(|| catalog.get(&row[e_name]))
-            .map(|(url, desc)| DocsLink {
+            .map(|(url, _official_description)| DocsLink {
                 microsoft_url: url.clone(),
-                english_description: desc.clone(),
+                english_description: None,
             });
-        let mut docs_vintage = vs_catalog.clone();
+        let docs_vintage = vs_catalog.clone();
 
-        // COPILOT and JIS are the two current catalog rows whose URL exists but whose English
-        // description is blank. Use the complete en-US W28 row as one indivisible docs object:
-        // URL and description then have one honest vintage rather than a composite attribution.
-        if docs
-            .as_ref()
-            .is_some_and(|d| d.english_description.is_none())
-        {
-            let english_w28 = docs
-                .as_ref()
-                .and_then(|d| guid_of_url(&d.microsoft_url))
-                .and_then(|guid| localization_rows_by_guid.get(&guid))
-                .and_then(|indexes| {
-                    let matches: Vec<&LocalizationSourceRow> = indexes
-                        .iter()
-                        .map(|i| &localization_rows[*i])
-                        .filter(|r| r.locale_tag == "en-US")
-                        .collect();
-                    exactly_one(&matches).copied()
-                });
-            if let Some(source_row) = english_w28 {
-                docs = Some(DocsLink {
-                    microsoft_url: source_row.localized_function_url.clone(),
-                    english_description: Some(source_row.localized_description.clone()),
-                });
-                docs_vintage = vs_locale.clone();
-            }
-        }
         if docs.is_some() {
             counts.with_docs_link += 1;
         }
 
         // ---- D-6 + official-English fallback ----------------------------------------
-        let mut descriptions_vintage = if entry.is_some() {
+        let descriptions_vintage = if entry.is_some() {
             vs_registry.clone()
         } else {
             vs_absent.clone()
         };
-        let english = docs.as_ref().and_then(|d| d.english_description.clone());
-        if short.is_none() {
-            if let Some(official_english) = &english {
-                short = Some(official_english.clone());
-                descriptions_vintage = docs_vintage.clone();
-            }
-        }
-        let short_source: &'static str = match (&short, &english) {
-            (None, _) => {
+        // The Microsoft link carries no description (DnaCalc dc-96l.5): the short description is
+        // the OxFunc help seed's, which holds DNA Calc's own text from OxFunc 2c3c61aa on.
+        let english: Option<String> = docs.as_ref().and_then(|d| d.english_description.clone());
+        let short_source: &'static str = match &short {
+            None => {
                 counts.short_absent += 1;
                 "no-short-description"
             }
-            (Some(_), None) => {
-                counts.short_no_english_description_to_compare += 1;
-                "no-english-description-to-compare"
-            }
-            (Some(s), Some(e)) if s.as_bytes() == e.as_bytes() => {
-                counts.short_microsoft_english_verbatim += 1;
-                "microsoft-english-verbatim"
-            }
-            _ => {
-                counts.short_differs_from_english_description += 1;
-                "differs-from-english-description"
+            Some(_) => {
+                counts.short_dna_calc_own += 1;
+                "dna-calc-own"
             }
         };
 
@@ -2366,10 +2329,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         c.text_integrity_present
     );
     println!(
-        "efh-ingest: descriptions.short_source — microsoft-english-verbatim {}, differs-from-english-description {}, no-english-description-to-compare {}, no-short-description {}",
-        c.short_microsoft_english_verbatim,
-        c.short_differs_from_english_description,
-        c.short_no_english_description_to_compare,
+        "efh-ingest: descriptions.short_source — dna-calc-own {}, no-short-description {}",
+        c.short_dna_calc_own,
         c.short_absent
     );
     println!(
