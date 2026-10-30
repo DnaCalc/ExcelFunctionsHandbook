@@ -171,8 +171,9 @@ The whole surface is one constant and one multiplication, so a small probe set i
 
 Readings of RADIANS with a recorded Excel build: 32,966 input(s) over 2 recorded
 environment(s), Excel 16.0 build(s) 19929, 20430, all on Windows; none of these captures
-records the CPU. 1 same-input comparison(s) between builds over 2 input-pair(s): no result
-differs. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.
+records the CPU. 1 same-input comparison(s) between environments over 2 input-pair(s): no
+result differs. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is
+recorded.
 
 Readings of `RADIANS` recorded here come from:
 

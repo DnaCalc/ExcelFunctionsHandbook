@@ -212,8 +212,9 @@ Inputs I would probe first:
 
 Readings of COMBINA with a recorded Excel build: 41,159 input(s) over 3 recorded
 environment(s), Excel 16.0 build(s) 19929, 20228, 20430, all on Windows; none of these captures
-records the CPU. 3 same-input comparison(s) between builds over 152 input-pair(s): no result
-differs. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.
+records the CPU. 3 same-input comparison(s) between environments over 152 input-pair(s): no
+result differs. No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is
+recorded.
 
 Readings of `COMBINA` recorded here come from:
 

@@ -2,7 +2,7 @@
   "schema": "efh.excel-environments/v1",
   "function_id": "FUNC.EXP",
   "surface_name": "EXP",
-  "status_plain": "Readings of EXP with a recorded Excel build: 2,472 input(s) over 4 recorded environment(s), Excel 16.0 build(s) 19929, 20131, 20228, 20430, all on Windows; where a CPU is recorded it is an AMD Zen 2. 734 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. 1 same-input comparison(s) between builds over 3 input-pair(s): no result differs. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "status_plain": "Readings of EXP with a recorded Excel build: 2,580 input(s) over 6 recorded environment(s), Excel 16.0 build(s) 18429, 19929, 20131, 20228, 20430, all on Windows; recorded CPUs: AMD Zen 2, Intel Coffee Lake. 734 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. 2 same-input comparison(s) between environments over 57 input-pair(s): 6 differ. A CPU dependence is observed (see below). The Last Bit probes read EXP on an Intel Core i7-9750H (Excel build 18429) and an AMD Ryzen 7 4800H (Excel build 20131): 6 input(s) give results one unit apart in the last place; CPU, Excel build and OS all differ between the two machines. No reading from a Mac, Excel for the web or 32-bit Excel is recorded.",
   "environments": [
     {
       "env_id": "win-nr-16.0.19929-nr",
@@ -31,6 +31,34 @@
       "workbook_compatibility": "not-recorded",
       "update_channel": "not-recorded",
       "basis": "Recorded by the capture or its run rollup: Excel version and build, CPU. Not recorded: bitness, OS. Platform is Windows because every OxFunc capture drove Excel through COM automation from PowerShell on Windows; the capture does not state the OS. The processor name is that of an AMD Zen 2 part (Ryzen 7 4800H). Workbook Compatibility Version not recorded. Update channel never recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+      "excel_version": "16.0",
+      "excel_build": "18429",
+      "platform": "windows",
+      "os": "Microsoft Windows 10 Home 10.0.19045",
+      "excel_bitness": "64-bit",
+      "cpu": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+      "cpu_vendor": "Intel",
+      "cpu_microarchitecture": "Coffee Lake",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by Collect-ExcelExpData.ps1 in its output file: Excel version, build and bitness, OS caption and version, processor name and manufacturer (an i7-9750H is a Coffee Lake part). Workbook compatibility and update channel not recorded."
+    },
+    {
+      "env_id": "win-x64-16.0.20131-amd-zen2",
+      "excel_version": "16.0",
+      "excel_build": "20131",
+      "platform": "windows",
+      "os": "Microsoft Windows 11 Pro 10.0.26200",
+      "excel_bitness": "64-bit",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "cpu_vendor": "AMD",
+      "cpu_microarchitecture": "Zen 2",
+      "workbook_compatibility": "not-recorded",
+      "update_channel": "not-recorded",
+      "basis": "Recorded by Collect-ExcelExpData.ps1 in its output file: Excel version, build and bitness, OS caption and version, processor name and manufacturer. Workbook compatibility and update channel not recorded."
     },
     {
       "env_id": "win-x64-16.0.20228-nr",
@@ -130,6 +158,38 @@
           "path": "cache/oracle/build-20131/EXP.jsonl",
           "locator": null,
           "sha256": "36a33ab5d742de3c1cbbb24041c7c0848428c43ae0199567f5f323a1c94fca1d",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+      "inputs_read": 54,
+      "first_observed": "2026-07-05",
+      "last_observed": "2026-07-05",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+          "locator": null,
+          "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+          "note": null
+        }
+      ]
+    },
+    {
+      "env_id": "win-x64-16.0.20131-amd-zen2",
+      "inputs_read": 54,
+      "first_observed": "2026-07-03",
+      "last_observed": "2026-07-03",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+          "locator": null,
+          "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
           "note": null
         }
       ]
@@ -262,21 +322,419 @@
           "note": null
         }
       ]
+    },
+    {
+      "comparison_id": "XC-EXP-002",
+      "axis": [
+        "cpu",
+        "excel-build",
+        "os"
+      ],
+      "env_ids": [
+        "win-x64-16.0.20131-amd-zen2",
+        "win-x64-16.0.18429-intel-coffee-lake"
+      ],
+      "inputs_compared": 54,
+      "inputs_differing": 6,
+      "method": "The Last Bit probes (Collect-ExcelExpData.ps1): each input injected through Range.Value2 (round trip checked exact), =EXP or =LN evaluated, the result read back as binary64 bits, on each machine; results compared by their bits. Across both functions 106 probes: 18 control, 54 bias and 11 of 34 microcode probes agree, 23 microcode probes differ.",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+          "locator": null,
+          "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
+          "note": null
+        },
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+          "locator": null,
+          "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+          "note": null
+        },
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/Collect-ExcelExpData.ps1",
+          "locator": null,
+          "sha256": "cf9c394d7d5ef65593c95bc866ab3e523f82ac4b199c594cb0cd88592a612c25",
+          "note": null
+        },
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/lastbit/the-last-bit-2026-07.pdf",
+          "locator": null,
+          "sha256": "0166e47582b9cafabfad22d0ecffba18f1182ef819a391f575a2022c829d98d3",
+          "note": "The Last Bit, July 2026"
+        }
+      ]
     }
   ],
-  "differences": [],
+  "differences": [
+    {
+      "difference_id": "XD-EXP-001",
+      "axis": [
+        "cpu",
+        "excel-build",
+        "os"
+      ],
+      "formula": null,
+      "inputs": [
+        {
+          "kind": "number",
+          "display": "1.816072400038452",
+          "bits": "0x3ffd0ea1eed55587"
+        }
+      ],
+      "observations": [
+        {
+          "env_id": "win-x64-16.0.20131-amd-zen2",
+          "result": {
+            "kind": "number",
+            "display": "6.1476654002836915",
+            "bits": "0x401897359943e077"
+          },
+          "observed_on": "2026-07-03",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+            "locator": "rows[] fn=EXP x=3ffd0ea1eed55587",
+            "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
+            "note": null
+          }
+        },
+        {
+          "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+          "result": {
+            "kind": "number",
+            "display": "6.147665400283691",
+            "bits": "0x401897359943e076"
+          },
+          "observed_on": "2026-07-05",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+            "locator": "rows[] fn=EXP x=3ffd0ea1eed55587",
+            "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+            "note": null
+          }
+        }
+      ],
+      "recheck": {
+        "status": "not-rechecked",
+        "rechecked_on": null,
+        "note": "Each machine ran the probes once; no repeat on either machine is recorded."
+      },
+      "note": "The results differ by one unit in the last place; the Intel result is the correctly rounded one (0x401897359943e076). Intel's result equals the idealised x87 model (0x401897359943e076). Probe category: microcode. The two machines also ran different Excel builds (20131, 18429)."
+    },
+    {
+      "difference_id": "XD-EXP-002",
+      "axis": [
+        "cpu",
+        "excel-build",
+        "os"
+      ],
+      "formula": null,
+      "inputs": [
+        {
+          "kind": "number",
+          "display": "0.24258475769541302",
+          "bits": "0x3fcf0d047067aa41"
+        }
+      ],
+      "observations": [
+        {
+          "env_id": "win-x64-16.0.20131-amd-zen2",
+          "result": {
+            "kind": "number",
+            "display": "1.2745392715968609",
+            "bits": "0x3ff464834a8f9e6e"
+          },
+          "observed_on": "2026-07-03",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+            "locator": "rows[] fn=EXP x=3fcf0d047067aa41",
+            "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
+            "note": null
+          }
+        },
+        {
+          "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+          "result": {
+            "kind": "number",
+            "display": "1.2745392715968606",
+            "bits": "0x3ff464834a8f9e6d"
+          },
+          "observed_on": "2026-07-05",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+            "locator": "rows[] fn=EXP x=3fcf0d047067aa41",
+            "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+            "note": null
+          }
+        }
+      ],
+      "recheck": {
+        "status": "not-rechecked",
+        "rechecked_on": null,
+        "note": "Each machine ran the probes once; no repeat on either machine is recorded."
+      },
+      "note": "The results differ by one unit in the last place; the Intel result is the correctly rounded one (0x3ff464834a8f9e6d). Intel's result equals the idealised x87 model (0x3ff464834a8f9e6d). Probe category: microcode. The two machines also ran different Excel builds (20131, 18429)."
+    },
+    {
+      "difference_id": "XD-EXP-003",
+      "axis": [
+        "cpu",
+        "excel-build",
+        "os"
+      ],
+      "formula": null,
+      "inputs": [
+        {
+          "kind": "number",
+          "display": "-0.8724294708581383",
+          "bits": "0xbfebeaf135acdf8d"
+        }
+      ],
+      "observations": [
+        {
+          "env_id": "win-x64-16.0.20131-amd-zen2",
+          "result": {
+            "kind": "number",
+            "display": "0.4179349540619822",
+            "bits": "0x3fdabf723fe34b62"
+          },
+          "observed_on": "2026-07-03",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+            "locator": "rows[] fn=EXP x=bfebeaf135acdf8d",
+            "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
+            "note": null
+          }
+        },
+        {
+          "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+          "result": {
+            "kind": "number",
+            "display": "0.41793495406198217",
+            "bits": "0x3fdabf723fe34b61"
+          },
+          "observed_on": "2026-07-05",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+            "locator": "rows[] fn=EXP x=bfebeaf135acdf8d",
+            "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+            "note": null
+          }
+        }
+      ],
+      "recheck": {
+        "status": "not-rechecked",
+        "rechecked_on": null,
+        "note": "Each machine ran the probes once; no repeat on either machine is recorded."
+      },
+      "note": "The results differ by one unit in the last place; the Intel result is the correctly rounded one (0x3fdabf723fe34b61). Intel's result equals the idealised x87 model (0x3fdabf723fe34b61). Probe category: microcode. The two machines also ran different Excel builds (20131, 18429)."
+    },
+    {
+      "difference_id": "XD-EXP-004",
+      "axis": [
+        "cpu",
+        "excel-build",
+        "os"
+      ],
+      "formula": null,
+      "inputs": [
+        {
+          "kind": "number",
+          "display": "-123.79980266985712",
+          "bits": "0xc05ef32ff789928c"
+        }
+      ],
+      "observations": [
+        {
+          "env_id": "win-x64-16.0.20131-amd-zen2",
+          "result": {
+            "kind": "number",
+            "display": "1.7156505734780084e-54",
+            "bits": "0x34c508a816adb8c2"
+          },
+          "observed_on": "2026-07-03",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+            "locator": "rows[] fn=EXP x=c05ef32ff789928c",
+            "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
+            "note": null
+          }
+        },
+        {
+          "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+          "result": {
+            "kind": "number",
+            "display": "1.7156505734780087e-54",
+            "bits": "0x34c508a816adb8c3"
+          },
+          "observed_on": "2026-07-05",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+            "locator": "rows[] fn=EXP x=c05ef32ff789928c",
+            "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+            "note": null
+          }
+        }
+      ],
+      "recheck": {
+        "status": "not-rechecked",
+        "rechecked_on": null,
+        "note": "Each machine ran the probes once; no repeat on either machine is recorded."
+      },
+      "note": "The results differ by one unit in the last place; the Intel result is the correctly rounded one (0x34c508a816adb8c3). Intel's result equals the idealised x87 model (0x34c508a816adb8c3). Probe category: microcode. The two machines also ran different Excel builds (20131, 18429)."
+    },
+    {
+      "difference_id": "XD-EXP-005",
+      "axis": [
+        "cpu",
+        "excel-build",
+        "os"
+      ],
+      "formula": null,
+      "inputs": [
+        {
+          "kind": "number",
+          "display": "-0.36640908811018186",
+          "bits": "0xbfd7733f1a98fc89"
+        }
+      ],
+      "observations": [
+        {
+          "env_id": "win-x64-16.0.20131-amd-zen2",
+          "result": {
+            "kind": "number",
+            "display": "0.6932191554814062",
+            "bits": "0x3fe62ed9f0381bae"
+          },
+          "observed_on": "2026-07-03",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+            "locator": "rows[] fn=EXP x=bfd7733f1a98fc89",
+            "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
+            "note": null
+          }
+        },
+        {
+          "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+          "result": {
+            "kind": "number",
+            "display": "0.6932191554814063",
+            "bits": "0x3fe62ed9f0381baf"
+          },
+          "observed_on": "2026-07-05",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+            "locator": "rows[] fn=EXP x=bfd7733f1a98fc89",
+            "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+            "note": null
+          }
+        }
+      ],
+      "recheck": {
+        "status": "not-rechecked",
+        "rechecked_on": null,
+        "note": "Each machine ran the probes once; no repeat on either machine is recorded."
+      },
+      "note": "The results differ by one unit in the last place; the Intel result is the correctly rounded one (0x3fe62ed9f0381baf). Intel's result equals the idealised x87 model (0x3fe62ed9f0381baf). Probe category: microcode. The two machines also ran different Excel builds (20131, 18429)."
+    },
+    {
+      "difference_id": "XD-EXP-006",
+      "axis": [
+        "cpu",
+        "excel-build",
+        "os"
+      ],
+      "formula": null,
+      "inputs": [
+        {
+          "kind": "number",
+          "display": "6.036367018871443",
+          "bits": "0x4018253d6552d2ce"
+        }
+      ],
+      "observations": [
+        {
+          "env_id": "win-x64-16.0.20131-amd-zen2",
+          "result": {
+            "kind": "number",
+            "display": "418.3703390523158",
+            "bits": "0x407a25ece8a4620c"
+          },
+          "observed_on": "2026-07-03",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+            "locator": "rows[] fn=EXP x=4018253d6552d2ce",
+            "sha256": "0bbcf52f61e6514bee0378f3cdb584b114b962cb64ff43f6814cb416b05a686e",
+            "note": null
+          }
+        },
+        {
+          "env_id": "win-x64-16.0.18429-intel-coffee-lake",
+          "result": {
+            "kind": "number",
+            "display": "418.3703390523157",
+            "bits": "0x407a25ece8a4620b"
+          },
+          "observed_on": "2026-07-05",
+          "evidence": {
+            "repository": "ExcelFunctionsHandbook",
+            "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+            "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+            "locator": "rows[] fn=EXP x=4018253d6552d2ce",
+            "sha256": "a7a345272ec8c4cafea75d41aeaee7b461ef765640c2aff1d4058f0c8ac512a6",
+            "note": null
+          }
+        }
+      ],
+      "recheck": {
+        "status": "not-rechecked",
+        "rechecked_on": null,
+        "note": "Each machine ran the probes once; no repeat on either machine is recorded."
+      },
+      "note": "The results differ by one unit in the last place; the Intel result is the correctly rounded one (0x407a25ece8a4620b). Intel's result equals the idealised x87 model (0x407a25ece8a4620b). Probe category: microcode. The two machines also ran different Excel builds (20131, 18429)."
+    }
+  ],
   "sensitivities": [
     {
       "sensitivity_id": "XS-EXP-001",
       "axis": [
         "cpu"
       ],
-      "status": "expected-untested",
-      "statement": "Handbook evidence record EV-MATH-0001 marks 6 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23); Intel against AMD is untested. The Handbook's model chapter 05 (version axes) states the same mechanism, that on about one in two thousand of the hardest inputs the last bit tracks the microcode of the CPU Excel runs on; it and the Last Bit material reason about Intel against AMD but record no Intel reading.",
+      "status": "observed",
+      "statement": "Handbook evidence record EV-MATH-0001 marks 6 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; the one Intel reading (The Last Bit probes) differs from AMD on some inputs; see the differences. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23). The Handbook's model chapter 05 (version axes) states the same mechanism, that on about one in two thousand of the hardest inputs the last bit tracks the microcode of the CPU Excel runs on; The Last Bit (July 2026) measured it.",
       "evidence": [
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/evidence/records/EV-MATH-0001.json",
           "locator": "counts[].cpu_scoped",
           "sha256": "b0f289b88f240c21a3dedcb8c2c9cdee9f99377b29e63e65d9913a49ad8a74cf",
@@ -292,11 +750,19 @@
         },
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/model/05-version-axes.md",
           "locator": "lines 87-91",
           "sha256": "cfe41fe778e0e83b8221685d0d741e5c673b01b8cb2b0683de79166b1f535a19",
           "note": "reasoning, not a measurement"
+        },
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/lastbit/the-last-bit-2026-07.pdf",
+          "locator": null,
+          "sha256": "0166e47582b9cafabfad22d0ecffba18f1182ef819a391f575a2022c829d98d3",
+          "note": "The Last Bit, July 2026"
         }
       ]
     }

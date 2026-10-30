@@ -2,7 +2,7 @@
   "schema": "efh.excel-environments/v1",
   "function_id": "FUNC.DURATION",
   "surface_name": "DURATION",
-  "status_plain": "Readings of DURATION with a recorded Excel build: 7,620 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20131, all on Windows; where a CPU is recorded it is an AMD Zen 2. 7,620 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "status_plain": "Readings of DURATION with a recorded Excel build: 7,620 input(s) over 1 recorded environment(s), Excel 16.0 build(s) 20131, all on Windows; recorded CPUs: AMD Zen 2. 7,620 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
   "environments": [
     {
       "env_id": "win-nr-16.0.20131-amd-zen2",
@@ -50,7 +50,7 @@
       "evidence": [
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/evidence/records/EV-FIN-0026.json",
           "locator": "counts[].cpu_scoped",
           "sha256": "1098b16ff1ad85ecba727aba93cb869e83ee9c44056b8836a36de502a15bccf4",

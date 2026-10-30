@@ -2,7 +2,7 @@
   "schema": "efh.excel-environments/v1",
   "function_id": "FUNC.PPMT",
   "surface_name": "PPMT",
-  "status_plain": "Readings of PPMT with a recorded Excel build: 403 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 19929, 20131, all on Windows; where a CPU is recorded it is an AMD Zen 2. 7 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "status_plain": "Readings of PPMT with a recorded Excel build: 403 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 19929, 20131, all on Windows; recorded CPUs: AMD Zen 2. 7 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
   "environments": [
     {
       "env_id": "win-nr-16.0.19929-nr",
@@ -80,7 +80,7 @@
       "evidence": [
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/evidence/records/EV-FIN-0005.json",
           "locator": "counts[].cpu_scoped",
           "sha256": "0ad5968955eee37fcb60c9a9aaf5511a51d8f2a360bd7711bac46746f880dcc3",

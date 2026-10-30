@@ -476,6 +476,19 @@ public static class ExcelEnvironments
           .Append("[`data/README.md`](../../data/README.md#excel-environment-differences) and ")
           .Append("[`tools/schemas/f19-excel-environments.schema.json`](../../tools/schemas/f19-excel-environments.schema.json).\n\n");
 
+        var writeUps = records
+            .SelectMany(r => r.Readings.SelectMany(x => x.Evidence)
+                .Concat(r.Comparisons.SelectMany(x => x.Evidence))
+                .Concat(r.Sensitivities.SelectMany(x => x.Evidence)))
+            .Where(e => e.Repository == "ExcelFunctionsHandbook"
+                        && e.Path.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+            .GroupBy(e => e.Path, StringComparer.Ordinal)
+            .OrderBy(g => g.Key, StringComparer.Ordinal)
+            .Select(g => $"[{g.First().Note ?? System.IO.Path.GetFileName(g.Key)}](../../{g.Key})")
+            .ToArray();
+        if (writeUps.Length > 0)
+            sb.Append("Write-ups cited by the records: ").Append(string.Join(", ", writeUps)).Append(".\n\n");
+
         sb.Append("## Summary\n\n");
         sb.Append($"- Functions with recorded readings: {records.Count} (of the 541 entries = 518 functions + 23 operators).\n");
         sb.Append($"- Excel environments named: {envs.Length}.\n");

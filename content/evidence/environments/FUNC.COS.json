@@ -2,7 +2,7 @@
   "schema": "efh.excel-environments/v1",
   "function_id": "FUNC.COS",
   "surface_name": "COS",
-  "status_plain": "Readings of COS with a recorded Excel build: 3,709 input(s) over 4 recorded environment(s), Excel 16.0 build(s) 19929, 20131, 20228, 20430, all on Windows; where a CPU is recorded it is an AMD Zen 2. 913 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. 3 same-input comparison(s) between builds over 3 input-pair(s): no result differs. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "status_plain": "Readings of COS with a recorded Excel build: 3,709 input(s) over 4 recorded environment(s), Excel 16.0 build(s) 19929, 20131, 20228, 20430, all on Windows; recorded CPUs: AMD Zen 2. 913 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. 3 same-input comparison(s) between environments over 3 input-pair(s): no result differs. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
   "environments": [
     {
       "env_id": "win-nr-16.0.19929-nr",
@@ -338,7 +338,7 @@
       "evidence": [
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/evidence/records/EV-MATH-0004.json",
           "locator": "counts[].cpu_scoped",
           "sha256": "9ce21e309d87aafadd206a33281d9be208cd65d3207305f5f90981c9c88f071c",

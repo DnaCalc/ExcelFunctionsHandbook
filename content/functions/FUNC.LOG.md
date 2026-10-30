@@ -216,7 +216,7 @@ Inputs I would probe first:
 
 Readings of LOG with a recorded Excel build: 25,363 input(s) over 2 recorded environment(s),
 Excel 16.0 build(s) 19929, 20430, all on Windows; none of these captures records the CPU. 1
-same-input comparison(s) between builds over 3 input-pair(s): no result differs. A CPU
+same-input comparison(s) between environments over 3 input-pair(s): no result differs. A CPU
 dependence is expected and untested (see below). No reading from a Mac, Excel for the web,
 32-bit Excel or an Intel CPU is recorded.
 
@@ -242,10 +242,10 @@ on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel
 exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit
 here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of
 those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed
-on none of 3,157 rows (2026-08-23); Intel against AMD is untested. The Handbook's model chapter
-05 (version axes) states the same mechanism, that on about one in two thousand of the hardest
-inputs the last bit tracks the microcode of the CPU Excel runs on; it and the Last Bit material
-reason about Intel against AMD but record no Intel reading.
+on none of 3,157 rows (2026-08-23). The Handbook's model chapter 05 (version axes) states the
+same mechanism, that on about one in two thousand of the hardest inputs the last bit tracks the
+microcode of the CPU Excel runs on; The Last Bit (July 2026) measured Intel against AMD for EXP
+and LN only, with 23 one-bit differences; no Intel reading of this function exists.
 
 Evidence for every row: [`content/evidence/environments/FUNC.LOG.json`](../../content/evidence/environments/FUNC.LOG.json). All known differences: [Excel environment differences](../evidence/EXCEL-ENVIRONMENTS.md).
 

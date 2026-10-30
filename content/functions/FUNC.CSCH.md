@@ -214,8 +214,8 @@ Inputs I would probe first:
 
 Readings of CSCH with a recorded Excel build: 33,342 input(s) over 2 recorded environment(s),
 Excel 16.0 build(s) 19929, 20430, all on Windows; none of these captures records the CPU. 1
-same-input comparison(s) between builds over 2 input-pair(s): no result differs. No reading
-from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.
+same-input comparison(s) between environments over 2 input-pair(s): no result differs. No
+reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.
 
 Readings of `CSCH` recorded here come from:
 

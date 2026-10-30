@@ -174,6 +174,111 @@ W108 = "docs/worksets/W108_EXCEL_NUMERIC_CORE_AND_FINANCIAL_POWER_EXACTNESS.md"
 X87_HOST = {"FUNC.EXP", "FUNC.LN", "FUNC.LOG10", "FUNC.LOG", "FUNC.POWER"}
 COMBIN_DOC = "docs/function-lane/W109_COMBIN_IDENTIFICATION_20260809.md"
 
+# ---------------------------------------------------------------- cross-CPU probes (The Last Bit)
+
+import struct
+XCPU_DIR = "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07"
+XCPU_FILES = {
+    "amd": XCPU_DIR + "/ExcelExpData_AuthenticAMD_20260703-223049.json",
+    "intel": XCPU_DIR + "/ExcelExpData_GenuineIntel_20260705-191433.json",
+}
+ARTICLE = "content/lastbit/the-last-bit-2026-07.pdf"
+
+
+def hb_ev(path, locator=None, note=None):
+    with open(os.path.join(HB, path), "rb") as f:
+        digest = hashlib.sha256(f.read()).hexdigest()
+    return {"repository": "ExcelFunctionsHandbook", "commit": HB_COMMIT, "path": path,
+            "locator": locator, "sha256": digest, "note": note}
+
+
+def num(bits):
+    v = struct.unpack(">d", bytes.fromhex(bits))[0]
+    return {"kind": "number", "display": repr(v), "bits": "0x" + bits.lower()}
+
+
+XCPU = {k: json.load(open(os.path.join(HB, v), encoding="utf-8-sig")) for k, v in XCPU_FILES.items()}
+XCPU_ENV = {
+    "amd": {
+        "env_id": "win-x64-16.0.20131-amd-zen2", "excel_version": "16.0", "excel_build": "20131",
+        "platform": "windows", "os": "Microsoft Windows 11 Pro 10.0.26200", "excel_bitness": "64-bit",
+        "cpu": "AMD Ryzen 7 4800H with Radeon Graphics", "cpu_vendor": "AMD", "cpu_microarchitecture": "Zen 2",
+        "workbook_compatibility": "not-recorded", "update_channel": "not-recorded",
+        "basis": "Recorded by Collect-ExcelExpData.ps1 in its output file: Excel version, build and bitness,"
+                 " OS caption and version, processor name and manufacturer. Workbook compatibility and update"
+                 " channel not recorded.",
+    },
+    "intel": {
+        "env_id": "win-x64-16.0.18429-intel-coffee-lake", "excel_version": "16.0", "excel_build": "18429",
+        "platform": "windows", "os": "Microsoft Windows 10 Home 10.0.19045", "excel_bitness": "64-bit",
+        "cpu": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz", "cpu_vendor": "Intel",
+        "cpu_microarchitecture": "Coffee Lake",
+        "workbook_compatibility": "not-recorded", "update_channel": "not-recorded",
+        "basis": "Recorded by Collect-ExcelExpData.ps1 in its output file: Excel version, build and bitness,"
+                 " OS caption and version, processor name and manufacturer (an i7-9750H is a Coffee Lake part)."
+                 " Workbook compatibility and update channel not recorded.",
+    },
+}
+
+
+def xcpu_for(fn):
+    """Readings, the comparison and the differences of the cross-CPU probes for EXP or LN."""
+    amd = {(r["fn"], r["x"]): r for r in XCPU["amd"]["rows"]}
+    rows = [r for r in XCPU["intel"]["rows"] if r["fn"] == fn]
+    readings = []
+    for k in ("amd", "intel"):
+        d = XCPU[k]
+        day = d["collected_utc"][:10]
+        readings.append({"env_id": XCPU_ENV[k]["env_id"],
+                         "inputs_read": sum(1 for r in d["rows"] if r["fn"] == fn),
+                         "first_observed": day, "last_observed": day, "evidence": [hb_ev(XCPU_FILES[k])]})
+    diffs = []
+    for r in rows:
+        a = amd[(r["fn"], r["x"])]
+        if a["excel_out"] == r["excel_out"]:
+            continue
+        ib, ab = int(r["excel_out"], 16), int(a["excel_out"], 16)
+        cr, ideal = int(r["ref_correct"], 16), int(r["ref_ideal"], 16)
+        nearer = "Intel" if abs(ib - cr) < abs(ab - cr) else "AMD"
+        note = (f"The results differ by one unit in the last place; the {nearer} result is the correctly"
+                f" rounded one (0x{r['ref_correct']}). Intel's result "
+                + ("equals" if ib == ideal else "differs from")
+                + f" the idealised x87 model (0x{r['ref_ideal']}). Probe category: {r['cat']}."
+                " The two machines also ran different Excel builds (20131, 18429).")
+        diffs.append({
+            "difference_id": None,
+            "axis": ["cpu", "excel-build", "os"],
+            "formula": None,
+            "inputs": [num(r["x"])],
+            "observations": [
+                {"env_id": XCPU_ENV["amd"]["env_id"], "result": num(a["excel_out"]),
+                 "observed_on": XCPU["amd"]["collected_utc"][:10],
+                 "evidence": hb_ev(XCPU_FILES["amd"], locator=f"rows[] fn={fn} x={r['x']}")},
+                {"env_id": XCPU_ENV["intel"]["env_id"], "result": num(r["excel_out"]),
+                 "observed_on": XCPU["intel"]["collected_utc"][:10],
+                 "evidence": hb_ev(XCPU_FILES["intel"], locator=f"rows[] fn={fn} x={r['x']}")},
+            ],
+            "recheck": {"status": "not-rechecked", "rechecked_on": None,
+                        "note": "Each machine ran the probes once; no repeat on either machine is recorded."},
+            "note": note,
+        })
+    comparison = {
+        "comparison_id": None,
+        "axis": ["cpu", "excel-build", "os"],
+        "env_ids": [XCPU_ENV["amd"]["env_id"], XCPU_ENV["intel"]["env_id"]],
+        "inputs_compared": len(rows),
+        "inputs_differing": len(diffs),
+        "method": "The Last Bit probes (Collect-ExcelExpData.ps1): each input injected through Range.Value2"
+                  " (round trip checked exact), =EXP or =LN evaluated, the result read back as binary64 bits,"
+                  " on each machine; results compared by their bits. Across both functions 106 probes: 18"
+                  " control, 54 bias and 11 of 34 microcode probes agree, 23 microcode probes differ.",
+        "evidence": [hb_ev(XCPU_FILES["amd"]), hb_ev(XCPU_FILES["intel"]),
+                     hb_ev(XCPU_DIR + "/Collect-ExcelExpData.ps1"),
+                     hb_ev(ARTICLE, note="The Last Bit, July 2026")],
+    }
+    return readings, comparison, diffs
+
+
 # ---------------------------------------------------------------- records
 
 stem_of = lambda fid: fid.split(".", 1)[1]
@@ -239,6 +344,18 @@ for fid in sorted(fids):
                       " of the same two builds reproduces the count.",
             "evidence": [ev(COMBIN_DOC, locator="lines 60-73")],
         })
+    differences = []
+    if fid in ("FUNC.EXP", "FUNC.LN"):
+        xr, xc, xd = xcpu_for(surface)
+        for k in ("amd", "intel"):
+            envs[XCPU_ENV[k]["env_id"]] = XCPU_ENV[k]
+        readings.extend(xr)
+        order = sorted(envs)
+        readings.sort(key=lambda r: order.index(r["env_id"]))
+        comparisons.append(xc)
+        for i, d in enumerate(xd, 1):
+            d["difference_id"] = f"XD-{stem}-{i:03d}"
+        differences = xd
     comparisons.sort(key=lambda c: (c["env_ids"], c["method"]))
     for i, c in enumerate(comparisons, 1):
         c["comparison_id"] = f"XC-{stem}-{i:03d}"
@@ -272,6 +389,12 @@ for fid in sorted(fids):
                      " one in two thousand of the hardest inputs the last bit tracks the microcode of the CPU"
                      " Excel runs on; it and the Last Bit material reason about Intel against AMD but record"
                      " no Intel reading.")
+            if fid not in ("FUNC.EXP", "FUNC.LN"):
+                stmt = stmt.replace("; Intel against AMD is untested.", ".").replace(
+                    " it and the Last Bit material reason about Intel against AMD but record no Intel reading.",
+                    " The Last Bit (July 2026) measured Intel against AMD for EXP and LN only, with 23 one-bit"
+                    " differences; no Intel reading of this function exists.")
+                evs.append(hb_ev(ARTICLE, note="The Last Bit, July 2026"))
             evs.append(ev(W108, locator="lines 236-244"))
             evs.append({
                 "repository": "ExcelFunctionsHandbook",
@@ -281,7 +404,18 @@ for fid in sorted(fids):
                 "sha256": hashlib.sha256(open(os.path.join(HB, "content", "model", "05-version-axes.md"), "rb").read()).hexdigest(),
                 "note": "reasoning, not a measurement",
             })
-        sensitivities.append({"sensitivity_id": None, "axis": ["cpu"], "status": "expected-untested",
+        status = "expected-untested"
+        if fid in ("FUNC.EXP", "FUNC.LN"):
+            status = "observed"
+            stmt = stmt.replace("no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU"
+                                " difference is neither observed nor ruled out.",
+                                "the one Intel reading (The Last Bit probes) differs from AMD on some inputs;"
+                                " see the differences.")
+            stmt = stmt.replace("; Intel against AMD is untested.", ".")
+            stmt = stmt.replace(" it and the Last Bit material reason about Intel against AMD but record"
+                                " no Intel reading.", " The Last Bit (July 2026) measured it.")
+            evs.append(hb_ev(ARTICLE, note="The Last Bit, July 2026"))
+        sensitivities.append({"sensitivity_id": None, "axis": ["cpu"], "status": status,
                               "statement": stmt, "evidence": evs})
     for i, s in enumerate(sensitivities, 1):
         s["sensitivity_id"] = f"XS-{stem}-{i:03d}"
@@ -294,7 +428,8 @@ for fid in sorted(fids):
         parts.append(f"Readings of {surface} with a recorded Excel build: {total:,} input(s) over"
                      f" {len(readings)} recorded environment(s), Excel 16.0 build(s) {', '.join(builds)},"
                      " all on Windows; "
-                     + ("where a CPU is recorded it is an AMD Zen 2."
+                     + (("recorded CPUs: " + ", ".join(sorted({envs[r["env_id"]]["cpu_vendor"] + " " + envs[r["env_id"]]["cpu_microarchitecture"]
+                                                      for r in readings if envs[r["env_id"]]["cpu"] != "not-recorded"})) + ".")
                         if any(envs[r["env_id"]]["cpu"] != "not-recorded" for r in readings)
                         else "none of these captures records the CPU."))
     else:
@@ -303,16 +438,23 @@ for fid in sorted(fids):
     if unk:
         parts.append(f"{unk:,} input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted.")
     if comparisons:
-        n = sum(c["inputs_compared"] for c in comparisons if "Harvest" in c["method"])
+        n = sum(c["inputs_compared"] for c in comparisons if not c["method"].startswith("OxFunc's own"))
         d = sum(c["inputs_differing"] for c in comparisons)
-        parts.append(f"{len(comparisons)} same-input comparison(s) between builds"
+        parts.append(f"{len(comparisons)} same-input comparison(s) between environments"
                      + (f" over {n:,} input-pair(s)" if n else "")
                      + (": no result differs." if d == 0 else f": {d} differ."))
     else:
         parts.append("No input has been read in two environments, so no difference is known and none is ruled out.")
     if sensitivities:
-        parts.append("A CPU dependence is expected and untested (see below).")
-    parts.append("No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.")
+        parts.append("A CPU dependence is observed (see below)." if any(x["status"] == "observed" for x in sensitivities)
+                     else "A CPU dependence is expected and untested (see below).")
+    if differences:
+        parts.append(f"The Last Bit probes read {surface} on an Intel Core i7-9750H (Excel build 18429) and an"
+                     f" AMD Ryzen 7 4800H (Excel build 20131): {len(differences)} input(s) give results one unit"
+                     " apart in the last place; CPU, Excel build and OS all differ between the two machines."
+                     " No reading from a Mac, Excel for the web or 32-bit Excel is recorded.")
+    else:
+        parts.append("No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.")
 
     record = {
         "schema": "efh.excel-environments/v1",
@@ -322,7 +464,7 @@ for fid in sorted(fids):
         "environments": [envs[k] for k in sorted(envs)],
         "readings": readings,
         "comparisons": comparisons,
-        "differences": [],
+        "differences": differences,
         "sensitivities": sensitivities,
     }
     with open(os.path.join(out_dir, fid + ".json"), "w", encoding="utf-8", newline="\n") as f:

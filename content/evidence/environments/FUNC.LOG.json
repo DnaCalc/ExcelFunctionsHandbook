@@ -2,7 +2,7 @@
   "schema": "efh.excel-environments/v1",
   "function_id": "FUNC.LOG",
   "surface_name": "LOG",
-  "status_plain": "Readings of LOG with a recorded Excel build: 25,363 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 19929, 20430, all on Windows; none of these captures records the CPU. 1 same-input comparison(s) between builds over 3 input-pair(s): no result differs. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "status_plain": "Readings of LOG with a recorded Excel build: 25,363 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 19929, 20430, all on Windows; none of these captures records the CPU. 1 same-input comparison(s) between environments over 3 input-pair(s): no result differs. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
   "environments": [
     {
       "env_id": "win-nr-16.0.19929-nr",
@@ -236,15 +236,23 @@
         "cpu"
       ],
       "status": "expected-untested",
-      "statement": "Handbook evidence record EV-MATH-0001 marks 6 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23); Intel against AMD is untested. The Handbook's model chapter 05 (version axes) states the same mechanism, that on about one in two thousand of the hardest inputs the last bit tracks the microcode of the CPU Excel runs on; it and the Last Bit material reason about Intel against AMD but record no Intel reading.",
+      "statement": "Handbook evidence record EV-MATH-0001 marks 6 of its counts for this function as CPU-scoped: the counted result depends on how the host CPU executes x87 instructions. Every reading recorded here was taken on an AMD Zen 2 processor or on a host whose CPU was not recorded; no reading on an Intel CPU, a Mac or Excel for the web exists, so a CPU difference is neither observed nor ruled out. OxFunc found Excel's last bit here follows the x87 F2XM1/FYL2X microcode on the hardest inputs (about 1 in 30). A dump of those x87 primitives on an AMD Zen 2 and an AMD Zen 1 host (Excel only on the first) differed on none of 3,157 rows (2026-08-23). The Handbook's model chapter 05 (version axes) states the same mechanism, that on about one in two thousand of the hardest inputs the last bit tracks the microcode of the CPU Excel runs on; The Last Bit (July 2026) measured Intel against AMD for EXP and LN only, with 23 one-bit differences; no Intel reading of this function exists.",
       "evidence": [
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/evidence/records/EV-MATH-0001.json",
           "locator": "counts[].cpu_scoped",
           "sha256": "b0f289b88f240c21a3dedcb8c2c9cdee9f99377b29e63e65d9913a49ad8a74cf",
           "note": null
+        },
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/lastbit/the-last-bit-2026-07.pdf",
+          "locator": null,
+          "sha256": "0166e47582b9cafabfad22d0ecffba18f1182ef819a391f575a2022c829d98d3",
+          "note": "The Last Bit, July 2026"
         },
         {
           "repository": "OxFunc",
@@ -256,7 +264,7 @@
         },
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/model/05-version-axes.md",
           "locator": "lines 87-91",
           "sha256": "cfe41fe778e0e83b8221685d0d741e5c673b01b8cb2b0683de79166b1f535a19",

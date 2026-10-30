@@ -2,7 +2,7 @@
   "schema": "efh.excel-environments/v1",
   "function_id": "FUNC.RATE",
   "surface_name": "RATE",
-  "status_plain": "Readings of RATE with a recorded Excel build: 361 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 20131, 20228, all on Windows; where a CPU is recorded it is an AMD Zen 2. 105 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
+  "status_plain": "Readings of RATE with a recorded Excel build: 361 input(s) over 2 recorded environment(s), Excel 16.0 build(s) 20131, 20228, all on Windows; recorded CPUs: AMD Zen 2. 105 input(s) were also read in captures that record no build (some may repeat inputs counted above); they are not counted. No input has been read in two environments, so no difference is known and none is ruled out. A CPU dependence is expected and untested (see below). No reading from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is recorded.",
   "environments": [
     {
       "env_id": "win-nr-16.0.20131-amd-zen2",
@@ -80,7 +80,7 @@
       "evidence": [
         {
           "repository": "ExcelFunctionsHandbook",
-          "commit": "cb1b19da3597dac1a9fe925f9f2d53b971730f8b",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
           "path": "content/evidence/records/EV-FIN-0015.json",
           "locator": "counts[].cpu_scoped",
           "sha256": "b1a618e33208389e83bd2b551b7c1a7855ae0da51de2234d0a2d600a41fdae23",
