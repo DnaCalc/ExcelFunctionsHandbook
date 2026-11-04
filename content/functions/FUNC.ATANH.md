@@ -55,7 +55,7 @@ role_in_family: >-
   the domain as "between -1 and 1 (excluding -1 and 1)".
 - **Range**: all real numbers.
 - **Parity**: odd, exactly, as mathematics. `atanh(-x) = -atanh(x)`. Whether an *implementation*
-  preserves that bit for bit is a separate question, and on this surface it is a live one — see the
+  preserves that to the last bit is a separate question, and on this surface it is a live one — see the
   numerical notes.
 - **Monotonicity**: strictly increasing on the whole domain.
 - **Poles**: logarithmic singularities at both endpoints. `atanh(x) -> +infinity` as `x -> 1-` and

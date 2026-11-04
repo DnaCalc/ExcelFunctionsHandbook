@@ -181,7 +181,7 @@ than `#NUM!` — a choice with no documented counterpart.
 - **`EXPON.DIST`** — the α = 1 special case.
 - **`POISSON.DIST`** — the discrete dual. The Erlang cumulative and the Poisson tail are the
   same sum, which is why an implementation of one is often reachable from the other.
-- **[GAMMA](FUNC.GAMMA.md) and [GAMMALN](FUNC.GAMMALN.md)** — the *complete* gamma function, a
+- **[GAMMA](FUNC.GAMMA.md) and [GAMMALN](FUNC.GAMMALN.md)** — the gamma function itself, a
   different object from the incomplete one this page needs. The name is not the whole relationship:
   at integer shapes 2 to 6 `GAMMALN(a+1)` sits in the prefactor, and its error is in every answer
   (FN-GAMMA.DIST-001).

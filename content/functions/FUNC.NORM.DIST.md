@@ -281,7 +281,7 @@ Inputs worth probing first:
    `erfc` route and any `1 − erf` route separate visibly.
 5. **`NORM.DIST(x, 0, 1, TRUE)` against `NORM.S.DIST(x, TRUE)`**, and `NORM.DIST` against
    `NORMDIST` at the same arguments, over a spread. Microsoft documents the first pair as a
-   mathematical identity; whether either pair agrees bit for bit is unmeasured, and the second
+   mathematical identity; whether either pair agrees to the last bit is unmeasured, and the second
    pair is explicitly outside `EV-DIST-0018`'s set.
 6. **Large, close `x` and `μ`** — say `x = 1e15 + 1`, `μ = 1e15`, `σ = 1` — where the
    standardizing subtraction loses digits. This isolates the argument-reduction error that

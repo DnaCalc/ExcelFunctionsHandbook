@@ -252,7 +252,7 @@ Inputs worth probing first:
    Cauchy quantile `tan(π·0.475) ≈ 12.706…`, divided by `√2`. A closed-form target with no
    incomplete-beta subtlety, which makes it a clean read of the composition arithmetic.
 4. **`CONFIDENCE.T(α, 1, 2)` and `T.INV.2T(α, 1)/SQRT(2)` swept together** — whether Excel composes
-   this function from its own public t quantile, bit for bit, or runs a separate path.
+   this function from its own public t quantile, to the last bit, or runs a separate path.
 5. **Tiny `α`** (`1e-10` down to `1e-17`) at small and large `n` — the complement-saturation
    regime, and the place where an implementation that never forms `1 − α/2` separates from one
    that does.

@@ -177,8 +177,7 @@ Inputs I would probe first, and why:
    is publishable — identity across a large sweep is real evidence for the pair, and any
    disagreement is a finding.
 2. **The large-common-offset case** — date serials with a small spread — on this surface
-   specifically, since the identification work behind the evidence record was done through the
-   legacy spelling.
+   specifically, since the identification work behind the evidence record was carried out through the legacy spelling.
 3. **The empty-input case**, to settle the documented-`#N/A`-versus-engine-`#DIV/0!`
    divergence recorded above.
 4. **All-x-identical, and near-identical x differing by a few ulps**, distinguishing an exact

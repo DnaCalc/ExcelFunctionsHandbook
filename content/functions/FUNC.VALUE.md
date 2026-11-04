@@ -66,7 +66,7 @@ with its scope, and it is exactly the kind of result that does not generalise: c
 and the accept/reject split is expected to move. In the en-ZA settings of FN-VALUE-002,
 slash-style `"2024/02/01"` is accepted.
 
-Two structural facts complete the definition. A number arriving as the argument passes through
+Two structural facts finish the definition. A number arriving as the argument passes through
 unchanged. And a successful date-text parse returns the date's **serial number** — a plain
 `Number`, formatting-free — which is why `VALUE("2024-01-02")` shows as a large integer unless the
 cell is formatted as a date.

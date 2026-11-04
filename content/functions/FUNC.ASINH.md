@@ -180,8 +180,7 @@ all three have one-line remedies.
 **1. Cancellation for negative arguments.** For `x` large and negative, `x + sqrt(x^2 + 1)` is a
 difference of two nearly equal magnitudes, and the relative accuracy of the sum collapses; the
 logarithm then magnifies whatever survived. The remedy is oddness: compute on `|x|` and apply the
-sign at the end. This costs nothing and additionally makes `ASINH(-x) = -ASINH(x)` hold bit for
-bit. Any implementation of an odd function that does not do this has a symmetry defect that is
+sign at the end. This costs nothing and additionally makes `ASINH(-x) = -ASINH(x)` hold to the last bit. Any implementation of an odd function that does not do this has a symmetry defect that is
 trivially detectable.
 
 **2. Cancellation for small arguments.** For small `x`, `x + sqrt(x^2 + 1)` is near `1`, and `ln`
@@ -358,7 +357,7 @@ Evidence for every row: [`content/evidence/environments/FUNC.ASINH.json`](../../
 | overflow band | The arguments whose `asinh` is representable but whose `x^2` is not |
 | `log1p` | The primitive computing `ln(1 + t)` accurately for small `t`; not exposed as an Excel function |
 | substrate | The evaluation form an implementation actually uses, as distinct from the mathematics it computes |
-| exact oddness | `f(-x) = -f(x)` holding bit for bit, obtained by computing on `|x|` and restoring the sign |
+| exact oddness | `f(-x) = -f(x)` holding to the last bit, obtained by computing on `|x|` and restoring the sign |
 
 ## Sources
 

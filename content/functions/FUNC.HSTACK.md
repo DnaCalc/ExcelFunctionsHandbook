@@ -126,7 +126,7 @@ against Excel here.
 
 Probes worth running first:
 
-1. **Ragged stacking**, verified rather than assumed: a 5-row and a 3-row argument, confirming
+1. **Ragged stacking**, read rather than assumed: a 5-row and a 3-row argument, confirming
    the pad value is `#N/A` and that padding is at the bottom.
 2. **Mixed shapes including scalars** — `HSTACK(A1:A5, 1, B1:C2)` — which exercises the
    per-argument padding rule with three different heights in one call.

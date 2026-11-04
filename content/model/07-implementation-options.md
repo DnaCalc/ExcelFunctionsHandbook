@@ -16,7 +16,7 @@ Targets Excel's observed behavior, including quirks, approximations, and histori
 This is the flavour you want for **compatibility and audit**: recomputing a workbook, validating a
 migration, or proving that a discrepancy is real. The flavour names the target; its warrant states
 what has actually been demonstrated. A finite corpus earns `suite-exact, vN`, not a universal
-claim. Stronger bit-exact wording names its declared input domain and complete observation context.
+claim. Stronger wording names its declared input domain and full observation context.
 
 ### Natural best
 
@@ -81,7 +81,7 @@ flavours actually are.
 |---|---|
 | excel-bitexact | Implementation flavour targeting Excel compatibility; the adjacent warrant states what is demonstrated |
 | suite-exact, vN | Matched the named Excel oracle for every vector in suite vN; inputs outside the suite are not claimed |
-| characterized bit-exact | Bitwise claim over a declared domain with named mechanism/context evidence |
+| stronger declared labels (CHARTER 7.8) | Bitwise claim over a declared domain with named mechanism/context evidence |
 | natural-best | Balanced state-of-the-art implementation of the intended function |
 | portable-reproducible | Bit-identical across CPUs, compilers, and platforms |
 | math-correct | Correctly rounded (or best-feasible) reference implementation |
@@ -90,6 +90,6 @@ flavours actually are.
 ## Sources
 
 - Handbook `CHARTER.md` section 4 (scope: the four flavours) and section 7 (claim rules).
-- The Excel bit-exact anchors originate in the OxFunc project (the DNA Calc function-semantics
+- The Excel-matching anchors originate in the OxFunc project (the DNA Calc function-semantics
   implementation, verified against live Excel oracles); other flavours are Handbook-owned
   engineering.

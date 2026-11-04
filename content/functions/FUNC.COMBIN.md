@@ -200,7 +200,7 @@ Inputs I would probe first:
    number, so it settles cleanly.
 2. **The symmetry pair across the `2^53` line**: `COMBIN(n, k)` against `COMBIN(n, n-k)` for
    several `n` well above the exactness threshold. The reduction to `min(k, n-k)` is confirmed,
-   so these must agree bit for bit; a disagreement would retract a settled finding.
+   so these must agree to the last bit; a disagreement would retract a settled finding.
 3. **Rows the discriminating capture could not explain.** The record says a subset of pairs is
    matched by no candidate form; those exact pairs, replayed on a second Excel build and a
    second CPU, separate "an op-graph nobody has guessed" from "a host-dependent last bit".

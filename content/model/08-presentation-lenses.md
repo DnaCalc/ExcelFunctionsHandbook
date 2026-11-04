@@ -22,7 +22,7 @@ terms receive an explanation affordance.
 
 Explicit expands every registered qualification next to the answer it qualifies:
 
-> This implementation matched Excel bit-for-bit for all 48,112 inputs in suite v3 under the named
+> This implementation matched Excel on all 48,112 inputs in suite v3 under the named
 > Excel build and platform. Inputs outside that suite are not covered by this claim.
 
 The expansion is inline, persistent, addressable, printable, and accessible. It is never available

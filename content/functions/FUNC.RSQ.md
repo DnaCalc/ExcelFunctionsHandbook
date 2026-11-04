@@ -145,7 +145,7 @@ under the two readings. The Handbook has not observed which one Excel returns.
 - **[LINEST](FUNC.LINEST.md)** returns `RSQ` as one cell of its extended statistics block, along
   with the standard errors and the `F` statistic that `RSQ` alone cannot supply.
 - **[INTERCEPT](FUNC.INTERCEPT.md), [TREND](FUNC.TREND.md),
-  [FORECAST.LINEAR](FUNC.FORECAST.LINEAR.md)** complete the simple-regression set.
+  [FORECAST.LINEAR](FUNC.FORECAST.LINEAR.md)** round out the simple-regression set.
 - Readers confuse `RSQ` with the adjusted `R^2` reported by statistics packages, which penalises
   for the number of predictors. With one predictor the two differ by a factor in `n`; Excel
   publishes no adjusted form.

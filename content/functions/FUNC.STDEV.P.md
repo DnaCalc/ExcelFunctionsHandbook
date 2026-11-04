@@ -188,7 +188,7 @@ anyone can make.
 integer, and for `n` a power of two it is exact. `STDEV.S`'s `sumsq / (n-1)` has no such property
 in general. On Excel's raw-moment path the division is by `n*n` instead (FN-VAR.S-001). This makes
 `STDEV.P` the marginally cleaner of the two, and it also means the exact
-identity `STDEV.P = STDEV.S * sqrt((n-1)/n)` will not hold bit for bit even when both functions
+identity `STDEV.P = STDEV.S * sqrt((n-1)/n)` will not hold to the last bit even when both functions
 are computed correctly: the two divisions round differently and the correcting square root adds
 its own rounding. A suite asserting that identity must assert it to a tolerance, and the size of
 that tolerance is itself worth measuring.

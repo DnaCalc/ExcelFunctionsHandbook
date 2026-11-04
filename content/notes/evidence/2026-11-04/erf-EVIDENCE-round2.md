@@ -157,5 +157,4 @@ misses. It did not rescore the rows the linear route already matches, so it is a
 Measure `N2` and `D2` the same way: edges at larger `t`, predicted from the terms already known,
 checked by the next Taylor coefficient (1/10, then 1/42, 1/216). Above about `2^-9`, N steps every
 few input ulps, so consecutive runs of about 128 doubles at about ten sites replace bisection.
-`excel-q1/` holds 16 points around 0.46875 and 0.5 for the cutoff question once `N` and `D` are
-complete.
+`excel-q1/` holds 16 points around 0.46875 and 0.5 for the cutoff question once `N` and `D` are known.

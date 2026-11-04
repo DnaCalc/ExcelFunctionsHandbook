@@ -4,7 +4,7 @@ Status: draft (H1) · Sources: OxFunc 937f198
 
 ## Why one statement needs three scopes
 
-"ASINH of 1.4e154 returns #NUM!" — is that true? It was observed, bit for bit, on a specific
+"ASINH of 1.4e154 returns #NUM!" — is that true? It was observed, in every bit, on a specific
 Excel build, on a specific machine, verified by a specific set of tests. On a different build,
 Microsoft may have rewritten the routine. In a workbook saved in a different compatibility
 mode, the same build may evaluate the same formula differently. And for some functions, the
@@ -82,7 +82,7 @@ rounded to a 64-bit double only at the final store. Two properties follow:
 
 1. **The extended-precision path is observable.** The 80-bit intermediates make these results
    differ, on identifiable inputs, from what any straightforward double-precision
-   implementation produces. Matching Excel bit for bit on these functions means reproducing the
+   implementation produces. Matching every bit of Excel on these functions means reproducing the
    x87 sequence, not just the mathematics.
 2. **The last bit can be CPU-family-scoped.** The core x87 instructions involved (F2XM1,
    FYL2X) are implemented in CPU microcode — a vendor-specific approximation, not a
@@ -135,11 +135,11 @@ behavior, tracked in its own right; the name itself is pure surface.)
 | Excel build tag (e.g. "Excel 16.0 build 20026") | The exact application build the claim was verified against |
 | Channel tag | The update channel that produced the recorded build |
 | Workbook mode tag (e.g. compatibility version, date system) | The workbook-level evaluation mode in force during verification |
-| Platform tag: portable | The claim holds bit-for-bit on any IEEE-754 binary64 platform |
-| Platform tag: CPU-family-scoped (e.g. "x86-64, x87-verified") | A bit-level claim verified on this CPU family; last-bit behavior elsewhere is unverified |
+| Platform tag: portable | The claim holds to the last bit on any IEEE-754 binary64 platform |
+| Platform tag: CPU-family-scoped (e.g. "x86-64, x87 measured") | A bit-level claim verified on this CPU family; last-bit behavior elsewhere is unverified |
 | Suite version tag | The version of the Handbook test suite whose run backs the claim |
 | Current baseline | The pinned build + channel + locale + workbook mode + platform that untagged claims refer to |
-| Verified from / introduced in | The earliest version at which the function (or the claimed behavior) is known to exist |
+| Measured from / introduced in | The earliest version at which the function (or the claimed behavior) is known to exist |
 | Documentation discrepancy | Documented and observed behavior differ; the page reports the observed behavior and flags the difference |
 
 ## Sources
@@ -153,7 +153,7 @@ All paths are in the OxFunc repository at commit 937f198.
 | `docs/function-lane/DATE_SERIAL_SYSTEM_AND_WORKBOOK_MODE_NOTES.md` | The 1900/1904 date system as a workbook-level mode; the serial-60 leap-year quirk; a worked example of a pinned current baseline (build, channel, locale, workbook lanes) |
 | `docs/EXCEL_MATH_DEVIATION_CATALOG.md` | Build-cited empirical deviations between documented mathematics and observed Excel results (ASINH overflow to #NUM!, among others), each entry pinned to a live Excel build |
 | `docs/KNOWN_EXACTNESS_DEVIATIONS.md` | Residual-tracking rules, including: behavior proven to be version/channel- or compatibility-scoped is split into versioned evidence rather than treated as tolerance |
-| `crates/oxfunc_core/src/excel_numeric/mod.rs` | Module documentation: EXP/LN/LOG paths are bit-exact only via the x87 backend on x86-64; portable fallback is faithful but not bit-exact |
+| `crates/oxfunc_core/src/excel_numeric/mod.rs` | Module documentation: EXP/LN/LOG paths match Excel to the last bit only via the x87 backend on x86-64; the portable fallback is faithful but does not |
 | `crates/oxfunc_core/src/excel_numeric/x87.rs` | Header documentation: the x87 instruction sequences, 80-bit intermediates, microcode-dependent F2XM1/FYL2X, approximate 1-in-2000 CPU-dependent inputs, ARM software x87 emulation |
 | `docs/function-lane/FUNCTION_SLICE_OP_IMPLICIT_INTERSECTION_CONTRACT_PRELIM.md` | `_xlfn.SINGLE(...)` and `@` as compatibility/serialization representations of one operator identity, not separate semantics |
 | `docs/function-lane/W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv` | Forty-locale function-name table keyed by stable per-function identifiers (e.g. SUM/SUMME under one identity); also carries per-function version markers (e.g. "2010" for the statistical rewrite family) |

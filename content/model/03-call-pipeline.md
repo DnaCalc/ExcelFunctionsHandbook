@@ -9,7 +9,7 @@ uniform pipeline. The pipeline separates what a function *means* (its mathematic
 core) from how Excel *feeds* it (how arguments are fetched, converted, and spread over arrays)
 and how Excel *publishes* what it returns (how overflow, errors, and precision quirks surface
 in the cell). This chapter defines that pipeline. It is grounded in OxFunc, a reference
-implementation that re-creates Excel function behavior bit for bit and records each behavior as
+implementation that aims to re-create Excel function behavior to the last bit and records each behavior as
 an explicit, named declaration.
 
 The pipeline has four stages:
@@ -112,7 +112,7 @@ when signals conflict is recorded as an open decision (D-004) in the sources.
 The kernel is the pure core: no references, no worksheet, no host. Its shape is declared as a
 `KernelSignatureClass` — a constant (`PI`), number to number (`ABS`), numbers to number
 (`ATAN2`), text to text, lookup/match, or custom. Keeping the kernel pure is what makes
-bit-exact verification tractable: the kernel can be tested and proven against Excel's numbers
+last-bit comparison tractable: the kernel can be tested and proven against Excel's numbers
 in isolation, while the preparation and coercion layers are shared, declarative machinery
 that is verified once.
 

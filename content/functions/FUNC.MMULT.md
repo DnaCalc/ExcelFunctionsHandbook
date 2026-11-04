@@ -164,7 +164,7 @@ Floating-point addition is not associative, so:
 - A **fused multiply-add** contracts `a*b + c` into one rounding instead of two, changing the
   result — usually improving it, always changing it.
 - Cache-blocked and vectorised kernels reorder the sum by construction; a BLAS `dgemm` and a naive
-  triple loop will not agree bit for bit.
+  triple loop will not agree to the last bit.
 - Strassen-style fast algorithms change the arithmetic entirely and have a **different, weaker**
   error bound — they are componentwise less stable, which is why they are rare in general-purpose
   libraries.

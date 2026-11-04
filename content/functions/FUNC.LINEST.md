@@ -192,7 +192,7 @@ nobody has checked any of this against Excel within the Handbook's record.
   historically a separate code path. Comparing the two on the same data is a classic
   self-check.
 - **Confused with:** chart trendlines, which fit on the plotted series and use their own
-  display rounding; and with `LINEST` polynomial fits, which are done by passing
+  display rounding; and with `LINEST` polynomial fits, which come from passing
   `x, x², x³, …` as separate predictor columns — the construction that makes the conditioning
   problem below unavoidable.
 
@@ -306,7 +306,7 @@ Inputs I would probe first, and why:
 6. **Orientation swap** — the same data as rows and as columns, and a `known_y's` row with
    `known_x's` columns — to pin the shape rules and the `#REF!` boundary.
 7. **`known_x's` omitted** on non-equally-spaced data, confirming the `1 … n` default.
-8. **`LINEST(y, x)` against `SLOPE` and `INTERCEPT`** on the same data, bit for bit — the
+8. **`LINEST(y, x)` against `SLOPE` and `INTERCEPT`** on the same data, to the last bit — the
    cheapest cross-surface consistency check in the family.
 
 ## Notes

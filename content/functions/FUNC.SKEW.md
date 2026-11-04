@@ -124,7 +124,7 @@ Returns `Number`, dimensionless.
 - **All values equal.** The centred sum of squares is zero, `s = 0`, and the standardisation is
   `0/0`. `#DIV/0!`, documented.
 - **A symmetric sample.** `SKEW` is zero, and for data symmetric about its mean it is exactly
-  zero only when the positive and negative cubes cancel bit for bit — which for a two-sided
+  zero only when the positive and negative cubes cancel exactly — which for a two-sided
   symmetric set in binary64 they generally do, since each `+d^3` has an exact `-d^3` partner. It
   is worth knowing that this exactness is a property of the summation order and the data, not a
   guarantee.

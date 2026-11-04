@@ -233,7 +233,7 @@ Inputs I would probe first, and why:
    `1` and `1 + 2⁻⁵²` — where the exact mean is not representable and the rounding is
    observable.
 5. **`MEDIAN` against `PERCENTILE.INC(·, 0.5)`, `PERCENTILE.EXC(·, 0.5)` and
-   `QUARTILE.INC(·, 2)`** on the same data, bit for bit. Four surfaces that must agree; a
+   `QUARTILE.INC(·, 2)`** on the same data, to the last bit. Four surfaces that must agree; a
    disagreement localises a defect without any external oracle.
 6. **`MEDIAN` against `LARGE(·, (n+1)/2)`** on odd counts, which must agree exactly because
    both are selectors.

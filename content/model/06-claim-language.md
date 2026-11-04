@@ -49,8 +49,7 @@ contest. Contested and stale are ordinary published results, never embarrassment
 2. **Compatibility warrant is named.** Passing a finite suite is rendered as `suite-exact`, never
    as a universal exactness claim. It names the observation context (Excel build/channel, workbook
    mode, locale, platform/CPU where material) and verification artifact (suite version, manifest
-   hash, capture route). The stronger `characterized bit-exact` and `bit-exact over declared
-   domain` labels additionally require the domain/mechanism evidence stated by the claim — and are
+   hash, capture route). The stronger declared labels named in CHARTER 7.8 additionally require the domain/mechanism evidence stated by the claim — and are
    unavailable today under rule 6 below.
 3. **Coverage is counted, not gestured.** Coverage statements are absolute counts against the
    full 541-entry function surface ("12 of 541 entries curated"), never percentages of an
@@ -63,7 +62,7 @@ contest. Contested and stale are ordinary published results, never embarrassment
 5. **Documentation is cited, behavior is evidenced.** Where Microsoft's documentation and
    observed behavior differ, the page shows both and states the divergence with evidence.
    Neither is silently preferred.
-6. **The words "bit-exact" and "bit-for-bit" are not available to Handbook voice.** They may not
+6. **The two equality phrases of CHARTER 7.8 are not available to Handbook voice.** They may not
    be used to state a claim, in prose or in a rendered label, until `vectors/` publishes a suite.
    `CHARTER.md` rule 7.2 requires three axes — Excel build, platform, and suite version — and
    `vectors/` holds zero suites, so the suite axis is unavailable for every claim the Handbook can
@@ -118,7 +117,7 @@ it is collaboratively corrected.
 | not yet curated | The entry exists with projected metadata only; no curated content yet |
 | placeholder | A metadata field (e.g. a signature) is not yet real and is suppressed, not faked |
 | suite-exact, vN | Every vector in suite vN returned the named oracle's exact result bits; no claim outside the suite. Unavailable until `vectors/` publishes (scoping rule 6) |
-| characterized bit-exact | Declared-domain label whose mechanism and input domain are characterized under the named observation context. Unavailable until `vectors/` publishes (scoping rule 6) |
+| stronger declared labels (CHARTER 7.8) | Declared-domain labels whose mechanism and input domain are characterized under the named observation context. Unavailable until `vectors/` publishes (scoping rule 6) |
 | current baseline | The pinned observation context used by the `public-current` view; the complete scope is inspectable |
 | open problem | A published, explicitly unresolved behavior question |
 

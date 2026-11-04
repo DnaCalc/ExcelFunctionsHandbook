@@ -188,7 +188,7 @@ Inputs I would probe first:
    already on the multiple but not in binary64 is exactly the input a naive kernel over-rounds.
 3. **`ISO.CEILING(-4.3, -2)` against `CEILING.PRECISE(-4.3, -2)` and `CEILING(-4.3, -2)`**, in
    one workbook. This is the cheapest demonstration of what the three names actually differ on,
-   and it would settle whether the two "precise" surfaces agree bit for bit or only in
+   and it would settle whether the two "precise" surfaces agree to the last bit or only in
    documentation.
 4. **`ISO.CEILING(TRUE)` and `ISO.CEILING("2.5")`** — undocumented conversions the reference
    engine accepts.

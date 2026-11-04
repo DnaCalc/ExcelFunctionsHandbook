@@ -142,7 +142,7 @@ Error values in the argument propagate under the ordinary coercion rules.
   look different. See [NORM.S.DIST](FUNC.NORM.S.DIST.md).
 - **`NORM.DIST(x, 0, 1, FALSE)`** and the legacy `NORMDIST(x, 0, 1, FALSE)` are two more
   spellings of the same density. Four surfaces, one function, no published proof that any two
-  of them agree bit for bit.
+  of them agree to the last bit.
 - **[GAUSS](FUNC.GAUSS.md)** is the neighbouring modern addition: `GAUSS(z) = Φ(z) − 0.5`, the
   probability that a standard normal falls between `0` and `z`. `PHI` and `GAUSS` arrived
   together and are constantly confused — `PHI` is the *density*, `GAUSS` is a *probability*.

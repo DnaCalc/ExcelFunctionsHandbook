@@ -108,7 +108,7 @@ not measured by the Handbook.
 Probes worth running first:
 
 1. **The cross-type matrix.** Every ordered kind pair in both directions with `>` and `<`, to
-   turn two observations into a complete, total ordering claim.
+   turn two observations into a total ordering claim.
 2. **Text that looks numeric, at scale.** `="10">2`, `="10">20`, `="2">"10"`, `=2>"10"` — the
    four combinations that separate "text outranks numbers" from any residual numeric
    interpretation.

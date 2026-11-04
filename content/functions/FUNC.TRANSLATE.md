@@ -126,7 +126,7 @@ to guess which.
 - **`DETECTLANGUAGE`** — the companion function, and effectively the `source_language`
   auto-detection step exposed on its own. The pair is: detect, then translate. Anyone
   wondering what auto-detection concluded should ask `DETECTLANGUAGE` directly.
-- **`WEBSERVICE`** — the way this was done before `TRANSLATE` existed: call a translation API
+- **`WEBSERVICE`** — how this was handled before `TRANSLATE` existed: call a translation API
   by URL and parse the response. Windows-only, unlicensed, and entirely manual. `TRANSLATE`
   replaces that pattern with a first-class function.
 - **`COPILOT`** — the other function in the catalog whose result is a model output. The two

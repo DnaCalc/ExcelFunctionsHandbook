@@ -101,8 +101,7 @@ coercion. `SKEW.P(1,2,"3")` therefore admits `"3"` where the same text in a cell
 Returns `Number`, dimensionless.
 
 - **All values equal.** `m_2 = 0`, the standardisation is `0/0`, and the result is `#DIV/0!`.
-- **A symmetric sample.** Zero, and exactly zero when the positive and negative cubes cancel bit
-  for bit — which for a symmetric set in binary64 they usually do, each `+d^3` having an exact
+- **A symmetric sample.** Zero, and exactly zero when the positive and negative cubes cancel exactly — which for a symmetric set in binary64 they usually do, each `+d^3` having an exact
   `-d^3` partner. The exactness follows from the data and the summation order, not from a
   guarantee.
 - **Exactly two distinct values.** The two deviations are `+d/2` and `-d/2`, their cubes cancel

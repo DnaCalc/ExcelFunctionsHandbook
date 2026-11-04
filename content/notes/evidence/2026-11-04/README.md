@@ -5,7 +5,8 @@ written. Bank rows they cite are in OxFunc-Evidence. "The bank" in these files m
 Excel answers held there. Scripts and traces they name by relative path were not archived.
 
 These are cleaned copies: machine paths, host names, process ids and one tool name were removed from
-the original write-ups before publication, and nothing else was changed. A statement in a function
+the original write-ups before publication, two phrases were reworded to meet CHARTER section 7, and
+nothing else was changed. A statement in a function
 note takes precedence over these files. Two known differences: the first ERF write-up's Cody reading
 is withdrawn by its round 2, and `annuity-EVIDENCE.txt` finding F4 says PMT - IPMT equals PPMT in 4 of
 12 periods and PMT - PPMT equals IPMT in 8 of 12; recomputing from the capture gives 2 and 7, the

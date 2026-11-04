@@ -255,10 +255,10 @@ Inputs I would probe first, and why:
    `1 − LOGNORM.DIST(1/x, −μ, σ, TRUE)` across the whole range. These must sum to one exactly
    in mathematics; the residual is a free accuracy plate that needs no external oracle.
 5. **The composition identity**: `LOGNORM.DIST(x, μ, σ, TRUE)` against
-   `NORM.S.DIST((LN(x) − μ)/σ, TRUE)`, bit for bit. If they differ, the difference isolates
+   `NORM.S.DIST((LN(x) − μ)/σ, TRUE)`, to the last bit. If they differ, the difference isolates
    whether the lognormal surface has its own path or delegates.
 6. **The legacy-alias question**: `LOGNORM.DIST(x, μ, σ, TRUE)` against
-   `LOGNORMDIST(x, μ, σ)` on a wide grid, bit for bit. This is the probe that would turn a
+   `LOGNORMDIST(x, μ, σ)` on a wide grid, to the last bit. This is the probe that would turn a
    documented equivalence into a demonstrated one, and it is currently unanswered.
 7. **The differentiation relation**: `LOGNORM.DIST(x, μ, σ, FALSE)` against a high-accuracy
    numerical derivative of the cumulative form, to check that the two branches are consistent

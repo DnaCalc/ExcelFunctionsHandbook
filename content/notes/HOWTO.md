@@ -25,5 +25,5 @@ repository's work or commit depends on one.
    `site/api/notes.json`. `notes check` does the same without writing.
 4. Run `dotnet test tests/Efh.Rubric.Tests` and commit.
 
-Do not write "bit-exact" or "bit-for-bit" (CHARTER 7.8); say what matched, on how many rows, in which
+Do not use the equality phrases CHARTER 7.8 forbids; say what matched, on how many rows, in which
 build. The format is `tools/schemas/f20-function-note.schema.json`.

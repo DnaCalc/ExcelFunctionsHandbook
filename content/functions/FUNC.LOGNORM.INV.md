@@ -236,9 +236,9 @@ Inputs I would probe first, and why:
    dramatically by `10⁻¹⁰⁰`, so this probe *identifies the algorithm class* without any source
    access. It is the highest-information experiment on this page.
 4. **`LOGNORM.INV(p, μ, σ)` against `EXP(NORM.INV(p, μ, σ))` and against
-   `EXP(μ + σ·NORM.S.INV(p))`**, bit for bit. Three routes to one number; disagreement
+   `EXP(μ + σ·NORM.S.INV(p))`**, to the last bit. Three routes to one number; disagreement
    localises which surface has its own path.
-5. **`LOGNORM.INV` against `LOGINV`** on the same grid, bit for bit — the legacy/modern
+5. **`LOGNORM.INV` against `LOGINV`** on the same grid, to the last bit — the legacy/modern
    identity question, which is currently documented and unproven.
 6. **`σ` large enough to overflow** — `μ = 0`, `σ = 200`, `p = 0.999` — to find the `#NUM!`
    boundary and check that overflow is diagnosed rather than returned as infinity.

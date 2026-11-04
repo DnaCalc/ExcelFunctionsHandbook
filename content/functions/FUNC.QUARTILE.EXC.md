@@ -166,7 +166,7 @@ exactly one tenth, and its floor can therefore differ from the mathematically in
 values of `n` where the product lands adjacent to an integer. `QUARTILE.EXC` cannot hit that
 class of bug.
 
-**The in-range test is done on the rank, before interpolation.** The reference engine checks
+**The in-range test runs on the rank, before interpolation.** The reference engine checks
 `1 <= h <= n` and returns `#NUM!` otherwise. Because `h` is exact, this test has no boundary
 fuzz: for `n = 3` and `quart = 1` the rank is exactly `1` and the answer is exactly `x_(1)`,
 rather than being a hair below `1` and erroring.

@@ -253,7 +253,7 @@ Evidence for every row: [`content/evidence/environments/FUNC.ASIN.json`](../../c
 | half-angle reduction | Rewriting `asin(x)` as `pi/2 - 2*asin(sqrt((1-x)/2))` for `|x| > 1/2` |
 | factored square root | Computing `sqrt((1-x)(1+x))` rather than `sqrt(1 - x*x)` |
 | element-local error | A lifted array result in which one bad element errors without collapsing the array |
-| exact oddness | `f(-x) = -f(x)` holding bit for bit, achieved by computing on `|x|` and restoring the sign |
+| exact oddness | `f(-x) = -f(x)` holding to the last bit, achieved by computing on `|x|` and restoring the sign |
 
 ## Sources
 

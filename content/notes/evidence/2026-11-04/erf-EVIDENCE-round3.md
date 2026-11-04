@@ -2,7 +2,7 @@
 
 Supersedes the higher-order parts of `EVIDENCE-round2.md`. Everything measured here uses Excel
 16.0 build 20527 through `bulk/bulk_runner.ps1` (own instance, blank workbook, doubles written
-by array through Value2 and read back bit for bit; 20,000 calls in 12 seconds).
+by array through Value2 and read back as exact bits; 20,000 calls in 12 seconds).
 
 ## Result
 

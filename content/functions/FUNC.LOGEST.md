@@ -243,7 +243,7 @@ Inputs I would probe first, and why:
 1. **`y` values clustered near 1** — for example `{1.0000001, 1.0000002, 1.0000003}` against
    `{1, 2, 3}`. This is the cancellation probe, and it is the one place `LOGEST` can differ
    from a careful implementation by far more than a few ulps.
-2. **`LOGEST(y, x)` against `EXP(LINEST(LN(y), x))`** on the same data, bit for bit. If they
+2. **`LOGEST(y, x)` against `EXP(LINEST(LN(y), x))`** on the same data, to the last bit. If they
    disagree, the difference localises exactly where the logarithm and the accumulation happen.
    This is the highest-information single probe on the page.
 3. **A zero and a negative `y`**, separately, confirming `#NUM!` and confirming that one bad

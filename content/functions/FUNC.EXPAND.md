@@ -138,7 +138,7 @@ Probes worth running first:
 
 1. **`rows` or `columns` one less than the current extent**, confirming the documented `#VALUE!`
    boundary in both directions, and **exactly equal**, confirming the no-op.
-2. **The default pad**, verified as `#N/A` rather than assumed, including what an aggregate over
+2. **The default pad**, read as `#N/A` rather than assumed, including what an aggregate over
    the result then returns.
 3. **`pad_with` as text, as a logical, as an error value, and as an array.** The array case is
    the genuine unknown; the others establish that the fill is kind-preserving.
