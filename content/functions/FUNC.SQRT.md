@@ -227,20 +227,21 @@ measured, these notes are the later record. All notes: [Function notes](../notes
 
 The worksheet SQRT is RN53(RN64(sqrt(x))): the root is rounded to the x87 unit's 64-bit
 significand and then stored to binary64. On inputs where that double rounding lands differently
-from a single rounding, Excel takes the double-rounded value: SQRT(0.9999999999999999) is 1.
-The smallest subnormal input returns 0.
+from a single rounding, Excel takes the double-rounded value: SQRT(0.9999999999999999) is 1. A
+subnormal written to a cell reads back as 0, so the 0 for the smallest subnormal below may
+record that and not SQRT.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
 | `SQRT(0.9999999999999999)` | number `0.9999999999999999` (`0x3fefffffffffffff`) (cells) | `1` (`0x3ff0000000000000`) | `0.9999999999999999` (`0x3fefffffffffffff`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
 | `SQRT(1.7976931348623157e+308)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`) (cells) | `1.3407807929942597e+154` (`0x5ff0000000000000`) | `1.3407807929942596e+154` (`0x5fefffffffffffff`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
-| `SQRT(5e-324)` | number `5e-324` (`0x0000000000000001`) (cells) | `0` (`0x0000000000000000`) | `2.2227587494850775e-162` (`0x1e60000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `SQRT(5e-324)` | number `5e-324` (`0x0000000000000001`) (cells) | `0` (`0x0000000000000000`) | — | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
 
 Correct value: Exact square root at 800 bits, correctly rounded.
 
-Basis (measured): 41,897 of 41,897 distinct normal positive bank rows match. On the 164 rows
-where double and correct rounding differ, Excel follows double rounding every time. The
-subnormal result rests on 1 row.
+Basis (measured): 41,897 of 41,897 distinct normal positive recorded rows match. On the 164
+rows where double and correct rounding differ, Excel follows double rounding every time. The
+subnormal row is 1 row, and no read-back of its input is recorded.
 
 Evidence:
 

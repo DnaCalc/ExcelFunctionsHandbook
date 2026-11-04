@@ -335,6 +335,40 @@ Evidence:
 - [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A2 (readings)
 - [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A1 (readings)
 
+### FN-ROUND-004: ROUND takes ties away from zero on the 15-digit reading, so 1.005 rounds up
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+A tie in ROUND goes away from zero, not to even: ROUND(2.5,0) is 3 and ROUND(-2.5,0) is -3. The
+tie is judged on the 15-digit reading of FN-ROUND-002, not on the stored value. So 1.005 and
+2.675, whose binary64 values lie just below the decimal tie, count as ties: ROUND(1.005,2) is
+1.01 and ROUND(2.675,2) is 2.68, where rounding the stored value would give 1 and 2.67.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=ROUND(2.5,0)` | as typed | `3` (`0x4008000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROUND(-2.5,0)` | as typed | `-3` (`0xc008000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROUND(2.675,2)` | as typed | `2.68` (`0x400570a3d70a3d71`) | `2.67` (`0x40055c28f5c28f5c`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROUND(1.005,2)` | as typed | `1.01` (`0x3ff028f5c28f5c29`) | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Correct value: The stored value lies below the decimal tie, so the nearest multiple of 0.01 is
+the lower one; nearest binary64.
+
+Basis (measured): The readings below, typed as literals, and the family rule of FN-ROUND-002
+over the recorded ROUND rows.
+
+Inferred, not measured: That every tie follows this is inferred from the rule's fit to the
+recorded rows; the literal ties read directly are the ones below.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json` at `282f03144b` — the literal readings
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — the fifteen-digit reading
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json`, sheet rounding_boundaries, row 8, column 4 at `282f03144b` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json`, sheet rounding_boundaries, row 9, column 4 at `282f03144b` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json`, sheet rounding_boundaries, row 19, column 4 at `282f03144b` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json`, sheet rounding_boundaries, row 21, column 4 at `282f03144b` (readings)
+
 <!-- efh:notes end -->
 
 ## Page vocabulary

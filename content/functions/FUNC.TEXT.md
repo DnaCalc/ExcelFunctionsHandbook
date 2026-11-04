@@ -246,7 +246,7 @@ gg and ggg give R, 令 and 令和, switching on 2019-05-01.
 | `=TEXT(DATE(2023,1,15),"[$-411]mmm")` | as typed | `1` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 | `=TEXT(DATE(2019,5,1),"[$-411]ggge")` | as typed | `令和1` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
-Basis (measured): 170 recorded TEXT readings on the fn3_text sheet.
+Basis (measured): 170 recorded TEXT readings on one TEXT sheet.
 
 - Open: Era readings cover Heisei and Reiwa only. Earlier Japanese eras have not been read.
 

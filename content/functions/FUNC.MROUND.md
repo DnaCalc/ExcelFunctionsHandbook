@@ -234,11 +234,11 @@ measured, these notes are the later record. All notes: [Function notes](../notes
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
 
-MROUND(n,m) forms q = n/m on the x87 unit, counts floor(q), adds 1 when 0.5 - frac(q) <= 5E-15,
-and returns count*m from the x87 unit. A number just below a half therefore rounds up though it
-is nearer the lower multiple: 0.499999999999995 with multiple 1 gives 1, and the next binary64
-below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient 60.49999999999999 lies 7.1E-15
-below the half.
+MROUND(n,m) forms q = n/m on the x87 unit and stores it to binary64, counts floor(q), adds 1
+when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit. A number just below a half
+therefore rounds up though it is nearer the lower multiple: 0.499999999999995 with multiple 1
+gives 1, and the next binary64 below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient
+60.49999999999999 lies 7.1E-15 below the half.
 
 Documentation: MROUND rounds up, away from zero, if the remainder of dividing number by
 multiple is greater than or equal to half the value of multiple.

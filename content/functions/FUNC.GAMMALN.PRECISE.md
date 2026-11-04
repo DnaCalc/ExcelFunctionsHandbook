@@ -39,7 +39,7 @@ body_sections:
 family: special_dist_family
 role_in_family: >-
   The modern log-gamma spelling; a one-line delegation to the GAMMALN kernel in the reference
-  engine, and the spelling through which both of the family's held-out gates were captured.
+  engine, and the spelling through which both of the family's held-out tests were captured.
 ---
 
 ## What it computes
@@ -87,7 +87,7 @@ it is worth laying out with each claim's warrant attached.
 3. **Structural identity in the reference engine.** OxFunc's `gammaln_precise_kernel` is a
    one-line delegation to `gammaln_kernel`. The two surfaces cannot differ there by construction.
 4. **The direction of inheritance runs toward the legacy name, not away from it.**
-   `EV-MATH-0013` records that both of the family's held-out gates were captured through
+   `EV-MATH-0013` records that both of the family's held-out tests were captured through
    *this* spelling, so a figure measured on `GAMMALN.PRECISE` transfers to `GAMMALN` by that
    argument and not the reverse. That is the opposite of the usual assumption, in which the
    older, better-studied surface is the measured one.
@@ -173,10 +173,10 @@ available on this page.
 
 Two records name `GAMMALN.PRECISE` as a subject.
 
-`EV-MATH-0013` records the two held-out gates for the landed kernel and three caveats that
-travel with them: the gates were held out from the **coefficient fits** and not from the
+`EV-MATH-0013` records the two held-out tests for the landed kernel and three caveats that
+travel with them: the tests were held out from the **coefficient fits** and not from the
 structural identification, so the threshold, the seam and the form were pinned on batteries
-surrounding those rows; the arguments in both gates are `.PRECISE` captures, which is why the
+surrounding those rows; the arguments in both tests are `.PRECISE` captures, which is why the
 inheritance direction runs from this surface toward `GAMMALN`; and OxFunc contradicts itself on
 one of the figures, publishing two different values in the same file, with the weaker carried
 forward. `EV-MATH-0014` records the Excel-versus-Excel alias identity on one named build. All
@@ -288,7 +288,7 @@ Evidence:
   worksheet-surface pages at `support.microsoft.com` were not retrievable at curation time.
 - Abramowitz & Stegun, *Handbook of Mathematical Functions*, §6.1; Cody & Hillstrom (1967);
   SPECFUN `ALGAMA`/`DLGAMA`; fdlibm `e_lgamma_r.c`.
-- Handbook evidence records `EV-MATH-0013` (the held-out gates, their scope caveats, the capture
+- Handbook evidence records `EV-MATH-0013` (the held-out tests, their scope caveats, the capture
   spelling, and the upstream self-contradiction) and `EV-MATH-0014` (the Excel-versus-Excel alias
   identity on one named build).
 - Handbook, [GAMMALN](FUNC.GAMMALN.md) — the shared mathematics and numerical treatment.

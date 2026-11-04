@@ -162,7 +162,7 @@ finds that edge, which pins a constant directly, with no fitting. For ERF, the t
 agree to 1e-15 only if the double rounding is present, and in the fourth digit they disagree
 without it.
 
-**Let mathematics check.** The measured ERF coefficients give `N1/N0 - D1/D0 = -1/3` to 1.2e-16.
+**Let mathematics check.** The measured ERF coefficients give `N1/N0 - D1/D0 = -1/3` to 4.2e-17.
 That is erf's Taylor coefficient, and nothing in the measurement imposed it. A constant read from
 bisection that also agrees with a Taylor series is not a coincidence.
 
@@ -182,7 +182,8 @@ not the score.
 
 ## Where it stands
 
-Still open at this writing: ERFC above 0.5, NORM.S.DIST's body, GAMMALN below 3 and the gamma seed,
+Still open at this writing: the factor `F` of ERFC above 0.5, where the stored `x*x` and `exp(-z)` are
+read and `F` is not, NORM.S.DIST's body, GAMMALN below 3 and the gamma seed,
 LINEST's rank and QR arithmetic, GEOMEAN, the Bessel functions, BINOM.DIST, and the two PMT paths.
 The evidence for each result is in the function notes (`content/notes/NOTES.md`) and in the
 DnaCalc commits named there.

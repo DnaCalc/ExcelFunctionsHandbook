@@ -193,8 +193,8 @@ same instinct, three different functions.
 The mathematical postcondition is 0 ≤ MOD(n,d) < d for *d* > 0. A naive implementation can violate
 it: if the computed remainder is a tiny negative value that should have been zero, adding *d*
 produces exactly *d*, which is outside the half-open interval. Careful implementations test the
-postcondition explicitly rather than trusting the arithmetic. The exact-`fmod` route above cannot
-produce this failure, which is a second reason to prefer it. Excel breaks the postcondition by
+postcondition explicitly rather than trusting the arithmetic. The exact-`fmod` route above needs the
+test too, because a tiny negative remainder plus *d* can round to exactly *d*. Excel breaks the postcondition by
 another route: FN-MOD-001 records a result larger than the divisor.
 
 ### Non-integer divisors

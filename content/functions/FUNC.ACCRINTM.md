@@ -220,7 +220,7 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
-### FN-YEARFRAC-001: On basis 1 the fictitious 1900-02-29 is not a leap day, and serial 0 is a valid date
+### FN-YEARFRAC-001: On basis 1 the fictitious 1900-02-29 is not a leap day, and YEARFRAC takes serial 0 as a date
 
 *Quirk; measured; recorded 2026-11-04.* Applies to ACCRINTM, DISC, INTRATE, PRICEDISC, RECEIVED, YEARFRAC.
 

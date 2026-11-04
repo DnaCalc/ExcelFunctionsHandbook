@@ -8,7 +8,7 @@ WEIBULL, WEIBULL.DIST, EXPONDIST, EXPON.DIST.
 Method: STEP 1 (below) was derived **only** from OxFunc primary sources. FOUNDATION.md
 was not opened until STEP 1 was complete and written.
 
-Sources read in STEP 1 (all under `C:/Work/DnaCalc/OxFunc/`, read-only):
+Sources read in STEP 1 (all under `OxFunc/`, read-only):
 - `docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md`
 - `docs/function-lane/DISCREPANCY_RULED_OUT_LEDGER.csv`
 - `docs/bugs/streams/BUG-FUNC-013_normal_distribution_exact_value_accuracy_gap.md`

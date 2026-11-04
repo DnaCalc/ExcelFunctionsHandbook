@@ -191,12 +191,12 @@ subtlest part of the whole function.
 
 **What upstream identified.** The evidence records describe an identification campaign that
 pinned a structural form for Excel's surface — a threshold near 0.7, a seam at 8.0, and a
-Stirling form beyond it — and then fitted coefficients, with two held-out gates plus one fresh
+Stirling form beyond it — and then fitted coefficients, with two held-out tests plus one fresh
 never-probed corpus used to decide which candidate landed. Two properties of that campaign
-matter to a reader and are stated in the records themselves. First, the held-out gates were held
+matter to a reader and are stated in the records themselves. First, the held-out tests were held
 out from the **coefficient fits**, not from the structural identification: the threshold, the
 seam and the form were pinned on batteries surrounding those very rows. Second, the arguments in
-both held-out gates are `GAMMALN.PRECISE` captures, so the inheritance runs from `.PRECISE` to
+both held-out tests are `GAMMALN.PRECISE` captures, so the inheritance runs from `.PRECISE` to
 `GAMMALN` and not the other way — the surface with the fresh corpus of its own is this one, and
 the record says so explicitly.
 
@@ -212,8 +212,8 @@ unusually well studied and still unfinished.
 
 `EV-MATH-0012` records the only fresh-corpus, per-surface figure this function has, on a corpus
 whose arguments are `GAMMALN` captures and which the source calls "fresh" and "never-probed";
-it is also the gate that decided which candidate landed. `EV-MATH-0013` records the two held-out
-gates and their two caveats — held out from the fits and not from the structural
+it is also the test that decided which candidate landed. `EV-MATH-0013` records the two held-out
+tests and their two caveats — held out from the fits and not from the structural
 identification, and captured through the `.PRECISE` spelling — and additionally records that
 **OxFunc contradicts itself** on one of the held-out numbers, publishing two different values in
 the same file, with the weaker one carried forward. `EV-MATH-0014` records the Excel-versus-Excel
@@ -361,8 +361,8 @@ Evidence for every row: [`content/evidence/environments/FUNC.GAMMALN.json`](../.
 - W. J. Cody & K. E. Hillstrom, "Chebyshev approximations for the natural logarithm of the gamma
   function", *Math. Comp.* 21 (1967); SPECFUN `ALGAMA`/`DLGAMA`; fdlibm `e_lgamma_r.c` — the
   three-region design and the special handling near the zeros.
-- Handbook evidence records `EV-MATH-0012` (the fresh per-surface gate), `EV-MATH-0013` (the two
-  held-out gates, their scope caveats, and the upstream self-contradiction on one figure) and
+- Handbook evidence records `EV-MATH-0012` (the fresh per-surface test), `EV-MATH-0013` (the two
+  held-out tests, their scope caveats, and the upstream self-contradiction on one figure) and
   `EV-MATH-0014` (the Excel-versus-Excel alias identity on one named build).
 - Handbook, [GAMMA](FUNC.GAMMA.md) — the value form, and the record that the landed kernel does
   not touch it.

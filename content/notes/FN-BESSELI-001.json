@@ -8,7 +8,7 @@
   "title": "BESSELI is ITK's published polynomial and recurrence, on the x87 unit",
   "statement": "BESSELI truncates n to an integer and evaluates the body published in ITK with every operation stored from the x87 unit at precision 64: the I0 and I1 polynomials, and for higher orders Miller backward recurrence from j = 2*(n + int(sqrt(40*n))), rescaling by 1E-10 whenever |q| > 1E10, then normalising by I0(x). The same body in plain binary64 misses by 1 to 4 units in the last place. The published ITK body is itkGaussianOperator.hxx at ITK 311b7060ef39e371f3cd209ec135284ff5fde735 (Apache-2.0).",
   "status": "measured",
-  "basis": "All 1,318 recorded BESSELI bank rows match (825 gained, no row lost in the bank).",
+  "basis": "All 1,318 recorded BESSELI recorded rows match (825 gained, no row lost in the recorded rows).",
   "inferred": null,
   "documentation": null,
   "repros": [

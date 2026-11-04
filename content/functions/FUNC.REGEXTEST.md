@@ -216,7 +216,7 @@ matches its capital U+1E9E, and a Deseret letter above U+FFFF matches its other 
 | `REGEXTEST(A1, A2, 1)` | text `Σ`; pattern `[α-ω]`; case_sensitivity `1` (`0x3ff0000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
 | `REGEXTEST(A1, A2, 0)` | text `́`; pattern `\w`; case_sensitivity `0` (`0x0000000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
 | `REGEXTEST(A1, A2, 0)` | text `‿`; pattern `\w`; case_sensitivity `0` (`0x0000000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
-| `REGEXTEST(A1, A2, 0)` | text `a b`; pattern `a.b`; case_sensitivity `0` (`0x0000000000000000`) (cells) | `FALSE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `REGEXTEST(A1, A2, 0)` | text `a, CR (U+000D), b`; pattern `a.b`; case_sensitivity `0` (`0x0000000000000000`) (cells) | `FALSE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
 | `REGEXTEST(A1, A2, 1)` | text `K`; pattern `k`; case_sensitivity `1` (`0x3ff0000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
 | `REGEXTEST(A1, A2, 1)` | text `ſ`; pattern `s`; case_sensitivity `1` (`0x3ff0000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
 

@@ -240,8 +240,8 @@ BESSELK on 0 of 1155, with largest relative errors 5.0e-04 and 1.7e-07. BESSELI(
 Correct value: mpmath besseli at 800 bits, order the integer part of n, correctly rounded.
 Correct value: mpmath besselk at 800 bits, order the integer part of n, correctly rounded.
 
-Basis (measured): Every numeric row of the W111 extended capture of each function, compared
-with mpmath at 200 bits.
+Basis (measured): Every numeric row of the extended capture of each function, compared with
+mpmath at 200 bits.
 
 Evidence:
 

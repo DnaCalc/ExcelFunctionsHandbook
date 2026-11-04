@@ -164,7 +164,7 @@ final consonant, U+1100 U+1161 U+11A8 against U+AC01.
 | `="가"<"가"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 | `="각"="각"` | as typed | `FALSE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
-Basis (measured): 32 recorded readings on the fn3_collation sheet.
+Basis (measured): 32 recorded readings on one collation sheet.
 
 - Open: Twelve further comparisons (other leading consonants, a trailing consonant, a compound vowel, compatibility jamo) were read on 2026-11-04. They are not yet in a published capture, so this note does not rest on them.
 

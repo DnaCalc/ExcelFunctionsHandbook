@@ -169,7 +169,8 @@ not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is
 linear terms, and Cephes has the same shape with different ratios. Because every step rounds,
 answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5),
 400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit
-high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS uses it too.
+high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS at tiny
+arguments takes half of it at its stored z/sqrt(2).
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -180,15 +181,15 @@ high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS
 Correct value: mpmath erf at 800 bits from the binary64 input, correctly rounded.
 
 Basis (measured): All 618,225 recorded ERF.PRECISE rows with |x| < 0.5 match; they were only
-scored, never used to read the coefficients, and ERFC, ERFC.PRECISE and GAUSS match every
-recorded row in that range. Two fresh sets of 60,000 random doubles below 0.5 (Excel build
-20527) match 59,996 and 59,982; the second was asked after the constants were fixed, and 17 of
-its 18 misses are in [0.25, 0.5). With every step stored, 223 of 38,000 rows at 19 sites stay
-unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive doubles below 0.5
-match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.
+scored, never used to read the coefficients, and ERFC and ERFC.PRECISE match every recorded row
+in that range. Two fresh sets of 60,000 random doubles below 0.5 (Excel build 20527) match
+59,996 and 59,982; the second was asked after the constants were fixed, and 17 of its 18 misses
+are in [0.25, 0.5). With every step stored, 223 of 38,000 rows at 19 sites stay unexplained;
+the other store placements leave 568 to 1,244. 2,000 consecutive doubles below 0.5 match 1,988,
+and 2,000 from 0.5 up match 858, chance level, which places the cut.
 
-Inferred, not measured: That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC,
-ERFC.PRECISE and GAUSS rows were scored in full, and for ERF itself the record holds only nine
+Inferred, not measured: That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC
+and ERFC.PRECISE rows were scored in full, and for ERF itself the record holds only nine
 non-zero single-argument inputs below 0.5 (build 19929), all equal to the rational.
 
 - Open: The last bits of the coefficients of order 3 and above. Orders 0 and 1 are exact: one unit off in a linear term breaks 500 to 1,100 of 160,000 rows. Order 2 sits at the minimum of the same scan. Higher orders are good to the level that shows, about 0.15% of rows above 0.25.

@@ -7,7 +7,7 @@ PERMUTATIONA, SQRTPI.
 Method discipline followed: every figure below was located in the OxFunc primary sources **before**
 FOUNDATION.md §2.5 was opened. Where the sources contradict themselves I did not guess — I
 re-executed the measurement. Four independent re-measurements were run against the in-repo
-oracle cache and the in-repo production kernels (scripts in the scratchpad, not written into
+oracle cache and the in-repo production kernels (scripts in a working folder, not written into
 OxFunc, which is read-only). They are labelled **[RE-MEASURED]** and are the load-bearing part of
 this review, because the sources do contradict each other on the single most-cited figure in the
 slice.
@@ -633,9 +633,8 @@ is true and should not be generalised to 0%.
 
 ## 13. Reproduction notes
 
-Scripts live in
-`C:/Users/GovertvanDrimmelen/AppData/Local/Temp/claude/C--Work-DnaCalc-ExcelFunctionsHandbook/89f0ac21-1f61-47b9-b4f5-113a2e0f9f56/scratchpad/`
-(`score.py`, `score2.py`, `score3.py`). Nothing was written under `C:/Work/DnaCalc/OxFunc`.
+The scripts (`score.py`, `score2.py`, `score3.py`) were kept in a working folder and not archived.
+Nothing was written under OxFunc.
 
 Replica fidelity evidence, so a third party can judge the re-measurements:
 

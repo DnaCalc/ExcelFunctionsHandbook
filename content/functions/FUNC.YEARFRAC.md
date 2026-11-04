@@ -232,7 +232,7 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa072, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa082, row 20, column 10 at `2d0eddcac8` (readings)
 
-### FN-YEARFRAC-001: On basis 1 the fictitious 1900-02-29 is not a leap day, and serial 0 is a valid date
+### FN-YEARFRAC-001: On basis 1 the fictitious 1900-02-29 is not a leap day, and YEARFRAC takes serial 0 as a date
 
 *Quirk; measured; recorded 2026-11-04.* Applies to ACCRINTM, DISC, INTRATE, PRICEDISC, RECEIVED, YEARFRAC.
 

@@ -249,7 +249,7 @@ small quotients* that Excel forms, and then adding them in the same order.
 ## What has not been checked
 
 One evidence record names this surface in its subjects: **EV-FIN-0020**, an open-discrepancy
-record covering the identification of this function against live Excel, with a held-out gating
+record covering the identification of this function against live Excel, with a held-out testing
 discipline and a residual set of rows that the source explicitly does not accept. Its counts,
 corpora and warnings render mechanically beside this page; they are not restated here, and the
 record's own reader warning about mixed versus held-out corpora travels with them. The record

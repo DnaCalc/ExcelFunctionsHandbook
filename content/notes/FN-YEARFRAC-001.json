@@ -10,7 +10,7 @@
     "FUNC.YEARFRAC"
   ],
   "kind": "quirk",
-  "title": "On basis 1 the fictitious 1900-02-29 is not a leap day, and serial 0 is a valid date",
+  "title": "On basis 1 the fictitious 1900-02-29 is not a leap day, and YEARFRAC takes serial 0 as a date",
   "statement": "Excel's calendar holds a 29 February 1900, serial 60, that never existed. On basis 1 (actual/actual) it does not make 1900 a leap year: YEARFRAC(59,60,1) is 1/365, where the real 1904-02-29 gives YEARFRAC(1520,1521,1) = 1/366. Serial 0 is accepted as a date: YEARFRAC(0,5,0) is 5/360 and YEARFRAC(0,60,1) is 60/365. Reversed dates give the same answer as in order. ACCRINTM, DISC, INTRATE, PRICEDISC and RECEIVED take the same 365 and 366 on those dates: DISC(59,60,99,100,1) is about 3.65 and DISC(1520,1521,99,100,1) about 3.66.",
   "status": "measured",
   "basis": "19 YEARFRAC readings around serial 60 and the 1904, 2000 and 2004 leap days, 35 readings with serial 0 on all five bases, and 3 readings each from five financial functions.",

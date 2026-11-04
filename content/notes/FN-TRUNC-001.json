@@ -10,7 +10,7 @@
   "title": "TRUNC of DBL_MIN returns a subnormal, not 0",
   "statement": "With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal 0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6 steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit reading 2.22507385850720E-308. The recorded rows hold 256 such cases for each of the three functions. ROUND gives 0 on the same inputs.",
   "status": "measured",
-  "basis": "Recorded rows of the broad W111 capture; counts from the rounding write-up.",
+  "basis": "Recorded rows of the broad capture; counts from the rounding write-up.",
   "inferred": null,
   "documentation": null,
   "repros": [

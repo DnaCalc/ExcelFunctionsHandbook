@@ -6,7 +6,7 @@
   ],
   "kind": "excel-differs-from-math",
   "title": "MROUND counts a quotient within 5E-15 below a half up",
-  "statement": "MROUND(n,m) forms q = n/m on the x87 unit, counts floor(q), adds 1 when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit. A number just below a half therefore rounds up though it is nearer the lower multiple: 0.499999999999995 with multiple 1 gives 1, and the next binary64 below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient 60.49999999999999 lies 7.1E-15 below the half.",
+  "statement": "MROUND(n,m) forms q = n/m on the x87 unit and stores it to binary64, counts floor(q), adds 1 when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit. A number just below a half therefore rounds up though it is nearer the lower multiple: 0.499999999999995 with multiple 1 gives 1, and the next binary64 below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient 60.49999999999999 lies 7.1E-15 below the half.",
   "status": "measured",
   "basis": "All 50,782 recorded MROUND rows match this rule. The cut-off lies between the adjacent binary64 values 4.996E-15 (rounded up) and 5.0515E-15 (rounded down) from 0.5, measured at floor(q) = 0 over 4,264 rows.",
   "inferred": "The window is measured between two neighbouring values; that the constant is the decimal 5E-15 is inferred, as the decimal in that window.",

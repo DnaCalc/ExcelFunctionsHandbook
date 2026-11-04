@@ -300,7 +300,8 @@ inputs): the same formula in plain binary64 misses exactly those 5.
 Inferred, not measured: That Excel's code is this expression, in this order, is inferred; what
 is measured is that the route reproduces every recorded row. The overflow boundary at |x| =
 2^512, about 1.34E154, is inferred from x*x overflowing there: the recorded rows only bracket
-it, between 9.23E153 and 2.38E154.
+it, between 9.23E153 and 2.38E154. Excel reads a subnormal written to a cell back as 0, so the
+0 at subnormal inputs may come from that step and not from this route.
 
 - Open: Only one Excel build, 20430, has been read over this range.
 

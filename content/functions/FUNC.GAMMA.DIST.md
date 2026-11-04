@@ -235,14 +235,15 @@ compatibility implementation unless the target is known to take it too.
 routine family as the path Excel's forward gamma CDF resolves to, and the same work identifies
 `ERF.PRECISE`/`ERFC.PRECISE` as the a < 1 branches of that same routine. That is a structural
 identification with its own record and its own caveats; this page names it and does not restate
-its figures.
+its figures. Its `ERF.PRECISE` part is superseded by FN-ERF.PRECISE-001, and for integer shapes the
+notes below read the prefactor directly.
 
 ## What has not been checked
 
 Two records name this surface as a subject, and they say different kinds of thing.
 
 `EV-DIST-0002` publishes three separate measurements that must be read together — a fitted
-working corpus for the cumulative mode, a genuinely held-out integer-shape gate, and a much
+working corpus for the cumulative mode, a genuinely held-out integer-shape test, and a much
 larger density-mode corpus that scores far worse — and the record's own status note says
 publishing the first alone would overstate the surface. `EV-DIST-0011` is the alias-pairing
 record described under **Relationships**, whose scope is explicitly the forward CDFs only. All

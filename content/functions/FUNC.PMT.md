@@ -267,7 +267,7 @@ With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binar
 fv 0 and type 0 at rates from -1/3 to 1/2 runs: s = rate/(2+rate); L = 2s + 2s*(s^2*T), where T
 = 1/3 + s^2/5 + ... + s^20/23 by Horner, all in plain binary64, which is the atanh series for
 ln(1+rate) (Abramowitz and Stegun 4.1.27) with the 2s term added last; t = -(nper*L); u =
-exp(t) stored; em = RN(RN((u-1)*t)/ln(u)) for |t| < 1, and RN(u-1) otherwise, Kahan's way of
+exp(t) stored; em = RN(RN(RN(u-1)*t)/ln(u)) for |t| < 1, and RN(u-1) otherwise, Kahan's way of
 forming expm1; q = RN(pv/em); PMT = RN(q*rate). L is not the correctly rounded logarithm: at
 rate 0.05/12 it is 0x3f7107fd59addc8a, one unit below 0x3f7107fd59addc8b, and the common
 30-year loan below comes out 1 unit from the correctly rounded payment.
@@ -292,7 +292,7 @@ Inferred, not measured: The range -1/3 to 1/2 is where twelve series terms conve
 measured Excel boundary. Rate 0.419, near sqrt(2)-1, misses by 1 unit, so a range reduction may
 start there. Negative rates rest on 20 rates' controls and the recorded rows.
 
-- Open: type 1: Excel multiplies q by one stored binary64 K near rate/(1+rate) per rate (pinned at 457 of 458 recorded rates and 20 of 20 fresh ones), but K's formula is open: the correctly rounded quotient fits 344 of 458.
+- Open: type 1: Excel multiplies q by one stored binary64 K near rate/(1+rate) per rate (pinned at all but one of about 458 recorded rates and at 20 of 20 fresh ones), but K's formula is open: the correctly rounded quotient fits 344 of 458.
 - Open: Nonzero fv: the numerator of q is open. The best form tried fits 5,600 of 7,491 rows, and 146 rows admit no binary64 numerator under this order.
 - Open: Rates outside -1/3 to 1/2.
 

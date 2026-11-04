@@ -15,7 +15,7 @@ together. Of the 106 probes 83 agree and 23 differ by one unit in the last place
 `microcode` category; the per-function records are `content/evidence/environments/FUNC.EXP.json`
 and `FUNC.LN.json`.
 
-Copied on 2026-10-30 from `C:\Temp\ExcelExpFunction` (the AMD file there is
+Copied on 2026-10-30 from the research folder `ExcelExpFunction` (the AMD file there is
 `research/data/baseline_AMD_Ryzen4800H.json`). The only change is `environment.computer_name`,
 replaced by "(removed for publication)". SHA-256 of the originals: AMD
 `3cb521213a8493063d820ddfb798b4c3b9591c3199790c020977b89752250764`, Intel

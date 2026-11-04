@@ -235,11 +235,11 @@ ABS("0.0e309") is 0, ABS("0e309") is #VALUE!, and ABS("0e-307%") is #VALUE!.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
-| `=ABS("0e-309")` | as typed | `#VALUE!` | `0` (`0x0000000000000000`) | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
-| `=ABS("0e-308")` | as typed | `0` (`0x0000000000000000`) | — | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
-| `=ABS("0e-307%")` | as typed | `#VALUE!` | — | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
-| `=ABS("0e309")` | as typed | `#VALUE!` | `0` (`0x0000000000000000`) | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
-| `=ABS("0.0e309")` | as typed | `0` (`0x0000000000000000`) | — | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=ABS("0e-309")` | as typed | `#VALUE!` | `0` (`0x0000000000000000`) | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=ABS("0e-308")` | as typed | `0` (`0x0000000000000000`) | — | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=ABS("0e-307%")` | as typed | `#VALUE!` | — | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=ABS("0e309")` | as typed | `#VALUE!` | `0` (`0x0000000000000000`) | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=ABS("0.0e309")` | as typed | `0` (`0x0000000000000000`) | — | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 | `=VALUE("0e-307")` | as typed | `0` (`0x0000000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 | `=VALUE("0e-307%")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 | `=VALUE("0e309")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |

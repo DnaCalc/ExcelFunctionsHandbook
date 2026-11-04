@@ -5,7 +5,7 @@ Method: STEP 1 derived from OxFunc primary sources ONLY, before opening
 FOUNDATION.md or any harvest record. STEP 2 compares against FOUNDATION.md §2.5 /
 §3.2 / §3.4 / §3.6.
 
-Primary sources read (all under `C:/Work/DnaCalc/OxFunc/` — read-only):
+Primary sources read (all under `OxFunc/` — read-only):
 
 - `docs/OXFUNC_EXCEL_DISCREPANCY_CATALOG.md` (G3-01 = **one single line, 113**;
   G3-05 = 117, G3-06 = 118, G3-07 = 119; header/reconcile block lines 1-99)

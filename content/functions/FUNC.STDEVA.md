@@ -270,10 +270,10 @@ RN(RN(Q - RN(RN(S*S)/n))/(n-1)) and the population variance RN(RN(RN(n*Q) - RN(S
 Excel then uses a centered sum instead, adding RN(d*d) with d = RN(x - mean) and dividing by
 n-1 or n, when either of two stored tests holds: RN(RN(RN(S*S)/n)/Q) > 0.99, or
 RN(variance*1000) <= |RN(S/n)|. The STDEV functions are the root of this, rounded to 64 bits
-and then stored. So the answer depends on which path a call takes: the two VAR.S calls below
-differ by one input step in two arguments, the first passes the 0.99 test and is correctly
-rounded, and the second takes the raw moments and lands 76 units high. The second pair shows
-the size test: scaling the inputs by 4 leaves the first path.
+and then stored. So the answer depends on which path a call takes: the first two VAR.S calls
+below differ by a few input steps in two arguments, the first passes the 0.99 test and is
+correctly rounded, and the second takes the raw moments and lands 76 units high. The next pair
+shows the size test: scaling the inputs by 4 leaves the first path.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|

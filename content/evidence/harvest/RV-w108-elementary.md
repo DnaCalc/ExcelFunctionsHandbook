@@ -15,7 +15,7 @@ Method, in order actually executed:
    appeared — the harvest files `C6-verification-record.json`, `C5-identifications.json`,
    `C3-excel-math-deviations.json` to locate at which layer the divergence was introduced.
 
-Everything below cites `C:/Work/DnaCalc/OxFunc` (read-only) unless marked otherwise.
+Everything below cites `OxFunc` (read-only) unless marked otherwise.
 
 ---
 
@@ -149,7 +149,7 @@ missed (it only tested `0.5` on negative bases)".
 — the `0.5→sqrt` and integer paths are CPU-independent, the general fractional path is not.
 
 **One half of the corpus is not reconstructible.** `BUG-FUNC-042:16` cites the 315 rows to
-`C:/Temp/ExcelExpFunction/POWER_REPORT.md` — outside the repo. The in-repo run directory
+`ExcelExpFunction/POWER_REPORT.md` — outside the repo. The in-repo run directory
 `smart-fuzzer/runs/w108-power-phaseD/` contains only `README.md` + a 3.3 KB `power_witnesses.tsv`
 and its README is still headed `Status: open_puzzle` with the 220-row bake-off — it is the
 *pre*-resolution artifact, not the 715-row sign-off corpus.

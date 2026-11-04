@@ -405,7 +405,7 @@ functions. ROUND gives 0 on the same inputs.
 
 Correct value: DBL_MIN is below 1, so truncating it at 0 or 1 places gives 0.
 
-Basis (measured): Recorded rows of the broad W111 capture; counts from the rounding write-up.
+Basis (measured): Recorded rows of the broad capture; counts from the rounding write-up.
 
 - Open: Why this one input converts 3 steps below nearest.
 

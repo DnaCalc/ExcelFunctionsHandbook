@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 66,
+  "note_count": 67,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -33,7 +33,7 @@
             "bits": "0x0000000000000000",
             "how": "The text denotes zero: a zero mantissa is 0 at any exponent."
           },
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -52,7 +52,7 @@
             "bits": "0x0000000000000000"
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -71,7 +71,7 @@
             "bits": null
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -95,7 +95,7 @@
             "bits": "0x0000000000000000",
             "how": "The text denotes zero: a zero mantissa is 0 at any exponent."
           },
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -114,7 +114,7 @@
             "bits": "0x0000000000000000"
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -268,7 +268,7 @@
       "statement": "ASINH is not the correctly rounded inverse hyperbolic sine. Its answers are those of SIGN(x)*LN(|x|+SQRT(x*x+1)), with x*x, the +1, the SQRT and the |x|+root each rounded to 64 bits and then to 53 bits before the next step, and the LN rounded to binary64. That route loses most of the digits of a small input: once x*x+1 rounds to 1, the answer is LN of |x|+1 after rounding, so it moves in steps of about 2.2E-16. ASINH(-1.4901631254755754E-16) is -2.22E-16, about 1.5 times the true value, and in the recorded rows every |x| up to 1.05E-16, including every subnormal, gives 0 on either sign. At the other end the x*x overflows: answers are finite up to the largest recorded input below it, 9.23E153, and #NUM! from the next recorded input, 2.38E154, although the true value there is about 356. In Excel build 20430 this route reproduces all 4,534 recorded rows (3,017 distinct inputs): 3,427 numbers and 1,107 #NUM!. The correctly rounded asinh matches only 1,224 of the 3,427.",
       "status": "measured",
       "basis": "All 4,534 rows of two recorded sets, 3,017 and 1,517 rows, from Excel build 20430. The route was recomputed independently in exact rational arithmetic with a correctly rounded LN, and matched every row. The stored steps matter on 5 of the rows (3 distinct inputs): the same formula in plain binary64 misses exactly those 5.",
-      "inferred": "That Excel's code is this expression, in this order, is inferred; what is measured is that the route reproduces every recorded row. The overflow boundary at |x| = 2^512, about 1.34E154, is inferred from x*x overflowing there: the recorded rows only bracket it, between 9.23E153 and 2.38E154.",
+      "inferred": "That Excel's code is this expression, in this order, is inferred; what is measured is that the route reproduces every recorded row. The overflow boundary at |x| = 2^512, about 1.34E154, is inferred from x*x overflowing there: the recorded rows only bracket it, between 9.23E153 and 2.38E154. Excel reads a subnormal written to a cell back as 0, so the 0 at subnormal inputs may come from that step and not from this route.",
       "documentation": null,
       "repros": [
         {
@@ -661,7 +661,7 @@
       "title": "BESSELI is ITK's published polynomial and recurrence, on the x87 unit",
       "statement": "BESSELI truncates n to an integer and evaluates the body published in ITK with every operation stored from the x87 unit at precision 64: the I0 and I1 polynomials, and for higher orders Miller backward recurrence from j = 2*(n + int(sqrt(40*n))), rescaling by 1E-10 whenever |q| > 1E10, then normalising by I0(x). The same body in plain binary64 misses by 1 to 4 units in the last place. The published ITK body is itkGaussianOperator.hxx at ITK 311b7060ef39e371f3cd209ec135284ff5fde735 (Apache-2.0).",
       "status": "measured",
-      "basis": "All 1,318 recorded BESSELI bank rows match (825 gained, no row lost in the bank).",
+      "basis": "All 1,318 recorded BESSELI recorded rows match (825 gained, no row lost in the recorded rows).",
       "inferred": null,
       "documentation": null,
       "repros": [
@@ -819,7 +819,7 @@
       "title": "BESSELI and BESSELK are low-order approximations, rarely correctly rounded",
       "statement": "BESSELI and BESSELK are low-order polynomial approximations. Over the recorded numeric rows with non-negative order, BESSELI gives the correctly rounded value on 2 of 1163 rows and BESSELK on 0 of 1155, with largest relative errors 5.0e-04 and 1.7e-07. BESSELI(-1,0) is 1.2660658480342601 where I0(1) is 1.2660658777520084, about 2.3E-8 relative.",
       "status": "measured",
-      "basis": "Every numeric row of the W111 extended capture of each function, compared with mpmath at 200 bits.",
+      "basis": "Every numeric row of the extended capture of each function, compared with mpmath at 200 bits.",
       "inferred": null,
       "documentation": null,
       "repros": [
@@ -3267,10 +3267,10 @@
       ],
       "kind": "bit-matching-detail",
       "title": "Below 0.5, ERF is a stored (4, 5) rational from a table not yet identified",
-      "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, ERF.PRECISE for |x| < 0.5 is x*N(t)/D(t) with t = RN(x*x), p = RN(x*N), y = RN(p/D), and N and D Horner sums in t in which every product and every sum is RN. N has degree 4 and D degree 5, and the coefficients read off Excel's answers, order 0 upward, are N: 0x3ff1df5e70c7956b, 0x3fc201d8627a7d2c, 0x3fa6f289d165b303, 0x3f5d93a5813e372c, 0x3f2932767df264b2; D: 0x3fefada15778ece6, 0x3fdd191aca8d2499, 0x3fb79f85ba68803e, 0x3f856de5da86af12, 0x3f4609751b5b6488, 0x3ef4f20a473a5ab0. The rational stops at 0.5 itself. It equals erf to a flat 9E-17 up to 0.5, and its error climbs at once beyond, so 0.5 is its design interval and not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is refuted by its linear terms, and Cephes has the same shape with different ratios. Because every step rounds, answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5), 400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS uses it too.",
+      "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, ERF.PRECISE for |x| < 0.5 is x*N(t)/D(t) with t = RN(x*x), p = RN(x*N), y = RN(p/D), and N and D Horner sums in t in which every product and every sum is RN. N has degree 4 and D degree 5, and the coefficients read off Excel's answers, order 0 upward, are N: 0x3ff1df5e70c7956b, 0x3fc201d8627a7d2c, 0x3fa6f289d165b303, 0x3f5d93a5813e372c, 0x3f2932767df264b2; D: 0x3fefada15778ece6, 0x3fdd191aca8d2499, 0x3fb79f85ba68803e, 0x3f856de5da86af12, 0x3f4609751b5b6488, 0x3ef4f20a473a5ab0. The rational stops at 0.5 itself. It equals erf to a flat 9E-17 up to 0.5, and its error climbs at once beyond, so 0.5 is its design interval and not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is refuted by its linear terms, and Cephes has the same shape with different ratios. Because every step rounds, answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5), 400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS at tiny arguments takes half of it at its stored z/sqrt(2).",
       "status": "measured",
-      "basis": "All 618,225 recorded ERF.PRECISE rows with |x| < 0.5 match; they were only scored, never used to read the coefficients, and ERFC, ERFC.PRECISE and GAUSS match every recorded row in that range. Two fresh sets of 60,000 random doubles below 0.5 (Excel build 20527) match 59,996 and 59,982; the second was asked after the constants were fixed, and 17 of its 18 misses are in [0.25, 0.5). With every step stored, 223 of 38,000 rows at 19 sites stay unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive doubles below 0.5 match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.",
-      "inferred": "That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC, ERFC.PRECISE and GAUSS rows were scored in full, and for ERF itself the record holds only nine non-zero single-argument inputs below 0.5 (build 19929), all equal to the rational.",
+      "basis": "All 618,225 recorded ERF.PRECISE rows with |x| < 0.5 match; they were only scored, never used to read the coefficients, and ERFC and ERFC.PRECISE match every recorded row in that range. Two fresh sets of 60,000 random doubles below 0.5 (Excel build 20527) match 59,996 and 59,982; the second was asked after the constants were fixed, and 17 of its 18 misses are in [0.25, 0.5). With every step stored, 223 of 38,000 rows at 19 sites stay unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive doubles below 0.5 match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.",
+      "inferred": "That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC and ERFC.PRECISE rows were scored in full, and for ERF itself the record holds only nine non-zero single-argument inputs below 0.5 (build 19929), all equal to the rational.",
       "documentation": null,
       "repros": [
         {
@@ -6120,7 +6120,7 @@
       ],
       "kind": "excel-differs-from-math",
       "title": "MROUND counts a quotient within 5E-15 below a half up",
-      "statement": "MROUND(n,m) forms q = n/m on the x87 unit, counts floor(q), adds 1 when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit. A number just below a half therefore rounds up though it is nearer the lower multiple: 0.499999999999995 with multiple 1 gives 1, and the next binary64 below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient 60.49999999999999 lies 7.1E-15 below the half.",
+      "statement": "MROUND(n,m) forms q = n/m on the x87 unit and stores it to binary64, counts floor(q), adds 1 when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit. A number just below a half therefore rounds up though it is nearer the lower multiple: 0.499999999999995 with multiple 1 gives 1, and the next binary64 below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient 60.49999999999999 lies 7.1E-15 below the half.",
       "status": "measured",
       "basis": "All 50,782 recorded MROUND rows match this rule. The cut-off lies between the adjacent binary64 values 4.996E-15 (rounded up) and 5.0515E-15 (rounded down) from 0.5, measured at floor(q) = 0 over 4,264 rows.",
       "inferred": "The window is measured between two neighbouring values; that the constant is the decimal 5E-15 is inferred, as the decimal in that window.",
@@ -6572,7 +6572,7 @@
       "title": "Conjoining Hangul jamo do not compare equal to the precomposed syllable",
       "statement": "U+1100 U+1161 is canonically equivalent to the syllable U+AC00 in Unicode, but Excel's comparison says they are not equal, and the jamo sequence sorts first. The same holds with a final consonant, U+1100 U+1161 U+11A8 against U+AC01.",
       "status": "measured",
-      "basis": "32 recorded readings on the fn3_collation sheet.",
+      "basis": "32 recorded readings on one collation sheet.",
       "inferred": null,
       "documentation": null,
       "repros": [
@@ -6838,7 +6838,7 @@
       ],
       "kind": "bit-matching-detail",
       "title": "PMT takes ln(1+rate) from a series, and stores its quotient before the rate",
-      "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, PMT with fv 0 and type 0 at rates from -1/3 to 1/2 runs: s = rate/(2+rate); L = 2s + 2s*(s^2*T), where T = 1/3 + s^2/5 + ... + s^20/23 by Horner, all in plain binary64, which is the atanh series for ln(1+rate) (Abramowitz and Stegun 4.1.27) with the 2s term added last; t = -(nper*L); u = exp(t) stored; em = RN(RN((u-1)*t)/ln(u)) for |t| < 1, and RN(u-1) otherwise, Kahan's way of forming expm1; q = RN(pv/em); PMT = RN(q*rate). L is not the correctly rounded logarithm: at rate 0.05/12 it is 0x3f7107fd59addc8a, one unit below 0x3f7107fd59addc8b, and the common 30-year loan below comes out 1 unit from the correctly rounded payment.",
+      "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, PMT with fv 0 and type 0 at rates from -1/3 to 1/2 runs: s = rate/(2+rate); L = 2s + 2s*(s^2*T), where T = 1/3 + s^2/5 + ... + s^20/23 by Horner, all in plain binary64, which is the atanh series for ln(1+rate) (Abramowitz and Stegun 4.1.27) with the 2s term added last; t = -(nper*L); u = exp(t) stored; em = RN(RN(RN(u-1)*t)/ln(u)) for |t| < 1, and RN(u-1) otherwise, Kahan's way of forming expm1; q = RN(pv/em); PMT = RN(q*rate). L is not the correctly rounded logarithm: at rate 0.05/12 it is 0x3f7107fd59addc8a, one unit below 0x3f7107fd59addc8b, and the common 30-year loan below comes out 1 unit from the correctly rounded payment.",
       "status": "measured",
       "basis": "For each of 1,184 rates one binary64 L reproduces Excel's em at every nper (1,622 of 1,622 power-of-two and 1,849 of 1,849 other nper, L taken from nper 1 alone). The series gives that L at 1,181 rates; the correctly rounded log1p and fdlibm's log1p each give it at 667. Order and precision of the last two steps: in all 4,802 groups of recorded answers sharing (rate, nper) with 8 or more pv values, these steps admit one em; a binary64 quotient leaves 59 groups with none, and binary64 for both steps 111. 720 of 720 fresh type 0 rows over 20 rates, both signs, match (Excel build 20527). Over every recorded PMT row, types and fv included, 279,887 of 291,978 match.",
       "inferred": "The range -1/3 to 1/2 is where twelve series terms converge, not a measured Excel boundary. Rate 0.419, near sqrt(2)-1, misses by 1 unit, so a range reduction may start there. Negative rates rest on 20 rates' controls and the recorded rows.",
@@ -6900,7 +6900,7 @@
         }
       ],
       "open": [
-        "type 1: Excel multiplies q by one stored binary64 K near rate/(1+rate) per rate (pinned at 457 of 458 recorded rates and 20 of 20 fresh ones), but K's formula is open: the correctly rounded quotient fits 344 of 458.",
+        "type 1: Excel multiplies q by one stored binary64 K near rate/(1+rate) per rate (pinned at all but one of about 458 recorded rates and at 20 of 20 fresh ones), but K's formula is open: the correctly rounded quotient fits 344 of 458.",
         "Nonzero fv: the numerator of q is open. The best form tried fits 5,600 of 7,491 rows, and 146 rows admit no binary64 numerator under this order.",
         "Rates outside -1/3 to 1/2."
       ],
@@ -7367,7 +7367,7 @@
               "name": "text",
               "value": {
                 "kind": "text",
-                "display": "a\rb",
+                "display": "a, CR (U+000D), b",
                 "bits": null
               }
             },
@@ -7927,6 +7927,126 @@
       "open": [
         "How these patterns sort among themselves and with other numbers, and display width, are not recorded."
       ],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-ROUND-004",
+      "functions": [
+        "FUNC.ROUND"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "ROUND takes ties away from zero on the 15-digit reading, so 1.005 rounds up",
+      "statement": "A tie in ROUND goes away from zero, not to even: ROUND(2.5,0) is 3 and ROUND(-2.5,0) is -3. The tie is judged on the 15-digit reading of FN-ROUND-002, not on the stored value. So 1.005 and 2.675, whose binary64 values lie just below the decimal tie, count as ties: ROUND(1.005,2) is 1.01 and ROUND(2.675,2) is 2.68, where rounding the stored value would give 1 and 2.67.",
+      "status": "measured",
+      "basis": "The readings below, typed as literals, and the family rule of FN-ROUND-002 over the recorded ROUND rows.",
+      "inferred": "That every tie follows this is inferred from the rule's fit to the recorded rows; the literal ties read directly are the ones below.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=ROUND(2.5,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "282f03144b9eb01b63207c1fecd74a726ad6e85f",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json",
+            "locator": "sheet rounding_boundaries, row 8, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=ROUND(-2.5,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-3",
+            "bits": "0xc008000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "282f03144b9eb01b63207c1fecd74a726ad6e85f",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json",
+            "locator": "sheet rounding_boundaries, row 9, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=ROUND(2.675,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2.68",
+            "bits": "0x400570a3d70a3d71"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "2.67",
+            "bits": "0x40055c28f5c28f5c",
+            "how": "The stored value lies below the decimal tie, so the nearest multiple of 0.01 is the lower one; nearest binary64."
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "282f03144b9eb01b63207c1fecd74a726ad6e85f",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json",
+            "locator": "sheet rounding_boundaries, row 19, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=ROUND(1.005,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.01",
+            "bits": "0x3ff028f5c28f5c29"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000",
+            "how": "The stored value lies below the decimal tie, so the nearest multiple of 0.01 is the lower one; nearest binary64."
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "282f03144b9eb01b63207c1fecd74a726ad6e85f",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json",
+            "locator": "sheet rounding_boundaries, row 21, column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "282f03144b9eb01b63207c1fecd74a726ad6e85f",
+          "path": "crates/calc-func/tests/captures/cfunc_m3_2/oracle.capture.json",
+          "locator": null,
+          "note": "the literal readings"
+        },
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+          "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+          "locator": null,
+          "note": "the fifteen-digit reading"
+        }
+      ],
+      "open": [],
       "recorded_on": "2026-11-04"
     },
     {
@@ -8499,9 +8619,9 @@
       ],
       "kind": "excel-differs-from-math",
       "title": "SQRT is rounded twice, once to 64 bits and once to 53",
-      "statement": "The worksheet SQRT is RN53(RN64(sqrt(x))): the root is rounded to the x87 unit's 64-bit significand and then stored to binary64. On inputs where that double rounding lands differently from a single rounding, Excel takes the double-rounded value: SQRT(0.9999999999999999) is 1. The smallest subnormal input returns 0.",
+      "statement": "The worksheet SQRT is RN53(RN64(sqrt(x))): the root is rounded to the x87 unit's 64-bit significand and then stored to binary64. On inputs where that double rounding lands differently from a single rounding, Excel takes the double-rounded value: SQRT(0.9999999999999999) is 1. A subnormal written to a cell reads back as 0, so the 0 for the smallest subnormal below may record that and not SQRT.",
       "status": "measured",
-      "basis": "41,897 of 41,897 distinct normal positive bank rows match. On the 164 rows where double and correct rounding differ, Excel follows double rounding every time. The subnormal result rests on 1 row.",
+      "basis": "41,897 of 41,897 distinct normal positive recorded rows match. On the 164 rows where double and correct rounding differ, Excel follows double rounding every time. The subnormal row is 1 row, and no read-back of its input is recorded.",
       "inferred": null,
       "documentation": null,
       "repros": [
@@ -8589,12 +8709,7 @@
             "display": "0",
             "bits": "0x0000000000000000"
           },
-          "correct": {
-            "kind": "number",
-            "display": "2.2227587494850775e-162",
-            "bits": "0x1e60000000000000",
-            "how": "Exact square root at 800 bits, correctly rounded."
-          },
+          "correct": null,
           "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
           "source": {
             "repository": "OxFunc-Evidence",
@@ -8764,7 +8879,7 @@
       "title": "Locale-tagged month, weekday and era names in TEXT follow their own table",
       "statement": "With a locale tag in the format, TEXT's names differ from common locale data. [$-407] (German) gives mmm for March as Mrz, while mmmm gives März. [$-411] (Japanese) gives mmm as a bare number, 1, while mmmm gives 1月. [$-419] (Russian) capitalises mmmm (Январь) but not mmm (янв), and capitalises ddd (Ср) but not dddd. The first year of the Reiwa era prints as 1, not 元年; g, gg and ggg give R, 令 and 令和, switching on 2019-05-01.",
       "status": "measured",
-      "basis": "170 recorded TEXT readings on the fn3_text sheet.",
+      "basis": "170 recorded TEXT readings on one TEXT sheet.",
       "inferred": null,
       "documentation": null,
       "repros": [
@@ -9035,7 +9150,7 @@
             "bits": null
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -9054,7 +9169,7 @@
             "bits": null
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -9073,7 +9188,7 @@
             "bits": null
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -9230,7 +9345,7 @@
       "title": "TRUNC of DBL_MIN returns a subnormal, not 0",
       "statement": "With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal 0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6 steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit reading 2.22507385850720E-308. The recorded rows hold 256 such cases for each of the three functions. ROUND gives 0 on the same inputs.",
       "status": "measured",
-      "basis": "Recorded rows of the broad W111 capture; counts from the rounding write-up.",
+      "basis": "Recorded rows of the broad capture; counts from the rounding write-up.",
       "inferred": null,
       "documentation": null,
       "repros": [
@@ -10028,7 +10143,7 @@
       ],
       "kind": "excel-differs-from-math",
       "title": "The variance family uses raw moments with stored steps, and two tests switch it to a centered sum",
-      "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, S the running RN sum of the n values and Q the running RN sum of RN(x*x), the sample variance is RN(RN(Q - RN(RN(S*S)/n))/(n-1)) and the population variance RN(RN(RN(n*Q) - RN(S*S))/RN(n*n)). Excel then uses a centered sum instead, adding RN(d*d) with d = RN(x - mean) and dividing by n-1 or n, when either of two stored tests holds: RN(RN(RN(S*S)/n)/Q) > 0.99, or RN(variance*1000) <= |RN(S/n)|. The STDEV functions are the root of this, rounded to 64 bits and then stored. So the answer depends on which path a call takes: the two VAR.S calls below differ by one input step in two arguments, the first passes the 0.99 test and is correctly rounded, and the second takes the raw moments and lands 76 units high. The second pair shows the size test: scaling the inputs by 4 leaves the first path.",
+      "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, S the running RN sum of the n values and Q the running RN sum of RN(x*x), the sample variance is RN(RN(Q - RN(RN(S*S)/n))/(n-1)) and the population variance RN(RN(RN(n*Q) - RN(S*S))/RN(n*n)). Excel then uses a centered sum instead, adding RN(d*d) with d = RN(x - mean) and dividing by n-1 or n, when either of two stored tests holds: RN(RN(RN(S*S)/n)/Q) > 0.99, or RN(variance*1000) <= |RN(S/n)|. The STDEV functions are the root of this, rounded to 64 bits and then stored. So the answer depends on which path a call takes: the first two VAR.S calls below differ by a few input steps in two arguments, the first passes the 0.99 test and is correctly rounded, and the second takes the raw moments and lands 76 units high. The next pair shows the size test: scaling the inputs by 4 leaves the first path.",
       "status": "measured",
       "basis": "All 14,679 recorded rows of the twelve functions match: VAR.S, VAR.P, VAR, VARP, VARA, VARPA, STDEV.S, STDEV.P, STDEV, STDEVP, STDEVA and STDEVPA. Six of those rows separate the stored steps from plain binary64. 910 fresh scalar variance readings (Excel build 20527) replay exactly in rational arithmetic. Four cancellation edges were bisected to adjacent inputs; sixteen triples chosen to separate the stored ratio from 0.99*Q and from a division by 0.99 all agree with the ratio, where 0.99*Q misses all 16 and the division 14. Seven of eight magnitude brackets reach adjacent inputs, and sixteen chosen roots all need the 64-bit root followed by a store.",
       "inferred": "These tests were located with scalar arguments in separate cells; that the same edges hold for ranges and arrays is inferred, and their readings have not been taken. RN(variance*1000) <= |mean| is not separated from the rearrangement variance <= |mean|/1000. That a raw moment which overflows also takes the centered sum is inferred from recorded answers that stay finite.",
@@ -10376,7 +10491,7 @@
             "bits": "0x4056800000000000"
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -10436,7 +10551,7 @@
             "bits": "0x4064000000000000"
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -10496,7 +10611,7 @@
             "bits": null
           },
           "correct": null,
-          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "recorded_in": "Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
           "source": {
             "repository": "OxFunc-Evidence",
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
@@ -10981,7 +11096,7 @@
         "FUNC.YEARFRAC"
       ],
       "kind": "quirk",
-      "title": "On basis 1 the fictitious 1900-02-29 is not a leap day, and serial 0 is a valid date",
+      "title": "On basis 1 the fictitious 1900-02-29 is not a leap day, and YEARFRAC takes serial 0 as a date",
       "statement": "Excel's calendar holds a 29 February 1900, serial 60, that never existed. On basis 1 (actual/actual) it does not make 1900 a leap year: YEARFRAC(59,60,1) is 1/365, where the real 1904-02-29 gives YEARFRAC(1520,1521,1) = 1/366. Serial 0 is accepted as a date: YEARFRAC(0,5,0) is 5/360 and YEARFRAC(0,60,1) is 60/365. Reversed dates give the same answer as in order. ACCRINTM, DISC, INTRATE, PRICEDISC and RECEIVED take the same 365 and 366 on those dates: DISC(59,60,99,100,1) is about 3.65 and DISC(1520,1521,99,100,1) about 3.66.",
       "status": "measured",
       "basis": "19 YEARFRAC readings around serial 60 and the 1904, 2000 and 2004 leap days, 35 readings with serial 0 on all five bases, and 3 readings each from five financial functions.",

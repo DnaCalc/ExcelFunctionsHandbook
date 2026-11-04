@@ -216,9 +216,9 @@ An empty string as text gives #N/A (delimiter not found) from TEXTBEFORE and TEX
 
 | Call | Inputs (binary64) | Excel | Recorded in |
 |---|---|---|---|
-| `=TEXTBEFORE("","-")` | as typed | `#N/A` | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
-| `=TEXTAFTER("","-")` | as typed | `#N/A` | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
-| `=TEXTSPLIT("",",")` | as typed | `#VALUE!` | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=TEXTBEFORE("","-")` | as typed | `#N/A` | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=TEXTAFTER("","-")` | as typed | `#N/A` | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=TEXTSPLIT("",",")` | as typed | `#VALUE!` | Excel build not recorded in this run; bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 
 Basis (measured): Three recorded readings, with blank-cell and logical companions in the same
 run.
