@@ -1,0 +1,176 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-WEEKNUM-001",
+  "functions": [
+    "FUNC.WEEKNUM"
+  ],
+  "kind": "quirk",
+  "title": "WEEKNUM with an invalid return_type gave different answers in one build",
+  "statement": "The documentation says an out-of-range return_type gives #NUM!. In recorded captures of one Excel build, 479 (serial_number, return_type) pairs were read with different results: usually #NUM!, sometimes a number (0, 1, 9, 10, 53 or 54). Some pairs differ within one run file. Every conflict has an invalid return_type (-5 to -1 or 22 to 129, 113 distinct values); no valid return_type conflicts. The conflict is open: no rule is claimed.",
+  "status": "measured",
+  "basis": "The recorded readings conflict with each other; the counts come from the DnaCalc witness differences file.",
+  "inferred": null,
+  "documentation": {
+    "claim": "If Return_type is out of the range specified in the table above, a #NUM! error is returned.",
+    "source": "https://support.microsoft.com/en-us/office/weeknum-function-e5c43a03-b4ab-426c-b411-b18c13c75340"
+  },
+  "repros": [
+    {
+      "call": "WEEKNUM(0, 23)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "serial_number",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "return_type",
+          "value": {
+            "kind": "number",
+            "display": "23",
+            "bits": "0x4037000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz",
+        "locator": "date-boundary-WEEKNUM-00188",
+        "note": null
+      }
+    },
+    {
+      "call": "WEEKNUM(0, 23)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "serial_number",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "return_type",
+          "value": {
+            "kind": "number",
+            "display": "23",
+            "bits": "0x4037000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz",
+        "locator": "date-conversion-WEEKNUM-01331",
+        "note": null
+      }
+    },
+    {
+      "call": "WEEKNUM(0, 33)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "serial_number",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "return_type",
+          "value": {
+            "kind": "number",
+            "display": "33",
+            "bits": "0x4040800000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz",
+        "locator": "date-boundary-WEEKNUM-00940",
+        "note": null
+      }
+    },
+    {
+      "call": "WEEKNUM(0, 33)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "serial_number",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "return_type",
+          "value": {
+            "kind": "number",
+            "display": "33",
+            "bits": "0x4040800000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz",
+        "locator": "date-conversion-WEEKNUM-00133",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "9c23dde1dfd6d93e742d763a4bad3eaec229b29c",
+      "path": "crates/calc-func/witness-differences.tsv",
+      "locator": "WEEKNUM",
+      "note": "index of the conflicting readings"
+    }
+  ],
+  "open": [
+    "Repeat readings of the conflicting pairs, in one fresh workbook, have not been taken."
+  ],
+  "recorded_on": "2026-11-04"
+}

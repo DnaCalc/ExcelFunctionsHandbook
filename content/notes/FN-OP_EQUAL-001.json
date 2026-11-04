@@ -1,0 +1,87 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_EQUAL-001",
+  "functions": [
+    "FUNC.OP_EQUAL",
+    "FUNC.OP_LESS_THAN"
+  ],
+  "kind": "quirk",
+  "title": "Conjoining Hangul jamo do not compare equal to the precomposed syllable",
+  "statement": "U+1100 U+1161 is canonically equivalent to the syllable U+AC00 in Unicode, but Excel's comparison says they are not equal, and the jamo sequence sorts first. The same holds with a final consonant, U+1100 U+1161 U+11A8 against U+AC01.",
+  "status": "measured",
+  "basis": "32 recorded readings on the fn3_collation sheet.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=\"가\"=\"가\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+        "locator": "sheet fn3_collation, row 290, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"가\"<\"가\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+        "locator": "sheet fn3_collation, row 291, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"각\"=\"각\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+        "locator": "sheet fn3_collation, row 296, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+      "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+      "locator": "sheet fn3_collation, rows 290 to 321",
+      "note": null
+    }
+  ],
+  "open": [
+    "Twelve further boundary questions are unanswered."
+  ],
+  "recorded_on": "2026-11-04"
+}

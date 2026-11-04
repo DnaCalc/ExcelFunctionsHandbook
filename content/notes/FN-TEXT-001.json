@@ -1,0 +1,84 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TEXT-001",
+  "functions": [
+    "FUNC.TEXT"
+  ],
+  "kind": "quirk",
+  "title": "Locale-tagged month, weekday and era names in TEXT follow their own table",
+  "statement": "With a locale tag in the format, TEXT's names differ from common locale data. [$-407] (German) gives mmm for March as Mrz, while mmmm gives März. [$-411] (Japanese) gives mmm as a bare number, 1, while mmmm gives 1月. [$-419] (Russian) capitalises mmmm (Январь) but not mmm (янв), and capitalises ddd (Ср) but not dddd. The first year of the Reiwa era prints as 1, not 元年; g, gg and ggg give R, 令 and 令和, switching on 2019-05-01.",
+  "status": "measured",
+  "basis": "170 recorded TEXT readings on the fn3_text sheet.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TEXT(DATE(2023,3,15),\"[$-407]mmm\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "Mrz",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+        "locator": "sheet fn3_text, row 6, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(DATE(2023,1,15),\"[$-411]mmm\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "1",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+        "locator": "sheet fn3_text, row 78, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(DATE(2019,5,1),\"[$-411]ggge\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "令和1",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+        "locator": "sheet fn3_text, row 164, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f4930602d7b2f49cce13fb1bd030f7df2937adfa",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "locale_tagged_date_names_follow_the_retained_fn3_readings",
+      "note": "recorded readings pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

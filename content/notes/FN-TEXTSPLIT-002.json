@@ -1,0 +1,123 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TEXTSPLIT-002",
+  "functions": [
+    "FUNC.REGEXEXTRACT",
+    "FUNC.TEXTSPLIT"
+  ],
+  "kind": "quirk",
+  "title": "Over an array, TEXTSPLIT and REGEXEXTRACT keep only the first piece of each element",
+  "statement": "When TEXTSPLIT's text is an array, even a 1 by 1 array, the call lifts over the elements and each returns only its first piece. MAP over the same lambda gives #CALC!, while BYROW gives the first pieces. REGEXEXTRACT lifted over return_mode does the same, and mode 2 on a pattern with no capture group gives #VALUE!.",
+  "status": "measured",
+  "basis": "About 15 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TEXTSPLIT({\"a,b,c\",\"d,e\"},\",\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{\"a\",\"d\"}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q049, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXTSPLIT({\"a,b\"},\",\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "a",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q093, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=REGEXEXTRACT(\"a12b34\",\"[0-9]+\",{0,1,2})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{\"12\",\"12\",#VALUE!}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q079, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=MAP({\"a,b\",\"c,d\"},LAMBDA(txt,TEXTSPLIT(txt,\",\")))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q088, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=BYROW({\"a,b\";\"c,d\"},LAMBDA(txt,TEXTSPLIT(txt,\",\")))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{\"a\";\"c\"}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q089, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "78b470c77271d6af938e16d5493882b8300cee62",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "roots 078 and 079",
+      "note": "REGEXEXTRACT results in the product"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

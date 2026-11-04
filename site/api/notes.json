@@ -1,8 +1,251 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 23,
+  "note_count": 36,
   "notes": [
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-ABS-001",
+      "functions": [
+        "FUNC.ABS"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "Text to number checks the exponent range even when the mantissa is zero",
+      "statement": "Converting text to a number, measured through ABS, rejects a zero mantissa with an out-of-range exponent: ABS(\"0e-309\") is #VALUE! though the text denotes 0, and ABS(\"0e-308\") is 0. The exponent counts as written, less the fraction digits, less 2 for a percent sign, so ABS(\"0.0e309\") is 0, ABS(\"0e309\") is #VALUE!, and ABS(\"0e-307%\") is #VALUE!.",
+      "status": "measured",
+      "basis": "About 120 recorded zero-mantissa cases through ABS.",
+      "inferred": "The exponent formula is inferred, though it fits every reading; that other functions share this conversion is inferred.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=ABS(\"0e-309\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000",
+            "how": "The text denotes zero: a zero mantissa is 0 at any exponent."
+          },
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111textbounds-00008-abs-boundary-2-0",
+            "note": null
+          }
+        },
+        {
+          "call": "=ABS(\"0e-308\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111textbounds-00012-abs-boundary-3-0",
+            "note": null
+          }
+        },
+        {
+          "call": "=ABS(\"0e-307%\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111textbounds-00017-abs-boundary-4-1",
+            "note": null
+          }
+        },
+        {
+          "call": "=ABS(\"0e309\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000",
+            "how": "The text denotes zero: a zero mantissa is 0 at any exponent."
+          },
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111textbounds-00028-abs-boundary-7-0",
+            "note": null
+          }
+        },
+        {
+          "call": "=ABS(\"0.0e309\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111textbounds-00108-abs-boundary-27-0",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "344c1667872a7d62669ca3044decb06c92b1e6f6",
+          "path": "apps/dna-onecalc/tests/acceptance.rs",
+          "locator": "recorded_zero_percentage_exponents_are_validated",
+          "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-BAHTTEXT-001",
+      "functions": [
+        "FUNC.BAHTTEXT"
+      ],
+      "kind": "quirk",
+      "title": "A tiny negative amount keeps the word for minus before zero baht",
+      "statement": "A negative amount that rounds to zero satang still gets the word for minus, ลบ: BAHTTEXT(-0.001) is ลบศูนย์บาทถ้วน. -0 gives plain ศูนย์บาทถ้วน.",
+      "status": "measured",
+      "basis": "8 recorded readings.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "BAHTTEXT(-0.001)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-0.001",
+                "bits": "0xbf50624dd2f1a9fc"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "ลบศูนย์บาทถ้วน",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz",
+            "locator": "line 1210, key BAHTTEXT|0xbf50624dd2f1a9fc",
+            "note": null
+          }
+        },
+        {
+          "call": "BAHTTEXT(-0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-0",
+                "bits": "0x8000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "ศูนย์บาทถ้วน",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz",
+            "locator": "line 1225, key BAHTTEXT|0x8000000000000000",
+            "note": null
+          }
+        },
+        {
+          "call": "BAHTTEXT(-0.005)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-0.005",
+                "bits": "0xbf747ae147ae147b"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "ลบหนึ่งสตางค์",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz",
+            "locator": "line 1212, key BAHTTEXT|0xbf747ae147ae147b",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "36ff603e690aca6e53930870c02fd5fa92a9004a",
+          "path": "apps/dna-onecalc/tests/acceptance.rs",
+          "locator": "recorded_bahttext_retains_the_sign_of_a_negative_amount",
+          "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
     {
       "schema": "efh.function-note/v1",
       "note_id": "FN-BESSELI-001",
@@ -600,6 +843,105 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-CHOOSE-001",
+      "functions": [
+        "FUNC.CHOOSE"
+      ],
+      "kind": "quirk",
+      "title": "An array index in CHOOSE turns selected blank cells into 0",
+      "statement": "When an array index_num lifts CHOOSE in dynamic-array Excel, selected empty cells come back as the number 0 rather than as blank references, so ISBLANK over them is FALSE.",
+      "status": "measured",
+      "basis": "One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells.",
+      "inferred": "That a scalar index keeps the blank reference is a DnaCalc control, not a recorded reading.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=ISBLANK(CHOOSE({1,2},Data!Z1,Data!Z2))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{FALSE,FALSE}",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+            "locator": "sheet fn2_q193, row 20, column 10",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+          "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+          "locator": "sheet fn2_q193",
+          "note": null
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "1ec418b2c1301d36309d717999512776b1d8630d",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-b1l.24",
+          "note": "review record"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-COUNTBLANK-001",
+      "functions": [
+        "FUNC.COUNTBLANK"
+      ],
+      "kind": "quirk",
+      "title": "COUNTBLANK of an omitted optional LAMBDA parameter is #VALUE!",
+      "statement": "An optional LAMBDA parameter left out reaches COUNTBLANK as a missing value, and the result is #VALUE!, not a count of 1.",
+      "status": "measured",
+      "basis": "One recorded reading.",
+      "inferred": "That this holds for missing values in general is inferred.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=LAMBDA([xx],COUNTBLANK(xx))()",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+            "locator": "sheet fn2_q187, row 20, column 10",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+          "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+          "locator": "sheet fn2_q187",
+          "note": null
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-CUMPRINC-001",
       "functions": [
         "FUNC.CUMIPMT",
@@ -999,6 +1341,280 @@
         "Whether subnormal arguments use this route.",
         "Whether the rational runs to 0.5 or to Cody's own 0.46875."
       ],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FLOOR-001",
+      "functions": [
+        "FUNC.FLOOR"
+      ],
+      "kind": "quirk",
+      "title": "FLOOR of zero is +0, even with significance 0",
+      "statement": "FLOOR(0,0) and FLOOR(-0,0) return +0. A zero number with a negative significance also returns +0, not #NUM!. Only a nonzero number with significance 0 gives #DIV/0!.",
+      "status": "measured",
+      "basis": "12 recorded readings.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "FLOOR(0, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+            "locator": "w111broad-20260929-FLOOR-00002",
+            "note": null
+          }
+        },
+        {
+          "call": "FLOOR(-0, -2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-0",
+                "bits": "0x8000000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "-2",
+                "bits": "0xc000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+            "locator": "w111broad-20260929-FLOOR-00005",
+            "note": null
+          }
+        },
+        {
+          "call": "FLOOR(1, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+            "locator": "w111broad-20260929-FLOOR-00062",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "1474b041c8dfa99157933d00ef2f5f5a7982f379",
+          "path": "apps/dna-onecalc/tests/acceptance.rs",
+          "locator": "recorded_floor_zero_identity_precedes_its_multiple_error",
+          "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-GCD-001",
+      "functions": [
+        "FUNC.GCD",
+        "FUNC.LCM"
+      ],
+      "kind": "documentation-differs",
+      "title": "GCD and LCM accept 2^53 itself, not only values below it",
+      "statement": "GCD accepts an operand equal to 2^53, and LCM accepts an operand or a result equal to 2^53. Only values above 2^53 give #NUM!.",
+      "status": "measured",
+      "basis": "All recorded rows match after the boundary change: GCD 7,966 of 7,966 and LCM 7,967 of 7,967.",
+      "inferred": null,
+      "documentation": {
+        "claim": "If a parameter to GCD is >=2^53, GCD returns the #NUM! error value. If LCM(a,b) >=2^53, LCM returns the #NUM! error value.",
+        "source": "https://support.microsoft.com/en-us/office/gcd-function-d5107a51-69e3-461f-8e4c-ddfc21b5073a; https://support.microsoft.com/en-us/office/lcm-function-7152b67a-8bb5-4075-ae5c-06ede5563c94"
+      },
+      "repros": [
+        {
+          "call": "GCD(9007199254740992, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "9007199254740992",
+                "bits": "0x4340000000000000"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz",
+            "locator": "w111boundary-GCD-00190",
+            "note": null
+          }
+        },
+        {
+          "call": "LCM(9007199254740992, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "9007199254740992",
+                "bits": "0x4340000000000000"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "9007199254740992",
+            "bits": "0x4340000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz",
+            "locator": "w111boundary-LCM-00194",
+            "note": null
+          }
+        },
+        {
+          "call": "GCD(9007199254740994, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "9007199254740994",
+                "bits": "0x4340000000000001"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz",
+            "locator": "w111boundary-GCD-00217",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "9c23dde1dfd6d93e742d763a4bad3eaec229b29c",
+          "path": "apps/dna-onecalc/tests/acceptance.rs",
+          "locator": "recorded_gcd_lcm_admit_the_exact_operand_boundary",
+          "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
       "recorded_on": "2026-11-04"
     },
     {
@@ -1431,6 +2047,93 @@
         }
       ],
       "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-OP_EQUAL-001",
+      "functions": [
+        "FUNC.OP_EQUAL",
+        "FUNC.OP_LESS_THAN"
+      ],
+      "kind": "quirk",
+      "title": "Conjoining Hangul jamo do not compare equal to the precomposed syllable",
+      "statement": "U+1100 U+1161 is canonically equivalent to the syllable U+AC00 in Unicode, but Excel's comparison says they are not equal, and the jamo sequence sorts first. The same holds with a final consonant, U+1100 U+1161 U+11A8 against U+AC01.",
+      "status": "measured",
+      "basis": "32 recorded readings on the fn3_collation sheet.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=\"가\"=\"가\"",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+            "locator": "sheet fn3_collation, row 290, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=\"가\"<\"가\"",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+            "locator": "sheet fn3_collation, row 291, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=\"각\"=\"각\"",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+            "locator": "sheet fn3_collation, row 296, column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+          "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+          "locator": "sheet fn3_collation, rows 290 to 321",
+          "note": null
+        }
+      ],
+      "open": [
+        "Twelve further boundary questions are unanswered."
+      ],
       "recorded_on": "2026-11-04"
     },
     {
@@ -2474,6 +3177,91 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-SORT-001",
+      "functions": [
+        "FUNC.OP_LESS_THAN",
+        "FUNC.SORT"
+      ],
+      "kind": "quirk",
+      "title": "A Han iteration mark is not read as a repeat of the character",
+      "statement": "In text comparison and SORT, after a Han character the iteration mark 々 sorts before Latin letters and before the doubled character: 時 < 時々 < 時a < 時b < 時時. Latin letters sort before Han here, and 時々 is not treated as 時時.",
+      "status": "measured",
+      "basis": "77 recorded controls over three bases (時, 人, 漢).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=\"時々\"<\"時時\"",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f3275d997ae0706471e7b2c52b36fafad6966a03",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+            "locator": "sheet fn1_collation, row 2, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=\"時々\"<\"時a\"",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f3275d997ae0706471e7b2c52b36fafad6966a03",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+            "locator": "sheet fn1_collation, row 3, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=TEXTJOIN(\"|\",FALSE,SORT({\"時々\";\"時時\";\"時\";\"時a\";\"時b\"}))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "時|時々|時a|時b|時時",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f3275d997ae0706471e7b2c52b36fafad6966a03",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+            "locator": "sheet fn1_collation, row 229, column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "44db028d72d692e94557b3657748d25643cd199d",
+          "path": "crates/calc-fml/tests/acceptance/f3.rs",
+          "locator": "fn1_han_iteration_comparison_and_lookup_order",
+          "note": "recorded order pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-SQRT-001",
       "functions": [
         "FUNC.SQRT"
@@ -2693,6 +3481,299 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-TEXT-001",
+      "functions": [
+        "FUNC.TEXT"
+      ],
+      "kind": "quirk",
+      "title": "Locale-tagged month, weekday and era names in TEXT follow their own table",
+      "statement": "With a locale tag in the format, TEXT's names differ from common locale data. [$-407] (German) gives mmm for March as Mrz, while mmmm gives März. [$-411] (Japanese) gives mmm as a bare number, 1, while mmmm gives 1月. [$-419] (Russian) capitalises mmmm (Январь) but not mmm (янв), and capitalises ddd (Ср) but not dddd. The first year of the Reiwa era prints as 1, not 元年; g, gg and ggg give R, 令 and 令和, switching on 2019-05-01.",
+      "status": "measured",
+      "basis": "170 recorded TEXT readings on the fn3_text sheet.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=TEXT(DATE(2023,3,15),\"[$-407]mmm\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "Mrz",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+            "locator": "sheet fn3_text, row 6, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=TEXT(DATE(2023,1,15),\"[$-411]mmm\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+            "locator": "sheet fn3_text, row 78, column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=TEXT(DATE(2019,5,1),\"[$-411]ggge\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "令和1",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn3_questions/oracle.capture.json",
+            "locator": "sheet fn3_text, row 164, column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f4930602d7b2f49cce13fb1bd030f7df2937adfa",
+          "path": "apps/dna-onecalc/tests/acceptance.rs",
+          "locator": "locale_tagged_date_names_follow_the_retained_fn3_readings",
+          "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-TEXTSPLIT-001",
+      "functions": [
+        "FUNC.TEXTAFTER",
+        "FUNC.TEXTBEFORE",
+        "FUNC.TEXTSPLIT"
+      ],
+      "kind": "quirk",
+      "title": "Empty text gives #N/A from TEXTBEFORE and TEXTAFTER, #VALUE! from TEXTSPLIT",
+      "statement": "An empty string as text gives #N/A (delimiter not found) from TEXTBEFORE and TEXTAFTER, but #VALUE! from TEXTSPLIT.",
+      "status": "measured",
+      "basis": "Three recorded readings, with blank-cell and logical companions in the same run.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=TEXTBEFORE(\"\",\"-\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz",
+            "locator": "w111typed-00274-textbefore-arg1-empty-text",
+            "note": null
+          }
+        },
+        {
+          "call": "=TEXTAFTER(\"\",\"-\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz",
+            "locator": "w111typed-00266-textafter-arg1-empty-text",
+            "note": null
+          }
+        },
+        {
+          "call": "=TEXTSPLIT(\"\",\",\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz",
+            "locator": "w111typed-00282-textsplit-arg1-empty-text",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "080a6f2f7b65e750400837841f9db3d3822d8ec3",
+          "path": "crates/calc-func/tests/f2_text.rs",
+          "locator": "empty_text_delimiter_errors_match_the_recorded_excel_values",
+          "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-TEXTSPLIT-002",
+      "functions": [
+        "FUNC.REGEXEXTRACT",
+        "FUNC.TEXTSPLIT"
+      ],
+      "kind": "quirk",
+      "title": "Over an array, TEXTSPLIT and REGEXEXTRACT keep only the first piece of each element",
+      "statement": "When TEXTSPLIT's text is an array, even a 1 by 1 array, the call lifts over the elements and each returns only its first piece. MAP over the same lambda gives #CALC!, while BYROW gives the first pieces. REGEXEXTRACT lifted over return_mode does the same, and mode 2 on a pattern with no capture group gives #VALUE!.",
+      "status": "measured",
+      "basis": "About 15 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=TEXTSPLIT({\"a,b,c\",\"d,e\"},\",\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{\"a\",\"d\"}",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+            "locator": "sheet fn2_q049, row 20, column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=TEXTSPLIT({\"a,b\"},\",\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "a",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+            "locator": "sheet fn2_q093, row 20, column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=REGEXEXTRACT(\"a12b34\",\"[0-9]+\",{0,1,2})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{\"12\",\"12\",#VALUE!}",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+            "locator": "sheet fn2_q079, row 20, column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=MAP({\"a,b\",\"c,d\"},LAMBDA(txt,TEXTSPLIT(txt,\",\")))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#CALC!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+            "locator": "sheet fn2_q088, row 20, column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=BYROW({\"a,b\";\"c,d\"},LAMBDA(txt,TEXTSPLIT(txt,\",\")))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{\"a\";\"c\"}",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+            "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+            "locator": "sheet fn2_q089, row 20, column 10",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "78b470c77271d6af938e16d5493882b8300cee62",
+          "path": "apps/dna-onecalc/tests/acceptance.rs",
+          "locator": "roots 078 and 079",
+          "note": "REGEXEXTRACT results in the product"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-TRUNC-001",
       "functions": [
         "FUNC.ROUNDDOWN",
@@ -2801,6 +3882,392 @@
       ],
       "open": [
         "Why this one input converts 3 steps below nearest."
+      ],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-VDB-001",
+      "functions": [
+        "FUNC.VDB"
+      ],
+      "kind": "documentation-differs",
+      "title": "An empty factor slot in VDB is 0, not the default 2",
+      "statement": "VDB defaults factor to 2 only when the argument is left off the end of the call. An empty slot, as in VDB(c,s,l,a,b,,FALSE), is read as 0, and the result is the straight-line amount: 90 here, where factor 2 gives 160. Text factors other than numbers give #VALUE!, including \"TRUE\" and \"FALSE\", while \"2\" is read as 2.",
+      "status": "measured",
+      "basis": "Ten recorded option readings (cases 00022 to 00031 of the run). After the change VDB matches 142 of 142 retained padding calls.",
+      "inferred": null,
+      "documentation": {
+        "claim": "If factor is omitted, it is assumed to be 2 (the double-declining balance method).",
+        "source": "https://support.microsoft.com/en-us/office/vdb-function-dde4e207-f3fa-488d-91d2-66d55e861d73"
+      },
+      "repros": [
+        {
+          "call": "=VDB(A100,A101,A102,A103,A104,,FALSE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "cost",
+              "value": {
+                "kind": "number",
+                "display": "1000",
+                "bits": "0x408f400000000000"
+              }
+            },
+            {
+              "name": "salvage",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "life",
+              "value": {
+                "kind": "number",
+                "display": "10",
+                "bits": "0x4024000000000000"
+              }
+            },
+            {
+              "name": "start_period",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "end_period",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "90",
+            "bits": "0x4056800000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111dep-options-00022-vdb-optional-5-22",
+            "note": null
+          }
+        },
+        {
+          "call": "=VDB(A100,A101,A102,A103,A104,\"2\",FALSE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "cost",
+              "value": {
+                "kind": "number",
+                "display": "1000",
+                "bits": "0x408f400000000000"
+              }
+            },
+            {
+              "name": "salvage",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "life",
+              "value": {
+                "kind": "number",
+                "display": "10",
+                "bits": "0x4024000000000000"
+              }
+            },
+            {
+              "name": "start_period",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "end_period",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "160",
+            "bits": "0x4064000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111dep-options-00025-vdb-optional-5-25",
+            "note": null
+          }
+        },
+        {
+          "call": "=VDB(A100,A101,A102,A103,A104,\"TRUE\",FALSE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "cost",
+              "value": {
+                "kind": "number",
+                "display": "1000",
+                "bits": "0x408f400000000000"
+              }
+            },
+            {
+              "name": "salvage",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "life",
+              "value": {
+                "kind": "number",
+                "display": "10",
+                "bits": "0x4024000000000000"
+              }
+            },
+            {
+              "name": "start_period",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "end_period",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz",
+            "locator": "w111dep-options-00026-vdb-optional-5-26",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "cfdc059510fa71bb7ae9609bb92e30a2d384de56",
+          "path": "apps/dna-onecalc/tests/acceptance.rs",
+          "locator": "recorded_vdb_explicit_missing_factor_is_zero",
+          "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-WEEKNUM-001",
+      "functions": [
+        "FUNC.WEEKNUM"
+      ],
+      "kind": "quirk",
+      "title": "WEEKNUM with an invalid return_type gave different answers in one build",
+      "statement": "The documentation says an out-of-range return_type gives #NUM!. In recorded captures of one Excel build, 479 (serial_number, return_type) pairs were read with different results: usually #NUM!, sometimes a number (0, 1, 9, 10, 53 or 54). Some pairs differ within one run file. Every conflict has an invalid return_type (-5 to -1 or 22 to 129, 113 distinct values); no valid return_type conflicts. The conflict is open: no rule is claimed.",
+      "status": "measured",
+      "basis": "The recorded readings conflict with each other; the counts come from the DnaCalc witness differences file.",
+      "inferred": null,
+      "documentation": {
+        "claim": "If Return_type is out of the range specified in the table above, a #NUM! error is returned.",
+        "source": "https://support.microsoft.com/en-us/office/weeknum-function-e5c43a03-b4ab-426c-b411-b18c13c75340"
+      },
+      "repros": [
+        {
+          "call": "WEEKNUM(0, 23)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "23",
+                "bits": "0x4037000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz",
+            "locator": "date-boundary-WEEKNUM-00188",
+            "note": null
+          }
+        },
+        {
+          "call": "WEEKNUM(0, 23)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "23",
+                "bits": "0x4037000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz",
+            "locator": "date-conversion-WEEKNUM-01331",
+            "note": null
+          }
+        },
+        {
+          "call": "WEEKNUM(0, 33)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "33",
+                "bits": "0x4040800000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz",
+            "locator": "date-boundary-WEEKNUM-00940",
+            "note": null
+          }
+        },
+        {
+          "call": "WEEKNUM(0, 33)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "33",
+                "bits": "0x4040800000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz",
+            "locator": "date-conversion-WEEKNUM-00133",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "9c23dde1dfd6d93e742d763a4bad3eaec229b29c",
+          "path": "crates/calc-func/witness-differences.tsv",
+          "locator": "WEEKNUM",
+          "note": "index of the conflicting readings"
+        }
+      ],
+      "open": [
+        "Repeat readings of the conflicting pairs, in one fresh workbook, have not been taken."
       ],
       "recorded_on": "2026-11-04"
     }

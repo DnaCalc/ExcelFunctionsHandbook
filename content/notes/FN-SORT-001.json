@@ -1,0 +1,85 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SORT-001",
+  "functions": [
+    "FUNC.OP_LESS_THAN",
+    "FUNC.SORT"
+  ],
+  "kind": "quirk",
+  "title": "A Han iteration mark is not read as a repeat of the character",
+  "statement": "In text comparison and SORT, after a Han character the iteration mark 々 sorts before Latin letters and before the doubled character: 時 < 時々 < 時a < 時b < 時時. Latin letters sort before Han here, and 時々 is not treated as 時時.",
+  "status": "measured",
+  "basis": "77 recorded controls over three bases (時, 人, 漢).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=\"時々\"<\"時時\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f3275d997ae0706471e7b2c52b36fafad6966a03",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation, row 2, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"時々\"<\"時a\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f3275d997ae0706471e7b2c52b36fafad6966a03",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation, row 3, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXTJOIN(\"|\",FALSE,SORT({\"時々\";\"時時\";\"時\";\"時a\";\"時b\"}))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "時|時々|時a|時b|時時",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f3275d997ae0706471e7b2c52b36fafad6966a03",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation, row 229, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "44db028d72d692e94557b3657748d25643cd199d",
+      "path": "crates/calc-fml/tests/acceptance/f3.rs",
+      "locator": "fn1_han_iteration_comparison_and_lookup_order",
+      "note": "recorded order pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

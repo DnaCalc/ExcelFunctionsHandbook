@@ -1,0 +1,46 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COUNTBLANK-001",
+  "functions": [
+    "FUNC.COUNTBLANK"
+  ],
+  "kind": "quirk",
+  "title": "COUNTBLANK of an omitted optional LAMBDA parameter is #VALUE!",
+  "statement": "An optional LAMBDA parameter left out reaches COUNTBLANK as a missing value, and the result is #VALUE!, not a count of 1.",
+  "status": "measured",
+  "basis": "One recorded reading.",
+  "inferred": "That this holds for missing values in general is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=LAMBDA([xx],COUNTBLANK(xx))()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q187, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+      "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+      "locator": "sheet fn2_q187",
+      "note": null
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FLOOR-001",
+  "functions": [
+    "FUNC.FLOOR"
+  ],
+  "kind": "quirk",
+  "title": "FLOOR of zero is +0, even with significance 0",
+  "statement": "FLOOR(0,0) and FLOOR(-0,0) return +0. A zero number with a negative significance also returns +0, not #NUM!. Only a nonzero number with significance 0 gives #DIV/0!.",
+  "status": "measured",
+  "basis": "12 recorded readings.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FLOOR(0, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+        "locator": "w111broad-20260929-FLOOR-00002",
+        "note": null
+      }
+    },
+    {
+      "call": "FLOOR(-0, -2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-0",
+            "bits": "0x8000000000000000"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "-2",
+            "bits": "0xc000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+        "locator": "w111broad-20260929-FLOOR-00005",
+        "note": null
+      }
+    },
+    {
+      "call": "FLOOR(1, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+        "locator": "w111broad-20260929-FLOOR-00062",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "1474b041c8dfa99157933d00ef2f5f5a7982f379",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "recorded_floor_zero_identity_precedes_its_multiple_error",
+      "note": "recorded readings pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

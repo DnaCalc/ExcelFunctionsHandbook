@@ -1,0 +1,53 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CHOOSE-001",
+  "functions": [
+    "FUNC.CHOOSE"
+  ],
+  "kind": "quirk",
+  "title": "An array index in CHOOSE turns selected blank cells into 0",
+  "statement": "When an array index_num lifts CHOOSE in dynamic-array Excel, selected empty cells come back as the number 0 rather than as blank references, so ISBLANK over them is FALSE.",
+  "status": "measured",
+  "basis": "One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells.",
+  "inferred": "That a scalar index keeps the blank reference is a DnaCalc control, not a recorded reading.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ISBLANK(CHOOSE({1,2},Data!Z1,Data!Z2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{FALSE,FALSE}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q193, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "eceb809985e244e9d0a20f905e58fe57b8741ed8",
+      "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+      "locator": "sheet fn2_q193",
+      "note": null
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "1ec418b2c1301d36309d717999512776b1d8630d",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-b1l.24",
+      "note": "review record"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

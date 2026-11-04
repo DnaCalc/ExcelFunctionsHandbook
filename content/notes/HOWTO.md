@@ -18,7 +18,8 @@ repository's work or commit depends on one.
    - `repros`: the call, the exact inputs (`display` must parse to `bits`), Excel's answer,
      `recorded_in` (Excel build, platform, CPU) and `source` (where the reading is kept).
    - `evidence`: repository, full commit, path, locator, for the product commit, research write-up
-     and readings.
+     and readings. Evidence that exists only in a working folder is copied to
+     `content/notes/evidence/<date>/` first and cited at that commit.
 3. Run `dotnet run --project tools/efh/Efh.Rubric.Cli -- notes render` from the repository root.
    It checks the notes and writes the Notes section of each named function page, `NOTES.md` and
    `site/api/notes.json`. `notes check` does the same without writing.

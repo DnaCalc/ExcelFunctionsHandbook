@@ -1,0 +1,139 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GCD-001",
+  "functions": [
+    "FUNC.GCD",
+    "FUNC.LCM"
+  ],
+  "kind": "documentation-differs",
+  "title": "GCD and LCM accept 2^53 itself, not only values below it",
+  "statement": "GCD accepts an operand equal to 2^53, and LCM accepts an operand or a result equal to 2^53. Only values above 2^53 give #NUM!.",
+  "status": "measured",
+  "basis": "All recorded rows match after the boundary change: GCD 7,966 of 7,966 and LCM 7,967 of 7,967.",
+  "inferred": null,
+  "documentation": {
+    "claim": "If a parameter to GCD is >=2^53, GCD returns the #NUM! error value. If LCM(a,b) >=2^53, LCM returns the #NUM! error value.",
+    "source": "https://support.microsoft.com/en-us/office/gcd-function-d5107a51-69e3-461f-8e4c-ddfc21b5073a; https://support.microsoft.com/en-us/office/lcm-function-7152b67a-8bb5-4075-ae5c-06ede5563c94"
+  },
+  "repros": [
+    {
+      "call": "GCD(9007199254740992, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "9007199254740992",
+            "bits": "0x4340000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz",
+        "locator": "w111boundary-GCD-00190",
+        "note": null
+      }
+    },
+    {
+      "call": "LCM(9007199254740992, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "9007199254740992",
+            "bits": "0x4340000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "9007199254740992",
+        "bits": "0x4340000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz",
+        "locator": "w111boundary-LCM-00194",
+        "note": null
+      }
+    },
+    {
+      "call": "GCD(9007199254740994, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "9007199254740994",
+            "bits": "0x4340000000000001"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz",
+        "locator": "w111boundary-GCD-00217",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "9c23dde1dfd6d93e742d763a4bad3eaec229b29c",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "recorded_gcd_lcm_admit_the_exact_operand_boundary",
+      "note": "recorded readings pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

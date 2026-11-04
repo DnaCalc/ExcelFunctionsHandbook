@@ -1,0 +1,210 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-VDB-001",
+  "functions": [
+    "FUNC.VDB"
+  ],
+  "kind": "documentation-differs",
+  "title": "An empty factor slot in VDB is 0, not the default 2",
+  "statement": "VDB defaults factor to 2 only when the argument is left off the end of the call. An empty slot, as in VDB(c,s,l,a,b,,FALSE), is read as 0, and the result is the straight-line amount: 90 here, where factor 2 gives 160. Text factors other than numbers give #VALUE!, including \"TRUE\" and \"FALSE\", while \"2\" is read as 2.",
+  "status": "measured",
+  "basis": "Ten recorded option readings (cases 00022 to 00031 of the run). After the change VDB matches 142 of 142 retained padding calls.",
+  "inferred": null,
+  "documentation": {
+    "claim": "If factor is omitted, it is assumed to be 2 (the double-declining balance method).",
+    "source": "https://support.microsoft.com/en-us/office/vdb-function-dde4e207-f3fa-488d-91d2-66d55e861d73"
+  },
+  "repros": [
+    {
+      "call": "=VDB(A100,A101,A102,A103,A104,,FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "cost",
+          "value": {
+            "kind": "number",
+            "display": "1000",
+            "bits": "0x408f400000000000"
+          }
+        },
+        {
+          "name": "salvage",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "life",
+          "value": {
+            "kind": "number",
+            "display": "10",
+            "bits": "0x4024000000000000"
+          }
+        },
+        {
+          "name": "start_period",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "end_period",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "90",
+        "bits": "0x4056800000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz",
+        "locator": "w111dep-options-00022-vdb-optional-5-22",
+        "note": null
+      }
+    },
+    {
+      "call": "=VDB(A100,A101,A102,A103,A104,\"2\",FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "cost",
+          "value": {
+            "kind": "number",
+            "display": "1000",
+            "bits": "0x408f400000000000"
+          }
+        },
+        {
+          "name": "salvage",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "life",
+          "value": {
+            "kind": "number",
+            "display": "10",
+            "bits": "0x4024000000000000"
+          }
+        },
+        {
+          "name": "start_period",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "end_period",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "160",
+        "bits": "0x4064000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz",
+        "locator": "w111dep-options-00025-vdb-optional-5-25",
+        "note": null
+      }
+    },
+    {
+      "call": "=VDB(A100,A101,A102,A103,A104,\"TRUE\",FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "cost",
+          "value": {
+            "kind": "number",
+            "display": "1000",
+            "bits": "0x408f400000000000"
+          }
+        },
+        {
+          "name": "salvage",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "life",
+          "value": {
+            "kind": "number",
+            "display": "10",
+            "bits": "0x4024000000000000"
+          }
+        },
+        {
+          "name": "start_period",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "end_period",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz",
+        "locator": "w111dep-options-00026-vdb-optional-5-26",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "cfdc059510fa71bb7ae9609bb92e30a2d384de56",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "recorded_vdb_explicit_missing_factor_is_zero",
+      "note": "recorded readings pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

@@ -1,0 +1,86 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TEXTSPLIT-001",
+  "functions": [
+    "FUNC.TEXTAFTER",
+    "FUNC.TEXTBEFORE",
+    "FUNC.TEXTSPLIT"
+  ],
+  "kind": "quirk",
+  "title": "Empty text gives #N/A from TEXTBEFORE and TEXTAFTER, #VALUE! from TEXTSPLIT",
+  "statement": "An empty string as text gives #N/A (delimiter not found) from TEXTBEFORE and TEXTAFTER, but #VALUE! from TEXTSPLIT.",
+  "status": "measured",
+  "basis": "Three recorded readings, with blank-cell and logical companions in the same run.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TEXTBEFORE(\"\",\"-\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz",
+        "locator": "w111typed-00274-textbefore-arg1-empty-text",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXTAFTER(\"\",\"-\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz",
+        "locator": "w111typed-00266-textafter-arg1-empty-text",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXTSPLIT(\"\",\",\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz",
+        "locator": "w111typed-00282-textsplit-arg1-empty-text",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "080a6f2f7b65e750400837841f9db3d3822d8ec3",
+      "path": "crates/calc-func/tests/f2_text.rs",
+      "locator": "empty_text_delimiter_errors_match_the_recorded_excel_values",
+      "note": "recorded readings pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

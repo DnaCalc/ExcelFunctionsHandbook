@@ -1,0 +1,111 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BAHTTEXT-001",
+  "functions": [
+    "FUNC.BAHTTEXT"
+  ],
+  "kind": "quirk",
+  "title": "A tiny negative amount keeps the word for minus before zero baht",
+  "statement": "A negative amount that rounds to zero satang still gets the word for minus, ลบ: BAHTTEXT(-0.001) is ลบศูนย์บาทถ้วน. -0 gives plain ศูนย์บาทถ้วน.",
+  "status": "measured",
+  "basis": "8 recorded readings.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BAHTTEXT(-0.001)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-0.001",
+            "bits": "0xbf50624dd2f1a9fc"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "ลบศูนย์บาทถ้วน",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz",
+        "locator": "line 1210, key BAHTTEXT|0xbf50624dd2f1a9fc",
+        "note": null
+      }
+    },
+    {
+      "call": "BAHTTEXT(-0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-0",
+            "bits": "0x8000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "ศูนย์บาทถ้วน",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz",
+        "locator": "line 1225, key BAHTTEXT|0x8000000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "BAHTTEXT(-0.005)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-0.005",
+            "bits": "0xbf747ae147ae147b"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "ลบหนึ่งสตางค์",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz",
+        "locator": "line 1212, key BAHTTEXT|0xbf747ae147ae147b",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "36ff603e690aca6e53930870c02fd5fa92a9004a",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "recorded_bahttext_retains_the_sign_of_a_negative_amount",
+      "note": "recorded readings pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}
