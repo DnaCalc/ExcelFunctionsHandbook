@@ -125,8 +125,8 @@ engine's own published battery row for the largest finite double returns a finit
 instead of `#NUM!`. Since 2^53 is exactly where binary64 stops representing consecutive
 integers, the documented ceiling is not arbitrary — above it, "the integer this double
 represents" and "the integer the user meant" part company, and refusing is a defensible design.
-Which of the two behaviours Excel actually exhibits has not been observed by the Handbook, and
-the answer is the single most valuable probe on this page.
+Excel gives `#NUM!` only above 2^53 and accepts 2^53 itself, so the documented ceiling is one step
+too strict (FN-GCD-001).
 
 ## Relationships
 
@@ -186,15 +186,13 @@ contributed to that group matched. It establishes nothing whatever about `GCD`'s
 `GCD` also appears inside the group membership of a second structural record without being one
 of its subjects; that record's counts are not claimed here.
 
-So: argument shape has been touched once, in a group, at one build. Nobody has checked this
-function's results against Excel.
+So that record touches argument shape once, in a group, at one build. FN-GCD-001 checks this
+function's results against Excel: all 7,966 recorded rows match.
 
 Inputs I would probe first:
 
-1. **`GCD(2^53)` and `GCD(2^53 - 1)`, then `GCD(9007199254740994, 4)`.** The documented `#NUM!`
-   ceiling against the reference engine's finite answer. This is the page's one live
-   documentation-versus-implementation contradiction and the cheapest to settle; the pair
-   straddling 2^53 exactly locates the boundary if Excel has one.
+1. **`GCD(2^53)` and `GCD(2^53 - 1)`, then `GCD(9007199254740994, 4)`.** Answered: Excel accepts
+   2^53 and gives `#NUM!` above it (FN-GCD-001).
 2. **`GCD(TRUE)`, `GCD(FALSE)` and `GCD("2.5")`.** The documentation says "nonnumeric" and says
    nothing about logicals or numeric text. The reference engine accepts all three. Two cells
    each.

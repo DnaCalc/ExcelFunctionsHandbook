@@ -84,8 +84,9 @@ The commonly misunderstood position is `num_digits`, in two ways:
    and do different things with it; a formula ported from one to the other changes behaviour
    silently on exactly half the inputs.
 
-Whether `num_digits` is itself truncated when non-integral is not stated on Microsoft's page,
-and the Handbook does not assert an answer.
+Whether `num_digits` is itself truncated when non-integral is not stated on Microsoft's page.
+Excel takes the integer part of `|num_digits|`, with its sign, and reads only the low 16 bits of
+that (FN-ROUNDUP-001).
 
 ## Result and edge cases
 
@@ -93,12 +94,14 @@ Returns `Number`.
 
 - **Negative numbers** truncate toward zero — the documented `TRUNC(-4.3) = -4`. This is the
   single most important edge and the reason the function exists alongside `INT`.
-- **Values already integral** are returned unchanged.
+- **Values already integral** are returned unchanged up to 15 significant digits; digits beyond
+  the 15th are lost in the reading that comes first (FN-ROUND-002).
 - **Zero** returns zero. Whether a negative input in `(-1, 0)` returns `+0` or `-0` is
   unspecified by the documentation and is on the probe list; the mathematical answer is `0` and
   IEEE's `roundToIntegralTowardZero` preserves the sign of the operand, which would give `-0`.
 - **Very large numbers.** Above `2^52` every binary64 value is already an integer, so `TRUNC`
-  with `d = 0` is the identity there. For positive `d` the scaling `10^d` can overflow for large
+  with `d = 0` is mathematically the identity there, subject to that reading in Excel. For positive
+  `d` the scaling `10^d` can overflow for large
   `d`; for negative `d` and large `|x|` the same is true in the other direction.
 - **The general `d` case is not exact.** `10^-d` is not representable for any `d` except zero
   and small negative values, so `TRUNC(x, d)` for `d > 0` cannot in general return a number
@@ -146,9 +149,10 @@ restriction. What happens when the internal scaling by `10^d` overflows is not d
 
 ## Numerical notes
 
-The `d = 0` case is exact and trivial: rounding toward zero is one of IEEE 754's five rounding
-directions, hardware implements it directly, and there is no error. Everything below concerns
-the general case.
+The `d = 0` case is trivial in IEEE 754: rounding toward zero is one of its five rounding
+directions, hardware implements it directly, and there is no error. Excel does not take that route:
+`TRUNC(DBL_MIN, 0)` returns a subnormal, not 0 (FN-TRUNC-001), and digits beyond the 15th are lost
+at `d = 0` too (FN-ROUND-002). Everything below concerns the general case.
 
 **The scaling problem.** The obvious implementation of `TRUNC(x, d)` is
 `trunc(x * 10^d) / 10^d`. It has three separate defects:
@@ -169,7 +173,8 @@ higher-precision path beyond it; or do the work in a decimal representation (`de
 big-integer significand with a decimal exponent) so that "keep `d` decimal digits" is exact by
 construction; or use a correctly rounded decimal-conversion routine (the Steele-White / Ryu
 line) to produce the digit string and rebuild from it. Spreadsheet implementations historically
-take the first route. The Handbook makes no claim about which route Excel takes.
+take the first route. Excel's is recorded in FN-ROUND-002: a 15-digit reading on the x87 unit
+before any digit is chosen.
 
 **Why this matters more here than for `ROUND`.** Round-to-nearest is *self-correcting* about
 boundary crossings: if the scaled product rounds slightly, the nearest integer is usually still
@@ -189,17 +194,19 @@ group membership of `EV-STRUCT-0011`, an array-lift tranche whose counting is at
 so **the family was measured and this surface was not measured separately**. The Handbook does
 not attribute that record's figures to `TRUNC`, and this page claims nothing from it.
 
-No Handbook vector suite exists for `TRUNC`. Beyond the group-scope record just named, nobody
-has checked this function against Excel within the Handbook's record.
+No Handbook vector suite exists for `TRUNC`. Beyond the group-scope record just named, the checks
+against Excel are those of the Notes below: under the family rules the recorded rows match 50,504
+of 51,317. Still open there: how the scale is formed for `|n| > 27`, the reading step itself, how
+the NaN patterns sort and display, and why DBL_MIN converts 3 steps below nearest.
 
 Probes worth running first:
 
 1. **The scaling-boundary cases.** Values engineered to sit a fraction of an ULP below a
    `d`-decimal boundary — for example a value just under `1.005` truncated to two places, and
-   the analogous constructions at several `d`. This is the probe that distinguishes an exact
-   decimal implementation from a scaled binary one, and it is the highest-value probe here.
-2. **`d > 22`**, where the power of ten stops being representable. A pure table-based
-   implementation changes character at that point.
+   the analogous constructions at several `d`. FN-ROUND-002 reads Excel as scaling in binary on
+   the x87 unit, with a 15-digit reading first, so this now tests that reading.
+2. **`d > 22`**, where the power of ten stops being representable in binary64. FN-ROUND-002 has
+   its scale exact in 64 bits up to `|n| = 27`, and how it is formed beyond that is open.
 3. **Negative `d`** across magnitudes, including `d` large enough that the answer is zero, and
    `d` negative enough that the scaling underflows.
 4. **`TRUNC` against `ROUNDDOWN`** at the same inputs across a broad sample. If they ever
@@ -207,7 +214,7 @@ Probes worth running first:
    interchangeable the documentation makes them look.
 5. **Negative-zero production**: `TRUNC(-0.5)` — whether the published result carries a sign.
 6. **Non-integer `num_digits`**, e.g. `TRUNC(1.23456, 2.7)`, which the documentation does not
-   cover.
+   cover. Answered: Excel takes the integer part (FN-ROUNDUP-001).
 7. **Very large `number` with positive `d`**, where the internal scaling would overflow.
 8. **Array arguments in both positions**, given the group-scope array-lift record named above.
 

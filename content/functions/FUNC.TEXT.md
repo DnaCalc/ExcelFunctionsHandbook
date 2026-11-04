@@ -88,9 +88,10 @@ Both are required; there is no default format.
 not a formatting one — see [Coercion and lifting](../model/02-coercion-and-lifting.md).
 
 The commonly misunderstood position is `value`: the documentation describes it as numeric, but
-number formats have a fourth, text section (`@`), which only applies to text input. What `TEXT`
-does with a text `value` under a format with and without an `@` section is not something this
-page can state.
+number formats have a fourth, text section (`@`). In a four-section format numbers use the other
+sections, while a lone `@` applied to a number gives the General display (FN-TEXT-002). What
+`TEXT` does with a text `value` under a format with and without an `@` section is not something
+this page can state.
 
 ## Result and edge cases
 
@@ -125,7 +126,9 @@ surfaces `#VALUE!` under the shared coercion rules. Whether an invalid or unsupp
 - **`DOLLAR` and `FIXED`** are `TEXT` with the format fixed in advance — currency formatting
   with a decimal count, and fixed-decimal formatting with an optional comma switch. All three
   share an implementing module in the reference engine. Reach for them when the format is
-  exactly what they do; reach for `TEXT` when it is not.
+  exactly what they do; reach for `TEXT` when it is not. The format is not the only difference:
+  on an amount that rounds to zero `DOLLAR` keeps the minus sign, while `TEXT` and `FIXED` drop it
+  (FN-DOLLAR-001).
 - **`VALUE`** is the inverse direction, and **[NUMBERVALUE](FUNC.NUMBERVALUE.md)** is the
   locale-independent inverse. The asymmetry is worth stating: the parse direction has an
   explicit-separator escape hatch, the format direction does not.
@@ -158,14 +161,15 @@ both suffer.
 ## What has not been checked
 
 No Handbook vector suite exists for `TEXT`, and no Excel-comparison evidence record names it.
-Nobody has checked this function against Excel within the Handbook's record. Two structural
+Apart from the readings in the notes below, nobody has checked this function against Excel
+within the Handbook's record. Two structural
 facts on this page do come from the Handbook's own projected data — the locale-profile
 dependency in the classification, and the not-dispatchable battery outcome — and neither is an
-observation of Excel. Everything about what a given format code produces is Microsoft's
-documentation or is open.
+observation of Excel. Apart from those notes, everything about what a given format code produces
+is Microsoft's documentation or is open.
 
-`TEXT` is also the function on this list where the Handbook is furthest from being able to make
-a claim, because the reference engine cannot evaluate it standalone. Any comparison suite for
+`TEXT` is also the function on this list where the Handbook is furthest from being able to publish
+a suite, because the reference engine cannot evaluate it standalone. Any comparison suite for
 `TEXT` needs the host facility built first; that is a prerequisite, not a probe.
 
 Inputs worth probing first, once it can be evaluated at all:
@@ -177,15 +181,18 @@ Inputs worth probing first, once it can be evaluated at all:
    installation formatting `1234.5` with `"#,##0.00"`. This is the locale claim itself, and it
    is unverified in the Handbook.
 3. **A locale-pinned format**, `TEXT(TODAY(), "[$-409]mmmm")`, on both machines, to confirm the
-   escape mechanism works as the number-format guidance describes.
+   escape mechanism works as the number-format guidance describes. On one machine tagged formats
+   work, with names that differ from common locale data (FN-TEXT-001).
 4. **Text `value`**: `TEXT("abc", "0")` and `TEXT("abc", "@")`.
 5. **Empty and malformed `format_text`**: `TEXT(1, "")`, `TEXT(1, "zzz")`, `TEXT(1, "0;0;0;0;0")`
    with a fifth section.
 6. **Section selection**: `TEXT(-1, "0.00;(0.00);-;@")` across a positive, negative, zero and
-   text value.
+   text value. For numbers, `@` is the text section and the other sections apply (FN-TEXT-002).
 7. **Extreme values**: `TEXT(1E308, "0")` and `TEXT(1E-308, "0.00")`, where the rendering
    length and the format interact.
 8. **Array `value`**, given the open `BUG-FUNC-028` stream on this module.
+9. **Earlier Japanese eras**; FN-TEXT-001 reads Heisei and Reiwa only.
+10. **Formats mixing `@` with digit placeholders**, which FN-TEXT-002 leaves open.
 
 ## Notes
 

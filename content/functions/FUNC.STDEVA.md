@@ -173,14 +173,16 @@ behaviour that has not been compared against Excel.
 ## Numerical notes
 
 The arithmetic is identical to [STDEV.S](FUNC.STDEV.S.md)'s, and everything on that page's
-numerical notes applies without change: two-pass centred accumulation rather than the unstable
-raw sums-of-squares identity `sum x^2 - (sum x)^2/n`, naive summation for both the mean and the
+numerical notes applies without change. In the reference engine that means two-pass centred
+accumulation rather than the unstable raw sums-of-squares identity `sum x^2 - (sum x)^2/n`, naive
+summation for both the mean and the
 sum of squares, a correctly rounded final `sqrt` that halves the variance's relative error, exact
 overflow and underflow thresholds inherited from squaring the deviations, and summation order as
 part of the answer. Chan, Golub and LeVeque (1983) is the reference for the algorithm choice, and
 the published record on Excel's variance accuracy — McCullough and Wilson, Knüsel, and Welinder's
-Gnumeric work — belongs to the same discussion. **This page does not assert what Excel does
-internally.**
+Gnumeric work — belongs to the same discussion. **What Excel does is recorded in FN-VAR.S-001**:
+raw moments with stored steps, a centered sum when either of two stored tests holds, and a root
+rounded to 64 bits and then stored.
 
 What is specific to `STDEVA` is that **the inclusion rule changes the conditioning of the
 problem**, and usually for the worse.
@@ -193,9 +195,9 @@ admitted data now has two clusters, at `M` and at `0`, and:
   deviation of order `M` rather than of order the true spread.
 - The sum of squares becomes dominated by terms of order `M^2`, and the information about the
   real spread is a small correction to a large number — which is precisely the cancellation regime
-  the two-pass form was chosen to avoid. The two-pass form still avoids the *catastrophic* form of
-  it, but the answer is now a well-computed standard deviation of a bimodal data set, not a
-  poorly-computed one of the original data.
+  the two-pass form was chosen to avoid. In the reference engine the two-pass form still avoids the
+  *catastrophic* form of it, but the answer is now a well-computed standard deviation of a bimodal
+  data set, not a poorly-computed one of the original data.
 - Overflow becomes reachable earlier: deviations of order `M` square to order `M^2`, so data that
   would never have overflowed under [STDEV.S](FUNC.STDEV.S.md) can overflow here.
 
@@ -208,14 +210,17 @@ One arithmetic remark that *is* specific: because logicals map to exactly `0` an
 maps to exactly `0`, a data set consisting only of A-variant substitutions is a vector of exact
 small integers. Its mean is a ratio of small integers and its sum of squares is exact, so
 `STDEVA` over a pure indicator column is computed with essentially no rounding at all until the
-final division and square root. Indicator data is the case where this function is both
+divisions and the final square root. Indicator data is the case where this function is both
 appropriate and numerically ideal.
 
 ## What has not been checked
 
 No Handbook vector suite exists for `STDEVA`, and no Handbook evidence record names `STDEVA` as a
-subject. Nobody has checked this function against Excel within the Handbook's record. The
-implementing module carries no tests of its own in the reference engine; the shared variance
+subject. FN-VAR.S-001 checks this function against Excel: with the rest of the variance family, all
+14,679
+recorded rows match. Still open there: whether its two tests keep the same edges for ranges and
+arrays. The implementing module carries no tests of its own in the reference engine; the shared
+variance
 kernel it calls carries a small number, which speaks to that kernel rather than to this surface.
 
 Everything above marked as documented comes from Microsoft's `STDEVA` page. **Retrieval of that
@@ -236,7 +241,8 @@ Inputs worth probing first:
    cases. This pair of probes separates the two functions completely.
 4. **`TRUE` and `FALSE` in a range and as direct arguments**, confirming they are admitted as `1`
    and `0` on both routes — the one place where the A variants have no dual policy.
-5. **`STDEVA` against `SQRT(VARA)`**, bitwise.
+5. **`STDEVA` against `SQRT(VARA)`**, bitwise. Answered: `STDEVA` is the root of the variance,
+   rounded to 64 bits and then stored (FN-VAR.S-001).
 6. **`STDEVA` against `STDEVPA * SQRT(n/(n-1))`**, where `n` counts admitted values, measuring
    the gap the exact identity leaves after rounding.
 7. **The shift test** from [STDEV.S](FUNC.STDEV.S.md), applied here on data containing

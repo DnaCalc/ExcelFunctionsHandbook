@@ -78,8 +78,10 @@ host-side adaptation ([the call pipeline](../model/03-call-pipeline.md)).
   `by_index_scalar_array_lift(positions=1|2)`: the dispatch layer broadcasts those two argument
   positions. What an array of target dimensions produces is a shape question the Handbook has
   not settled.
-- **Element errors** in `array` pass through unchanged; nothing collapses
-  (`error_collapse_profile: None`).
+- **Element errors** inside an array in `array` pass through unchanged; nothing collapses
+  (`error_collapse_profile: None`). An error written directly, or held in a single referenced
+  cell, is the answer for the whole call: `EXPAND(Data!C1,2,2,"pad")` with `#N/A` in `Data!C1` is
+  `#N/A` (FN-HSTACK-001).
 
 ## Errors
 
@@ -129,7 +131,8 @@ An error value supplied as `rows` or `columns` propagates by the same universal 
 ## What has not been checked
 
 No Handbook vector suite exists for `EXPAND`, and no Excel-comparison evidence record is
-recorded for it. Nobody has checked this function against Excel here.
+recorded for it. Apart from the reading in FN-HSTACK-001, nobody has checked this function
+against Excel here.
 
 Probes worth running first:
 
@@ -144,6 +147,7 @@ Probes worth running first:
 5. **Very large targets**, to find the host ceiling and its failure mode.
 6. **Omitted `columns` with an input whose width changes**, confirming that the axis tracks the
    input rather than being fixed at first evaluation.
+7. **Competing errors in later positions**, which FN-HSTACK-001 leaves open.
 
 Item 3's array case and item 4 are the two that could change the description above.
 

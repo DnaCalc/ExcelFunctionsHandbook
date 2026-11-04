@@ -113,7 +113,8 @@ Returns `Number`, non-negative, in the units of the data.
   [STDEV.S](FUNC.STDEV.S.md) part company: the same single-cell range gives `0` here and
   `#DIV/0!` there.
 - **All values equal.** Exactly `0`; each deviation is exactly zero and `sqrt(0) = +0`.
-- **Two values.** `sigma = |x_1 - x_2| / 2`, exactly representable when the difference is.
+- **Two values.** `sigma = |x_1 - x_2| / 2`, exactly representable when the difference is. Excel
+  reaches it through the raw moments or the centered sum of FN-VAR.S-001, and their steps round.
 - **A blank cell inside a scanned range** is skipped, so `n` is smaller than the column height.
 - **Errors anywhere** propagate as themselves.
 - The result can overflow to an infinity when the squared deviations do — see Numerical notes.
@@ -143,7 +144,8 @@ Note the shorter table compared with [STDEV.S](FUNC.STDEV.S.md): with an `n` div
   guidance points `STDEVP` at `STDEV.P`, and the two are documented as computing the same
   quantity. **The Handbook does not treat that as an identity.** A legacy alias and its modern
   name are two registered entry points, and Excel is free to route them to different code; that
-  they agree is a claim requiring evidence, and none is in the Handbook's record. The variance
+  they agree is a claim requiring evidence, and the Handbook's record holds only indirect evidence:
+  all recorded rows of both names match the rule of FN-VAR.S-001. The variance
   algorithms were changed at Excel 2003 with both names still in the product, which is exactly
   the situation in which an unverified alias assumption is worth least.
 - **[AVERAGE](FUNC.AVERAGE.md)** supplies `xbar` and shares the scan policy exactly.
@@ -156,8 +158,9 @@ Note the shorter table compared with [STDEV.S](FUNC.STDEV.S.md): with an `n` div
 
 ## Numerical notes
 
-Everything on [STDEV.S](FUNC.STDEV.S.md)'s numerical notes applies here, because the two functions
-share one kernel and differ only in the final divisor. The summary, with the points that are
+Everything on [STDEV.S](FUNC.STDEV.S.md)'s numerical notes applies here, because in the reference
+engine the two functions share one kernel and differ only in the final divisor; Excel's raw-moment
+forms differ by more (FN-VAR.S-001). The summary, with the points that are
 specific to the population form.
 
 **Two-pass centred, not raw power sums.** The reference engine computes `xbar` first and then
@@ -169,19 +172,22 @@ is algebraically equal and catastrophically unstable: when the mean is large rel
 spread it subtracts two nearly-equal large numbers, losing roughly `2*log10(xbar/sigma)`
 significant digits, and can return a **negative** sum of squares — the signature by which this
 bug is identified. Chan, Golub and LeVeque (1983) give the analysis; Welford (1962) gives the
-stable single-pass alternative for cases where the data cannot be stored.
+stable single-pass alternative for cases where the data cannot be stored. Excel uses raw moments
+with stored steps, and two stored tests switch it to a centered sum (FN-VAR.S-001).
 
 **The published record on Excel.** McCullough and Wilson's assessments in *Computational
 Statistics & Data Analysis* from 1999 onward, Knüsel's parallel work, and Welinder's writing on
 Excel's statistical functions arising from the Gnumeric project are the standing published record
-on Excel's variance accuracy, and the algorithms were changed at Excel 2003 in response. **This
-page asserts nothing about what Excel's `STDEV.P` does internally today.** It asserts that the
-two families of algorithm are distinguishable by a measurement, that the measurement is the shift
-test below, and that the Handbook has not made it.
+on Excel's variance accuracy, and the algorithms were changed at Excel 2003 in response. **What
+Excel's `STDEV.P` does is recorded in FN-VAR.S-001**: raw moments with stored steps, a centered sum
+when either of two stored tests holds, and a root rounded to 64 bits and then stored. So Excel uses
+both families of algorithm and switches between them. The shift test below remains a measurement
+anyone can make.
 
 **Specific to the population divisor.** `sumsq / n` is a division by an exactly representable
 integer, and for `n` a power of two it is exact. `STDEV.S`'s `sumsq / (n-1)` has no such property
-in general. This makes `STDEV.P` the marginally cleaner of the two, and it also means the exact
+in general. On Excel's raw-moment path the division is by `n*n` instead (FN-VAR.S-001). This makes
+`STDEV.P` the marginally cleaner of the two, and it also means the exact
 identity `STDEV.P = STDEV.S * sqrt((n-1)/n)` will not hold bit for bit even when both functions
 are computed correctly: the two divisions round differently and the correcting square root adds
 its own rounding. A suite asserting that identity must assert it to a tolerance, and the size of
@@ -190,8 +196,9 @@ that tolerance is itself worth measuring.
 **Residual hazards.** The mean and the sum of squares are both accumulated by naive
 left-to-right summation, so their error grows with `n` where compensated or pairwise summation
 would bound it; the reference engine uses neither. The sum of squares has non-negative terms and
-is therefore well-conditioned. The final `sqrt` is correctly rounded and *halves* the relative
-error of the variance, so the whole accuracy question lives in the variance. Squared deviations
+is therefore well-conditioned. The final `sqrt` *halves* the relative error of the variance, and
+in Excel is rounded to 64 bits and then stored (FN-VAR.S-001), so the whole accuracy question lives
+in the variance. Squared deviations
 overflow above roughly `1.3 * 10^154` and underflow to zero below roughly `10^{-162}`, so
 `STDEV.P` can report an infinity or an exact zero for finite, nonzero-spread data; a scale-aware
 formulation that factors out the largest deviation first would avoid both, and is not used.
@@ -202,8 +209,11 @@ traverse or vectorise differently will disagree in the last bits.
 ## What has not been checked
 
 No Handbook vector suite exists for `STDEV.P`, and no Handbook evidence record names `STDEV.P` as
-a subject. Nobody has checked this function against Excel within the Handbook's record. The
-implementing module carries no tests of its own in the reference engine; the shared variance
+a subject. FN-VAR.S-001 checks this function against Excel: with the rest of the variance family,
+all 14,679
+recorded rows match. Still open there: whether its two tests keep the same edges for ranges and
+arrays. The implementing module carries no tests of its own in the reference engine; the shared
+variance
 kernel it calls carries a small number, which speaks to that kernel rather than to this surface.
 
 Everything above marked as documented comes from Microsoft's `STDEV.P` page. **Retrieval of that
@@ -213,14 +223,13 @@ documented behaviour with the source named and should be re-read against the liv
 Inputs worth probing first:
 
 1. **The shift test.** A small data set with a known exact answer, evaluated as given and then
-   with `10^6`, `10^9` and `10^{12}` added to every value. The true answer is invariant; how the
-   returned values degrade identifies the algorithm. This is the highest-value measurement on the
-   page and it takes four cells.
+   with `10^6`, `10^9` and `10^{12}` added to every value. The true answer is invariant.
+   FN-VAR.S-001 has since identified the algorithm, so this is now a four-cell check of it.
 2. **A single numeric cell.** `STDEV.P` should return `0` where [STDEV.S](FUNC.STDEV.S.md)
    returns `#DIV/0!`. This is the cheapest probe that the two functions are genuinely different
    surfaces rather than one with a parameter.
-3. **`STDEV.P` against `SQRT(VAR.P)`**, bitwise — a structural fingerprint of whether Excel
-   routes through the variance.
+3. **`STDEV.P` against `SQRT(VAR.P)`**, bitwise. Answered: `STDEV.P` is the root of the variance,
+   rounded to 64 bits and then stored (FN-VAR.S-001).
 4. **`STDEV.P` against `STDEV.S * SQRT((n-1)/n)`**, measuring the gap the exact identity leaves
    after three roundings. The size of that gap is the tolerance a suite would have to allow.
 5. **`STDEV.P` against the legacy `STDEVP`** on the same data, bitwise — the probe that would

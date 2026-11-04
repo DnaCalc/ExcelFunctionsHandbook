@@ -135,7 +135,8 @@ recorded, and resolving it against a running Excel is one of the experiments lis
 
 ## What has not been checked
 
-No Handbook vector suite exists for `NETWORKDAYS`, and no Excel-comparison evidence is recorded.
+No Handbook vector suite exists for `NETWORKDAYS`. The Excel readings on this page are in
+FN-WORKDAY-001, for an empty or logical first date.
 The battery panel on this page is the reference engine answering its own probes; no Excel was
 involved. The experiments that would settle this page's open questions, in order of value:
 

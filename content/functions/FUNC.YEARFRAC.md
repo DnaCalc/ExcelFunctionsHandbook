@@ -87,8 +87,9 @@ look right and wrong enough to matter over a portfolio.
 
 ## Result and edge cases
 
-Returns a `Number`: a fraction of a year, which may exceed 1 for intervals longer than a year and
-is negative when `end_date` precedes `start_date`.
+Returns a `Number`: a fraction of a year, which may exceed 1 for intervals longer than a year. It
+is not negative when `end_date` precedes `start_date`: reversed dates give the same answer as in
+order (FN-YEARFRAC-001).
 
 - **Microsoft documents a defect in this function.** Verbatim: `YEARFRAC` "may return an incorrect
   result when using the US (NASD) 30/360 basis, and the start_date is the last day in February".
@@ -100,8 +101,8 @@ is negative when `end_date` precedes `start_date`.
   interval of exactly one calendar year should give 1 under any sensible actual/actual construction;
   an interval spanning 29 February is where constructions diverge.
 - **Equal dates** give 0.
-- **Reversed intervals** give a negative fraction; unlike [DATEDIF](FUNC.DATEDIF.md), no error is
-  documented for them.
+- **Reversed intervals** give the same fraction as in order (FN-YEARFRAC-001); unlike
+  [DATEDIF](FUNC.DATEDIF.md), no error is documented for them.
 - **Floating point.** The result is a quotient of small integers by 360, 365, 366 or an
   actual/actual denominator. Division by 360 and 365 is inexact in binary, so the last bits of the
   result depend on the order in which the quotient is formed — which makes `YEARFRAC` one of the few
@@ -158,14 +159,15 @@ Ordinary coercion failures and error propagation follow the engine rules in
 
 ## What has not been checked
 
-No Handbook vector suite exists for `YEARFRAC`, and no Excel-comparison evidence is recorded. The
-battery on this page is the reference engine answering its own probes; no Excel was involved. This
-is the function in this assignment with the most consequential unknowns, and the probes are
-correspondingly specific:
+No Handbook vector suite exists for `YEARFRAC`. The Excel readings on this page are in
+FN-WORKDAY-001 and FN-YEARFRAC-001. The battery on this page is the reference engine answering its
+own probes; no Excel was involved. This is the function in this assignment with the most
+consequential unknowns, and the probes are correspondingly specific:
 
 - **Basis 1 over intervals spanning 29 February**, and over multi-year intervals with differing
   year lengths. Nothing else will reveal which actual/actual construction Excel uses, and nothing
-  in the documentation says.
+  in the documentation says. FN-YEARFRAC-001 settles one corner: the fictitious 1900-02-29 is not a
+  leap day on this basis.
 - **Basis 0 with `start_date` on the last day of February** — the input class Microsoft itself flags
   as possibly incorrect. Characterizing it would turn a vendor caveat into a described behaviour,
   which is exactly the kind of work this Handbook exists to publish.
@@ -176,7 +178,8 @@ correspondingly specific:
   order.
 - **`basis` values −1, 5, 4.9, and text** — confirms the documented `#NUM!` boundary and the
   documented truncation.
-- **Reversed intervals**, where no error is documented.
+- **An argument left empty in the call**, as in `YEARFRAC(,5)`, which FN-YEARFRAC-001 and
+  FN-WORKDAY-001 leave unread.
 
 Until at least the basis-1 question is settled, no implementation of this function can honestly
 claim to compute what Excel computes, and this page makes no such claim for any implementation.

@@ -64,9 +64,9 @@ indices, which is a different operation (see below).
 
 ## Result and edge cases
 
-The return kind is whatever the selected argument is: a scalar, an array, or a reference. There
-is no coercion of the selected value — that is what "returns it verbatim" means for a branch
-selector.
+The return kind is whatever the selected argument is: a scalar, an array, or a reference. With a
+scalar `index_num` there is no coercion of the selected value — that is what "returns it verbatim"
+means for a branch selector. An array `index_num` differs, as the first item below says.
 
 Specific behaviours:
 
@@ -74,9 +74,9 @@ Specific behaviours:
   evaluated when `CHOOSE` is evaluated. Read that carefully: it is a statement about
   *evaluation*, not about the result. The practical consequence is that `CHOOSE` is not lazy
   in the array case, so side conditions you were relying on to stay unevaluated (a branch that
-  would error, a slow branch) are evaluated anyway. Whether `CHOOSE` then returns an array of
-  selections in modern dynamic-array Excel is a shape question the Handbook has not settled
-  here.
+  would error, a slow branch) are evaluated anyway. In dynamic-array Excel `CHOOSE` then returns
+  an array of selections, and selected empty cells come back as the number 0 rather than as
+  blank references (FN-CHOOSE-001).
 - **Reference results.** Because the selected argument can be a reference, `CHOOSE` composes
   with range-consuming functions. Whether the result can serve as an endpoint of the range
   operator (as `INDEX`'s reference form can) is an open question on this page.
@@ -141,17 +141,17 @@ canonical legacy precedence order (`ErrorAlgebra::CanonicalExcelLegacy` in the p
 ## What has not been checked
 
 No Handbook vector suite exists for `CHOOSE`, and no Excel-comparison evidence record is
-recorded for it. Nobody has checked this function against Excel here.
+recorded for it. Apart from the two readings in FN-CHOOSE-001, nobody has checked this function
+against Excel here.
 
 The probes that would matter most, in order:
 
-1. **`CHOOSE` with an array `index_num` in modern Excel** — for example
-   `CHOOSE({1,3}, "a", "b", "c")`. Microsoft documents the evaluation consequence but the
-   Handbook has not established the result *shape*: one value, a spilled array, or an error.
-   This is the single largest unknown on the page.
+1. **`CHOOSE` with an array `index_num` in modern Excel** lifts: `CHOOSE({1,2}, Data!Z1, Data!Z2)`
+   is a 1 by 2 array, with selected empty cells as 0 (FN-CHOOSE-001).
 2. **`CHOOSE` returning a range**, consumed three ways: by `SUM` (scan), by the range operator
    (`A1:CHOOSE(1, C5, D5)`), and bare in a cell. These three distinguish "returns a reference"
    from "returns the reference's value" from "returns a reference that is not composable".
+   With a scalar index the reference survives: `ISREF(CHOOSE(1, ref))` is `TRUE` (FN-CHOOSE-001).
 3. **Boundary indices**: 0, negative, exactly the value count, one past it, 254, 255, and a
    fraction just below an integer (`0.999`, `1.999`) to confirm truncation direction against
    the documented "truncated to the lowest integer".
@@ -161,7 +161,7 @@ The probes that would matter most, in order:
 5. **Error competition**: several error-valued arguments with an out-of-range index, to observe
    the `SelectorBranch` precedence order in practice.
 
-Items 1 and 2 are the ones whose answers would change the prose above rather than extend it.
+Item 2 is the one whose answer would change the prose above rather than extend it.
 
 ## Notes
 

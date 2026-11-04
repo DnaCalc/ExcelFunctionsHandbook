@@ -43,7 +43,9 @@ So the mathematical definition is round-half-away-from-zero on the scaled variab
 
 Equivalently, with the remainder *r* = MOD(|x|, |m|): the result is the lower multiple when
 *r* < |m|/2 and the upper multiple when *r* ≥ |m|/2. The documented examples fit: 10 with a
-multiple of 3 gives 9 (the remainder 1 is below 1.5), and −10 with −3 gives −9 by symmetry.
+multiple of 3 gives 9 (the remainder 1 is below 1.5), and −10 with −3 gives −9 by symmetry. Excel
+departs from this definition just below each half: it counts a quotient within 5E-15 below a half
+up (FN-MROUND-001).
 
 **Domain.** Both arguments must share a sign — Microsoft states this as a hard requirement, not a
 convention: "The Number and Multiple arguments must have the same sign. If not, a #NUM error is
@@ -139,12 +141,15 @@ the rounding direction for midpoint values with decimal multiples as undefined. 
 bug and it is not fixable inside the function.** It is what happens when a round-to-nearest rule is
 evaluated on values that are not what they appear to be.
 
-**Why.** Neither 0.1 nor 6.05 nor 7.05 is representable in binary64. The stored double for 6.05 is
-slightly *below* six-and-a-twentieth; the stored double for 7.05 is slightly *above* seven-and-a-
-twentieth. The remainder test — "is the remainder at least half the multiple?" — is therefore being
-asked about a value that sits a hair on one side of the true midpoint, and which side it sits on
-is determined by the binary expansion, effectively at random with respect to the decimal the user
-typed. Every decimal step size (0.1, 0.05, 0.25 is fine, 0.2 is not, 0.01 is not) inherits this.
+**Why.** Neither 0.1 nor 6.05 nor 7.05 is representable in binary64, so neither quotient is the
+half it appears to be. Excel does not test a remainder: it forms q = n/m on the x87 unit, counts
+floor(q), adds 1 when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit (FN-MROUND-001).
+`MROUND(6.05, 0.1)` stays 6 because its quotient 60.49999999999999 lies 7.1E-15 below the half,
+outside that window. Which side of the window a quotient lands on is determined by the binary
+expansion, effectively at random with respect to the decimal the user typed. Every decimal step
+size (0.1, 0.05, 0.25 is fine, 0.2 is not, 0.01 is not) inherits this. The window also rounds up a
+number the representation does not excuse: `MROUND(0.499999999999995, 1)` is 1, though the number
+is nearer 0.
 
 **What a careful implementation does about it**, in rough order of increasing effort:
 
@@ -160,7 +165,8 @@ typed. Every decimal step size (0.1, 0.05, 0.25 is fine, 0.2 is not, 0.01 is not
    exact arithmetic operations and on rounding to a multiple.
 3. **Do nothing, and document it** — which is the route Microsoft's page takes, and which is
    honest. An implementation that silently "fixes" the midpoints has made itself incompatible with
-   the documented behaviour of the function it claims to implement.
+   the documented behaviour of the function it claims to implement. Excel itself does not do
+   nothing: it has the 5E-15 window of FN-MROUND-001, which the page does not mention.
 
 **The multiplication at the end is also inexact.** After choosing the integer multiplier *n*, the
 returned value is *n*·|m|, which rounds. So the result of `MROUND` is not guaranteed to be an
@@ -182,9 +188,9 @@ No Handbook vector suite exists for `MROUND`; `vectors/` publishes nothing for t
 
 `MROUND` does appear inside the group membership of one structural array-lift record without being
 one of that record's subjects. Those group counts carry an explicit warning against per-surface
-attribution, so the honest statement is: **the family was measured on an array-shape axis and this
-surface was not measured separately.** Nobody has checked `MROUND`'s values against Excel within
-the Handbook's record.
+attribution, so the honest statement for that record is: **the family was measured on an
+array-shape axis and this surface was not measured separately.** FN-MROUND-001 checks `MROUND`'s
+values against Excel: all 50,782 recorded rows match its rule.
 
 The implementing module carries three open upstream defect streams touching this function
 (`BUG-FUNC-017`, `BUG-FUNC-027`, `BUG-FUNC-039`), covering math scalar/array lifting, broad
@@ -198,14 +204,14 @@ the four worked examples, and the admitted undefined midpoint direction for deci
 
 Inputs I would probe first:
 
-1. **`MROUND(6.05, 0.1)` and `MROUND(7.05, 0.1)`.** Microsoft's own stated pair. Reproducing it is
-   the cheapest way to confirm the documentation describes the shipping behaviour, and it
-   immediately calibrates how much of the rest of the page can be trusted.
+1. **`MROUND(6.05, 0.1)` and `MROUND(7.05, 0.1)`.** Microsoft's own stated pair. The first is
+   answered: Excel gives 6 (FN-MROUND-001). Reading the second completes the cheapest check that
+   the documentation describes the shipping behaviour.
 2. **`MROUND(5, 0)` and `MROUND(0, 0)`.** The undocumented zero-multiple case, where the
    reference engine has an answer for one input and nothing is known about the other.
 3. **A midpoint sweep at an exactly representable multiple** — `MROUND(x, 0.5)` and
-   `MROUND(x, 0.25)` at exact midpoints. Here the tie rule *is* well defined, so this isolates
-   "does it round half away from zero?" from "is the midpoint even detectable?".
+   `MROUND(x, 0.25)` at exact midpoints. Answered by the rule of FN-MROUND-001: an exact half
+   counts up, away from zero, and so does a quotient within 5E-15 below it.
 4. **`MROUND(x, 0.01)` against `ROUND(x, 2)`** across a few hundred values. Any disagreement
    locates the scaling difference described above, and this is the comparison a reader is most
    likely to care about in practice.

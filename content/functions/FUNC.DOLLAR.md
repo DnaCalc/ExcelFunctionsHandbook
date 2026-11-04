@@ -42,7 +42,8 @@ Decomposed, the operation is:
 2. round it to `decimals` places — with negative `decimals` rounding to the left of the decimal
    point, so `-1` rounds to the nearest ten;
 3. render the rounded value through the locale's currency format, including symbol placement,
-   grouping separator, decimal separator, and the negative-number convention;
+   grouping separator, decimal separator, and the negative-number convention, which follows the
+   sign of the input even when the value rounds to zero (FN-DOLLAR-001);
 4. return the rendering as `Text`.
 
 Step 3 is not a pure function of the arguments, and no argument can override it.
@@ -80,8 +81,9 @@ arrived ([chapter 02](../model/02-coercion-and-lifting.md)).
 Other boundaries:
 
 - **Zero and negatives** render through the format's negative branch, which is parenthesised in
-  the documented US format and may be a leading minus elsewhere. This is a locale-visible
-  difference in the *shape* of the output, not only in the symbol.
+  the documented US format and is a leading minus in the recorded en-ZA settings, where
+  `DOLLAR(-0.005,0)` is `-R0` (FN-DOLLAR-001). This is a locale-visible difference in the
+  *shape* of the output, not only in the symbol.
 - **An empty cell** as `number` converts to zero under the ordinary numeric coercion, so
   `DOLLAR` of a blank is a rendering of zero rather than empty text.
 - **Very large magnitudes** must eventually exceed what a fixed-decimal rendering can express;
@@ -104,7 +106,9 @@ worksheet-visible behaviour. Nothing about it has been observed here.
   and an explicit `no_commas` switch that `DOLLAR` does not have. If you want grouped decimal
   text without a currency symbol, `FIXED` is the function. See [`FIXED`](FUNC.FIXED.md).
 - **`TEXT`** is the general case, taking an arbitrary format string; `DOLLAR` is `TEXT` with
-  the currency format baked in and the format argument replaced by a decimals count.
+  the currency format baked in and the format argument replaced by a decimals count. The two
+  differ on an amount that rounds to zero: `DOLLAR` keeps the minus sign, `TEXT` drops it
+  (FN-DOLLAR-001).
 - **`VALUE`** and **`NUMBERVALUE`** are the inverse direction, parsing formatted text back to a
   number — and `NUMBERVALUE` exists precisely because the inverse is locale-dependent too.
 - **`DOLLARDE` and `DOLLARFR`** share the word but not the job: they convert between fractional
@@ -134,8 +138,8 @@ worksheet-visible behaviour. Nothing about it has been observed here.
 No Handbook vector suite exists for `DOLLAR`, and no Excel-comparison evidence record takes it
 as a subject. `FUNC.DOLLAR` appears in the group member list of the structural sweep recorded
 as `EV-STRUCT-0009`, but that record's subjects are `FUNC.ARABIC` and `FUNC.DECIMAL` and its
-own reader warning forbids attributing the run's figures to any single surface. So nothing here
-is measured.
+own reader warning forbids attributing the run's figures to any single surface. So, apart from
+the note below, nothing here is measured.
 
 This function additionally cannot be exercised by the Handbook's dispatch battery at all: the
 entry's surface dependency is composite — it requires a host facility — so the battery panel on

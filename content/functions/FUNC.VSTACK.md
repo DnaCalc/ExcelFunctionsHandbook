@@ -71,7 +71,8 @@ The return kind is an array, spilled.
 - **The `#N/A` padding is part of the value**, not a display artifact: it participates in
   downstream arithmetic and comparisons exactly as any `#N/A` does.
 - **Error values inside the inputs** are carried through unchanged. `VSTACK` moves values; it
-  does not inspect them.
+  does not inspect them. An error written directly as an argument is different: it is the answer
+  for the whole call (FN-HSTACK-001).
 - **Very large results** hit the grid and the array-size limits; the documentation for adjacent
   reshaping functions names `#NUM!` for oversized arrays, and whether `VSTACK` uses the same
   outcome is not something the Handbook has verified.

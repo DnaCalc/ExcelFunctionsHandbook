@@ -117,7 +117,8 @@ Two observations the Handbook records rather than smooths over:
    which mentions only "any argument is not a valid date" (`#VALUE!`). Two functions performing the
    same holiday exclusion, documented with different error values for an out-of-range holiday.
 2. **Only the string form of `weekend` has a documented invalidity condition.** What an
-   out-of-table numeric code does — 0, 8, 10, 18 — is not stated, and is not asserted here.
+   out-of-table numeric code does is not stated. Code 0 gives `#NUM!` (FN-NETWORKDAYS.INTL-001);
+   8, 10 and 18 are not asserted here.
 
 ## Relationships
 
@@ -132,7 +133,8 @@ Two observations the Handbook records rather than smooths over:
 
 ## Notes for implementers
 
-1. **Normalize `weekend` to a seven-bit mask before anything else**, from either shape, and reject
+1. **Normalize `weekend` to a seven-bit mask once `start_date` has been read**, the order Excel
+   uses (FN-NETWORKDAYS.INTL-001), from either shape, and reject
    the all-ones mask here even if the counting sibling tolerates it — an offset over a week with no
    working days does not terminate.
 2. **Use whole-week arithmetic.** With `w = popcount(¬mask)` working days per week, `days` decomposes
@@ -146,7 +148,8 @@ Two observations the Handbook records rather than smooths over:
 
 ## What has not been checked
 
-No Handbook vector suite exists for `WORKDAY.INTL`, and no Excel-comparison evidence is recorded.
+No Handbook vector suite exists for `WORKDAY.INTL`. The Excel readings on this page are in
+FN-NETWORKDAYS.INTL-001 and FN-WORKDAY-001.
 The battery on this page is the reference engine answering its own probes; no Excel was involved.
 Probes worth running first:
 
@@ -157,7 +160,8 @@ Probes worth running first:
   `NETWORKDAYS.INTL` agrees.
 - **`days = 0` from each of the seven weekdays** under weekend code 1 — settles the counting
   convention.
-- **Out-of-table numeric codes** — 0, 8, 10, 18 — where the documentation is silent.
+- **Out-of-table numeric codes** — 8, 10, 18 — where the documentation is silent. Code 0 is `#NUM!`
+  (FN-NETWORKDAYS.INTL-001).
 - **An out-of-range date inside `holidays`** — resolves the documented divergence with `WORKDAY`.
 - **Consecutive holidays**, testing the fixed-point requirement.
 - **`WORKDAY(a,n,h)` against `WORKDAY.INTL(a,n,1,h)`** across a few hundred cases.

@@ -91,8 +91,9 @@ with `NORM.DIST`.
 Returns `Number`, always in [−½, ½].
 
 - **z = 0** gives exactly 0, and the signed zero is worth preserving.
-- **Small z**, including subnormals, gives z/√(2π) to within a rounding. There is no
-  cancellation here, unlike in the ½-subtracted form discussed below — which is the point.
+- **Small z** gives z/√(2π) to within a rounding. Subnormals cannot be asked through a cell,
+  which reads them back as 0 (FN-ERF.PRECISE-001). There is no cancellation here, unlike in the
+  ½-subtracted form discussed below — which is the point.
 - **Large |z|** saturates at ±½. In binary64 the difference between Φ(z) and 1 falls below the
   representable spacing at ½ once |z| exceeds roughly 8.3, so beyond that the function returns
   exactly ±½ and carries no further information.
@@ -124,7 +125,8 @@ real-result axis, consistent with a function that has no domain to guard.
   computation in general, and the difference matters: forming Φ(z) and then subtracting ½ loses
   precision for small z, because Φ(z) ≈ ½ + small and the subtraction cancels the leading digits
   of the answer. `GAUSS` exists so that the small quantity never has to be recovered from a
-  difference. Whether Excel's `GAUSS` actually avoids that path is an open question here.
+  difference. Below 0.5 Excel's `GAUSS` uses the ERF rational of FN-ERF.PRECISE-001; from 0.5 up,
+  whether it avoids that path is an open question here.
 - **`PHI(z)`** — the standard normal *density*, not a probability. Naming collision with the
   common notation Φ for the CDF; Excel's `PHI` is φ, the derivative of `NORM.S.DIST`. The two
   were introduced together in Excel 2013 and are documented on separate pages.
@@ -164,12 +166,13 @@ an optimisation: the choice is observable.
 fingerprint, determined by where erf(z/√2) rounds to 1 rather than by any mathematical boundary.
 
 **What the Handbook's evidence says about the substrate.** The open-discrepancy record for this
-surface diagnoses the disagreement as needing the error-function/CDF substrate, which is itself
-still open. That is an unusually specific statement of *why* a surface is unresolved: not "we
-have not looked", but "the layer beneath it has not been identified". A separate record in the
-same family identifies the `.PRECISE` error-function surfaces as branches of an incomplete-gamma
-routine rather than as a standalone coefficient table — which is the kind of finding that, if it
-also governs `GAUSS`, would explain the residual without any coefficient fitting at all.
+surface diagnoses the disagreement as needing the error-function/CDF substrate. That is an
+unusually specific statement of *why* a surface is unresolved: not "we have not looked", but "the
+layer beneath it has not been identified". FN-ERF.PRECISE-001 has since identified that layer below
+0.5: a stored (4, 5) rational, which `GAUSS` uses too, with coefficients read off Excel's answers
+and no published table matched. A separate record in the same family identifies the `.PRECISE`
+error-function surfaces as branches of an incomplete-gamma routine rather than as a standalone
+coefficient table; below 0.5 that note finds a coefficient table.
 
 ## What has not been checked
 
@@ -184,18 +187,19 @@ corpus pass rate — in which this surface is one of the two that drifted while 
 Both records' figures render mechanically beside this page; this prose deliberately does not
 restate them.
 
-So the state of knowledge is: **a single point, twice, on one build, and it disagrees.** That is
-enough to know the surface is not resolved and nowhere near enough to characterise it. There is
-no Handbook vector suite for `GAUSS`, no measurement anywhere in the tails, and no identification
-of the algorithm.
+So those two records amount to **a single point, twice, on one build, and it disagrees.** That is
+enough to know the surface is not resolved and nowhere near enough to characterise it.
+FN-ERF.PRECISE-001 goes further: `GAUSS` uses the ERF rational below 0.5 and matches every recorded
+row in that range. There is no Handbook vector suite for `GAUSS`, no measurement anywhere in the
+tails, and no identification of the algorithm from 0.5 up. Still open from that note: the last bits
+of the coefficients of order 3 and above, the source table, which branch owns 0.5, and subnormal
+arguments.
 
 Inputs I would probe first, and why:
 
 1. **A ladder of small z** — 2⁻¹⁰ down to the subnormal edge — against the correctly rounded
-   ½·erf(z/√2). This is the cancellation probe and the single most diagnostic sweep available:
-   an implementation that routes through Φ(z) − ½ will show relative error growing without bound
-   as z → 0, and one that uses erf directly will not. That one distinction settles the question
-   the function's existence turns on.
+   ½·erf(z/√2). Answered below 0.5: `GAUSS` uses the ERF rational, and every recorded row in that
+   range matches (FN-ERF.PRECISE-001). Subnormal arguments cannot be asked through a cell.
 2. **`GAUSS(z) + GAUSS(−z)`** across the range, which must be exactly zero and needs no oracle.
    A non-zero result proves the symmetry is not being exploited.
 3. **`GAUSS(z)` against `NORM.S.DIST(z, TRUE) − 0.5` and against `ERF(z/SQRT(2))/2`**, on the

@@ -108,14 +108,16 @@ kind with no text conversion surfaces `#VALUE!` under the shared coercion rules
 No Handbook vector suite exists for `LOWER`, and no Excel-comparison evidence record names it.
 Unchecked:
 
-- `LOWER("İ")`, `LOWER("ẞ")`, and `LOWER("ΟΔΟΣ")` versus `LOWER("ΣΟΦΙΑ")` — three formulas that
-  decide the expansion policy and the final-sigma rule at once;
+- `LOWER("İ")`, `LOWER("ẞ")`, and `LOWER("ΟΔΟΣ")` versus `LOWER("ΣΟΦΙΑ")` — formulas that decide
+  the expansion policy and the rest of the final-sigma rule (FN-LOWER-001 records sigma before a
+  full stop as final and before a combining mark as medial);
 - whether the answers change with the workbook or system language, which would make `LOWER`
   locale- dependent, an axis it does not currently carry;
-- `LOWER` of an astral character with a case mapping (Deseret and Adlam are the usual test
-  alphabets) and of text containing a variation selector;
-- whether the result changes under Compatibility Version 2, which Microsoft's documentation
-  records as changing surrogate handling for other text functions.
+- `LOWER` of astral letters other than the Deseret capital U+10400, which stays unchanged
+  (FN-LOWER-001), and of text containing a variation selector;
+- whether the result differs at compatibility version 1: the readings in FN-LOWER-001 are at
+  version 2, which Microsoft's documentation records as changing surrogate handling for other
+  text functions.
 
 ## Notes
 

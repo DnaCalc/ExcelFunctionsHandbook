@@ -70,12 +70,13 @@ the output shape; the traversal is the third argument's business.
 The return kind is a single-row array.
 
 - **The result can be empty** when `ignore` removes everything; Excel's convention for an empty
-  array result is `#CALC!` ([the value universe](../model/01-value-universe.md)), and the
-  Handbook has not verified that `TOROW` uses it.
+  array result is `#CALC!` ([the value universe](../model/01-value-universe.md)), and `TOROW`
+  uses it with `ignore` `2` when nothing is left (FN-HSTACK-001).
 - **"Blank" is ambiguous** between an empty cell and text of zero length. Which one `ignore`
   `1` drops is the question that decides how the function behaves on formula-generated data,
   and the documentation does not disambiguate it.
-- **Ignoring errors shortens the result**; positions no longer correspond to source cells.
+- **Ignoring errors shortens the result**; positions no longer correspond to source cells. A
+  direct error is not an element and is not ignored (FN-HSTACK-001).
 - **A one-element result stays an array.**
 - Dynamic-array publication and `#SPILL!` are host-side adaptation.
 
@@ -122,10 +123,11 @@ First probes:
    zero, under `ignore` `1` and `3`.
 3. **`TOROW` against `TRANSPOSE(TOCOL(...))`** on the same inputs, to confirm the twins agree
    — a cheap consistency oracle that needs no external reference.
-4. **The empty result** under `ignore` `3`.
+4. **The empty result** under `ignore` `3`. Under `ignore` `2` it is `#CALC!` (FN-HSTACK-001).
 5. **`ignore` outside `0..3`**, and array-valued arguments in either optional position.
 6. **The documented error conditions**, including whether the `#VALUE!` clause on the sibling
    page applies here at all.
+7. **Competing errors in later positions**, which FN-HSTACK-001 leaves open.
 
 ## Notes
 

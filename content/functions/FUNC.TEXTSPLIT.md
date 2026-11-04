@@ -109,9 +109,10 @@ Specific to this function:
 - **The padding value is a value, not a format.** `pad_with` can be text, a number, or an error;
   it occupies the cell exactly as given.
 - **Error inputs propagate** ahead of any splitting.
-- **`text` is a scalar position.** The upstream slice contract admits scalar text only; whether
-  Excel lifts `TEXTSPLIT` over an array-valued `text` (which would require an array of arrays,
-  something the value universe does not admit) is not something this page asserts either way.
+- **Array-valued `text` lifts.** The upstream slice contract admits scalar text only, but Excel
+  lifts `TEXTSPLIT` over an array-valued `text`, even a 1 by 1 array, and each element returns only
+  its first piece rather than an array of arrays, which the value universe does not admit
+  (FN-TEXTSPLIT-002).
 
 ## Errors
 
@@ -127,7 +128,8 @@ Beyond that, the errors this function can be involved in are the ordinary ones:
 - `#SPILL!` when the result cannot be published into the sheet — an engine outcome described in
   [the call pipeline](../model/03-call-pipeline.md), not a `TEXTSPLIT` semantic;
 - `#VALUE!` for arguments outside their admitted domains. Which domains, exactly, is not stated on
-  Microsoft's page, and this Handbook has not established it.
+  Microsoft's page, and this Handbook has established only one: empty `text`, as
+  `TEXTSPLIT("",",")` is `#VALUE!` (FN-TEXTSPLIT-001).
 
 That last row is a real gap and is listed below rather than papered over.
 
@@ -170,10 +172,10 @@ That last row is a real gap and is listed below rather than papered over.
 ## What has not been checked
 
 There is no Handbook vector suite for `TEXTSPLIT`, and no Handbook evidence record comparing any
-implementation against Excel. Nothing here is a measurement. The upstream OxFunc contract for this
-family is marked provisional and states its own boundary: it captures core array semantics through
-a scalarised witness path and does not claim broader spill-publication or Unicode-collation
-closure.
+implementation against Excel. Apart from the notes below, nothing here is a measurement. The
+upstream OxFunc contract for this family is marked provisional and states its own boundary: it
+captures core array semantics through a scalarised witness path and does not claim broader
+spill-publication or Unicode-collation closure.
 
 The probes that would settle the open questions, roughly in order of how much behaviour they pin:
 

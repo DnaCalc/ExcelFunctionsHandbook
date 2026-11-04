@@ -67,10 +67,10 @@ signature — the function reduces a numeric multiset to a single number. It als
 that the admission of text, logicals and empty cells is decided by this function rather than
 inherited.
 
-Which values reach the multiset is the usual worksheet asymmetry, not something this page
-should restate: direct scalar arguments and values reached by scanning a range obey different
-rules. See [Coercion and lifting](../model/02-coercion-and-lifting.md), which states the
-asymmetry once and explains why there is deliberately no global precedence rule.
+Which values reach the multiset is not the usual worksheet asymmetry: the function takes only
+numbers from its arguments, even when text or a logical is typed directly into the call
+(FN-MODE-001). See [Coercion and lifting](../model/02-coercion-and-lifting.md), which states the
+usual asymmetry once and explains why there is deliberately no global precedence rule.
 
 ## Result and edge cases
 
@@ -101,15 +101,13 @@ Returns `Number`.
 | Error | Condition |
 |---|---|
 | `#N/A` | The data set contains no value that occurs more than once |
-| `#VALUE!` | A direct argument does not convert to a number |
-| propagated | An error value among the admitted values surfaces as that error |
+| propagated | An error value among the admitted values surfaces as that error; of two errors the first is returned |
 
 The `#N/A` row is documented by Microsoft on the page cited in Sources. Retrieval of that page
 was refused by the upstream host while this page was written, so the row is published as
 documented behaviour with its source named and should be re-checked against the page. The
-other two rows are the ordinary coercion rules of
-[Coercion and lifting](../model/02-coercion-and-lifting.md) rather than anything specific to
-this function, and the Handbook has not observed either in Excel.
+propagation row is measured. There is no `#VALUE!` row: a direct argument that does not convert
+to a number is ignored, so `MODE.SNGL("x",2,2)` is 2 (FN-MODE-001).
 
 ## Relationships
 
@@ -119,7 +117,8 @@ this function, and the Handbook has not observed either in Excel.
   same bits.** Microsoft's compatibility functions are separately dispatched surfaces; whether
   `MODE` and `MODE.SNGL` share a code path inside Excel is an empirical question, and the
   reference engine's own presence projection puts them in different implementation modules.
-  Proving identity requires evidence, and none is attached here.
+  Proving identity requires evidence, and the only evidence attached here is FN-MODE-001, which
+  reads the two side by side on direct text, logicals and errors.
 - **`MODE.MULT`** is the honest sibling: it returns the whole set `A` as a
   vertical array, which is what the mathematics actually produces. Where `MODE.SNGL` hides a
   tie, `MODE.MULT` exposes it. If you care whether your data has one mode or several, that is
@@ -159,7 +158,8 @@ cancellation. Everything difficult about `MODE.SNGL` is discrete.
 ## What has not been checked
 
 No Handbook vector suite exists for `MODE.SNGL`, and no Handbook evidence record names this
-surface. Nobody has compared this function against Excel within the Handbook's record. The
+surface. Apart from the readings in FN-MODE-001, nobody has compared this function against Excel
+within the Handbook's record. The
 `#N/A`-when-no-duplicate rule is documented by Microsoft; the tie-break rule and the equality
 predicate are documented nowhere the Handbook has found, and they are the two facts that
 determine the answer.
@@ -177,11 +177,11 @@ Inputs worth probing first, in order of what they settle:
    the lookup families. If the second call returns a value rather than `#N/A`, the comparison
    is tolerant.
 4. **`MODE.SNGL({-0,0})`** — whether negative zero is a distinct value for counting purposes.
-5. **A range containing text that reads as a number, logicals, and empty cells**, against the
-   same values passed directly as arguments. This is the direct-versus-scan asymmetry, and
-   `MODE.SNGL`'s `Custom` coercion profile means it cannot be predicted from any other
-   function's behaviour.
-6. **An error value inside the scanned range** — whether it propagates or is skipped.
+5. **A range containing text that reads as a number, logicals, and empty cells.** Direct text and
+   logicals are ignored, not converted (FN-MODE-001). How a reference to one empty cell counts is
+   still open.
+6. **An error value in a referenced cell** propagates, and of two errors the first is returned
+   (FN-MODE-001).
 7. **`MODE.SNGL` against `MODE`** on every probe above, which is the only way to turn the
    legacy-alias question from an assumption into a finding.
 

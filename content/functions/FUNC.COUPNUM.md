@@ -42,9 +42,9 @@ the schedule described on [COUPNCD](FUNC.COUPNCD.md#the-coupon-schedule) — cou
 backwards from `maturity` in `12/frequency`-month steps — `COUPNUM` is the number of schedule
 dates strictly after `settlement`, up to and including `maturity`.
 
-It is therefore always a positive integer, and it is the number of terms in the cash-flow sums
-that `PRICE`, `YIELD`, `DURATION` and `MDURATION` evaluate. An off-by-one here is an off-by-one
-coupon in every one of them.
+When it returns a number, that number is a positive integer, and it is the number of terms in
+the cash-flow sums that `PRICE`, `YIELD`, `DURATION` and `MDURATION` evaluate. An off-by-one here is
+an off-by-one coupon in every one of them.
 
 The relationship to the rest of the family:
 
@@ -78,14 +78,16 @@ Microsoft documents that **"All arguments are truncated to integers."**
 
 ## Result and edge cases
 
-Returns a `Number`: a positive integer.
+Returns a `Number`: a positive integer, or `#NUM!` when the coupon before settlement falls before
+1900 (FN-COUPNUM-001).
 
 - **`settlement` exactly on a coupon date** returns one fewer coupon under the reference engine
   than a settlement one day earlier, because the schedule rolls forward and that coupon is
   treated as already passed. Microsoft's page does not state this. The alternative reading —
   that a coupon dated exactly on the settlement date is still "payable between settlement and
   maturity" — gives a different count, and the difference is a whole coupon in every downstream
-  price.
+  price. FN-COUPNUM-001 reads one such input: `COUPNUM(34,400,2,0)` is 2, with coupon dates at 34,
+  216 and 400, so the coupon on the settlement date is not counted.
 - **`settlement` one day before maturity** returns 1: the maturity coupon.
 - **The answer is independent of `basis`** on every input where it is defined.
 - **Long-dated bonds** return large counts; the reference engine finds the period by walking the
@@ -138,9 +140,9 @@ argument or a date serial outside the representable range. Errors in any argumen
 2. **Walk or index, but decide.** Counting schedule steps and computing a month-difference
    quotient give different answers under the clamping month rule when `maturity` is a month end.
    The reference engine walks.
-3. **The roll-forward branch is the only boundary that matters**, and it changes the answer by a
-   whole unit. It is decided before any counting, and it is shared with the rest of the family —
-   one probe fixes all six functions.
+3. **The roll-forward branch changes the answer by a whole unit**, and the limit at 1900 in
+   FN-COUPNUM-001 is a second boundary. The branch is decided before any counting, and it is shared
+   with the rest of the family — one probe fixes all six functions.
 4. **Cost is linear in the answer.** For a synthetic instrument maturing centuries out, an
    iterating implementation does real work; a consumer computing `COUPNUM` inside a solver loop
    will feel it.
@@ -149,8 +151,8 @@ argument or a date serial outside the representable range. Errors in any argumen
 ## What has not been checked
 
 No Handbook vector suite exists for `COUPNUM`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. Nobody has
-checked this function against Excel within the Handbook's record. The battery on this page is
+its subjects**. The shared `coupon_family` module is named by no record either. FN-COUPNUM-001
+measures `COUPNUM` around the start of the calendar. The battery on this page is
 the reference engine answering its own probes; no Excel was involved.
 
 The documented "rounded up to the nearest whole coupon" clause pins the interior behaviour
@@ -159,8 +161,9 @@ and that is where the whole-unit difference lives.
 
 Inputs worth probing first:
 
-1. **`settlement` exactly on a coupon date, and one day either side.** Three cells, and the
-   middle one decides whether the reference engine's roll-forward convention is Excel's. The
+1. **`settlement` exactly on a coupon date, and one day either side**, away from the start of
+   the calendar, where FN-COUPNUM-001 already shows the coupon on the settlement date not counted.
+   Three cells that test the reference engine's roll-forward convention more widely. The
    same three cells constrain `COUPPCD`, `COUPNCD` and `COUPDAYBS`.
 2. **`settlement` one day before `maturity`**, which must return 1 under any reading and is a
    cheap sanity anchor for a future vector suite.

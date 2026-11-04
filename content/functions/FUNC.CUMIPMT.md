@@ -55,7 +55,7 @@ each period or 1 for payments at the beginning. Solving it for the payment gives
 >     interest in period k  =  r × (balance outstanding at the start of period k)
 >     principal in period k =  pmt − interest in period k
 
-and
+and, in exact arithmetic,
 
 >     CUMIPMT(r, n, pv, s, e, type)  =  Σ_{k = s}^{e}  IPMT(r, k, n, pv, 0, type)
 
@@ -64,8 +64,9 @@ payments is itself an annuity value — but it is *defined* as a sum, and the di
 computing the sum and computing the closed form is not academic. The reference engine sums the
 per-period `IPMT` terms left to right, in that order, deliberately: its source records the
 choice and records that it carries a larger numerical residual than the algebraic alternative
-`pmt × (e − s + 1) − CUMPRINC`. Which one Excel does is exactly what the evidence attached to
-this page is about.
+`pmt × (e − s + 1) − CUMPRINC`. On one 30-year loan Excel's answer equals the algebraic form, from
+Excel's own answers, to the last bit; beyond that loan this is inferred, and Excel's route is open
+(FN-CUMPRINC-001).
 
 Note that `fv` is fixed at zero: `CUMIPMT` models a loan amortized to nothing. There is no
 argument for a balloon payment, which is the usual reason a real amortization schedule and a
@@ -184,11 +185,14 @@ The reference engine's conditions, recorded as the reference engine's:
 
 - **[CUMPRINC](FUNC.CUMPRINC.md)** — the principal half. Same six arguments, same validation,
   same period range. The identity `CUMIPMT + CUMPRINC = pmt × (end_period − start_period + 1)`
-  holds exactly in the mathematics and only approximately in floating point, which makes it a
-  useful consistency probe rather than a substitute for either function.
-- **`IPMT`** — the single-period interest component. `CUMIPMT` is its sum, and the two must agree
-  on a one-period range.
-- **`PPMT`** — the single-period principal component, and `CUMPRINC`'s summand.
+  holds exactly in the mathematics. In floating point FN-CUMPRINC-001 measures it to the last bit
+  on one loan and infers the rest, which makes it a useful consistency probe rather than a
+  substitute for either function.
+- **`IPMT`** — the single-period interest component. `CUMIPMT` is its sum in the mathematics. On a
+  one-period range FN-CUMPRINC-001 measures `CUMPRINC` and `PPMT` differing, so do not assume this
+  pair agrees in the last bits.
+- **`PPMT`** — the single-period principal component. `CUMPRINC` is its sum in the mathematics, and
+  not in general in Excel (FN-CUMPRINC-001).
 - **`PMT`** — the payment the whole family is built on. Every `CUMIPMT` evaluation computes it
   first, so any `PMT` error is inherited.
 - **`FV`, `PV`, `NPER`, `RATE`** — the other faces of the same annuity equation. The Handbook's
@@ -264,12 +268,14 @@ Inputs worth probing first:
 5. **Very small rates** — `rate` around 1e−7 with a large `nper` — where the naive annuity factor
    and the `log1p`/`expm1` form diverge visibly. This is the input class that separates the two
    implementation strategies.
-6. **`CUMIPMT + CUMPRINC` against `PMT × count`** over the same range, which is exact in the
-   mathematics and measures the accumulated floating-point difference.
+6. **`CUMIPMT + CUMPRINC` against `PMT × count`** beyond the one loan of FN-CUMPRINC-001, where
+   the two are equal to the last bit. Elsewhere that is inferred, not measured.
 7. **`CUMIPMT` over `1…nper` against `PMT × nper − pv`**, the total-interest identity for a fully
    amortized loan.
 8. **A long range at both `type` values**, to characterise whether the residual grows with the
    number of summed terms.
+9. **The per-period route**, which FN-CUMPRINC-001 leaves open. Recorded rows now match `CUMIPMT`
+   12 of 38.
 
 ## Notes
 

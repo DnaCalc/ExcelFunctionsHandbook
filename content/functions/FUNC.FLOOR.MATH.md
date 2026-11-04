@@ -125,9 +125,10 @@ Returns `Number`.
 ## Errors
 
 Microsoft's `FLOOR.MATH` page documents no error conditions. That is itself notable: the legacy
-`FLOOR` documents `#NUM!` for mismatched signs and `#DIV/0!` for a zero significance, and
-`FLOOR.MATH` was introduced precisely to remove the first of those restrictions. Whether it
-also removed the second — that is, what a zero significance does — the page does not say.
+`FLOOR` documents `#NUM!` for mismatched signs, and `FLOOR.MATH` was introduced precisely to remove
+that restriction. Legacy `FLOOR` also gives `#DIV/0!` for a zero significance with a nonzero number
+(FN-FLOOR-001), which Microsoft's pages do not say. What a zero significance does in `FLOOR.MATH`
+the page does not say, and it is untested.
 
 Non-numeric arguments surface `#VALUE!` under the shared call model, and error values
 propagate. The mechanically rendered battery beside this page shows the boundary probes.
@@ -204,9 +205,9 @@ not determined which one Excel takes.** That is the most valuable open question 
 because the answer changes results in the second decimal place of ordinary financial formulas,
 not in the last bit.
 
-**Where nothing goes wrong**: when `s` is a power of two, `x/s` and `s·q` are both exact, and
-the naive op-graph is the correct answer. Rounding to halves, quarters or eighths is safe;
-rounding to tenths is not.
+**Power-of-two significances.** When `s` is a power of two, `x/s` and `s·q` are both exact in the
+naive op-graph. That does not show such a significance is safe: `FLOOR`'s readings refute it
+(FN-FLOOR-002 and [FLOOR](FUNC.FLOOR.md)), and `FLOOR.MATH` itself is untested.
 
 **A note on `mode` and negative zero.** In the toward-zero reading, a negative argument in
 `(-s, 0)` maps to zero. Whether that zero carries a sign is not documented and is visible

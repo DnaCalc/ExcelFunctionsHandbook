@@ -129,7 +129,8 @@ Microsoft's page documents the following (see Sources):
 | `#VALUE!` | `instance_num` is `0`, or its magnitude exceeds the length of the text. |
 
 `#N/A` is suppressible by supplying `if_not_found`; `#VALUE!` is not. Errors arriving in any
-argument propagate ahead of all of this.
+argument propagate ahead of all of this. Empty `text` gives `#N/A`, not `#VALUE!`, even though the
+default `instance_num` of 1 exceeds its length of 0 (FN-TEXTSPLIT-001).
 
 ## Relationships
 
@@ -167,7 +168,8 @@ argument propagate ahead of all of this.
 ## What has not been checked
 
 There is no Handbook vector suite for `TEXTAFTER`, and no Handbook evidence record comparing any
-implementation against Excel for this function. Nothing on this page is a measurement.
+implementation against Excel for this function. Apart from the note below, nothing on this page
+is a measurement.
 
 The specific questions that are open, and the probes that would close them:
 
@@ -188,7 +190,8 @@ The specific questions that are open, and the probes that would close them:
 6. **The `#VALUE!` boundary for large `instance_num`.** Microsoft documents the error when the
    magnitude exceeds the text length, which is a surprising rule — it means the error depends on
    the text, not on the occurrence count. `TEXTAFTER("ab", "x", 3)` versus `TEXTAFTER("abcd", "x",
-   3)` tests whether the documented rule is the observed one.
+   3)` tests whether the documented rule is the observed one. Empty text already departs from it
+   (FN-TEXTSPLIT-001).
 
 Until those are recorded, treat every statement above that is not attributed to Microsoft's page
 or to a named upstream record as a model, not a finding.

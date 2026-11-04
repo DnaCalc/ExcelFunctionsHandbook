@@ -74,14 +74,15 @@ The return kind is a single-column array.
 
 - **The result can be empty.** `TOCOL(range, 3)` over a range of only blanks and errors leaves
   nothing. The Excel convention for an empty array result is `#CALC!`
-  ([the value universe](../model/01-value-universe.md)); the Handbook has not verified that
-  `TOCOL` uses it.
+  ([the value universe](../model/01-value-universe.md)), and `TOCOL` uses it:
+  `TOCOL({#N/A},2)` drops the error, has nothing left, and is `#CALC!` (FN-HSTACK-001).
 - **What counts as "blank".** Whether `ignore` `1` drops empty cells only, or also empty text
   `""`, is the question this function turns on in practice — a column produced by a formula
   chain is usually full of `""`, not of empty cells. The documentation says "blanks" and does
   not disambiguate; the Handbook has not verified it.
 - **Ignoring errors removes them entirely**; it does not replace them. The result is shorter,
-  which means positions no longer correspond to the source.
+  which means positions no longer correspond to the source. A direct error is not an element
+  and is not ignored: `TOCOL(#N/A,2)` is `#N/A` (FN-HSTACK-001).
 - **A single-element result stays an array.** See the `TAKE` page for the probes that make that
   distinction observable.
 - Dynamic-array publication and `#SPILL!` are host-side adaptation, not `TOCOL` semantics.
@@ -141,9 +142,10 @@ First probes:
 3. **The documented `#VALUE!` condition**, to find out what "an array constant containing
    numbers that are not whole numbers" actually refers to; as written it does not match the
    function's semantics and may be inherited boilerplate.
-4. **The empty result** under `ignore` `3`.
+4. **The empty result** under `ignore` `3`. Under `ignore` `2` it is `#CALC!` (FN-HSTACK-001).
 5. **`ignore` values outside `0..3`**, including negatives, non-integers and logicals.
 6. **Size limits**, against the documented `#NUM!`.
+7. **Competing errors in later positions**, which FN-HSTACK-001 leaves open.
 
 ## Notes
 

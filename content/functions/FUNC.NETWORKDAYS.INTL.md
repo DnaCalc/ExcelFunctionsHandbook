@@ -107,7 +107,8 @@ Three details about the string form:
 Returns a `Number`: a count of working days.
 
 - **Inclusivity of the endpoints** is not stated on the Microsoft page, exactly as with
-  `NETWORKDAYS`. The expected behaviour is that both endpoints count; unverified here.
+  `NETWORKDAYS`. The expected behaviour is that both endpoints count, and
+  `NETWORKDAYS.INTL(2,5,TRUE)` = 4 fits it (FN-NETWORKDAYS.INTL-001).
 - **Reversed intervals** — likewise undocumented and unverified.
 - **A weekend covering six days** leaves one working day per week and is legal.
 - **Holidays landing on weekend days** should contribute nothing, since the operation is exclusion;
@@ -129,7 +130,8 @@ the discrepancy rather than resolving it by assumption; see
 [claim language](../model/06-claim-language.md), rule 5.
 
 The documented `#VALUE!` condition names only *string* invalidity. What an out-of-table **numeric**
-weekend code does — 8, 10, 18, 0 — is not stated on that page and is not asserted here.
+weekend code does is not stated on that page. Code 0 gives `#NUM!` (FN-NETWORKDAYS.INTL-001); 8, 10
+and 18 are not asserted here.
 
 ## Relationships
 
@@ -137,8 +139,9 @@ weekend code does — 8, 10, 18, 0 — is not stated on that page and is not ass
   equal `NETWORKDAYS.INTL(a,b,1,h)`; that equivalence is unverified here and is the family's
   cleanest cross-check.
 - **[WORKDAY.INTL](FUNC.WORKDAY.INTL.md)** — the inverse operation with the identical `weekend`
-  argument. The two should agree about which days are weekends by construction, and their
-  documented error tables should therefore match; they are worded differently.
+  argument. The two should agree about which days are weekends by construction, but their errors
+  do not match: the documented tables are worded differently, and FN-NETWORKDAYS.INTL-001 measures
+  different answers for errors in the date and weekend cells.
 - **[WORKDAY](FUNC.WORKDAY.md)** — the un-generalized inverse.
 - **[WEEKDAY](FUNC.WEEKDAY.md)** — the underlying day-of-week notion, with yet another numbering
   convention. This family contains four mutually non-aligned weekday numberings: `WEEKDAY`'s
@@ -162,9 +165,9 @@ weekend code does — 8, 10, 18, 0 — is not stated on that page and is not ass
 
 ## What has not been checked
 
-No Handbook vector suite exists for `NETWORKDAYS.INTL`, and no Excel-comparison evidence is
-recorded. The battery on this page is the reference engine answering its own probes; no Excel was
-involved. Probes worth running first:
+No Handbook vector suite exists for `NETWORKDAYS.INTL`. The Excel readings on this page are in
+FN-NETWORKDAYS.INTL-001 and FN-WORKDAY-001. The battery on this page is the reference engine
+answering its own probes; no Excel was involved. Probes worth running first:
 
 - **All fourteen numeric weekend codes on one known week** — fourteen rows that pin the entire
   numeric table, which is the part of this function nobody remembers correctly.
@@ -172,7 +175,8 @@ involved. Probes worth running first:
   convention definitively.
 - **`"1111111"`** on both `NETWORKDAYS.INTL` and `WORKDAY.INTL` — settles whether the documented
   prohibition applies to both.
-- **Out-of-table numeric codes** — 0, 8, 10, 18 — where the documentation is silent.
+- **Out-of-table numeric codes** — 8, 10, 18 — where the documentation is silent. Code 0 is `#NUM!`
+  (FN-NETWORKDAYS.INTL-001).
 - **`NETWORKDAYS(a,b,h)` against `NETWORKDAYS.INTL(a,b,1,h)`** over a few hundred pairs.
 - **Endpoint inclusivity and reversed intervals**, as on the `NETWORKDAYS` page.
 - **A `holidays` range with blanks, duplicates and weekend dates.**

@@ -52,12 +52,14 @@ The balance itself is the same annuity equation the rest of this family solves. 
 with `PMT = PMT(rate, nper, pv, fv, type)`. So `IPMT` is a *derived* quantity: it needs the payment,
 and the payment needs the whole annuity. This is why an `IPMT` implementation is structurally more
 fragile than a `PMT` implementation — it inherits every error in `PMT` and then adds a balance
-recurrence on top.
+recurrence on top. Excel's route for `fv` 0 and `type` 0 has no such recurrence: FN-IPMT-001 gives
+it as a direct formula that reuses `PMT`'s quotient.
 
-Three exact identities hold by construction and are the natural tests:
+Three identities hold by construction in exact arithmetic and are the natural tests:
 
 1. **`IPMT(per) + PPMT(per) = PMT`** for every `per`. The payment splits into interest and
-   principal, exhaustively.
+   principal, exhaustively. Excel's stored answers do not satisfy it: on one 30-year loan
+   `PMT − IPMT` equals `PPMT` in 2 of 12 periods and `PMT − PPMT` equals `IPMT` in 7 (FN-PPMT-001).
 2. **`Σ IPMT(k) for k = 1..nper = CUMIPMT(1, nper)`**, and likewise for principal.
 3. **`IPMT` decreases in magnitude with `per`** for a conventional amortizing loan, because the
    balance falls; `PPMT` rises by the same amount.
@@ -120,8 +122,9 @@ Returns `Number` — an interest amount carrying the family sign convention.
   a correspondingly tiny signed value rather than being flattened to zero. That distinction is
   observable and is a probe target.
 - **`type = 1` with `per = 1`** returns zero, as above.
-- **Near the final period** the balance approaches `fv`, and the interest is the difference of two
-  nearly equal large numbers; see *Numerical notes*.
+- **Near the final period** the balance approaches `fv`, and a balance recurrence takes the
+  difference of two nearly equal large numbers. Excel's route for `fv` 0 and `type` 0 does not
+  (FN-IPMT-001); see *Numerical notes*.
 - **`rate ≤ −1`** is rejected as `#NUM!` in the reference engine, following `PMT`'s domain guard
   rather than `FV`'s more permissive one. The siblings differ here and the divergence is live; see
   the [FV](FUNC.FV.md) page.
@@ -148,10 +151,11 @@ them in Excel.
 
 ## Relationships
 
-- **`PPMT`** — the principal half. `IPMT + PPMT = PMT` exactly, and the reference engine literally
+- **`PPMT`** — the principal half. `IPMT + PPMT = PMT` exactly in the mathematics, not in Excel's
+  stored answers (FN-PPMT-001), and the reference engine literally
   computes `PPMT` as `PMT − IPMT`, which means the two share every error `IPMT` has.
-- **`PMT`** — the constant payment `IPMT` decomposes. `IPMT` calls it internally; a `PMT`
-  inaccuracy propagates into every period's interest.
+- **`PMT`** — the constant payment `IPMT` decomposes. `IPMT` reuses its quotient (FN-IPMT-001); an
+  inaccuracy there propagates into every period's interest.
 - **`CUMIPMT` / `CUMPRINC`** — the running sums over a range of periods, and the natural consistency
   check against a column of `IPMT` calls.
 - **[ISPMT](FUNC.ISPMT.md)** — a *different* loan model entirely: straight-line principal repayment
@@ -165,9 +169,9 @@ them in Excel.
 
 ## Numerical notes
 
-`IPMT` is the most numerically demanding member of this family, for a structural reason: it is
-`rate` times a *balance*, and the balance is a difference of two compounding terms that converge
-toward each other as the loan amortizes.
+`IPMT` is the most numerically demanding member of this family, for a structural reason: written
+from the definition it is `rate` times a *balance*, and the balance is a difference of two
+compounding terms that converge toward each other as the loan amortizes.
 
 **Cancellation near payoff.** In the last few periods of a fully-amortizing loan the outstanding
 balance is a small residue of two large quantities — the compounded principal and the accumulated
@@ -175,8 +179,9 @@ payments — that nearly cancel. The relative error of the balance is amplified 
 quantities to their difference, which grows without bound as the balance approaches `fv`. The
 reference engine's own commentary at commit `473efa3` records that near-payoff periods still suffer
 cancellation and that a fully-stable last-period path is *not* solved in that engine. That is an
-implementation fact worth reading as a general warning: an `IPMT` figure in the last periods of a
-long schedule carries far fewer good digits than one in the first.
+implementation fact about a balance recurrence, not about Excel: for `fv` 0 and `type` 0,
+FN-IPMT-001 forms interest from `q × em_m`, where `em_m` is an expm1 over the periods left, with no
+such subtraction.
 
 **The chain of dependencies.** `IPMT` needs `PMT`, and `PMT` needs an accurate `((1+r)^n − 1)/r`.
 The whole family's small-rate discipline — `expm1(n·log1p(r))` instead of `(1+r)^n − 1`, and an
@@ -218,10 +223,12 @@ Four Excel-comparison records name `IPMT` in their subjects, and each is narrowe
   one.
 
 Read those four for their own scopes. Taken together they establish that `IPMT` has been inside
-live-Excel comparisons and that **nothing in the record supports a statement that `IPMT` agrees with
-Excel**. The implementing module additionally carries open defect streams touching this surface —
-`BUG-FUNC-015`, `BUG-FUNC-034`, `BUG-FUNC-037` and `BUG-FUNC-038` — the second of which names the
-type-1 beginning-payment behaviour directly.
+live-Excel comparisons and that **nothing in those four supports a statement that `IPMT` agrees with
+Excel**. The later record is FN-IPMT-001: with `fv` 0 and `type` 0 its route matches all 95 recorded
+rows. It stays open for nonzero `fv` and for `type` 1, where `PMT`'s open numerator of `q` and open
+factor `K` carry through. The implementing module additionally carries open defect streams touching
+this surface — `BUG-FUNC-015`, `BUG-FUNC-034`, `BUG-FUNC-037` and `BUG-FUNC-038` — the second of
+which names the type-1 beginning-payment behaviour directly.
 
 Inputs worth probing first:
 
@@ -230,16 +237,17 @@ Inputs worth probing first:
    immediately.
 2. **`IPMT(rate, 1, nper, pv, 0, 1)` with `type = 1`**, which must be zero. This is the open defect
    lane and the highest-value probe on the page.
-3. **`IPMT + PPMT` against `PMT`** for every period of a schedule — an identity that must hold to
-   the last bit if the two are derived consistently, and that is cheap to run over a whole column.
-4. **The last two periods of a 360-period schedule**, where the cancellation analysis above predicts
-   the fewest good digits.
+3. **`IPMT + PPMT` against `PMT`** for every period of a schedule. In Excel's stored answers it does
+   not hold in general (FN-PPMT-001), because the two take different routes (FN-IPMT-001).
+4. **The last two periods of a 360-period schedule**, where a balance recurrence has the fewest good
+   digits and the route in FN-IPMT-001 has no such subtraction.
 5. **Tiny nonzero rates** — `1E-13` and `−1E-13` at `per = 1`, `nper = 360` — to confirm the exact
    zero-rate test rather than an epsilon band, including the sign of the tiny answer.
 6. **`per = 0`, `per = nper`, `per = nper + 1`** — the documented `#NUM!` boundary at both ends.
 7. **`Σ IPMT` against `CUMIPMT`** over the same range, which crosses two implementations of the
    same quantity.
 8. **`type = 2`**, undefined in the documentation and treated as `1` by the reference engine.
+9. **Nonzero `fv` and `type = 1`**, which FN-IPMT-001 leaves open.
 
 ## Notes
 

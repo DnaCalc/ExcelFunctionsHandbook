@@ -44,7 +44,8 @@ by the same proportion.
 
 The coupon period is determined by the schedule described on
 [COUPNCD](FUNC.COUPNCD.md#the-coupon-schedule): coupon dates run backwards from `maturity` in
-steps of `12/frequency` months, and `settlement` selects one period from that ladder.
+steps of `12/frequency` months, and `settlement` selects one period from that ladder. On basis 1
+Excel's period comes from its own walk back from `maturity` (FN-COUPDAYS-001).
 
 ## Why the answer is often not a whole number of days
 
@@ -72,7 +73,8 @@ declines to declare one and measures the calendar instead. But the practical con
 worth stating plainly: **basis 2 is "actual/360", and yet `COUPDAYS` under basis 2 ignores the
 actual calendar entirely.** The "actual" in the name governs the numerator, not the denominator.
 
-This table is the reference engine's. Microsoft's page documents the basis values and their
+This table is the reference engine's; FN-COUPDAYS-001 measures the same constants in Excel on
+bases 0, 2, 3 and 4. Microsoft's page documents the basis values and their
 names and does not say what `COUPDAYS` returns for each; it says only that the function returns
 "the number of days in the coupon period that contain the settlement date" — a description that
 is literally true only for basis 1.
@@ -84,7 +86,8 @@ The obvious identity is
 >     COUPDAYBS + COUPDAYSNC  =  COUPDAYS
 
 — days elapsed plus days remaining equals the length of the period. Under the reference engine
-it **holds for bases 0, 1 and 4, and fails for bases 2 and 3.**
+it **holds for bases 0, 1 and 4, and fails for bases 2 and 3.** Excel departs from the first half
+on basis 0, where `COUPDAYSNC` is not always `COUPDAYS` minus `COUPDAYBS` (FN-COUPDAYSNC-001).
 
 The reason follows directly from the table above and the corresponding one on
 [COUPDAYBS](FUNC.COUPDAYBS.md): under bases 2 and 3 the two *numerator* functions count real
@@ -95,12 +98,13 @@ This is not a defect in the family so much as a fault line running through it, a
 already produced observable divergence upstream. The Handbook's research record documents a case
 in the same bond model where Excel's `PRICE` derives its days-to-next-coupon as
 *period length minus accrued days* rather than counting them directly — which agrees with
-`COUPDAYSNC` on 30/360 and actual/actual bases and disagrees with it, by whole days, on
-actual/360 and actual/365. Excel published both numbers, in the same workbook, for the same
-bond. That episode is exactly this additivity failure, seen from the consumer's side.
+`COUPDAYSNC` on 30/360 and actual/actual bases, apart from the basis 0 cases of FN-COUPDAYSNC-001,
+and disagrees with it, by whole days, on actual/360 and actual/365. Excel published both numbers, in
+the same workbook, for the same bond. That episode is exactly this additivity failure, seen from the
+consumer's side.
 
-The reader's practical rule: **on bases 2 and 3, do not derive any of the three day counts from
-the other two.** Ask for each one.
+The reader's practical rule: **on bases 0, 2 and 3, do not derive any of the three day counts
+from the other two.** Ask for each one.
 
 ## Arguments
 
@@ -128,8 +132,8 @@ a possible day count.
 
 - **`settlement` on a coupon date.** Under the reference engine the schedule rolls forward, so
   the period reported is the one *starting* at `settlement`; see
-  [COUPNCD](FUNC.COUPNCD.md#the-coupon-schedule). At bases 0, 2 and 4 this is invisible because
-  the answer is a constant; at bases 1 and 3 it is not.
+  [COUPNCD](FUNC.COUPNCD.md#the-coupon-schedule). At bases 0, 2, 3 and 4 this is invisible
+  because the answer is a constant (FN-COUPDAYS-001); at basis 1 it is not.
 - **Basis 1 across a leap day** gives a longer period than the same schedule position in a
   non-leap year. This is the only basis under which `COUPDAYS` varies with the settlement date
   at all.
@@ -165,7 +169,8 @@ argument or a date serial outside the representable range. Errors in any argumen
   sum to it.
 - **[COUPNCD](FUNC.COUPNCD.md)** and **[COUPPCD](FUNC.COUPPCD.md)** — the two dates that bound
   the period whose length this function reports. Note that `COUPNCD − COUPPCD` is the *actual*
-  length, which equals `COUPDAYS` only under basis 1.
+  length, which equals `COUPDAYS` only under basis 1, and not always there: FN-COUPDAYS-001
+  records 184 against 183.
 - **[COUPNUM](FUNC.COUPNUM.md)** — how many such periods remain.
 - **`PRICE`, `YIELD`, `DURATION`, `MDURATION`, `ODDFPRICE`** — the consumers, all of which form
   `COUPDAYSNC / COUPDAYS` as a discounting exponent or `COUPDAYBS / COUPDAYS` as an accrual
@@ -174,7 +179,8 @@ argument or a date serial outside the representable range. Errors in any argumen
   `YEARFRAC` scaled: `YEARFRAC` always measures a real interval, while `COUPDAYS` mostly quotes
   a convention.
 - **Confused with**: `COUPNCD(...) − COUPPCD(...)`, which is the actual number of days in the
-  period and differs from `COUPDAYS` on every basis except 1.
+  period and differs from `COUPDAYS` on every basis except 1, and on basis 1 in the cases
+  FN-COUPDAYS-001 records.
 
 ## Numerical notes
 
@@ -186,8 +192,9 @@ argument or a date serial outside the representable range. Errors in any argumen
 2. **Basis 1's answer is an integer day count** and can be computed in integer arithmetic
    throughout. Doing so removes a whole class of bugs.
 3. **The period-start anchor for basis 1 is a decision.** Whether the actual length is measured
-   from the clamped period start or from the raw backward step matters only on month-end
-   schedules, and only under basis 1 — but it is a real fork in the reference engine's own code.
+   from the clamped period start or from the raw backward step is a real fork in the reference
+   engine's own code. Excel's rule is in FN-COUPDAYS-001: a clamped walk back from `maturity`, with
+   month ends kept only on the last step.
 4. **Do not implement `COUPDAYS` as a subtraction of the two other counts, or vice versa.** The
    additivity failure above means each of the three has to be computed on its own terms. The
    upstream research record shows what happens when a production implementation takes the
@@ -198,30 +205,25 @@ argument or a date serial outside the representable range. Errors in any argumen
 ## What has not been checked
 
 No Handbook vector suite exists for `COUPDAYS`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. Nobody has
-checked this function against Excel within the Handbook's record. The battery on this page is
+its subjects**. The shared `coupon_family` module is named by no record either. The Excel
+readings on this page are in FN-COUPDAYS-001 and FN-COUPDAYSNC-001. The battery on this page is
 the reference engine answering its own probes; no Excel was involved.
 
-The basis table in the second section is the single most consequential unverified claim on this
-page, and it is a five-cell experiment.
+FN-COUPDAYS-001 settles the basis table in the second section: Excel returns `360/frequency` on
+bases 0, 2 and 4, `365/frequency` on basis 3, and on basis 1 actual days by the walk that note
+gives. That walk stops at the last date still after settlement, so a settlement on a coupon date
+falls in the period after it, and it keeps month ends only on the last step. That Excel's code
+works this way is inferred.
 
 Inputs worth probing first:
 
-1. **One bond, one settlement, all five bases**, at `frequency` 2. If Excel returns 180, an
-   actual count, 180, 182.5 and 180, the convention table above is confirmed in one row. The
-   presence of a fractional 182.5 is by itself decisive.
-2. **`COUPDAYBS + COUPDAYSNC − COUPDAYS` at bases 2 and 3**, on a period that is not 180 days
+1. **`COUPDAYBS + COUPDAYSNC − COUPDAYS` at bases 2 and 3**, on a period that is not 180 days
    long. A non-zero result publishes the additivity failure directly.
-3. **Basis 1 over four consecutive semiannual periods spanning a leap day**, confirming the
-   181/182/183/184 variation and locating the leap-day rule.
-4. **`settlement` exactly on a coupon date**, at bases 1 and 3, where the roll-forward
-   convention is visible in the answer.
-5. **A month-end maturity at basis 1**, which is where the two candidate period-start anchors
-   diverge.
-6. **`frequency` 1 and 4**, confirming that the constants scale as `360/frequency` and
-   `365/frequency` rather than being tabulated separately.
-7. **`COUPNCD − COUPPCD` against `COUPDAYS`** on each basis — the cheapest way to demonstrate to
-   a reader that `COUPDAYS` is usually not a calendar measurement.
+2. **`COUPNCD − COUPPCD` against `COUPDAYS`** on each basis — the cheapest way to demonstrate to
+   a reader that `COUPDAYS` is usually not a calendar measurement. On basis 1 the two can differ
+   (FN-COUPDAYS-001).
+3. **Basis 1 with a settlement or maturity before serial 61**, where Excel's calendar differs from
+   the Gregorian one and FN-COUPDAYS-001 has no recorded row.
 
 ## Notes
 

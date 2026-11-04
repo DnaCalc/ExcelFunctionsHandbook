@@ -143,7 +143,8 @@ noted above — does *not* guard the output.
     current.
   - So the pair is *documented* as a replacement, *observed* identical on one build by upstream,
     and *structurally* identical in the reference engine — and none of that is a Handbook
-    measurement.
+    measurement. FN-GAMMALN-001 adds that the two agree at every shared recorded input tried,
+    including 3.
 - **[GAMMA](FUNC.GAMMA.md)** — the value rather than its logarithm. The two share a module and
   **not** a numeric path: upstream's landed log-gamma kernel is wired only to the two `GAMMALN`
   surfaces, and the source says so in as many words. `LN(GAMMA(x))` and `GAMMALN(x)` are
@@ -169,7 +170,8 @@ same three things, and their boundaries are the implementation's fingerprint:
    degrade as x → 0, and the reciprocal singularity is best handled by an explicit `ln x` term.
 2. **The middle**, roughly [1, 8] — a minimax rational or Chebyshev approximation. Cody &
    Hillstrom's 1967 Chebyshev approximations are the classical answer and the ancestor of
-   SPECFUN's `ALGAMA`/`DLGAMA`, of fdlibm's `lgamma`, and of most libm implementations.
+   SPECFUN's `ALGAMA`/`DLGAMA`, of fdlibm's `lgamma`, and of most libm implementations. Excel
+   differs here: from 3 to 8 it uses a stored recurrence (FN-GAMMALN-001).
 3. **Large x** — Stirling's asymptotic series (A&S 6.1.40), typically with terms through 1/x⁷ or
    so, above a seam around x = 8 to 12.
 
@@ -218,8 +220,10 @@ the same file, with the weaker one carried forward. `EV-MATH-0014` records the E
 alias identity check on one named build. All figures render mechanically beside this page; this
 prose deliberately does not restate them.
 
-What does not exist: any Handbook vector suite for `GAMMALN`; any Handbook-side reproduction of
-the alias identity; any measurement in the two narrow bands around the zeros, which is where the
+What does not exist: any Handbook vector suite for `GAMMALN`; any identification of the rationals
+below 3 (the open item of FN-GAMMALN-001); any Handbook-side reproduction of the alias identity
+beyond that note's shared recorded inputs; any measurement in the two narrow bands around the zeros,
+which is where the
 mathematics predicts the worst relative error and where none of the named corpora is described
 as concentrating; any measurement at the top of the range, where the reference engine returns a
 non-finite number.
@@ -240,9 +244,9 @@ Inputs I would probe first, and why:
 6. **The top of the range**, to locate the argument at which the result stops being finite and
    to determine whether Excel errors there or publishes something else — the case where the
    reference engine's output guard is missing.
-7. **`GAMMALN` against `GAMMALN.PRECISE` on the Handbook's own probes.** Upstream's identity
-   check is on one build; a second independent check is cheap and would turn an inherited result
-   into a Handbook one.
+7. **`GAMMALN` against `GAMMALN.PRECISE` on the Handbook's own probes.** FN-GAMMALN-001 finds the
+   two agree at every shared recorded input tried, including 3; a wider check on more than one
+   build would finish turning an inherited result into a Handbook one.
 8. **`EXP(GAMMALN(i))` against `FACT(i−1)`** for i = 1…20, the round trip Microsoft's own remark
    invites, which needs no oracle.
 

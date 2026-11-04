@@ -56,9 +56,14 @@ Solving for the payment gives the constant `pmt`; each period then splits it:
 >     interest in period k   =  r × (balance outstanding at the start of period k)
 >     principal in period k  =  pmt − interest in period k
 
-and
+and, in exact arithmetic,
 
 >     CUMPRINC(r, n, pv, s, e, type)  =  Σ_{k = s}^{e}  PPMT(r, k, n, pv, 0, type)
+
+In Excel that sum holds on one loan and not in general. `CUMPRINC(0.05/12,360,200000,1,12,0)` is
+the left-to-right binary64 sum of Excel's own twelve `PPMT` answers, to the last bit, but over
+recorded `type` 0 calls for a single period `CUMPRINC` equals `PPMT` on 56 of 135 rows, with `PPMT`
+computed by the route in FN-IPMT-001 (FN-CUMPRINC-001).
 
 Because `fv` is fixed at zero, summing over the whole schedule gives back the loan:
 `CUMPRINC(r, n, pv, 1, n, type)` is `−pv` in exact arithmetic. That identity is the single best
@@ -169,9 +174,9 @@ The reference engine's conditions, recorded as the reference engine's:
 - **[CUMIPMT](FUNC.CUMIPMT.md)** — the interest half. `CUMIPMT + CUMPRINC` equals
   `pmt × (end_period − start_period + 1)` in exact arithmetic; in floating point the residual is
   a measurement of both functions at once.
-- **`PPMT`** — the single-period principal component and this function's summand. The two must
-  agree on a one-period range.
-- **`IPMT`** — the interest component, and `CUMIPMT`'s summand.
+- **`PPMT`** — the single-period principal component and this function's summand in the
+  mathematics. On a one-period range the two differ on 79 of 135 recorded rows (FN-CUMPRINC-001).
+- **`IPMT`** — the interest component, and `CUMIPMT`'s summand in the mathematics.
 - **`PMT`** — the payment every evaluation starts from. Any `PMT` error is inherited by both
   cumulative functions with the same sign in every term.
 - **`FV`, `PV`, `NPER`, `RATE`** — the other faces of the same annuity equation. The Handbook's
@@ -246,11 +251,14 @@ Inputs worth probing first:
 4. **`type` = 0.5**, where the documented truncation and the reference engine disagree.
 5. **Very small rates with large `nper`**, the regime where the naive annuity factor and the
    `log1p`/`expm1` form part company.
-6. **`CUMPRINC + CUMIPMT` against `PMT × count`** over the same range, measuring both functions
-   with one identity.
+6. **`CUMPRINC + CUMIPMT` against `PMT × count`** beyond the one loan of FN-CUMPRINC-001, where
+   the two are equal to the last bit. Elsewhere that is inferred, not measured.
 7. **Early ranges versus late ranges** of the same schedule, to see whether the residual tracks
    the cancellation in the early principal components as the boundary-accumulation hypothesis in
    `EV-FIN-0018` predicts — the probe that would confirm or retire that stale prose.
+8. **The per-period route**, which FN-CUMPRINC-001 leaves open. Recurrences, closed balances,
+   `count × PMT` less interest and binary64 variants all stay below `PPMT`'s 56 of 135, and
+   recorded rows now match `CUMPRINC` 185 of 586.
 
 ## Notes
 

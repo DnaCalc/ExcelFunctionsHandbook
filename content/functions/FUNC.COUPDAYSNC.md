@@ -66,12 +66,14 @@ same workbook**.
 The quantity "days from settlement to the next coupon" can be obtained two ways:
 
 1. **Directly** — count the days from `settlement` to `COUPNCD`, on the `basis`. This is what
-   `COUPDAYSNC` does.
+   `COUPDAYSNC` does, except that on basis 0 its answers follow `P − A` (FN-COUPDAYSNC-001).
 2. **By subtraction** — take the period length and remove the days already accrued:
    `COUPDAYS − COUPDAYBS`.
 
-On the 30/360 bases and on actual/actual these agree, because `COUPDAYS` there is either the
-same 30/360 arithmetic or the real calendar length. On **actual/360 and actual/365** they do
+On basis 4 and on actual/actual these agree, because `COUPDAYS` there is either the same 30/360
+arithmetic or the real calendar length. On basis 0 they do not always agree: `COUPDAYS` is always
+`360/frequency` where `P` need not be, so `COUPDAYSNC(39923,50919,4,0)` is 39 where `90 − 50` would
+give 40 (FN-COUPDAYSNC-001). On **actual/360 and actual/365** they do
 not, because `COUPDAYS` reports a declared `360/frequency` or `365/frequency` while `COUPDAYBS`
 counts real days. The subtraction then yields a number that no calendar produces.
 
@@ -146,7 +148,7 @@ argument or a date serial outside the representable range. Errors in any argumen
 ## Relationships
 
 - **[COUPDAYBS](FUNC.COUPDAYBS.md)** — the backward complement. The pair partitions the period
-  only on bases 0, 1 and 4.
+  only on bases 1 and 4, and not always on basis 0 (FN-COUPDAYSNC-001).
 - **[COUPDAYS](FUNC.COUPDAYS.md)** — the denominator, and the source of the mismatch described
   above.
 - **[COUPNCD](FUNC.COUPNCD.md)** — the date this function counts to. `COUPNCD − settlement` is
@@ -155,8 +157,8 @@ argument or a date serial outside the representable range. Errors in any argumen
   not necessarily consumers of *this* function's answer.
 - **`ODDFPRICE`, `ODDFYIELD`** — the odd-first-period instruments, which need the extra dates
   this family does not take.
-- **Confused with**: `COUPDAYS − COUPDAYBS`, which is a different quantity on bases 2 and 3 and
-  is the one Excel's `PRICE` was observed to use.
+- **Confused with**: `COUPDAYS − COUPDAYBS`, which is a different quantity on bases 2 and 3, and
+  on basis 0 in the cases of FN-COUPDAYSNC-001, and is the one Excel's `PRICE` was observed to use.
 
 ## Numerical notes
 
@@ -180,9 +182,9 @@ No Handbook vector suite exists for `COUPDAYSNC`, and **no evidence record lists
 its subjects**. The shared `coupon_family` module is named by no record either. The
 `PRICE`-versus-`COUPDAYSNC` divergence described above comes from the Handbook's own research
 narrative, not from an evidence record attached to this surface, and it concerns what `PRICE`
-does — it is not a measurement of this function. Nobody has checked `COUPDAYSNC` itself against
-Excel within the Handbook's record. The battery on this page is the reference engine answering
-its own probes; no Excel was involved.
+does — it is not a measurement of this function. `COUPDAYSNC` itself is measured on basis 0 in
+FN-COUPDAYSNC-001, which states no rule for the other bases. The battery on this page is the
+reference engine answering its own probes; no Excel was involved.
 
 Inputs worth probing first:
 
@@ -194,7 +196,8 @@ Inputs worth probing first:
 3. **`settlement` exactly on a coupon date**, to settle the roll-forward convention — probed
    simultaneously with `COUPDAYBS`, `COUPPCD`, `COUPNCD` and `COUPNUM`, since one observation
    constrains all five.
-4. **Month-end schedules at bases 0 and 4**, where the 30/360 adjustment order is decidable.
+4. **Month-end schedules at basis 4**, where the 30/360 adjustment order is decidable. On basis 0
+   day 31 and the last day of February both count as day 30 in `P` (FN-COUPDAYSNC-001).
 5. **Basis 1 across a leap day**, where the period length varies and the forward count is a real
    calendar measurement.
 6. **`COUPDAYSNC` against `COUPNCD − settlement`** on each basis, distinguishing the calendar

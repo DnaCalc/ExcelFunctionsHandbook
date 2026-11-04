@@ -58,11 +58,13 @@ idempotent:
 
     |ROUNDUP(x, d)| ≥ |x|,   and   ROUNDUP(ROUNDUP(x, d), d) = ROUNDUP(x, d)
 
-so a `ROUNDUP` result is a *safe overestimate* of magnitude. It is the correct choice for anything
+so mathematically a `ROUNDUP` result is a *safe overestimate* of magnitude. It is the correct choice
+for anything
 that must not fall short — boxes needed, staff required, buffer to allocate. It is also, for the
 same reason, the wrong choice for anything summed over many rows, because the bias accumulates: a
 column of `ROUNDUP(x, 2)` overstates its total by up to one cent per row, systematically and in one
-direction.
+direction. In Excel the overestimate can fail at tiny magnitudes, where `ROUNDUP` may add no unit
+(FN-ROUNDUP-003).
 
 ## Arguments
 
@@ -74,7 +76,8 @@ direction.
 Both are numeric slots under ordinary to-number coercion — see
 [Coercion and lifting](../model/02-coercion-and-lifting.md). As with the rest of the family,
 `num_digits` is **required**, and the reference engine truncates a non-integral `num_digits` toward
-zero. Neither fact is documented.
+zero. Neither fact is documented. Excel takes the integer part of `|num_digits|` too
+(FN-ROUNDUP-001).
 
 ## Result and edge cases
 
@@ -84,16 +87,16 @@ Returns `Number`.
   difference from `CEILING.MATH`'s default direction.
 - **Zero is a fixed point.** `ROUNDUP(0, d)` is `0` for every `d` — the reference engine special-
   cases it, and it has to, because the sign extraction has no meaningful answer at zero.
-- **There are no ties.** As with [ROUNDDOWN](FUNC.ROUNDDOWN.md), the direction is fixed, so the
-  tie-rule question that dominates [ROUND](FUNC.ROUND.md) does not arise.
-- **Any nonzero fraction promotes.** `ROUNDUP(1.0000000000000002, 0)` is `2`. The function is
-  extremely sensitive to the last bit: a value that is one ulp above an integer rounds up a whole
-  unit. Since arithmetic routinely produces values one ulp off an intended integer, `ROUNDUP` on a
-  computed quantity is a well-known source of off-by-one results — the value that "should be" 3.0
-  is stored as 3.0000000000000004 and comes back as 4.
+- **There are no ties at the requested digit.** As with [ROUNDDOWN](FUNC.ROUNDDOWN.md), the
+  direction is fixed, so the tie-rule question that dominates [ROUND](FUNC.ROUND.md) does not arise
+  there. In the 15-digit reading that comes first, a half goes up (FN-ROUND-002).
+- **A nonzero fraction promotes if the 15-digit reading keeps it.** Digits beyond the 15th are
+  lost before any digit is chosen (FN-ROUND-002), so by that rule a value one ulp above a small
+  integer reads as the integer and is not promoted. A fraction inside the 15 digits promotes a whole
+  unit, which is why `ROUNDUP` on a computed quantity is a well-known source of off-by-one results.
 - **Large and small `num_digits`.** The reference engine returns `number` unchanged once
   `num_digits` reaches 308, and a signed zero once it reaches −308. Implementation limits, not
-  documented behaviour.
+  documented behaviour. Excel reads `num_digits` from its low 16 bits instead (FN-ROUNDUP-001).
 - **Arrays.** The projection declares a `Custom` coercion profile with `surface_native` lifting.
 
 ## Errors
@@ -107,7 +110,7 @@ Returns `Number`.
 Microsoft's VBA page states no error condition for this method. In particular it does not say what
 happens when rounding up at a coarse place would exceed the representable range — `ROUNDUP` of a
 value near the top of the double range at negative `num_digits` has to either saturate or fail, and
-nothing documents which.
+nothing documents which. Excel gives `#NUM!` (FN-ROUND-003).
 
 ## Relationships
 
@@ -118,22 +121,25 @@ nothing documents which.
 - **`ISO.CEILING` and `CEILING.PRECISE`** — the always-toward-positive-infinity variants, which
   differ from `ROUNDUP` on exactly the negative half-line.
 - **[ROUND](FUNC.ROUND.md)** and **[ROUNDDOWN](FUNC.ROUNDDOWN.md)** — the other two directions.
-  `ROUNDDOWN(x,d) ≤ ROUND(x,d) ≤ ROUNDUP(x,d)` in magnitude, always.
+  `ROUNDDOWN(x,d) ≤ ROUND(x,d) ≤ ROUNDUP(x,d)` in magnitude mathematically. Excel need not keep
+  that order: a half in the 15-digit reading goes up for `ROUNDUP` and down for `ROUND`, and at
+  tiny magnitudes `ROUNDUP` may add no unit (FN-ROUND-002, FN-ROUNDUP-003).
 - **`ROUNDUP(x/n, 0)`** — the idiomatic "how many containers" calculation, and the one that meets
   the last-bit sensitivity above head-on: when `x` is an exact multiple of `n`, the quotient may
-  still land one ulp high and produce one container too many. Where the operands are integers,
+  still land high and, if the excess survives the 15-digit reading (FN-ROUND-002), produce one
+  container too many. Where the operands are integers,
   `QUOTIENT` plus a remainder test is the safer construction; see [QUOTIENT](FUNC.QUOTIENT.md).
-- **`ROUNDUP` is odd:** `ROUNDUP(-x, d) = -ROUNDUP(x, d)`. `CEILING.MATH` in its default mode is
-  not.
+- **`ROUNDUP` is odd**, except at tiny magnitudes: `ROUNDUP(-x, d) = -ROUNDUP(x, d)`, but
+  `ROUNDUP(1.0001086461844975E-307,307)` is 1E-307 and the same call on the negative is -2E-307
+  (FN-ROUNDUP-003). `CEILING.MATH` in its default mode is not odd.
 
 ## Numerical notes
 
 **No ties, but the sharpest boundary sensitivity in the family.** `ROUNDUP` promotes on *any*
-excess, however small, which makes it the function most exposed to the accumulated error of
-whatever computed its argument. `ROUND` needs an error of half a decimal unit to change its
-answer; `ROUNDUP` needs one ulp. That is a difference of roughly fifteen orders of magnitude in
-required perturbation, and it is why `ROUNDUP` results are so often described as "wrong" when the
-arithmetic upstream is what moved.
+excess that survives the 15-digit reading (FN-ROUND-002), which makes it the function most exposed
+to the accumulated error of whatever computed its argument. `ROUND` needs an error of half a
+decimal unit to change its answer; `ROUNDUP` needs only one that reaches the 15th digit. That is
+why `ROUNDUP` results are so often described as "wrong" when the arithmetic upstream is what moved.
 
 **Scaling can overshoot in the harmless direction and undershoot in the harmful one.** With the
 naive `⌈|x|·10^d⌉/10^d`, if the product rounds *up* across an integer that the exact product falls
@@ -146,13 +152,14 @@ to guard.
 **The guard is one exact residual test.** Form the candidate, compute `|x| − candidate` exactly
 with a fused multiply-add, and if it is positive, increment by one unit in the last decimal place.
 There is no tie case, so one correction step is provably sufficient. As on the sibling pages: a
-`natural-best` implementation should do this, and an `excel-bitexact` implementation should not
-until Excel's own boundary behaviour is pinned — see
+`natural-best` implementation should do this, and an `excel-bitexact` implementation should not:
+FN-ROUNDUP-002 records Excel's own route, a truncation with its unit added in binary64 — see
 [About implementation options](../model/07-implementation-options.md).
 
 **The target grid is still not representable.** For `d > 0` the multiples of `10^-d` do not exist
-in binary64, so the returned value is the nearest double to the rounded-up decimal, and that
-nearest double can be *below* the decimal it represents. Consequently `ROUNDUP(x, 2) ≥ x` holds as
+in binary64, and Excel's result need not even be the nearest double to the rounded-up decimal: it
+adds the unit in binary64, so `ROUNDUP(3.535, 2)` is 3.5399999999999996 (FN-ROUNDUP-002). That
+double can be *below* the decimal it represents. Consequently `ROUNDUP(x, 2) ≥ x` holds as
 a comparison of stored doubles in practice but is not guaranteed by the specification; the
 guarantee lives in decimal, and the value lives in binary.
 
@@ -166,9 +173,13 @@ round the total rather than the parts — the classic penny-allocation problem, 
 No Handbook vector suite exists for `ROUNDUP`, and **no evidence record lists this surface among
 its subjects**. `ROUNDUP` appears inside the group membership of an upstream array-lift measurement
 (`EV-STRUCT-0011`) whose subjects are other surfaces; that record's reader warning forbids reading
-its group total as any individual surface's rate. The honest statement is therefore: **the rounding
-family was measured as a group for structural array admission; this surface was not measured
-separately, and its arithmetic was not measured at all.**
+its group total as any individual surface's rate. The honest statement for that record is
+therefore: **the rounding family was measured as a group for structural array admission, and this
+surface was not measured separately.** Its arithmetic is measured in the Notes below: under the
+family rules the recorded rows match 52,022 of 52,841.
+Still open there: how the scale is formed for `|n| > 27`, the reading step itself, how the NaN
+patterns sort and display, and why DBL_MIN converts 3 steps below nearest. 14 ROUNDUP rows of tiny
+magnitude also stay unmatched (FN-ROUNDUP-003).
 
 The presence projection records the defect stream `BUG-FUNC-017` against this module.
 
@@ -177,15 +188,16 @@ Inputs I would probe first:
 1. **`ROUNDUP(-1.2, 0)` beside `CEILING.MATH(-1.2)` and `ISO.CEILING(-1.2)`** — three cells that
    settle the away-from-zero-versus-toward-positive-infinity question.
 2. **`ROUNDUP(3.0000000000000004, 0)` and `ROUNDUP(0.1+0.2, 1)`** — the last-bit sensitivity, using
-   values that arithmetic actually produces rather than values typed by hand.
+   values that arithmetic actually produces rather than values typed by hand. By the rule of
+   FN-ROUND-002 neither excess should promote; neither call is among that note's readings.
 3. **A boundary case engineered to expose scaling undershoot**, where the exact product `|x|·10^d`
    slightly exceeds an integer but rounds down onto it. If the result equals that integer divided
    by the scale, the implementation is violating its own never-understate contract.
 4. **`ROUNDUP(0, 5)` and `ROUNDUP(-0, 5)`** — the fixed point and its sign.
 5. **`ROUNDUP(1.7976931348623157E+308, -1)`** — the overflow question the documentation does not
-   address: saturate, error, or wrap.
-6. **`ROUNDUP(1.5, 0.9)`** — non-integral `num_digits`, truncated in the reference engine and
-   undocumented.
+   address. Answered: a decimal result of `2^1024` or more gives `#NUM!` (FN-ROUND-003).
+6. **`ROUNDUP(1.5, 0.9)`** — non-integral `num_digits`, undocumented. Answered: Excel takes the
+   integer part (FN-ROUNDUP-001).
 7. **Array arguments in both slots**, given the array-lift defect stream on this module.
 
 ## Notes

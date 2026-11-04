@@ -90,7 +90,9 @@ Returns `Number`.
 - **Logicals.** Convert by the shared rule (`TRUE` to 1, `FALSE` to 0) before the kernel sees
   them.
 - **Text that reads as a number.** Converts as a direct argument under the shared to-number rule;
-  text in a *scanned range* is a different question and does not arise for a unary kernel.
+  text in a *scanned range* is a different question and does not arise for a unary kernel. A zero
+  mantissa with an out-of-range exponent, such as `"0e-309"`, does not convert: `#VALUE!`
+  (FN-ABS-001).
 - **Arrays.** Lift elementwise. The implementing module carries an open upstream defect stream on
   exactly this point (`BUG-FUNC-022`, named in the presence projection as an array-lift gap on the
   unary `ABS` surface), so array-shaped arguments are the unsettled part of this surface, not the
@@ -161,8 +163,9 @@ the worse of the two failures.
 ## What has not been checked
 
 **No evidence record in the Handbook names `FUNC.ABS`**, and no Handbook vector suite exists for
-it. Nobody has checked this function against Excel within the Handbook's record. The battery
-rendered beside this page is the reference engine's own answers with no Excel involved, and it is
+it. Beyond the text-to-number readings of FN-ABS-001, nobody has checked this function against
+Excel within the Handbook's record. The battery rendered beside this page is the reference engine's
+own answers with no Excel involved, and it is
 labelled as such.
 
 Microsoft's `ABS` support article was not retrieved for this pass — the fetch returned HTTP 403 —

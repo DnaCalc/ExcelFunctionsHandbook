@@ -171,7 +171,7 @@ page). What can be stated:
 ## What has not been checked
 
 There is no Handbook vector suite for `REGEXEXTRACT`, and no Handbook evidence record comparing any
-implementation against Excel. Nothing on this page is a measurement.
+implementation against Excel. Apart from the note below, nothing on this page is a measurement.
 
 Keep two boundaries apart. Microsoft documents **PCRE2** as the flavour; this Handbook has not
 probed how much of PCRE2 is reachable. Separately, **OxFunc's local engine implements a bounded
@@ -196,7 +196,8 @@ The probes that would settle the most, in priority order:
 6. **`return_mode` domain.** `3`, `-1`, `1.5`, `TRUE`, `"1"` — where `#VALUE!` starts and whether
    truncation happens first.
 7. **Array-valued `text`** in each mode, which is where the shape rules will either compose or
-   collapse.
+   collapse. An array `return_mode` is read: each element keeps only its first piece
+   (FN-TEXTSPLIT-002).
 8. **Unicode.** `REGEXEXTRACT("héllo", "\w+")` and an astral character against `.`, to see whether
    matching is scalar-aware or code-unit-aware.
 

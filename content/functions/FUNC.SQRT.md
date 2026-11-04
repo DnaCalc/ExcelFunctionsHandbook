@@ -86,14 +86,15 @@ Returns `Number`.
 - **Zero.** `SQRT(0)` is `0`. In IEEE 754 arithmetic the square root of negative zero is
   negative zero — a sign that a worksheet will not display and that may or may not survive to
   the published result. Whether Excel preserves it is unverified here and is on the probe list.
-- **Exact squares.** Because IEEE 754 requires square root to be correctly rounded, `SQRT` of an
-  exactly representable perfect square is exact: `SQRT(4)` is exactly `2`, and there is no
+- **Exact squares.** The root of an exactly representable perfect square is itself representable,
+  so neither rounding of FN-SQRT-001 moves it: `SQRT(4)` is exactly `2`, and there is no
   last-bit wobble in the answer. This is not true of `POWER(x, 0.5)` in general, and that
   difference is the subject of the *Relationships* and *Numerical notes* sections below.
 - **Very large arguments.** `SQRT` cannot overflow: the square root of the largest finite double
-  is comfortably in range. It also cannot underflow to zero from a non-zero input, because the
-  square root of the smallest subnormal is a normal number. `SQRT` is the rare function with no
-  representation hazards on the positive axis at all.
+  is comfortably in range. Mathematically it also cannot underflow to zero from a non-zero input,
+  because the square root of the smallest subnormal is a normal number, yet `SQRT(5e-324)` returns
+  0 on the one recorded row (FN-SQRT-001). The other hazard on the positive axis is the double
+  rounding of that note.
 - **Negative arguments.** `#NUM!`, as documented.
 
 The reference engine classifies `SQRT` as a unary numeric scalar-or-array kernel
@@ -120,10 +121,10 @@ says there is no argument-domain guard.
 ## Relationships
 
 - **`POWER(x, 0.5)` and `x^0.5`** — mathematically the same value, computationally not the same
-  function. `SQRT` is required by IEEE 754 to be correctly rounded; a general `pow` is not, and
-  in practice is not. Two expressions that look interchangeable can differ in the last bit, and
-  the difference is not symmetric: `SQRT` is the accurate one. Prefer `SQRT` whenever the
-  exponent is literally one half.
+  function. IEEE 754 requires `squareRoot` to be correctly rounded and does not require it of a
+  general `pow`, which in practice is not; Excel's `SQRT` is rounded twice, so it too misses the
+  correctly rounded value on some inputs (FN-SQRT-001). Two expressions that look interchangeable
+  can differ in the last bit. Prefer `SQRT` whenever the exponent is literally one half.
 - **`SQRTPI`** — `sqrt(number * pi)`. Related in name, and the Handbook's evidence for `SQRTPI`
   makes precisely the `SQRT`-versus-`pow` point above; see that page.
 - **`ABS`** — the documented workaround for negative input, with the caveat stated above.
@@ -143,9 +144,10 @@ explicit about why, because the reasons are unusual.
 the operations that must return the correctly rounded result — the same tier as addition,
 multiplication and division, and a tier that `exp`, `log`, `pow` and every trigonometric
 function do *not* occupy. There is exactly one right answer for every input, every conforming
-platform produces it, and there is no "quality of implementation" question. That is why `SQRT`
-is not a place where two spreadsheets can honestly disagree, and why any observed disagreement
-would be a finding rather than a tolerance.
+platform produces it, and there is no "quality of implementation" question. Excel's worksheet
+`SQRT` is not that operation: the root is rounded to the x87 unit's 64-bit significand and then
+stored to binary64, and where that double rounding lands differently Excel takes the double-rounded
+value (FN-SQRT-001).
 
 **Why correct rounding is achievable here and not for `exp`.** The table-maker's dilemma — the
 possibility that the true value sits so close to a rounding boundary that arbitrarily many bits
@@ -172,8 +174,8 @@ but it appears in two classic formulas that do, and a page about square roots sh
    work. Rewrite as `1 / (sqrt(x^2 + 1) + x)`.
 
 In both cases the defect is in the surrounding expression, not in `SQRT` — which is exactly the
-point: because `SQRT` is exact to the last bit, any error you see around it came from somewhere
-else.
+point: because on normal inputs `SQRT` is off by at most its double rounding (FN-SQRT-001), nearly
+all the error you see around it came from somewhere else.
 
 **Hypotenuse.** `SQRT(x^2 + y^2)` overflows when `x` alone is large, even though the result is
 representable. There is no `HYPOT` in Excel; the scaled form `SQRT((x/m)^2 + (y/m)^2) * m` with
@@ -182,17 +184,19 @@ representable. There is no `HYPOT` in Excel; the scaled form `SQRT((x/m)^2 + (y/
 ## What has not been checked
 
 No Handbook evidence record lists `FUNC.SQRT` in its subjects, and no Handbook vector suite
-exists for `SQRT`. **Nobody has checked this function against Excel within the Handbook's
-record.** The `#NUM!` condition for negative arguments is documented by Microsoft and has not
-been observed in Excel by the Handbook.
+exists for `SQRT`. **The checks against Excel in the Handbook's record are the Notes below:**
+FN-SQRT-001 matches 41,897 of 41,897 distinct normal positive rows, and FN-VALUE-001 reads text
+arguments, with other digit blocks and any dependence on the Windows or workbook locale still open.
+The `#NUM!` condition for negative arguments is documented by Microsoft and has not been observed
+in Excel by the Handbook.
 
 Probes worth running first:
 
 1. **`SQRT` against `POWER(x, 0.5)` and `x^0.5`** over a broad sample, especially near the top
-   and bottom of the exponent range. If they ever differ, `SQRT` is using the correctly rounded
-   route and the power operator is not — which is the expected outcome, and confirming it is the
-   single most informative probe on this page. The `SQRTPI` evidence records make exactly this
-   distinction for a neighbouring surface, which raises the prior that it holds here too.
+   and bottom of the exponent range. If they ever differ, the two are separate routes; `SQRT`'s own
+   is the double-rounded one of FN-SQRT-001, not the correctly rounded one. The `SQRTPI` evidence
+   records make exactly this distinction for a neighbouring surface, which raises the prior that it
+   holds here too.
 2. **Perfect squares** across the exponent range — `4`, `1e100` when exactly representable,
    `2^2k` — where the correct answer is exact and any deviation is a defect rather than a
    rounding choice.
@@ -202,7 +206,7 @@ Probes worth running first:
 4. **The boundary of the negative branch**: the largest negative subnormal, and text and logical
    arguments that coerce to a negative number.
 5. **Subnormal inputs**, whose square roots are normal — a place where a poorly written
-   scaling step fails.
+   scaling step fails. The one recorded row, `SQRT(5e-324)`, returns 0 (FN-SQRT-001).
 6. **Array arguments**, to confirm elementwise lifting and element-local `#NUM!`.
 7. **The reference engine's `arg_domain_guard=none` classification** against actual behaviour on
    a negative argument, which is the divergence recorded above.

@@ -110,7 +110,8 @@ An error value passed in propagates in the ordinary way.
 - **[DAYS](FUNC.DAYS.md)** — documented to route *its* text arguments through `DATEVALUE`, which
   imports this function's locale dependence into an otherwise numeric function.
 - **The `VALUE` function** — the general text-to-number conversion, which also accepts date text in
-  practice; the relationship between the two accepted sets is not documented and not checked here.
+  practice; the relationship between the two accepted sets is not documented, and it is checked
+  here only for digit scripts (FN-VALUE-001) and the width of month and day (FN-VALUE-002).
 - **Confusable.** `DATEVALUE` and `DATE` are interchanged constantly in advice, and they have
   nothing in common but a name and a return kind.
 
@@ -131,9 +132,11 @@ An error value passed in propagates in the ordinary way.
 
 ## What has not been checked
 
-No Handbook vector suite exists for `DATEVALUE`, and no Excel-comparison evidence is recorded. The
-reference-engine battery cannot even call it without a host locale facility. Nothing about this
-function's accepted set has been established here. The probes that would begin to fix that:
+No Handbook vector suite exists for `DATEVALUE`. The Excel readings on this page are in
+FN-VALUE-001 and FN-VALUE-002, under en-ZA settings. The
+reference-engine battery cannot even call it without a host locale facility. Little of this
+function's accepted set has been established here: four digit scripts in a year-month-day date,
+and the limit of two digits on month and day. The probes that would extend that:
 
 - **A grammar census under one named locale** — ISO `2024-03-04`, `3/4/2024`, `4-Mar-2024`,
   `March 4, 2024`, `4 March 2024`, `Mar 4`, `2024/3/4`, each with and without surrounding
@@ -148,9 +151,12 @@ function's accepted set has been established here. The probes that would begin t
 - **Text carrying a time** — confirming the documented discard, and checking whether the discard is
   a truncation or a parse-and-drop.
 - **A 1904-system workbook**, where the documented lower bound moves.
+- **Other digit blocks**, such as Bengali, Tibetan and Khmer, and whether the set of digits depends
+  on the Windows or workbook locale, both unread in FN-VALUE-001.
+- **Three-digit years**, unread in FN-VALUE-002.
 
 Until a locale-scoped census exists, this Handbook can describe `DATEVALUE`'s contract but cannot
-say what it accepts, and this page does not pretend otherwise.
+say in full what it accepts, and this page does not pretend otherwise.
 
 ## Notes
 

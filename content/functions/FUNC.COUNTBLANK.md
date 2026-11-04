@@ -174,8 +174,8 @@ anchor at all.
 ## What has not been checked
 
 No Handbook vector suite exists for `COUNTBLANK`; `vectors/` publishes nothing at this revision. No
-Excel-comparison evidence record names this surface in its subjects. The Handbook has not itself
-compared `COUNTBLANK` to Excel.
+Excel-comparison evidence record names this surface in its subjects. Apart from the one reading
+in FN-COUNTBLANK-001, the Handbook has not itself compared `COUNTBLANK` to Excel.
 
 The one nearby anchor is OxFunc's `BUG-FUNC-011`, a closed stream containing a dated live Excel
 replay of the array-versus-range distinction with explicit contrast controls. It is good evidence

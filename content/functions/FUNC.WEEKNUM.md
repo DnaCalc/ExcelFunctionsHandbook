@@ -111,6 +111,9 @@ As documented on the Microsoft page:
 - `#NUM!` when `serial_number` is out of range for the current date-base value.
 - `#NUM!` when `return_type` is outside the range specified in the table.
 
+Excel does not always follow the second of these: for an undocumented `return_type` it usually
+gives `#NUM!`, sometimes a number, and the same call can answer differently (FN-WEEKNUM-001).
+
 Ordinary coercion failures give `#VALUE!`, and an error argument propagates; those are engine
 behaviours (see [coercion and lifting](../model/02-coercion-and-lifting.md)), not `WEEKNUM` rules.
 
@@ -143,9 +146,9 @@ behaviours (see [coercion and lifting](../model/02-coercion-and-lifting.md)), no
 
 ## What has not been checked
 
-No Handbook vector suite exists for `WEEKNUM`, and no Excel-comparison evidence is recorded. The
-battery on this page is the reference engine answering its own probes; no Excel was involved. The
-probes that would settle real questions:
+No Handbook vector suite exists for `WEEKNUM`. The Excel readings on this page are in
+FN-WEEKNUM-001, on undocumented `return_type` values. The battery on this page is the reference
+engine answering its own probes; no Excel was involved. The probes that would settle real questions:
 
 - **Every 1 January and 31 December from 1990 to 2040, across all ten `return_type` values.** Under
   a thousand rows, and it characterizes both systems at exactly the boundaries where they are hard.
@@ -156,7 +159,9 @@ probes that would settle real questions:
   widely assumed and, here, unverified.
 - **`WEEKNUM(0)` and the January 1900 region**, where the leap-year phase problem meets week
   boundaries.
-- **`return_type` 3, 18, 22** — confirming the documented set is a set.
+- **`return_type` 3, 18, 22.** Excel usually gives `#NUM!` for an undocumented value and sometimes
+  a number (FN-WEEKNUM-001). What decides the answer is not known, and the raw readings of build
+  20527 are not yet in a published capture.
 
 ## Notes
 

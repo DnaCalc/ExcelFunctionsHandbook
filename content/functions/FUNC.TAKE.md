@@ -88,7 +88,9 @@ The return kind is an array — always, including when it has one element.
   and conflating them is a recorded defect class.
 - **Non-integer counts** are expected to truncate; the Handbook has not verified the direction
   or the resulting error for a non-numeric count.
-- Errors and blanks inside the array are carried through as values.
+- Errors and blanks inside the array are carried through as values. A direct error as `array` is
+  the answer for the whole call, even with a count of zero: `TAKE(#N/A,0)` is `#N/A`
+  (FN-HSTACK-001).
 
 ## Errors
 

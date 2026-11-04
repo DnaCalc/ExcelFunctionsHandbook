@@ -74,8 +74,10 @@ The return kind is `Text`.
   to text. The same downstream trap applies as for `DOLLAR` — a range scan by `SUM` or
   `AVERAGE` ignores numeric-looking text, while the same text passed as a direct argument
   coerces back to a number ([chapter 02](../model/02-coercion-and-lifting.md)).
-- **Negative `decimals` beyond the magnitude of the number** must round the value to zero; how
-  the sign of a negative input survives that is not documented and has not been checked here.
+- **Negative `decimals` beyond the magnitude of the number** must round the value to zero. How
+  the sign of a negative input survives that is not documented, and no negative `decimals` has
+  been checked here, but at `decimals` 0 the sign is dropped: `FIXED(-0.005,0)` is `0`
+  (FN-DOLLAR-001).
 - Empty cells, omitted arguments and error inputs follow the shared call model.
 
 ## Errors
@@ -121,7 +123,8 @@ happens for a very large negative `decimals`, is not stated.
 No Handbook vector suite exists for `FIXED`, and no Excel-comparison evidence record takes it
 as a subject. `FUNC.FIXED` appears in the group member list of the structural sweep recorded as
 `EV-STRUCT-0009`, whose subjects are `FUNC.ARABIC` and `FUNC.DECIMAL`; that record's own reader
-warning forbids attributing its figures to any single surface. Nothing here is measured.
+warning forbids attributing its figures to any single surface. Apart from the note below,
+nothing here is measured.
 
 As with `DOLLAR`, the Handbook's dispatch battery cannot exercise this entry at all — its
 surface dependency is composite, requiring a host facility — so the battery panel records it as

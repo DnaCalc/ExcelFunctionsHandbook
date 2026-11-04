@@ -207,7 +207,7 @@ factors are not; those computations belong in log space from the start.
 ## What has not been checked
 
 `EV-MATH-0015` names `GAMMA` as a subject and it is the only record in the Handbook's collection
-that does. What it establishes is unfavourable and current: a fresh live sweep found the
+that does. What it establishes is unfavourable: a fresh live sweep found the
 reference engine matching Excel on **none** of the positive-side rows it counted, with large
 residuals on the positive side and far larger ones on the negative side, and it records that the
 log-gamma kernel landed upstream is wired only to the `GAMMALN` surfaces and therefore did not
@@ -215,22 +215,24 @@ change `GAMMA` at all. The record's own figures render mechanically beside this 
 deliberately does not restate them. The correct reading is that `GAMMA` is a **known-open
 discrepancy**, not an unmeasured one — which is a different and more useful state than silence.
 
-What does not exist: any Handbook vector suite for `GAMMA`; any identification of the algorithm
-Excel actually uses for it; any characterisation of where in the domain the disagreement is
-worst beyond the positive/negative split the record names.
+What does not exist: any Handbook vector suite for `GAMMA`; any identification of Excel's seed on
+(1,2), of the Stirling series below x = 30 and the stored stage still missing above it, or of
+x < 1 and negative arguments (the open items of FN-GAMMA-001 and FN-GAMMA-002, which give the rest
+of the route); any characterisation of where in the domain the disagreement is worst beyond the
+positive/negative split the record names.
 
 Inputs I would probe first, and why:
 
 1. **The small positive integers, 1 through 10.** The exact answers are known, they are exactly
    representable, and any implementation that routes through exp(lnΓ) will miss some of them.
    This is the cheapest possible test that distinguishes a value-domain implementation from a
-   log-domain one, and the reference engine already fails it. Learning whether Excel passes it
-   would immediately narrow the algorithm space.
+   log-domain one, and the reference engine already fails it. FN-GAMMA-001 already reads a
+   value-domain product below 10 from fractions; this probe checks it at the integers.
 2. **Γ(½), Γ(3/2), Γ(5/2)** — the half-integer ladder, whose exact values are known multiples
    of √π. These test the recurrence and the argument reduction independently of the integer case.
 3. **The minimum near x ≈ 1.4616**, where the derivative vanishes and the function is locally
    flat, so the *value* is well conditioned but any argument reduction error is invisible —
-   a control point that isolates the polynomial from the reduction.
+   a control point that isolates the seed on (1,2) from the reduction.
 4. **A sweep just below the overflow threshold**, x from 170 to 172. This finds the exact
    threshold Excel uses and whether it returns `#NUM!` or something else, which is a strong
    implementation fingerprint.

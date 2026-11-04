@@ -229,8 +229,10 @@ in an open divergence row is not the same as having been measured, and nothing i
 `LOGEST` against Excel. The record's figures and scope render in the evidence panel beside
 this page; this prose does not transcribe them.
 
-So: nobody has measured `LOGEST` against Excel. No Handbook vector suite exists, no residual
-plate, and no characterisation of the coercion, orientation or rank behaviour.
+So: apart from the reflector steps of FN-LINEST-001, which applies here too, nobody has measured
+`LOGEST` against Excel. No Handbook vector suite exists, no residual plate, and no characterisation
+of the coercion, orientation or rank behaviour; the norm, rank, mean, pivot and back-substitution
+policies are not identified (the open item of that note).
 
 One divergence found during this curation pass, recorded as a finding: Microsoft documents
 `known_y's` as an array or range, while the reference engine's own battery returns `#REF!` for

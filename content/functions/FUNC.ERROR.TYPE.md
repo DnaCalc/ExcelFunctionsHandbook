@@ -79,7 +79,8 @@ The argument is a values position: a reference is resolved before the function r
 
 ## Result and edge cases
 
-Returns a `Number` (1–8) for an error input, or the `Error` `#N/A` for everything else.
+Returns a `Number` for an error input (1–8, or `0` for `#BUSY!`; see FN-ERROR.TYPE-001), or the
+`Error` `#N/A` for everything else.
 
 - **Errors do not propagate through this function.** Like the IS classifiers, `ERROR.TYPE`
   inspects rather than forwards, and that is what makes it usable at all.
@@ -94,8 +95,9 @@ Returns a `Number` (1–8) for an error input, or the `Error` `#N/A` for everyth
 - **The extended error codes.** `#SPILL!`, `#CALC!`, `#FIELD!`, `#BLOCKED!`, `#CONNECT!` and
   `#BUSY!` are absent from the published table. Under the table's own last row they would return
   `#N/A`, which would make `ERROR.TYPE` unable to name the most common modern error, `#SPILL!`.
-  The reference engine's declared code map covers 1–8 and returns `#N/A` for the rest. **Nobody
-  has checked what current Excel does**, and this is probe 1 below.
+  The reference engine's declared code map covers 1–8 and returns `#N/A` for the rest. Current
+  Excel gives `0` for `#BUSY!`, not `#N/A` (FN-ERROR.TYPE-001). **Nobody has checked what it does
+  for the others**, and this is probe 1 below.
 
 ## Errors
 
@@ -135,13 +137,15 @@ Note that the function can never return `#VALUE!` from a *value* — every value
    be recorded as a decision awaiting evidence.
 4. **Any error code the engine can produce but cannot name must fall to `#N/A` deliberately.**
    Silently returning a made-up number for `#SPILL!` would be worse than the documented gap.
+   `#BUSY!` is the recorded exception: Excel gives it `0` (FN-ERROR.TYPE-001).
 5. **The error must reach the kernel** rather than being short-circuited by the dispatch layer.
 
 ## What has not been checked
 
 No Handbook vector suite exists for `ERROR.TYPE`; `vectors/` publishes nothing for this function.
-No Excel-comparison evidence record names `ERROR.TYPE` as a subject — **nobody has checked this
-function's answers against Excel inside the Handbook's record.** The reference engine's own
+No Excel-comparison evidence record names `ERROR.TYPE` as a subject — **apart from the `#BUSY!`
+readings in FN-ERROR.TYPE-001, nobody has checked this function's answers against Excel inside the
+Handbook's record.** The reference engine's own
 answers appear on the battery panel under their own label; they are not Excel's answers.
 
 The probes that would settle the open questions, in priority order:
@@ -150,7 +154,8 @@ The probes that would settle the open questions, in priority order:
    `#FIELD!`, `#BLOCKED!` and `#CONNECT!` on a build that has them. Either they return `#N/A` —
    confirming that Excel's most visible modern error is invisible to its own error-diagnosis
    function, which would be a genuinely notable published finding — or they return codes that
-   Microsoft's table does not document, which would be more notable still.
+   Microsoft's table does not document, which would be more notable still. `#BUSY!` is answered:
+   it gives `0`, a code the table does not document (FN-ERROR.TYPE-001).
 2. **`#GETTING_DATA`.** It has a documented code (8) but is missing from `ISERROR`'s enumeration.
    Reading it through `ERROR.TYPE`, `ISERROR` and `ISERR` in one probe resolves a documentation
    inconsistency that spans two pages.

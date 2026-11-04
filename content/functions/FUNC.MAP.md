@@ -80,7 +80,9 @@ Returns an array.
   cell to occupy; the reference engine reports a non-scalar helper result rather than nesting.
 - **Errors inside the array.** An error value at a position is passed to the callable as an
   ordinary argument. What the callable does with it decides the outcome for that cell — `MAP` does
-  not pre-filter errors.
+  not pre-filter errors. A direct error as an argument is different: it is the answer for the
+  whole call and the callable does not run, so `MAP(NA(),LAMBDA(xx,IFERROR(xx,3)))` is `#N/A`
+  (FN-HSTACK-001).
 - **Callables inside the input array.** Preserved: the reference engine deliberately carries a
   callable stored in an array cell through to invocation instead of reconstructing it from its
   `#CALC!` core projection, so `MAP(array_of_lambdas, LAMBDA(f, f(10)))` is meaningful.
@@ -145,15 +147,16 @@ need a higher-order harness, and none exists here yet.
 Probes worth running, in priority order:
 
 1. `=MAP({1,2;3,4}, {10,20}, LAMBDA(a,b,a+b))` — mismatched input shapes. Broadcast, `#N/A`
-   padding, or `#VALUE!`? Nothing on this page is settled until this is.
+   padding, or `#VALUE!`? The input-shape rule on this page is not settled until this is.
 2. `=MAP({1,2,3}, LAMBDA(x, {x,x}))` — a callable returning a non-scalar per position.
 3. `=MAP({1,2,3}, LAMBDA(a,b,a+b))` — arity mismatch between input count and parameter count, and
    the reverse case with a two-parameter callable and one array.
 4. `=MAP(5, LAMBDA(x,x*2))` — does a scalar input give a one-cell array or a bare scalar?
-5. `=MAP({1,#N/A,3}, LAMBDA(x, IFERROR(x, 0)))` — confirms errors reach the callable as ordinary
-   arguments rather than short-circuiting the whole call.
+5. Errors in the input: an error in an array is an ordinary element, so
+   `=MAP({#N/A},LAMBDA(xx,3))` is 3, while a direct error stops the whole call (FN-HSTACK-001).
 6. A callable whose body references a volatile function, over a multi-cell array — establishes
    whether invocation order and count are observable.
+7. Competing errors in later positions, which FN-HSTACK-001 leaves open.
 
 ## Notes
 

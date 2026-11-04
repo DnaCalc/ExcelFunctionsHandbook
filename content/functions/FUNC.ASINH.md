@@ -63,7 +63,7 @@ role_in_family: >-
   whole line. There are no singularities of any kind. `ASINH` is the best-conditioned function in
   its family and its difficulties are entirely about representation.
 - **Series about zero**: `asinh x = x - x^3/6 + 3x^5/40 - ...`, so `asinh x -> x` for small `x` and
-  subnormals pass through unchanged.
+  subnormals pass through unchanged in the mathematics. Excel's do not: see *Result and edge cases*.
 - **Asymptotics**: `asinh x = ln(2x) + 1/(4x^2) - ...` as `x -> +infinity`. Growth is logarithmic:
   every argument in the upper half of the double range maps into a narrow band of results, and at
   the top of binary64 the answer is a little over 710.
@@ -98,7 +98,9 @@ that attaches to the circular inverses is meaningless for it.
 Returns `Number`.
 
 - **Zero** returns zero, and an odd implementation preserves the sign of zero.
-- **Subnormals and very small arguments** pass through unchanged.
+- **Subnormals and very small arguments** do not pass through. In the recorded rows every `|x|` up
+  to 1.05E-16, including every subnormal, gives 0, and slightly larger inputs move in steps of about
+  2.2E-16 (FN-ASINH-001).
 - **Negative arguments** are the case the closed form handles badly and the oddness handles for
   free.
 - **Very large arguments** are the interesting case, and the reason this page carries an evidence
@@ -144,7 +146,7 @@ Two adjacent surfaces, one hazard, two treatments. See the [ACOSH](FUNC.ACOSH.md
 
 | Error | Condition | Source |
 |---|---|---|
-| `#NUM!` | `|number|` is large enough that the `x^2` intermediate of the closed form overflows | `EV-MATH-0009` (substrate identified, no count) and the reference engine's kernel — **not documented anywhere retrieved** |
+| `#NUM!` | `|number|` is large enough that the `x^2` intermediate of the closed form overflows | `EV-MATH-0009` (substrate identified, no count), FN-ASINH-001 (recorded rows) and the reference engine's kernel — **not documented anywhere retrieved** |
 | `#VALUE!` | The argument does not convert to a number | Shared coercion rules |
 | propagated | An error value in the argument is returned unchanged | Shared coercion rules |
 
@@ -165,8 +167,9 @@ evaluation form, not a statement about the function.
 - **`LN`** and **`SQRT`** — the substrate, and the source of both the cancellation and the
   overflow.
 - **`LOG1P`** — which Excel does not expose as a worksheet function. Its absence is why a
-  worksheet-level workaround for the small-argument hazard is awkward, and why implementers of this
-  surface must supply it internally.
+  worksheet-level workaround for the small-argument hazard is awkward, and why a careful
+  implementation of this surface must supply it internally. Excel's recorded answers follow a route
+  without it (FN-ASINH-001).
 - **Confused with**: `ASIN`, by name; and with `1/SINH`, which is `CSCH`.
 
 ## Numerical notes
@@ -204,8 +207,9 @@ recovered for the cost of one comparison.
 it is what "a careful implementation" means for this function.
 
 **Why the naive form survives in the wild.** It is one line, it is correct on the range people
-actually use, and its failure mode is an error rather than a wrong number. That is a defensible
-engineering position and it is very likely how the behaviour on record came to exist. The Handbook
+actually use, and its failure mode at the top of the range is an error rather than a wrong number;
+at small inputs it does give wrong numbers (FN-ASINH-001). That is a defensible engineering position
+and it is very likely how the behaviour on record came to exist. The Handbook
 records it as a departure from the mathematics without implying carelessness.
 
 **What a compatibility implementation must therefore decide.** An `excel-bitexact` flavour has to
@@ -223,12 +227,10 @@ The evidence attached to this page is **`EV-MATH-0009`**, an `excel-math-deviati
 subject is `FUNC.ASINH`. What it establishes is a **mechanism**: the evaluation form and the
 overflow boundary it implies. What it does not establish is any level of agreement, because — in
 its own words — it publishes no count at all, and its reader warning says so explicitly. **Nothing
-about numeric agreement for `ASINH` follows from it**, and this page makes no such claim.
+about numeric agreement for `ASINH` follows from it**; the recorded agreement is in FN-ASINH-001.
 
-**No Handbook vector suite exists for `ASINH`.** Beyond the identified boundary, the Handbook has
-not observed this function in Excel. In particular the accuracy of the *ordinary* range — small
-arguments, moderate arguments, the near-zero band where `log1p` matters — is entirely unmeasured
-here.
+**No Handbook vector suite exists for `ASINH`.** FN-ASINH-001 records 4,534 rows, all from one Excel
+build, 20430; no other build has been read over this range.
 
 The presence projection records that this surface's module appears in the math-deviation catalogue
 and in no defect stream. The documented statements above come from Microsoft's Learn
@@ -237,20 +239,20 @@ and in no defect stream. The documented statements above come from Microsoft's L
 
 Probes worth running first:
 
-1. **Bisect the overflow boundary.** Find the exact largest argument returning a number. Comparing
-   it against the square root of the largest finite double is a one-bit test of whether the
-   intermediate really is `x*x`, and it is the probe that would confirm or refute the identified
-   substrate independently.
-2. **Small arguments across many decades**, from `1e-1` down to the subnormal floor, against a
-   high-precision reference. This is the `log1p` probe and it is completely unmeasured. A naive
-   implementation fails here visibly and a good one does not.
+1. **Bisect the overflow boundary.** The recorded rows only bracket it, between 9.23E153 and
+   2.38E154, and the boundary at `2^512` is inferred (FN-ASINH-001). Find the exact largest argument
+   returning a number. Comparing it against the square root of the largest finite double is a
+   one-bit test of whether the intermediate really is `x*x`.
+2. **Small arguments across many decades.** Answered: Excel fails here visibly, losing the digits
+   of small inputs (FN-ASINH-001).
 3. **`ASINH(x) + ASINH(-x)`**, which must be exactly zero for every `x` if the sign is folded.
-4. **`ASINH(SINH(t))` across `t`** — the exact round trip, needing no oracle, and the fastest way
-   to find the small-argument defect if there is one.
-5. **`ASINH(x)` against `LN(x + SQRT(x^2 + 1))`** computed on the worksheet, at small `x` — a
-   metamorphic probe that separates the two candidate algorithms without any external reference.
-6. **The band between the square root of the largest finite double and the largest finite double**,
-   to confirm the error is uniform across it rather than appearing at some other place.
+4. **`ASINH(SINH(t))` across `t`** — the exact round trip, needing no oracle. The small-argument
+   defect it would show is recorded in FN-ASINH-001.
+5. **`ASINH(x)` against `LN(x + SQRT(x^2 + 1))`** computed on the worksheet, at small `x`. Answered
+   for the algorithm: that expression with every step stored reproduces all recorded rows, and the
+   same formula in plain binary64 misses 5 of them (FN-ASINH-001).
+6. **The band between the square root of the largest finite double and the largest finite double.**
+   Answered for the recorded rows: `#NUM!` from 2.38E154 up (FN-ASINH-001).
 7. **Array arguments spanning the boundary**, to confirm the element-local error policy.
 
 ## Notes

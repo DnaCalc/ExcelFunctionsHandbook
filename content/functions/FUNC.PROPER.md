@@ -77,10 +77,12 @@ Returns `Text`.
   explicit that to-text behaviour is only outlined, not pinned.
 - Error values propagate.
 
-The question this page cannot answer is what counts as "a letter" and what "uppercase" means
-for scripts where the answer is not obvious: Turkish dotted and dotless i, German ß, Greek
+The question this page cannot fully answer is what counts as "a letter" and what "uppercase"
+means for scripts where the answer is not obvious: Turkish dotted and dotless i, German ß, Greek
 final sigma, and the scripts that have no case at all. Microsoft's page does not address any
-of them. The implementing module named in the presence projection carries two open upstream
+of them. Two cases are measured: a character above U+FFFF acts as a word boundary, and sigma
+before a combining mark takes the medial form (FN-LOWER-001). The implementing module named in
+the presence projection carries two open upstream
 array-support defect streams (`BUG-FUNC-008`, `BUG-FUNC-016`), so the array shape of this
 function is also unsettled.
 
@@ -124,7 +126,8 @@ with Excel on English data and silently disagrees on everything else.
 ## What has not been checked
 
 No Handbook vector suite exists for `PROPER`, and no Excel-comparison evidence record names
-it. Nobody has checked this function against Excel within the Handbook's record. The rule
+it. Apart from the readings in FN-LOWER-001, nobody has checked this function against Excel
+within the Handbook's record. The rule
 stated at the top is Microsoft's documented rule, quoted, not an observation.
 
 Inputs worth probing first:
@@ -141,6 +144,7 @@ Inputs worth probing first:
    second machine configuration.
 6. **Array input** `PROPER({"ab","cd"})`, given the open `BUG-FUNC-008` and `BUG-FUNC-016`
    streams on array support in this implementing module.
+7. **Compatibility version 1**, which FN-LOWER-001 leaves open; its readings are at version 2.
 
 ## Notes
 

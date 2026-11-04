@@ -97,8 +97,9 @@ it is worth laying out with each claim's warrant attached.
    documentation-versus-catalogue mismatch.
 
 So the honest summary is: **documented as a replacement, observed identical once by upstream on
-one named build, structurally identical in the reference engine, and never checked by the
-Handbook.** If the two surfaces are the same computation in every build — which is what the
+one named build, structurally identical in the reference engine, and agreeing at every shared
+recorded input tried (FN-GAMMALN-001).** If the two surfaces are the same computation in every build
+— which is what the
 evidence so far suggests — then the "PRECISE" in the name describes an intention from 2010
 rather than a current difference, and a reader choosing between them is choosing a spelling.
 
@@ -164,8 +165,9 @@ this spelling expecting better answers; they should choose it because it is the 
 delegation to the other, **it cannot exhibit a difference between them**. Any comparison run
 against OxFunc reports identity by construction. The only thing that can settle whether Excel's
 two surfaces agree is a probe that compares them in Excel, with no reference engine in the loop
-— and upstream's identity check is exactly that, on one build. Repeating it independently, and
-on more than one build, is the cheapest useful work available on this page.
+— and upstream's identity check is exactly that, on one build. FN-GAMMALN-001 adds agreement at
+every shared recorded input tried. A full sweep on more than one build is the cheapest useful work
+available on this page.
 
 ## What has not been checked
 
@@ -183,9 +185,10 @@ figures render mechanically beside this page; this prose deliberately does not r
 Note what is *not* here: `EV-MATH-0012`, the fresh never-probed corpus, names `GAMMALN` alone.
 This surface has no fresh-corpus figure of its own.
 
-What does not exist: any Handbook vector suite; any Handbook-side check of the alias identity;
-any measurement on more than one Excel build; any concentrated measurement in the two bands
-around the zeros, where the mathematics predicts the worst relative error.
+What does not exist: any Handbook vector suite; any identification of the rationals below 3 (the
+open item of FN-GAMMALN-001); any Handbook-side check of the alias identity beyond that note's
+shared recorded inputs; any measurement on more than one Excel build; any concentrated measurement
+in the two bands around the zeros, where the mathematics predicts the worst relative error.
 
 Inputs I would probe first, and why:
 

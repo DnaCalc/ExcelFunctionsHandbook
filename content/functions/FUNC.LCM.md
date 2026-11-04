@@ -113,8 +113,8 @@ which means it must either detect the overflow during the fold or compute in a w
 
 **Documented-versus-reference-engine divergence, recorded here as a finding.** The reference
 engine's published battery row for the largest finite double returns a finite number rather than
-the documented `#NUM!`. The Handbook has not observed which behaviour Excel produces. That probe
-is first on the list below.
+the documented `#NUM!`. Excel gives `#NUM!` only above 2^53 and accepts an operand or a result equal
+to 2^53 (FN-GCD-001).
 
 ## Relationships
 
@@ -178,13 +178,12 @@ that group matched. It says nothing about `LCM`'s values. `LCM` also appears ins
 structural record's group membership without being a subject there; that record's counts are not
 claimed on this page.
 
-Nobody has checked this function's results against Excel.
+FN-GCD-001 checks this function's results against Excel: all 7,967 recorded rows match.
 
 Inputs I would probe first:
 
-1. **A pair whose lcm straddles 2^53** — for example two large coprime integers whose product is
-   just below the ceiling, and a second pair just above. This locates the documented result
-   ceiling, and it is the page's live documentation-versus-implementation contradiction.
+1. **A pair whose lcm straddles 2^53.** Answered: Excel accepts a result equal to 2^53 and gives
+   `#NUM!` above it (FN-GCD-001).
 2. **A pair whose *product* exceeds 2^53 but whose *lcm* does not** — two large arguments sharing
    a large factor. This is the probe that distinguishes a divide-first implementation from a
    multiply-first one, and it is the single most informative cell on this page: a multiply-first

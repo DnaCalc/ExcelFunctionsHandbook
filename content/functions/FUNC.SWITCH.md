@@ -92,11 +92,13 @@ Returns whatever kind the selected result carries.
 - **Error as the expression.** Propagates.
 - **Selected result is an error.** Returned verbatim; `SWITCH` selects, it does not inspect.
 - **Selected result is an omitted slot.** The reference engine returns `#N/A`; a blank *cell* as the
-  selected result becomes numeric `0`.
+  selected result becomes numeric `0`. In Excel a selected reference stays a reference:
+  `ISBLANK(SWITCH(1,1,Data!Z1))` is `TRUE` over an empty cell (FN-IFS-001).
 - **Arrays.** The call model records `SWITCH` under `ByIndexScalarArrayLift` over positions 0, 1
   and 3 — the expression, the first candidate, and the first result
   ([chapter 03](../model/03-call-pipeline.md)). As with `IFS`, that list is irreducible structure
-  rather than a derivable rule.
+  rather than a derivable rule. Once a scalar comparison has selected a result, later arrays do
+  not lift the call: `SWITCH(2,2,1,{1,2},3)` returns one `1` (FN-IFS-001).
 
 ## Errors
 
@@ -156,8 +158,9 @@ Two Excel-comparison records name `SWITCH`, both as a body-only subject:
 - **`EV-STRUCT-0006`** — the scalar-parameter array-lift structural verification, again with
   group-scoped counts only.
 
-So `SWITCH` is better evidenced than most functions on this shelf, and still has no per-function
-result. Read both records for their scope and caveats.
+So `SWITCH` is better evidenced than most functions on this shelf, though neither record gives a
+per-function result; the only per-function readings are those in FN-IFS-001. Read both records
+for their scope and caveats.
 
 Probes worth running, in priority order:
 
@@ -166,12 +169,15 @@ Probes worth running, in priority order:
    riding on it, and the record's own caveat about a fitting set is a reason to re-probe it with
    fresh pairs.
 2. The same pair through `MATCH` and through `=` — confirms the family split from both sides.
-3. `=SWITCH("a","A",1)` and non-ASCII case pairs — pins the collation.
+3. Non-ASCII case pairs — pins the collation. ASCII case is ignored:
+   `=SWITCH("A","a",1,{"A","A"},2)` returns 1 (FN-IFS-001).
 4. `=SWITCH(1,"1",2,3)` — confirms numbers and numeric text do not match.
 5. `=SWITCH(A1, 1, "x")` with an even versus odd argument count around the same candidate list —
    confirms the parity rule for default detection.
 6. `=SWITCH(A1, 1, "x")` with `A1` empty, and with `value1` an empty cell — the blank-matches-blank
    case.
+7. A selected `LAMBDA` that is then called, or passed through `LET` or `IFERROR`, which FN-IFS-001
+   leaves open.
 
 ## Notes
 

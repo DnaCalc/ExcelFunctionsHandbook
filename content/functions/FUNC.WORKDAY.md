@@ -130,9 +130,9 @@ here.
 
 ## What has not been checked
 
-No Handbook vector suite exists for `WORKDAY`, and no Excel-comparison evidence is recorded. The
-battery on this page is the reference engine answering its own probes; no Excel was involved. The
-experiments that matter:
+No Handbook vector suite exists for `WORKDAY`. The Excel readings on this page are in
+FN-WORKDAY-001, for an empty or logical first date. The battery on this page is the reference engine
+answering its own probes; no Excel was involved. The experiments that matter:
 
 - **`WORKDAY(friday, 0)`, `WORKDAY(saturday, 0)`, `WORKDAY(sunday, 0)`** — three rows that settle
   the counting convention completely, including the "does it snap" question. This is the highest-

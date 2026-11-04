@@ -76,8 +76,8 @@ appears. There is no way to get the words without the currency.
 The return kind is `Text`, in Thai script.
 
 - **Negative numbers.** Upstream's contract records the current baseline as rejecting negative
-  magnitudes with `#NUM!`. That is a domain restriction, not a formatting choice: there is no
-  spelled negative form.
+  magnitudes with `#NUM!`. Excel does not reject them: it spells a negative amount with the word
+  for minus, ลบ, so `BAHTTEXT(-0.005)` is `ลบหนึ่งสตางค์` (FN-BAHTTEXT-001).
 - **Very large magnitudes** are likewise recorded upstream as rejected with `#NUM!`. Where the
   boundary sits — and whether it is a magnitude limit, a digit-count limit, or the point at which a
   double stops representing integers exactly — is not established here.
@@ -99,7 +99,7 @@ written, so this section states expectations and upstream readings rather than q
 
 | Error | Status |
 |---|---|
-| `#NUM!` for negative `number` | recorded in upstream OxFunc's current-baseline contract; not a Handbook claim |
+| `#NUM!` for negative `number` | recorded in upstream OxFunc's current-baseline contract; not what Excel does, which is to spell the amount (FN-BAHTTEXT-001) |
 | `#NUM!` for a magnitude beyond the supported range | recorded in the same upstream contract; the exact boundary is not established |
 | `#VALUE!` for a non-numeric argument | expected from the general to-number coercion rule |
 | any error value, propagated | follows from the universal error-propagation rule |
@@ -133,18 +133,18 @@ written, so this section states expectations and upstream readings rather than q
   `BAHTTEXT(1.001)` and `BAHTTEXT(1)` should agree if rounding takes the first to one baht exactly.
 - **Emit the Thai script directly as Unicode**, not through a legacy Thai code page. The result is
   worksheet text, which is UTF-16.
-- **Validate the domain before spelling**, so that a negative or oversized input produces `#NUM!`
-  rather than a partially built string.
+- **Validate the domain before spelling**, so that an oversized input produces `#NUM!` rather than
+  a partially built string. A negative input is spelled, not rejected (FN-BAHTTEXT-001).
 - **Do not localise the output.** It is Thai on every installation; making it follow the UI language
   would be a divergence, not an improvement.
 
 ## What has not been checked
 
 There is no Handbook vector suite for `BAHTTEXT`, and no Handbook evidence record comparing any
-implementation against Excel. Nothing on this page is a measurement. Upstream OxFunc records that a
-native Excel replay matched its seeded `BAHTTEXT` rows on the host baseline it used, and the
-Handbook does not restate that as a result of its own; it is an upstream finding, scoped to that
-packet and that host.
+implementation against Excel. Apart from the note below, nothing on this page is a measurement.
+Upstream OxFunc records that a native Excel replay matched its seeded `BAHTTEXT` rows on the host
+baseline it used, and the Handbook does not restate that as a result of its own; it is an upstream
+finding, scoped to that packet and that host.
 
 This function is also an unusually good vector-suite candidate, because its output is exact text
 with no floating-point residual to argue about. The probes that would build one:
@@ -159,8 +159,8 @@ with no floating-point residual to argue about. The probes that would build one:
 4. **The "one" and "twenty" irregular forms**, by probing 1, 11, 21, 20, 101, 111.
 5. **Zero and near-zero.** `BAHTTEXT(0)`, `BAHTTEXT(0.004)`, `BAHTTEXT(0.005)` — whether a value
    that rounds to zero produces the zero form with the "exactly" tail.
-6. **Negative zero and tiny negatives**, `BAHTTEXT(-0)` and `BAHTTEXT(-0.001)`, which test whether
-   the domain check runs before or after rounding.
+6. **Negative zero and tiny negatives**: `BAHTTEXT(-0)` is the plain zero form, and
+   `BAHTTEXT(-0.001)` keeps the word for minus before it (FN-BAHTTEXT-001).
 7. **Array lifting**, in one cell.
 8. **Whether the output varies by installation language**, which the Handbook expects to be "no" and
    has not confirmed.

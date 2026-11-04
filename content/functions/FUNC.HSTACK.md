@@ -121,7 +121,8 @@ Excel returns at that limit is not established here.
 ## What has not been checked
 
 No Handbook vector suite exists for `HSTACK`, and no Excel-comparison evidence record is
-recorded for it. Nobody has checked this function against Excel here.
+recorded for it. Apart from the readings in FN-HSTACK-001, nobody has checked this function
+against Excel here.
 
 Probes worth running first:
 
@@ -133,9 +134,11 @@ Probes worth running first:
    from the reference's declared extent or from its used range. The two answers differ by
    roughly a million rows.
 4. **A multi-area reference** as a single argument, against the multi-argument form.
-5. **Element kinds**: an argument containing text, a logical, an error and a blank, confirming
-   each arrives unchanged and that blanks normalize as the value model describes.
+5. **Element kinds**: an argument containing text, a logical and a blank, confirming each
+   arrives unchanged and that blanks normalize as the value model describes. An error in a
+   referenced cell arrives as an element (FN-HSTACK-001).
 6. **The width limit**: enough arguments to exceed the grid's column count.
+7. **Competing errors in later positions**, which FN-HSTACK-001 leaves open.
 
 Item 3 is the one most likely to produce a surprise, and item 1 the one that must be right for
 any of the rest to matter.

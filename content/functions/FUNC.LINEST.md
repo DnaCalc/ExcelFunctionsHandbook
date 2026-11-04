@@ -136,7 +136,9 @@ a `LINEST` that reports only its first cell.
 
 - **Exactly determined system** (`n = p`) — the fit is exact, `SSE = 0`, and `df = 0`. The
   statistics block then divides by zero for `se(y)` and `F`; the documented result is `#N/A`
-  in those cells.
+  in those cells. The one such fit read in Excel, three observations on three x columns with
+  `const` FALSE, returns instead standard errors and `se(y)` of 0, `r²` of 1, `F` of `#NUM!`, `df`
+  of 0, `SSE` of exactly 0 and `SSR` the sum of `y²` (FN-LINEST-002).
 - **Rank-deficient `X`** — duplicated or linearly dependent predictor columns. The
   least-squares solution is not unique. Microsoft's page documents that `LINEST` may drop
   collinear columns and return zero coefficients for them; the Handbook has not verified what
@@ -162,13 +164,13 @@ a `LINEST` that reports only its first cell.
 |---|---|---|
 | `#REF!` | `known_y's` and `known_x's` have incompatible shapes | Documented by Microsoft on the `LINEST` page |
 | `#VALUE!` | An argument cannot be converted, or `const`/`stats` is not interpretable as a logical | Shared coercion rule, chapter 02 |
-| `#N/A` | The unused cells of statistics rows 3–5; also the statistics cells that require `df > 0` when `df = 0` | Documented layout |
+| `#N/A` | The unused cells of statistics rows 3–5; also the statistics cells that require `df > 0` when `df = 0`, though FN-LINEST-002 reads 0 and `#NUM!` there in Excel | Documented layout |
 | propagated | An error value in the data | Shared coercion rule, chapter 02 |
 
 Retrieval of Microsoft's `LINEST` page was blocked for this curation pass. The rows above are
 stated as documented behaviour with the source named, and the reference engine's own battery
-outcomes are labelled as such where they are cited. Nobody has checked any of this against
-Excel within the Handbook's record.
+outcomes are labelled as such where they are cited. Apart from the `df = 0` row (FN-LINEST-002),
+nobody has checked any of this against Excel within the Handbook's record.
 
 ## Relationships
 
@@ -243,8 +245,9 @@ sequence of papers *On the accuracy of statistical procedures in Microsoft Excel
 follow-ups covering later versions) reported `LINEST` failing to return any correct digits on
 Filip in the versions they tested, and tracked what changed across releases. Morten Welinder's
 work on Gnumeric's statistical functions covers the same territory from the reimplementer's
-side. The Handbook names these as the published literature on the family; it does not assert
-what Excel does internally in any build, and it has not re-run the StRD datasets itself.
+side. The Handbook names these as the published literature on the family; of what Excel does
+internally it asserts only the reflector steps of FN-LINEST-001, and it has not re-run the StRD
+datasets itself.
 
 **A note on the statistics block.** `SSE` computed as `SST − SSR` is a cancellation waiting to
 happen when `r²` is close to 1 — precisely the case where users care. Accumulating the
@@ -264,9 +267,13 @@ warning that being named in an open divergence row is not the same as having bee
 The figures and their scope render in the evidence panel beside this page; this prose does not
 transcribe them.
 
-So: **nobody has measured `LINEST` against Excel.** No Handbook vector suite exists. There is
-no residual plate, no StRD run, and no characterisation of the rank tolerance, the coercion
-policy or the orientation rules.
+The Notes below overtake that status: FN-LINEST-001 measures the reflector arithmetic over the
+3,944 regression rows of the corpus, and FN-LINEST-002 reads one fit with no residual degrees of
+freedom. No Handbook vector suite exists. There is no residual plate, no StRD run, and no
+characterisation of the rank tolerance, the coercion policy or the orientation rules. Norm, rank,
+mean, pivot and back-substitution policies are not identified: 48 fixed rank policies and 240
+rounded Gram/LDL rank labels are contradicted by the 241 recorded degrees-of-freedom observations
+(FN-LINEST-001).
 
 Two divergences found during this curation pass, recorded as findings:
 
@@ -288,8 +295,8 @@ Inputs I would probe first, and why:
 2. **Two identical predictor columns**, and two columns differing in the last bit, to find the
    rank tolerance and to see whether collinear columns are dropped, zeroed, or silently
    solved.
-3. **`n = p` exactly**, checking that `df` is zero and which statistics cells become `#N/A`
-   rather than infinity.
+3. **`n = p` exactly.** Answered for one fit with `const` FALSE: `df` is 0, `F` is `#NUM!`, and
+   the standard errors and `se(y)` are 0 (FN-LINEST-002). Other shapes remain to read.
 4. **`const = FALSE` on data with a large `ȳ`**, comparing `r²` and `SST` against the
    hand-computed uncentred definitions. This is where implementations most often disagree with
    each other.

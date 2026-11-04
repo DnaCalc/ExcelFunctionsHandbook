@@ -132,8 +132,9 @@ Returns `Number` — a periodic rate as a decimal fraction.
 The first two rows are the conditions every reference states — the sign requirement and
 non-convergence. The remainder is the reference engine's behaviour at commit `473efa3` under the
 shared call model. Microsoft's page documents the sign requirement and describes the iteration as
-returning an error when it fails to converge within its iteration budget. The Handbook has not
-observed any of this in Excel.
+returning an error when it fails to converge within its iteration budget. FN-IRR-001 records
+Excel's answers for a direct non-number or error in `values`, with the guess beside it; the
+Handbook has not observed the rest of this in Excel.
 
 ## Relationships
 
@@ -206,8 +207,8 @@ Its reader warning is explicit that `IRR` must never inherit a figure from a sib
 a `PRICE` record.
 
 The Handbook's reading of that record: `IRR`'s absence of a measurement is not a gap in extraction,
-it is the state of the evidence. **Nobody has established what Excel's `IRR` returns, and nothing on
-this page should be read as saying otherwise.**
+it is the state of the evidence. **Apart from the error cases in FN-IRR-001, nobody has established
+what Excel's `IRR` returns, and nothing on this page should be read as saying otherwise.**
 
 The implementing module additionally carries open defect streams touching this surface —
 `BUG-FUNC-009` on default-guess solver non-convergence, `BUG-FUNC-014` on solver precision drift in
@@ -233,6 +234,8 @@ Inputs worth probing first:
    minimum-length behaviour.
 8. **`CF_0 + NPV(IRR(v), v[1:])`**, which must be approximately zero and which pins the indexing
    convention that separates `IRR` from `NPV`.
+9. **A reference to one cell holding the values of FN-IRR-001**, which answers differently from the
+   direct value; those readings are not in a published capture.
 
 ## Notes
 

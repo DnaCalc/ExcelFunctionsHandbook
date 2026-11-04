@@ -103,8 +103,8 @@ reference engine returns a bare number.
   first item below.
 - **Month-end maturities** produce month-end previous-coupon dates: a 31 August maturity at
   `frequency` 2 gives 28 or 29 February, not the 28th of some other month.
-- **Early settlements** are accepted without limit; the schedule extends backwards past any
-  plausible issue date.
+- **Early settlements** are accepted; the schedule extends backwards past any plausible issue
+  date, and when the coupon before settlement falls before 1900 Excel returns 0 (FN-COUPNUM-001).
 - **`settlement` ≥ `maturity`** is a documented error, so the function never returns `maturity`
   itself as a previous coupon date.
 - The reference engine clamps a computed previous-coupon serial at zero, so extremely early
@@ -133,7 +133,7 @@ argument or a date serial outside the representable range. Errors in any argumen
 - **[COUPDAYBS](FUNC.COUPDAYBS.md)** — the day count from this date to `settlement`. On bases 1,
   2 and 3 it equals `settlement − COUPPCD`; on the 30/360 bases it does not.
 - **[COUPDAYS](FUNC.COUPDAYS.md)** — the period length. `COUPNCD − COUPPCD` is the *actual*
-  length and equals `COUPDAYS` only under basis 1.
+  length and equals `COUPDAYS` only under basis 1, and not always there (FN-COUPDAYS-001).
 - **[COUPNUM](FUNC.COUPNUM.md)** — the count of remaining coupons on the same ladder.
 - **[EDATE](FUNC.EDATE.md)** — the general month-stepping function. `EDATE` clamps the day of
   month but does not make month-ends sticky, so `EDATE(maturity, −n × 12/frequency)` reproduces
@@ -160,9 +160,9 @@ argument or a date serial outside the representable range. Errors in any argumen
 ## What has not been checked
 
 No Handbook vector suite exists for `COUPPCD`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. Nobody has
-checked this function against Excel within the Handbook's record. The battery on this page is
-the reference engine answering its own probes; no Excel was involved.
+its subjects**. The shared `coupon_family` module is named by no record either. The Excel
+readings of `COUPPCD` on this page are in FN-COUPDAYS-001 and FN-COUPNUM-001. The battery on this
+page is the reference engine answering its own probes; no Excel was involved.
 
 Two things on this page are documentation findings rather than measurements: the missing
 description sentence on Microsoft's Learn page, and the "before the settlement date" wording that
@@ -172,10 +172,11 @@ Inputs worth probing first:
 
 1. **`settlement` exactly on a coupon date.** Does Excel return `settlement` or the coupon date
    before it? This single observation settles the wording question and simultaneously fixes
-   `COUPDAYBS`, `COUPDAYSNC`, `COUPNCD` and `COUPNUM` on the same input.
+   `COUPDAYBS`, `COUPDAYSNC`, `COUPNCD` and `COUPNUM` on the same input. The notes below read
+   `COUPNUM` on such a date, not `COUPPCD`.
 2. **Month-end maturities** — 31 January, 28/29 February, 30 April, 31 August — at each
    `frequency`, several periods before maturity. This decides month-end anchoring against day
-   clamping.
+   clamping. FN-COUPDAYS-001 has one month-end maturity, where `COUPPCD` keeps the month end.
 3. **`COUPPCD` against `EDATE(COUPNCD(...), −12/frequency)`**, which isolates the month rule.
 4. **A settlement decades before maturity**, testing whether an iterating walk and a direct
    index computation agree.

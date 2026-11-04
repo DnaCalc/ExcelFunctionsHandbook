@@ -111,8 +111,8 @@ Returns `Number`, non-negative, in the units of the data.
 - **No numeric values at all.** `#DIV/0!`.
 - **All values equal.** Exactly `0`. Each deviation is exactly zero, their squares are exactly
   zero, and `sqrt(0) = +0`.
-- **Two values.** `s = |x_1 - x_2| / sqrt(2)`, which is exact up to the two roundings of the
-  subtraction (exact by Sterbenz when the operands are close) and the square root.
+- **Two values.** `s = |x_1 - x_2| / sqrt(2)`. Excel reaches it through the raw moments or the
+  centered sum of FN-VAR.S-001, and their steps round.
 - **A blank cell inside a scanned range** is skipped, so `STDEV.S` over a column with gaps uses
   a smaller `n` than the column height. Compare [STDEVA](FUNC.STDEVA.md), which also skips blanks
   but not text.
@@ -145,7 +145,8 @@ Returns `Number`, non-negative, in the units of the data.
   quantity. **The Handbook does not treat that as an identity.** A legacy alias and its modern
   name are two registered entry points, and Excel is free to route them to two different code
   paths; that they agree — let alone that they agree in the last bits — is a claim requiring
-  evidence, and no such evidence is in the Handbook's record. This pair is a particularly live
+  evidence, and the Handbook's record holds only indirect evidence: all recorded rows of both names
+  match the rule of FN-VAR.S-001. This pair is a particularly live
   question because the variance algorithms were changed at Excel 2003 while both names remained
   in the product.
 - **[AVERAGE](FUNC.AVERAGE.md)** supplies `xbar` and shares the scan policy exactly, so
@@ -189,10 +190,11 @@ together, and is what a well-written online implementation uses.
 procedures, running from 1999 through the 2000s in *Computational Statistics & Data Analysis*,
 Knüsel's parallel work, and Welinder's writing on Excel's statistical functions in the course of
 the Gnumeric project, together form the standing published record on exactly this question; the
-variance and regression algorithms were changed at Excel 2003 in response. **This page does not
-assert what Excel's `STDEV.S` does internally today.** What it asserts is that the two families
-of algorithm are distinguishable by a measurement anyone can make, that the measurement is the
-shift test described below, and that the Handbook has not made it.
+variance and regression algorithms were changed at Excel 2003 in response. **What Excel's
+`STDEV.S` does is recorded in FN-VAR.S-001**: raw moments with stored steps, a centered sum when
+either of two stored tests holds, and a root rounded to 64 bits and then stored. So Excel uses both
+families of algorithm and switches between them. The shift test described below remains a
+measurement anyone can make.
 
 **Residual hazards in the good form.** The two-pass form is far better, not perfect:
 
@@ -203,8 +205,9 @@ shift test described below, and that the Handbook has not made it.
   stationary at the true mean.
 - The sum of squares is also accumulated naively, but its terms are all non-negative, so it is
   well-conditioned and the error is benign.
-- `sqrt` is correctly rounded under IEEE-754, contributing at most half an ulp, and it *halves*
-  the relative error of the variance. The whole accuracy question therefore lives in the variance,
+- `sqrt` *halves* the relative error of the variance. In Excel the root is rounded to 64 bits and
+  then stored (FN-VAR.S-001), so it is not always correctly rounded. The whole accuracy question
+  therefore lives in the variance,
   and the square root is the cheapest and most accurate step in the function.
 - Overflow: `(x - xbar)^2` overflows when a deviation exceeds about `1.3 * 10^154`, so
   `STDEV.S` can report an infinity for data that is itself perfectly finite. A scale-aware
@@ -222,8 +225,11 @@ distinct engineering artefact and not a tidier version of the same code.
 ## What has not been checked
 
 No Handbook vector suite exists for `STDEV.S`, and no Handbook evidence record names `STDEV.S` as
-a subject. Nobody has checked this function against Excel within the Handbook's record. The
-implementing module carries no tests of its own in the reference engine; the shared variance
+a subject. FN-VAR.S-001 checks this function against Excel: with the rest of the variance family,
+all 14,679
+recorded rows match. Still open there: whether its two tests keep the same edges for ranges and
+arrays. The implementing module carries no tests of its own in the reference engine; the shared
+variance
 kernel it calls carries a small number, which speaks to that kernel rather than to this surface.
 
 Everything above marked as documented comes from Microsoft's `STDEV.S` page. **Retrieval of that
@@ -235,14 +241,14 @@ Inputs worth probing first:
 1. **The shift test.** Take a small data set with a known exact standard deviation and evaluate
    `STDEV.S` on it, then on the same values with `10^6`, `10^9` and `10^{12}` added to every one.
    The true answer is identical in all four; the returned values are not, and *how* they degrade
-   identifies the algorithm. Gentle degradation means a centred form; collapse to zero, to noise,
-   or to an error means the raw sums-of-squares form. This is the single highest-value
-   measurement on this page, it takes four cells, and nobody in the Handbook's record has run it.
+   shows the form in use. FN-VAR.S-001 has since identified the algorithm, so this is now a
+   four-cell check of it.
 2. **The negative-sum-of-squares signature.** The classic constructed data sets from the
    published accuracy literature — values differing only in their low-order digits at a large
    offset — where the one-pass form produces a negative sum of squares.
 3. **`STDEV.S` against `SQRT(VAR.S)`** on the same data, bitwise. The reference engine computes
-   exactly that; whether Excel does is a structural fingerprint.
+   exactly that. Answered for Excel: `STDEV.S` is the root of the variance, rounded to 64 bits and
+   then stored (FN-VAR.S-001).
 4. **`STDEV.S` against `STDEV.P * SQRT(n/(n-1))`**, bitwise. The identity is exact in real
    arithmetic; the gap measures the two divisor paths against each other with no external oracle.
 5. **`STDEV.S` against the legacy `STDEV`** on the same data, bitwise. The probe that would turn

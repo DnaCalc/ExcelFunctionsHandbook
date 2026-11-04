@@ -182,7 +182,9 @@ than `#NUM!` — a choice with no documented counterpart.
 - **`POISSON.DIST`** — the discrete dual. The Erlang cumulative and the Poisson tail are the
   same sum, which is why an implementation of one is often reachable from the other.
 - **[GAMMA](FUNC.GAMMA.md) and [GAMMALN](FUNC.GAMMALN.md)** — the *complete* gamma function, a
-  different object from the incomplete one this page needs. Sharing the name is the relationship.
+  different object from the incomplete one this page needs. The name is not the whole relationship:
+  at integer shapes 2 to 6 `GAMMALN(a+1)` sits in the prefactor, and its error is in every answer
+  (FN-GAMMA.DIST-001).
 - **`BETA.DIST`** — the module sibling; the regularized incomplete beta is the two-parameter
   cousin of the regularized incomplete gamma and is reached by the same style of algorithm.
 
@@ -218,8 +220,9 @@ the density in terms of a deviance term evaluated without cancellation, and whic
 `dgamma` and `dpois` use. `EV-DIST-0002` records that the density mode measures far worse than
 the cumulative mode on a much larger corpus, and that a triage of candidate density formulations
 — the log-composed form, separate powers, ratio forms, and an R-style structure — was refuted at
-the exact-value level. In other words the density mode's algorithm is not merely inaccurate, it
-is **unidentified**.
+the exact-value level. FN-GAMMA.DIST-001 has since read a form for the density at integer shapes 2
+to 6, inferred and scored in part; outside those shapes the density mode's algorithm remains
+**unidentified**.
 
 **A removed shortcut, worth recording.** The reference engine formerly took an integer-shape fast
 path for the cumulative mode, summing the Erlang series 1 − e^{−z}Σ z^k/k!. Upstream removed it
@@ -246,8 +249,10 @@ record described under **Relationships**, whose scope is explicitly the forward 
 figures render mechanically beside this page; this prose deliberately does not restate them.
 
 What does not exist: any Handbook vector suite for `GAMMA.DIST`; any identification of the
-density-mode algorithm; any measurement of the far tails, where the function is least accurate
-and most consequential; any Handbook-side reproduction of the legacy/modern identity check.
+stored stage still missing from the prefactor or the sum, of shapes outside 2 to 6, or of the
+upper arm (the open items of FN-GAMMA.DIST-001); any measurement of the far tails, where the
+function is least accurate and most consequential; any Handbook-side reproduction of the
+legacy/modern identity check.
 
 Inputs I would probe first, and why:
 

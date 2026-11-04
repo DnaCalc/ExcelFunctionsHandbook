@@ -178,15 +178,17 @@ return a confidently meaningless value.
 ## Numerical notes
 
 The arithmetic is identical to [STDEV.P](FUNC.STDEV.P.md)'s, and everything on that page's
-numerical notes applies without change: two-pass centred accumulation rather than the unstable
-raw sums-of-squares identity `sum x^2 - (sum x)^2/n`; naive left-to-right summation for both the
+numerical notes applies without change. In the reference engine that means two-pass centred
+accumulation rather than the unstable raw sums-of-squares identity `sum x^2 - (sum x)^2/n`; naive
+left-to-right summation for both the
 mean and the sum of squares, where compensated summation would bound the error by a constant; a
 correctly rounded final `sqrt` that halves the variance's relative error; overflow of squared
 deviations above roughly `1.3 * 10^154` and underflow below roughly `10^{-162}`; and summation
 order as part of the answer. Chan, Golub and LeVeque (1983) is the reference for the algorithm
 choice, and the published record on Excel's variance accuracy — McCullough and Wilson, Knüsel,
-Welinder's Gnumeric work — belongs to the same discussion. **This page does not assert what
-Excel does internally.**
+Welinder's Gnumeric work — belongs to the same discussion. **What Excel does is recorded in
+FN-VAR.S-001**: raw moments with stored steps, a centered sum when either of two stored tests holds,
+and a root rounded to 64 bits and then stored.
 
 Two points are specific to `STDEVPA`.
 
@@ -194,8 +196,9 @@ Two points are specific to `STDEVPA`.
 neutral. If genuine observations cluster around a large value `M` and a handful of text cells
 admit as `0`, the mean moves between the two clusters, every genuine observation acquires a
 deviation of order `M`, and the sum of squares becomes dominated by terms of order `M^2` in which
-the information about the real spread is a small correction. The two-pass form still avoids the
-*catastrophic* cancellation the one-pass form would suffer, but the computed answer is now an
+the information about the real spread is a small correction. In the reference engine the two-pass
+form still avoids the *catastrophic* cancellation the one-pass form would suffer, but the computed
+answer is now an
 accurate standard deviation of a bimodal data set rather than an inaccurate one of the original.
 Overflow also becomes reachable earlier, because deviations of order `M` square to order `M^2`.
 `STDEVPA`'s accuracy risk is semantic rather than arithmetic, and that is the more common kind of
@@ -212,8 +215,11 @@ as a floating-point standard deviation can be, and this is the case the function
 ## What has not been checked
 
 No Handbook vector suite exists for `STDEVPA`, and no Handbook evidence record names `STDEVPA` as
-a subject. Nobody has checked this function against Excel within the Handbook's record. The
-implementing module carries no tests of its own in the reference engine; the shared variance
+a subject. FN-VAR.S-001 checks this function against Excel: with the rest of the variance family,
+all 14,679
+recorded rows match. Still open there: whether its two tests keep the same edges for ranges and
+arrays. The implementing module carries no tests of its own in the reference engine; the shared
+variance
 kernel it calls carries a small number, which speaks to that kernel rather than to this surface.
 
 Everything above marked as documented comes from Microsoft's `STDEVPA` page. **Retrieval of that
@@ -237,8 +243,10 @@ Inputs worth probing first:
    strong single-formula check on the whole path.
 5. **A single admitted value**, confirming `0` here where [STDEVA](FUNC.STDEVA.md) gives
    `#DIV/0!`.
-6. **`STDEVPA` against `SQRT(VARPA)`**, bitwise, and **`STDEVPA` against
-   `STDEVA * SQRT((n-1)/n)`**, measuring the gap the exact identity leaves after rounding.
+6. **`STDEVPA` against `SQRT(VARPA)`**, bitwise, is answered: `STDEVPA` is the root of the variance,
+   rounded to 64 bits and then stored (FN-VAR.S-001).
+   **`STDEVPA` against `STDEVA * SQRT((n-1)/n)`** remains, measuring the gap the exact identity
+   leaves after rounding.
 7. **The shift test** from [STDEV.P](FUNC.STDEV.P.md), applied on data containing substituted
    zeros, where the substitution has already spoiled the conditioning.
 8. **An error value in a range alongside text**, confirming propagation wins over substitution.

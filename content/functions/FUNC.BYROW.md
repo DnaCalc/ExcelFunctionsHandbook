@@ -70,7 +70,8 @@ Returns an `r × 1` array, where `r` is the input's row count.
 - **Callable returns a non-scalar.** There is one output cell per row and no room for an array; the
   reference engine reports a non-scalar helper result rather than nesting or spilling sideways.
 - **Errors inside a row.** Passed to the callable as ordinary values within the row array; the
-  callable decides. `BYROW` does not pre-filter.
+  callable decides. `BYROW` does not pre-filter. A direct error as an argument is different: it is
+  checked first and is the answer for the whole call (FN-HSTACK-001).
 - **Row containing text or blanks.** Delivered as-is inside the row array; whatever the callable
   does with them (for example, `SUM`'s ignore-text scan rule) governs, not `BYROW`.
 - **Spilling.** The result is an array; a blocked spill publishes `#SPILL!` at the host boundary

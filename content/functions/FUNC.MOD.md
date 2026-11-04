@@ -101,6 +101,7 @@ The reference engine's published battery is rendered beside this page. Qualitati
 |---|---|---|
 | `#DIV/0!` | *divisor* is 0 | **Documented**: "If divisor is 0, MOD returns the #DIV/0! error value." |
 | `#NUM!` | The **quotient** magnitude \|n/d\| reaches a fixed threshold | **Not documented by Microsoft.** Characterised upstream against live Excel; see below |
+| `#NUM!` | Tiny operands: a subnormal remainder whose sign differs from *divisor*, under the rule of FN-MOD-001, or any subnormal final result | **Not documented by Microsoft.** Measured, FN-MOD-001 |
 | `#VALUE!` | An argument does not convert to a number | Shared call model |
 | propagated | An error value in either argument | Shared call model |
 
@@ -179,7 +180,8 @@ conditional away:
 That is the whole algorithm, it is exact except for the single final addition (which is itself
 exact whenever it is needed, since *r* and *d* have opposite signs and |r| < |d|), and it has no
 large intermediate to cancel. The evidence record reports this as the shape the reference engine
-moved to.
+moved to. Excel's own `MOD` takes the exact remainder the same way, and FN-MOD-001 records where it
+departs: a subnormal remainder whose sign differs from the divisor's.
 
 The general lesson generalises past this function: **when a quantity is defined as a small
 difference of large numbers, look for a primitive that computes it directly.** Compare
@@ -192,7 +194,8 @@ The mathematical postcondition is 0 ≤ MOD(n,d) < d for *d* > 0. A naive implem
 it: if the computed remainder is a tiny negative value that should have been zero, adding *d*
 produces exactly *d*, which is outside the half-open interval. Careful implementations test the
 postcondition explicitly rather than trusting the arithmetic. The exact-`fmod` route above cannot
-produce this failure, which is a second reason to prefer it.
+produce this failure, which is a second reason to prefer it. Excel breaks the postcondition by
+another route: FN-MOD-001 records a result larger than the divisor.
 
 ### Non-integer divisors
 
@@ -227,7 +230,8 @@ all of this itself:
    threshold — rather than computing the true remainder.
 
 So `MOD` is better evidenced than most of this category, and it is still a long way from a
-published suite. Nothing outside those probe sets has been checked.
+published suite. Outside those probe sets, FN-MOD-001 checks its rule against all 152,432 recorded
+`MOD` rows and 1,128 new Excel readings.
 
 Inputs I would probe first:
 
@@ -235,9 +239,9 @@ Inputs I would probe first:
    both re-confirms the upstream bisection independently and tests the divisor-independence claim,
    which is the part of the characterisation carrying the most weight.
 2. **A large-quotient case just below the threshold** — `MOD(2^45, 2^10)` and neighbours — where
-   the naive formula cancels catastrophically but the answer is still required to be exact. This
-   is the probe that distinguishes an exact-`fmod` implementation from a subtract-and-hope one,
-   and it needs no knowledge of the threshold to be informative.
+   the naive formula cancels catastrophically but the answer is still required to be exact.
+   FN-MOD-001 reads Excel as taking the exact remainder, so this now confirms that at a large
+   quotient, and it needs no knowledge of the threshold to be informative.
 3. **`MOD(-1, -1)` and `MOD(0, -1)`**, through `SIGN` and through `1/result`, to establish whether
    a negative zero reaches the sheet.
 4. **The four sign combinations from Microsoft's own examples**, as a documentation-conformance

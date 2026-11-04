@@ -68,8 +68,10 @@ with [COUPDAYS](FUNC.COUPDAYS.md), and why
 
 >     COUPDAYBS + COUPDAYSNC  =  COUPDAYS
 
-holds on bases 0, 1 and 4 and **fails on bases 2 and 3**. The full account of that failure, and
-of the upstream case where Excel's own `PRICE` and `COUPDAYSNC` disagreed because of it, is on
+holds on bases 1 and 4 and **fails on bases 2 and 3**. On basis 0 it does not always hold: there
+FN-COUPDAYSNC-001 measures `COUPDAYSNC` as `P − A`, and `P` need not be `360/frequency`. The full
+account of the failure on bases 2 and 3, and of the upstream case where Excel's own `PRICE` and
+`COUPDAYSNC` disagreed because of it, is on
 [COUPDAYS](FUNC.COUPDAYS.md#the-additivity-that-fails).
 
 Microsoft's page documents the basis names and does not state which of them count real days
@@ -172,9 +174,9 @@ argument or a date serial outside the representable range. Errors in any argumen
 ## What has not been checked
 
 No Handbook vector suite exists for `COUPDAYBS`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. Nobody has
-checked this function against Excel within the Handbook's record. The battery on this page is
-the reference engine answering its own probes; no Excel was involved.
+its subjects**. The shared `coupon_family` module is named by no record either. The Excel
+readings on this page are in FN-COUPDAYSNC-001, which is mainly about `COUPDAYSNC`. The battery on
+this page is the reference engine answering its own probes; no Excel was involved.
 
 Inputs worth probing first:
 
@@ -184,7 +186,8 @@ Inputs worth probing first:
    length is not `360/frequency`. This publishes the additivity failure with three cells.
 3. **A period from 31 January to 31 July at bases 0 and 4**, where the two 30/360 conventions
    diverge from each other and from the calendar.
-4. **Month-end and 29 February settlements**, where the 30/360 adjustment order is decidable.
+4. **Month-end and 29 February settlements**, where the 30/360 adjustment order is decidable. For
+   the February cases of FN-COUPDAYSNC-001, `A` comes from the rule, not from a `COUPDAYBS` reading.
 5. **`COUPDAYBS` against `settlement − COUPPCD(...)`** on each basis — a two-cell demonstration
    of which bases count real days.
 6. **A settlement one day into a period, at every basis and frequency**, as the simplest

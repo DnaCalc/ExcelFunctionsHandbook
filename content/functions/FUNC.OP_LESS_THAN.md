@@ -50,8 +50,9 @@ Within a kind:
   exact IEEE comparison — the contract records `=0.1+0.2<0.3` as `FALSE`, which exact
   arithmetic would make `TRUE`. See [`FUNC.OP_EQUAL`](FUNC.OP_EQUAL.md) rule 3.
 - **Text** orders by a case-insensitive comparison. The collation beyond that — accents,
-  non-Latin scripts, locale-specific sequences — is explicitly out of the contract's slice
-  and is not settled anywhere in this Handbook.
+  non-Latin scripts, locale-specific sequences — is explicitly out of the contract's slice,
+  and the Handbook has measured only the cases in FN-OP_EQUAL-001, FN-OP_LESS_THAN-001 and
+  FN-SORT-001.
 - **Logicals** order `FALSE` before `TRUE`.
 
 ## Arguments
@@ -118,7 +119,7 @@ Returns a `Logical` (`KernelSignatureClass::Custom`).
 ## What has not been checked
 
 No Handbook vector suite covers `<`, and no Excel-comparison evidence record is attached to
-this page. Nothing here is a measurement.
+this page. Apart from the notes below, nothing here is a measurement.
 
 Probes worth running first:
 
@@ -131,7 +132,10 @@ Probes worth running first:
    normalization comparison model this should hold; under a tolerance model near the boundary
    it might not.
 4. **Text collation.** `="a"<"B"` (case-insensitive ordering puts `a` before `B`; a
-   code-point ordering would not), plus accented and non-Latin pairs under two locales.
+   code-point ordering would not), plus accented and further non-Latin pairs under two locales.
+   Hangul jamo, Japanese repeat marks and the Han iteration mark are read in the notes below; the
+   collation rule behind them is not identified, and further Hangul comparisons are not yet
+   published.
 5. **Numeric boundary.** The near-15-digit pairs from the `=` page, run through `<` as well,
    to confirm the same normalization is in force for ordering as for equality.
 

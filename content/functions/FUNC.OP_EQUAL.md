@@ -61,8 +61,8 @@ case-sensitive alternative.
 
 Beyond case, text comparison raises collation questions — accents, ligatures, non-Latin
 scripts, locale-specific ordering — which the contract explicitly puts out of slice ("locale
-and collation-sensitive text ordering beyond the current installed baseline"). Nothing about
-non-ASCII text ordering is settled here.
+and collation-sensitive text ordering beyond the current installed baseline"). Apart from the
+Hangul jamo pairs in FN-OP_EQUAL-001, nothing about non-ASCII text ordering is settled here.
 
 ### Rule 3 — numeric equality is normalized, not exact
 

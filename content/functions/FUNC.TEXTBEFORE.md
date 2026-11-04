@@ -130,6 +130,8 @@ inference, and the `TEXTBEFORE` page is the authority for `TEXTBEFORE`.
 | `#VALUE!` | `instance_num` is `0`, or its magnitude exceeds the length of the text. |
 
 `if_not_found` replaces the `#N/A` only. Errors arriving in arguments propagate ahead of both rows.
+Empty `text` gives `#N/A`, not `#VALUE!`, even though the default `instance_num` of 1 exceeds its
+length of 0 (FN-TEXTSPLIT-001).
 
 ## Relationships
 
@@ -159,7 +161,8 @@ inference, and the `TEXTBEFORE` page is the authority for `TEXTBEFORE`.
 ## What has not been checked
 
 There is no Handbook vector suite for `TEXTBEFORE`, and no Handbook evidence record comparing any
-implementation against Excel for it. Nothing on this page is a measurement.
+implementation against Excel for it. Apart from the note below, nothing on this page is a
+measurement.
 
 Open questions and the probes that would settle them:
 
@@ -176,7 +179,8 @@ Open questions and the probes that would settle them:
    second position lifts.
 6. **The documented `#VALUE!` rule tied to text length.** `TEXTBEFORE("ab", "x", 3)` against
    `TEXTBEFORE("abcd", "x", 3)` tests whether the error really depends on the length of the text
-   rather than on the number of occurrences.
+   rather than on the number of occurrences. Empty text already departs from the documented rule
+   (FN-TEXTSPLIT-001).
 
 Until those are recorded, read every unattributed statement above as a model rather than a finding.
 

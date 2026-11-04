@@ -46,7 +46,8 @@ dependency:
   and a half in one place and fifteen — or a rejection — in another;
 - the **group separator** is the mirror image of that problem, and a space in several locales;
 - the **currency symbol** is per-locale, and `VALUE` accepting `"$1.00"` says nothing about whether
-  it accepts `"€1,00"`;
+  it accepts `"€1,00"`; in the recorded en-ZA settings `"€1"` is read and `"$1"` is not
+  (FN-VALUE-003);
 - **date text** is the worst case, because `"1/2/2024"` denotes two different days in two locales
   and returns a *serial number*, not the digits you can see.
 
@@ -62,7 +63,8 @@ currency text with the local symbol, percent text, and ISO `yyyy-mm-dd` date tex
 slash-style date text and blank or whitespace-only text were rejected — under Excel 16.0 build
 19725 with a named channel and host profile. That is an upstream observation on one host, recorded
 with its scope, and it is exactly the kind of result that does not generalise: change the locale
-and the accept/reject split is expected to move.
+and the accept/reject split is expected to move. In the en-ZA settings of FN-VALUE-002,
+slash-style `"2024/02/01"` is accepted.
 
 Two structural facts complete the definition. A number arriving as the argument passes through
 unchanged. And a successful date-text parse returns the date's **serial number** — a plain
@@ -165,18 +167,22 @@ means something other than what the author intended. `VALUE` fails loudly or suc
 - **Keep the date lane separate from the number lane**, and be prepared for the two to disagree
   about the same string — `"1.5"` as a number and as a date are both plausible readings, and the
   precedence between them is a real decision that must be recorded.
-- **Percent must divide at the end**, after the numeric parse, and must compose with grouping and
-  currency rather than being a separate grammar.
+- **Percent must compose with grouping** rather than being a separate grammar, but it does not
+  combine with currency: `"€1%"` is `#VALUE!` in the recorded en-ZA settings (FN-VALUE-003). It
+  also counts toward the exponent range check: `"0e-307"` is 0 but `"0e-307%"` is `#VALUE!`
+  (FN-ABS-001).
 - **Round once.** Parse to the exact decimal value and round to the nearest double a single time;
   parsing digit-by-digit with accumulating multiplication introduces error that no test of small
-  numerals will catch.
+  numerals will catch. Excel also checks the exponent range when the mantissa is zero, so
+  `"0e309"` is `#VALUE!` (FN-ABS-001).
 
 ## What has not been checked
 
 There is no Handbook vector suite for `VALUE`, and no Handbook evidence record comparing any
-implementation against Excel. Nothing on this page is a measurement. The accept/reject lanes quoted
-from upstream are scoped to one Excel build, one channel, and one host profile, and the whole point
-of this function is that they are expected to move when any of those change.
+implementation against Excel. Apart from the notes below, nothing on this page is a measurement.
+The accept/reject lanes quoted from upstream are scoped to one Excel build, one channel, and one
+host profile, and the whole point of this function is that they are expected to move when any of
+those change.
 
 `VALUE` is also one of the functions the Handbook's generated battery cannot exercise: the upstream
 reference implementation reports it as requiring a host facility, so no dispatched outcome exists
@@ -197,8 +203,13 @@ The probes that would settle the most, in order:
 5. **Precision.** `VALUE` of a 17-significant-digit numeral and of a value near the subnormal
    boundary, compared against a correctly rounded reference. This is where a vector suite would
    have real teeth, because it is checkable without Excel once the vectors exist.
-6. **Whitespace and sign forms.** Leading `+`, parenthesised negatives (`"(1.5)"`, an accounting
-   convention some locales accept), and non-breaking spaces as group separators.
+6. **Whitespace and sign forms.** Leading `+`, and non-breaking spaces as group separators.
+   Parentheses are read as a negative sign in the recorded en-ZA settings (FN-VALUE-003).
+7. **Digit blocks beyond those in FN-VALUE-001** (Bengali, Tibetan, Khmer and so on), and whether
+   the set depends on the Windows or workbook locale.
+8. **Three-digit years, and other date orders and locales**, which FN-VALUE-002 leaves open.
+9. **Why the euro sign is accepted in en-ZA settings and `$` is not**, and the other locales, which
+   FN-VALUE-003 leaves open.
 
 Until the locale matrix exists, no statement about which strings `VALUE` accepts should be read as
 general.

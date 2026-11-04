@@ -131,7 +131,8 @@ As documented on Microsoft's `DISC` page:
 The reference engine's implementation raises the same four conditions with the same codes, and
 adds one the documentation does not mention: a date serial below 1 (or above the end of year 9999)
 is rejected as `#VALUE!`, so the "zero date" is outside the admissible domain rather than being
-treated as 1899-12-31. The Handbook has not observed either behaviour in Excel.
+treated as 1899-12-31. FN-YEARFRAC-001 applies to `DISC` and records serial 0 as a valid date,
+against that lower limit. The Handbook has not observed the upper limit in Excel.
 
 Non-numeric text in any slot and error values in any argument surface under the shared coercion
 rules.
@@ -178,16 +179,18 @@ subtraction lands relative to the division. For `pr` close to `redemption` — a
 days — the subtraction is a cancellation site in both forms, and the relative error in the small
 difference is amplified by the `1/T` factor, which is itself large exactly when the cancellation is
 worst. This is the one genuine numerical hazard in the function, and it is intrinsic to the
-quantity, not to any particular arrangement of the arithmetic.
+quantity, not to any particular arrangement of the arithmetic. Excel's own order is neither form:
+FN-DISC-001 measures `(1 − pr/redemption) × (B/DSM)`, each step taken on the x87 unit at precision
+64 and stored to binary64, and its results can sit several units from the exact value.
 
 ## What has not been checked
 
 No Handbook vector suite exists for `DISC`; `vectors/` publishes nothing at this revision, so no
 suite-scoped claim exists for it. No Excel-comparison evidence record names `DISC` in its subjects.
-**Nobody has checked this function against Excel within the Handbook's record.** The four error
-rows above are Microsoft's documented conditions; the equation is Microsoft's documented equation;
-everything said about the reference engine is read from its source at commit `473efa3` and is an
-implementation fact, not an Excel observation.
+The Excel measurements of this function on this page are FN-DISC-001 and FN-YEARFRAC-001. The
+four error rows above are Microsoft's documented conditions; the equation is Microsoft's documented
+equation; everything said about the reference engine is read from its source at commit `473efa3` and
+is an implementation fact, not an Excel observation.
 
 Inputs worth probing first, in priority order:
 
@@ -204,7 +207,9 @@ Inputs worth probing first, in priority order:
 5. **`pr` greater than `redemption`**, to confirm that a negative rate is returned rather than an
    error.
 6. **A date serial of `0`**, which the reference engine refuses as `#VALUE!` and which the
-   documentation does not mention at all.
+   documentation does not mention at all. FN-YEARFRAC-001 records serial 0 as a valid date for
+   this function, but its `DISC` readings are at other dates. A date left empty in the call is
+   unread there too.
 7. **Fractional `basis` and fractional date serials** — `basis = 4.9`, `settlement = 45000.75` —
    to confirm the documented truncation is truncation toward zero rather than rounding.
 

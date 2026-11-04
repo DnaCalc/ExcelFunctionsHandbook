@@ -186,8 +186,8 @@ and not as Excel's:
 No Handbook vector suite exists for `ACCRINTM`, and **no evidence record lists this surface in
 its subjects**. The `bond_core_family` module that implements it is measured — the family's
 `ACCRINT` and `PRICE` surfaces carry open records — but this surface was not measured
-separately, and family-level evidence may not be attributed to it. Nobody has checked
-`ACCRINTM` against Excel within the Handbook's record.
+separately, and family-level evidence may not be attributed to it. The Excel readings of
+`ACCRINTM` on this page are in FN-YEARFRAC-001, where it takes the same 365 and 366 as `YEARFRAC`.
 
 The battery on this page is the reference engine answering its own probes; no Excel was
 involved.
@@ -199,14 +199,16 @@ Inputs worth probing first:
 2. **A three-argument call** — `ACCRINTM(issue, settlement, rate)` — and the same call with an
    empty fourth slot. This settles whether `par` is genuinely optional and whether the
    documented $1,000 default applies.
-3. **`issue` after `settlement`.** Undocumented; the reference engine errors, but a signed
-   result is equally defensible and is what a pure `par × rate × YEARFRAC` reading would give.
+3. **`issue` after `settlement`.** Undocumented; the reference engine errors, but a result is
+   equally defensible. A pure `par × rate × YEARFRAC` reading would not sign it, since reversed
+   dates give `YEARFRAC` the same answer as in order (FN-YEARFRAC-001).
 4. **`ACCRINTM(i, s, r, p, b)` against `p × r × YEARFRAC(i, s, b)`** for every `basis`, over a
    grid of intervals crossing year ends and leap days. Any divergence localizes to one of the
    two functions, and basis 1 is where it will appear if it appears anywhere.
 5. **Basis 0 with `issue` on the last day of February** — the input class Microsoft itself flags
    as possibly incorrect for `YEARFRAC`, tested here through a second consumer of the same rule.
 6. **`basis` = −1, 5 and 4.9**, confirming the documented range and the documented truncation.
+7. **A date left empty in the call**, which FN-YEARFRAC-001 leaves unread.
 
 ## Notes
 

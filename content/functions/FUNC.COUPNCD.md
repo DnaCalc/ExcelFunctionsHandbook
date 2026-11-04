@@ -51,10 +51,10 @@ and a **frequency**, and they reconstruct the schedule from those two facts:
 >     the coupon dates are  maturity,  maturity − p,  maturity − 2p,  maturity − 3p, …
 >     where p = 12 / frequency  months
 
-Coupon dates are therefore anchored at *maturity*, counted **backwards**, and the schedule is
-infinite in the backward direction — there is no issue date to stop it. `settlement` selects a
-period from that infinite ladder: the one whose start is at or before `settlement` and whose end
-is after it.
+Coupon dates are therefore anchored at *maturity*, counted **backwards**, and there is no issue
+date to stop the schedule; FN-COUPNUM-001 records what Excel does when it runs back past the start
+of 1900. `settlement` selects a period from that ladder: the one whose start is at or before
+`settlement` and whose end is after it.
 
 Three consequences do most of the work on all six pages:
 
@@ -71,8 +71,9 @@ Three consequences do most of the work on all six pages:
    current period rather than its end. The practical effect is that `COUPPCD` returns
    `settlement` itself, `COUPDAYBS` returns zero, `COUPNCD` returns the following coupon date,
    and `COUPNUM` counts one fewer remaining coupon. Microsoft's pages do not state this
-   convention; it is the reference engine's, and it is the single most testable unknown in the
-   family.
+   convention; it is the reference engine's. The notes below fit it without reading `COUPNCD` on a
+   coupon date: `COUPNUM(34,400,2,0)` is 2 with coupon dates at 34, 216 and 400 (FN-COUPNUM-001),
+   and on basis 1 `COUPDAYS` stops at the last date still after settlement (FN-COUPDAYS-001).
 
 The schedule is *quasi*-periodic, not periodic: because the month-end rule clamps, stepping back
 `n` periods is not always the same as stepping back one period `n` times from an intermediate
@@ -82,7 +83,9 @@ jump can disagree.
 **None of this is documented.** Microsoft's pages for all six functions document the arguments,
 the basis table, the truncation rule and four error conditions, and say nothing about how the
 schedule is generated. The construction above is the reference engine's, read from its source,
-and it is the natural reading of the market convention — but "natural" is not "verified".
+and it is the natural reading of the market convention. The notes below verify only parts of it:
+in FN-COUPDAYS-001 `COUPNCD` and `COUPPCD` keep month ends for one month-end maturity, while
+`COUPDAYS` on basis 1 clamps its way back from maturity instead.
 
 ## Arguments
 
@@ -132,9 +135,10 @@ the reference engine returns a bare number.
 - **`settlement` ≥ `maturity`** is a documented error.
 - **Month-end maturities** propagate month-end coupon dates: a 31 August maturity at
   `frequency` 2 gives a 28 or 29 February coupon, not a 28th-of-the-month coupon.
-- **Very early settlements** are accepted: the schedule extends backwards without limit, so a
-  settlement decades before maturity simply selects a period far down the ladder. The reference
-  engine walks the schedule one period at a time to find it, so the cost grows with the gap.
+- **Very early settlements** are accepted: a settlement decades before maturity simply selects a
+  period far down the ladder, and `COUPNCD` still answers when the coupon before settlement falls
+  before 1900 (FN-COUPNUM-001). The reference engine walks the schedule one period at a time to
+  find it, so the cost grows with the gap.
 - Empty, missing and error arguments follow the shared call model.
 
 ## Errors
@@ -161,7 +165,8 @@ contradicted.
 - **[COUPPCD](FUNC.COUPPCD.md)** — the backward end of the same period. `COUPPCD` and `COUPNCD`
   bracket `settlement`, and together they define the current coupon period.
 - **[COUPDAYBS](FUNC.COUPDAYBS.md)**, **[COUPDAYSNC](FUNC.COUPDAYSNC.md)**,
-  **[COUPDAYS](FUNC.COUPDAYS.md)** — the three day counts taken against those two dates. Note
+  **[COUPDAYS](FUNC.COUPDAYS.md)** — the three day counts taken against those two dates, though
+  on basis 1 `COUPDAYS` can use another interval (FN-COUPDAYS-001). Note
   that the three do not always add up; see the additivity discussion on
   [COUPDAYS](FUNC.COUPDAYS.md).
 - **[COUPNUM](FUNC.COUPNUM.md)** — how many coupon dates remain from `settlement` to `maturity`
@@ -198,10 +203,12 @@ serial. The engineering content is all in the schedule.
 
 No Handbook vector suite exists for `COUPNCD`, and **no evidence record lists this surface in
 its subjects**. The `coupon_family` module that implements all six coupon functions is named by
-no record either. Nobody has checked this function against Excel within the Handbook's record.
+no record either. The Excel readings of `COUPNCD` on this page are in FN-COUPDAYS-001 and
+FN-COUPNUM-001.
 The battery on this page is the reference engine answering its own probes; no Excel was involved.
 
-The schedule construction described above is the load-bearing unknown for the whole family. It
+The schedule construction described above is only partly measured, and it is the load-bearing
+unknown for the whole family. It
 is also unusually cheap to probe, because the answer is a date rather than a float: a
 disagreement is visible without any tolerance discussion.
 
@@ -209,10 +216,12 @@ Inputs worth probing first:
 
 1. **`settlement` exactly on a coupon date.** The reference engine rolls forward. If Excel
    returns `settlement` itself, four of the six functions in this family change their answers at
-   once. This is the highest-value single cell on the page.
+   once. This is the highest-value single cell on the page. The notes below read `COUPNUM` on
+   such a date, not `COUPNCD`.
 2. **Month-end maturities**: 31 January, 28/29 February, 30 April, 31 August, at each
    `frequency`, with settlements several periods earlier. This decides "month-end sticks" versus
-   "clamp the day number" — the two rules differ on 31 August at `frequency` 2.
+   "clamp the day number" — the two rules differ on 31 August at `frequency` 2. FN-COUPDAYS-001
+   has one month-end maturity, where `COUPNCD` keeps the month end.
 3. **A 29 February maturity**, which forces the month-end question and the leap-year question
    together.
 4. **Settlement one day before and one day after a generated coupon date**, bracketing the

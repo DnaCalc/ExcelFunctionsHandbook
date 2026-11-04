@@ -83,14 +83,17 @@ Returns whatever kind the selected value carries: `Number`, `Text`, `Logical`, `
 - **Condition is blank or an omitted slot.** Reads as false in the reference engine, so the ladder
   simply moves on.
 - **Selected value is an omitted slot.** The reference engine returns `#VALUE!`; a blank *cell* as
-  the selected value becomes numeric `0`.
+  the selected value becomes numeric `0`. In Excel a selected reference stays a reference:
+  `ISBLANK(IFS(TRUE,Data!Z1))` is `TRUE` over an empty cell (FN-IFS-001).
 - **Selected value is an error.** Returned verbatim. `IFS` selects; it does not inspect.
 - **Arrays.** `IFS` is not surface-native for lifting: the reference engine declares
   `LiftBroadcastProfile::ByIndexScalarArrayLift` over argument positions 0, 1 and 2 — the first
   condition, the first value, and the second condition — and carries a note in the source that
   this position list was verified against live Excel 16.0 build 20026. An irregular list like that
   is exactly the kind of structure that cannot be derived from first principles, which is why the
-  Handbook records it as a declared axis rather than a rule.
+  Handbook records it as a declared axis rather than a rule. Once a scalar test has selected a
+  result, later arrays do not lift the call: `IFS(TRUE,1,{FALSE,TRUE},{2,3})` returns one `1`
+  (FN-IFS-001).
 
 ## Errors
 
@@ -125,9 +128,11 @@ precedence order ([chapter 03](../model/03-call-pipeline.md), "Error folding").
    evaluated; a condition that would error must not error if an earlier condition matched.
 2. **The odd-arity split is real.** Whether an unpaired trailing condition is an admission failure
    or a `#VALUE!` depends on which surface you are implementing. State which one you target.
-3. **The lift positions are irreducible structure.** Positions 0, 1 and 2 lift; the rest do not.
-   This cannot be inferred, only recorded, and an implementation that lifts uniformly over all
-   positions will diverge on array inputs to later pairs.
+3. **The lift positions are irreducible structure.** The reference engine declares positions 0, 1
+   and 2 as lifting and the rest not, and in Excel an array in position 2 does not lift the call
+   once a scalar test has selected a result (FN-IFS-001). This cannot be inferred, only recorded,
+   and an implementation that lifts uniformly over all positions will diverge on array inputs to
+   later pairs.
 4. **`#N/A` is the result, not a failure.** Do not let an outer `IFERROR` habit in the surrounding
    code convert an honest no-match into a fabricated default without the author noticing.
 
@@ -145,14 +150,18 @@ not a per-function result. Read the record itself for its scope and caveats.
 Probes worth running, in priority order:
 
 1. `=IFS(FALSE, 1, FALSE, 2)` — confirms the `#N/A` no-match rule.
-2. `=IFS({TRUE;FALSE}, 1, 2, 3)` and array arguments in the *fourth* position — tests the declared
-   lift-position list directly. If a later position lifts, the declared axis is wrong.
-3. `=IFS("x", 1)` and `=IFS("", 1)` — confirms the documented non-boolean `#VALUE!` and whether
-   empty text behaves the same.
+2. `=IFS({TRUE;FALSE}, 1, 2, 3)` and array arguments in the *fourth* position with no earlier test
+   true — tests the declared lift-position list directly. If a later position lifts then, the
+   declared axis is wrong; after a scalar test has selected a result, later arrays do not lift
+   (FN-IFS-001).
+3. `=IFS("", 1)` — whether empty text gives the same `#VALUE!` as other text, which takes the shape
+   of its result: `=IFS("2",{"hit","hit"})` is `{#VALUE!,#VALUE!}` (FN-IFS-001).
 4. `=IFS(A1, 1)` with `A1` empty — confirms blank reads as false rather than erroring.
 5. Entering `=IFS(TRUE)` — establishes whether the unpaired condition is refused at entry (as
    Microsoft describes) or evaluates to `#VALUE!`.
 6. `=IFS(1/0, 1, TRUE, 2)` — confirms the error in an early condition wins over a later match.
+7. A selected `LAMBDA` that is then called, or passed through `LET` or `IFERROR`, which FN-IFS-001
+   leaves open.
 
 ## Notes
 

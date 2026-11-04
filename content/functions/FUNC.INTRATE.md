@@ -119,14 +119,16 @@ As documented on Microsoft's `INTRATE` page:
 
 The reference engine raises these four with the same codes, and additionally refuses a date serial
 below 1 or beyond the end of year 9999 with `#VALUE!` — a boundary the documentation does not
-mention. The Handbook has not observed either in Excel.
+mention. FN-YEARFRAC-001 applies to `INTRATE` and records serial 0 as a valid date, against that
+lower limit. The Handbook has not observed the upper limit in Excel.
 
 ## Relationships
 
 - **[DISC](FUNC.DISC.md)** — the redemption-side quotation of the same instrument, with the exact
   conversion above. Read the two pages together.
-- **`RECEIVED`** — the inverse: given `INTRATE`'s rate and the investment, what comes back at
-  maturity. `RECEIVED(…, INTRATE(…))` round-trips up to floating-point rounding.
+- **[RECEIVED](FUNC.RECEIVED.md)** — what comes back at maturity for a given investment, but it
+  takes a discount rate, not `INTRATE`'s rate, so `RECEIVED(…, INTRATE(…))` does not reproduce the
+  redemption. Convert first with `d = r / (1 + r × T)`, or compute `investment × (1 + r × T)`.
 - **`YIELDMAT`** — for a security that pays interest at maturity but *accrues* from an issue date,
   which `INTRATE` does not model. If your instrument has an issue date distinct from settlement,
   `INTRATE` is the wrong function.
@@ -161,12 +163,14 @@ recorded here as a finding, not resolved.
 **Form.** The reference engine computes `((redemption − investment)/investment)/T`, forming the
 year fraction first and dividing once; the documented expression forms `B/DIM` and multiplies. The
 two are algebraically identical and differ in binary64 by the placement of one rounding.
+FN-DISC-001 measures Excel's order as `((redemption − investment)/investment) × (B/DIM)`, each step
+taken on the x87 unit at precision 64 and stored to binary64.
 
 ## What has not been checked
 
 No Handbook vector suite exists for `INTRATE`; `vectors/` publishes nothing at this revision. No
-Excel-comparison evidence record names `INTRATE` in its subjects. **Nobody has checked this
-function against Excel within the Handbook's record.** The error table is Microsoft's documented
+Excel-comparison evidence record names `INTRATE` in its subjects. The Excel measurements of this
+function on this page are FN-DISC-001 and FN-YEARFRAC-001. The error table is Microsoft's documented
 set; the equation is Microsoft's documented equation; the statements about the reference engine are
 read from its source at commit `473efa3`.
 
@@ -184,7 +188,8 @@ Inputs worth probing first:
 5. **A per-100 `investment` with a raw-amount `redemption`**, to confirm that the function has no
    scale check at all — a negative result for the Handbook, but a useful one for readers.
 6. **Date serial `0`** and **fractional serials**, testing the undocumented lower bound and the
-   documented truncation.
+   documented truncation. FN-YEARFRAC-001 records serial 0 as a valid date for this function, but
+   its table has no `INTRATE` row. A date left empty in the call is unread there too.
 
 ## Notes
 

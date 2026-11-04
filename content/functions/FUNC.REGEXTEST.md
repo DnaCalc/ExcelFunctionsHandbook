@@ -150,12 +150,13 @@ observation.
   experience than a `#VALUE!`. PCRE2 has match limits; use them, and decide what error a limit hit
   produces.
 - **Case-insensitivity is a folding choice**, and the upstream contract records only ASCII folding
-  in its local slice. Full Unicode folding will match strings Excel may not.
+  in its local slice. Excel folds beyond ASCII, including inside character class ranges
+  (FN-REGEXTEST-001), so ASCII folding alone will miss matches Excel makes.
 
 ## What has not been checked
 
 There is no Handbook vector suite for `REGEXTEST`, and no Handbook evidence record comparing any
-implementation against Excel. Nothing on this page is a measurement.
+implementation against Excel. Apart from the note below, nothing on this page is a measurement.
 
 Two boundaries must be kept apart, and conflating them is the easiest mistake to make here:
 
@@ -177,12 +178,15 @@ The probes that would settle the most:
 3. **Inline flags.** `REGEXTEST("A","(?i)a")` and the interaction with `case_sensitivity = 0`.
 4. **Anchors and newlines.** `REGEXTEST("a" & CHAR(10) & "b", "^b")` distinguishes multiline mode.
 5. **Empty text and empty pattern.** `REGEXTEST("", "")`, `REGEXTEST("", "a*")`, `REGEXTEST("a","")`.
-6. **Unicode.** `REGEXTEST("é","\w")` and `REGEXTEST("😀",".")` — whether the engine is
-   Unicode-aware, whether `.` matches a whole astral character or half a surrogate pair, and
-   whether `\w` includes accented letters.
+6. **Unicode.** `REGEXTEST("é","\w")` and `REGEXTEST("😀",".")` — whether `.` matches a whole
+   astral character or half a surrogate pair, and whether `\w` includes accented letters.
+   FN-REGEXTEST-001 already records `\w` matching a combining mark and connector punctuation, and
+   case folding beyond ASCII.
 7. **Malformed patterns.** `REGEXTEST("a","[")` and `REGEXTEST("a","a{2,1}")` — which error, and
    whether it is `#VALUE!`.
 8. **Pathological patterns**, to find the match limit and the error it produces.
+9. **Reversed or very wide caseless ranges, and other newline characters**, which FN-REGEXTEST-001
+   leaves open.
 
 ## Notes
 

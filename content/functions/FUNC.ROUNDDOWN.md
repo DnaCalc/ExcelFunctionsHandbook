@@ -58,9 +58,10 @@ is idempotent and never increases magnitude:
 
     |ROUNDDOWN(x, d)| ≤ |x|,   and   ROUNDDOWN(ROUNDDOWN(x, d), d) = ROUNDDOWN(x, d)
 
-so a `ROUNDDOWN` result is always a *conservative* estimate of magnitude. That is why it is the
-correct choice for anything that must not overstate — available inventory, billable whole units,
-capacity that must not be exceeded.
+so mathematically a `ROUNDDOWN` result is a *conservative* estimate of magnitude. That is why it is
+the correct choice for anything that must not overstate — available inventory, billable whole
+units, capacity that must not be exceeded. Excel's answer is not always conservative:
+`ROUNDDOWN(283025097725723.5, 0)` returns 283025097725724, larger than its input (FN-ROUND-002).
 
 ## Arguments
 
@@ -72,7 +73,7 @@ capacity that must not be exceeded.
 Both are numeric slots under ordinary to-number coercion — see
 [Coercion and lifting](../model/02-coercion-and-lifting.md). As with `ROUND`, `num_digits` is
 **required**, and the reference engine truncates a non-integral `num_digits` toward zero. Neither
-fact is documented.
+fact is documented. Excel takes the integer part of `|num_digits|` too (FN-ROUNDUP-001).
 
 ## Result and edge cases
 
@@ -80,13 +81,13 @@ Returns `Number`.
 
 - **Sign is preserved exactly.** `ROUNDDOWN(-1.7, 0)` is `-1`, not `-2`. This is the whole
   difference from `INT` and `FLOOR.MATH`.
-- **There are no ties.** Because the direction is fixed, `ROUNDDOWN` never has to break one — the
-  entire tie-rule question that dominates [ROUND](FUNC.ROUND.md) simply does not arise. That makes
-  this the *better-behaved* function of the two, and the one whose only remaining hazard is the
-  representation issue below.
+- **There are no ties at the requested digit.** Because the direction is fixed, `ROUNDDOWN` never
+  has to break one there — the tie-rule question that dominates [ROUND](FUNC.ROUND.md) simply does
+  not arise. The 15-digit reading that comes first does break them: a half goes up, which is how
+  `ROUNDDOWN` can exceed its input (FN-ROUND-002).
 - **Large and small `num_digits`.** The reference engine returns `number` unchanged once
   `num_digits` reaches 308, and a signed zero once it reaches −308. Implementation limits, not
-  documented behaviour.
+  documented behaviour. Excel reads `num_digits` from its low 16 bits instead (FN-ROUNDUP-001).
 - **Negative zero.** Rounding a small negative number down to a coarse place produces `−0` in the
   reference engine. It displays as `0`; it is not the same bit pattern. See
   [The value universe](../model/01-value-universe.md).
@@ -116,15 +117,17 @@ Microsoft's VBA page states no error condition for this method.
   that switches negative numbers to toward-zero behaviour. `FLOOR.MATH` is the function to reach
   for when the direction must be *stated*; `ROUNDDOWN` is the one where it is baked in.
 - **[ROUND](FUNC.ROUND.md)** and **[ROUNDUP](FUNC.ROUNDUP.md)** — the other two directions.
-  `ROUNDDOWN(x,d) ≤ ROUND(x,d) ≤ ROUNDUP(x,d)` in magnitude, always, with equality when `x` is
-  already a multiple of `10^-d`.
+  `ROUNDDOWN(x,d) ≤ ROUND(x,d) ≤ ROUNDUP(x,d)` in magnitude mathematically, with equality when `x`
+  is already a multiple of `10^-d`. Excel need not keep that order: a half in the 15-digit reading
+  goes up for `ROUNDDOWN` and down for `ROUND` (FN-ROUND-002).
 - **`ROUNDDOWN(x, 0) + ROUNDUP(x, 0)`** is not generally `2x`, and `ROUNDDOWN(-x, d)` is
   `-ROUNDDOWN(x, d)` — the function is odd, which `INT` is not. Symmetry about zero is the
   cleanest way to remember which member of the family does what.
 
 ## Numerical notes
 
-**The tie problem disappears; the representation problem does not.** `ROUNDDOWN` still has to
+**The tie problem at the requested digit disappears; the representation problem does not.**
+`ROUNDDOWN` still has to
 decide whether the stored value is above or below a decimal boundary, and the naive
 scale-and-truncate route still gets that wrong when the scaling rounds across the boundary. If
 `x·10^d` rounds *up* to exactly an integer that the exact product falls short of, truncation keeps
@@ -136,7 +139,8 @@ the sign of the exact residual `|x| − candidate` using a fused multiply-add; i
 scaling overshot and the candidate must be decremented by one unit in the last decimal place. There
 is no tie case to worry about, so a single correction step is provably sufficient. An implementation
 that wants the mathematically correct answer should do exactly this; an implementation targeting
-compatibility should not, until Excel's own behaviour on the boundary is pinned.
+compatibility should not: FN-ROUND-002 records that Excel's own answer comes from the 15-digit
+reading and can land one unit high.
 
 **Negative `num_digits` is the well-behaved half.** Powers of ten up to 10²² are exactly
 representable in binary64, so for `d ≤ 0` the scaling factor `10^-d` is exact and only the division
@@ -156,9 +160,12 @@ composable in a way `ROUND` is not, and it is worth exploiting in staged calcula
 No Handbook vector suite exists for `ROUNDDOWN`, and **no evidence record lists this surface among
 its subjects**. `ROUNDDOWN` appears inside the group membership of an upstream array-lift
 measurement (`EV-STRUCT-0011`) whose subjects are other surfaces; that record's reader warning
-forbids reading its group total as any individual surface's rate. The honest statement is
-therefore: **the rounding family was measured as a group for structural array admission; this
-surface was not measured separately, and its arithmetic was not measured at all.**
+forbids reading its group total as any individual surface's rate. The honest statement for that
+record is therefore: **the rounding family was measured as a group for structural array admission,
+and this surface was not measured separately.** Its arithmetic is measured in the Notes below:
+under the family rules the recorded rows match 59,182 of 59,995.
+Still open there: how the scale is formed for `|n| > 27`, the reading step itself, how the NaN
+patterns sort and display, and why DBL_MIN converts 3 steps below nearest.
 
 The presence projection records the defect stream `BUG-FUNC-017` against this module.
 
@@ -168,14 +175,15 @@ Inputs I would probe first:
    toward-zero-versus-floor question and confirm the `TRUNC` identity in the same glance.
 2. **A boundary case engineered to expose scaling overshoot**, such as `ROUNDDOWN(0.29, 1)` and
    `ROUNDDOWN(4.35, 1)` and `ROUNDDOWN(1.4999999999999998, 0)` — inputs whose exact product with
-   the scale sits just below an integer. If any of them returns a value one unit high, the
-   implementation is scaling without correction.
+   the scale sits just below an integer. FN-ROUND-002 records one answer above its input,
+   `ROUNDDOWN(283025097725723.5, 0)`, and puts the cause in the 15-digit reading.
 3. **`ROUNDDOWN(x, d)` against `TRUNC(x, d)` swept over a few thousand random inputs and
    `d ∈ [-5, 5]`** — the cheapest way to establish, or refute, that the two are the same function.
 4. **`ROUNDDOWN(-0.4, 0)`** and its reciprocal — the negative-zero question.
-5. **`ROUNDDOWN(1.5, 0.9)`** — non-integral `num_digits`, truncated in the reference engine and
-   undocumented.
-6. **`ROUNDDOWN(x, 400)` and `ROUNDDOWN(x, -400)`** — the clamp boundaries.
+5. **`ROUNDDOWN(1.5, 0.9)`** — non-integral `num_digits`, undocumented. Answered: Excel takes the
+   integer part (FN-ROUNDUP-001).
+6. **`ROUNDDOWN(x, 400)` and `ROUNDDOWN(x, -400)`** — the reference engine's clamp boundaries;
+   Excel's rule for large counts is the low 16 bits of FN-ROUNDUP-001.
 7. **Array arguments in both slots**, given the array-lift defect stream on this module.
 
 ## Notes

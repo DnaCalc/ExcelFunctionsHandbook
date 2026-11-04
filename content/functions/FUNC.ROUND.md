@@ -76,8 +76,8 @@ Both are numeric slots under ordinary to-number coercion; see
 few places where Excel demands an argument that most languages default.
 
 **Non-integral `num_digits` is undocumented.** The reference engine truncates it toward zero, so
-`ROUND(1.5, 0.9)` behaves as `ROUND(1.5, 0)`. Rounding it, or refusing it, would both be
-defensible; nothing documented decides.
+`ROUND(1.5, 0.9)` behaves as `ROUND(1.5, 0)`, and Excel cuts it toward zero too (FN-ROUND-001).
+Rounding it, or refusing it, would both be defensible; nothing documented decides.
 
 ## Result and edge cases
 
@@ -86,18 +86,22 @@ Returns `Number`.
 - **The tie rule is not documented.** Microsoft's VBA remarks say "rounded to the nearest" and
   stop. The reference engine rounds **half away from zero** — `1.25 → 1.3`, `−1.25 → −1.3` — which
   is the convention conventionally attributed to Excel and is *not* the IEEE 754 default
-  (ties-to-even). The Handbook records the tie rule as **undocumented on the page it could read**,
-  implemented one way in the reference engine, and unverified against Excel.
+  (ties-to-even). The Handbook records the tie rule as **undocumented on the page it could read**
+  and implemented one way in the reference engine. For Excel the Notes record one tie: in the
+  15-digit reading that comes before any digit is chosen, a half goes down for `ROUND`
+  (FN-ROUND-002). They do not state the tie rule at the requested digit.
 - **Ties mostly do not exist.** For `d > 0` an exact tie requires `x` to be exactly half a
   multiple of 10⁻ᵈ, which requires `x` to be exactly representable — true for values like 1.25 and
   0.5, false for 2.675, 1.005, 8.835 and almost every other "obvious" tie a user will type. Those
   values are *not* ties: their binary64 representations sit strictly below the halfway point, so
   "correct" rounding takes them down, while a naive scale-and-round can take them up. Which
-  behaviour a system exhibits is the single most-asked question about `ROUND` in any spreadsheet,
-  and this page does not answer it for Excel because the Handbook has not measured it.
+  behaviour a system exhibits is the single most-asked question about `ROUND` in any spreadsheet.
+  For Excel, FN-ROUND-002 answers it: the number is first read to 15 significant digits on the x87
+  unit, and the digit is chosen from that reading, not from the stored binary value.
 - **Large `num_digits`.** The reference engine returns `number` unchanged once `num_digits` reaches
   308, and returns a signed zero once it reaches −308. Those clamps are implementation limits, not
-  documented behaviour.
+  documented behaviour. Excel has a different rule: it counts digits in 32 bits, the count wraps,
+  and a large positive `num_digits` can return 0 (FN-ROUND-001).
 - **Negative zero.** Rounding a small negative number to a coarse place produces `−0` in the
   reference engine — a value that displays as `0` but is not the same bit pattern, and which
   behaves differently under `SIGN`-style inspection and under text conversion in some contexts.
@@ -148,7 +152,8 @@ multiplying by `10^d` can round the product *up* to exactly the halfway integer,
 tie rule fires and the result goes up — producing an answer that looks right to a user reading
 decimal and is wrong with respect to the actual stored value. The reverse also happens. This is why
 `ROUND` in different systems disagrees on inputs like 2.675 and 1.005, and why the disagreement is
-about the *representation*, not about the rounding rule.
+about the *representation*, not about the rounding rule. Excel's own route starts with a 15-digit
+reading on the x87 unit (FN-ROUND-002).
 
 **The correct algorithm does not multiply.** The exact approach treats the problem as what it is —
 a binary-to-decimal conversion — and decides the digit by comparing exactly, using the same
@@ -179,9 +184,11 @@ in binary64. `ROUND(x, -2)` therefore has one fewer source of error than `ROUND(
 No Handbook vector suite exists for `ROUND`, and **no evidence record lists this surface among its
 subjects**. `ROUND` does appear inside the group membership of an upstream array-lift measurement
 (`EV-STRUCT-0011`), but that record's subjects are other surfaces and its reader warning forbids
-reading its group total as any individual surface's result. The honest statement is therefore:
-**the rounding family was measured as a group for structural array admission; this surface was not
-measured separately, and its arithmetic was not measured at all.**
+reading its group total as any individual surface's result. The honest statement for that record
+is therefore: **the rounding family was measured as a group for structural array admission, and
+this surface was not measured separately.** Its arithmetic is measured in the Notes below: under
+the family rules the recorded rows match 36,821 of 36,945. Still open there: how the scale is
+formed for `|n| > 27`, the reading step itself, and how the NaN patterns sort and display.
 
 The presence projection records the defect stream `BUG-FUNC-017` (a math scalar/array-lift gap)
 against this module.
@@ -190,19 +197,21 @@ Inputs I would probe first:
 
 1. **`ROUND(2.675, 2)`, `ROUND(1.005, 2)`, `ROUND(8.835, 2)`** — the three canonical
    near-tie decimals. Each stored value lies strictly below its apparent halfway point, so a
-   correctly rounding implementation goes down and a scale-and-round implementation goes up. Three
-   cells characterise the algorithm.
+   correctly rounding implementation goes down and a scale-and-round implementation goes up.
+   FN-ROUND-002 gives Excel's route, a 15-digit reading before any digit is chosen; these three
+   cells remain a quick control of it.
 2. **`ROUND(1.25, 1)` and `ROUND(-1.25, 1)`, `ROUND(0.5, 0)` and `ROUND(1.5, 0)` and
    `ROUND(2.5, 0)`** — genuine exact ties, which is the only way to observe the tie rule. If 2.5
    rounds to 2, the rule is ties-to-even and this page's assumption is wrong.
 3. **`ROUND(-1, -1)`** and `1/ROUND(-1,-1)` — whether a negative zero survives to the sheet, and
    whether it is observable at all.
-4. **`ROUND(1.5, 0.9)` and `ROUND(1.5, -0.9)`** — non-integral `num_digits`, truncated in the
-   reference engine and undocumented everywhere.
-5. **`ROUND(x, 400)` and `ROUND(x, -400)`** — the clamp boundaries, which are pure implementation
-   limits with no documented basis.
+4. **`ROUND(1.5, 0.9)` and `ROUND(1.5, -0.9)`** — non-integral `num_digits`, undocumented
+   everywhere. Answered: Excel cuts it toward zero (FN-ROUND-001).
+5. **`ROUND(x, 400)` and `ROUND(x, -400)`** — no documented basis. Answered by the digit count of
+   FN-ROUND-001: `k` of 15 or more keeps the 15-digit reading, and `k` below 0 gives 0.
 6. **`ROUND(1.7976931348623157E+308, -1)`** — whether rounding away from zero at the top of the
-   range overflows to an error or saturates.
+   range overflows to an error or saturates. Answered: neither. A decimal result of `2^1024` or
+   more comes back as a NaN bit pattern that Excel treats as a number (FN-ROUND-003).
 7. **`ROUND(A1:A3, B1:B3)` with array arguments**, given the array-lift defect stream on this
    module.
 

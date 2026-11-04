@@ -68,7 +68,8 @@ Returns a `1 × c` array, where `c` is the input's column count.
 - **Callable returns a non-scalar.** There is one output cell per column and no room for an array;
   the reference engine reports a non-scalar helper result.
 - **Errors inside a column.** Delivered to the callable inside the column array; the callable
-  decides. `BYCOL` does not pre-filter.
+  decides. `BYCOL` does not pre-filter. A direct error as an argument is different: it is checked
+  first and is the answer for the whole call (FN-HSTACK-001).
 - **Text and blanks in a column.** Carried through as-is; the callable's own scan rules govern —
   `SUM`'s ignore-text rule, `COUNT`'s counting rule, and so on
   ([chapter 02](../model/02-coercion-and-lifting.md)).
