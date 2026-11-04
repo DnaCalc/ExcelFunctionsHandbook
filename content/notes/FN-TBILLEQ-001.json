@@ -6,9 +6,9 @@
   ],
   "kind": "documentation-differs",
   "title": "For bills longer than 182 days TBILLEQ is a quadratic, not the documented formula",
-  "statement": "When DSM is above 182, TBILLEQ does not use the documented formula. It uses the bond-equivalent quadratic (-t + sqrt(t^2 - (2t-1)(1 - 1/p))) / (t - 1/2), with t = DSM/365 and p = price/100. The square root is taken in extended precision and stored, RN53(RN64(sqrt)); the rest is binary64. For the row below, DSM 203, the documented formula gives 0.244038 and Excel 0.241103. Excel's bits are 22 units below the correctly rounded quadratic because of that staging.",
+  "statement": "When DSM is above 182, TBILLEQ does not use the documented formula. It uses the bond-equivalent quadratic (-t + sqrt(t^2 - (2t-1)(1 - 1/p))) / (t - 1/2), with t = DSM/365 and p = price/100. At DSM 366, a bill across a 29 February, t is 1 and not 366/365. The square root is taken in extended precision and stored, RN53(RN64(sqrt)); the rest is binary64. For the row below, DSM 203, the documented formula gives 0.244038 and Excel 0.241103. Excel's bits are 22 units below the correctly rounded quadratic because of that staging.",
   "status": "measured",
-  "basis": "2,400 of 2,400 recorded rows with the stored square root; 2,399 without it.",
+  "basis": "2,400 of 2,400 recorded rows with the stored square root; 2,399 without it. All 33 recorded rows with a number answer at DSM 366 fit t = 1, and none of the 17 of them in the run below fits 366/365.",
   "inferred": null,
   "documentation": {
     "claim": "TBILLEQ is calculated as TBILLEQ = (365 x rate)/(360-(rate x DSM)); the page does not mention 182 days.",
@@ -61,6 +61,50 @@
         "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
         "path": "runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz",
         "locator": "w1115-TBILLEQ-01109",
+        "note": null
+      }
+    },
+    {
+      "call": "TBILLEQ(53886, 54252, 0.4522540814812992)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "53886",
+            "bits": "0x40ea4fc000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "54252",
+            "bits": "0x40ea7d8000000000"
+          }
+        },
+        {
+          "name": "discount",
+          "value": {
+            "kind": "number",
+            "display": "0.4522540814812992",
+            "bits": "0x3fdcf1bb1a5c75f4"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.7211303677406913",
+        "bits": "0x3fe7137ffe3328bc"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz",
+        "locator": "w1115-TBILLEQ-00179",
         "note": null
       }
     }

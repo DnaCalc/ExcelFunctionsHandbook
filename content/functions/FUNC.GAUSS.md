@@ -254,7 +254,8 @@ unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive do
 match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.
 
 Inferred, not measured: That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC,
-ERFC.PRECISE and GAUSS rows were scored, and no recorded ERF row exists at this date.
+ERFC.PRECISE and GAUSS rows were scored in full, and for ERF itself the record holds only nine
+non-zero single-argument inputs below 0.5 (build 19929), all equal to the rational.
 
 - Open: The last bits of the coefficients of order 3 and above. Orders 0 and 1 are exact: one unit off in a linear term breaks 500 to 1,100 of 160,000 rows. Order 2 sits at the minimum of the same scan. Higher orders are good to the level that shows, about 0.15% of rows above 0.25.
 - Open: The source table. Hart's ERF tables remain unchecked.

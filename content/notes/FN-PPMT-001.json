@@ -7,7 +7,7 @@
   ],
   "kind": "excel-differs-from-math",
   "title": "PPMT is not PMT minus IPMT, and sits further from the exact value than PMT",
-  "statement": "On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits. FN-IPMT-001 gives the route Excel takes instead. FN-IPMT-001 gives the route Excel takes instead.",
+  "statement": "On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits. FN-IPMT-001 gives the route Excel takes instead.",
   "status": "measured",
   "basis": "Twelve recorded periods of one loan, read from the catalogue capture, compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction, recomputed for this note.",
   "inferred": null,

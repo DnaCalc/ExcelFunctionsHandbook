@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 65, over 101 functions (of the 541 entries = 518 functions + 23 operators).
-- Excel differs from the mathematical answer: 19.
+- Notes: 66, over 101 functions (of the 541 entries = 518 functions + 23 operators).
+- Excel differs from the mathematical answer: 20.
 - Detail for matching Excel's bits: 10.
 - Quirk: 32.
 - Documentation differs from behaviour: 4.
-- Measured: 63; inferred: 2.
+- Measured: 64; inferred: 2.
 
 ## Where Excel's answer is wrong
 
@@ -53,6 +53,8 @@ answer.
 | [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) | `ERFC.PRECISE(26.543000000000003)` | `2.2558350220536164e-308` (`0x001038a055f6d0d3`) | `2.2558350220535116e-308` (`0x001038a055f6cfff`) |
 | [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) | `ERFC.PRECISE(5.927083333333333)` | `5.1964407001614455e-17` (`0x3c8df497ca9a0a49`) | `5.1964407001614313e-17` (`0x3c8df497ca9a0a32`) |
 | [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) | `ERFC.PRECISE(2.0)` | `0.0046777349810472645` (`0x3f7328f5ec350e65`) | `0.004677734981047266` (`0x3f7328f5ec350e67`) |
+| [FN-FLOOR-002](#fn-floor-002-floor-rounds-its-quotient-to-15-digits-first-so-the-result-can-pass-the-number) | `FLOOR(0.9999999999999999, 0.1)` | `1` (`0x3ff0000000000000`) | `0.9` (`0x3feccccccccccccd`) |
+| [FN-FLOOR-002](#fn-floor-002-floor-rounds-its-quotient-to-15-digits-first-so-the-result-can-pass-the-number) | `FLOOR(4503599627370496, 2)` | `4503599627370500` (`0x4330000000000004`) | `4503599627370496` (`0x4330000000000000`) |
 | [FN-GAMMA-001](#fn-gamma-001-below-10-gamma-is-a-stored-product-down-to-a-seed-on-12) | `GAMMA(3.6493607064491727)` | `3.9328647235856704` (`0x400f7681c7bb23e9`) | `3.93286472358567` (`0x400f7681c7bb23e8`) |
 | [FN-GAMMA-001](#fn-gamma-001-below-10-gamma-is-a-stored-product-down-to-a-seed-on-12) | `GAMMA(5.649360706449173)` | `66.72967981145608` (`0x4050aeb312f3b057`) | `66.7296798114561` (`0x4050aeb312f3b058`) |
 | [FN-GAMMA-002](#fn-gamma-002-from-10-up-gamma-is-a-stirling-product-of-stored-stages-and-its-error-grows-with-x) | `GAMMA(10.649360706449173)` | `1600316.6708269436` (`0x41386b3cabbb5088`) | `1600316.6708269438` (`0x41386b3cabbb5089`) |
@@ -102,8 +104,8 @@ answer.
 | [`ACCRINTM`](../functions/FUNC.ACCRINTM.md) | [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
 | [`ASINH`](../functions/FUNC.ASINH.md) | [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) |
 | [`BAHTTEXT`](../functions/FUNC.BAHTTEXT.md) | [FN-BAHTTEXT-001](#fn-bahttext-001-a-tiny-negative-amount-keeps-the-word-for-minus-before-zero-baht) |
-| `BESSELI` (no page yet) | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit), [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded), [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong), [FN-BESSELI-004](#fn-besseli-004-besseli-gives-num-just-above-7097-where-the-function-is-still-finite) |
-| `BESSELK` (no page yet) | [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) |
+| [`BESSELI`](../functions/FUNC.BESSELI.md) | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit), [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded), [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong), [FN-BESSELI-004](#fn-besseli-004-besseli-gives-num-just-above-7097-where-the-function-is-still-finite) |
+| [`BESSELK`](../functions/FUNC.BESSELK.md) | [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) |
 | [`BYCOL`](../functions/FUNC.BYCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`BYROW`](../functions/FUNC.BYROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`CHOOSE`](../functions/FUNC.CHOOSE.md) | [FN-CHOOSE-001](#fn-choose-001-an-array-index-in-choose-turns-selected-blank-cells-into-0) |
@@ -120,14 +122,14 @@ answer.
 | `DELTA` (no page yet) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
 | [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
 | [`DOLLAR`](../functions/FUNC.DOLLAR.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
-| `ERF` (no page yet) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first), [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
-| `ERF.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
+| [`ERF`](../functions/FUNC.ERF.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first), [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
+| [`ERF.PRECISE`](../functions/FUNC.ERF.PRECISE.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
 | `ERFC` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
 | `ERFC.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
 | [`ERROR.TYPE`](../functions/FUNC.ERROR.TYPE.md) | [FN-ERROR.TYPE-001](#fn-errortype-001-errortype-of-busy-is-0) |
 | [`EXPAND`](../functions/FUNC.EXPAND.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`FIXED`](../functions/FUNC.FIXED.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
-| `FLOOR` (no page yet) | [FN-FLOOR-001](#fn-floor-001-floor-of-zero-is-0-even-with-significance-0) |
+| [`FLOOR`](../functions/FUNC.FLOOR.md) | [FN-FLOOR-001](#fn-floor-001-floor-of-zero-is-0-even-with-significance-0), [FN-FLOOR-002](#fn-floor-002-floor-rounds-its-quotient-to-15-digits-first-so-the-result-can-pass-the-number) |
 | [`GAMMA`](../functions/FUNC.GAMMA.md) | [FN-GAMMA-001](#fn-gamma-001-below-10-gamma-is-a-stored-product-down-to-a-seed-on-12), [FN-GAMMA-002](#fn-gamma-002-from-10-up-gamma-is-a-stirling-product-of-stored-stages-and-its-error-grows-with-x) |
 | [`GAMMA.DIST`](../functions/FUNC.GAMMA.DIST.md) | [FN-GAMMA.DIST-001](#fn-gammadist-001-gammadists-prefactor-carries-gammalna1-in-the-exponent-with-its-error) |
 | [`GAMMALN`](../functions/FUNC.GAMMALN.md) | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) |
@@ -155,12 +157,12 @@ answer.
 | [`OP_EQUAL`](../functions/FUNC.OP_EQUAL.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable) |
 | [`OP_GREATER_THAN`](../functions/FUNC.OP_GREATER_THAN.md) | [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han) |
 | [`OP_LESS_THAN`](../functions/FUNC.OP_LESS_THAN.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable), [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han), [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
-| `PMT` (no page yet) | [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
-| `PPMT` (no page yet) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
-| `PRICEDISC` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
-| `PRICEMAT` (no page yet) | [FN-PRICEMAT-001](#fn-pricemat-001-pricemat-formula-order-on-the-x87-unit), [FN-PRICEMAT-002](#fn-pricemat-002-pricemat-basis-0-applies-the-31st-rule-before-the-february-rule) |
+| [`PMT`](../functions/FUNC.PMT.md) | [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
+| [`PPMT`](../functions/FUNC.PPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
+| [`PRICEDISC`](../functions/FUNC.PRICEDISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
+| [`PRICEMAT`](../functions/FUNC.PRICEMAT.md) | [FN-PRICEMAT-001](#fn-pricemat-001-pricemat-formula-order-on-the-x87-unit), [FN-PRICEMAT-002](#fn-pricemat-002-pricemat-basis-0-applies-the-31st-rule-before-the-february-rule) |
 | [`PROPER`](../functions/FUNC.PROPER.md) | [FN-LOWER-001](#fn-lower-001-lower-leaves-letters-above-uffff-alone-and-a-combining-mark-stops-the-final-sigma) |
-| `RECEIVED` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
+| [`RECEIVED`](../functions/FUNC.RECEIVED.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
 | [`REGEXEXTRACT`](../functions/FUNC.REGEXEXTRACT.md) | [FN-TEXTSPLIT-002](#fn-textsplit-002-over-an-array-textsplit-and-regexextract-keep-only-the-first-piece-of-each-element) |
 | [`REGEXTEST`](../functions/FUNC.REGEXTEST.md) | [FN-REGEXTEST-001](#fn-regextest-001-in-regextest-w-takes-combining-marks-dot-refuses-cr-and-case-folding-reaches-into-ranges) |
 | [`ROUND`](../functions/FUNC.ROUND.md) | [FN-ROUND-001](#fn-round-001-round-counts-digits-in-32-bits-and-the-count-wraps), [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers) |
@@ -176,9 +178,9 @@ answer.
 | [`STDEVPA`](../functions/FUNC.STDEVPA.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`SWITCH`](../functions/FUNC.SWITCH.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
 | [`TAKE`](../functions/FUNC.TAKE.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
-| `TBILLEQ` (no page yet) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`TBILLEQ`](../functions/FUNC.TBILLEQ.md) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | `TBILLPRICE` (no page yet) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
-| `TBILLYIELD` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`TBILLYIELD`](../functions/FUNC.TBILLYIELD.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`TEXT`](../functions/FUNC.TEXT.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it), [FN-TEXT-001](#fn-text-001-locale-tagged-month-weekday-and-era-names-in-text-follow-their-own-table), [FN-TEXT-002](#fn-text-002-in-text-an--applied-to-a-number-gives-the-general-display-not-the-full-number) |
 | [`TEXTAFTER`](../functions/FUNC.TEXTAFTER.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |
 | [`TEXTBEFORE`](../functions/FUNC.TEXTBEFORE.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |
@@ -193,7 +195,7 @@ answer.
 | `VARA` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | `VARP` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | `VARPA` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
-| `VDB` (no page yet) | [FN-VDB-001](#fn-vdb-001-an-empty-factor-slot-in-vdb-is-0-not-the-default-2) |
+| [`VDB`](../functions/FUNC.VDB.md) | [FN-VDB-001](#fn-vdb-001-an-empty-factor-slot-in-vdb-is-0-not-the-default-2) |
 | [`VSTACK`](../functions/FUNC.VSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`WEEKNUM`](../functions/FUNC.WEEKNUM.md) | [FN-WEEKNUM-001](#fn-weeknum-001-weeknum-with-an-invalid-return_type-can-answer-differently-each-time-it-is-called) |
 | [`WORKDAY`](../functions/FUNC.WORKDAY.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
@@ -666,7 +668,6 @@ Evidence:
 
 - [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt), section UPDATE, open item 3 — research write-up
 - DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
-- DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 751, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 752, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)
@@ -809,7 +810,8 @@ unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive do
 match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.
 
 Inferred, not measured: That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC,
-ERFC.PRECISE and GAUSS rows were scored, and no recorded ERF row exists at this date.
+ERFC.PRECISE and GAUSS rows were scored in full, and for ERF itself the record holds only nine
+non-zero single-argument inputs below 0.5 (build 19929), all equal to the rational.
 
 - Open: The last bits of the coefficients of order 3 and above. Orders 0 and 1 are exact: one unit off in a linear term breaks 500 to 1,100 of 160,000 rows. Order 2 sits at the minimum of the same scan. Higher orders are good to the level that shows, about 0.15% of rows above 0.25.
 - Open: The source table. Hart's ERF tables remain unchecked.
@@ -916,6 +918,41 @@ Evidence:
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00002 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00005 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00062 at `e26b7bddb8` (readings)
+
+### FN-FLOOR-002: FLOOR rounds its quotient to 15 digits first, so the result can pass the number
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+FLOOR behaves as s times the floor of number/s, where the quotient is first rounded to 15
+significant decimal digits and the final product is taken in binary64. A quotient just under an
+integer therefore counts as that integer, and the result can exceed the number:
+FLOOR(0.9999999999999999,0.1) is 1. Once the quotient has more than 15 significant digits the
+step moves it by more than one unit, so an exact multiple can change: FLOOR(4503599627370496,2)
+is 4503599627370500.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `FLOOR(0.9999999999999999, 0.1)` | number `0.9999999999999999` (`0x3fefffffffffffff`); significance `0.1` (`0x3fb999999999999a`) (cells) | `1` (`0x3ff0000000000000`) | `0.9` (`0x3feccccccccccccd`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `FLOOR(4503599627370496, 2)` | number `4503599627370496` (`0x4330000000000000`); significance `2` (`0x4000000000000000`) (cells) | `4503599627370500` (`0x4330000000000004`) | `4503599627370496` (`0x4330000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: Exact rational floor of number/significance, times significance, correctly
+rounded.
+
+Basis (measured): All 931 recorded rows with normal nonzero arguments and a number answer,
+Excel build 20430, recomputed for this note from the recorded inputs; the 1,335 rows of that
+capture also hold errors, zero and subnormal cases. On the 945 rows that include subnormal
+quotients, the plain route matches 857 and an exact floor 848. A separate 120 literal calls in
+build 20527 agree. The rule was first stated from readings of this family, so these counts are
+in sample.
+
+Inferred, not measured: That Excel's code rounds to 15 digits this way is inferred from the
+fit. Whether FLOOR.MATH and FLOOR.PRECISE take the same step has not been read.
+
+Evidence:
+
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz` at `e26b7bddb8` — the 1,335 readings
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00083 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00109 at `e26b7bddb8` (readings)
 
 ### FN-GAMMA-001: Below 10, GAMMA is a stored product down to a seed on (1,2)
 
@@ -1640,8 +1677,7 @@ On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT an
 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own
 answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods
 and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits.
-FN-IPMT-001 gives the route Excel takes instead. FN-IPMT-001 gives the route Excel takes
-instead.
+FN-IPMT-001 gives the route Excel takes instead.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -2017,9 +2053,10 @@ Evidence:
 
 When DSM is above 182, TBILLEQ does not use the documented formula. It uses the bond-equivalent
 quadratic (-t + sqrt(t^2 - (2t-1)(1 - 1/p))) / (t - 1/2), with t = DSM/365 and p = price/100.
-The square root is taken in extended precision and stored, RN53(RN64(sqrt)); the rest is
-binary64. For the row below, DSM 203, the documented formula gives 0.244038 and Excel 0.241103.
-Excel's bits are 22 units below the correctly rounded quadratic because of that staging.
+At DSM 366, a bill across a 29 February, t is 1 and not 366/365. The square root is taken in
+extended precision and stored, RN53(RN64(sqrt)); the rest is binary64. For the row below, DSM
+203, the documented formula gives 0.244038 and Excel 0.241103. Excel's bits are 22 units below
+the correctly rounded quadratic because of that staging.
 
 Documentation: TBILLEQ is calculated as TBILLEQ = (365 x rate)/(360-(rate x DSM)); the page
 does not mention 182 days.
@@ -2028,11 +2065,14 @@ does not mention 182 days.
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
 | `TBILLEQ(40633.25, 40836.25, 0.21193100748125787)` | settlement `40633.25` (`0x40e3d72800000000`); maturity `40836.25` (`0x40e3f08800000000`); discount `0.21193100748125787` (`0x3fcb208e2511f676`) (cells) | `0.24110326418450792` (`0x3fcedc78c550cec1`) | `0.24110326418450853` (`0x3fcedc78c550ced7`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `TBILLEQ(53886, 54252, 0.4522540814812992)` | settlement `53886` (`0x40ea4fc000000000`); maturity `54252` (`0x40ea7d8000000000`); discount `0.4522540814812992` (`0x3fdcf1bb1a5c75f4`) (cells) | `0.7211303677406913` (`0x3fe7137ffe3328bc`) | — | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
 
 Correct value: mpmath at 800 bits: the exact quadratic at the binary64 inputs, correctly
 rounded.
 
 Basis (measured): 2,400 of 2,400 recorded rows with the stored square root; 2,399 without it.
+All 33 recorded rows with a number answer at DSM 366 fit t = 1, and none of the 17 of them in
+the run below fits 366/365.
 
 Evidence:
 
@@ -2040,6 +2080,7 @@ Evidence:
 - DnaCalc-Research `evidence/round23/tbilleq-hard/summary.json`, counts at `f177408286` — staged square root against alternatives
 - DnaCalc `crates/calc-func/src/ported/discount_bill_yearfrac_family.rs`, lines 388-410 at `26bb1800d3` — the arithmetic in the product
 - OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-01109 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-00179 at `e26b7bddb8` (readings)
 
 ### FN-TEXT-001: Locale-tagged month, weekday and era names in TEXT follow their own table
 

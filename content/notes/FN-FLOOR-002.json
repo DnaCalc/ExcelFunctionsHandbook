@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FLOOR-002",
+  "functions": [
+    "FUNC.FLOOR"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "FLOOR rounds its quotient to 15 digits first, so the result can pass the number",
+  "statement": "FLOOR behaves as s times the floor of number/s, where the quotient is first rounded to 15 significant decimal digits and the final product is taken in binary64. A quotient just under an integer therefore counts as that integer, and the result can exceed the number: FLOOR(0.9999999999999999,0.1) is 1. Once the quotient has more than 15 significant digits the step moves it by more than one unit, so an exact multiple can change: FLOOR(4503599627370496,2) is 4503599627370500.",
+  "status": "measured",
+  "basis": "All 931 recorded rows with normal nonzero arguments and a number answer, Excel build 20430, recomputed for this note from the recorded inputs; the 1,335 rows of that capture also hold errors, zero and subnormal cases. On the 945 rows that include subnormal quotients, the plain route matches 857 and an exact floor 848. A separate 120 literal calls in build 20527 agree. The rule was first stated from readings of this family, so these counts are in sample.",
+  "inferred": "That Excel's code rounds to 15 digits this way is inferred from the fit. Whether FLOOR.MATH and FLOOR.PRECISE take the same step has not been read.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FLOOR(0.9999999999999999, 0.1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.9999999999999999",
+            "bits": "0x3fefffffffffffff"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "0.1",
+            "bits": "0x3fb999999999999a"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.9",
+        "bits": "0x3feccccccccccccd",
+        "how": "Exact rational floor of number/significance, times significance, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+        "locator": "w111broad-20260929-FLOOR-00083",
+        "note": null
+      }
+    },
+    {
+      "call": "FLOOR(4503599627370496, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "4503599627370496",
+            "bits": "0x4330000000000000"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4503599627370500",
+        "bits": "0x4330000000000004"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "4503599627370496",
+        "bits": "0x4330000000000000",
+        "how": "Exact rational floor of number/significance, times significance, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+        "locator": "w111broad-20260929-FLOOR-00109",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "OxFunc-Evidence",
+      "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+      "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+      "locator": null,
+      "note": "the 1,335 readings"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 65,
+  "note_count": 66,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -2661,13 +2661,6 @@
           "path": "crates/calc-func/src/ported/cumulative_finance_family.rs",
           "locator": null,
           "note": "the commit message states the 79 of 135 and the loss class"
-        },
-        {
-          "repository": "DnaCalc",
-          "commit": "6c6cbd31c960fe1ac07d5cce9cb33ca9d7d86cf5",
-          "path": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-          "locator": null,
-          "note": "the commit message states the 79 of 135 and the loss class"
         }
       ],
       "open": [
@@ -3277,7 +3270,7 @@
       "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, ERF.PRECISE for |x| < 0.5 is x*N(t)/D(t) with t = RN(x*x), p = RN(x*N), y = RN(p/D), and N and D Horner sums in t in which every product and every sum is RN. N has degree 4 and D degree 5, and the coefficients read off Excel's answers, order 0 upward, are N: 0x3ff1df5e70c7956b, 0x3fc201d8627a7d2c, 0x3fa6f289d165b303, 0x3f5d93a5813e372c, 0x3f2932767df264b2; D: 0x3fefada15778ece6, 0x3fdd191aca8d2499, 0x3fb79f85ba68803e, 0x3f856de5da86af12, 0x3f4609751b5b6488, 0x3ef4f20a473a5ab0. The rational stops at 0.5 itself. It equals erf to a flat 9E-17 up to 0.5, and its error climbs at once beyond, so 0.5 is its design interval and not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is refuted by its linear terms, and Cephes has the same shape with different ratios. Because every step rounds, answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5), 400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS uses it too.",
       "status": "measured",
       "basis": "All 618,225 recorded ERF.PRECISE rows with |x| < 0.5 match; they were only scored, never used to read the coefficients, and ERFC, ERFC.PRECISE and GAUSS match every recorded row in that range. Two fresh sets of 60,000 random doubles below 0.5 (Excel build 20527) match 59,996 and 59,982; the second was asked after the constants were fixed, and 17 of its 18 misses are in [0.25, 0.5). With every step stored, 223 of 38,000 rows at 19 sites stay unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive doubles below 0.5 match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.",
-      "inferred": "That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC, ERFC.PRECISE and GAUSS rows were scored, and no recorded ERF row exists at this date.",
+      "inferred": "That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC, ERFC.PRECISE and GAUSS rows were scored in full, and for ERF itself the record holds only nine non-zero single-argument inputs below 0.5 (build 19929), all equal to the rational.",
       "documentation": null,
       "repros": [
         {
@@ -3831,6 +3824,115 @@
           "path": "apps/dna-onecalc/tests/acceptance.rs",
           "locator": "recorded_floor_zero_identity_precedes_its_multiple_error",
           "note": "recorded readings pinned"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FLOOR-002",
+      "functions": [
+        "FUNC.FLOOR"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "FLOOR rounds its quotient to 15 digits first, so the result can pass the number",
+      "statement": "FLOOR behaves as s times the floor of number/s, where the quotient is first rounded to 15 significant decimal digits and the final product is taken in binary64. A quotient just under an integer therefore counts as that integer, and the result can exceed the number: FLOOR(0.9999999999999999,0.1) is 1. Once the quotient has more than 15 significant digits the step moves it by more than one unit, so an exact multiple can change: FLOOR(4503599627370496,2) is 4503599627370500.",
+      "status": "measured",
+      "basis": "All 931 recorded rows with normal nonzero arguments and a number answer, Excel build 20430, recomputed for this note from the recorded inputs; the 1,335 rows of that capture also hold errors, zero and subnormal cases. On the 945 rows that include subnormal quotients, the plain route matches 857 and an exact floor 848. A separate 120 literal calls in build 20527 agree. The rule was first stated from readings of this family, so these counts are in sample.",
+      "inferred": "That Excel's code rounds to 15 digits this way is inferred from the fit. Whether FLOOR.MATH and FLOOR.PRECISE take the same step has not been read.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "FLOOR(0.9999999999999999, 0.1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "0.9999999999999999",
+                "bits": "0x3fefffffffffffff"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "0.1",
+                "bits": "0x3fb999999999999a"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "0.9",
+            "bits": "0x3feccccccccccccd",
+            "how": "Exact rational floor of number/significance, times significance, correctly rounded."
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+            "locator": "w111broad-20260929-FLOOR-00083",
+            "note": null
+          }
+        },
+        {
+          "call": "FLOOR(4503599627370496, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "4503599627370496",
+                "bits": "0x4330000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "4503599627370500",
+            "bits": "0x4330000000000004"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "4503599627370496",
+            "bits": "0x4330000000000000",
+            "how": "Exact rational floor of number/significance, times significance, correctly rounded."
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+            "locator": "w111broad-20260929-FLOOR-00109",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "OxFunc-Evidence",
+          "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+          "path": "runs/w111-broad-20260929/answers/answers-floor.json.gz",
+          "locator": null,
+          "note": "the 1,335 readings"
         }
       ],
       "open": [],
@@ -6813,7 +6915,7 @@
       ],
       "kind": "excel-differs-from-math",
       "title": "PPMT is not PMT minus IPMT, and sits further from the exact value than PMT",
-      "statement": "On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits. FN-IPMT-001 gives the route Excel takes instead. FN-IPMT-001 gives the route Excel takes instead.",
+      "statement": "On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits. FN-IPMT-001 gives the route Excel takes instead.",
       "status": "measured",
       "basis": "Twelve recorded periods of one loan, read from the catalogue capture, compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction, recomputed for this note.",
       "inferred": null,
@@ -8523,9 +8625,9 @@
       ],
       "kind": "documentation-differs",
       "title": "For bills longer than 182 days TBILLEQ is a quadratic, not the documented formula",
-      "statement": "When DSM is above 182, TBILLEQ does not use the documented formula. It uses the bond-equivalent quadratic (-t + sqrt(t^2 - (2t-1)(1 - 1/p))) / (t - 1/2), with t = DSM/365 and p = price/100. The square root is taken in extended precision and stored, RN53(RN64(sqrt)); the rest is binary64. For the row below, DSM 203, the documented formula gives 0.244038 and Excel 0.241103. Excel's bits are 22 units below the correctly rounded quadratic because of that staging.",
+      "statement": "When DSM is above 182, TBILLEQ does not use the documented formula. It uses the bond-equivalent quadratic (-t + sqrt(t^2 - (2t-1)(1 - 1/p))) / (t - 1/2), with t = DSM/365 and p = price/100. At DSM 366, a bill across a 29 February, t is 1 and not 366/365. The square root is taken in extended precision and stored, RN53(RN64(sqrt)); the rest is binary64. For the row below, DSM 203, the documented formula gives 0.244038 and Excel 0.241103. Excel's bits are 22 units below the correctly rounded quadratic because of that staging.",
       "status": "measured",
-      "basis": "2,400 of 2,400 recorded rows with the stored square root; 2,399 without it.",
+      "basis": "2,400 of 2,400 recorded rows with the stored square root; 2,399 without it. All 33 recorded rows with a number answer at DSM 366 fit t = 1, and none of the 17 of them in the run below fits 366/365.",
       "inferred": null,
       "documentation": {
         "claim": "TBILLEQ is calculated as TBILLEQ = (365 x rate)/(360-(rate x DSM)); the page does not mention 182 days.",
@@ -8578,6 +8680,50 @@
             "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
             "path": "runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz",
             "locator": "w1115-TBILLEQ-01109",
+            "note": null
+          }
+        },
+        {
+          "call": "TBILLEQ(53886, 54252, 0.4522540814812992)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "53886",
+                "bits": "0x40ea4fc000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "54252",
+                "bits": "0x40ea7d8000000000"
+              }
+            },
+            {
+              "name": "discount",
+              "value": {
+                "kind": "number",
+                "display": "0.4522540814812992",
+                "bits": "0x3fdcf1bb1a5c75f4"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.7211303677406913",
+            "bits": "0x3fe7137ffe3328bc"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+          "source": {
+            "repository": "OxFunc-Evidence",
+            "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+            "path": "runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz",
+            "locator": "w1115-TBILLEQ-00179",
             "note": null
           }
         }

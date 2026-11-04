@@ -292,7 +292,6 @@ Evidence:
 
 - [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt), section UPDATE, open item 3 — research write-up
 - DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
-- DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 751, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 752, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)
