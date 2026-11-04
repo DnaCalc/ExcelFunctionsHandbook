@@ -231,6 +231,7 @@ Inferred, not measured: That this holds for missing values in general is inferre
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q187 at `eceb809985`
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_countblank_optional_lambda_omission_is_a_value_error at `1cccd45a8e` — recorded answer pinned
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q187, row 20, column 10 at `eceb809985` (readings)
 
 <!-- efh:notes end -->

@@ -8,7 +8,7 @@
   ],
   "kind": "excel-differs-from-math",
   "title": "TRUNC of DBL_MIN returns a subnormal, not 0",
-  "statement": "With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal 0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6 steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit reading 2.22507385850720E-308. The bank holds 256 such rows for each of the three functions.",
+  "statement": "With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal 0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6 steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit reading 2.22507385850720E-308. The recorded rows hold 256 such cases for each of the three functions. ROUND gives 0 on the same inputs.",
   "status": "measured",
   "basis": "Recorded rows of the broad W111 capture; counts from the rounding write-up.",
   "inferred": null,
@@ -100,7 +100,7 @@
   "evidence": [
     {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
       "locator": null,
       "note": "research write-up: full-bank result, the rules, what stays open"

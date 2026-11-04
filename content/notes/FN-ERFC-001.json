@@ -1,0 +1,137 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ERFC-001",
+  "functions": [
+    "FUNC.ERFC",
+    "FUNC.ERFC.PRECISE"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "Above 0.5, ERFC rounds x*x before the exponential, so the tail drifts by hundreds of units",
+  "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, ERFC for x >= 0.5 behaves as Q = E*F with z = RN(x*x) and E = exp(-z) stored to binary64, then multiplied by a factor F that is not identified. So the rounding error of x*x reaches the answer at full size. At x = 26.543000000000003, x*x exceeds z by 4.64E-14, which at the size of this answer is about 212 units, and Excel's answer is 212 units above the correctly rounded erfc. Near x = 5.93 the same effect is 23 units. For small x, where x*x is exact or nearly so, the answer stays within a few units.",
+  "status": "measured",
+  "basis": "220,000 Excel answers from 0.5 to 26.5 (build 20527) compared with E times the true exp(x*x)*erfc(x). With z = RN(x*x) and E stored, the residual stays within about 10 units of 2^-53 at every x. At x = 24 the exact exp(-x*x) spreads with a standard deviation of 287 units, Cody's and fdlibm's fractional splits of x*x spread the same, and plain binary64 x*x leaves outliers of up to 1,024 units.",
+  "inferred": "F is not a closed form: y = RN(E*RN(F)) with any offset matches 40% of answers at best. Its noise tracks about a dozen smooth curves, consistent with two polynomials of degree about 8 in x with shapes near Cephes' erfc P and Q, but that is a reading of shape only, and no table has been matched.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ERFC.PRECISE(26.543000000000003)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "26.543000000000003",
+            "bits": "0x403a8b020c49ba5f"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.2558350220536164e-308",
+        "bits": "0x001038a055f6d0d3"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "2.2558350220535116e-308",
+        "bits": "0x001038a055f6cfff",
+        "how": "mpmath erfc at 800 bits from the binary64 input, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz",
+        "locator": "line 363, key ERFC.PRECISE|0x403a8b020c49ba5f",
+        "note": null
+      }
+    },
+    {
+      "call": "ERFC.PRECISE(5.927083333333333)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "5.927083333333333",
+            "bits": "0x4017b55555555555"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "5.1964407001614455e-17",
+        "bits": "0x3c8df497ca9a0a49"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "5.1964407001614313e-17",
+        "bits": "0x3c8df497ca9a0a32",
+        "how": "mpmath erfc at 800 bits from the binary64 input, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz",
+        "locator": "line 340, key ERFC.PRECISE|0x4017b55555555555",
+        "note": null
+      }
+    },
+    {
+      "call": "ERFC.PRECISE(2.0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0046777349810472645",
+        "bits": "0x3f7328f5ec350e65"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.004677734981047266",
+        "bits": "0x3f7328f5ec350e67",
+        "how": "mpmath erfc at 800 bits from the binary64 input, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz",
+        "locator": "line 64, key ERFC.PRECISE|0x4000000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+      "path": "content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md",
+      "locator": "Round 4: ERFC above 0.5",
+      "note": "the residual table, what is known about F"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "d85e5e9b52c601323dacc4369b9edc8146c98357",
+      "path": "crates/calc-func/src/ported/normal_dist_common.rs",
+      "locator": "erfc_upper",
+      "note": "the commit stores z and E and uses Cody's rational in place of F; its message carries the row counts"
+    }
+  ],
+  "open": [
+    "F, so the last bits: with a stand-in for F, recorded rows match ERFC 234 of 544 and ERFC.PRECISE 1,062 of 1,863, with no answer more than 6 units away.",
+    "The mean of the residual is flat with sharp steps of about 0.4 units, at x = 1.11567925... and 1.1217 among about 80 in [0.5, 27]. No stored polynomial value varies that slowly, and this is unexplained."
+  ],
+  "recorded_on": "2026-11-04"
+}

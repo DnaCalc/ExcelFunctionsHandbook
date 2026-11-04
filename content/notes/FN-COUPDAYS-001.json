@@ -1,0 +1,532 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COUPDAYS-001",
+  "functions": [
+    "FUNC.COUPDAYS",
+    "FUNC.COUPNCD",
+    "FUNC.COUPPCD"
+  ],
+  "kind": "quirk",
+  "title": "On basis 1 COUPDAYS walks back from maturity by its own rule, not COUPPCD to COUPNCD",
+  "statement": "On basis 1 (actual/actual) COUPDAYS does not always equal COUPNCD minus COUPPCD. Its rule: start at maturity and step back by 12/frequency months. Each step keeps the day of the month and clamps it to the length of the target month, and the clamped date is the start of the next step, so passing through February lowers the day for every earlier date. Stop at the last date still after settlement, call it next. The answer is the number of actual days from one period before next up to next, and this last step keeps month ends: if next is the last day of its month, the start is the last day of its month. On the other bases the answer is 360/frequency (bases 0, 2, 4) or 365/frequency (basis 3). With this rule, all 5,584 recorded rows match (4,072 distinct inputs): 5,568 numbers and 16 #NUM!, from Excel builds 20131 and 20430. Of the 967 basis 1 rows, 81 (49 distinct inputs) differ from the day count between the dates of a schedule anchored on maturity with month ends kept. For maturity 1998-06-30 with semi-annual coupons, COUPDAYS(35748,35976,2,1) is 183, from 1997-06-30 to 1997-12-30; the anchored schedule gives 184. In one recorded case all three functions were read on the same inputs: COUPNCD(44043,2958465,2,1) less COUPPCD is 44196 - 44012 = 184, and COUPDAYS is 183.",
+  "status": "measured",
+  "basis": "All 5,584 rows of three recorded sets: 3,012 and 1,512 rows from build 20430, 1,060 from build 20131. The rule was recomputed independently from the calendar and matched all 5,566 number rows with settlement at serial 61 or later, on every basis. The other two number rows have settlement 0 and basis 0, and read 180. In a study of 42 ways to walk and measure the schedule, this was the only one to match all 965 rows with basis exactly 1.",
+  "inferred": "The rule reproduces every recorded row; that Excel's code works this way is inferred. For basis 1 no settlement or maturity before serial 61, where Excel's calendar differs from the Gregorian one, is in the recorded rows.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "COUPDAYS(35748, 35976, 2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "35748",
+            "bits": "0x40e1748000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "35976",
+            "bits": "0x40e1910000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "183",
+        "bits": "0x4066e00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz",
+        "locator": "COUPDAYS|0x40e1748000000000|0x40e1910000000000|0x4000000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYS(36452, 36891, 4, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "36452",
+            "bits": "0x40e1cc8000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "36891",
+            "bits": "0x40e2036000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "91",
+        "bits": "0x4056c00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz",
+        "locator": "COUPDAYS|0x40e1cc8000000000|0x40e2036000000000|0x4010000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYS(36812, 47907, 4, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "36812",
+            "bits": "0x40e1f98000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "47907",
+            "bits": "0x40e7646000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "92",
+        "bits": "0x4057000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz",
+        "locator": "COUPDAYS|0x40e1f98000000000|0x40e7646000000000|0x4010000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYS(37015, 38137, 4, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "37015",
+            "bits": "0x40e212e000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "38137",
+            "bits": "0x40e29f2000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "89",
+        "bits": "0x4056400000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz",
+        "locator": "COUPDAYS|0x40e212e000000000|0x40e29f2000000000|0x4010000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYS(38044, 38411, 2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "38044",
+            "bits": "0x40e2938000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "38411",
+            "bits": "0x40e2c16000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "184",
+        "bits": "0x4067000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz",
+        "locator": "COUPDAYS|0x40e2938000000000|0x40e2c16000000000|0x4000000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYS(34911, 35216, 2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "34911",
+            "bits": "0x40e10be000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "35216",
+            "bits": "0x40e1320000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "183",
+        "bits": "0x4066e00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz",
+        "locator": "COUPDAYS|0x40e10be000000000|0x40e1320000000000|0x4000000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPPCD(44043, 2958465, 2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "44043",
+            "bits": "0x40e5816000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "2958465",
+            "bits": "0x4146924080000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "44012",
+        "bits": "0x40e57d8000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPPCD.jsonl.gz",
+        "locator": "COUPPCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPNCD(44043, 2958465, 2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "44043",
+            "bits": "0x40e5816000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "2958465",
+            "bits": "0x4146924080000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "44196",
+        "bits": "0x40e5948000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPNCD.jsonl.gz",
+        "locator": "COUPNCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYS(44043, 2958465, 2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "44043",
+            "bits": "0x40e5816000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "2958465",
+            "bits": "0x4146924080000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "183",
+        "bits": "0x4066e00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz",
+        "locator": "COUPDAYS|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "14910720ec396f241b46460ecab093f71733c5f5",
+      "path": "crates/calc-func/src/ported/coupon_family.rs",
+      "locator": "coupdays_kernel",
+      "note": "the rule as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "14910720ec396f241b46460ecab093f71733c5f5",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "coupdays_actual_actual_uses_its_recorded_calendar_interval",
+      "note": "six recorded calls pinned"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "19d810d45ad46fe5d2ddf0f4f582dd603a881a91",
+      "path": "evidence/round24/coupon/coupon-calendar-summary.json",
+      "locator": null,
+      "note": "the 42 schedule variants compared on 965 basis 1 rows"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "19d810d45ad46fe5d2ddf0f4f582dd603a881a91",
+      "path": "evidence/round24/coupon/coupdays-registered-delta.json",
+      "locator": null,
+      "note": "5,584 of 5,584 rows matched"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COUPDAYS",
+      "note": "matched rows per function"
+    },
+    {
+      "repository": "OxFunc-Evidence",
+      "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+      "path": "runs/w111-5-20260924/answers/answers-w1115-coupdays.json.gz",
+      "locator": null,
+      "note": "1,512 recorded rows, inputs read again"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

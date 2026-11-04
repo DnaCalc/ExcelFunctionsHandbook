@@ -1,0 +1,344 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-REGEXTEST-001",
+  "functions": [
+    "FUNC.REGEXTEST"
+  ],
+  "kind": "quirk",
+  "title": "In REGEXTEST, \\w takes combining marks, dot refuses CR, and case folding reaches into ranges",
+  "statement": "Some regular expression details in REGEXTEST differ from a plain reading. \\w matches a combining mark (U+0301) and connector punctuation (U+203F), so it is not limited to letters, digits and underscore. Dot does not match CR as well as LF: REGEXTEST(\"a\"&CHAR(13)&\"b\",\"a.b\") is FALSE. \\d does not match a Han character. With case_sensitivity 1, folding applies inside a character class range: É matches [é-é] and Σ matches [α-ω]. It also covers the non-ASCII partners of ASCII letters: the Kelvin sign U+212A matches k and long s U+017F matches s. ß matches its capital U+1E9E, and a Deseret letter above U+FFFF matches its other case.",
+  "status": "measured",
+  "basis": "12 recorded REGEXTEST readings, in a workbook at compatibility version 2.",
+  "inferred": "The readings cover the characters named here. That \\w follows the Unicode Mn and Pc categories in general, and that ranges fold by simple case folding in general, is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "REGEXTEST(A1, A2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "É",
+            "bits": null
+          }
+        },
+        {
+          "name": "pattern",
+          "value": {
+            "kind": "text",
+            "display": "[é-é]",
+            "bits": null
+          }
+        },
+        {
+          "name": "case_sensitivity",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+        "locator": "fn3-regextest-001",
+        "note": null
+      }
+    },
+    {
+      "call": "REGEXTEST(A1, A2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "Σ",
+            "bits": null
+          }
+        },
+        {
+          "name": "pattern",
+          "value": {
+            "kind": "text",
+            "display": "[α-ω]",
+            "bits": null
+          }
+        },
+        {
+          "name": "case_sensitivity",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+        "locator": "fn3-regextest-003",
+        "note": null
+      }
+    },
+    {
+      "call": "REGEXTEST(A1, A2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "́",
+            "bits": null
+          }
+        },
+        {
+          "name": "pattern",
+          "value": {
+            "kind": "text",
+            "display": "\\w",
+            "bits": null
+          }
+        },
+        {
+          "name": "case_sensitivity",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+        "locator": "fn3-regextest-005",
+        "note": null
+      }
+    },
+    {
+      "call": "REGEXTEST(A1, A2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "‿",
+            "bits": null
+          }
+        },
+        {
+          "name": "pattern",
+          "value": {
+            "kind": "text",
+            "display": "\\w",
+            "bits": null
+          }
+        },
+        {
+          "name": "case_sensitivity",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+        "locator": "fn3-regextest-006",
+        "note": null
+      }
+    },
+    {
+      "call": "REGEXTEST(A1, A2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "a\rb",
+            "bits": null
+          }
+        },
+        {
+          "name": "pattern",
+          "value": {
+            "kind": "text",
+            "display": "a.b",
+            "bits": null
+          }
+        },
+        {
+          "name": "case_sensitivity",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+        "locator": "fn3-regextest-007",
+        "note": null
+      }
+    },
+    {
+      "call": "REGEXTEST(A1, A2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "K",
+            "bits": null
+          }
+        },
+        {
+          "name": "pattern",
+          "value": {
+            "kind": "text",
+            "display": "k",
+            "bits": null
+          }
+        },
+        {
+          "name": "case_sensitivity",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+        "locator": "fn3-regextest-009",
+        "note": null
+      }
+    },
+    {
+      "call": "REGEXTEST(A1, A2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "ſ",
+            "bits": null
+          }
+        },
+        {
+          "name": "pattern",
+          "value": {
+            "kind": "text",
+            "display": "s",
+            "bits": null
+          }
+        },
+        {
+          "name": "case_sensitivity",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+        "locator": "fn3-regextest-010",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "ae13ca181bc1d5e3c9e266f26a856ba634707d8e",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": null,
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json",
+      "locator": null,
+      "note": "12 recorded readings"
+    }
+  ],
+  "open": [
+    "Reversed or very wide caseless ranges, and other newline characters, have not been read."
+  ],
+  "recorded_on": "2026-11-04"
+}

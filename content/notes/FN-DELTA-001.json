@@ -1,0 +1,256 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DELTA-001",
+  "functions": [
+    "FUNC.DELTA",
+    "FUNC.ERF",
+    "FUNC.GESTEP"
+  ],
+  "kind": "quirk",
+  "title": "DELTA and GESTEP read their second argument first",
+  "statement": "When both arguments of DELTA or GESTEP are bad, the error comes from the second one: DELTA(TRUE,#REF!) is #REF! and DELTA(#REF!,TRUE) is #VALUE!. With two errors, DELTA gives the second. ERF reads left to right: ERF(TRUE,#REF!) is #VALUE! and ERF(#REF!,TRUE) is #REF!. A logical is rejected in either position of these functions, whether typed or held in a cell: DELTA(TRUE,0) and DELTA(2,TRUE) are #VALUE!, and DELTA(B1,0) with TRUE in B1 is #VALUE!, while an empty B1 reads as 0 and gives 1.",
+  "status": "measured",
+  "basis": "16 recorded DELTA and GESTEP formula readings, 8 readings each with errors and text held in cells, and the ERF companions on the same sheets. GESTEP gave the same pattern as DELTA in every pair.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=DELTA(TRUE,#REF!)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa007, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=DELTA(#REF!,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa008, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=GESTEP(TRUE,#REF!)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa019, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=GESTEP(#REF!,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa020, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=ERF(TRUE,#REF!)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa115, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=ERF(#REF!,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa116, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "DELTA(A1, A2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "error",
+            "display": "#REF!",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/DELTA.reading.json",
+        "locator": "fn7-DELTA-argument-order-7",
+        "note": null
+      }
+    },
+    {
+      "call": "=DELTA(B1,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa003, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=DELTA(B1,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa004, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "287c5b9a3bec81ea96f12ad485f18a0d4b729063",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_fn4_scalar_logical_positions_and_error_order",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+      "locator": "sheets qa001 to qa008, qa013 to qa020, qa109 to qa116",
+      "note": "recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/DELTA.reading.json",
+      "locator": null,
+      "note": "8 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/GESTEP.reading.json",
+      "locator": null,
+      "note": "8 recorded readings"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

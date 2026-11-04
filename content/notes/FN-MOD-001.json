@@ -5,11 +5,11 @@
     "FUNC.MOD"
   ],
   "kind": "excel-differs-from-math",
-  "title": "MOD with operands below about 1E-290 gives wrong signs and #NUM!",
-  "statement": "When both operands are below about 1E-290, MOD can return -n itself, or #NUM! at small quotients, where the exact answer is an ordinary number. MOD(-(1+121*2^-52)*2^-983, 2^-983) returns +(1+121*2^-52)*2^-983, and MOD(2^-983, -(1+120*2^-52)*2^-983) returns #NUM!. All 4,974 MOD mismatches in the bank lie in this domain.",
+  "title": "MOD with tiny operands gives wrong signs and #NUM!, by a rule that fits every recorded row",
+  "statement": "MOD(n,d) takes the exact remainder r of n by d and adds d when their signs differ. Three things change when r is subnormal and its sign differs from d's. The result is #NUM! when |n/d| is 2^26 or more, or when d's low part under a Veltkamp split at 2^27 + 1 is subnormal. Otherwise, when |r| is below 2^-1026, the result is |d| + |r| with d's sign: the remainder is added where it should be taken away. A larger r takes the ordinary step. Any subnormal final result is #NUM!. So MOD(-(1+121*2^-52)*2^-983, 2^-983) returns +(1+121*2^-52)*2^-983, and MOD(2^-983, -(1+120*2^-52)*2^-983) returns #NUM!, where the exact answers are ordinary numbers.",
   "status": "measured",
-  "basis": "Recorded rows of the W111 MOD tiny-operand discrimination run; 147,458 of 152,432 bank rows match without this domain.",
-  "inferred": null,
+  "basis": "All 152,432 recorded MOD rows match, 4,974 of them rows the ordinary step misses, and so do 1,128 new Excel readings (build 20527). Those readings overturned an earlier test on power-of-two divisors: 1E-296 behaves like a power of two and 1E-300 does not.",
+  "inferred": "The rule is what is measured. Reading it as Veltkamp's split, the parts of a Dekker product of the count and the divisor, is an interpretation: a table over exponent and trailing zeros puts the boundary between exponents -1000 and -990 and at about 27 trailing zeros.",
   "documentation": null,
   "repros": [
     {
@@ -97,15 +97,20 @@
   ],
   "evidence": [
     {
+      "repository": "DnaCalc",
+      "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+      "path": "crates/calc-func/src/catalogue/rounding.rs",
+      "locator": null,
+      "note": "the rules in the product; the commit message carries the row counts"
+    },
+    {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
       "locator": null,
       "note": "research write-up: full-bank result, the rules, what stays open"
     }
   ],
-  "open": [
-    "The rule. No model of the intermediate subnormal handling explains these rows yet."
-  ],
+  "open": [],
   "recorded_on": "2026-11-04"
 }

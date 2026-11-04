@@ -1,0 +1,294 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NETWORKDAYS.INTL-001",
+  "functions": [
+    "FUNC.NETWORKDAYS.INTL",
+    "FUNC.WORKDAY.INTL"
+  ],
+  "kind": "quirk",
+  "title": "NETWORKDAYS.INTL checks weekend before the dates, WORKDAY.INTL after them",
+  "statement": "The two functions read their arguments in different orders. NETWORKDAYS.INTL decodes weekend first: with #REF! in the cell for start_date and weekend 0, the answer is #NUM!, from the invalid weekend. WORKDAY.INTL reads start_date first and gives #REF! for the same arguments. An error held in the weekend cell is also treated differently: with start 2 and second argument 5, NETWORKDAYS.INTL gives #VALUE! and WORKDAY.INTL gives #NUM!. Neither returns the error itself. A logical weekend is read as a number: NETWORKDAYS.INTL(2,5,TRUE) is 4, as with weekend 1, and FALSE is #NUM!, as with weekend 0. WORKDAY.INTL does the same.",
+  "status": "measured",
+  "basis": "19 NETWORKDAYS.INTL and 20 WORKDAY.INTL readings with errors held in cells, and the logical weekend readings of the argument sheets.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "NETWORKDAYS.INTL(A1, 5, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "error",
+            "display": "#REF!",
+            "bits": null
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "weekend",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/NETWORKDAYS.INTL.reading.json",
+        "locator": "fn7-NETWORKDAYS.INTL-weekend-first-order-2",
+        "note": null
+      }
+    },
+    {
+      "call": "WORKDAY.INTL(A1, 5, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "error",
+            "display": "#REF!",
+            "bits": null
+          }
+        },
+        {
+          "name": "days",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "weekend",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/WORKDAY.INTL.reading.json",
+        "locator": "fn7-WORKDAY.INTL-weekend-first-order-2",
+        "note": null
+      }
+    },
+    {
+      "call": "NETWORKDAYS.INTL(2, 5, A3)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "weekend",
+          "value": {
+            "kind": "error",
+            "display": "#REF!",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/NETWORKDAYS.INTL.reading.json",
+        "locator": "fn7-NETWORKDAYS.INTL-admission-order-6",
+        "note": null
+      }
+    },
+    {
+      "call": "WORKDAY.INTL(2, 5, A3)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "days",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "weekend",
+          "value": {
+            "kind": "error",
+            "display": "#REF!",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/WORKDAY.INTL.reading.json",
+        "locator": "fn7-WORKDAY.INTL-admission-order-6",
+        "note": null
+      }
+    },
+    {
+      "call": "=NETWORKDAYS.INTL(2,5,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "4",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa043, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=NETWORKDAYS.INTL(2,5,FALSE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa044, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WORKDAY.INTL(2,2,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "4",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa065, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WORKDAY.INTL(2,2,FALSE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa066, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "287c5b9a3bec81ea96f12ad485f18a0d4b729063",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_scalar_readings_follow_the_application_route",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/NETWORKDAYS.INTL.reading.json",
+      "locator": null,
+      "note": "19 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/WORKDAY.INTL.reading.json",
+      "locator": null,
+      "note": "20 recorded readings"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

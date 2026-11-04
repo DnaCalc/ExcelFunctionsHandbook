@@ -1,0 +1,344 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-YEARFRAC-001",
+  "functions": [
+    "FUNC.ACCRINTM",
+    "FUNC.DISC",
+    "FUNC.INTRATE",
+    "FUNC.PRICEDISC",
+    "FUNC.RECEIVED",
+    "FUNC.YEARFRAC"
+  ],
+  "kind": "quirk",
+  "title": "On basis 1 the fictitious 1900-02-29 is not a leap day, and serial 0 is a valid date",
+  "statement": "Excel's calendar holds a 29 February 1900, serial 60, that never existed. On basis 1 (actual/actual) it does not make 1900 a leap year: YEARFRAC(59,60,1) is 1/365, where the real 1904-02-29 gives YEARFRAC(1520,1521,1) = 1/366. Serial 0 is accepted as a date: YEARFRAC(0,5,0) is 5/360 and YEARFRAC(0,60,1) is 60/365. Reversed dates give the same answer as in order. ACCRINTM, DISC, INTRATE, PRICEDISC and RECEIVED take the same 365 and 366 on those dates: DISC(59,60,99,100,1) is about 3.65 and DISC(1520,1521,99,100,1) about 3.66.",
+  "status": "measured",
+  "basis": "19 YEARFRAC readings around serial 60 and the 1904, 2000 and 2004 leap days, 35 readings with serial 0 on all five bases, and 3 readings each from five financial functions.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "YEARFRAC(59, 60, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "59",
+            "bits": "0x404d800000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "60",
+            "bits": "0x404e000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0027397260273972603",
+        "bits": "0x3f66719f3601671a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json",
+        "locator": "fn7-YEARFRAC-fictitious-leap-day-3",
+        "note": null
+      }
+    },
+    {
+      "call": "YEARFRAC(1520, 1521, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "1520",
+            "bits": "0x4097c00000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "1521",
+            "bits": "0x4097c40000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.00273224043715847",
+        "bits": "0x3f6661ec6a5122f9"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json",
+        "locator": "fn7-YEARFRAC-fictitious-leap-day-9",
+        "note": null
+      }
+    },
+    {
+      "call": "YEARFRAC(0, 5, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.013888888888888888",
+        "bits": "0x3f8c71c71c71c71c"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json",
+        "locator": "fn7-YEARFRAC-calendar-zero-11",
+        "note": null
+      }
+    },
+    {
+      "call": "YEARFRAC(0, 60, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "60",
+            "bits": "0x404e000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.1643835616438356",
+        "bits": "0x3fc50a8542a150a8"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json",
+        "locator": "fn7-YEARFRAC-fictitious-leap-day-1",
+        "note": null
+      }
+    },
+    {
+      "call": "DISC(59, 60, 99, 100, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "59",
+            "bits": "0x404d800000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "60",
+            "bits": "0x404e000000000000"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "99",
+            "bits": "0x4058c00000000000"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.650000000000003",
+        "bits": "0x400d33333333333a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/DISC.reading.json",
+        "locator": "fn7-DISC-fictitious-leap-day-1",
+        "note": null
+      }
+    },
+    {
+      "call": "DISC(1520, 1521, 99, 100, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "1520",
+            "bits": "0x4097c00000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "1521",
+            "bits": "0x4097c40000000000"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "99",
+            "bits": "0x4058c00000000000"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.6600000000000033",
+        "bits": "0x400d47ae147ae14f"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/DISC.reading.json",
+        "locator": "fn7-DISC-fictitious-leap-day-2",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c4c5dde7e2dcf735d2849835fc49769e2ab67ba7",
+      "path": "crates/calc-func/src/ported/day_count_common.rs",
+      "locator": null,
+      "note": "the leap-day test as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_scalar_readings_follow_the_application_route",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json",
+      "locator": null,
+      "note": "87 recorded readings"
+    }
+  ],
+  "open": [
+    "An argument left empty in the call, as in YEARFRAC(,5), has not been read."
+  ],
+  "recorded_on": "2026-11-04"
+}

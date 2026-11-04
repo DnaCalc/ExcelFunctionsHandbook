@@ -1,0 +1,245 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IFS-001",
+  "functions": [
+    "FUNC.IFS",
+    "FUNC.SWITCH"
+  ],
+  "kind": "quirk",
+  "title": "IFS and SWITCH pass on the selected value whole, and later arrays do not lift the call",
+  "statement": "Once a scalar test selects a result, array arguments after it have no effect on the shape: IFS(TRUE,1,{FALSE,TRUE},{2,3}) and SWITCH(2,2,1,{1,2},3) each return one 1, not an array, and SWITCH(\"A\",\"a\",1,{\"A\",\"A\"},2) returns 1 because the match ignores case. The selected value itself is passed on as it is. A selected reference stays a reference: ISBLANK(IFS(TRUE,Data!Z1)) is TRUE over an empty cell. A selected LAMBDA shows as #CALC! in the cell, IFS(TRUE,LAMBDA(xx,xx)), and a selected array of LAMBDAs as #CALC! in each cell. A test that is not TRUE or FALSE gives #VALUE! in the shape of its result: IFS(\"2\",{\"hit\",\"hit\"}) is {#VALUE!,#VALUE!}. A direct error as the SWITCH expression stays one error: SWITCH(#VALUE!,1,{1,2},0) is #VALUE!.",
+  "status": "measured",
+  "basis": "11 recorded selection readings in dynamic-array Excel, each with size observers.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=IFS(TRUE,1,{FALSE,TRUE},{2,3})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q208, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=SWITCH(2,2,1,{1,2},3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q209, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=SWITCH(\"A\",\"a\",1,{\"A\",\"A\"},2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q016, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISBLANK(IFS(TRUE,Data!Z1))",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "Data!Z1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q194, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISBLANK(SWITCH(1,1,Data!Z1))",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "Data!Z1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q195, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IFS(TRUE,LAMBDA(xx,xx))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q017, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=SWITCH(1,1,LAMBDA(xx,xx))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q018, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IFS(TRUE,HSTACK(LAMBDA(xx,xx),LAMBDA(xx,xx)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{#CALC!,#CALC!}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q019, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IFS(\"2\",{\"hit\",\"hit\"})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{#VALUE!,#VALUE!}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q021, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=SWITCH(#VALUE!,1,{1,2},0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q022, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": null,
+      "note": "selection and callable readings pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+      "locator": "sheets fn2_q016 to fn2_q022, fn2_q194, fn2_q195, fn2_q208, fn2_q209",
+      "note": "recorded readings"
+    }
+  ],
+  "open": [
+    "A selected LAMBDA that is then called, or passed through LET or IFERROR, has not been read in a published capture."
+  ],
+  "recorded_on": "2026-11-04"
+}

@@ -6,11 +6,11 @@
     "FUNC.CUMPRINC"
   ],
   "kind": "bit-matching-detail",
-  "title": "CUMPRINC sums PPMT left to right, and CUMIPMT is count*PMT less CUMPRINC",
-  "statement": "On the 30-year loan, CUMPRINC(0.05/12,360,200000,1,12,0) equals the left-to-right binary64 sum of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same periods equals 12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit.",
+  "title": "CUMPRINC follows PPMT on one loan and not in general; its own route is open",
+  "statement": "On the 30-year loan, CUMPRINC(0.05/12,360,200000,1,12,0) equals the left-to-right binary64 sum of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same periods equals 12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit. That does not generalise: over recorded type 0 calls for a single period, CUMPRINC equals PPMT on 56 of 135 rows and differs on 79, with PPMT computed by the route in FN-IPMT-001.",
   "status": "measured",
-  "basis": "One loan block of the catalogue capture, recomputed from the recorded answers by binary64 arithmetic.",
-  "inferred": "That this shape holds for every loan is inferred from this block; PPMT and PMT themselves are not yet reproduced, so a wider check is not available.",
+  "basis": "One loan block of the catalogue capture, recomputed from the recorded answers by binary64 arithmetic, and 135 recorded single-period CUMPRINC rows compared with PPMT's route.",
+  "inferred": "That the 79 single-period differences are CUMPRINC's own and not PPMT's rests on the PPMT route, which matches every fv 0, type 0 row tested. That CUMIPMT remains count*PMT less CUMPRINC beyond this block is inferred.",
   "documentation": null,
   "repros": [
     {
@@ -74,12 +74,28 @@
   "evidence": [
     {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt",
+      "locator": "section UPDATE, open item 3",
+      "note": "research write-up"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "6c6cbd31c960fe1ac07d5cce9cb33ca9d7d86cf5",
+      "path": "crates/calc-func/src/ported/cumulative_finance_family.rs",
       "locator": null,
-      "note": "research write-up, findings F1 to F4; the PMT work is unfinished at this date"
+      "note": "the commit message states the 79 of 135 and the loss class"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "6c6cbd31c960fe1ac07d5cce9cb33ca9d7d86cf5",
+      "path": "crates/calc-func/src/ported/cumulative_finance_family.rs",
+      "locator": null,
+      "note": "the commit message states the 79 of 135 and the loss class"
     }
   ],
-  "open": [],
+  "open": [
+    "CUMPRINC's per-period route. Recurrences, closed balances, count*PMT less interest and binary64 variants all stay below PPMT's 56 of 135. Recorded rows now match CUMPRINC 185 of 586 and CUMIPMT 12 of 38."
+  ],
   "recorded_on": "2026-11-04"
 }

@@ -5,10 +5,10 @@
     "FUNC.WEEKNUM"
   ],
   "kind": "quirk",
-  "title": "WEEKNUM with an invalid return_type gave different answers in one build",
-  "statement": "The documentation says an out-of-range return_type gives #NUM!. In recorded captures of one Excel build, 479 (serial_number, return_type) pairs were read with different results: usually #NUM!, sometimes a number (0, 1, 9, 10, 53 or 54). Some pairs differ within one run file. Every conflict has an invalid return_type (-5 to -1 or 22 to 129, 113 distinct values); no valid return_type conflicts. The conflict is open: no rule is claimed.",
+  "title": "WEEKNUM with an invalid return_type can answer differently each time it is called",
+  "statement": "The documentation says an out-of-range return_type gives #NUM!. Excel usually does, but not always, and the same call can give different answers. In recorded captures of build 20430, 479 (serial_number, return_type) pairs were read with different results: usually #NUM!, sometimes a number (0, 1, 9, 10, 53 or 54), and some pairs differ within one run file. In build 20527 a matrix of 1,926 pairs (serial_number 0, 1, 59, 60, 61 and 43831, return_type -32 to 288) was read twice in one request, and 623 pairs differed between the two readings: 619 between a number and #NUM!, and 4 between 9 and 10. Every difference has an undocumented return_type. The ten documented return_types (1, 2, 11 to 17 and 21) gave the same answer both times. No rule for the undocumented values is claimed.",
   "status": "measured",
-  "basis": "The recorded readings conflict with each other; the counts come from the DnaCalc witness differences file.",
+  "basis": "The readings conflict with each other. The 479 comes from the DnaCalc witness differences file. The 1,926 pairs come from one request of 3,852 calls, with exact input read-backs, compared pair by pair.",
   "inferred": null,
   "documentation": {
     "claim": "If Return_type is out of the range specified in the table above, a #NUM! error is returned.",
@@ -167,10 +167,18 @@
       "path": "crates/calc-func/witness-differences.tsv",
       "locator": "WEEKNUM",
       "note": "index of the conflicting readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-zmk.2",
+      "note": "the repeat comparison of 3,852 calls in build 20527"
     }
   ],
   "open": [
-    "Repeat readings of the conflicting pairs, in one fresh workbook, have not been taken."
+    "What decides the answer for an undocumented return_type is not known.",
+    "The raw readings of build 20527 are not yet in a published capture. Their counts are recorded in the DnaCalc issue tracker."
   ],
   "recorded_on": "2026-11-04"
 }

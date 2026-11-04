@@ -178,22 +178,26 @@ measured, these notes are the later record. All notes: [Function notes](../notes
 *Quirk; measured; recorded 2026-11-04.*
 
 When an array index_num lifts CHOOSE in dynamic-array Excel, selected empty cells come back as
-the number 0 rather than as blank references, so ISBLANK over them is FALSE.
+the number 0 rather than as blank references, so ISBLANK over them is FALSE. With a scalar
+index the selected reference survives: ISREF(CHOOSE(1,ref)) was recorded TRUE.
 
 | Call | Inputs (binary64) | Excel | Recorded in |
 |---|---|---|---|
 | `=ISBLANK(CHOOSE({1,2},Data!Z1,Data!Z2))` | as typed | `{FALSE,FALSE}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISREF(CHOOSE(1,[ylr-source.xlsx]Sheet1!A1))` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
-Basis (measured): One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells.
+Basis (measured): One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells,
+and one scalar ISREF reading with a reference to another workbook.
 
-Inferred, not measured: That a scalar index keeps the blank reference is a DnaCalc control, not
-a recorded reading.
+Inferred, not measured: That a scalar index over an empty cell gives ISBLANK TRUE is inferred
+from the ISREF reading. No ISBLANK reading of it is recorded.
 
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q193 at `eceb809985`
 - DnaCalc `.beads/issues.jsonl`, dc-b1l.24 at `1ec418b2c1` — review record
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q193, row 20, column 10 at `eceb809985` (readings)
+- DnaCalc `crates/calc-host/tests/captures/dc_ylr/oracle.capture.json`, sheet Main, row 54, column 1 at `2d0eddcac8` — The recorded formula names the source workbook by its full path (readings)
 
 <!-- efh:notes end -->
 

@@ -1,0 +1,138 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GAMMA-001",
+  "functions": [
+    "FUNC.GAMMA"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Below 10, GAMMA is a stored product down to a seed on (1,2)",
+  "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, write x = i + y with GAMMA(1+y) on (1,2). For i from 2 to 9, GAMMA(x) is RN(t*GAMMA(1+y)), where t is the product (x-1)(x-2)...(1+y) taken from the top with each product RN. Each stage rounds, so the answers are not correctly rounded: at the fraction below, GAMMA(3.649...) is 1 unit high and GAMMA(5.649...) 1 unit low. The seed on (1,2) is a chain of stored products that has not been identified, and at x = 10 the route changes (FN-GAMMA-002).",
+  "status": "measured",
+  "basis": "2,000 of 2,000 fractions at each i from 2 to 9, from Excel's own GAMMA(1+y) (build 20527). The same formula fails at i = 10. Replayed for this note in exact rational arithmetic on 300 of those fractions: 300 of 300 at each i from 2 to 9, 61 of 300 at i = 10. Recorded GAMMA rows match 6,406 of 12,603 with stand-ins for the seed and the Stirling series, the worst by 49 units.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "GAMMA(1.6493607064491727)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.6493607064491727",
+            "bits": "0x3ffa63c80d581b40"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.900020234972592",
+        "bits": "0x3fecccf73c5e41af"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+        "path": "content/notes/evidence/2026-11-04/gamma-readings.tsv",
+        "locator": "GAMMA 3ffa63c80d581b40",
+        "note": null
+      }
+    },
+    {
+      "call": "GAMMA(3.6493607064491727)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "3.6493607064491727",
+            "bits": "0x400d31e406ac0da0"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.9328647235856704",
+        "bits": "0x400f7681c7bb23e9"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "3.93286472358567",
+        "bits": "0x400f7681c7bb23e8",
+        "how": "mpmath gamma at 800 bits from the binary64 input, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+        "path": "content/notes/evidence/2026-11-04/gamma-readings.tsv",
+        "locator": "GAMMA 400d31e406ac0da0",
+        "note": null
+      }
+    },
+    {
+      "call": "GAMMA(5.649360706449173)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "5.649360706449173",
+            "bits": "0x401698f2035606d0"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "66.72967981145608",
+        "bits": "0x4050aeb312f3b057"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "66.7296798114561",
+        "bits": "0x4050aeb312f3b058",
+        "how": "mpmath gamma at 800 bits from the binary64 input, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+        "path": "content/notes/evidence/2026-11-04/gamma-readings.tsv",
+        "locator": "GAMMA 401698f2035606d0",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+      "path": "content/notes/evidence/2026-11-04/gamma-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: how the stored stages were read"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "1c7a4ab86b12b53d80947f06b6d381e8e5dd5f3f",
+      "path": "crates/calc-func/src/ported/excel_numeric/gammaln.rs",
+      "locator": null,
+      "note": "the routes in the product, with stand-ins where the code says so; the commit message carries the row counts"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "af74247e1ed54f0b535143f1305261b98d80d18e",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": null,
+      "note": "rows matched per function"
+    }
+  ],
+  "open": [
+    "The seed GAMMA(1+y) on (1,2): about five stored smooth quantities, seen as lines in its noise. Cody's rational matches 33% of it. Many closed families were tested and refuted.",
+    "x < 1 and negative arguments."
+  ],
+  "recorded_on": "2026-11-04"
+}

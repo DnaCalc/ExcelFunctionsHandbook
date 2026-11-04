@@ -1,0 +1,362 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COUPDAYSNC-001",
+  "functions": [
+    "FUNC.COUPDAYBS",
+    "FUNC.COUPDAYS",
+    "FUNC.COUPDAYSNC"
+  ],
+  "kind": "quirk",
+  "title": "On basis 0 COUPDAYSNC is not always COUPDAYS minus COUPDAYBS",
+  "statement": "On basis 0 (US 30/360), COUPDAYSNC is P - A. A is COUPDAYBS, the accrued days. P is a 30/360 count between the actual previous and next coupon dates, with day 31 and the last day of February both counted as day 30. COUPDAYS on basis 0 is always 360/frequency, but P need not be: when a coupon falls on the last day of February and maturity is not a month end, P can be 88, 89 or 92 for a quarter and 178 or 182 for a half year. So COUPDAYSNC(39923,50919,4,0), with coupons 2009-02-28 and 2009-05-29, is 39: P is 89 and A is 50, where 90 - 50 would give 40. With no coupon date before settlement in Excel's calendar, the period starts at serial 0: COUPDAYSNC(33,400,2,0) is 1, and for settlement 61, maturity 456 and annual coupons COUPDAYBS plus COUPDAYSNC is 90, not 360. This rule matches all 1,664 recorded number rows on basis 0, 733 of them chosen near February, month ends and the start of the calendar.",
+  "status": "measured",
+  "basis": "1,664 recorded rows with a number answer on basis 0, from builds 20131, 20430 and 20527, recomputed independently from the calendar. An implementation of these rules matches all 33,504 selected readings of the six coupon functions. Fictitious 1900-02-29 is not a month end here.",
+  "inferred": "The split into P and A reproduces every row; that Excel's code forms these two counts is inferred. For the February cases in this note only COUPDAYSNC is recorded: their A comes from the rule, not from a COUPDAYBS reading.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "COUPDAYSNC(39923, 50919, 4, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "39923",
+            "bits": "0x40e37e6000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "50919",
+            "bits": "0x40e8dce000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "39",
+        "bits": "0x4043800000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json",
+        "locator": "fn7-COUPDAYSNC-remaining-calendar-1",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYSNC(45986, 57038, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "45986",
+            "bits": "0x40e6744000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "57038",
+            "bits": "0x40ebd9c000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "95",
+        "bits": "0x4057c00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json",
+        "locator": "fn7-COUPDAYSNC-remaining-calendar-2",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYSNC(46478, 46627, 4, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "46478",
+            "bits": "0x40e6b1c000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "46627",
+            "bits": "0x40e6c46000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "57",
+        "bits": "0x404c800000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json",
+        "locator": "fn7-COUPDAYSNC-full-period-holdout-90",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYSNC(33, 400, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "33",
+            "bits": "0x4040800000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "400",
+            "bits": "0x4079000000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json",
+        "locator": "fn7-COUPDAYSNC-calendar-boundary-127",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYBS(61, 456, 1, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "61",
+            "bits": "0x404e800000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "456",
+            "bits": "0x407c800000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "61",
+        "bits": "0x404e800000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYBS.reading.json",
+        "locator": "fn7-COUPDAYBS-fake-february-43",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPDAYSNC(61, 456, 1, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "61",
+            "bits": "0x404e800000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "456",
+            "bits": "0x407c800000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "29",
+        "bits": "0x403d000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json",
+        "locator": "fn7-COUPDAYSNC-fake-february-43",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "7ec08d6707059ef1d74922ac9b8e0769f6093312",
+      "path": "crates/calc-func/src/ported/coupon_family.rs",
+      "locator": "coupdaysnc_kernel",
+      "note": "the rule as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json",
+      "locator": null,
+      "note": "733 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/COUPDAYBS.reading.json",
+      "locator": null,
+      "note": "120 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-zmk.4",
+      "note": "the 33,504 selected coupon readings"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

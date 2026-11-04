@@ -6,9 +6,9 @@
   ],
   "kind": "excel-differs-from-math",
   "title": "ROUNDUP adds its unit in binary64, one bit from the decimal answer",
-  "statement": "ROUNDUP forms the ROUNDDOWN result, converts it to binary64, converts one unit 10^-p to binary64, and adds the two in binary64. The sum need not be the binary64 value nearest the decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and ROUNDUP(3.535,2) is 3.5399999999999996. The difference shows when the result is compared with a typed 3.54.",
+  "statement": "ROUNDUP forms the ROUNDDOWN result, converts it to binary64, converts one unit 10^-p to binary64, and adds the two on the x87 unit, storing the sum to binary64. The sum need not be the binary64 value nearest the decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and ROUNDUP(3.535,2) is 3.5399999999999996. The difference shows when the result is compared with a typed 3.54.",
   "status": "measured",
-  "basis": "Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of 36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317, with no row lost and each remaining failure classified in the write-up.",
+  "basis": "Under the family rules the recorded rows match ROUND 36,821 of 36,945, ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row lost and each remaining failure classified in the write-up.",
   "inferred": null,
   "documentation": null,
   "repros": [
@@ -98,14 +98,14 @@
   "evidence": [
     {
       "repository": "DnaCalc",
-      "commit": "77873410e3b5b659e3ab1c808a7926dd9f36c5ea",
-      "path": "crates/calc-func/tests/f1_math.rs",
-      "locator": "rounding_family_matches_recorded_bank_rows",
-      "note": "ROUND family rules in the product; failed before the change"
+      "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+      "path": "crates/calc-func/src/catalogue/rounding.rs",
+      "locator": null,
+      "note": "the rules in the product; the commit message carries the row counts"
     },
     {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
       "locator": null,
       "note": "research write-up: full-bank result, the rules, what stays open"

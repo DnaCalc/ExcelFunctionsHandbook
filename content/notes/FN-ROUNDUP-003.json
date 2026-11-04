@@ -1,0 +1,161 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ROUNDUP-003",
+  "functions": [
+    "FUNC.ROUNDUP"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "At tiny magnitudes ROUNDUP may add no unit, and the two signs differ",
+  "statement": "ROUNDUP adds no unit when the unit itself is below the normal range, whichever the sign. For a positive number it also adds none when the 15-digit reading, as binary64, lies less than 2^-1026 above the truncation; negative numbers have no such distance. So ROUNDUP(1.0001086461844975E-307,307) is 1E-307 and ROUNDUP(-1.0001086461844975E-307,307) is -2E-307, with the same digits dropped. At -1.2225E-307 and 308 places the unit, 1E-308, is subnormal, and the answer stays at -1.2E-307.",
+  "status": "measured",
+  "basis": "ROUNDUP rows match under these rules as counted in FN-ROUND-001. In the 1,148 recorded rows nearest the 2^-1026 boundary this quantity has 1 violation, itself an artefact of how the row was classified; the exact value, the reading and x minus the truncation give 54 to 547. The opposite-sign pair is a reading from Excel build 20527.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ROUNDUP(1.0001086461844975e-307, 307)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0001086461844975e-307",
+            "bits": "0x0031fa982c40c60e"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "307",
+            "bits": "0x4073300000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1e-307",
+        "bits": "0x0031fa182c40c60d"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "2e-307",
+        "bits": "0x0041fa182c40c60d",
+        "how": "The number has a nonzero digit past 307 places, so rounding away from zero at 307 places gives 2E-307; nearest binary64."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+        "path": "crates/calc-func/tests/f1_math.rs",
+        "locator": "rounding_family_matches_recorded_bank_rows",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUNDUP(-1.2225073858507202e-307, 308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-1.2225073858507202e-307",
+            "bits": "0x8035fa182c40c60e"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "308",
+            "bits": "0x4073400000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1.2e-307",
+        "bits": "0x80359283684dba77"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-1.3e-307",
+        "bits": "0x80375eb9065434ab",
+        "how": "The number has a nonzero digit past 308 places, so rounding away from zero at 308 places gives -1.3E-307; nearest binary64."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+        "path": "crates/calc-func/tests/f1_math.rs",
+        "locator": "rounding_family_matches_recorded_bank_rows",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUNDUP(1.0000000022250739e-300, 307)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0000000022250739e-300",
+            "bits": "0x01a56e1fc3c5c026"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "307",
+            "bits": "0x4073300000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.0000001000000001e-300",
+        "bits": "0x01a56e1fe6ed23b2"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+        "path": "crates/calc-func/tests/f1_math.rs",
+        "locator": "rounding_family_matches_recorded_bank_rows",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+      "path": "crates/calc-func/src/catalogue/rounding.rs",
+      "locator": null,
+      "note": "the rules in the product; the commit message carries the row counts"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+      "path": "crates/calc-func/tests/f1_math.rs",
+      "locator": "rounding_family_matches_recorded_bank_rows",
+      "note": "three rows of Excel's answers; failed before the change"
+    }
+  ],
+  "open": [
+    "14 ROUNDUP rows of tiny magnitude stay unmatched, in the near-tie class of FN-ROUND-002."
+  ],
+  "recorded_on": "2026-11-04"
+}

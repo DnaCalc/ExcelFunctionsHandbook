@@ -4,13 +4,14 @@
   "functions": [
     "FUNC.ROUND",
     "FUNC.ROUNDDOWN",
+    "FUNC.ROUNDUP",
     "FUNC.TRUNC"
   ],
   "kind": "excel-differs-from-math",
   "title": "Near DBL_MAX, ROUND returns NaN bit patterns that Excel treats as numbers",
-  "statement": "ROUND of a number near 1.8E308 can return a binary64 with an all-ones exponent field: the decimal-to-binary conversion does not saturate, and a value of 1.8E308 comes out with the exponent overflowed. The bank holds 430 such ROUND rows, 102 ROUNDDOWN and 95 TRUNC. Even ROUND(DBL_MAX,0), whose answer is DBL_MAX, returns 0x7ff000000000000a. The cell shows 2E+308 or 1.8E+308, ISNUMBER gives TRUE, ISERROR FALSE, TYPE 1, and =A1, N(A1), MAX(A1), ABS(A1) and IFERROR(A1,...) pass the pattern on, as does =-A1 with its sign unchanged. Arithmetic on it (A1+0, A1*1, A1-A1, SUM, ROUND) gives #NUM!, TEXT(A1,\"0\") gives #VALUE!, ERROR.TYPE(A1) gives #N/A. Saved to .xlsx and reopened, the cells read #NUM! until recalculated, when the patterns return.",
+  "statement": "ROUND of a number near 1.8E308 can return a binary64 with an all-ones exponent field. A decimal result of 2^1024 or more keeps its 53-bit significand, and its exponent is carried into the exponent field without a check, so the bits are a NaN. ROUND, ROUNDDOWN and TRUNC return those bits; ROUNDUP gives #NUM!. The recorded rows hold 430 such ROUND rows, 102 ROUNDDOWN and 95 TRUNC, and all 627 follow this. Even ROUND(DBL_MAX,0), whose answer is DBL_MAX, returns 0x7ff000000000000a. The cell shows 2E+308 or 1.8E+308, and a pattern with its sign bit set shows 2E+308 too, with no minus. ISNUMBER gives TRUE, ISERROR FALSE, TYPE 1, ERROR.TYPE #N/A; A1=A1 and A1>0 are TRUE. =A1, N(A1), MAX(A1), ABS(A1) and IFERROR(A1,...) pass the pattern on, as does =-A1 with its sign unchanged. Arithmetic on it (A1+0, A1*1, A1-A1, SUM, ROUND) gives #NUM!, and TEXT(A1,\"0\") gives #VALUE!. Saved to .xlsx, each such cell is written as the error #NUM!; reopened, the cells read #NUM! until a full recalculation brings the patterns back.",
   "status": "measured",
-  "basis": "One Excel workbook read cell by cell through Value2 on 2026-11-04, saved, reopened and recalculated; bank counts from the rounding write-up.",
+  "basis": "One Excel workbook read cell by cell through Value2 on 2026-11-04, saved, reopened and recalculated; rows from the rounding write-up, 627 of 627.",
   "inferred": "That one decimal-to-binary conversion routine is the source of all these patterns is inferred from the exponent-overflow encoding.",
   "documentation": null,
   "repros": [
@@ -49,7 +50,7 @@
       "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
       "source": {
         "repository": "ExcelFunctionsHandbook",
-        "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
         "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
         "locator": "cells.A3",
         "note": null
@@ -90,7 +91,7 @@
       "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
       "source": {
         "repository": "ExcelFunctionsHandbook",
-        "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
         "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
         "locator": "cells.A2",
         "note": null
@@ -131,7 +132,7 @@
       "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
       "source": {
         "repository": "ExcelFunctionsHandbook",
-        "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
         "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
         "locator": "cells.A1",
         "note": null
@@ -140,27 +141,43 @@
   ],
   "evidence": [
     {
+      "repository": "DnaCalc",
+      "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+      "path": "crates/calc-func/src/catalogue/rounding.rs",
+      "locator": null,
+      "note": "the rules in the product; the commit message carries the row counts"
+    },
+    {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
       "locator": "cells A1..A4, B1..B24, reopened, recalculated",
       "note": "cell-by-cell Excel reading of the NaN patterns"
     },
     {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/round-nan-downstream.ps1",
       "locator": null,
       "note": "the script that took the reading"
     },
     {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+      "path": "content/notes/evidence/2026-11-04/round-nan-downstream-sheet1.xml",
+      "locator": null,
+      "note": "the sheet as Excel saved it"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
       "locator": null,
       "note": "research write-up: full-bank result, the rules, what stays open"
     }
   ],
-  "open": [],
+  "open": [
+    "How these patterns sort among themselves and with other numbers, and display width, are not recorded."
+  ],
   "recorded_on": "2026-11-04"
 }

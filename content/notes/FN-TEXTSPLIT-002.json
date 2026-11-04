@@ -9,7 +9,7 @@
   "title": "Over an array, TEXTSPLIT and REGEXEXTRACT keep only the first piece of each element",
   "statement": "When TEXTSPLIT's text is an array, even a 1 by 1 array, the call lifts over the elements and each returns only its first piece. MAP over the same lambda gives #CALC!, while BYROW gives the first pieces. REGEXEXTRACT lifted over return_mode does the same, and mode 2 on a pattern with no capture group gives #VALUE!.",
   "status": "measured",
-  "basis": "About 15 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.",
+  "basis": "22 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.",
   "inferred": null,
   "documentation": null,
   "repros": [

@@ -11,7 +11,7 @@
   "title": "The rounding functions read 15 digits first, so ROUNDDOWN can round up",
   "statement": "Before choosing a digit these functions read the number to 15 significant digits on the x87 unit: with e the decimal exponent and n = 14 - e, y = RN64(|x| * 10^n), or RN64(|x| / 10^-n) when n is negative, while 10^|n| is exact in 64 bits (|n| <= 27). A half in y goes up for ROUNDDOWN, ROUNDUP and TRUNC and down for ROUND. So digits beyond the 15th are lost even when the requested precision keeps them: ROUND(-1594628480062905,14) loses its last digit, and ROUNDDOWN(283025097725723.5,0) returns 283025097725724, larger than its input.",
   "status": "measured",
-  "basis": "Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of 36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317, with no row lost and each remaining failure classified in the write-up.",
+  "basis": "Under the family rules the recorded rows match ROUND 36,821 of 36,945, ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row lost and each remaining failure classified in the write-up.",
   "inferred": null,
   "documentation": null,
   "repros": [
@@ -101,21 +101,22 @@
   "evidence": [
     {
       "repository": "DnaCalc",
-      "commit": "77873410e3b5b659e3ab1c808a7926dd9f36c5ea",
-      "path": "crates/calc-func/tests/f1_math.rs",
-      "locator": "rounding_family_matches_recorded_bank_rows",
-      "note": "ROUND family rules in the product; failed before the change"
+      "commit": "ab94fb91a50fbdf89bdb2dac0e12fcd77a5e5f82",
+      "path": "crates/calc-func/src/catalogue/rounding.rs",
+      "locator": null,
+      "note": "the rules in the product; the commit message carries the row counts"
     },
     {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
       "locator": null,
       "note": "research write-up: full-bank result, the rules, what stays open"
     }
   ],
   "open": [
-    "How the scale is formed for |n| > 27: a single correctly rounded 64-bit power and the chained multiplications tried do not fit; 123 ROUND, 548 ROUNDUP, 556 ROUNDDOWN and 555 TRUNC rows remain."
+    "How the scale is formed for |n| > 27: a single correctly rounded 64-bit power and the chained multiplications tried do not fit; 123 ROUND, 548 ROUNDUP, 556 ROUNDDOWN and 555 TRUNC rows remain.",
+    "The reading step itself: one control at n = -10 misses the single RN64 step by just over half a unit, so that step is an approximation of the real one even for |n| <= 27. It stays because it gains rows and loses none."
   ],
   "recorded_on": "2026-11-04"
 }

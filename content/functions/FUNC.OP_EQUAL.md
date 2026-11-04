@@ -230,7 +230,7 @@ final consonant, U+1100 U+1161 U+11A8 against U+AC01.
 
 Basis (measured): 32 recorded readings on the fn3_collation sheet.
 
-- Open: Twelve further boundary questions are unanswered.
+- Open: Twelve further comparisons (other leading consonants, a trailing consonant, a compound vowel, compatibility jamo) were read on 2026-11-04. They are not yet in a published capture, so this note does not rest on them.
 
 Evidence:
 

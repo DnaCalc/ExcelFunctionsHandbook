@@ -1,0 +1,226 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-VALUE-003",
+  "functions": [
+    "FUNC.VALUE"
+  ],
+  "kind": "quirk",
+  "title": "VALUE takes one percent sign anywhere around parentheses, and a euro sign but not a dollar",
+  "statement": "VALUE reads parentheses as a negative sign and one percent sign in any of these places: \"(1)%\", \"(1) %\", \"(1%)\", \"(%1)\" and \"%(1)\" are all -0.01. A second percent sign, as in \"(1%)%\", \"%(1)%\" and \"(1)%%\", gives #VALUE!, as does trailing text. The euro sign is read as a currency sign in the recorded en-ZA settings: \"€1\", \"1€\", \"€ 1\", \"€-1\", \"-€1\", \"(€1)\" and \"€(1)\" are 1 or -1. \"$1\" and \"£1\" are #VALUE! there. Currency and percent do not combine: \"€1%\", \"(€1)%\" and \"(R1)%\" are #VALUE!.",
+  "status": "measured",
+  "basis": "21 recorded VALUE readings.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=VALUE(\"(1)%\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-0.01",
+        "bits": "0xbf847ae147ae147b"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q072, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"(%1)\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-0.01",
+        "bits": "0xbf847ae147ae147b"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q075, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"%(1)\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-0.01",
+        "bits": "0xbf847ae147ae147b"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q076, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"(1%)%\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q077, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"€1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q083, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"1€\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q084, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"€(1)\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-1",
+        "bits": "0xbff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q089, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"€1%\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q090, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"$1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q091, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"£1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q092, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+      "locator": "sheets q072 to q092",
+      "note": "21 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "recorded_parenthesized_percent_text_keeps_its_suffix",
+      "note": "the same parenthesised percent forms through INT"
+    }
+  ],
+  "open": [
+    "Why the euro sign is accepted in en-ZA settings, and \"$\" is not, is not known. The other locales have not been read."
+  ],
+  "recorded_on": "2026-11-04"
+}

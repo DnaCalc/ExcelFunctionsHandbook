@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 36, over 42 functions (of the 541 entries = 518 functions + 23 operators).
-- Excel differs from the mathematical answer: 13.
-- Detail for matching Excel's bits: 7.
-- Quirk: 13.
-- Documentation differs from behaviour: 3.
-- Measured: 35; inferred: 1.
+- Notes: 65, over 101 functions (of the 541 entries = 518 functions + 23 operators).
+- Excel differs from the mathematical answer: 19.
+- Detail for matching Excel's bits: 10.
+- Quirk: 32.
+- Documentation differs from behaviour: 4.
+- Measured: 63; inferred: 2.
 
 ## Where Excel's answer is wrong
 
@@ -30,6 +30,12 @@ answer.
 |---|---|---|---|
 | [FN-ABS-001](#fn-abs-001-text-to-number-checks-the-exponent-range-even-when-the-mantissa-is-zero) | `=ABS("0e-309")` | `#VALUE!` | `0` (`0x0000000000000000`) |
 | [FN-ABS-001](#fn-abs-001-text-to-number-checks-the-exponent-range-even-when-the-mantissa-is-zero) | `=ABS("0e309")` | `#VALUE!` | `0` (`0x0000000000000000`) |
+| [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) | `ASINH(-1.0126103340069186e-11)` | `-1.0126122162949859e-11` (`0xbda6447fffff840a`) | `-1.0126103340069186e-11` (`0xbda6447d498e6f26`) |
+| [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) | `ASINH(-1.4901631254755754e-16)` | `-2.2204460492503128e-16` (`0xbcafffffffffffff`) | `-1.4901631254755754e-16` (`0xbca579bb4790a498`) |
+| [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) | `ASINH(1.0501151062119094e-16)` | `0` (`0x0000000000000000`) | `1.0501151062119094e-16` (`0x3c9e447b5a2fd072`) |
+| [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) | `ASINH(5e-324)` | `0` (`0x0000000000000000`) | `5e-324` (`0x0000000000000001`) |
+| [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) | `ASINH(7.193439987815484e-08)` | `7.19343998474134e-08` (`0x3e734f4b58591206`) | `7.193439987815477e-08` (`0x3e734f4b587c8346`) |
+| [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) | `ASINH(2.3842260672008416e+154)` | `#NUM!` | `356.1601260731963` (`0x4076428fe05b79d7`) |
 | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit) | `BESSELI(12.514410892637624, 3.987394155038235)` | `21360.000787344507` (`0x40d4dc000ce65cba`) | `21360.00150112302` (`0x40d4dc0018982a92`) |
 | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit) | `BESSELI(1.8661547234119729, 7.047660373731416)` | `0.0001361367103021099` (`0x3f21d7fd6fe380e0`) | `0.00013613670961869657` (`0x3f21d7fd6e62c6a2`) |
 | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit) | `BESSELI(13.469754413420809, 10.617422640816173)` | `1957.477427686333` (`0x409e95e8e2cdac05`) | `1957.477488938039` (`0x409e95e8f2dc3451`) |
@@ -41,13 +47,28 @@ answer.
 | [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 0)` | `2.4788083687166675e+306` (`0x7f8c3d51558ee541`) | `2.4788087273156452e+306` (`0x7f8c3d519a191ac9`) |
 | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)` | `0.046077868684136686` (`0x3fa79784b622b014`) | `0.04607786868413672` (`0x3fa79784b622b019`) |
 | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `TBILLYIELD(47701, 47702, 2.279784366464575)` | `15430.96713248709` (`0x40ce237bcaff517a`) | `15430.967132487087` (`0x40ce237bcaff5178`) |
-| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.094947017729282e-13)` | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) |
-| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.999999999999998e-11)` | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) |
-| [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) | `MOD(-1.223247290044572e-296, 1.223247290044539e-296)` | `1.223247290044572e-296` (`0x0280000000000079`) | `1.2232472900445062e-296` (`0x027fffffffffff0e`) |
-| [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) | `MOD(1.223247290044539e-296, -1.2232472900445716e-296)` | `#NUM!` | `-3.25938553492266e-310` (`0x80003c0000000000`) |
+| [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) | `ERF.PRECISE(0.4524739583333333)` | `0.4777590107351978` (`0x3fde939a879e86f6`) | `0.4777590107351976` (`0x3fde939a879e86f3`) |
+| [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) | `ERF.PRECISE(9.094947017729282e-13)` | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) |
+| [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) | `ERF.PRECISE(9.999999999999998e-11)` | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) |
+| [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) | `ERFC.PRECISE(26.543000000000003)` | `2.2558350220536164e-308` (`0x001038a055f6d0d3`) | `2.2558350220535116e-308` (`0x001038a055f6cfff`) |
+| [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) | `ERFC.PRECISE(5.927083333333333)` | `5.1964407001614455e-17` (`0x3c8df497ca9a0a49`) | `5.1964407001614313e-17` (`0x3c8df497ca9a0a32`) |
+| [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) | `ERFC.PRECISE(2.0)` | `0.0046777349810472645` (`0x3f7328f5ec350e65`) | `0.004677734981047266` (`0x3f7328f5ec350e67`) |
+| [FN-GAMMA-001](#fn-gamma-001-below-10-gamma-is-a-stored-product-down-to-a-seed-on-12) | `GAMMA(3.6493607064491727)` | `3.9328647235856704` (`0x400f7681c7bb23e9`) | `3.93286472358567` (`0x400f7681c7bb23e8`) |
+| [FN-GAMMA-001](#fn-gamma-001-below-10-gamma-is-a-stored-product-down-to-a-seed-on-12) | `GAMMA(5.649360706449173)` | `66.72967981145608` (`0x4050aeb312f3b057`) | `66.7296798114561` (`0x4050aeb312f3b058`) |
+| [FN-GAMMA-002](#fn-gamma-002-from-10-up-gamma-is-a-stirling-product-of-stored-stages-and-its-error-grows-with-x) | `GAMMA(10.649360706449173)` | `1600316.6708269436` (`0x41386b3cabbb5088`) | `1600316.6708269438` (`0x41386b3cabbb5089`) |
+| [FN-GAMMA-002](#fn-gamma-002-from-10-up-gamma-is-a-stirling-product-of-stored-stages-and-its-error-grows-with-x) | `GAMMA(160.48267465838674)` | `3.410909690032054e+283` (`0x7acd5c4d6f1f4edc`) | `3.4109096900320908e+283` (`0x7acd5c4d6f1f4f35`) |
+| [FN-GAMMA.DIST-001](#fn-gammadist-001-gammadists-prefactor-carries-gammalna1-in-the-exponent-with-its-error) | `GAMMA.DIST(0.010000000000003386, 2, 1, TRUE)` | `4.9667913340299445e-05` (`0x3f0a0a5081f5d243`) | `4.966791334029942e-05` (`0x3f0a0a5081f5d23f`) |
+| [FN-GAMMA.DIST-001](#fn-gammadist-001-gammadists-prefactor-carries-gammalna1-in-the-exponent-with-its-error) | `GAMMA.DIST(0.5000000000001851, 3, 1, TRUE)` | `0.01438767796698471` (`0x3f8d774972ab2b85`) | `0.014387677966984718` (`0x3f8d774972ab2b89`) |
+| [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) | `GAMMALN(3)` | `0.6931471805599454` (`0x3fe62e42fefa39f0`) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) |
+| [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) | `GAMMALN.PRECISE(3)` | `0.6931471805599454` (`0x3fe62e42fefa39f0`) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) |
+| [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) | `GAMMALN(6.020222407046596)` | `4.8220305792560145` (`0x401349c26258ddb7`) | `4.822030579256015` (`0x401349c26258ddb8`) |
+| [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) | `=IPMT(0.05/12,12,360,200000)` | `-822.0867740866778` (`0xc089b0b1b69cc35f`) | `-822.0867740866777` (`0xc089b0b1b69cc35e`) |
+| [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) | `=PPMT(0.05/12,12,360,200000)` | `-251.5564719376004` (`0xc06f71ce9e3ca456`) | `-251.5564719376003` (`0xc06f71ce9e3ca452`) |
+| [FN-MOD-001](#fn-mod-001-mod-with-tiny-operands-gives-wrong-signs-and-num-by-a-rule-that-fits-every-recorded-row) | `MOD(-1.223247290044572e-296, 1.223247290044539e-296)` | `1.223247290044572e-296` (`0x0280000000000079`) | `1.2232472900445062e-296` (`0x027fffffffffff0e`) |
+| [FN-MOD-001](#fn-mod-001-mod-with-tiny-operands-gives-wrong-signs-and-num-by-a-rule-that-fits-every-recorded-row) | `MOD(1.223247290044539e-296, -1.2232472900445716e-296)` | `#NUM!` | `-3.25938553492266e-310` (`0x80003c0000000000`) |
 | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) | `MROUND(0.499999999999995, 1)` | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) |
 | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) | `MROUND(0.49999999999999994, 1)` | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) |
-| [FN-PMT-001](#fn-pmt-001-pmt-stores-the-quotient-before-it-multiplies-by-the-rate) | `=PMT(0.05/12,360,200000)` | `-1073.6432460242781` (`0xc090c692af15f63a`) | `-1073.643246024278` (`0xc090c692af15f639`) |
+| [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate) | `=PMT(0.05/12,360,200000)` | `-1073.6432460242781` (`0xc090c692af15f63a`) | `-1073.643246024278` (`0xc090c692af15f639`) |
 | [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) | `=PPMT(0.05/12,1,360,200000)` | `-240.30991269094474` (`0xc06e09eace050723`) | `-240.30991269094463` (`0xc06e09eace05071f`) |
 | [FN-ROUND-001](#fn-round-001-round-counts-digits-in-32-bits-and-the-count-wraps) | `ROUND(-112500000000000, 2147483635)` | `0` (`0x0000000000000000`) | `-112500000000000` (`0xc2d9945ca2620000`) |
 | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up) | `ROUND(-1594628480062905, 14)` | `-1594628480062900` (`0xc316a939806956d0`) | `-1594628480062905` (`0xc316a939806956e4`) |
@@ -61,69 +82,134 @@ answer.
 | [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits) | `TRUNC(1.234567890123456e-200, 65536)` | `0` (`0x0000000000000000`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) |
 | [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer) | `ROUNDUP(-1.125, 2)` | `-1.1300000000000001` (`0xbff2147ae147ae15`) | `-1.13` (`0xbff2147ae147ae14`) |
 | [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer) | `ROUNDUP(3.535, 2)` | `3.5399999999999996` (`0x400c51eb851eb851`) | `3.54` (`0x400c51eb851eb852`) |
+| [FN-ROUNDUP-003](#fn-roundup-003-at-tiny-magnitudes-roundup-may-add-no-unit-and-the-two-signs-differ) | `ROUNDUP(1.0001086461844975e-307, 307)` | `1e-307` (`0x0031fa182c40c60d`) | `2e-307` (`0x0041fa182c40c60d`) |
+| [FN-ROUNDUP-003](#fn-roundup-003-at-tiny-magnitudes-roundup-may-add-no-unit-and-the-two-signs-differ) | `ROUNDUP(-1.2225073858507202e-307, 308)` | `-1.2e-307` (`0x80359283684dba77`) | `-1.3e-307` (`0x80375eb9065434ab`) |
 | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) | `SQRT(0.9999999999999999)` | `1` (`0x3ff0000000000000`) | `0.9999999999999999` (`0x3fefffffffffffff`) |
 | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) | `SQRT(1.7976931348623157e+308)` | `1.3407807929942597e+154` (`0x5ff0000000000000`) | `1.3407807929942596e+154` (`0x5fefffffffffffff`) |
 | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) | `SQRT(5e-324)` | `0` (`0x0000000000000000`) | `2.2227587494850775e-162` (`0x1e60000000000000`) |
 | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula) | `TBILLEQ(40633.25, 40836.25, 0.21193100748125787)` | `0.24110326418450792` (`0x3fcedc78c550cec1`) | `0.24110326418450853` (`0x3fcedc78c550ced7`) |
 | [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) | `TRUNC(2.2250738585072014e-308, 0)` | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) |
 | [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) | `TRUNC(2.2250738585072014e-308, 1)` | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) |
+| [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) | `VAR.S(0.8769085090206679, 1, 1.1230914909793321)` | `0.015151515151515138` (`0x3f8f07c1f07c1f00`) | `0.015151515151515006` (`0x3f8f07c1f07c1eb4`) |
+| [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) | `VAR.S(1.2976169487144796e-09, 0.0013620167657056779)` | `9.275430676564799e-07` (`0x3eaf1f88c6bbc519`) | `9.2754306765648e-07` (`0x3eaf1f88c6bbc51a`) |
+| [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) | `=VAR.S({157,376.82,189.207,12.38,12.473,483,306.24,324.1852,482.235,78})` | `31907.480453381795` (`0x40df28debfbf8a84`) | `31907.480453381777` (`0x40df28debfbf8a7f`) |
 
 ## By function
 
 | Function | Notes |
 |---|---|
 | [`ABS`](../functions/FUNC.ABS.md) | [FN-ABS-001](#fn-abs-001-text-to-number-checks-the-exponent-range-even-when-the-mantissa-is-zero) |
+| [`ACCRINTM`](../functions/FUNC.ACCRINTM.md) | [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
+| [`ASINH`](../functions/FUNC.ASINH.md) | [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) |
 | [`BAHTTEXT`](../functions/FUNC.BAHTTEXT.md) | [FN-BAHTTEXT-001](#fn-bahttext-001-a-tiny-negative-amount-keeps-the-word-for-minus-before-zero-baht) |
 | `BESSELI` (no page yet) | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit), [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded), [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong), [FN-BESSELI-004](#fn-besseli-004-besseli-gives-num-just-above-7097-where-the-function-is-still-finite) |
 | `BESSELK` (no page yet) | [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) |
+| [`BYCOL`](../functions/FUNC.BYCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`BYROW`](../functions/FUNC.BYROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`CHOOSE`](../functions/FUNC.CHOOSE.md) | [FN-CHOOSE-001](#fn-choose-001-an-array-index-in-choose-turns-selected-blank-cells-into-0) |
 | [`COUNTBLANK`](../functions/FUNC.COUNTBLANK.md) | [FN-COUNTBLANK-001](#fn-countblank-001-countblank-of-an-omitted-optional-lambda-parameter-is-value) |
-| [`CUMIPMT`](../functions/FUNC.CUMIPMT.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-sums-ppmt-left-to-right-and-cumipmt-is-countpmt-less-cumprinc) |
-| [`CUMPRINC`](../functions/FUNC.CUMPRINC.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-sums-ppmt-left-to-right-and-cumipmt-is-countpmt-less-cumprinc) |
-| [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
-| `ERF` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) |
-| `ERF.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) |
+| [`COUPDAYBS`](../functions/FUNC.COUPDAYBS.md) | [FN-COUPDAYSNC-001](#fn-coupdaysnc-001-on-basis-0-coupdaysnc-is-not-always-coupdays-minus-coupdaybs) |
+| [`COUPDAYS`](../functions/FUNC.COUPDAYS.md) | [FN-COUPDAYS-001](#fn-coupdays-001-on-basis-1-coupdays-walks-back-from-maturity-by-its-own-rule-not-couppcd-to-coupncd), [FN-COUPDAYSNC-001](#fn-coupdaysnc-001-on-basis-0-coupdaysnc-is-not-always-coupdays-minus-coupdaybs) |
+| [`COUPDAYSNC`](../functions/FUNC.COUPDAYSNC.md) | [FN-COUPDAYSNC-001](#fn-coupdaysnc-001-on-basis-0-coupdaysnc-is-not-always-coupdays-minus-coupdaybs) |
+| [`COUPNCD`](../functions/FUNC.COUPNCD.md) | [FN-COUPDAYS-001](#fn-coupdays-001-on-basis-1-coupdays-walks-back-from-maturity-by-its-own-rule-not-couppcd-to-coupncd), [FN-COUPNUM-001](#fn-coupnum-001-coupnum-is-num-when-the-coupon-before-settlement-falls-before-1900) |
+| [`COUPNUM`](../functions/FUNC.COUPNUM.md) | [FN-COUPNUM-001](#fn-coupnum-001-coupnum-is-num-when-the-coupon-before-settlement-falls-before-1900) |
+| [`COUPPCD`](../functions/FUNC.COUPPCD.md) | [FN-COUPDAYS-001](#fn-coupdays-001-on-basis-1-coupdays-walks-back-from-maturity-by-its-own-rule-not-couppcd-to-coupncd), [FN-COUPNUM-001](#fn-coupnum-001-coupnum-is-num-when-the-coupon-before-settlement-falls-before-1900) |
+| [`CUMIPMT`](../functions/FUNC.CUMIPMT.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-follows-ppmt-on-one-loan-and-not-in-general-its-own-route-is-open) |
+| [`CUMPRINC`](../functions/FUNC.CUMPRINC.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-follows-ppmt-on-one-loan-and-not-in-general-its-own-route-is-open) |
+| [`DATEVALUE`](../functions/FUNC.DATEVALUE.md) | [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits), [FN-VALUE-002](#fn-value-002-a-date-as-text-takes-at-most-two-digits-for-month-and-day) |
+| `DELTA` (no page yet) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
+| [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
+| [`DOLLAR`](../functions/FUNC.DOLLAR.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
+| `ERF` (no page yet) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first), [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
+| `ERF.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
+| `ERFC` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
+| `ERFC.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
+| [`ERROR.TYPE`](../functions/FUNC.ERROR.TYPE.md) | [FN-ERROR.TYPE-001](#fn-errortype-001-errortype-of-busy-is-0) |
+| [`EXPAND`](../functions/FUNC.EXPAND.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`FIXED`](../functions/FUNC.FIXED.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
 | `FLOOR` (no page yet) | [FN-FLOOR-001](#fn-floor-001-floor-of-zero-is-0-even-with-significance-0) |
-| [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) |
+| [`GAMMA`](../functions/FUNC.GAMMA.md) | [FN-GAMMA-001](#fn-gamma-001-below-10-gamma-is-a-stored-product-down-to-a-seed-on-12), [FN-GAMMA-002](#fn-gamma-002-from-10-up-gamma-is-a-stirling-product-of-stored-stages-and-its-error-grows-with-x) |
+| [`GAMMA.DIST`](../functions/FUNC.GAMMA.DIST.md) | [FN-GAMMA.DIST-001](#fn-gammadist-001-gammadists-prefactor-carries-gammalna1-in-the-exponent-with-its-error) |
+| [`GAMMALN`](../functions/FUNC.GAMMALN.md) | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) |
+| [`GAMMALN.PRECISE`](../functions/FUNC.GAMMALN.PRECISE.md) | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) |
+| [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
 | [`GCD`](../functions/FUNC.GCD.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
-| [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| `GESTEP` (no page yet) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
+| [`HSTACK`](../functions/FUNC.HSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`IFS`](../functions/FUNC.IFS.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
+| [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
+| [`IPMT`](../functions/FUNC.IPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) |
+| [`IRR`](../functions/FUNC.IRR.md) | [FN-IRR-001](#fn-irr-001-irr-with-a-direct-non-number-gives-num-and-the-guess-is-still-checked) |
 | [`LCM`](../functions/FUNC.LCM.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
 | [`LINEST`](../functions/FUNC.LINEST.md) | [FN-LINEST-001](#fn-linest-001-linests-householder-reflector-stores-each-step-from-the-x87-unit), [FN-LINEST-002](#fn-linest-002-linest-with-no-residual-degrees-of-freedom-returns-zeros-and-one-num) |
 | [`LOGEST`](../functions/FUNC.LOGEST.md) | [FN-LINEST-001](#fn-linest-001-linests-householder-reflector-stores-each-step-from-the-x87-unit) |
-| [`MOD`](../functions/FUNC.MOD.md) | [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) |
+| [`LOWER`](../functions/FUNC.LOWER.md) | [FN-LOWER-001](#fn-lower-001-lower-leaves-letters-above-uffff-alone-and-a-combining-mark-stops-the-final-sigma) |
+| [`MAP`](../functions/FUNC.MAP.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`MOD`](../functions/FUNC.MOD.md) | [FN-MOD-001](#fn-mod-001-mod-with-tiny-operands-gives-wrong-signs-and-num-by-a-rule-that-fits-every-recorded-row) |
+| `MODE` (no page yet) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
+| `MODE.MULT` (no page yet) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
+| [`MODE.SNGL`](../functions/FUNC.MODE.SNGL.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
 | [`MROUND`](../functions/FUNC.MROUND.md) | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) |
+| [`NETWORKDAYS`](../functions/FUNC.NETWORKDAYS.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`NETWORKDAYS.INTL`](../functions/FUNC.NETWORKDAYS.INTL.md) | [FN-NETWORKDAYS.INTL-001](#fn-networkdaysintl-001-networkdaysintl-checks-weekend-before-the-dates-workdayintl-after-them), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`OP_EQUAL`](../functions/FUNC.OP_EQUAL.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable) |
-| [`OP_LESS_THAN`](../functions/FUNC.OP_LESS_THAN.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable), [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
-| `PMT` (no page yet) | [FN-PMT-001](#fn-pmt-001-pmt-stores-the-quotient-before-it-multiplies-by-the-rate), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
-| `PPMT` (no page yet) | [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
-| `PRICEDISC` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| [`OP_GREATER_THAN`](../functions/FUNC.OP_GREATER_THAN.md) | [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han) |
+| [`OP_LESS_THAN`](../functions/FUNC.OP_LESS_THAN.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable), [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han), [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
+| `PMT` (no page yet) | [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
+| `PPMT` (no page yet) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
+| `PRICEDISC` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
 | `PRICEMAT` (no page yet) | [FN-PRICEMAT-001](#fn-pricemat-001-pricemat-formula-order-on-the-x87-unit), [FN-PRICEMAT-002](#fn-pricemat-002-pricemat-basis-0-applies-the-31st-rule-before-the-february-rule) |
-| `RECEIVED` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| [`PROPER`](../functions/FUNC.PROPER.md) | [FN-LOWER-001](#fn-lower-001-lower-leaves-letters-above-uffff-alone-and-a-combining-mark-stops-the-final-sigma) |
+| `RECEIVED` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
 | [`REGEXEXTRACT`](../functions/FUNC.REGEXEXTRACT.md) | [FN-TEXTSPLIT-002](#fn-textsplit-002-over-an-array-textsplit-and-regexextract-keep-only-the-first-piece-of-each-element) |
+| [`REGEXTEST`](../functions/FUNC.REGEXTEST.md) | [FN-REGEXTEST-001](#fn-regextest-001-in-regextest-w-takes-combining-marks-dot-refuses-cr-and-case-folding-reaches-into-ranges) |
 | [`ROUND`](../functions/FUNC.ROUND.md) | [FN-ROUND-001](#fn-round-001-round-counts-digits-in-32-bits-and-the-count-wraps), [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers) |
 | [`ROUNDDOWN`](../functions/FUNC.ROUNDDOWN.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
-| [`ROUNDUP`](../functions/FUNC.ROUNDUP.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
+| [`ROUNDUP`](../functions/FUNC.ROUNDUP.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer), [FN-ROUNDUP-003](#fn-roundup-003-at-tiny-magnitudes-roundup-may-add-no-unit-and-the-two-signs-differ), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
 | [`SORT`](../functions/FUNC.SORT.md) | [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
-| [`SQRT`](../functions/FUNC.SQRT.md) | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) |
-| `TBILLEQ` (no page yet) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula) |
-| `TBILLYIELD` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
-| [`TEXT`](../functions/FUNC.TEXT.md) | [FN-TEXT-001](#fn-text-001-locale-tagged-month-weekday-and-era-names-in-text-follow-their-own-table) |
+| [`SQRT`](../functions/FUNC.SQRT.md) | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53), [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits) |
+| `STDEV` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| [`STDEV.P`](../functions/FUNC.STDEV.P.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| [`STDEV.S`](../functions/FUNC.STDEV.S.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| [`STDEVA`](../functions/FUNC.STDEVA.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| `STDEVP` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| [`STDEVPA`](../functions/FUNC.STDEVPA.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| [`SWITCH`](../functions/FUNC.SWITCH.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
+| [`TAKE`](../functions/FUNC.TAKE.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| `TBILLEQ` (no page yet) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| `TBILLPRICE` (no page yet) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| `TBILLYIELD` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`TEXT`](../functions/FUNC.TEXT.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it), [FN-TEXT-001](#fn-text-001-locale-tagged-month-weekday-and-era-names-in-text-follow-their-own-table), [FN-TEXT-002](#fn-text-002-in-text-an--applied-to-a-number-gives-the-general-display-not-the-full-number) |
 | [`TEXTAFTER`](../functions/FUNC.TEXTAFTER.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |
 | [`TEXTBEFORE`](../functions/FUNC.TEXTBEFORE.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |
 | [`TEXTSPLIT`](../functions/FUNC.TEXTSPLIT.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit), [FN-TEXTSPLIT-002](#fn-textsplit-002-over-an-array-textsplit-and-regexextract-keep-only-the-first-piece-of-each-element) |
+| [`TOCOL`](../functions/FUNC.TOCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`TOROW`](../functions/FUNC.TOROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`TRUNC`](../functions/FUNC.TRUNC.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
+| [`VALUE`](../functions/FUNC.VALUE.md) | [FN-ABS-001](#fn-abs-001-text-to-number-checks-the-exponent-range-even-when-the-mantissa-is-zero), [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits), [FN-VALUE-002](#fn-value-002-a-date-as-text-takes-at-most-two-digits-for-month-and-day), [FN-VALUE-003](#fn-value-003-value-takes-one-percent-sign-anywhere-around-parentheses-and-a-euro-sign-but-not-a-dollar) |
+| `VAR` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| `VAR.P` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| `VAR.S` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| `VARA` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| `VARP` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
+| `VARPA` (no page yet) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | `VDB` (no page yet) | [FN-VDB-001](#fn-vdb-001-an-empty-factor-slot-in-vdb-is-0-not-the-default-2) |
-| [`WEEKNUM`](../functions/FUNC.WEEKNUM.md) | [FN-WEEKNUM-001](#fn-weeknum-001-weeknum-with-an-invalid-return_type-gave-different-answers-in-one-build) |
+| [`VSTACK`](../functions/FUNC.VSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`WEEKNUM`](../functions/FUNC.WEEKNUM.md) | [FN-WEEKNUM-001](#fn-weeknum-001-weeknum-with-an-invalid-return_type-can-answer-differently-each-time-it-is-called) |
+| [`WORKDAY`](../functions/FUNC.WORKDAY.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`WORKDAY.INTL`](../functions/FUNC.WORKDAY.INTL.md) | [FN-NETWORKDAYS.INTL-001](#fn-networkdaysintl-001-networkdaysintl-checks-weekend-before-the-dates-workdayintl-after-them), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`YEARFRAC`](../functions/FUNC.YEARFRAC.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-serial-0-is-a-valid-date) |
 
 ## Notes
 
 ### FN-ABS-001: Text to number checks the exponent range even when the mantissa is zero
 
-*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to ABS,
+VALUE.
 
-Converting text to a number, measured through ABS, rejects a zero mantissa with an out-of-range
-exponent: ABS("0e-309") is #VALUE! though the text denotes 0, and ABS("0e-308") is 0. The
-exponent counts as written, less the fraction digits, less 2 for a percent sign, so
+Converting text to a number, measured through ABS and VALUE, rejects a zero mantissa with an
+out-of-range exponent: ABS("0e-309") is #VALUE! though the text denotes 0, and ABS("0e-308") is
+0. The exponent counts as written, less the fraction digits, less 2 for a percent sign, so
 ABS("0.0e309") is 0, ABS("0e309") is #VALUE!, and ABS("0e-307%") is #VALUE!.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
@@ -133,22 +219,91 @@ ABS("0.0e309") is 0, ABS("0e309") is #VALUE!, and ABS("0e-307%") is #VALUE!.
 | `=ABS("0e-307%")` | as typed | `#VALUE!` | — | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 | `=ABS("0e309")` | as typed | `#VALUE!` | `0` (`0x0000000000000000`) | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 | `=ABS("0.0e309")` | as typed | `0` (`0x0000000000000000`) | — | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=VALUE("0e-307")` | as typed | `0` (`0x0000000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e-307%")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e309")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0.0e309")` | as typed | `0` (`0x0000000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e309%")` | as typed | `0` (`0x0000000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e311%")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
 Correct value: The text denotes zero: a zero mantissa is 0 at any exponent.
 
-Basis (measured): About 120 recorded zero-mantissa cases through ABS.
+Basis (measured): About 120 recorded zero-mantissa cases through ABS, and 72 through VALUE. All
+72 VALUE readings fit a limit of -308 to 308 on the exponent as counted here.
 
 Inferred, not measured: The exponent formula is inferred, though it fits every reading; that
-other functions share this conversion is inferred.
+functions other than ABS and VALUE share this conversion is inferred.
 
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_zero_percentage_exponents_are_validated at `344c166787` — recorded readings pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt097 to qt168 at `2d0eddcac8` — 72 recorded VALUE readings
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00008-abs-boundary-2-0 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00012-abs-boundary-3-0 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00017-abs-boundary-4-1 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00028-abs-boundary-7-0 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00108-abs-boundary-27-0 at `e26b7bddb8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt099, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt100, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt107, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt143, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt108, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt112, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-ASINH-001: ASINH is LN(|x|+SQRT(x*x+1)) with every step stored, so small inputs lose their digits
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+ASINH is not the correctly rounded inverse hyperbolic sine. Its answers are those of
+SIGN(x)*LN(|x|+SQRT(x*x+1)), with x*x, the +1, the SQRT and the |x|+root each rounded to 64
+bits and then to 53 bits before the next step, and the LN rounded to binary64. That route loses
+most of the digits of a small input: once x*x+1 rounds to 1, the answer is LN of |x|+1 after
+rounding, so it moves in steps of about 2.2E-16. ASINH(-1.4901631254755754E-16) is -2.22E-16,
+about 1.5 times the true value, and in the recorded rows every |x| up to 1.05E-16, including
+every subnormal, gives 0 on either sign. At the other end the x*x overflows: answers are finite
+up to the largest recorded input below it, 9.23E153, and #NUM! from the next recorded input,
+2.38E154, although the true value there is about 356. In Excel build 20430 this route
+reproduces all 4,534 recorded rows (3,017 distinct inputs): 3,427 numbers and 1,107 #NUM!. The
+correctly rounded asinh matches only 1,224 of the 3,427.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ASINH(-1.0126103340069186e-11)` | number `-1.0126103340069186e-11` (`0xbda6447d498e6f26`) (cells) | `-1.0126122162949859e-11` (`0xbda6447fffff840a`) | `-1.0126103340069186e-11` (`0xbda6447d498e6f26`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ASINH(-1.4901631254755754e-16)` | number `-1.4901631254755754e-16` (`0xbca579bb4790a498`) (cells) | `-2.2204460492503128e-16` (`0xbcafffffffffffff`) | `-1.4901631254755754e-16` (`0xbca579bb4790a498`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ASINH(1.0501151062119094e-16)` | number `1.0501151062119094e-16` (`0x3c9e447b5a2fd072`) (cells) | `0` (`0x0000000000000000`) | `1.0501151062119094e-16` (`0x3c9e447b5a2fd072`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ASINH(5e-324)` | number `5e-324` (`0x0000000000000001`) (cells) | `0` (`0x0000000000000000`) | `5e-324` (`0x0000000000000001`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ASINH(7.193439987815484e-08)` | number `7.193439987815484e-08` (`0x3e734f4b587c834b`) (cells) | `7.19343998474134e-08` (`0x3e734f4b58591206`) | `7.193439987815477e-08` (`0x3e734f4b587c8346`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ASINH(9.234293629925394e+153)` | number `9.234293629925394e+153` (`0x5fe60a092f72d845`) (cells) | `355.2115905310072` (`0x40763362acc0ad1b`) | — | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ASINH(2.3842260672008416e+154)` | number `2.3842260672008416e+154` (`0x5ffc73a8ae6c7c25`) (cells) | `#NUM!` | `356.1601260731963` (`0x4076428fe05b79d7`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Correct value: mpmath asinh at 2000 bits, rounded to the nearest binary64
+
+Basis (measured): All 4,534 rows of two recorded sets, 3,017 and 1,517 rows, from Excel build
+20430. The route was recomputed independently in exact rational arithmetic with a correctly
+rounded LN, and matched every row. The stored steps matter on 5 of the rows (3 distinct
+inputs): the same formula in plain binary64 misses exactly those 5.
+
+Inferred, not measured: That Excel's code is this expression, in this order, is inferred; what
+is measured is that the route reproduces every recorded row. The overflow boundary at |x| =
+2^512, about 1.34E154, is inferred from x*x overflowing there: the recorded rows only bracket
+it, between 9.23E153 and 2.38E154.
+
+- Open: Only one Excel build, 20430, has been read over this range.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/asinh.rs`, asinh_kernel at `b28be66620` — the route as implemented
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, asinh_stores_each_identity_operation_from_pc64 at `b28be66620` — the three inputs that need the stored steps
+- DnaCalc `crates/calc-func/witness-status.tsv`, ASINH at `2d0eddcac8` — matched rows per function
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz` at `e26b7bddb8` — 3,017 recorded rows
+- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-asinh.json.gz` at `e26b7bddb8` — 1,517 recorded rows, the same inputs read again
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbda6447d498e6f26 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbca579bb4790a498 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3c9e447b5a2fd072 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x0000000000000001 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3e734f4b587c834b at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5fe60a092f72d845 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5ffc73a8ae6c7c25 at `e26b7bddb8` (readings)
 
 ### FN-BAHTTEXT-001: A tiny negative amount keeps the word for minus before zero baht
 
@@ -292,22 +447,26 @@ Evidence:
 *Quirk; measured; recorded 2026-11-04.*
 
 When an array index_num lifts CHOOSE in dynamic-array Excel, selected empty cells come back as
-the number 0 rather than as blank references, so ISBLANK over them is FALSE.
+the number 0 rather than as blank references, so ISBLANK over them is FALSE. With a scalar
+index the selected reference survives: ISREF(CHOOSE(1,ref)) was recorded TRUE.
 
 | Call | Inputs (binary64) | Excel | Recorded in |
 |---|---|---|---|
 | `=ISBLANK(CHOOSE({1,2},Data!Z1,Data!Z2))` | as typed | `{FALSE,FALSE}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISREF(CHOOSE(1,[ylr-source.xlsx]Sheet1!A1))` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
-Basis (measured): One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells.
+Basis (measured): One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells,
+and one scalar ISREF reading with a reference to another workbook.
 
-Inferred, not measured: That a scalar index keeps the blank reference is a DnaCalc control, not
-a recorded reading.
+Inferred, not measured: That a scalar index over an empty cell gives ISBLANK TRUE is inferred
+from the ISREF reading. No ISBLANK reading of it is recorded.
 
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q193 at `eceb809985`
 - DnaCalc `.beads/issues.jsonl`, dc-b1l.24 at `1ec418b2c1` — review record
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q193, row 20, column 10 at `eceb809985` (readings)
+- DnaCalc `crates/calc-host/tests/captures/dc_ylr/oracle.capture.json`, sheet Main, row 54, column 1 at `2d0eddcac8` — The recorded formula names the source workbook by its full path (readings)
 
 ### FN-COUNTBLANK-001: COUNTBLANK of an omitted optional LAMBDA parameter is #VALUE!
 
@@ -327,16 +486,165 @@ Inferred, not measured: That this holds for missing values in general is inferre
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q187 at `eceb809985`
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_countblank_optional_lambda_omission_is_a_value_error at `1cccd45a8e` — recorded answer pinned
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q187, row 20, column 10 at `eceb809985` (readings)
 
-### FN-CUMPRINC-001: CUMPRINC sums PPMT left to right, and CUMIPMT is count*PMT less CUMPRINC
+### FN-COUPDAYS-001: On basis 1 COUPDAYS walks back from maturity by its own rule, not COUPPCD to COUPNCD
+
+*Quirk; measured; recorded 2026-11-04.* Applies to COUPDAYS, COUPNCD, COUPPCD.
+
+On basis 1 (actual/actual) COUPDAYS does not always equal COUPNCD minus COUPPCD. Its rule:
+start at maturity and step back by 12/frequency months. Each step keeps the day of the month
+and clamps it to the length of the target month, and the clamped date is the start of the next
+step, so passing through February lowers the day for every earlier date. Stop at the last date
+still after settlement, call it next. The answer is the number of actual days from one period
+before next up to next, and this last step keeps month ends: if next is the last day of its
+month, the start is the last day of its month. On the other bases the answer is 360/frequency
+(bases 0, 2, 4) or 365/frequency (basis 3). With this rule, all 5,584 recorded rows match
+(4,072 distinct inputs): 5,568 numbers and 16 #NUM!, from Excel builds 20131 and 20430. Of the
+967 basis 1 rows, 81 (49 distinct inputs) differ from the day count between the dates of a
+schedule anchored on maturity with month ends kept. For maturity 1998-06-30 with semi-annual
+coupons, COUPDAYS(35748,35976,2,1) is 183, from 1997-06-30 to 1997-12-30; the anchored schedule
+gives 184. In one recorded case all three functions were read on the same inputs:
+COUPNCD(44043,2958465,2,1) less COUPPCD is 44196 - 44012 = 184, and COUPDAYS is 183.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `COUPDAYS(35748, 35976, 2, 1)` | settlement `35748` (`0x40e1748000000000`); maturity `35976` (`0x40e1910000000000`); frequency `2` (`0x4000000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `183` (`0x4066e00000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPDAYS(36452, 36891, 4, 1)` | settlement `36452` (`0x40e1cc8000000000`); maturity `36891` (`0x40e2036000000000`); frequency `4` (`0x4010000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `91` (`0x4056c00000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPDAYS(36812, 47907, 4, 1)` | settlement `36812` (`0x40e1f98000000000`); maturity `47907` (`0x40e7646000000000`); frequency `4` (`0x4010000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `92` (`0x4057000000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPDAYS(37015, 38137, 4, 1)` | settlement `37015` (`0x40e212e000000000`); maturity `38137` (`0x40e29f2000000000`); frequency `4` (`0x4010000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `89` (`0x4056400000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPDAYS(38044, 38411, 2, 1)` | settlement `38044` (`0x40e2938000000000`); maturity `38411` (`0x40e2c16000000000`); frequency `2` (`0x4000000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `184` (`0x4067000000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPDAYS(34911, 35216, 2, 1)` | settlement `34911` (`0x40e10be000000000`); maturity `35216` (`0x40e1320000000000`); frequency `2` (`0x4000000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `183` (`0x4066e00000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPPCD(44043, 2958465, 2, 1)` | settlement `44043` (`0x40e5816000000000`); maturity `2958465` (`0x4146924080000000`); frequency `2` (`0x4000000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `44012` (`0x40e57d8000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPNCD(44043, 2958465, 2, 1)` | settlement `44043` (`0x40e5816000000000`); maturity `2958465` (`0x4146924080000000`); frequency `2` (`0x4000000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `44196` (`0x40e5948000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `COUPDAYS(44043, 2958465, 2, 1)` | settlement `44043` (`0x40e5816000000000`); maturity `2958465` (`0x4146924080000000`); frequency `2` (`0x4000000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `183` (`0x4066e00000000000`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Basis (measured): All 5,584 rows of three recorded sets: 3,012 and 1,512 rows from build 20430,
+1,060 from build 20131. The rule was recomputed independently from the calendar and matched all
+5,566 number rows with settlement at serial 61 or later, on every basis. The other two number
+rows have settlement 0 and basis 0, and read 180. In a study of 42 ways to walk and measure the
+schedule, this was the only one to match all 965 rows with basis exactly 1.
+
+Inferred, not measured: The rule reproduces every recorded row; that Excel's code works this
+way is inferred. For basis 1 no settlement or maturity before serial 61, where Excel's calendar
+differs from the Gregorian one, is in the recorded rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/coupon_family.rs`, coupdays_kernel at `14910720ec` — the rule as implemented
+- DnaCalc `crates/calc-func/tests/f3_financial.rs`, coupdays_actual_actual_uses_its_recorded_calendar_interval at `14910720ec` — six recorded calls pinned
+- DnaCalc-Research `evidence/round24/coupon/coupon-calendar-summary.json` at `19d810d45a` — the 42 schedule variants compared on 965 basis 1 rows
+- DnaCalc-Research `evidence/round24/coupon/coupdays-registered-delta.json` at `19d810d45a` — 5,584 of 5,584 rows matched
+- DnaCalc `crates/calc-func/witness-status.tsv`, COUPDAYS at `2d0eddcac8` — matched rows per function
+- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-coupdays.json.gz` at `e26b7bddb8` — 1,512 recorded rows, inputs read again
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1748000000000|0x40e1910000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1cc8000000000|0x40e2036000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1f98000000000|0x40e7646000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e212e000000000|0x40e29f2000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e2938000000000|0x40e2c16000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e10be000000000|0x40e1320000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPPCD.jsonl.gz`, COUPPCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPNCD.jsonl.gz`, COUPNCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+
+### FN-COUPDAYSNC-001: On basis 0 COUPDAYSNC is not always COUPDAYS minus COUPDAYBS
+
+*Quirk; measured; recorded 2026-11-04.* Applies to COUPDAYBS, COUPDAYS, COUPDAYSNC.
+
+On basis 0 (US 30/360), COUPDAYSNC is P - A. A is COUPDAYBS, the accrued days. P is a 30/360
+count between the actual previous and next coupon dates, with day 31 and the last day of
+February both counted as day 30. COUPDAYS on basis 0 is always 360/frequency, but P need not
+be: when a coupon falls on the last day of February and maturity is not a month end, P can be
+88, 89 or 92 for a quarter and 178 or 182 for a half year. So COUPDAYSNC(39923,50919,4,0), with
+coupons 2009-02-28 and 2009-05-29, is 39: P is 89 and A is 50, where 90 - 50 would give 40.
+With no coupon date before settlement in Excel's calendar, the period starts at serial 0:
+COUPDAYSNC(33,400,2,0) is 1, and for settlement 61, maturity 456 and annual coupons COUPDAYBS
+plus COUPDAYSNC is 90, not 360. This rule matches all 1,664 recorded number rows on basis 0,
+733 of them chosen near February, month ends and the start of the calendar.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `COUPDAYSNC(39923, 50919, 4, 0)` | settlement `39923` (`0x40e37e6000000000`); maturity `50919` (`0x40e8dce000000000`); frequency `4` (`0x4010000000000000`); basis `0` (`0x0000000000000000`) (cells) | `39` (`0x4043800000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `COUPDAYSNC(45986, 57038, 2, 0)` | settlement `45986` (`0x40e6744000000000`); maturity `57038` (`0x40ebd9c000000000`); frequency `2` (`0x4000000000000000`); basis `0` (`0x0000000000000000`) (cells) | `95` (`0x4057c00000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `COUPDAYSNC(46478, 46627, 4, 0)` | settlement `46478` (`0x40e6b1c000000000`); maturity `46627` (`0x40e6c46000000000`); frequency `4` (`0x4010000000000000`); basis `0` (`0x0000000000000000`) (cells) | `57` (`0x404c800000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `COUPDAYSNC(33, 400, 2, 0)` | settlement `33` (`0x4040800000000000`); maturity `400` (`0x4079000000000000`); frequency `2` (`0x4000000000000000`); basis `0` (`0x0000000000000000`) (cells) | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `COUPDAYBS(61, 456, 1, 0)` | settlement `61` (`0x404e800000000000`); maturity `456` (`0x407c800000000000`); frequency `1` (`0x3ff0000000000000`); basis `0` (`0x0000000000000000`) (cells) | `61` (`0x404e800000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `COUPDAYSNC(61, 456, 1, 0)` | settlement `61` (`0x404e800000000000`); maturity `456` (`0x407c800000000000`); frequency `1` (`0x3ff0000000000000`); basis `0` (`0x0000000000000000`) (cells) | `29` (`0x403d000000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+
+Basis (measured): 1,664 recorded rows with a number answer on basis 0, from builds 20131, 20430
+and 20527, recomputed independently from the calendar. An implementation of these rules matches
+all 33,504 selected readings of the six coupon functions. Fictitious 1900-02-29 is not a month
+end here.
+
+Inferred, not measured: The split into P and A reproduces every row; that Excel's code forms
+these two counts is inferred. For the February cases in this note only COUPDAYSNC is recorded:
+their A comes from the rule, not from a COUPDAYBS reading.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/coupon_family.rs`, coupdaysnc_kernel at `7ec08d6707` — the rule as implemented
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json` at `2d0eddcac8` — 733 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYBS.reading.json` at `2d0eddcac8` — 120 recorded readings
+- DnaCalc `.beads/issues.jsonl`, dc-zmk.4 at `2d0eddcac8` — the 33,504 selected coupon readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json`, fn7-COUPDAYSNC-remaining-calendar-1 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json`, fn7-COUPDAYSNC-remaining-calendar-2 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json`, fn7-COUPDAYSNC-full-period-holdout-90 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json`, fn7-COUPDAYSNC-calendar-boundary-127 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYBS.reading.json`, fn7-COUPDAYBS-fake-february-43 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPDAYSNC.reading.json`, fn7-COUPDAYSNC-fake-february-43 at `2d0eddcac8` (readings)
+
+### FN-COUPNUM-001: COUPNUM is #NUM! when the coupon before settlement falls before 1900
+
+*Quirk; measured; recorded 2026-11-04.* Applies to COUPNCD, COUPNUM, COUPPCD.
+
+If the coupon date before settlement, counted back from maturity, falls before 1 January 1900,
+COUPNUM gives #NUM!. The other coupon functions still answer for the same inputs: COUPPCD
+returns 0, COUPNCD the next coupon, and COUPDAYS, COUPDAYBS and COUPDAYSNC a day count. With
+maturity serial 400 (1901-02-03) and semi-annual coupons, the coupon dates are serials 34 and
+216: settlement 33 gives #NUM!, settlement 34 gives 2. With maturity 367, settlement 0 gives
+#NUM! and settlement 1 gives 2. This covers settlement 0 too: COUPNUM(0,m,2,0) was #NUM! for
+every maturity read.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `COUPNUM(33, 400, 2, 0)` | settlement `33` (`0x4040800000000000`); maturity `400` (`0x4079000000000000`); frequency `2` (`0x4000000000000000`); basis `0` (`0x0000000000000000`) (cells) | `#NUM!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `COUPNUM(34, 400, 2, 0)` | settlement `34` (`0x4041000000000000`); maturity `400` (`0x4079000000000000`); frequency `2` (`0x4000000000000000`); basis `0` (`0x0000000000000000`) (cells) | `2` (`0x4000000000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `COUPNUM(0, 367, 2, 0)` | settlement `0` (`0x0000000000000000`); maturity `367` (`0x4076f00000000000`); frequency `2` (`0x4000000000000000`); basis `0` (`0x0000000000000000`) (cells) | `#NUM!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `=COUPNUM(0,182,2,0)` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=COUPNUM(A1,400,2,0)` | A1 `0` (`0x0000000000000000`) (cells) | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=COUPPCD(A1,400,2,0)` | A1 `0` (`0x0000000000000000`) (cells) | `0` (`0x0000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=COUPNCD(A1,400,2,0)` | A1 `0` (`0x0000000000000000`) (cells) | `34` (`0x4041000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): The rule matches all 429 recorded COUPNUM readings (325 #NUM!, 104 counts)
+when recomputed independently from the calendar, and the 24 COUPNUM readings of the
+date-boundary sheets. COUPPCD, COUPNCD, COUPDAYS, COUPDAYBS and COUPDAYSNC companions come from
+the same sheets.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/coupon_family.rs`, coupnum_kernel at `2033d9feb7` — the limit as implemented
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_coupon_counts_at_calendar_start at `2d0eddcac8` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json` at `2d0eddcac8` — 429 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json`, sheets qd153 to qd236 at `2d0eddcac8` — boundary sheets for all six coupon functions
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json`, fn7-COUPNUM-calendar-boundary-127 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json`, fn7-COUPNUM-calendar-boundary-128 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json`, fn7-COUPNUM-calendar-boundary-85 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json`, sheet qd230, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json`, sheet qd205, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json`, sheet qd217, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json`, sheet qd193, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-CUMPRINC-001: CUMPRINC follows PPMT on one loan and not in general; its own route is open
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to CUMIPMT,
 CUMPRINC.
 
 On the 30-year loan, CUMPRINC(0.05/12,360,200000,1,12,0) equals the left-to-right binary64 sum
 of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same periods equals
-12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit.
+12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit. That does not
+generalise: over recorded type 0 calls for a single period, CUMPRINC equals PPMT on 56 of 135
+rows and differs on 79, with PPMT computed by the route in FN-IPMT-001.
 
 | Call | Inputs (binary64) | Excel | Recorded in |
 |---|---|---|---|
@@ -345,17 +653,66 @@ of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same p
 | `=PMT(0.05/12,360,200000)` | as typed | `-1073.6432460242781` (`0xc090c692af15f63a`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
 Basis (measured): One loan block of the catalogue capture, recomputed from the recorded answers
-by binary64 arithmetic.
+by binary64 arithmetic, and 135 recorded single-period CUMPRINC rows compared with PPMT's
+route.
 
-Inferred, not measured: That this shape holds for every loan is inferred from this block; PPMT
-and PMT themselves are not yet reproduced, so a wider check is not available.
+Inferred, not measured: That the 79 single-period differences are CUMPRINC's own and not PPMT's
+rests on the PPMT route, which matches every fv 0, type 0 row tested. That CUMIPMT remains
+count*PMT less CUMPRINC beyond this block is inferred.
+
+- Open: CUMPRINC's per-period route. Recurrences, closed balances, count*PMT less interest and binary64 variants all stay below PPMT's 56 of 135. Recorded rows now match CUMPRINC 185 of 586 and CUMIPMT 12 of 38.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up, findings F1 to F4; the PMT work is unfinished at this date
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt), section UPDATE, open item 3 — research write-up
+- DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
+- DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 751, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 752, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)
+
+### FN-DELTA-001: DELTA and GESTEP read their second argument first
+
+*Quirk; measured; recorded 2026-11-04.* Applies to DELTA, ERF, GESTEP.
+
+When both arguments of DELTA or GESTEP are bad, the error comes from the second one:
+DELTA(TRUE,#REF!) is #REF! and DELTA(#REF!,TRUE) is #VALUE!. With two errors, DELTA gives the
+second. ERF reads left to right: ERF(TRUE,#REF!) is #VALUE! and ERF(#REF!,TRUE) is #REF!. A
+logical is rejected in either position of these functions, whether typed or held in a cell:
+DELTA(TRUE,0) and DELTA(2,TRUE) are #VALUE!, and DELTA(B1,0) with TRUE in B1 is #VALUE!, while
+an empty B1 reads as 0 and gives 1.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=DELTA(TRUE,#REF!)` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=DELTA(#REF!,TRUE)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=GESTEP(TRUE,#REF!)` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=GESTEP(#REF!,TRUE)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ERF(TRUE,#REF!)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ERF(#REF!,TRUE)` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `DELTA(A1, A2)` | number1 `#N/A`; number2 `#REF!` (cells) | `#REF!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `=DELTA(B1,0)` | B1 `TRUE` (cells) | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=DELTA(B1,0)` | B1 `(empty cell)` (cells) | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 16 recorded DELTA and GESTEP formula readings, 8 readings each with errors
+and text held in cells, and the ERF companions on the same sheets. GESTEP gave the same pattern
+as DELTA in every pair.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_scalar_logical_positions_and_error_order at `287c5b9a3b` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheets qa001 to qa008, qa013 to qa020, qa109 to qa116 at `2d0eddcac8` — recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/DELTA.reading.json` at `2d0eddcac8` — 8 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/GESTEP.reading.json` at `2d0eddcac8` — 8 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa007, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa008, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa019, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa020, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa115, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa116, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/DELTA.reading.json`, fn7-DELTA-argument-order-7 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa003, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa004, row 20, column 10 at `2d0eddcac8` (readings)
 
 ### FN-DISC-001: The discount-security functions run a fixed formula order on the x87 unit
 
@@ -390,46 +747,153 @@ Evidence:
 - OxFunc-Evidence `cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz`, line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle-20430/build-20430/INTRATE.jsonl.gz`, line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000 at `e26b7bddb8` (readings)
 
-### FN-ERF.PRECISE-001: Small arguments evaluate x*N(t)/D(t) on the x87 unit with stored steps, and the last bit can be high
+### FN-DOLLAR-001: DOLLAR keeps the minus sign on an amount that rounds to zero; FIXED and TEXT drop it
+
+*Quirk; measured; recorded 2026-11-04.* Applies to DOLLAR, FIXED, TEXT.
+
+-0.005 rounded to no decimals is zero. DOLLAR(-0.005,0) shows that as -R0 in en-ZA settings,
+keeping the sign of the input, while FIXED(-0.005,0), TEXT(-0.005,0) and TEXT(-0.005,"0") show
+0.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=DOLLAR(-0.005,0)` | as typed | `-R0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=FIXED(-0.005,0)` | as typed | `0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-0.005,0)` | as typed | `0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-0.005,"0")` | as typed | `0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Four recorded readings of the same value.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt169 to qt172 at `2d0eddcac8` — recorded readings
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_dollar_retains_a_negative_sign_after_rounding at `2d0eddcac8` — DOLLAR readings pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt172, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt171, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt169, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt170, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-ERF.PRECISE-001: Below 0.5, ERF is a stored (4, 5) rational from a table not yet identified
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to ERF, ERF.PRECISE,
-GAUSS.
+ERFC, ERFC.PRECISE, GAUSS.
 
-For normal x with |x| < 2^-16, ERF.PRECISE computes x*N(t)/D(t) with t = x^2 on the x87 unit at
-precision 64: N and D are each stored to binary64, then the product, then the quotient. Below
-2^-27 this reduces to p = RN53(RN64(x*P0)) and y = RN53(RN64(p/Q0)), with P0 =
-0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. The coefficient table is unidentified: Cody's
-1969 rational shares the constant-term ratio, as any accurate table does, but its normalised
-linear terms differ (0.1176 and 0.4510 against Excel's 0.1259 and 0.4593), and Cephes and
-fdlibm also miss. The rounded steps can leave the answer 1 unit above the correctly rounded
-erf(x), as the rows below show. The same route explains GAUSS's small arguments.
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64,
+ERF.PRECISE for |x| < 0.5 is x*N(t)/D(t) with t = RN(x*x), p = RN(x*N), y = RN(p/D), and N and
+D Horner sums in t in which every product and every sum is RN. N has degree 4 and D degree 5,
+and the coefficients read off Excel's answers, order 0 upward, are N: 0x3ff1df5e70c7956b,
+0x3fc201d8627a7d2c, 0x3fa6f289d165b303, 0x3f5d93a5813e372c, 0x3f2932767df264b2; D:
+0x3fefada15778ece6, 0x3fdd191aca8d2499, 0x3fb79f85ba68803e, 0x3f856de5da86af12,
+0x3f4609751b5b6488, 0x3ef4f20a473a5ab0. The rational stops at 0.5 itself. It equals erf to a
+flat 9E-17 up to 0.5, and its error climbs at once beyond, so 0.5 is its design interval and
+not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is refuted by its
+linear terms, and Cephes has the same shape with different ratios. Because every step rounds,
+answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5),
+400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit
+high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS uses it too.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
+| `ERF.PRECISE(0.4524739583333333)` | x `0.4524739583333333` (`0x3fdcf55555555555`) (cells) | `0.4777590107351978` (`0x3fde939a879e86f6`) | `0.4777590107351976` (`0x3fde939a879e86f3`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
 | `ERF.PRECISE(9.094947017729282e-13)` | x `9.094947017729282e-13` (`0x3d70000000000000`) (cells) | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
 | `ERF.PRECISE(9.999999999999998e-11)` | x `9.999999999999998e-11` (`0x3ddb7cdfd9d7bdb9`) (cells) | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
 
 Correct value: mpmath erf at 800 bits from the binary64 input, correctly rounded.
 
-Basis (measured): All 499,814 recorded ERF.PRECISE rows with 0 < |x| < 2^-16 match;
-per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of 131,255). Bisecting
-live Excel to one input ulp located where stored D and stored N first step, and every answer
-fit those two hypotheses. The measured coefficients give N1/N0 - D1/D0 = -1/3 to 1.2e-16, which
-is erf's Taylor coefficient and was not imposed by the measurement.
+Basis (measured): All 618,225 recorded ERF.PRECISE rows with |x| < 0.5 match; they were only
+scored, never used to read the coefficients, and ERFC, ERFC.PRECISE and GAUSS match every
+recorded row in that range. Two fresh sets of 60,000 random doubles below 0.5 (Excel build
+20527) match 59,996 and 59,982; the second was asked after the constants were fixed, and 17 of
+its 18 misses are in [0.25, 0.5). With every step stored, 223 of 38,000 rows at 19 sites stay
+unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive doubles below 0.5
+match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.
 
-Inferred, not measured: That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE
-and GAUSS rows were scored. D1 is one of two adjacent values that no recorded answer separates.
+Inferred, not measured: That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC,
+ERFC.PRECISE and GAUSS rows were scored, and no recorded ERF row exists at this date.
 
-- Open: The route above 2^-16: the next terms of N and D; about 76,000 ERF.PRECISE rows remain.
-- Open: Whether subnormal arguments use this route; Excel reads them back as 0 in a cell, so they cannot be asked that way.
-- Open: Where the small-argument rational ends near 0.5.
+- Open: The last bits of the coefficients of order 3 and above. Orders 0 and 1 are exact: one unit off in a linear term breaks 500 to 1,100 of 160,000 rows. Order 2 sits at the minimum of the same scan. Higher orders are good to the level that shows, about 0.15% of rows above 0.25.
+- Open: The source table. Hart's ERF tables remain unchecked.
+- Open: Which branch owns x = 0.5: there the rational and a correctly rounded erf give the same bits.
+- Open: Subnormal arguments: Excel reads a subnormal written to a cell back as 0, so they cannot be asked that way.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first research write-up; its Cody attribution is withdrawn by this note
-- DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs` at `f1bf1f0224` — product route below 2^-16
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md) — research write-up: how the rational was read, the checks, the final constants
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md) — earlier round: the structure, the refutation of Cody, the edge bisection
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first write-up; its Cody attribution is withdrawn
+- DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs`, erf_approx, ERF_N, ERF_D at `36a7f3d7aa` — the rational in the product; the commit message carries the row counts
+- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 1219, key ERF.PRECISE|0x3fdcf55555555555 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `e26b7bddb8` (readings)
+
+### FN-ERFC-001: Above 0.5, ERFC rounds x*x before the exponential, so the tail drifts by hundreds of units
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to ERFC,
+ERFC.PRECISE.
+
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, ERFC for x
+>= 0.5 behaves as Q = E*F with z = RN(x*x) and E = exp(-z) stored to binary64, then multiplied
+by a factor F that is not identified. So the rounding error of x*x reaches the answer at full
+size. At x = 26.543000000000003, x*x exceeds z by 4.64E-14, which at the size of this answer is
+about 212 units, and Excel's answer is 212 units above the correctly rounded erfc. Near x =
+5.93 the same effect is 23 units. For small x, where x*x is exact or nearly so, the answer
+stays within a few units.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ERFC.PRECISE(26.543000000000003)` | x `26.543000000000003` (`0x403a8b020c49ba5f`) (cells) | `2.2558350220536164e-308` (`0x001038a055f6d0d3`) | `2.2558350220535116e-308` (`0x001038a055f6cfff`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
+| `ERFC.PRECISE(5.927083333333333)` | x `5.927083333333333` (`0x4017b55555555555`) (cells) | `5.1964407001614455e-17` (`0x3c8df497ca9a0a49`) | `5.1964407001614313e-17` (`0x3c8df497ca9a0a32`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
+| `ERFC.PRECISE(2.0)` | x `2` (`0x4000000000000000`) (cells) | `0.0046777349810472645` (`0x3f7328f5ec350e65`) | `0.004677734981047266` (`0x3f7328f5ec350e67`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
+
+Correct value: mpmath erfc at 800 bits from the binary64 input, correctly rounded.
+
+Basis (measured): 220,000 Excel answers from 0.5 to 26.5 (build 20527) compared with E times
+the true exp(x*x)*erfc(x). With z = RN(x*x) and E stored, the residual stays within about 10
+units of 2^-53 at every x. At x = 24 the exact exp(-x*x) spreads with a standard deviation of
+287 units, Cody's and fdlibm's fractional splits of x*x spread the same, and plain binary64 x*x
+leaves outliers of up to 1,024 units.
+
+Inferred, not measured: F is not a closed form: y = RN(E*RN(F)) with any offset matches 40% of
+answers at best. Its noise tracks about a dozen smooth curves, consistent with two polynomials
+of degree about 8 in x with shapes near Cephes' erfc P and Q, but that is a reading of shape
+only, and no table has been matched.
+
+- Open: F, so the last bits: with a stand-in for F, recorded rows match ERFC 234 of 544 and ERFC.PRECISE 1,062 of 1,863, with no answer more than 6 units away.
+- Open: The mean of the residual is flat with sharp steps of about 0.4 units, at x = 1.11567925... and 1.1217 among about 80 in [0.5, 27]. No stored polynomial value varies that slowly, and this is unexplained.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md), Round 4: ERFC above 0.5 — the residual table, what is known about F
+- DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs`, erfc_upper at `d85e5e9b52` — the commit stores z and E and uses Cody's rational in place of F; its message carries the row counts
+- OxFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 363, key ERFC.PRECISE|0x403a8b020c49ba5f at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 340, key ERFC.PRECISE|0x4017b55555555555 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 64, key ERFC.PRECISE|0x4000000000000000 at `e26b7bddb8` (readings)
+
+### FN-ERROR.TYPE-001: ERROR.TYPE of #BUSY! is 0
+
+*Quirk; measured; recorded 2026-11-04.*
+
+With #BUSY! in the referenced cell, ERROR.TYPE gives 0, not one of its numbers for an error and
+not #N/A. The cell still counts as an error elsewhere: ISERROR is TRUE and IFERROR takes its
+fallback.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ERROR.TYPE(B1)` | B1 `#BUSY!` (cells) | `0` (`0x0000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISERROR(B1)` | B1 `#BUSY!` (cells) | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IFERROR(B1,7)` | B1 `#BUSY!` (cells) | `7` (`0x401c000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=N(B1)` | B1 `#BUSY!` (cells) | `#BUSY!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Four recorded readings of one cell holding #BUSY!.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_busy_error_is_typed_through_the_application at `2d0eddcac8` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheets q093 to q096 at `2d0eddcac8` — recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q095, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q094, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q096, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q093, row 20, column 10 at `2d0eddcac8` (readings)
 
 ### FN-FLOOR-001: FLOOR of zero is +0, even with significance 0
 
@@ -452,6 +916,168 @@ Evidence:
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00002 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00005 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00062 at `e26b7bddb8` (readings)
+
+### FN-GAMMA-001: Below 10, GAMMA is a stored product down to a seed on (1,2)
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.*
+
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, write x =
+i + y with GAMMA(1+y) on (1,2). For i from 2 to 9, GAMMA(x) is RN(t*GAMMA(1+y)), where t is the
+product (x-1)(x-2)...(1+y) taken from the top with each product RN. Each stage rounds, so the
+answers are not correctly rounded: at the fraction below, GAMMA(3.649...) is 1 unit high and
+GAMMA(5.649...) 1 unit low. The seed on (1,2) is a chain of stored products that has not been
+identified, and at x = 10 the route changes (FN-GAMMA-002).
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `GAMMA(1.6493607064491727)` | number `1.6493607064491727` (`0x3ffa63c80d581b40`) (cells) | `0.900020234972592` (`0x3fecccf73c5e41af`) | — | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `GAMMA(3.6493607064491727)` | number `3.6493607064491727` (`0x400d31e406ac0da0`) (cells) | `3.9328647235856704` (`0x400f7681c7bb23e9`) | `3.93286472358567` (`0x400f7681c7bb23e8`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `GAMMA(5.649360706449173)` | number `5.649360706449173` (`0x401698f2035606d0`) (cells) | `66.72967981145608` (`0x4050aeb312f3b057`) | `66.7296798114561` (`0x4050aeb312f3b058`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+
+Correct value: mpmath gamma at 800 bits from the binary64 input, correctly rounded.
+
+Basis (measured): 2,000 of 2,000 fractions at each i from 2 to 9, from Excel's own GAMMA(1+y)
+(build 20527). The same formula fails at i = 10. Replayed for this note in exact rational
+arithmetic on 300 of those fractions: 300 of 300 at each i from 2 to 9, 61 of 300 at i = 10.
+Recorded GAMMA rows match 6,406 of 12,603 with stand-ins for the seed and the Stirling series,
+the worst by 49 units.
+
+- Open: The seed GAMMA(1+y) on (1,2): about five stored smooth quantities, seen as lines in its noise. Cody's rational matches 33% of it. Many closed families were tested and refuted.
+- Open: x < 1 and negative arguments.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/gamma-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/gamma-EVIDENCE.md) — research write-up: how the stored stages were read
+- DnaCalc `crates/calc-func/src/ported/excel_numeric/gammaln.rs` at `1c7a4ab86b` — the routes in the product, with stand-ins where the code says so; the commit message carries the row counts
+- DnaCalc `crates/calc-func/witness-status.tsv` at `af74247e1e` — rows matched per function
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMA 3ffa63c80d581b40 (readings)
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMA 400d31e406ac0da0 (readings)
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMA 401698f2035606d0 (readings)
+
+### FN-GAMMA-002: From 10 up, GAMMA is a Stirling product of stored stages, and its error grows with x
+
+*Excel differs from the mathematical answer; inferred; recorded 2026-11-04.*
+
+From x = 10, GAMMA behaves as sqrt(2 pi) x^x exp(-x) / sqrt(x) w with stored stages: x^2, x^4,
+x^8 and so on by binary powering of floor(x/2), stored ln x, exponent and exponential for the
+fraction of x/2, stored exp(-x), an unstored square root, and each outer product stored. The
+first factor is the binary64 value of sqrt(2 pi), whose rounding gives every band a bias of
++0.66 of 2^-53. The answers' noise grows with x, with a root mean square of about 0.225*x units
+of 2^-53 above 20, so near x = 160 an answer can sit 89 units from the correctly rounded value,
+as below.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `GAMMA(10.649360706449173)` | number `10.649360706449173` (`0x40254c7901ab0368`) (cells) | `1600316.6708269436` (`0x41386b3cabbb5088`) | `1600316.6708269438` (`0x41386b3cabbb5089`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `GAMMA(160.48267465838674)` | number `160.48267465838674` (`0x40640f7212200c21`) (cells) | `3.410909690032054e+283` (`0x7acd5c4d6f1f4edc`) | `3.4109096900320908e+283` (`0x7acd5c4d6f1f4f35`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+
+Correct value: mpmath gamma at 800 bits from the binary64 input, correctly rounded.
+
+Basis (inferred): Noise lines on windows of consecutive doubles (Excel build 20527): stored x^2
+with weight x/2, then x^4, x^8 and x^16 at the frequencies a stored square of a stored value
+gives, stored ln x, and the bias. This chain gives every bit on 69.5% of 59,200 answers from 36
+to 170.
+
+Inferred, not measured: The chain is read from the noise, and 30.5% of the answers in that
+range do not yet match, so at least one stored stage is missing. The series w is only seen as a
+line at 1/(12 m x), and below x = 30 it differs from the true series.
+
+- Open: The Stirling series below x = 30, and the stored stage still missing above it.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/gamma-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/gamma-EVIDENCE.md) — research write-up: how the stored stages were read
+- DnaCalc `crates/calc-func/src/ported/excel_numeric/gammaln.rs` at `1c7a4ab86b` — the routes in the product, with stand-ins where the code says so; the commit message carries the row counts
+- DnaCalc `crates/calc-func/witness-status.tsv` at `af74247e1e` — rows matched per function
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMA 40254c7901ab0368 (readings)
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMA 40640f7212200c21 (readings)
+
+### FN-GAMMA.DIST-001: GAMMA.DIST's prefactor carries GAMMALN(a+1) in the exponent, with its error
+
+*Excel differs from the mathematical answer; inferred; recorded 2026-11-04.*
+
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, the series
+arm and the density of GAMMA.DIST at integer shape a from 2 to 6 share r = RN(exp(t - x -
+GAMMALN(a+1))), with ln x stored, t = RN(a*ln x), and the difference held in the 64-bit
+registers. The cumulative answer is RN(r*S) with S the stored forward sum, and the density
+RN(r*a)/x, the division last; with a scale, y = RN(x/beta) comes first. So GAMMALN's own error
+is in every answer: at shape 2 the constant is GAMMALN(3), one unit above stored ln 2
+(FN-GAMMALN-001).
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `GAMMA.DIST(0.010000000000003386, 2, 1, TRUE)` | x `0.010000000000003386` (`0x3f847ae147ae1c1b`); alpha `2` (`0x4000000000000000`); beta `1` (`0x3ff0000000000000`); cumulative `TRUE` (cells) | `4.9667913340299445e-05` (`0x3f0a0a5081f5d243`) | `4.966791334029942e-05` (`0x3f0a0a5081f5d23f`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `GAMMA.DIST(0.5000000000001851, 3, 1, TRUE)` | x `0.5000000000001851` (`0x3fe0000000000683`); alpha `3` (`0x4008000000000000`); beta `1` (`0x3ff0000000000000`); cumulative `TRUE` (cells) | `0.01438767796698471` (`0x3f8d774972ab2b85`) | `0.014387677966984718` (`0x3f8d774972ab2b89`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+
+Correct value: mpmath regularized lower incomplete gamma at 800 bits, correctly rounded.
+
+Basis (inferred): Noise lines on windows of consecutive doubles (Excel build 20527) put ln x
+stored and multiplied by a, not a power of x. Storing t - x adds a slow line of amplitude 5,
+and leaving it unstored takes the noise at small x from 13 units of 2^-53 to 1.5. A scan of one
+constant factor per shape peaks at -0.875, +0.25, -1.25, +1.625 and -2 of 2^-53 for a = 2 to 6,
+and the first is the error of GAMMALN(3). This form matches 15,364 of 26,776 rows at a = 2,
+15,588 of 26,770 at a = 3, 1,088 of 2,051 at a = 4, 654 of 1,142 at a = 5, 691 of 1,151 at a =
+6, and over all shapes 47,647 of 77,975 recorded rows.
+
+Inferred, not measured: The form is read from noise and scored in part: one stored stage of the
+prefactor or the sum is still missing, with a root mean square of about 0.8 of 2^-53 at small
+x. Non-integer shapes depend on GAMMALN below 3, which is not identified. An earlier reading of
+a chopped exponential in this function was this constant.
+
+- Open: The missing stored stage of the prefactor or the sum.
+- Open: Shapes outside 2 to 6, and the upper arm of the distribution.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/gamma-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/gamma-EVIDENCE.md) — research write-up: how the stored stages were read
+- DnaCalc `crates/calc-func/src/ported/special_math_common.rs` at `78de0f0a49` — the prefactor in the product; the commit message carries the row counts
+- DnaCalc `crates/calc-func/witness-status.tsv` at `af74247e1e` — rows matched per function
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMA.DIST 3f847ae147ae1c1b 4000000000000000 (readings)
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMA.DIST 3fe0000000000683 4008000000000000 (readings)
+
+### FN-GAMMALN-001: GAMMALN from 3 to 8 is a stored recurrence, and GAMMALN(3) is one unit above ln 2
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to GAMMALN,
+GAMMALN.PRECISE.
+
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, write x =
+n + y with n the integer part. For 3 < x < 8, Excel forms z = (y+2)(y+3)...(y+n-1) from the
+left with every product RN, and GAMMALN(x) is RN(RN(ln z) + GAMMALN(2+y)). So answers on this
+range carry the rounding of a value on [2,3]. x = 3 itself belongs to the band on [2,3], not to
+this route, and returns 0x3fe62e42fefa39f0, one unit above the stored ln 2, although GAMMALN(3)
+is exactly ln 2.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `GAMMALN(3)` | x `3` (`0x4008000000000000`) (cells) | `0.6931471805599454` (`0x3fe62e42fefa39f0`) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
+| `GAMMALN.PRECISE(3)` | x `3` (`0x4008000000000000`) (cells) | `0.6931471805599454` (`0x3fe62e42fefa39f0`) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
+| `GAMMALN(2.020222407046596)` | x `2.020222407046596` (`0x4000296a5d874ad0`) (cells) | `0.008681034861562235` (`0x3f81c75cc69b54fc`) | — | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `GAMMALN(6.020222407046596)` | x `6.020222407046596` (`0x401814b52ec3a568`) (cells) | `4.8220305792560145` (`0x401349c26258ddb7`) | `4.822030579256015` (`0x401349c26258ddb8`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+
+Correct value: ln 2, correctly rounded.
+Correct value: mpmath loggamma at 800 bits from the binary64 input, correctly rounded.
+
+Basis (measured): 6,000 of 6,000 fractions at each n from 3 to 7, 30,000 answers, from Excel's
+own GAMMALN(2+y) (build 20527). The descending product fits 5,430 to 5,527 of 6,000. Replayed
+for this note in exact rational arithmetic with a correctly rounded logarithm on 300 of those
+fractions: 300 of 300 at n = 3 to 6, and 299 of 300 at n = 7. Recorded rows match GAMMALN 2,106
+of 4,538 and GAMMALN.PRECISE 10,627 of 14,278, with stand-ins for the bands below 3.
+
+Inferred, not measured: That GAMMALN.PRECISE takes the same route is inferred: the 30,000
+answers are GAMMALN, and the two functions agree at every shared recorded input tried,
+including 3.
+
+- Open: The rationals below 3. They are rationals in x itself, [1.5,2) and [2,3] are separate bands, and their tables are not identified: no rescaled Cody-Hillstrom table and no fresh minimax table tried reproduces the steps of their mean error.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/gamma-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/gamma-EVIDENCE.md) — research write-up: how the stored stages were read
+- DnaCalc `crates/calc-func/src/ported/excel_numeric/gammaln.rs` at `1c7a4ab86b` — the routes in the product, with stand-ins where the code says so; the commit message carries the row counts
+- DnaCalc `crates/calc-func/witness-status.tsv` at `af74247e1e` — rows matched per function
+- OxFunc-Evidence `cache/oracle/build-20131/GAMMALN.jsonl.gz`, line 273, key GAMMALN|0x4008000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle/build-20131/GAMMALN.PRECISE.jsonl.gz`, line 22, key GAMMALN.PRECISE|0x4008000000000000 at `e26b7bddb8` (readings)
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMALN 4000296a5d874ad0 (readings)
+- [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMALN 401814b52ec3a568 (readings)
 
 ### FN-GCD-001: GCD and LCM accept 2^53 itself, not only values below it
 
@@ -480,6 +1106,174 @@ Evidence:
 - OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00190 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz`, w111boundary-LCM-00194 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00217 at `e26b7bddb8` (readings)
+
+### FN-HSTACK-001: A direct error stops these array functions; the same error in an array or cell is an element
+
+*Quirk; measured; recorded 2026-11-04.* Applies to BYCOL, BYROW, EXPAND, HSTACK, MAP, TAKE,
+TOCOL, TOROW, VSTACK.
+
+An error written directly as an argument of these functions is the answer for the whole call.
+It is not placed in the result: HSTACK(1,#VALUE!) is #VALUE!, not a row holding 1 and an error,
+and TAKE(#N/A,0) is #N/A. With MAP the LAMBDA does not run at all:
+MAP(NA(),LAMBDA(xx,IFERROR(xx,3))) is #N/A. The same error inside an array, or in a referenced
+cell, is an ordinary element: MAP({#N/A},LAMBDA(xx,3)) is 3, and HSTACK(Data!C1,{1;2}) with
+#N/A in Data!C1 is a 2 by 2 array with #N/A in its first column. TOCOL and TOROW show the
+difference with ignore 2: TOCOL(#N/A,2) is #N/A, while TOCOL({#N/A},2) drops the error, has
+nothing left, and is #CALC!. EXPAND is an exception on the cell side: EXPAND(Data!C1,2,2,"pad")
+is #N/A for the whole call. BYROW and BYCOL check the direct error first too:
+BYROW(#N/A,#VALUE!) is #N/A, while BYROW({#N/A},2), where 2 is not a LAMBDA, is #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=HSTACK(1,#VALUE!)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TAKE(#N/A,0)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MAP(NA(),LAMBDA(xx,IFERROR(xx,3)))` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MAP({#N/A},LAMBDA(xx,3))` | as typed | `3` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=HSTACK(Data!C1,{1;2})` | Data!C1 `#N/A` (cells) | `{#N/A,1;#N/A,2}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TOCOL(#N/A,2)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TOCOL({#N/A},2)` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=EXPAND(Data!C1,2,2,"pad")` | Data!C1 `#N/A` (cells) | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=BYROW(#N/A,#VALUE!)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=BYROW({#N/A},2)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 27 recorded readings in dynamic-array Excel, each with size observers.
+
+- Open: Competing errors in later positions have not been read in a published capture.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, scalar_errors_keep_their_array_argument_origins at `2d0eddcac8` — recorded readings pinned
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheets fn2_q001 to fn2_q007, fn2_q031 to fn2_q042, fn2_q232 to fn2_q239 at `2d0eddcac8` — recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q004, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q232, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q031, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q032, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q238, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q233, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q234, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q237, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q040, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q038, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-IFS-001: IFS and SWITCH pass on the selected value whole, and later arrays do not lift the call
+
+*Quirk; measured; recorded 2026-11-04.* Applies to IFS, SWITCH.
+
+Once a scalar test selects a result, array arguments after it have no effect on the shape:
+IFS(TRUE,1,{FALSE,TRUE},{2,3}) and SWITCH(2,2,1,{1,2},3) each return one 1, not an array, and
+SWITCH("A","a",1,{"A","A"},2) returns 1 because the match ignores case. The selected value
+itself is passed on as it is. A selected reference stays a reference:
+ISBLANK(IFS(TRUE,Data!Z1)) is TRUE over an empty cell. A selected LAMBDA shows as #CALC! in the
+cell, IFS(TRUE,LAMBDA(xx,xx)), and a selected array of LAMBDAs as #CALC! in each cell. A test
+that is not TRUE or FALSE gives #VALUE! in the shape of its result: IFS("2",{"hit","hit"}) is
+{#VALUE!,#VALUE!}. A direct error as the SWITCH expression stays one error:
+SWITCH(#VALUE!,1,{1,2},0) is #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=IFS(TRUE,1,{FALSE,TRUE},{2,3})` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SWITCH(2,2,1,{1,2},3)` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SWITCH("A","a",1,{"A","A"},2)` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISBLANK(IFS(TRUE,Data!Z1))` | Data!Z1 `(empty cell)` (cells) | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISBLANK(SWITCH(1,1,Data!Z1))` | Data!Z1 `(empty cell)` (cells) | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IFS(TRUE,LAMBDA(xx,xx))` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SWITCH(1,1,LAMBDA(xx,xx))` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IFS(TRUE,HSTACK(LAMBDA(xx,xx),LAMBDA(xx,xx)))` | as typed | `{#CALC!,#CALC!}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IFS("2",{"hit","hit"})` | as typed | `{#VALUE!,#VALUE!}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SWITCH(#VALUE!,1,{1,2},0)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 11 recorded selection readings in dynamic-array Excel, each with size
+observers.
+
+- Open: A selected LAMBDA that is then called, or passed through LET or IFERROR, has not been read in a published capture.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs` at `2d0eddcac8` — selection and callable readings pinned
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheets fn2_q016 to fn2_q022, fn2_q194, fn2_q195, fn2_q208, fn2_q209 at `2d0eddcac8` — recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q208, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q209, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q016, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q194, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q195, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q017, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q018, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q019, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q021, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q022, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-IPMT-001: IPMT and PPMT reuse PMT's quotient, one through expm1 and the other through exp
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to IPMT, PPMT.
+
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, take L and
+q from PMT (FN-PMT-001; with nonzero fv, q = RN(N/em) with an fv numerator that is open). For
+period k of nper with end-of-period payments, m = nper-k+1, t = -(m*L), em_m is the expm1 of t
+by the route in FN-PMT-001, and u = exp(t) stored. Then IPMT = -RN(RN(RN(q*em_m) -
+RN(fv*u))*rate) and PPMT = RN(RN(RN(q - fv)*u)*rate). Interest takes the Kahan expm1, and
+principal takes the exponential it starts from: 1+em_m fits 36 of 74 principal rows where u
+fits all 74. So neither answer is the payment less the other (FN-PPMT-001).
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=IPMT(0.05/12,12,360,200000)` | as typed | `-822.0867740866778` (`0xc089b0b1b69cc35f`) | `-822.0867740866777` (`0xc089b0b1b69cc35e`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=PPMT(0.05/12,12,360,200000)` | as typed | `-251.5564719376004` (`0xc06f71ce9e3ca456`) | `-251.5564719376003` (`0xc06f71ce9e3ca452`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Correct value: mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12
+evaluates to; correctly rounded.
+
+Basis (measured): fv 0, type 0: IPMT 95 of 95 and PPMT 74 of 74 recorded rows, plus 64 of 64
+fresh PPMT(r,1,1,pv) and PPMT(r,1,2,pv) readings. Nonzero fv, type 0: PPMT 25 of 27, IPMT 18 of
+27. Over every recorded row in the evidence repository IPMT matches 48 of 57 and PPMT 26 of 33.
+Replaying the formulas in exact rational arithmetic, with exp and ln correctly rounded, gives
+all 12 PPMT and all 12 IPMT answers of the loan below.
+
+- Open: Nonzero fv: PMT's open numerator of q carries through.
+- Open: type 1: PMT's open factor K carries through.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt), section UPDATE — research write-up
+- DnaCalc `crates/calc-func/src/ported/financial_time_value_family.rs`, end_payment_parts at `6c6cbd31c9` — the formulas in the product; the commit message carries the row counts
+- DnaCalc `crates/calc-func/tests/f3_financial.rs`, ipmt_and_ppmt_use_the_quotient_of_pmt at `6c6cbd31c9` — eight catalogue readings; failed before the change
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 750, column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 749, column 4 at `c9f9d35416` (readings)
+
+### FN-IRR-001: IRR with a direct non-number gives #NUM!, and the guess is still checked
+
+*Quirk; measured; recorded 2026-11-04.*
+
+Text or a logical typed directly as the values argument of IRR is not an error of type: "",
+"2", "x", "0", "-2", TRUE and FALSE all give #NUM!, never #VALUE!. The guess is read anyway,
+and its error wins: with any of those values, a guess of "x" gives #VALUE! and a guess of NA()
+gives #N/A, while 0.1 or an empty guess leaves #NUM!. A direct error in values wins over the
+guess: IRR(NA(),"x") is #N/A.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=IRR("2")` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IRR(TRUE)` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IRR("2","x")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IRR("2",NA())` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IRR("2",)` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IRR(NA())` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IRR(NA(),"x")` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 40 recorded readings: seven direct non-numbers and NA() as values, each with
+five guesses (none, 0.1, "x", NA(), empty).
+
+- Open: A reference to one cell holding the same values answers differently. Those readings are not in a published capture, so this note covers direct values only.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheets ql001 to ql040 at `2d0eddcac8` — 40 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql006, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql026, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql008, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql009, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql010, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql036, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql038, row 20, column 10 at `2d0eddcac8` (readings)
 
 ### FN-LINEST-001: LINEST's Householder reflector stores each step from the x87 unit
 
@@ -530,14 +1324,57 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json`, sheet dcj9k_linest_stats, row 1188, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json`, sheet dcj9k_linest_stats, row 1192, column 4 at `c9f9d35416` (readings)
 
-### FN-MOD-001: MOD with operands below about 1E-290 gives wrong signs and #NUM!
+### FN-LOWER-001: LOWER leaves letters above U+FFFF alone, and a combining mark stops the final sigma
+
+*Quirk; measured; recorded 2026-11-04.* Applies to LOWER, PROPER.
+
+LOWER did not change the Deseret capital U+10400, a cased letter above U+FFFF, either alone or
+inside other text: LOWER("A𐐀Σ") is "a𐐀ς", where the Greek capital sigma at the end becomes
+the final form. Greek sigma depends on what follows: followed by a full stop it takes the final
+form ς, and followed by a combining mark, U+0300 or U+0301, it takes the medial form σ. PROPER
+treats a character above U+FFFF as a word boundary, so PROPER("a𐐀b") is "A𐐀B", with the B
+capitalised and the Deseret letter unchanged.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `LOWER(A1)` | text `𐐀` (cells) | `𐐀` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `LOWER(A1)` | text `A𐐀Σ` (cells) | `a𐐀ς` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `LOWER(A1)` | text `ΑΣ̀` (cells) | `ασ̀` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `LOWER(A1)` | text `ΑΣ.` (cells) | `ας.` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `PROPER(A1)` | text `a𐐀b` (cells) | `A𐐀B` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `PROPER(A1)` | text `aΣ́` (cells) | `Aσ́` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+
+Basis (measured): 6 recorded LOWER and 4 recorded PROPER readings, in a workbook at
+compatibility version 2.
+
+Inferred, not measured: The readings cover one Deseret letter and two combining marks. That
+every letter above U+FFFF and every mark behave the same is inferred.
+
+- Open: Behaviour at compatibility version 1 has not been read for these inputs.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs` at `ae13ca181b` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json` at `2d0eddcac8` — 6 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json` at `2d0eddcac8` — 4 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json`, fn3-lower-001 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json`, fn3-lower-003 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json`, fn3-lower-004 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json`, fn3-lower-005 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json`, fn3-proper-002 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json`, fn3-proper-004 at `2d0eddcac8` (readings)
+
+### FN-MOD-001: MOD with tiny operands gives wrong signs and #NUM!, by a rule that fits every recorded row
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
 
-When both operands are below about 1E-290, MOD can return -n itself, or #NUM! at small
-quotients, where the exact answer is an ordinary number. MOD(-(1+121*2^-52)*2^-983, 2^-983)
-returns +(1+121*2^-52)*2^-983, and MOD(2^-983, -(1+120*2^-52)*2^-983) returns #NUM!. All 4,974
-MOD mismatches in the bank lie in this domain.
+MOD(n,d) takes the exact remainder r of n by d and adds d when their signs differ. Three things
+change when r is subnormal and its sign differs from d's. The result is #NUM! when |n/d| is
+2^26 or more, or when d's low part under a Veltkamp split at 2^27 + 1 is subnormal. Otherwise,
+when |r| is below 2^-1026, the result is |d| + |r| with d's sign: the remainder is added where
+it should be taken away. A larger r takes the ordinary step. Any subnormal final result is
+#NUM!. So MOD(-(1+121*2^-52)*2^-983, 2^-983) returns +(1+121*2^-52)*2^-983, and MOD(2^-983,
+-(1+120*2^-52)*2^-983) returns #NUM!, where the exact answers are ordinary numbers.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -547,16 +1384,65 @@ MOD mismatches in the bank lie in this domain.
 Correct value: MOD(n,d) = n - d*INT(n/d) in exact rational arithmetic; the result is exactly
 representable.
 
-Basis (measured): Recorded rows of the W111 MOD tiny-operand discrimination run; 147,458 of
-152,432 bank rows match without this domain.
+Basis (measured): All 152,432 recorded MOD rows match, 4,974 of them rows the ordinary step
+misses, and so do 1,128 new Excel readings (build 20527). Those readings overturned an earlier
+test on power-of-two divisors: 1E-296 behaves like a power of two and 1E-300 does not.
 
-- Open: The rule. No model of the intermediate subnormal handling explains these rows yet.
+Inferred, not measured: The rule is what is measured. Reading it as Veltkamp's split, the parts
+of a Dekker product of the count and the divisor, is an interpretation: a table over exponent
+and trailing zeros puts the boundary between exponents -1000 and -990 and at about 27 trailing
+zeros.
 
 Evidence:
 
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00960 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00959 at `e26b7bddb8` (readings)
+
+### FN-MODE-001: MODE ignores direct text and logicals instead of converting them or giving an error
+
+*Documentation differs from behaviour; measured; recorded 2026-11-04.* Applies to MODE,
+MODE.MULT, MODE.SNGL.
+
+MODE, MODE.SNGL and MODE.MULT take only numbers from their arguments, even when text or a
+logical is typed directly into the call. A direct "2" or TRUE is not converted, so MODE("2",2)
+and MODE(TRUE,1) are #N/A: one number, no repeat. Text that is not a number gives no error
+either: MODE("x",2,2) is 2, and MODE("x") is #N/A. Error values do come through: MODE(2,2,A3)
+with #DIV/0! in A3 is #DIV/0!, and of two errors the first is returned.
+
+Documentation: Arguments that are error values or text that can't be translated into numbers
+cause errors.
+(https://support.microsoft.com/en-us/office/mode-function-e45192ce-9122-4980-82ed-4bdc34973120)
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=MODE("2",2)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MODE(TRUE,1)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MODE("x",2,2)` | as typed | `2` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MODE("x")` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MODE.SNGL("x",2,2)` | as typed | `2` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MODE.MULT("x",2,2)` | as typed | `2` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `MODE(2, 2, A3)` | number1 `2` (`0x4000000000000000`); number2 `2` (`0x4000000000000000`); number3 `#DIV/0!` (cells) | `#DIV/0!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+
+Basis (measured): 30 recorded formula readings across the three functions, and 21 readings each
+of MODE and MODE.SNGL covering direct text, logicals and errors.
+
+- Open: How a reference to one empty cell counts is not settled by these readings.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_mode_ignores_text_and_logicals at `c5defbd38b` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheets ql104 to ql133 at `2d0eddcac8` — 30 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/MODE.reading.json` at `2d0eddcac8` — 21 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/MODE.SNGL.reading.json` at `2d0eddcac8` — 21 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql111, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql112, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql110, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql105, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql120, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql130, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/MODE.reading.json`, fn7-MODE-error-after-duplicates at `2d0eddcac8` (readings)
 
 ### FN-MROUND-001: MROUND counts a quotient within 5E-15 below a half up
 
@@ -595,6 +1481,46 @@ Evidence:
 - OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00183 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00003 at `e26b7bddb8` (readings)
 
+### FN-NETWORKDAYS.INTL-001: NETWORKDAYS.INTL checks weekend before the dates, WORKDAY.INTL after them
+
+*Quirk; measured; recorded 2026-11-04.* Applies to NETWORKDAYS.INTL, WORKDAY.INTL.
+
+The two functions read their arguments in different orders. NETWORKDAYS.INTL decodes weekend
+first: with #REF! in the cell for start_date and weekend 0, the answer is #NUM!, from the
+invalid weekend. WORKDAY.INTL reads start_date first and gives #REF! for the same arguments. An
+error held in the weekend cell is also treated differently: with start 2 and second argument 5,
+NETWORKDAYS.INTL gives #VALUE! and WORKDAY.INTL gives #NUM!. Neither returns the error itself.
+A logical weekend is read as a number: NETWORKDAYS.INTL(2,5,TRUE) is 4, as with weekend 1, and
+FALSE is #NUM!, as with weekend 0. WORKDAY.INTL does the same.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `NETWORKDAYS.INTL(A1, 5, 0)` | start_date `#REF!`; end_date `5` (`0x4014000000000000`); weekend `0` (`0x0000000000000000`) (cells) | `#NUM!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `WORKDAY.INTL(A1, 5, 0)` | start_date `#REF!`; days `5` (`0x4014000000000000`); weekend `0` (`0x0000000000000000`) (cells) | `#REF!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `NETWORKDAYS.INTL(2, 5, A3)` | start_date `2` (`0x4000000000000000`); end_date `5` (`0x4014000000000000`); weekend `#REF!` (cells) | `#VALUE!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `WORKDAY.INTL(2, 5, A3)` | start_date `2` (`0x4000000000000000`); days `5` (`0x4014000000000000`); weekend `#REF!` (cells) | `#NUM!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `=NETWORKDAYS.INTL(2,5,TRUE)` | as typed | `4` (`0x4010000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=NETWORKDAYS.INTL(2,5,FALSE)` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=WORKDAY.INTL(2,2,TRUE)` | as typed | `4` (`0x4010000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=WORKDAY.INTL(2,2,FALSE)` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 19 NETWORKDAYS.INTL and 20 WORKDAY.INTL readings with errors held in cells,
+and the logical weekend readings of the argument sheets.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_scalar_readings_follow_the_application_route at `287c5b9a3b` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/NETWORKDAYS.INTL.reading.json` at `2d0eddcac8` — 19 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/WORKDAY.INTL.reading.json` at `2d0eddcac8` — 20 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/NETWORKDAYS.INTL.reading.json`, fn7-NETWORKDAYS.INTL-weekend-first-order-2 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/WORKDAY.INTL.reading.json`, fn7-WORKDAY.INTL-weekend-first-order-2 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/NETWORKDAYS.INTL.reading.json`, fn7-NETWORKDAYS.INTL-admission-order-6 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/WORKDAY.INTL.reading.json`, fn7-WORKDAY.INTL-admission-order-6 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa043, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa044, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa065, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa066, row 20, column 10 at `2d0eddcac8` (readings)
+
 ### FN-OP_EQUAL-001: Conjoining Hangul jamo do not compare equal to the precomposed syllable
 
 *Quirk; measured; recorded 2026-11-04.* Applies to OP_EQUAL, OP_LESS_THAN.
@@ -611,7 +1537,7 @@ final consonant, U+1100 U+1161 U+11A8 against U+AC01.
 
 Basis (measured): 32 recorded readings on the fn3_collation sheet.
 
-- Open: Twelve further boundary questions are unanswered.
+- Open: Twelve further comparisons (other leading consonants, a trailing consonant, a compound vowel, compatibility jamo) were read on 2026-11-04. They are not yet in a published capture, so this note does not rest on them.
 
 Evidence:
 
@@ -620,16 +1546,57 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_collation, row 291, column 4 at `eceb809985` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_collation, row 296, column 4 at `eceb809985` (readings)
 
-### FN-PMT-001: PMT stores the quotient before it multiplies by the rate
+### FN-OP_LESS_THAN-001: Punctuation before a Japanese repeat mark sorts one way after a Latin letter, the other after Han
 
-*Detail for matching Excel's bits; inferred; recorded 2026-11-04.*
+*Quirk; measured; recorded 2026-11-04.* Applies to OP_GREATER_THAN, OP_LESS_THAN.
 
-With fv 0, type 0 and rate > 0, PMT's last two steps are q = RN53(RN64(pv/em)) then
-RN53(RN64(q*rate)): the x87 unit at precision 64, each result stored to binary64, where em =
-(1+rate)^-nper - 1 is a stored binary64. Holding one free binary64 em for each (rate, nper),
-this order admits a consistent em in all 4,802 bank groups with 8 or more pv values. A binary64
-quotient leaves 59 groups with no em, and binary64 for both steps 111. The three other orders
-tested (rate/em, pv*rate then /em, em/rate) fit only 8 to 12 of 40 sampled groups. The common
+Comparing a string with punctuation before a repeat or prolonged-sound mark against the same
+string without the punctuation, the order depends on the character at the start. After a Latin
+letter the punctuated string is smaller: "a-ゝx" < "aゝx". After a Han character it is larger:
+"時-ゝx" > "時ゝx". This held for every pair read, with the marks ゝ, 々 and ー and with hyphen-minus,
+U+2212 and U+2019 as the punctuation. In all 66 readings the two strings are never equal, and a
+string with the mark added sorts after the string without it, after Latin and after Han alike:
+"a−ゝ" > "a−".
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `="a-ゝx"<"aゝx"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="a-ゝx">"aゝx"` | as typed | `FALSE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="時-ゝx"<"時ゝx"` | as typed | `FALSE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="時-ゝx">"時ゝx"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="a−ゝ"<"aゝ"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="時−ゝ">"時ゝ"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="a−ゝ">"a−"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="時−ゝ">"時−"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 66 recorded readings of =, < and > on 22 pairs of strings, 11 pairs after 時
+and 11 after a.
+
+- Open: The collation rule behind this is not identified, and none is claimed here.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheets q001 to q066 at `2d0eddcac8` — 66 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q059, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q060, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q050, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q051, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q029, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q006, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q027, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q003, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-PMT-001: PMT takes ln(1+rate) from a series, and stores its quotient before the rate
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.*
+
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, PMT with
+fv 0 and type 0 at rates from -1/3 to 1/2 runs: s = rate/(2+rate); L = 2s + 2s*(s^2*T), where T
+= 1/3 + s^2/5 + ... + s^20/23 by Horner, all in plain binary64, which is the atanh series for
+ln(1+rate) (Abramowitz and Stegun 4.1.27) with the 2s term added last; t = -(nper*L); u =
+exp(t) stored; em = RN(RN((u-1)*t)/ln(u)) for |t| < 1, and RN(u-1) otherwise, Kahan's way of
+forming expm1; q = RN(pv/em); PMT = RN(q*rate). L is not the correctly rounded logarithm: at
+rate 0.05/12 it is 0x3f7107fd59addc8a, one unit below 0x3f7107fd59addc8b, and the common
 30-year loan below comes out 1 unit from the correctly rounded payment.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
@@ -639,17 +1606,28 @@ tested (rate/em, pv*rate then /em, em/rate) fit only 8 to 12 of 40 sampled group
 Correct value: mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12
 evaluates to; correctly rounded.
 
-Basis (inferred): Exact rational feasibility over the 4,802 groups of recorded PMT answers. It
-fixes the order and precision of the two steps, and fixes em uniquely in 4,720 groups.
+Basis (measured): For each of 1,184 rates one binary64 L reproduces Excel's em at every nper
+(1,622 of 1,622 power-of-two and 1,849 of 1,849 other nper, L taken from nper 1 alone). The
+series gives that L at 1,181 rates; the correctly rounded log1p and fdlibm's log1p each give it
+at 667. Order and precision of the last two steps: in all 4,802 groups of recorded answers
+sharing (rate, nper) with 8 or more pv values, these steps admit one em; a binary64 quotient
+leaves 59 groups with none, and binary64 for both steps 111. 720 of 720 fresh type 0 rows over
+20 rates, both signs, match (Excel build 20527). Over every recorded PMT row, types and fv
+included, 279,887 of 291,978 match.
 
-Inferred, not measured: The order is inferred from feasibility with em left free: it is not a
-reproduction of PMT's answers, because how Excel forms em is not identified.
+Inferred, not measured: The range -1/3 to 1/2 is where twelve series terms converge, not a
+measured Excel boundary. Rate 0.419, near sqrt(2)-1, misses by 1 unit, so a range reduction may
+start there. Negative rates rest on 20 rates' controls and the recorded rows.
 
-- Open: How em is formed: the chains tested reproduce at most 3,258 of the 4,720 pinned values.
+- Open: type 1: Excel multiplies q by one stored binary64 K near rate/(1+rate) per rate (pinned at 457 of 458 recorded rates and 20 of 20 fresh ones), but K's formula is open: the correctly rounded quotient fits 344 of 458.
+- Open: Nonzero fv: the numerator of q is open. The best form tried fits 5,600 of 7,491 rows, and 146 rows admit no binary64 numerator under this order.
+- Open: Rates outside -1/3 to 1/2.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up, findings F1 to F4; the PMT work is unfinished at this date
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt), section UPDATE — research write-up; the update supersedes the blocked outcome at its head
+- DnaCalc `crates/calc-func/src/ported/financial_time_value_family.rs`, pmt at `08ea3d7ae0` — the logarithm and the stored quotient in the product; the commit message carries the row counts
+- DnaCalc `crates/calc-func/src/ported/excel_numeric/mod.rs`, excel_log1p_atanh at `08ea3d7ae0` — the series
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json` at `c9f9d35416` — recorded answers of the 30-year loan block
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)
 
@@ -662,6 +1640,8 @@ On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT an
 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own
 answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods
 and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits.
+FN-IPMT-001 gives the route Excel takes instead. FN-IPMT-001 gives the route Excel takes
+instead.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -671,17 +1651,12 @@ Correct value: mpmath at 800 bits with rate the binary64 0x3f71111111111111 that
 evaluates to; correctly rounded.
 
 Basis (measured): Twelve recorded periods of one loan, read from the catalogue capture,
-compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction.
-
-Inferred, not measured: That PPMT uses its own discount factor rather than PMT's em is
-inferred: the period-1 answer is not P*(1+em) for either em consistent with PMT, and not a
-difference of two binary64 values on the grid its bits would need.
-
-- Open: PPMT's discount route: 9 discount routes by 5 to 6 consumer orders separate nothing from chance on 416 rows.
+compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction,
+recomputed for this note.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up, findings F1 to F4; the PMT work is unfinished at this date
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up; finding F4 gives 4 and 8 of 12 periods, and the capture gives the 2 and 7 stated here
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json` at `c9f9d35416` — recorded answers of the 30-year loan block
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 727, column 4 at `c9f9d35416` (readings)
 
@@ -730,6 +1705,48 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - OxFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000 at `e26b7bddb8` (readings)
 
+### FN-REGEXTEST-001: In REGEXTEST, \w takes combining marks, dot refuses CR, and case folding reaches into ranges
+
+*Quirk; measured; recorded 2026-11-04.*
+
+Some regular expression details in REGEXTEST differ from a plain reading. \w matches a
+combining mark (U+0301) and connector punctuation (U+203F), so it is not limited to letters,
+digits and underscore. Dot does not match CR as well as LF: REGEXTEST("a"&CHAR(13)&"b","a.b")
+is FALSE. \d does not match a Han character. With case_sensitivity 1, folding applies inside a
+character class range: É matches [é-é] and Σ matches [α-ω]. It also covers the non-ASCII
+partners of ASCII letters: the Kelvin sign U+212A matches k and long s U+017F matches s. ß
+matches its capital U+1E9E, and a Deseret letter above U+FFFF matches its other case.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `REGEXTEST(A1, A2, 1)` | text `É`; pattern `[é-é]`; case_sensitivity `1` (`0x3ff0000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `REGEXTEST(A1, A2, 1)` | text `Σ`; pattern `[α-ω]`; case_sensitivity `1` (`0x3ff0000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `REGEXTEST(A1, A2, 0)` | text `́`; pattern `\w`; case_sensitivity `0` (`0x0000000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `REGEXTEST(A1, A2, 0)` | text `‿`; pattern `\w`; case_sensitivity `0` (`0x0000000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `REGEXTEST(A1, A2, 0)` | text `a b`; pattern `a.b`; case_sensitivity `0` (`0x0000000000000000`) (cells) | `FALSE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `REGEXTEST(A1, A2, 1)` | text `K`; pattern `k`; case_sensitivity `1` (`0x3ff0000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+| `REGEXTEST(A1, A2, 1)` | text `ſ`; pattern `s`; case_sensitivity `1` (`0x3ff0000000000000`) (cells) | `TRUE` | Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2 |
+
+Basis (measured): 12 recorded REGEXTEST readings, in a workbook at compatibility version 2.
+
+Inferred, not measured: The readings cover the characters named here. That \w follows the
+Unicode Mn and Pc categories in general, and that ranges fold by simple case folding in
+general, is inferred.
+
+- Open: Reversed or very wide caseless ranges, and other newline characters, have not been read.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs` at `ae13ca181b` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json` at `2d0eddcac8` — 12 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json`, fn3-regextest-001 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json`, fn3-regextest-003 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json`, fn3-regextest-005 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json`, fn3-regextest-006 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json`, fn3-regextest-007 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json`, fn3-regextest-009 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn3_questions/REGEXTEST.reading.json`, fn3-regextest-010 at `2d0eddcac8` (readings)
+
 ### FN-ROUND-001: ROUND counts digits in 32 bits, and the count wraps
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
@@ -750,14 +1767,14 @@ both the +2^31 and -2^31 sides, for e from -308 to 308. num_digits of 2^31 or mo
 Correct value: -112500000000000 is an integer, so rounding it to any non-negative number of
 places returns it.
 
-Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
-36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
-with no row lost and each remaining failure classified in the write-up. The wrap boundary was
-read at every decimal exponent in the bank.
+Basis (measured): Under the family rules the recorded rows match ROUND 36,821 of 36,945,
+ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row
+lost and each remaining failure classified in the write-up. The wrap boundary was read at every
+decimal exponent in the recorded rows.
 
 Evidence:
 
-- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01694 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01682 at `e26b7bddb8` (readings)
@@ -782,15 +1799,16 @@ ROUNDDOWN(283025097725723.5,0) returns 283025097725724, larger than its input.
 Correct value: An integer rounded to 14 places is itself.
 Correct value: ROUNDDOWN drops the fraction .5.
 
-Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
-36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
-with no row lost and each remaining failure classified in the write-up.
+Basis (measured): Under the family rules the recorded rows match ROUND 36,821 of 36,945,
+ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row
+lost and each remaining failure classified in the write-up.
 
 - Open: How the scale is formed for |n| > 27: a single correctly rounded 64-bit power and the chained multiplications tried do not fit; 123 ROUND, 548 ROUNDUP, 556 ROUNDDOWN and 555 TRUNC rows remain.
+- Open: The reading step itself: one control at n = -10 misses the single RN64 step by just over half a unit, so that step is an approximation of the real one even for |n| <= 27. It stays because it gains rows and loses none.
 
 Evidence:
 
-- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUND.jsonl.gz`, line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz`, line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000 at `e26b7bddb8` (readings)
@@ -798,17 +1816,19 @@ Evidence:
 ### FN-ROUND-003: Near DBL_MAX, ROUND returns NaN bit patterns that Excel treats as numbers
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to ROUND,
-ROUNDDOWN, TRUNC.
+ROUNDDOWN, ROUNDUP, TRUNC.
 
-ROUND of a number near 1.8E308 can return a binary64 with an all-ones exponent field: the
-decimal-to-binary conversion does not saturate, and a value of 1.8E308 comes out with the
-exponent overflowed. The bank holds 430 such ROUND rows, 102 ROUNDDOWN and 95 TRUNC. Even
-ROUND(DBL_MAX,0), whose answer is DBL_MAX, returns 0x7ff000000000000a. The cell shows 2E+308 or
-1.8E+308, ISNUMBER gives TRUE, ISERROR FALSE, TYPE 1, and =A1, N(A1), MAX(A1), ABS(A1) and
-IFERROR(A1,...) pass the pattern on, as does =-A1 with its sign unchanged. Arithmetic on it
-(A1+0, A1*1, A1-A1, SUM, ROUND) gives #NUM!, TEXT(A1,"0") gives #VALUE!, ERROR.TYPE(A1) gives
-#N/A. Saved to .xlsx and reopened, the cells read #NUM! until recalculated, when the patterns
-return.
+ROUND of a number near 1.8E308 can return a binary64 with an all-ones exponent field. A decimal
+result of 2^1024 or more keeps its 53-bit significand, and its exponent is carried into the
+exponent field without a check, so the bits are a NaN. ROUND, ROUNDDOWN and TRUNC return those
+bits; ROUNDUP gives #NUM!. The recorded rows hold 430 such ROUND rows, 102 ROUNDDOWN and 95
+TRUNC, and all 627 follow this. Even ROUND(DBL_MAX,0), whose answer is DBL_MAX, returns
+0x7ff000000000000a. The cell shows 2E+308 or 1.8E+308, and a pattern with its sign bit set
+shows 2E+308 too, with no minus. ISNUMBER gives TRUE, ISERROR FALSE, TYPE 1, ERROR.TYPE #N/A;
+A1=A1 and A1>0 are TRUE. =A1, N(A1), MAX(A1), ABS(A1) and IFERROR(A1,...) pass the pattern on,
+as does =-A1 with its sign unchanged. Arithmetic on it (A1+0, A1*1, A1-A1, SUM, ROUND) gives
+#NUM!, and TEXT(A1,"0") gives #VALUE!. Saved to .xlsx, each such cell is written as the error
+#NUM!; reopened, the cells read #NUM! until a full recalculation brings the patterns back.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -821,15 +1841,19 @@ Correct value: The rounded value exceeds the largest binary64; Excel reports ove
 own arithmetic as #NUM!.
 
 Basis (measured): One Excel workbook read cell by cell through Value2 on 2026-11-04, saved,
-reopened and recalculated; bank counts from the rounding write-up.
+reopened and recalculated; rows from the rounding write-up, 627 of 627.
 
 Inferred, not measured: That one decimal-to-binary conversion routine is the source of all
 these patterns is inferred from the exponent-overflow encoding.
 
+- Open: How these patterns sort among themselves and with other numbers, and display width, are not recorded.
+
 Evidence:
 
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells A1..A4, B1..B24, reopened, recalculated — cell-by-cell Excel reading of the NaN patterns
 - [`content/notes/evidence/2026-11-04/round-nan-downstream.ps1`](../../content/notes/evidence/2026-11-04/round-nan-downstream.ps1) — the script that took the reading
+- [`content/notes/evidence/2026-11-04/round-nan-downstream-sheet1.xml`](../../content/notes/evidence/2026-11-04/round-nan-downstream-sheet1.xml) — the sheet as Excel saved it
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A3 (readings)
 - [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A2 (readings)
@@ -857,14 +1881,14 @@ gives #NUM! for a negative count when a digit is dropped.
 Correct value: The exact decimal expansion of this binary64 number has fewer than 32768 places,
 so a truncation at num_digits places returns the number itself.
 
-Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
-36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
-with no row lost and each remaining failure classified in the write-up. All 13,914 informative
-ROUNDDOWN and TRUNC rows with large num_digits follow the rule.
+Basis (measured): Under the family rules the recorded rows match ROUND 36,821 of 36,945,
+ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row
+lost and each remaining failure classified in the write-up. All 13,914 informative ROUNDDOWN
+and TRUNC rows with large num_digits follow the rule.
 
 Evidence:
 
-- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00041 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00043 at `e26b7bddb8` (readings)
@@ -876,9 +1900,10 @@ Evidence:
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
 
 ROUNDUP forms the ROUNDDOWN result, converts it to binary64, converts one unit 10^-p to
-binary64, and adds the two in binary64. The sum need not be the binary64 value nearest the
-decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and ROUNDUP(3.535,2) is
-3.5399999999999996. The difference shows when the result is compared with a typed 3.54.
+binary64, and adds the two on the x87 unit, storing the sum to binary64. The sum need not be
+the binary64 value nearest the decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and
+ROUNDUP(3.535,2) is 3.5399999999999996. The difference shows when the result is compared with a
+typed 3.54.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -888,16 +1913,52 @@ decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and ROUNDUP(3.535,2)
 Correct value: The decimal answer has a nearest binary64 value; rounding away from zero at 2
 places gives that value.
 
-Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
-36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
-with no row lost and each remaining failure classified in the write-up.
+Basis (measured): Under the family rules the recorded rows match ROUND 36,821 of 36,945,
+ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row
+lost and each remaining failure classified in the write-up.
 
 Evidence:
 
-- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1863, key ROUNDUP|0xbff2000000000000|0x4000000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1809, key ROUNDUP|0x400c47ae147ae148|0x4000000000000000 at `e26b7bddb8` (readings)
+
+### FN-ROUNDUP-003: At tiny magnitudes ROUNDUP may add no unit, and the two signs differ
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+ROUNDUP adds no unit when the unit itself is below the normal range, whichever the sign. For a
+positive number it also adds none when the 15-digit reading, as binary64, lies less than
+2^-1026 above the truncation; negative numbers have no such distance. So
+ROUNDUP(1.0001086461844975E-307,307) is 1E-307 and ROUNDUP(-1.0001086461844975E-307,307) is
+-2E-307, with the same digits dropped. At -1.2225E-307 and 308 places the unit, 1E-308, is
+subnormal, and the answer stays at -1.2E-307.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUNDUP(1.0001086461844975e-307, 307)` | number `1.0001086461844975e-307` (`0x0031fa982c40c60e`); num_digits `307` (`0x4073300000000000`) (cells) | `1e-307` (`0x0031fa182c40c60d`) | `2e-307` (`0x0041fa182c40c60d`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `ROUNDUP(-1.2225073858507202e-307, 308)` | number `-1.2225073858507202e-307` (`0x8035fa182c40c60e`); num_digits `308` (`0x4073400000000000`) (cells) | `-1.2e-307` (`0x80359283684dba77`) | `-1.3e-307` (`0x80375eb9065434ab`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `ROUNDUP(1.0000000022250739e-300, 307)` | number `1.0000000022250739e-300` (`0x01a56e1fc3c5c026`); num_digits `307` (`0x4073300000000000`) (cells) | `1.0000001000000001e-300` (`0x01a56e1fe6ed23b2`) | — | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: The number has a nonzero digit past 307 places, so rounding away from zero at
+307 places gives 2E-307; nearest binary64.
+Correct value: The number has a nonzero digit past 308 places, so rounding away from zero at
+308 places gives -1.3E-307; nearest binary64.
+
+Basis (measured): ROUNDUP rows match under these rules as counted in FN-ROUND-001. In the 1,148
+recorded rows nearest the 2^-1026 boundary this quantity has 1 violation, itself an artefact of
+how the row was classified; the exact value, the reading and x minus the truncation give 54 to
+547. The opposite-sign pair is a reading from Excel build 20527.
+
+- Open: 14 ROUNDUP rows of tiny magnitude stay unmatched, in the near-tie class of FN-ROUND-002.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `ab94fb91a5` — three rows of Excel's answers; failed before the change
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `ab94fb91a5` (readings)
 
 ### FN-SORT-001: A Han iteration mark is not read as a repeat of the character
 
@@ -998,12 +2059,53 @@ gg and ggg give R, 令 and 令和, switching on 2019-05-01.
 
 Basis (measured): 170 recorded TEXT readings on the fn3_text sheet.
 
+- Open: Era readings cover Heisei and Reiwa only. Earlier Japanese eras have not been read.
+
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, locale_tagged_date_names_follow_the_retained_fn3_readings at `f4930602d7` — recorded readings pinned
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_text, row 6, column 4 at `eceb809985` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_text, row 78, column 4 at `eceb809985` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_text, row 164, column 4 at `eceb809985` (readings)
+
+### FN-TEXT-002: In TEXT, an @ applied to a number gives the General display, not the full number
+
+*Quirk; measured; recorded 2026-11-04.*
+
+A format of @ or @! on a number gives what General gives, not the digits of the number.
+TEXT(123456789012345,"@") is 1.23457E+14 and TEXT(1234567890.5,"@") is 1234567891. A quoted @
+is a literal: TEXT(x,"""@""") is @ for a positive x, and -@ for a negative one, because the
+ordinary sign rule applies. In a format with four sections, @ is the text section and numbers
+use the others: TEXT(123456789012345,"0;0;0;@") shows all 15 digits, and
+TEXT(-123456789012345,"0;0;0;@") shows them with no minus sign, because the second section has
+none.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=TEXT(123456789012345,"@")` | as typed | `1.23457E+14` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(123456789012345,"General")` | as typed | `1.23457E+14` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(1234567890.5,"@")` | as typed | `1234567891` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(123456789012345,"""@""")` | as typed | `@` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-123456789012345,"""@""")` | as typed | `-@` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(123456789012345,"0;0;0;@")` | as typed | `123456789012345` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-123456789012345,"0;0;0;@")` | as typed | `123456789012345` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 30 recorded readings: six numbers against the formats @, General, quoted @,
+@! and 0;0;0;@. @ and @! equalled General for all six numbers.
+
+- Open: Formats mixing @ with digit placeholders have not been read.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_numeric_text_placeholders_use_general_display at `179455f24c` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt001 to qt030 at `2d0eddcac8` — 30 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt001, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt002, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt011, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt003, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt008, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt005, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt010, row 20, column 10 at `2d0eddcac8` (readings)
 
 ### FN-TEXTSPLIT-001: Empty text gives #N/A from TEXTBEFORE and TEXTAFTER, #VALUE! from TEXTSPLIT
 
@@ -1045,7 +2147,7 @@ no capture group gives #VALUE!.
 | `=MAP({"a,b","c,d"},LAMBDA(txt,TEXTSPLIT(txt,",")))` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 | `=BYROW({"a,b";"c,d"},LAMBDA(txt,TEXTSPLIT(txt,",")))` | as typed | `{"a";"c"}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
-Basis (measured): About 15 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.
+Basis (measured): 22 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.
 
 Evidence:
 
@@ -1064,7 +2166,8 @@ ROUNDDOWN, ROUNDUP, TRUNC.
 With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal
 0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6
 steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit
-reading 2.22507385850720E-308. The bank holds 256 such rows for each of the three functions.
+reading 2.22507385850720E-308. The recorded rows hold 256 such cases for each of the three
+functions. ROUND gives 0 on the same inputs.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -1082,6 +2185,199 @@ Evidence:
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00026 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00027 at `e26b7bddb8` (readings)
+
+### FN-VALUE-001: Text to number reads Arabic, Persian, Devanagari and Thai digits, but not fullwidth digits
+
+*Quirk; measured; recorded 2026-11-04.* Applies to DATEVALUE, SQRT, VALUE.
+
+In the recorded en-ZA settings, converting text to a number accepts Arabic-Indic (U+0660 to
+U+0669), extended Arabic-Indic (U+06F0 to U+06F9), Devanagari (U+0966 to U+096F) and Thai
+(U+0E50 to U+0E59) digits. They work alone, in runs, with a decimal point, in the exponent,
+with a sign or percent, and mixed with ASCII digits or with each other: VALUE("1٢3") is 123,
+and SQRT of a four-digit string using four scripts is the root of 1234. Fullwidth digits
+(U+FF10 to U+FF19) give #VALUE! alone or mixed. DATEVALUE reads the four accepted scripts in a
+date written year-month-day.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=VALUE("١")` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("١٢٣")` | as typed | `123` (`0x405ec00000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("1٢3")` | as typed | `123` (`0x405ec00000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("١e2")` | as typed | `100` (`0x4059000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("१")` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("๑")` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("１")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("1２3")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SQRT("۱٢३๔")` | as typed | `35.12833614050059` (`0x4041906d51932c26`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `=DATEVALUE("٢٠٢٤-٠١-٠٢")` | as typed | `45293` (`0x40e61da000000000`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+
+Basis (measured): 66 recorded VALUE readings (all ten digits of each of the five scripts, then
+composed forms), 10 SQRT and 4 DATEVALUE readings.
+
+Inferred, not measured: That other text-to-number routes, such as arithmetic operators, treat
+digits the same way is inferred from VALUE and SQRT agreeing.
+
+- Open: Other digit blocks (Bengali, Tibetan, Khmer and so on) have not been read.
+- Open: Whether the set depends on the Windows or workbook locale has not been read.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_digit_scripts_and_numeric_date_widths at `55697ab4f7` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt031 to qt096 at `2d0eddcac8` — 66 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/SQRT.reading.json` at `2d0eddcac8` — 10 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/DATEVALUE.reading.json` at `2d0eddcac8` — 6 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt042, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt081, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt084, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt088, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt062, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt072, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt032, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt093, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/SQRT.reading.json`, fn7-SQRT-digits-6 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/DATEVALUE.reading.json`, fn7-DATEVALUE-digits-1 at `2d0eddcac8` (readings)
+
+### FN-VALUE-002: A date as text takes at most two digits for month and day
+
+*Quirk; measured; recorded 2026-11-04.* Applies to DATEVALUE, VALUE.
+
+In a three-part numeric date, leading zeros are not free. VALUE("2024/02/01") is 45323, but
+VALUE("2024/02/001") and VALUE("2024/002/01") are #VALUE!, and so is any month or day of three
+or more digits in the 45 forms read. A year of one, two or four digits is read: "1/2/1" and
+"1/02/01" are 2001-02-01, "24/2/1" is 2024-02-01, while "0001/2/1" is #VALUE!. Month 0 and day
+0 give #VALUE!. The same limit holds with hyphens: "2024-02-001" through VALUE, and
+"2024-002-01" and "2024-02-001" through DATEVALUE, are #VALUE!. The settings of this run are
+en-ZA: decimal point, space as thousands separator, year-month-day date order.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=VALUE("2024/02/01")` | as typed | `45323` (`0x40e6216000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("2024/02/001")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("2024/002/01")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("1/2/1")` | as typed | `36923` (`0x40e2076000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("24/2/1")` | as typed | `45323` (`0x40e6216000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0001/2/1")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("2024/02/0")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("2024-02-001")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=DATEVALUE("2024-002-01")` | as typed | `#VALUE!` | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+
+Basis (measured): 45 recorded VALUE readings covering year, month and day tokens of one to five
+digits, and 2 DATEVALUE readings.
+
+- Open: Three-digit years were not read.
+- Open: Other date orders and locales were not read.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_digit_scripts_and_numeric_date_widths at `55697ab4f7` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheets ql041 to ql085 at `2d0eddcac8` — 45 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql078, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql079, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql081, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql041, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql065, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql057, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql084, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql085, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/DATEVALUE.reading.json`, fn7-DATEVALUE-digits-5 at `2d0eddcac8` (readings)
+
+### FN-VALUE-003: VALUE takes one percent sign anywhere around parentheses, and a euro sign but not a dollar
+
+*Quirk; measured; recorded 2026-11-04.*
+
+VALUE reads parentheses as a negative sign and one percent sign in any of these places: "(1)%",
+"(1) %", "(1%)", "(%1)" and "%(1)" are all -0.01. A second percent sign, as in "(1%)%", "%(1)%"
+and "(1)%%", gives #VALUE!, as does trailing text. The euro sign is read as a currency sign in
+the recorded en-ZA settings: "€1", "1€", "€ 1", "€-1", "-€1", "(€1)" and "€(1)" are 1 or -1.
+"$1" and "£1" are #VALUE! there. Currency and percent do not combine: "€1%", "(€1)%" and
+"(R1)%" are #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=VALUE("(1)%")` | as typed | `-0.01` (`0xbf847ae147ae147b`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("(%1)")` | as typed | `-0.01` (`0xbf847ae147ae147b`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("%(1)")` | as typed | `-0.01` (`0xbf847ae147ae147b`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("(1%)%")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("€1")` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("1€")` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("€(1)")` | as typed | `-1` (`0xbff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("€1%")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("$1")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("£1")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 21 recorded VALUE readings.
+
+- Open: Why the euro sign is accepted in en-ZA settings, and "$" is not, is not known. The other locales have not been read.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheets q072 to q092 at `2d0eddcac8` — 21 recorded readings
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_parenthesized_percent_text_keeps_its_suffix at `2d0eddcac8` — the same parenthesised percent forms through INT
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q072, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q075, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q076, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q077, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q083, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q084, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q089, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q090, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q091, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q092, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-VAR.S-001: The variance family uses raw moments with stored steps, and two tests switch it to a centered sum
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to STDEV,
+STDEV.P, STDEV.S, STDEVA, STDEVP, STDEVPA, VAR, VAR.P, VAR.S, VARA, VARP, VARPA.
+
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, S the
+running RN sum of the n values and Q the running RN sum of RN(x*x), the sample variance is
+RN(RN(Q - RN(RN(S*S)/n))/(n-1)) and the population variance RN(RN(RN(n*Q) - RN(S*S))/RN(n*n)).
+Excel then uses a centered sum instead, adding RN(d*d) with d = RN(x - mean) and dividing by
+n-1 or n, when either of two stored tests holds: RN(RN(RN(S*S)/n)/Q) > 0.99, or
+RN(variance*1000) <= |RN(S/n)|. The STDEV functions are the root of this, rounded to 64 bits
+and then stored. So the answer depends on which path a call takes: the two VAR.S calls below
+differ by one input step in two arguments, the first passes the 0.99 test and is correctly
+rounded, and the second takes the raw moments and lands 76 units high. The second pair shows
+the size test: scaling the inputs by 4 leaves the first path.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `VAR.S(0.8769085090206681, 1, 1.123091490979332)` | number1 `0.8769085090206681` (`0x3fec0fa26efa7e14`); number2 `1` (`0x3ff0000000000000`); number3 `1.123091490979332` (`0x3ff1f82ec882c0f6`) (cells) | `0.01515151515151495` (`0x3f8f07c1f07c1e94`) | — | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `VAR.S(0.8769085090206679, 1, 1.1230914909793321)` | number1 `0.8769085090206679` (`0x3fec0fa26efa7e12`); number2 `1` (`0x3ff0000000000000`); number3 `1.1230914909793321` (`0x3ff1f82ec882c0f7`) (cells) | `0.015151515151515138` (`0x3f8f07c1f07c1f00`) | `0.015151515151515006` (`0x3f8f07c1f07c1eb4`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `VAR.S(3.244042371786199e-10, 0.00034050419142641947)` | number1 `3.244042371786199e-10` (`0x3df64afacd3a935a`); number2 `0.00034050419142641947` (`0x3f3650b65dc7a1d6`) (cells) | `5.797144172853e-08` (`0x3e6f1f88c6bbc51a`) | — | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `VAR.S(1.2976169487144796e-09, 0.0013620167657056779)` | number1 `1.2976169487144796e-09` (`0x3e164afacd3a935a`); number2 `0.0013620167657056779` (`0x3f5650b65dc7a1d6`) (cells) | `9.275430676564799e-07` (`0x3eaf1f88c6bbc519`) | `9.2754306765648e-07` (`0x3eaf1f88c6bbc51a`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `=VAR.S({157,376.82,189.207,12.38,12.473,483,306.24,324.1852,482.235,78})` | as typed | `31907.480453381795` (`0x40df28debfbf8a84`) | `31907.480453381777` (`0x40df28debfbf8a7f`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `STDEV.S(0, 1, 1.031052478719249)` | number1 `0` (`0x0000000000000000`); number2 `1` (`0x3ff0000000000000`); number3 `1.031052478719249` (`0x3ff07f30e248f14c`) (cells) | `0.5865198874587454` (`0x3fe2c4c55ae2d85e`) | — | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+
+Correct value: Exact rational variance of the binary64 inputs, correctly rounded.
+
+Basis (measured): All 14,679 recorded rows of the twelve functions match: VAR.S, VAR.P, VAR,
+VARP, VARA, VARPA, STDEV.S, STDEV.P, STDEV, STDEVP, STDEVA and STDEVPA. Six of those rows
+separate the stored steps from plain binary64. 910 fresh scalar variance readings (Excel build
+20527) replay exactly in rational arithmetic. Four cancellation edges were bisected to adjacent
+inputs; sixteen triples chosen to separate the stored ratio from 0.99*Q and from a division by
+0.99 all agree with the ratio, where 0.99*Q misses all 16 and the division 14. Seven of eight
+magnitude brackets reach adjacent inputs, and sixteen chosen roots all need the 64-bit root
+followed by a store.
+
+Inferred, not measured: These tests were located with scalar arguments in separate cells; that
+the same edges hold for ranges and arrays is inferred, and their readings have not been taken.
+RN(variance*1000) <= |mean| is not separated from the rearrangement variance <= |mean|/1000.
+That a raw moment which overflows also takes the centered sum is inferred from recorded answers
+that stay finite.
+
+- Open: Whether the two tests keep the same edges for ranges and arrays.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/variance_common.rs`, variance_from_values at `9c23b24e8d` — the rules in the product; the commit message carries the row counts
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, variance_cancellation_guard_stores_the_ratio at `9c23b24e8d` — recorded answers pinned
+- DnaCalc `crates/calc-func/witness-status.tsv` at `af74247e1e` — rows matched per function
+- DnaCalc-Research `evidence/round25/variance-published-canonical-scope-receipt.json` at `a547d79ed6` — the 14,679 rows before and after
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, variance_cancellation_guard_keeps_the_observed_edge at `9c23b24e8d` (readings)
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, variance_centered_guard_uses_the_absolute_mean at `9c23b24e8d` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json`, sheet dcj9k_statistics, row 3, column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, stdev_stores_the_extended_square_root at `9c23b24e8d` (readings)
 
 ### FN-VDB-001: An empty factor slot in VDB is 0, not the default 2
 
@@ -1102,8 +2398,9 @@ method).
 | `=VDB(A100,A101,A102,A103,A104,"2",FALSE)` | cost `1000` (`0x408f400000000000`); salvage `100` (`0x4059000000000000`); life `10` (`0x4024000000000000`); start_period `1` (`0x3ff0000000000000`); end_period `2` (`0x4000000000000000`) (cells) | `160` (`0x4064000000000000`) | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 | `=VDB(A100,A101,A102,A103,A104,"TRUE",FALSE)` | cost `1000` (`0x408f400000000000`); salvage `100` (`0x4059000000000000`); life `10` (`0x4024000000000000`); start_period `1` (`0x3ff0000000000000`); end_period `2` (`0x4000000000000000`) (cells) | `#VALUE!` | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 
-Basis (measured): Ten recorded option readings (cases 00022 to 00031 of the run). After the
-change VDB matches 142 of 142 retained padding calls.
+Basis (measured): Ten recorded option readings (cases 00022 to 00031 of the run). A rule
+reading the required arguments, then factor, then no_switch reproduces all 142 retained padding
+calls.
 
 Evidence:
 
@@ -1112,15 +2409,19 @@ Evidence:
 - OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00025-vdb-optional-5-25 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00026-vdb-optional-5-26 at `e26b7bddb8` (readings)
 
-### FN-WEEKNUM-001: WEEKNUM with an invalid return_type gave different answers in one build
+### FN-WEEKNUM-001: WEEKNUM with an invalid return_type can answer differently each time it is called
 
 *Quirk; measured; recorded 2026-11-04.*
 
-The documentation says an out-of-range return_type gives #NUM!. In recorded captures of one
-Excel build, 479 (serial_number, return_type) pairs were read with different results: usually
-#NUM!, sometimes a number (0, 1, 9, 10, 53 or 54). Some pairs differ within one run file. Every
-conflict has an invalid return_type (-5 to -1 or 22 to 129, 113 distinct values); no valid
-return_type conflicts. The conflict is open: no rule is claimed.
+The documentation says an out-of-range return_type gives #NUM!. Excel usually does, but not
+always, and the same call can give different answers. In recorded captures of build 20430, 479
+(serial_number, return_type) pairs were read with different results: usually #NUM!, sometimes a
+number (0, 1, 9, 10, 53 or 54), and some pairs differ within one run file. In build 20527 a
+matrix of 1,926 pairs (serial_number 0, 1, 59, 60, 61 and 43831, return_type -32 to 288) was
+read twice in one request, and 623 pairs differed between the two readings: 619 between a
+number and #NUM!, and 4 between 9 and 10. Every difference has an undocumented return_type. The
+ten documented return_types (1, 2, 11 to 17 and 21) gave the same answer both times. No rule
+for the undocumented values is claimed.
 
 Documentation: If Return_type is out of the range specified in the table above, a #NUM! error
 is returned.
@@ -1133,15 +2434,95 @@ is returned.
 | `WEEKNUM(0, 33)` | serial_number `0` (`0x0000000000000000`); return_type `33` (`0x4040800000000000`) (cells) | `0` (`0x0000000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
 | `WEEKNUM(0, 33)` | serial_number `0` (`0x0000000000000000`); return_type `33` (`0x4040800000000000`) (cells) | `#NUM!` | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
 
-Basis (measured): The recorded readings conflict with each other; the counts come from the
-DnaCalc witness differences file.
+Basis (measured): The readings conflict with each other. The 479 comes from the DnaCalc witness
+differences file. The 1,926 pairs come from one request of 3,852 calls, with exact input
+read-backs, compared pair by pair.
 
-- Open: Repeat readings of the conflicting pairs, in one fresh workbook, have not been taken.
+- Open: What decides the answer for an undocumented return_type is not known.
+- Open: The raw readings of build 20527 are not yet in a published capture. Their counts are recorded in the DnaCalc issue tracker.
 
 Evidence:
 
 - DnaCalc `crates/calc-func/witness-differences.tsv`, WEEKNUM at `9c23dde1df` — index of the conflicting readings
+- DnaCalc `.beads/issues.jsonl`, dc-zmk.2 at `2d0eddcac8` — the repeat comparison of 3,852 calls in build 20527
 - OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00188 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-01331 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00940 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-00133 at `e26b7bddb8` (readings)
+
+### FN-WORKDAY-001: An empty cell as a first date is serial 0, but a logical in that cell is #VALUE!
+
+*Quirk; measured; recorded 2026-11-04.* Applies to NETWORKDAYS, NETWORKDAYS.INTL, TBILLEQ,
+TBILLPRICE, TBILLYIELD, WORKDAY, WORKDAY.INTL, YEARFRAC.
+
+A reference to an empty cell as the first date of these functions reads as serial 0 and gives a
+normal answer: NETWORKDAYS(B1,5) is 4 and WORKDAY(B1,2) is 3. YEARFRAC(B1,5,0) is 5/360. TRUE
+in the same cell gives #VALUE!, as a direct TRUE does, so a blank is not treated as the logical
+FALSE either.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=NETWORKDAYS(B1,5)` | B1 `(empty cell)` (cells) | `4` (`0x4010000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=NETWORKDAYS(B1,5)` | B1 `TRUE` (cells) | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=WORKDAY(B1,2)` | B1 `(empty cell)` (cells) | `3` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=WORKDAY(B1,2)` | B1 `TRUE` (cells) | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=NETWORKDAYS.INTL(B1,5,1)` | B1 `(empty cell)` (cells) | `4` (`0x4010000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=WORKDAY.INTL(B1,2,1)` | B1 `(empty cell)` (cells) | `3` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=YEARFRAC(B1,5,0)` | B1 `(empty cell)` (cells) | `0.013888888888888888` (`0x3f8c71c71c71c71c`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TBILLEQ(B1,5,0.1)` | B1 `(empty cell)` (cells) | `0.10152990264255911` (`0x3fb9fddd1b6a757f`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 8 recorded readings with an empty B1, one per function, each paired with a
+reading with TRUE in B1.
+
+- Open: An argument left empty in the call was not read here for YEARFRAC and the T-bill functions.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_blank_date_references_read_serial_zero at `c4c5dde7e2` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheets qa031 and qa032, and the like pairs of each function at `2d0eddcac8` — recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa032, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa031, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa054, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa053, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa040, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa062, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa072, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa082, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-YEARFRAC-001: On basis 1 the fictitious 1900-02-29 is not a leap day, and serial 0 is a valid date
+
+*Quirk; measured; recorded 2026-11-04.* Applies to ACCRINTM, DISC, INTRATE, PRICEDISC,
+RECEIVED, YEARFRAC.
+
+Excel's calendar holds a 29 February 1900, serial 60, that never existed. On basis 1
+(actual/actual) it does not make 1900 a leap year: YEARFRAC(59,60,1) is 1/365, where the real
+1904-02-29 gives YEARFRAC(1520,1521,1) = 1/366. Serial 0 is accepted as a date: YEARFRAC(0,5,0)
+is 5/360 and YEARFRAC(0,60,1) is 60/365. Reversed dates give the same answer as in order.
+ACCRINTM, DISC, INTRATE, PRICEDISC and RECEIVED take the same 365 and 366 on those dates:
+DISC(59,60,99,100,1) is about 3.65 and DISC(1520,1521,99,100,1) about 3.66.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `YEARFRAC(59, 60, 1)` | start_date `59` (`0x404d800000000000`); end_date `60` (`0x404e000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `0.0027397260273972603` (`0x3f66719f3601671a`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `YEARFRAC(1520, 1521, 1)` | start_date `1520` (`0x4097c00000000000`); end_date `1521` (`0x4097c40000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `0.00273224043715847` (`0x3f6661ec6a5122f9`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `YEARFRAC(0, 5, 0)` | start_date `0` (`0x0000000000000000`); end_date `5` (`0x4014000000000000`); basis `0` (`0x0000000000000000`) (cells) | `0.013888888888888888` (`0x3f8c71c71c71c71c`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `YEARFRAC(0, 60, 1)` | start_date `0` (`0x0000000000000000`); end_date `60` (`0x404e000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `0.1643835616438356` (`0x3fc50a8542a150a8`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `DISC(59, 60, 99, 100, 1)` | settlement `59` (`0x404d800000000000`); maturity `60` (`0x404e000000000000`); pr `99` (`0x4058c00000000000`); redemption `100` (`0x4059000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `3.650000000000003` (`0x400d33333333333a`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+| `DISC(1520, 1521, 99, 100, 1)` | settlement `1520` (`0x4097c00000000000`); maturity `1521` (`0x4097c40000000000`); pr `99` (`0x4058c00000000000`); redemption `100` (`0x4059000000000000`); basis `1` (`0x3ff0000000000000`) (cells) | `3.6600000000000033` (`0x400d47ae147ae14f`) | Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file |
+
+Basis (measured): 19 YEARFRAC readings around serial 60 and the 1904, 2000 and 2004 leap days,
+35 readings with serial 0 on all five bases, and 3 readings each from five financial functions.
+
+- Open: An argument left empty in the call, as in YEARFRAC(,5), has not been read.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/day_count_common.rs` at `c4c5dde7e2` — the leap-day test as implemented
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_scalar_readings_follow_the_application_route at `2d0eddcac8` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json` at `2d0eddcac8` — 87 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json`, fn7-YEARFRAC-fictitious-leap-day-3 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json`, fn7-YEARFRAC-fictitious-leap-day-9 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json`, fn7-YEARFRAC-calendar-zero-11 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/YEARFRAC.reading.json`, fn7-YEARFRAC-fictitious-leap-day-1 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/DISC.reading.json`, fn7-DISC-fictitious-leap-day-1 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/DISC.reading.json`, fn7-DISC-fictitious-leap-day-2 at `2d0eddcac8` (readings)

@@ -281,13 +281,15 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
-### FN-CUMPRINC-001: CUMPRINC sums PPMT left to right, and CUMIPMT is count*PMT less CUMPRINC
+### FN-CUMPRINC-001: CUMPRINC follows PPMT on one loan and not in general; its own route is open
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to CUMIPMT, CUMPRINC.
 
 On the 30-year loan, CUMPRINC(0.05/12,360,200000,1,12,0) equals the left-to-right binary64 sum
 of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same periods equals
-12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit.
+12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit. That does not
+generalise: over recorded type 0 calls for a single period, CUMPRINC equals PPMT on 56 of 135
+rows and differs on 79, with PPMT computed by the route in FN-IPMT-001.
 
 | Call | Inputs (binary64) | Excel | Recorded in |
 |---|---|---|---|
@@ -296,14 +298,20 @@ of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same p
 | `=PMT(0.05/12,360,200000)` | as typed | `-1073.6432460242781` (`0xc090c692af15f63a`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
 Basis (measured): One loan block of the catalogue capture, recomputed from the recorded answers
-by binary64 arithmetic.
+by binary64 arithmetic, and 135 recorded single-period CUMPRINC rows compared with PPMT's
+route.
 
-Inferred, not measured: That this shape holds for every loan is inferred from this block; PPMT
-and PMT themselves are not yet reproduced, so a wider check is not available.
+Inferred, not measured: That the 79 single-period differences are CUMPRINC's own and not PPMT's
+rests on the PPMT route, which matches every fv 0, type 0 row tested. That CUMIPMT remains
+count*PMT less CUMPRINC beyond this block is inferred.
+
+- Open: CUMPRINC's per-period route. Recurrences, closed balances, count*PMT less interest and binary64 variants all stay below PPMT's 56 of 135. Recorded rows now match CUMPRINC 185 of 586 and CUMIPMT 12 of 38.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up, findings F1 to F4; the PMT work is unfinished at this date
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt), section UPDATE, open item 3 — research write-up
+- DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
+- DnaCalc `crates/calc-func/src/ported/cumulative_finance_family.rs` at `6c6cbd31c9` — the commit message states the 79 of 135 and the loss class
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 751, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 752, column 4 at `c9f9d35416` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)

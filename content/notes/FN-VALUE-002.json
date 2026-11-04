@@ -1,0 +1,209 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-VALUE-002",
+  "functions": [
+    "FUNC.DATEVALUE",
+    "FUNC.VALUE"
+  ],
+  "kind": "quirk",
+  "title": "A date as text takes at most two digits for month and day",
+  "statement": "In a three-part numeric date, leading zeros are not free. VALUE(\"2024/02/01\") is 45323, but VALUE(\"2024/02/001\") and VALUE(\"2024/002/01\") are #VALUE!, and so is any month or day of three or more digits in the 45 forms read. A year of one, two or four digits is read: \"1/2/1\" and \"1/02/01\" are 2001-02-01, \"24/2/1\" is 2024-02-01, while \"0001/2/1\" is #VALUE!. Month 0 and day 0 give #VALUE!. The same limit holds with hyphens: \"2024-02-001\" through VALUE, and \"2024-002-01\" and \"2024-02-001\" through DATEVALUE, are #VALUE!. The settings of this run are en-ZA: decimal point, space as thousands separator, year-month-day date order.",
+  "status": "measured",
+  "basis": "45 recorded VALUE readings covering year, month and day tokens of one to five digits, and 2 DATEVALUE readings.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=VALUE(\"2024/02/01\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "45323",
+        "bits": "0x40e6216000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql078, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"2024/02/001\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql079, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"2024/002/01\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql081, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"1/2/1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "36923",
+        "bits": "0x40e2076000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql041, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"24/2/1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "45323",
+        "bits": "0x40e6216000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql065, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"0001/2/1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql057, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"2024/02/0\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql084, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"2024-02-001\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql085, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=DATEVALUE(\"2024-002-01\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/DATEVALUE.reading.json",
+        "locator": "fn7-DATEVALUE-digits-5",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "55697ab4f74bab852fef7bc76b08588c3a5f408e",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_fn4_digit_scripts_and_numeric_date_widths",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+      "locator": "sheets ql041 to ql085",
+      "note": "45 recorded readings"
+    }
+  ],
+  "open": [
+    "Three-digit years were not read.",
+    "Other date orders and locales were not read."
+  ],
+  "recorded_on": "2026-11-04"
+}

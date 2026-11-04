@@ -8,7 +8,7 @@
   "title": "An empty factor slot in VDB is 0, not the default 2",
   "statement": "VDB defaults factor to 2 only when the argument is left off the end of the call. An empty slot, as in VDB(c,s,l,a,b,,FALSE), is read as 0, and the result is the straight-line amount: 90 here, where factor 2 gives 160. Text factors other than numbers give #VALUE!, including \"TRUE\" and \"FALSE\", while \"2\" is read as 2.",
   "status": "measured",
-  "basis": "Ten recorded option readings (cases 00022 to 00031 of the run). After the change VDB matches 142 of 142 retained padding calls.",
+  "basis": "Ten recorded option readings (cases 00022 to 00031 of the run). A rule reading the required arguments, then factor, then no_switch reproduces all 142 retained padding calls.",
   "inferred": null,
   "documentation": {
     "claim": "If factor is omitted, it is assumed to be 2 (the double-declining balance method).",

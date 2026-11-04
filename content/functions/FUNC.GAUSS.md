@@ -219,43 +219,55 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
-### FN-ERF.PRECISE-001: Small arguments evaluate x*N(t)/D(t) on the x87 unit with stored steps, and the last bit can be high
+### FN-ERF.PRECISE-001: Below 0.5, ERF is a stored (4, 5) rational from a table not yet identified
 
-*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to ERF, ERF.PRECISE, GAUSS.
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to ERF, ERF.PRECISE, ERFC, ERFC.PRECISE, GAUSS.
 
-For normal x with |x| < 2^-16, ERF.PRECISE computes x*N(t)/D(t) with t = x^2 on the x87 unit at
-precision 64: N and D are each stored to binary64, then the product, then the quotient. Below
-2^-27 this reduces to p = RN53(RN64(x*P0)) and y = RN53(RN64(p/Q0)), with P0 =
-0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. The coefficient table is unidentified: Cody's
-1969 rational shares the constant-term ratio, as any accurate table does, but its normalised
-linear terms differ (0.1176 and 0.4510 against Excel's 0.1259 and 0.4593), and Cephes and
-fdlibm also miss. The rounded steps can leave the answer 1 unit above the correctly rounded
-erf(x), as the rows below show. The same route explains GAUSS's small arguments.
+With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64,
+ERF.PRECISE for |x| < 0.5 is x*N(t)/D(t) with t = RN(x*x), p = RN(x*N), y = RN(p/D), and N and
+D Horner sums in t in which every product and every sum is RN. N has degree 4 and D degree 5,
+and the coefficients read off Excel's answers, order 0 upward, are N: 0x3ff1df5e70c7956b,
+0x3fc201d8627a7d2c, 0x3fa6f289d165b303, 0x3f5d93a5813e372c, 0x3f2932767df264b2; D:
+0x3fefada15778ece6, 0x3fdd191aca8d2499, 0x3fb79f85ba68803e, 0x3f856de5da86af12,
+0x3f4609751b5b6488, 0x3ef4f20a473a5ab0. The rational stops at 0.5 itself. It equals erf to a
+flat 9E-17 up to 0.5, and its error climbs at once beyond, so 0.5 is its design interval and
+not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is refuted by its
+linear terms, and Cephes has the same shape with different ratios. Because every step rounds,
+answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5),
+400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit
+high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS uses it too.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
+| `ERF.PRECISE(0.4524739583333333)` | x `0.4524739583333333` (`0x3fdcf55555555555`) (cells) | `0.4777590107351978` (`0x3fde939a879e86f6`) | `0.4777590107351976` (`0x3fde939a879e86f3`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
 | `ERF.PRECISE(9.094947017729282e-13)` | x `9.094947017729282e-13` (`0x3d70000000000000`) (cells) | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
 | `ERF.PRECISE(9.999999999999998e-11)` | x `9.999999999999998e-11` (`0x3ddb7cdfd9d7bdb9`) (cells) | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
 
 Correct value: mpmath erf at 800 bits from the binary64 input, correctly rounded.
 
-Basis (measured): All 499,814 recorded ERF.PRECISE rows with 0 < |x| < 2^-16 match;
-per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of 131,255). Bisecting
-live Excel to one input ulp located where stored D and stored N first step, and every answer
-fit those two hypotheses. The measured coefficients give N1/N0 - D1/D0 = -1/3 to 1.2e-16, which
-is erf's Taylor coefficient and was not imposed by the measurement.
+Basis (measured): All 618,225 recorded ERF.PRECISE rows with |x| < 0.5 match; they were only
+scored, never used to read the coefficients, and ERFC, ERFC.PRECISE and GAUSS match every
+recorded row in that range. Two fresh sets of 60,000 random doubles below 0.5 (Excel build
+20527) match 59,996 and 59,982; the second was asked after the constants were fixed, and 17 of
+its 18 misses are in [0.25, 0.5). With every step stored, 223 of 38,000 rows at 19 sites stay
+unexplained; the other store placements leave 568 to 1,244. 2,000 consecutive doubles below 0.5
+match 1,988, and 2,000 from 0.5 up match 858, chance level, which places the cut.
 
-Inferred, not measured: That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE
-and GAUSS rows were scored. D1 is one of two adjacent values that no recorded answer separates.
+Inferred, not measured: That the legacy ERF(x) shares this body is inferred: ERF.PRECISE, ERFC,
+ERFC.PRECISE and GAUSS rows were scored, and no recorded ERF row exists at this date.
 
-- Open: The route above 2^-16: the next terms of N and D; about 76,000 ERF.PRECISE rows remain.
-- Open: Whether subnormal arguments use this route; Excel reads them back as 0 in a cell, so they cannot be asked that way.
-- Open: Where the small-argument rational ends near 0.5.
+- Open: The last bits of the coefficients of order 3 and above. Orders 0 and 1 are exact: one unit off in a linear term breaks 500 to 1,100 of 160,000 rows. Order 2 sits at the minimum of the same scan. Higher orders are good to the level that shows, about 0.15% of rows above 0.25.
+- Open: The source table. Hart's ERF tables remain unchecked.
+- Open: Which branch owns x = 0.5: there the rational and a correctly rounded erf give the same bits.
+- Open: Subnormal arguments: Excel reads a subnormal written to a cell back as 0, so they cannot be asked that way.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first research write-up; its Cody attribution is withdrawn by this note
-- DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs` at `f1bf1f0224` — product route below 2^-16
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md) — research write-up: how the rational was read, the checks, the final constants
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md) — earlier round: the structure, the refutation of Cody, the edge bisection
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first write-up; its Cody attribution is withdrawn
+- DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs`, erf_approx, ERF_N, ERF_D at `36a7f3d7aa` — the rational in the product; the commit message carries the row counts
+- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 1219, key ERF.PRECISE|0x3fdcf55555555555 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `e26b7bddb8` (readings)
 

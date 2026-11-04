@@ -1,0 +1,112 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DOLLAR-001",
+  "functions": [
+    "FUNC.DOLLAR",
+    "FUNC.FIXED",
+    "FUNC.TEXT"
+  ],
+  "kind": "quirk",
+  "title": "DOLLAR keeps the minus sign on an amount that rounds to zero; FIXED and TEXT drop it",
+  "statement": "-0.005 rounded to no decimals is zero. DOLLAR(-0.005,0) shows that as -R0 in en-ZA settings, keeping the sign of the input, while FIXED(-0.005,0), TEXT(-0.005,0) and TEXT(-0.005,\"0\") show 0.",
+  "status": "measured",
+  "basis": "Four recorded readings of the same value.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=DOLLAR(-0.005,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "-R0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt172, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=FIXED(-0.005,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt171, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(-0.005,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt169, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(-0.005,\"0\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt170, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+      "locator": "sheets qt169 to qt172",
+      "note": "recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "recorded_dollar_retains_a_negative_sign_after_rounding",
+      "note": "DOLLAR readings pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

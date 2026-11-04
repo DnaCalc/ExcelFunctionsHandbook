@@ -1,0 +1,162 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IRR-001",
+  "functions": [
+    "FUNC.IRR"
+  ],
+  "kind": "quirk",
+  "title": "IRR with a direct non-number gives #NUM!, and the guess is still checked",
+  "statement": "Text or a logical typed directly as the values argument of IRR is not an error of type: \"\", \"2\", \"x\", \"0\", \"-2\", TRUE and FALSE all give #NUM!, never #VALUE!. The guess is read anyway, and its error wins: with any of those values, a guess of \"x\" gives #VALUE! and a guess of NA() gives #N/A, while 0.1 or an empty guess leaves #NUM!. A direct error in values wins over the guess: IRR(NA(),\"x\") is #N/A.",
+  "status": "measured",
+  "basis": "40 recorded readings: seven direct non-numbers and NA() as values, each with five guesses (none, 0.1, \"x\", NA(), empty).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=IRR(\"2\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql006, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IRR(TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql026, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IRR(\"2\",\"x\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql008, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IRR(\"2\",NA())",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql009, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IRR(\"2\",)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql010, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IRR(NA())",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql036, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IRR(NA(),\"x\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql038, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+      "locator": "sheets ql001 to ql040",
+      "note": "40 recorded readings"
+    }
+  ],
+  "open": [
+    "A reference to one cell holding the same values answers differently. Those readings are not in a published capture, so this note covers direct values only."
+  ],
+  "recorded_on": "2026-11-04"
+}

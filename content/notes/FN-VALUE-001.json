@@ -1,0 +1,243 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-VALUE-001",
+  "functions": [
+    "FUNC.DATEVALUE",
+    "FUNC.SQRT",
+    "FUNC.VALUE"
+  ],
+  "kind": "quirk",
+  "title": "Text to number reads Arabic, Persian, Devanagari and Thai digits, but not fullwidth digits",
+  "statement": "In the recorded en-ZA settings, converting text to a number accepts Arabic-Indic (U+0660 to U+0669), extended Arabic-Indic (U+06F0 to U+06F9), Devanagari (U+0966 to U+096F) and Thai (U+0E50 to U+0E59) digits. They work alone, in runs, with a decimal point, in the exponent, with a sign or percent, and mixed with ASCII digits or with each other: VALUE(\"1٢3\") is 123, and SQRT of a four-digit string using four scripts is the root of 1234. Fullwidth digits (U+FF10 to U+FF19) give #VALUE! alone or mixed. DATEVALUE reads the four accepted scripts in a date written year-month-day.",
+  "status": "measured",
+  "basis": "66 recorded VALUE readings (all ten digits of each of the five scripts, then composed forms), 10 SQRT and 4 DATEVALUE readings.",
+  "inferred": "That other text-to-number routes, such as arithmetic operators, treat digits the same way is inferred from VALUE and SQRT agreeing.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=VALUE(\"١\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt042, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"١٢٣\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "123",
+        "bits": "0x405ec00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt081, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"1٢3\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "123",
+        "bits": "0x405ec00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt084, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"١e2\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "100",
+        "bits": "0x4059000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt088, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"१\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt062, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"๑\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt072, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"１\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt032, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=VALUE(\"1２3\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt093, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=SQRT(\"۱٢३๔\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "35.12833614050059",
+        "bits": "0x4041906d51932c26"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/SQRT.reading.json",
+        "locator": "fn7-SQRT-digits-6",
+        "note": null
+      }
+    },
+    {
+      "call": "=DATEVALUE(\"٢٠٢٤-٠١-٠٢\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "45293",
+        "bits": "0x40e61da000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/DATEVALUE.reading.json",
+        "locator": "fn7-DATEVALUE-digits-1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "55697ab4f74bab852fef7bc76b08588c3a5f408e",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_fn4_digit_scripts_and_numeric_date_widths",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+      "locator": "sheets qt031 to qt096",
+      "note": "66 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/SQRT.reading.json",
+      "locator": null,
+      "note": "10 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/DATEVALUE.reading.json",
+      "locator": null,
+      "note": "6 recorded readings"
+    }
+  ],
+  "open": [
+    "Other digit blocks (Bengali, Tibetan, Khmer and so on) have not been read.",
+    "Whether the set depends on the Windows or workbook locale has not been read."
+  ],
+  "recorded_on": "2026-11-04"
+}

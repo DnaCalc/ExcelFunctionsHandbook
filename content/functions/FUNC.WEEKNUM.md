@@ -168,15 +168,19 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
-### FN-WEEKNUM-001: WEEKNUM with an invalid return_type gave different answers in one build
+### FN-WEEKNUM-001: WEEKNUM with an invalid return_type can answer differently each time it is called
 
 *Quirk; measured; recorded 2026-11-04.*
 
-The documentation says an out-of-range return_type gives #NUM!. In recorded captures of one
-Excel build, 479 (serial_number, return_type) pairs were read with different results: usually
-#NUM!, sometimes a number (0, 1, 9, 10, 53 or 54). Some pairs differ within one run file. Every
-conflict has an invalid return_type (-5 to -1 or 22 to 129, 113 distinct values); no valid
-return_type conflicts. The conflict is open: no rule is claimed.
+The documentation says an out-of-range return_type gives #NUM!. Excel usually does, but not
+always, and the same call can give different answers. In recorded captures of build 20430, 479
+(serial_number, return_type) pairs were read with different results: usually #NUM!, sometimes a
+number (0, 1, 9, 10, 53 or 54), and some pairs differ within one run file. In build 20527 a
+matrix of 1,926 pairs (serial_number 0, 1, 59, 60, 61 and 43831, return_type -32 to 288) was
+read twice in one request, and 623 pairs differed between the two readings: 619 between a
+number and #NUM!, and 4 between 9 and 10. Every difference has an undocumented return_type. The
+ten documented return_types (1, 2, 11 to 17 and 21) gave the same answer both times. No rule
+for the undocumented values is claimed.
 
 Documentation: If Return_type is out of the range specified in the table above, a #NUM! error
 is returned.
@@ -189,14 +193,17 @@ is returned.
 | `WEEKNUM(0, 33)` | serial_number `0` (`0x0000000000000000`); return_type `33` (`0x4040800000000000`) (cells) | `0` (`0x0000000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
 | `WEEKNUM(0, 33)` | serial_number `0` (`0x0000000000000000`); return_type `33` (`0x4040800000000000`) (cells) | `#NUM!` | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
 
-Basis (measured): The recorded readings conflict with each other; the counts come from the
-DnaCalc witness differences file.
+Basis (measured): The readings conflict with each other. The 479 comes from the DnaCalc witness
+differences file. The 1,926 pairs come from one request of 3,852 calls, with exact input
+read-backs, compared pair by pair.
 
-- Open: Repeat readings of the conflicting pairs, in one fresh workbook, have not been taken.
+- Open: What decides the answer for an undocumented return_type is not known.
+- Open: The raw readings of build 20527 are not yet in a published capture. Their counts are recorded in the DnaCalc issue tracker.
 
 Evidence:
 
 - DnaCalc `crates/calc-func/witness-differences.tsv`, WEEKNUM at `9c23dde1df` — index of the conflicting readings
+- DnaCalc `.beads/issues.jsonl`, dc-zmk.2 at `2d0eddcac8` — the repeat comparison of 3,852 calls in build 20527
 - OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00188 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-01331 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00940 at `e26b7bddb8` (readings)

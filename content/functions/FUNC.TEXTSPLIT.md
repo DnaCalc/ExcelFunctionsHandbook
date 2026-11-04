@@ -245,7 +245,7 @@ no capture group gives #VALUE!.
 | `=MAP({"a,b","c,d"},LAMBDA(txt,TEXTSPLIT(txt,",")))` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 | `=BYROW({"a,b";"c,d"},LAMBDA(txt,TEXTSPLIT(txt,",")))` | as typed | `{"a";"c"}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
-Basis (measured): About 15 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.
+Basis (measured): 22 recorded TEXTSPLIT and REGEXEXTRACT readings, questions 049 to 093.
 
 Evidence:
 

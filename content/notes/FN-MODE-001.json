@@ -1,0 +1,213 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MODE-001",
+  "functions": [
+    "FUNC.MODE",
+    "FUNC.MODE.MULT",
+    "FUNC.MODE.SNGL"
+  ],
+  "kind": "documentation-differs",
+  "title": "MODE ignores direct text and logicals instead of converting them or giving an error",
+  "statement": "MODE, MODE.SNGL and MODE.MULT take only numbers from their arguments, even when text or a logical is typed directly into the call. A direct \"2\" or TRUE is not converted, so MODE(\"2\",2) and MODE(TRUE,1) are #N/A: one number, no repeat. Text that is not a number gives no error either: MODE(\"x\",2,2) is 2, and MODE(\"x\") is #N/A. Error values do come through: MODE(2,2,A3) with #DIV/0! in A3 is #DIV/0!, and of two errors the first is returned.",
+  "status": "measured",
+  "basis": "30 recorded formula readings across the three functions, and 21 readings each of MODE and MODE.SNGL covering direct text, logicals and errors.",
+  "inferred": null,
+  "documentation": {
+    "claim": "Arguments that are error values or text that can't be translated into numbers cause errors.",
+    "source": "https://support.microsoft.com/en-us/office/mode-function-e45192ce-9122-4980-82ed-4bdc34973120"
+  },
+  "repros": [
+    {
+      "call": "=MODE(\"2\",2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql111, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=MODE(TRUE,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql112, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=MODE(\"x\",2,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql110, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=MODE(\"x\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql105, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=MODE.SNGL(\"x\",2,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql120, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=MODE.MULT(\"x\",2,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql130, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "MODE(2, 2, A3)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "number3",
+          "value": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/MODE.reading.json",
+        "locator": "fn7-MODE-error-after-duplicates",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c5defbd38b292450d7baf6f4bb1e81b9f2fc91bc",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_fn4_mode_ignores_text_and_logicals",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+      "locator": "sheets ql104 to ql133",
+      "note": "30 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/MODE.reading.json",
+      "locator": null,
+      "note": "21 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/MODE.SNGL.reading.json",
+      "locator": null,
+      "note": "21 recorded readings"
+    }
+  ],
+  "open": [
+    "How a reference to one empty cell counts is not settled by these readings."
+  ],
+  "recorded_on": "2026-11-04"
+}

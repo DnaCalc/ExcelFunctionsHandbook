@@ -1,0 +1,212 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LOWER-001",
+  "functions": [
+    "FUNC.LOWER",
+    "FUNC.PROPER"
+  ],
+  "kind": "quirk",
+  "title": "LOWER leaves letters above U+FFFF alone, and a combining mark stops the final sigma",
+  "statement": "LOWER did not change the Deseret capital U+10400, a cased letter above U+FFFF, either alone or inside other text: LOWER(\"A𐐀Σ\") is \"a𐐀ς\", where the Greek capital sigma at the end becomes the final form. Greek sigma depends on what follows: followed by a full stop it takes the final form ς, and followed by a combining mark, U+0300 or U+0301, it takes the medial form σ. PROPER treats a character above U+FFFF as a word boundary, so PROPER(\"a𐐀b\") is \"A𐐀B\", with the B capitalised and the Deseret letter unchanged.",
+  "status": "measured",
+  "basis": "6 recorded LOWER and 4 recorded PROPER readings, in a workbook at compatibility version 2.",
+  "inferred": "The readings cover one Deseret letter and two combining marks. That every letter above U+FFFF and every mark behave the same is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "LOWER(A1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "𐐀",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "𐐀",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json",
+        "locator": "fn3-lower-001",
+        "note": null
+      }
+    },
+    {
+      "call": "LOWER(A1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "A𐐀Σ",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "a𐐀ς",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json",
+        "locator": "fn3-lower-003",
+        "note": null
+      }
+    },
+    {
+      "call": "LOWER(A1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "ΑΣ̀",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "ασ̀",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json",
+        "locator": "fn3-lower-004",
+        "note": null
+      }
+    },
+    {
+      "call": "LOWER(A1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "ΑΣ.",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "ας.",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json",
+        "locator": "fn3-lower-005",
+        "note": null
+      }
+    },
+    {
+      "call": "PROPER(A1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "a𐐀b",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "A𐐀B",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json",
+        "locator": "fn3-proper-002",
+        "note": null
+      }
+    },
+    {
+      "call": "PROPER(A1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "aΣ́",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "Aσ́",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json",
+        "locator": "fn3-proper-004",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "ae13ca181bc1d5e3c9e266f26a856ba634707d8e",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": null,
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn3_questions/LOWER.reading.json",
+      "locator": null,
+      "note": "6 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json",
+      "locator": null,
+      "note": "4 recorded readings"
+    }
+  ],
+  "open": [
+    "Behaviour at compatibility version 1 has not been read for these inputs."
+  ],
+  "recorded_on": "2026-11-04"
+}

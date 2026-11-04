@@ -7,10 +7,10 @@
   ],
   "kind": "excel-differs-from-math",
   "title": "PPMT is not PMT minus IPMT, and sits further from the exact value than PMT",
-  "statement": "On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits.",
+  "statement": "On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits. FN-IPMT-001 gives the route Excel takes instead. FN-IPMT-001 gives the route Excel takes instead.",
   "status": "measured",
-  "basis": "Twelve recorded periods of one loan, read from the catalogue capture, compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction.",
-  "inferred": "That PPMT uses its own discount factor rather than PMT's em is inferred: the period-1 answer is not P*(1+em) for either em consistent with PMT, and not a difference of two binary64 values on the grid its bits would need.",
+  "basis": "Twelve recorded periods of one loan, read from the catalogue capture, compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction, recomputed for this note.",
+  "inferred": null,
   "documentation": null,
   "repros": [
     {
@@ -41,10 +41,10 @@
   "evidence": [
     {
       "repository": "ExcelFunctionsHandbook",
-      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
       "path": "content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt",
       "locator": null,
-      "note": "research write-up, findings F1 to F4; the PMT work is unfinished at this date"
+      "note": "research write-up; finding F4 gives 4 and 8 of 12 periods, and the capture gives the 2 and 7 stated here"
     },
     {
       "repository": "DnaCalc",
@@ -54,8 +54,6 @@
       "note": "recorded answers of the 30-year loan block"
     }
   ],
-  "open": [
-    "PPMT's discount route: 9 discount routes by 5 to 6 consumer orders separate nothing from chance on 416 rows."
-  ],
+  "open": [],
   "recorded_on": "2026-11-04"
 }

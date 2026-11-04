@@ -197,6 +197,32 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
+### FN-DOLLAR-001: DOLLAR keeps the minus sign on an amount that rounds to zero; FIXED and TEXT drop it
+
+*Quirk; measured; recorded 2026-11-04.* Applies to DOLLAR, FIXED, TEXT.
+
+-0.005 rounded to no decimals is zero. DOLLAR(-0.005,0) shows that as -R0 in en-ZA settings,
+keeping the sign of the input, while FIXED(-0.005,0), TEXT(-0.005,0) and TEXT(-0.005,"0") show
+0.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=DOLLAR(-0.005,0)` | as typed | `-R0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=FIXED(-0.005,0)` | as typed | `0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-0.005,0)` | as typed | `0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-0.005,"0")` | as typed | `0` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Four recorded readings of the same value.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt169 to qt172 at `2d0eddcac8` — recorded readings
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_dollar_retains_a_negative_sign_after_rounding at `2d0eddcac8` — DOLLAR readings pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt172, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt171, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt169, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt170, row 20, column 10 at `2d0eddcac8` (readings)
+
 ### FN-TEXT-001: Locale-tagged month, weekday and era names in TEXT follow their own table
 
 *Quirk; measured; recorded 2026-11-04.*
@@ -215,12 +241,53 @@ gg and ggg give R, 令 and 令和, switching on 2019-05-01.
 
 Basis (measured): 170 recorded TEXT readings on the fn3_text sheet.
 
+- Open: Era readings cover Heisei and Reiwa only. Earlier Japanese eras have not been read.
+
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, locale_tagged_date_names_follow_the_retained_fn3_readings at `f4930602d7` — recorded readings pinned
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_text, row 6, column 4 at `eceb809985` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_text, row 78, column 4 at `eceb809985` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_text, row 164, column 4 at `eceb809985` (readings)
+
+### FN-TEXT-002: In TEXT, an @ applied to a number gives the General display, not the full number
+
+*Quirk; measured; recorded 2026-11-04.*
+
+A format of @ or @! on a number gives what General gives, not the digits of the number.
+TEXT(123456789012345,"@") is 1.23457E+14 and TEXT(1234567890.5,"@") is 1234567891. A quoted @
+is a literal: TEXT(x,"""@""") is @ for a positive x, and -@ for a negative one, because the
+ordinary sign rule applies. In a format with four sections, @ is the text section and numbers
+use the others: TEXT(123456789012345,"0;0;0;@") shows all 15 digits, and
+TEXT(-123456789012345,"0;0;0;@") shows them with no minus sign, because the second section has
+none.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=TEXT(123456789012345,"@")` | as typed | `1.23457E+14` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(123456789012345,"General")` | as typed | `1.23457E+14` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(1234567890.5,"@")` | as typed | `1234567891` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(123456789012345,"""@""")` | as typed | `@` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-123456789012345,"""@""")` | as typed | `-@` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(123456789012345,"0;0;0;@")` | as typed | `123456789012345` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXT(-123456789012345,"0;0;0;@")` | as typed | `123456789012345` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 30 recorded readings: six numbers against the formats @, General, quoted @,
+@! and 0;0;0;@. @ and @! equalled General for all six numbers.
+
+- Open: Formats mixing @ with digit placeholders have not been read.
+
+Evidence:
+
+- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, delivered_fn4_numeric_text_placeholders_use_general_display at `179455f24c` — recorded answers pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt001 to qt030 at `2d0eddcac8` — 30 recorded readings
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt001, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt002, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt011, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt003, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt008, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt005, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt010, row 20, column 10 at `2d0eddcac8` (readings)
 
 <!-- efh:notes end -->
 

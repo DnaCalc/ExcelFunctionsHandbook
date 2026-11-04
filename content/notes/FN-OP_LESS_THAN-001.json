@@ -1,0 +1,182 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_LESS_THAN-001",
+  "functions": [
+    "FUNC.OP_GREATER_THAN",
+    "FUNC.OP_LESS_THAN"
+  ],
+  "kind": "quirk",
+  "title": "Punctuation before a Japanese repeat mark sorts one way after a Latin letter, the other after Han",
+  "statement": "Comparing a string with punctuation before a repeat or prolonged-sound mark against the same string without the punctuation, the order depends on the character at the start. After a Latin letter the punctuated string is smaller: \"a-ゝx\" < \"aゝx\". After a Han character it is larger: \"時-ゝx\" > \"時ゝx\". This held for every pair read, with the marks ゝ, 々 and ー and with hyphen-minus, U+2212 and U+2019 as the punctuation. In all 66 readings the two strings are never equal, and a string with the mark added sorts after the string without it, after Latin and after Han alike: \"a−ゝ\" > \"a−\".",
+  "status": "measured",
+  "basis": "66 recorded readings of =, < and > on 22 pairs of strings, 11 pairs after 時 and 11 after a.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=\"a-ゝx\"<\"aゝx\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q059, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"a-ゝx\">\"aゝx\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q060, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"時-ゝx\"<\"時ゝx\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q050, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"時-ゝx\">\"時ゝx\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q051, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"a−ゝ\"<\"aゝ\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q029, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"時−ゝ\">\"時ゝ\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q006, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"a−ゝ\">\"a−\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q027, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"時−ゝ\">\"時−\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+        "locator": "sheet q003, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json",
+      "locator": "sheets q001 to q066",
+      "note": "66 recorded readings"
+    }
+  ],
+  "open": [
+    "The collation rule behind this is not identified, and none is claimed here."
+  ],
+  "recorded_on": "2026-11-04"
+}

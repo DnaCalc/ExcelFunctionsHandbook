@@ -1,0 +1,309 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COUPNUM-001",
+  "functions": [
+    "FUNC.COUPNCD",
+    "FUNC.COUPNUM",
+    "FUNC.COUPPCD"
+  ],
+  "kind": "quirk",
+  "title": "COUPNUM is #NUM! when the coupon before settlement falls before 1900",
+  "statement": "If the coupon date before settlement, counted back from maturity, falls before 1 January 1900, COUPNUM gives #NUM!. The other coupon functions still answer for the same inputs: COUPPCD returns 0, COUPNCD the next coupon, and COUPDAYS, COUPDAYBS and COUPDAYSNC a day count. With maturity serial 400 (1901-02-03) and semi-annual coupons, the coupon dates are serials 34 and 216: settlement 33 gives #NUM!, settlement 34 gives 2. With maturity 367, settlement 0 gives #NUM! and settlement 1 gives 2. This covers settlement 0 too: COUPNUM(0,m,2,0) was #NUM! for every maturity read.",
+  "status": "measured",
+  "basis": "The rule matches all 429 recorded COUPNUM readings (325 #NUM!, 104 counts) when recomputed independently from the calendar, and the 24 COUPNUM readings of the date-boundary sheets. COUPPCD, COUPNCD, COUPDAYS, COUPDAYBS and COUPDAYSNC companions come from the same sheets.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "COUPNUM(33, 400, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "33",
+            "bits": "0x4040800000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "400",
+            "bits": "0x4079000000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json",
+        "locator": "fn7-COUPNUM-calendar-boundary-127",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPNUM(34, 400, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "34",
+            "bits": "0x4041000000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "400",
+            "bits": "0x4079000000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json",
+        "locator": "fn7-COUPNUM-calendar-boundary-128",
+        "note": null
+      }
+    },
+    {
+      "call": "COUPNUM(0, 367, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "367",
+            "bits": "0x4076f00000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json",
+        "locator": "fn7-COUPNUM-calendar-boundary-85",
+        "note": null
+      }
+    },
+    {
+      "call": "=COUPNUM(0,182,2,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json",
+        "locator": "sheet qd230, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=COUPNUM(A1,400,2,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "A1",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json",
+        "locator": "sheet qd205, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=COUPPCD(A1,400,2,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "A1",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json",
+        "locator": "sheet qd217, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=COUPNCD(A1,400,2,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "A1",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "34",
+        "bits": "0x4041000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json",
+        "locator": "sheet qd193, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2033d9feb7d9f99817b4b2b34837509bf5af843c",
+      "path": "crates/calc-func/src/ported/coupon_family.rs",
+      "locator": "coupnum_kernel",
+      "note": "the limit as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_fn4_coupon_counts_at_calendar_start",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/COUPNUM.reading.json",
+      "locator": null,
+      "note": "429 recorded readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-date-domain.capture.json",
+      "locator": "sheets qd153 to qd236",
+      "note": "boundary sheets for all six coupon functions"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

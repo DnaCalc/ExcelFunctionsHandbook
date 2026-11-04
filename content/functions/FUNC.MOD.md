@@ -259,14 +259,17 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
-### FN-MOD-001: MOD with operands below about 1E-290 gives wrong signs and #NUM!
+### FN-MOD-001: MOD with tiny operands gives wrong signs and #NUM!, by a rule that fits every recorded row
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
 
-When both operands are below about 1E-290, MOD can return -n itself, or #NUM! at small
-quotients, where the exact answer is an ordinary number. MOD(-(1+121*2^-52)*2^-983, 2^-983)
-returns +(1+121*2^-52)*2^-983, and MOD(2^-983, -(1+120*2^-52)*2^-983) returns #NUM!. All 4,974
-MOD mismatches in the bank lie in this domain.
+MOD(n,d) takes the exact remainder r of n by d and adds d when their signs differ. Three things
+change when r is subnormal and its sign differs from d's. The result is #NUM! when |n/d| is
+2^26 or more, or when d's low part under a Veltkamp split at 2^27 + 1 is subnormal. Otherwise,
+when |r| is below 2^-1026, the result is |d| + |r| with d's sign: the remainder is added where
+it should be taken away. A larger r takes the ordinary step. Any subnormal final result is
+#NUM!. So MOD(-(1+121*2^-52)*2^-983, 2^-983) returns +(1+121*2^-52)*2^-983, and MOD(2^-983,
+-(1+120*2^-52)*2^-983) returns #NUM!, where the exact answers are ordinary numbers.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -276,13 +279,18 @@ MOD mismatches in the bank lie in this domain.
 Correct value: MOD(n,d) = n - d*INT(n/d) in exact rational arithmetic; the result is exactly
 representable.
 
-Basis (measured): Recorded rows of the W111 MOD tiny-operand discrimination run; 147,458 of
-152,432 bank rows match without this domain.
+Basis (measured): All 152,432 recorded MOD rows match, 4,974 of them rows the ordinary step
+misses, and so do 1,128 new Excel readings (build 20527). Those readings overturned an earlier
+test on power-of-two divisors: 1E-296 behaves like a power of two and 1E-300 does not.
 
-- Open: The rule. No model of the intermediate subnormal handling explains these rows yet.
+Inferred, not measured: The rule is what is measured. Reading it as Veltkamp's split, the parts
+of a Dekker product of the count and the divisor, is an interpretation: a table over exponent
+and trailing zeros puts the boundary between exponents -1000 and -990 and at about 27 trailing
+zeros.
 
 Evidence:
 
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00960 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00959 at `e26b7bddb8` (readings)

@@ -1,0 +1,299 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-VAR.S-001",
+  "functions": [
+    "FUNC.STDEV",
+    "FUNC.STDEV.P",
+    "FUNC.STDEV.S",
+    "FUNC.STDEVA",
+    "FUNC.STDEVP",
+    "FUNC.STDEVPA",
+    "FUNC.VAR",
+    "FUNC.VAR.P",
+    "FUNC.VAR.S",
+    "FUNC.VARA",
+    "FUNC.VARP",
+    "FUNC.VARPA"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "The variance family uses raw moments with stored steps, and two tests switch it to a centered sum",
+  "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, S the running RN sum of the n values and Q the running RN sum of RN(x*x), the sample variance is RN(RN(Q - RN(RN(S*S)/n))/(n-1)) and the population variance RN(RN(RN(n*Q) - RN(S*S))/RN(n*n)). Excel then uses a centered sum instead, adding RN(d*d) with d = RN(x - mean) and dividing by n-1 or n, when either of two stored tests holds: RN(RN(RN(S*S)/n)/Q) > 0.99, or RN(variance*1000) <= |RN(S/n)|. The STDEV functions are the root of this, rounded to 64 bits and then stored. So the answer depends on which path a call takes: the two VAR.S calls below differ by one input step in two arguments, the first passes the 0.99 test and is correctly rounded, and the second takes the raw moments and lands 76 units high. The second pair shows the size test: scaling the inputs by 4 leaves the first path.",
+  "status": "measured",
+  "basis": "All 14,679 recorded rows of the twelve functions match: VAR.S, VAR.P, VAR, VARP, VARA, VARPA, STDEV.S, STDEV.P, STDEV, STDEVP, STDEVA and STDEVPA. Six of those rows separate the stored steps from plain binary64. 910 fresh scalar variance readings (Excel build 20527) replay exactly in rational arithmetic. Four cancellation edges were bisected to adjacent inputs; sixteen triples chosen to separate the stored ratio from 0.99*Q and from a division by 0.99 all agree with the ratio, where 0.99*Q misses all 16 and the division 14. Seven of eight magnitude brackets reach adjacent inputs, and sixteen chosen roots all need the 64-bit root followed by a store.",
+  "inferred": "These tests were located with scalar arguments in separate cells; that the same edges hold for ranges and arrays is inferred, and their readings have not been taken. RN(variance*1000) <= |mean| is not separated from the rearrangement variance <= |mean|/1000. That a raw moment which overflows also takes the centered sum is inferred from recorded answers that stay finite.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "VAR.S(0.8769085090206681, 1, 1.123091490979332)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "0.8769085090206681",
+            "bits": "0x3fec0fa26efa7e14"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "number3",
+          "value": {
+            "kind": "number",
+            "display": "1.123091490979332",
+            "bits": "0x3ff1f82ec882c0f6"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.01515151515151495",
+        "bits": "0x3f8f07c1f07c1e94"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "9c23b24e8d0a6bc913f16bc169f46f80d4e6bb18",
+        "path": "crates/calc-func/tests/f1_stats.rs",
+        "locator": "variance_cancellation_guard_keeps_the_observed_edge",
+        "note": null
+      }
+    },
+    {
+      "call": "VAR.S(0.8769085090206679, 1, 1.1230914909793321)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "0.8769085090206679",
+            "bits": "0x3fec0fa26efa7e12"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "number3",
+          "value": {
+            "kind": "number",
+            "display": "1.1230914909793321",
+            "bits": "0x3ff1f82ec882c0f7"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.015151515151515138",
+        "bits": "0x3f8f07c1f07c1f00"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.015151515151515006",
+        "bits": "0x3f8f07c1f07c1eb4",
+        "how": "Exact rational variance of the binary64 inputs, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "9c23b24e8d0a6bc913f16bc169f46f80d4e6bb18",
+        "path": "crates/calc-func/tests/f1_stats.rs",
+        "locator": "variance_cancellation_guard_keeps_the_observed_edge",
+        "note": null
+      }
+    },
+    {
+      "call": "VAR.S(3.244042371786199e-10, 0.00034050419142641947)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "3.244042371786199e-10",
+            "bits": "0x3df64afacd3a935a"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "0.00034050419142641947",
+            "bits": "0x3f3650b65dc7a1d6"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "5.797144172853e-08",
+        "bits": "0x3e6f1f88c6bbc51a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "9c23b24e8d0a6bc913f16bc169f46f80d4e6bb18",
+        "path": "crates/calc-func/tests/f1_stats.rs",
+        "locator": "variance_centered_guard_uses_the_absolute_mean",
+        "note": null
+      }
+    },
+    {
+      "call": "VAR.S(1.2976169487144796e-09, 0.0013620167657056779)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "1.2976169487144796e-09",
+            "bits": "0x3e164afacd3a935a"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "0.0013620167657056779",
+            "bits": "0x3f5650b65dc7a1d6"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "9.275430676564799e-07",
+        "bits": "0x3eaf1f88c6bbc519"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "9.2754306765648e-07",
+        "bits": "0x3eaf1f88c6bbc51a",
+        "how": "Exact rational variance of the binary64 inputs, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "9c23b24e8d0a6bc913f16bc169f46f80d4e6bb18",
+        "path": "crates/calc-func/tests/f1_stats.rs",
+        "locator": "variance_centered_guard_uses_the_absolute_mean",
+        "note": null
+      }
+    },
+    {
+      "call": "=VAR.S({157,376.82,189.207,12.38,12.473,483,306.24,324.1852,482.235,78})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "31907.480453381795",
+        "bits": "0x40df28debfbf8a84"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "31907.480453381777",
+        "bits": "0x40df28debfbf8a7f",
+        "how": "Exact rational variance of the binary64 inputs, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json",
+        "locator": "sheet dcj9k_statistics, row 3, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "STDEV.S(0, 1, 1.031052478719249)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "number3",
+          "value": {
+            "kind": "number",
+            "display": "1.031052478719249",
+            "bits": "0x3ff07f30e248f14c"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.5865198874587454",
+        "bits": "0x3fe2c4c55ae2d85e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "9c23b24e8d0a6bc913f16bc169f46f80d4e6bb18",
+        "path": "crates/calc-func/tests/f1_stats.rs",
+        "locator": "stdev_stores_the_extended_square_root",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "9c23b24e8d0a6bc913f16bc169f46f80d4e6bb18",
+      "path": "crates/calc-func/src/ported/variance_common.rs",
+      "locator": "variance_from_values",
+      "note": "the rules in the product; the commit message carries the row counts"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "9c23b24e8d0a6bc913f16bc169f46f80d4e6bb18",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "variance_cancellation_guard_stores_the_ratio",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "af74247e1ed54f0b535143f1305261b98d80d18e",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": null,
+      "note": "rows matched per function"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "a547d79ed61948cfd5f5d49f8c5a2a071ad37635",
+      "path": "evidence/round25/variance-published-canonical-scope-receipt.json",
+      "locator": null,
+      "note": "the 14,679 rows before and after"
+    }
+  ],
+  "open": [
+    "Whether the two tests keep the same edges for ranges and arrays."
+  ],
+  "recorded_on": "2026-11-04"
+}

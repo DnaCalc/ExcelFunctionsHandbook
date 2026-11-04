@@ -1,0 +1,169 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TEXT-002",
+  "functions": [
+    "FUNC.TEXT"
+  ],
+  "kind": "quirk",
+  "title": "In TEXT, an @ applied to a number gives the General display, not the full number",
+  "statement": "A format of @ or @! on a number gives what General gives, not the digits of the number. TEXT(123456789012345,\"@\") is 1.23457E+14 and TEXT(1234567890.5,\"@\") is 1234567891. A quoted @ is a literal: TEXT(x,\"\"\"@\"\"\") is @ for a positive x, and -@ for a negative one, because the ordinary sign rule applies. In a format with four sections, @ is the text section and numbers use the others: TEXT(123456789012345,\"0;0;0;@\") shows all 15 digits, and TEXT(-123456789012345,\"0;0;0;@\") shows them with no minus sign, because the second section has none.",
+  "status": "measured",
+  "basis": "30 recorded readings: six numbers against the formats @, General, quoted @, @! and 0;0;0;@. @ and @! equalled General for all six numbers.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TEXT(123456789012345,\"@\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "1.23457E+14",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt001, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(123456789012345,\"General\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "1.23457E+14",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt002, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(1234567890.5,\"@\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "1234567891",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt011, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(123456789012345,\"\"\"@\"\"\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "@",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt003, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(-123456789012345,\"\"\"@\"\"\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "-@",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt008, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(123456789012345,\"0;0;0;@\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "123456789012345",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt005, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXT(-123456789012345,\"0;0;0;@\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "123456789012345",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+        "locator": "sheet qt010, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "179455f24c41c6fa91cada729b5982acb3a6aa77",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_fn4_numeric_text_placeholders_use_general_display",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json",
+      "locator": "sheets qt001 to qt030",
+      "note": "30 recorded readings"
+    }
+  ],
+  "open": [
+    "Formats mixing @ with digit placeholders have not been read."
+  ],
+  "recorded_on": "2026-11-04"
+}

@@ -217,18 +217,64 @@ ROUNDDOWN(283025097725723.5,0) returns 283025097725724, larger than its input.
 Correct value: An integer rounded to 14 places is itself.
 Correct value: ROUNDDOWN drops the fraction .5.
 
-Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
-36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
-with no row lost and each remaining failure classified in the write-up.
+Basis (measured): Under the family rules the recorded rows match ROUND 36,821 of 36,945,
+ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row
+lost and each remaining failure classified in the write-up.
 
 - Open: How the scale is formed for |n| > 27: a single correctly rounded 64-bit power and the chained multiplications tried do not fit; 123 ROUND, 548 ROUNDUP, 556 ROUNDDOWN and 555 TRUNC rows remain.
+- Open: The reading step itself: one control at n = -10 misses the single RN64 step by just over half a unit, so that step is an approximation of the real one even for |n| <= 27. It stays because it gains rows and loses none.
 
 Evidence:
 
-- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUND.jsonl.gz`, line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz`, line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000 at `e26b7bddb8` (readings)
+
+### FN-ROUND-003: Near DBL_MAX, ROUND returns NaN bit patterns that Excel treats as numbers
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to ROUND, ROUNDDOWN, ROUNDUP, TRUNC.
+
+ROUND of a number near 1.8E308 can return a binary64 with an all-ones exponent field. A decimal
+result of 2^1024 or more keeps its 53-bit significand, and its exponent is carried into the
+exponent field without a check, so the bits are a NaN. ROUND, ROUNDDOWN and TRUNC return those
+bits; ROUNDUP gives #NUM!. The recorded rows hold 430 such ROUND rows, 102 ROUNDDOWN and 95
+TRUNC, and all 627 follow this. Even ROUND(DBL_MAX,0), whose answer is DBL_MAX, returns
+0x7ff000000000000a. The cell shows 2E+308 or 1.8E+308, and a pattern with its sign bit set
+shows 2E+308 too, with no minus. ISNUMBER gives TRUE, ISERROR FALSE, TYPE 1, ERROR.TYPE #N/A;
+A1=A1 and A1>0 are TRUE. =A1, N(A1), MAX(A1), ABS(A1) and IFERROR(A1,...) pass the pattern on,
+as does =-A1 with its sign unchanged. Arithmetic on it (A1+0, A1*1, A1-A1, SUM, ROUND) gives
+#NUM!, and TEXT(A1,"0") gives #VALUE!. Saved to .xlsx, each such cell is written as the error
+#NUM!; reopened, the cells read #NUM! until a full recalculation brings the patterns back.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUND(1.7976931348623157E+308, 0)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`); num_digits `0` (`0x0000000000000000`) (cells) | `NaN bit pattern, shown as 1.8E+308` (`0x7ff000000000000a`) | `1.7976931348623157e+308` (`0x7fefffffffffffff`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `ROUND(1.7976931348623157E+308, -307)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`); num_digits `-307` (`0xc073300000000000`) (cells) | `NaN bit pattern, shown as 1.8E+308` (`0x7ff005419221015d`) | `#NUM!` | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `ROUND(1.7976931348623157E+308, -308)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`); num_digits `-308` (`0xc073400000000000`) (cells) | `NaN bit pattern, shown as 2E+308` (`0x7ff1ccf385ebc8a0`) | `#NUM!` | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+
+Correct value: DBL_MAX is an integer, so rounding it to 0 places returns it.
+Correct value: The rounded value exceeds the largest binary64; Excel reports overflow in its
+own arithmetic as #NUM!.
+
+Basis (measured): One Excel workbook read cell by cell through Value2 on 2026-11-04, saved,
+reopened and recalculated; rows from the rounding write-up, 627 of 627.
+
+Inferred, not measured: That one decimal-to-binary conversion routine is the source of all
+these patterns is inferred from the exponent-overflow encoding.
+
+- Open: How these patterns sort among themselves and with other numbers, and display width, are not recorded.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells A1..A4, B1..B24, reopened, recalculated — cell-by-cell Excel reading of the NaN patterns
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.ps1`](../../content/notes/evidence/2026-11-04/round-nan-downstream.ps1) — the script that took the reading
+- [`content/notes/evidence/2026-11-04/round-nan-downstream-sheet1.xml`](../../content/notes/evidence/2026-11-04/round-nan-downstream-sheet1.xml) — the sheet as Excel saved it
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A3 (readings)
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A2 (readings)
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A1 (readings)
 
 ### FN-ROUNDUP-001: ROUNDUP, ROUNDDOWN and TRUNC read num_digits from its low 16 bits
 
@@ -251,14 +297,14 @@ gives #NUM! for a negative count when a digit is dropped.
 Correct value: The exact decimal expansion of this binary64 number has fewer than 32768 places,
 so a truncation at num_digits places returns the number itself.
 
-Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
-36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
-with no row lost and each remaining failure classified in the write-up. All 13,914 informative
-ROUNDDOWN and TRUNC rows with large num_digits follow the rule.
+Basis (measured): Under the family rules the recorded rows match ROUND 36,821 of 36,945,
+ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row
+lost and each remaining failure classified in the write-up. All 13,914 informative ROUNDDOWN
+and TRUNC rows with large num_digits follow the rule.
 
 Evidence:
 
-- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00041 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00043 at `e26b7bddb8` (readings)
@@ -270,9 +316,10 @@ Evidence:
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
 
 ROUNDUP forms the ROUNDDOWN result, converts it to binary64, converts one unit 10^-p to
-binary64, and adds the two in binary64. The sum need not be the binary64 value nearest the
-decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and ROUNDUP(3.535,2) is
-3.5399999999999996. The difference shows when the result is compared with a typed 3.54.
+binary64, and adds the two on the x87 unit, storing the sum to binary64. The sum need not be
+the binary64 value nearest the decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and
+ROUNDUP(3.535,2) is 3.5399999999999996. The difference shows when the result is compared with a
+typed 3.54.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -282,16 +329,52 @@ decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and ROUNDUP(3.535,2)
 Correct value: The decimal answer has a nearest binary64 value; rounding away from zero at 2
 places gives that value.
 
-Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
-36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
-with no row lost and each remaining failure classified in the write-up.
+Basis (measured): Under the family rules the recorded rows match ROUND 36,821 of 36,945,
+ROUNDUP 52,022 of 52,841, ROUNDDOWN 59,182 of 59,995 and TRUNC 50,504 of 51,317, with no row
+lost and each remaining failure classified in the write-up.
 
 Evidence:
 
-- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1863, key ROUNDUP|0xbff2000000000000|0x4000000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1809, key ROUNDUP|0x400c47ae147ae148|0x4000000000000000 at `e26b7bddb8` (readings)
+
+### FN-ROUNDUP-003: At tiny magnitudes ROUNDUP may add no unit, and the two signs differ
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+ROUNDUP adds no unit when the unit itself is below the normal range, whichever the sign. For a
+positive number it also adds none when the 15-digit reading, as binary64, lies less than
+2^-1026 above the truncation; negative numbers have no such distance. So
+ROUNDUP(1.0001086461844975E-307,307) is 1E-307 and ROUNDUP(-1.0001086461844975E-307,307) is
+-2E-307, with the same digits dropped. At -1.2225E-307 and 308 places the unit, 1E-308, is
+subnormal, and the answer stays at -1.2E-307.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUNDUP(1.0001086461844975e-307, 307)` | number `1.0001086461844975e-307` (`0x0031fa982c40c60e`); num_digits `307` (`0x4073300000000000`) (cells) | `1e-307` (`0x0031fa182c40c60d`) | `2e-307` (`0x0041fa182c40c60d`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `ROUNDUP(-1.2225073858507202e-307, 308)` | number `-1.2225073858507202e-307` (`0x8035fa182c40c60e`); num_digits `308` (`0x4073400000000000`) (cells) | `-1.2e-307` (`0x80359283684dba77`) | `-1.3e-307` (`0x80375eb9065434ab`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `ROUNDUP(1.0000000022250739e-300, 307)` | number `1.0000000022250739e-300` (`0x01a56e1fc3c5c026`); num_digits `307` (`0x4073300000000000`) (cells) | `1.0000001000000001e-300` (`0x01a56e1fe6ed23b2`) | — | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: The number has a nonzero digit past 307 places, so rounding away from zero at
+307 places gives 2E-307; nearest binary64.
+Correct value: The number has a nonzero digit past 308 places, so rounding away from zero at
+308 places gives -1.3E-307; nearest binary64.
+
+Basis (measured): ROUNDUP rows match under these rules as counted in FN-ROUND-001. In the 1,148
+recorded rows nearest the 2^-1026 boundary this quantity has 1 violation, itself an artefact of
+how the row was classified; the exact value, the reading and x minus the truncation give 54 to
+547. The opposite-sign pair is a reading from Excel build 20527.
+
+- Open: 14 ROUNDUP rows of tiny magnitude stay unmatched, in the near-tie class of FN-ROUND-002.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `ab94fb91a5` — three rows of Excel's answers; failed before the change
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `ab94fb91a5` (readings)
 
 ### FN-TRUNC-001: TRUNC of DBL_MIN returns a subnormal, not 0
 
@@ -300,7 +383,8 @@ Evidence:
 With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal
 0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6
 steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit
-reading 2.22507385850720E-308. The bank holds 256 such rows for each of the three functions.
+reading 2.22507385850720E-308. The recorded rows hold 256 such cases for each of the three
+functions. ROUND gives 0 on the same inputs.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|

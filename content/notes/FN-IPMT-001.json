@@ -1,0 +1,93 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IPMT-001",
+  "functions": [
+    "FUNC.IPMT",
+    "FUNC.PPMT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IPMT and PPMT reuse PMT's quotient, one through expm1 and the other through exp",
+  "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, take L and q from PMT (FN-PMT-001; with nonzero fv, q = RN(N/em) with an fv numerator that is open). For period k of nper with end-of-period payments, m = nper-k+1, t = -(m*L), em_m is the expm1 of t by the route in FN-PMT-001, and u = exp(t) stored. Then IPMT = -RN(RN(RN(q*em_m) - RN(fv*u))*rate) and PPMT = RN(RN(RN(q - fv)*u)*rate). Interest takes the Kahan expm1, and principal takes the exponential it starts from: 1+em_m fits 36 of 74 principal rows where u fits all 74. So neither answer is the payment less the other (FN-PPMT-001).",
+  "status": "measured",
+  "basis": "fv 0, type 0: IPMT 95 of 95 and PPMT 74 of 74 recorded rows, plus 64 of 64 fresh PPMT(r,1,1,pv) and PPMT(r,1,2,pv) readings. Nonzero fv, type 0: PPMT 25 of 27, IPMT 18 of 27. Over every recorded row in the evidence repository IPMT matches 48 of 57 and PPMT 26 of 33. Replaying the formulas in exact rational arithmetic, with exp and ln correctly rounded, gives all 12 PPMT and all 12 IPMT answers of the loan below.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=IPMT(0.05/12,12,360,200000)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-822.0867740866778",
+        "bits": "0xc089b0b1b69cc35f"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-822.0867740866777",
+        "bits": "0xc089b0b1b69cc35e",
+        "how": "mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12 evaluates to; correctly rounded."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity, row 750, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PPMT(0.05/12,12,360,200000)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-251.5564719376004",
+        "bits": "0xc06f71ce9e3ca456"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-251.5564719376003",
+        "bits": "0xc06f71ce9e3ca452",
+        "how": "mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12 evaluates to; correctly rounded."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity, row 749, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+      "path": "content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt",
+      "locator": "section UPDATE",
+      "note": "research write-up"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "6c6cbd31c960fe1ac07d5cce9cb33ca9d7d86cf5",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "end_payment_parts",
+      "note": "the formulas in the product; the commit message carries the row counts"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "6c6cbd31c960fe1ac07d5cce9cb33ca9d7d86cf5",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "ipmt_and_ppmt_use_the_quotient_of_pmt",
+      "note": "eight catalogue readings; failed before the change"
+    }
+  ],
+  "open": [
+    "Nonzero fv: PMT's open numerator of q carries through.",
+    "type 1: PMT's open factor K carries through."
+  ],
+  "recorded_on": "2026-11-04"
+}

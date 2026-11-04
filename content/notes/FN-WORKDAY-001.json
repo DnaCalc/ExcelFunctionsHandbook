@@ -1,0 +1,267 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-WORKDAY-001",
+  "functions": [
+    "FUNC.NETWORKDAYS",
+    "FUNC.NETWORKDAYS.INTL",
+    "FUNC.TBILLEQ",
+    "FUNC.TBILLPRICE",
+    "FUNC.TBILLYIELD",
+    "FUNC.WORKDAY",
+    "FUNC.WORKDAY.INTL",
+    "FUNC.YEARFRAC"
+  ],
+  "kind": "quirk",
+  "title": "An empty cell as a first date is serial 0, but a logical in that cell is #VALUE!",
+  "statement": "A reference to an empty cell as the first date of these functions reads as serial 0 and gives a normal answer: NETWORKDAYS(B1,5) is 4 and WORKDAY(B1,2) is 3. YEARFRAC(B1,5,0) is 5/360. TRUE in the same cell gives #VALUE!, as a direct TRUE does, so a blank is not treated as the logical FALSE either.",
+  "status": "measured",
+  "basis": "8 recorded readings with an empty B1, one per function, each paired with a reading with TRUE in B1.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NETWORKDAYS(B1,5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa032, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=NETWORKDAYS(B1,5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa031, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WORKDAY(B1,2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa054, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WORKDAY(B1,2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa053, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=NETWORKDAYS.INTL(B1,5,1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa040, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WORKDAY.INTL(B1,2,1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa062, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=YEARFRAC(B1,5,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.013888888888888888",
+        "bits": "0x3f8c71c71c71c71c"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa072, row 20, column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TBILLEQ(B1,5,0.1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "B1",
+          "value": {
+            "kind": "blank",
+            "display": "(empty cell)",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.10152990264255911",
+        "bits": "0x3fb9fddd1b6a757f"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa082, row 20, column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c4c5dde7e2dcf735d2849835fc49769e2ab67ba7",
+      "path": "apps/dna-onecalc/tests/acceptance.rs",
+      "locator": "delivered_fn4_blank_date_references_read_serial_zero",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+      "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+      "locator": "sheets qa031 and qa032, and the like pairs of each function",
+      "note": "recorded readings"
+    }
+  ],
+  "open": [
+    "An argument left empty in the call was not read here for YEARFRAC and the T-bill functions."
+  ],
+  "recorded_on": "2026-11-04"
+}

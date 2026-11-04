@@ -1,0 +1,158 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GAMMA.DIST-001",
+  "functions": [
+    "FUNC.GAMMA.DIST"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "GAMMA.DIST's prefactor carries GAMMALN(a+1) in the exponent, with its error",
+  "statement": "With RN(v) meaning v rounded to 64 bits on the x87 unit and then stored to binary64, the series arm and the density of GAMMA.DIST at integer shape a from 2 to 6 share r = RN(exp(t - x - GAMMALN(a+1))), with ln x stored, t = RN(a*ln x), and the difference held in the 64-bit registers. The cumulative answer is RN(r*S) with S the stored forward sum, and the density RN(r*a)/x, the division last; with a scale, y = RN(x/beta) comes first. So GAMMALN's own error is in every answer: at shape 2 the constant is GAMMALN(3), one unit above stored ln 2 (FN-GAMMALN-001).",
+  "status": "inferred",
+  "basis": "Noise lines on windows of consecutive doubles (Excel build 20527) put ln x stored and multiplied by a, not a power of x. Storing t - x adds a slow line of amplitude 5, and leaving it unstored takes the noise at small x from 13 units of 2^-53 to 1.5. A scan of one constant factor per shape peaks at -0.875, +0.25, -1.25, +1.625 and -2 of 2^-53 for a = 2 to 6, and the first is the error of GAMMALN(3). This form matches 15,364 of 26,776 rows at a = 2, 15,588 of 26,770 at a = 3, 1,088 of 2,051 at a = 4, 654 of 1,142 at a = 5, 691 of 1,151 at a = 6, and over all shapes 47,647 of 77,975 recorded rows.",
+  "inferred": "The form is read from noise and scored in part: one stored stage of the prefactor or the sum is still missing, with a root mean square of about 0.8 of 2^-53 at small x. Non-integer shapes depend on GAMMALN below 3, which is not identified. An earlier reading of a chopped exponential in this function was this constant.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "GAMMA.DIST(0.010000000000003386, 2, 1, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.010000000000003386",
+            "bits": "0x3f847ae147ae1c1b"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4.9667913340299445e-05",
+        "bits": "0x3f0a0a5081f5d243"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "4.966791334029942e-05",
+        "bits": "0x3f0a0a5081f5d23f",
+        "how": "mpmath regularized lower incomplete gamma at 800 bits, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+        "path": "content/notes/evidence/2026-11-04/gamma-readings.tsv",
+        "locator": "GAMMA.DIST 3f847ae147ae1c1b 4000000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "GAMMA.DIST(0.5000000000001851, 3, 1, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.5000000000001851",
+            "bits": "0x3fe0000000000683"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.01438767796698471",
+        "bits": "0x3f8d774972ab2b85"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.014387677966984718",
+        "bits": "0x3f8d774972ab2b89",
+        "how": "mpmath regularized lower incomplete gamma at 800 bits, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+        "path": "content/notes/evidence/2026-11-04/gamma-readings.tsv",
+        "locator": "GAMMA.DIST 3fe0000000000683 4008000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+      "path": "content/notes/evidence/2026-11-04/gamma-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: how the stored stages were read"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "78de0f0a49cbb65d43c57f7cd4f4276848ed7eda",
+      "path": "crates/calc-func/src/ported/special_math_common.rs",
+      "locator": null,
+      "note": "the prefactor in the product; the commit message carries the row counts"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "af74247e1ed54f0b535143f1305261b98d80d18e",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": null,
+      "note": "rows matched per function"
+    }
+  ],
+  "open": [
+    "The missing stored stage of the prefactor or the sum.",
+    "Shapes outside 2 to 6, and the upper arm of the distribution."
+  ],
+  "recorded_on": "2026-11-04"
+}

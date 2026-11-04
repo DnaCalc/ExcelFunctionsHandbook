@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GAMMA-002",
+  "functions": [
+    "FUNC.GAMMA"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "From 10 up, GAMMA is a Stirling product of stored stages, and its error grows with x",
+  "statement": "From x = 10, GAMMA behaves as sqrt(2 pi) x^x exp(-x) / sqrt(x) w with stored stages: x^2, x^4, x^8 and so on by binary powering of floor(x/2), stored ln x, exponent and exponential for the fraction of x/2, stored exp(-x), an unstored square root, and each outer product stored. The first factor is the binary64 value of sqrt(2 pi), whose rounding gives every band a bias of +0.66 of 2^-53. The answers' noise grows with x, with a root mean square of about 0.225*x units of 2^-53 above 20, so near x = 160 an answer can sit 89 units from the correctly rounded value, as below.",
+  "status": "inferred",
+  "basis": "Noise lines on windows of consecutive doubles (Excel build 20527): stored x^2 with weight x/2, then x^4, x^8 and x^16 at the frequencies a stored square of a stored value gives, stored ln x, and the bias. This chain gives every bit on 69.5% of 59,200 answers from 36 to 170.",
+  "inferred": "The chain is read from the noise, and 30.5% of the answers in that range do not yet match, so at least one stored stage is missing. The series w is only seen as a line at 1/(12 m x), and below x = 30 it differs from the true series.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "GAMMA(10.649360706449173)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "10.649360706449173",
+            "bits": "0x40254c7901ab0368"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1600316.6708269436",
+        "bits": "0x41386b3cabbb5088"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1600316.6708269438",
+        "bits": "0x41386b3cabbb5089",
+        "how": "mpmath gamma at 800 bits from the binary64 input, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+        "path": "content/notes/evidence/2026-11-04/gamma-readings.tsv",
+        "locator": "GAMMA 40254c7901ab0368",
+        "note": null
+      }
+    },
+    {
+      "call": "GAMMA(160.48267465838674)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "160.48267465838674",
+            "bits": "0x40640f7212200c21"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.410909690032054e+283",
+        "bits": "0x7acd5c4d6f1f4edc"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "3.4109096900320908e+283",
+        "bits": "0x7acd5c4d6f1f4f35",
+        "how": "mpmath gamma at 800 bits from the binary64 input, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+        "path": "content/notes/evidence/2026-11-04/gamma-readings.tsv",
+        "locator": "GAMMA 40640f7212200c21",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "b5d84a80a5a4640eca9ce04f232c0bc115503f34",
+      "path": "content/notes/evidence/2026-11-04/gamma-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: how the stored stages were read"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "1c7a4ab86b12b53d80947f06b6d381e8e5dd5f3f",
+      "path": "crates/calc-func/src/ported/excel_numeric/gammaln.rs",
+      "locator": null,
+      "note": "the routes in the product, with stand-ins where the code says so; the commit message carries the row counts"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "af74247e1ed54f0b535143f1305261b98d80d18e",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": null,
+      "note": "rows matched per function"
+    }
+  ],
+  "open": [
+    "The Stirling series below x = 30, and the stored stage still missing above it."
+  ],
+  "recorded_on": "2026-11-04"
+}

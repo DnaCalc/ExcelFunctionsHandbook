@@ -197,11 +197,11 @@ measured, these notes are the later record. All notes: [Function notes](../notes
 
 ### FN-ABS-001: Text to number checks the exponent range even when the mantissa is zero
 
-*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to ABS, VALUE.
 
-Converting text to a number, measured through ABS, rejects a zero mantissa with an out-of-range
-exponent: ABS("0e-309") is #VALUE! though the text denotes 0, and ABS("0e-308") is 0. The
-exponent counts as written, less the fraction digits, less 2 for a percent sign, so
+Converting text to a number, measured through ABS and VALUE, rejects a zero mantissa with an
+out-of-range exponent: ABS("0e-309") is #VALUE! though the text denotes 0, and ABS("0e-308") is
+0. The exponent counts as written, less the fraction digits, less 2 for a percent sign, so
 ABS("0.0e309") is 0, ABS("0e309") is #VALUE!, and ABS("0e-307%") is #VALUE!.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
@@ -211,22 +211,36 @@ ABS("0.0e309") is 0, ABS("0e309") is #VALUE!, and ABS("0e-307%") is #VALUE!.
 | `=ABS("0e-307%")` | as typed | `#VALUE!` | — | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 | `=ABS("0e309")` | as typed | `#VALUE!` | `0` (`0x0000000000000000`) | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
 | `=ABS("0.0e309")` | as typed | `0` (`0x0000000000000000`) | — | Excel build not recorded in this run; W111 bulk captures of the same date (2026-09-29) record Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2 |
+| `=VALUE("0e-307")` | as typed | `0` (`0x0000000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e-307%")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e309")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0.0e309")` | as typed | `0` (`0x0000000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e309%")` | as typed | `0` (`0x0000000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VALUE("0e311%")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
 
 Correct value: The text denotes zero: a zero mantissa is 0 at any exponent.
 
-Basis (measured): About 120 recorded zero-mantissa cases through ABS.
+Basis (measured): About 120 recorded zero-mantissa cases through ABS, and 72 through VALUE. All
+72 VALUE readings fit a limit of -308 to 308 on the exponent as counted here.
 
 Inferred, not measured: The exponent formula is inferred, though it fits every reading; that
-other functions share this conversion is inferred.
+functions other than ABS and VALUE share this conversion is inferred.
 
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_zero_percentage_exponents_are_validated at `344c166787` — recorded readings pinned
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt097 to qt168 at `2d0eddcac8` — 72 recorded VALUE readings
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00008-abs-boundary-2-0 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00012-abs-boundary-3-0 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00017-abs-boundary-4-1 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00028-abs-boundary-7-0 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00108-abs-boundary-27-0 at `e26b7bddb8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt099, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt100, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt107, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt143, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt108, row 20, column 10 at `2d0eddcac8` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt112, row 20, column 10 at `2d0eddcac8` (readings)
 
 <!-- efh:notes end -->
 

@@ -6,10 +6,10 @@
   ],
   "kind": "quirk",
   "title": "An array index in CHOOSE turns selected blank cells into 0",
-  "statement": "When an array index_num lifts CHOOSE in dynamic-array Excel, selected empty cells come back as the number 0 rather than as blank references, so ISBLANK over them is FALSE.",
+  "statement": "When an array index_num lifts CHOOSE in dynamic-array Excel, selected empty cells come back as the number 0 rather than as blank references, so ISBLANK over them is FALSE. With a scalar index the selected reference survives: ISREF(CHOOSE(1,ref)) was recorded TRUE.",
   "status": "measured",
-  "basis": "One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells.",
-  "inferred": "That a scalar index keeps the blank reference is a DnaCalc control, not a recorded reading.",
+  "basis": "One recorded array reading, with ROWS 1 and COLUMNS 2 from observer cells, and one scalar ISREF reading with a reference to another workbook.",
+  "inferred": "That a scalar index over an empty cell gives ISBLANK TRUE is inferred from the ISREF reading. No ISBLANK reading of it is recorded.",
   "documentation": null,
   "repros": [
     {
@@ -29,6 +29,25 @@
         "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
         "locator": "sheet fn2_q193, row 20, column 10",
         "note": null
+      }
+    },
+    {
+      "call": "=ISREF(CHOOSE(1,[ylr-source.xlsx]Sheet1!A1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2d0eddcac86413014643af81d646581d54ba57bc",
+        "path": "crates/calc-host/tests/captures/dc_ylr/oracle.capture.json",
+        "locator": "sheet Main, row 54, column 1",
+        "note": "The recorded formula names the source workbook by its full path"
       }
     }
   ],
