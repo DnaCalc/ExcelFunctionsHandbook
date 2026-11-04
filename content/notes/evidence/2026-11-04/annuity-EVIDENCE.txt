@@ -1,0 +1,98 @@
+Annuity family: research round (Opus), 2026-11-04
+=================================================
+
+Outcome: blocked. No patch is offered. Nothing below changes product code, answers or the tracker.
+
+Application revision measured: 6073fff1 (C:\Work\DnaCalc\DnaCalc and the firehorse scratch clone
+~/claude-work/annuity/DnaCalc, same revision). Evidence: ~/projects/DnaCalc/OxFunc-Evidence 4cb48d15
+(read only, through DNACALC_LEGACY_ROOT).
+
+Baseline (current product), full bank, per function
+  command: DNACALC_LEGACY_ROOT=$HOME/projects/DnaCalc ./target/release/xtask-harness witness judge
+           --bank full --func F --trace ../traces/base-F.jsonl     (firehorse, ~/claude-work/annuity/DnaCalc)
+  PMT      222,823 / 291,978 matched     IPMT   30 / 57      PPMT   9 / 33
+  CUMIPMT       12 / 38                  CUMPRINC 232 / 586  FV  2,264 / 2,561   PV 1,146 / 1,308
+Corpus (catalogue oracle captures, the only workbooks with annuity cells):
+  mismatches PMT 1, IPMT 80, PPMT 104, CUMIPMT 67, CUMPRINC 157, RATE 3
+  (counts from ~/projects/DnaCalc/DnaCalc/target/problem-functions-xb08uth2/classification/cells.jsonl)
+
+Findings (exact, reproducible from files in this folder)
+-------------------------------------------------------
+F1. PMT consumer order, fv=0, type 0, rate>0 (structtest.py, einv.py; data base-PMT.jsonl).
+    4,802 bank groups share (rate, nper) with 8+ different pv each. Holding one free binary64 em
+    per group, the four consumer orders were tested exactly (Fraction arithmetic):
+      q=pv/em then q*rate .................. consistent in every sampled group
+      rate/em then pv*k, pv*rate then /em, em/rate then pv/k .... 8-12 of 40 groups
+    Precision of the two steps (all 4,802 groups):
+      x87-stored quotient, x87-stored product (XX) ... 0 groups without a consistent em
+      binary64 quotient, x87 product (current) ....... 59 groups without one
+      binary64 both ................................. 111 groups without one
+    So Excel stores RN53(RN64(pv/em)) then RN53(RN64(q*rate)), with em a stored binary64.
+    em is pinned uniquely in 4,720 groups (edata.txt: rate, nper, em bits).
+
+F2. em itself is not identified. Against the 4,720 pinned values (probe_em.rs):
+      current chain, Kahan expm1 of t = -(nper*log1p(rate)) ............ 3,258
+      same with x87 n*L, any exp backend (x87, CRT, portable) x any log ... 3,248-3,258
+      Kahan log1p (u=1+r, log(u)*r/(u-1)) in 6 orders ..................... <= 2,740
+      t kept extended (3 log routes, u stored or extended, 4 orders) ...... <= 3,142
+      fully extended x87 chains (FYL2X/FYL2XP1, F2XM1 direct or 2^y-1) .... <= 2,593
+      complement of growth (-(g-1)/g, 1/g-1, three precisions) ........... below 3,258
+      log via stored log2 times ln2 (3 precisions), log(1+r) ............... <= 3,057
+    Every one of the 1,462 misses is reproduced by the current Kahan expm1 at t shifted by 1 or 2
+    units in the last place (-2:46, -1:442, +1:845, +2:94; none needs more). Excel's em errs up to
+    3 ulp from the exact value and leans to larger magnitude (-1: 1,176 rows, +1: 762), so it is
+    less accurate than the current chain, not more. Misses persist when 1+rate is exact in binary64
+    (27 of 95 such nper=1 rows), so a log1p routine is not the whole cause.
+
+F3. Measured consequence: applying F1 alone (x87 quotient in the discount arm) gives
+    PMT 222,823 -> 222,961 (+168 / -30), all changes in the fv=0, type 0, rate>0 shape. The 30
+    losses are rows where today's binary64 quotient cancels an em error. Not landable under the
+    zero-loss rule until em is identified.
+    command: same judge with the one-line change, then
+             xtask-harness witness compare --before ../traces/base-PMT.jsonl --after ../traces/xq-PMT.jsonl
+
+F4. Derived functions, 30-year loan block of the catalogue (sheet dcj9k_annuity rows 726-752):
+    - CUMPRINC(1..12) equals the left-to-right binary64 sum of Excel's own twelve PPMT answers, and
+      CUMIPMT equals 12*PMT - CUMPRINC (both bit for bit); the product already uses this shape.
+    - PPMT is not PMT - IPMT: P - IPMT = PPMT in 4 of 12 periods, P - PPMT = IPMT in 8 of 12.
+    - PPMT(.,1,.) = 0x...723 is not P_double - I_double for any binary64 P (the result would sit on
+      the 2^-43 grid), not RN53(RN64(q*r) - RN64(pv*r)), and not any of 13 products P*(1+em) for
+      either em consistent with PMT (those give ...720/721 and ...724-726): PPMT does not reuse
+      PMT's em. Its relative error, about +4.6e-16 on all twelve periods, exceeds PMT's 1.7e-16.
+    - probe_pp.rs: 9 discount routes x 5-6 consumer orders for PPMT and 3 for IPMT, by argument
+      shape (pp-in.jsonl, 416 catalogue and bank rows). Nothing separates from chance: PPMT type 0,
+      fv 0, middle periods match 10 of 41 for every route and order, and so does the product.
+      IPMT is best as it stands except in shapes of 3-17 rows.
+
+What blocks a landable patch
+----------------------------
+PMT's em = (1+r)^-n - 1 (F2). Every derived function goes through it, so IPMT/PPMT/CUM* answers
+cannot be matched in the bank until it is known. The corpus cells (literal, ordinary rates) are
+also blocked: PPMT's own discount factor differs from PMT's em (F4), and no tested family
+reproduces it.
+
+Minimal Excel questions (none taken; Excel not driven)
+------------------------------------------------------
+Q1  (where does em's extra error enter?) For the 27 nper=1 bank rows with exact 1+rate that miss
+    today (list from emdump.txt, column 3 = Excel em): =EXP(-LN(1+rate)) and =LN(EXP(-LN(1+rate))).
+    If both equal excel_exp/excel_log bits, the error is in how expm1 combines them, not in its
+    inputs.
+Q2  (is PMT's t = -nper*L?) Same rates, nper = 2 and 4, pv = 1 + j*2^-52 for j = 0..7.
+    Doubling is exact, so if t = -n*L the pinned em must match Kahan(2t), Kahan(4t); a mismatch
+    pattern unlike nper=1 shows a different exponent route.
+Q3  (PPMT's discount factor) =PPMT(r,1,1,pv) and =PPMT(r,1,2,pv) for 16 rates, pv=1. The exact
+    answers are -pv and -pv/(2+r); P - I and P*v^m forms give different bits, which tells
+    which identity Excel evaluates.
+Q4  (does PPMT reuse PMT?) =PPMT(r,k,n,pv) beside =PMT(r,n,pv)*POWER(1+r,k-1-n) and
+    =PMT(r,n,pv)+pv*r (k=1) for the 30-year loan.
+
+Files (this folder)
+-------------------
+corpus-annuity-cells.jsonl  corpus mismatches (from the firehorse problem-functions run)
+catalogue-annuity.jsonl     all 748 annuity formulas of the catalogue captures with Excel bits
+base-*.jsonl                bank judge traces (current product)
+structtest.py einv.py rnd.py exact.py   exact consumer-order tests and em pinning (Python, Fraction)
+einv-all.jsonl edata.txt    pinned em per (rate, nper) group
+probe_em.rs probe_pp.rs     research probes (built as cfg(test) modules of calc-func in the
+                            firehorse scratch clone only; not for landing)
+emdump.txt                  per-group em, product em, log1p, t, exp(t), reproducing t shifts
