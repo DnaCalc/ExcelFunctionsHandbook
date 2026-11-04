@@ -7,11 +7,11 @@
     "FUNC.GAUSS"
   ],
   "kind": "bit-matching-detail",
-  "title": "Small arguments take Cody's rational on the x87 unit, and the last bit can be high",
-  "statement": "For normal x with |x| < 2^-28, ERF.PRECISE computes p = RN53(RN64(x*P0)) and y = RN53(RN64(p/Q0)): x87 precision 64, the product stored to binary64, then the quotient stored to binary64. P0 = 0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. These are A(4) and B(4) of Cody's 1969 rational for |x| <= 0.5 (3.20937758913846947e3 and 2.84423683343917062e3), both divided by one real scale s = 2873.12583276792695. The two rounded steps can leave the answer 1 unit above the correctly rounded erf(x), as the rows below show. The same route explains GAUSS's small arguments.",
+  "title": "Small arguments evaluate x*N(t)/D(t) on the x87 unit with stored steps, and the last bit can be high",
+  "statement": "For normal x with |x| < 2^-16, ERF.PRECISE computes x*N(t)/D(t) with t = x^2 on the x87 unit at precision 64: N and D are each stored to binary64, then the product, then the quotient. Below 2^-27 this reduces to p = RN53(RN64(x*P0)) and y = RN53(RN64(p/Q0)), with P0 = 0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. The coefficient table is unidentified: Cody's 1969 rational shares the constant-term ratio, as any accurate table does, but its normalised linear terms differ (0.1176 and 0.4510 against Excel's 0.1259 and 0.4593), and Cephes and fdlibm also miss. The rounded steps can leave the answer 1 unit above the correctly rounded erf(x), as the rows below show. The same route explains GAUSS's small arguments.",
   "status": "measured",
-  "basis": "249,300 of 249,300 recorded ERF.PRECISE rows below 2^-27 match, negative arguments included; per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of 131,255). Across the bank the route gains 134,290 ERF.PRECISE rows and 678 GAUSS rows with no row lost in any function.",
-  "inferred": "That the constants are Cody's is inferred from their ratio and from both being RN(coefficient/s) for one s; s itself is measured from the two constants and no source explains it. That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE and GAUSS rows were scored.",
+  "basis": "All 499,814 recorded ERF.PRECISE rows with 0 < |x| < 2^-16 match; per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of 131,255). Bisecting live Excel to one input ulp located where stored D and stored N first step, and every answer fit those two hypotheses. The measured coefficients give N1/N0 - D1/D0 = -1/3 to 1.2e-16, which is erf's Taylor coefficient and was not imposed by the measurement.",
+  "inferred": "That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE and GAUSS rows were scored. D1 is one of two adjacent values that no recorded answer separates.",
   "documentation": null,
   "repros": [
     {
@@ -87,13 +87,20 @@
       "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
       "path": "content/notes/evidence/2026-11-04/erf-EVIDENCE.md",
       "locator": null,
-      "note": "research write-up: the search, the constants, what stays open; product patch not landed at this date"
+      "note": "first research write-up; its Cody attribution is withdrawn by this note"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f1bf1f0224cd1d63eda448dc3570b1de4e43695d",
+      "path": "crates/calc-func/src/ported/normal_dist_common.rs",
+      "locator": null,
+      "note": "product route below 2^-16"
     }
   ],
   "open": [
-    "The route above 2^-28: about 231,000 ERF.PRECISE rows remain; the full scaled rational is a lead (174 of 176 rows at 2^-27), not a result.",
-    "Whether subnormal arguments use this route.",
-    "Whether the rational runs to 0.5 or to Cody's own 0.46875."
+    "The route above 2^-16: the next terms of N and D; about 76,000 ERF.PRECISE rows remain.",
+    "Whether subnormal arguments use this route; Excel reads them back as 0 in a cell, so they cannot be asked that way.",
+    "Where the small-argument rational ends near 0.5."
   ],
   "recorded_on": "2026-11-04"
 }

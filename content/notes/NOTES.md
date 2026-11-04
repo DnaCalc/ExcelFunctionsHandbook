@@ -41,8 +41,8 @@ answer.
 | [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 0)` | `2.4788083687166675e+306` (`0x7f8c3d51558ee541`) | `2.4788087273156452e+306` (`0x7f8c3d519a191ac9`) |
 | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)` | `0.046077868684136686` (`0x3fa79784b622b014`) | `0.04607786868413672` (`0x3fa79784b622b019`) |
 | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `TBILLYIELD(47701, 47702, 2.279784366464575)` | `15430.96713248709` (`0x40ce237bcaff517a`) | `15430.967132487087` (`0x40ce237bcaff5178`) |
-| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.094947017729282e-13)` | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) |
-| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.999999999999998e-11)` | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) |
+| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.094947017729282e-13)` | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) |
+| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.999999999999998e-11)` | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) |
 | [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) | `MOD(-1.223247290044572e-296, 1.223247290044539e-296)` | `1.223247290044572e-296` (`0x0280000000000079`) | `1.2232472900445062e-296` (`0x027fffffffffff0e`) |
 | [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) | `MOD(1.223247290044539e-296, -1.2232472900445716e-296)` | `#NUM!` | `-3.25938553492266e-310` (`0x80003c0000000000`) |
 | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) | `MROUND(0.499999999999995, 1)` | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) |
@@ -81,10 +81,10 @@ answer.
 | [`CUMIPMT`](../functions/FUNC.CUMIPMT.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-sums-ppmt-left-to-right-and-cumipmt-is-countpmt-less-cumprinc) |
 | [`CUMPRINC`](../functions/FUNC.CUMPRINC.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-sums-ppmt-left-to-right-and-cumipmt-is-countpmt-less-cumprinc) |
 | [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
-| `ERF` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) |
-| `ERF.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) |
+| `ERF` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) |
+| `ERF.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) |
 | `FLOOR` (no page yet) | [FN-FLOOR-001](#fn-floor-001-floor-of-zero-is-0-even-with-significance-0) |
-| [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) |
+| [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-evaluate-xntdt-on-the-x87-unit-with-stored-steps-and-the-last-bit-can-be-high) |
 | [`GCD`](../functions/FUNC.GCD.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
 | [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
 | [`LCM`](../functions/FUNC.LCM.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
@@ -390,18 +390,19 @@ Evidence:
 - OxFunc-Evidence `cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz`, line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle-20430/build-20430/INTRATE.jsonl.gz`, line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000 at `e26b7bddb8` (readings)
 
-### FN-ERF.PRECISE-001: Small arguments take Cody's rational on the x87 unit, and the last bit can be high
+### FN-ERF.PRECISE-001: Small arguments evaluate x*N(t)/D(t) on the x87 unit with stored steps, and the last bit can be high
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to ERF, ERF.PRECISE,
 GAUSS.
 
-For normal x with |x| < 2^-28, ERF.PRECISE computes p = RN53(RN64(x*P0)) and y =
-RN53(RN64(p/Q0)): x87 precision 64, the product stored to binary64, then the quotient stored to
-binary64. P0 = 0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. These are A(4) and B(4) of
-Cody's 1969 rational for |x| <= 0.5 (3.20937758913846947e3 and 2.84423683343917062e3), both
-divided by one real scale s = 2873.12583276792695. The two rounded steps can leave the answer 1
-unit above the correctly rounded erf(x), as the rows below show. The same route explains
-GAUSS's small arguments.
+For normal x with |x| < 2^-16, ERF.PRECISE computes x*N(t)/D(t) with t = x^2 on the x87 unit at
+precision 64: N and D are each stored to binary64, then the product, then the quotient. Below
+2^-27 this reduces to p = RN53(RN64(x*P0)) and y = RN53(RN64(p/Q0)), with P0 =
+0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. The coefficient table is unidentified: Cody's
+1969 rational shares the constant-term ratio, as any accurate table does, but its normalised
+linear terms differ (0.1176 and 0.4510 against Excel's 0.1259 and 0.4593), and Cephes and
+fdlibm also miss. The rounded steps can leave the answer 1 unit above the correctly rounded
+erf(x), as the rows below show. The same route explains GAUSS's small arguments.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -410,23 +411,23 @@ GAUSS's small arguments.
 
 Correct value: mpmath erf at 800 bits from the binary64 input, correctly rounded.
 
-Basis (measured): 249,300 of 249,300 recorded ERF.PRECISE rows below 2^-27 match, negative
-arguments included; per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of
-131,255). Across the bank the route gains 134,290 ERF.PRECISE rows and 678 GAUSS rows with no
-row lost in any function.
+Basis (measured): All 499,814 recorded ERF.PRECISE rows with 0 < |x| < 2^-16 match;
+per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of 131,255). Bisecting
+live Excel to one input ulp located where stored D and stored N first step, and every answer
+fit those two hypotheses. The measured coefficients give N1/N0 - D1/D0 = -1/3 to 1.2e-16, which
+is erf's Taylor coefficient and was not imposed by the measurement.
 
-Inferred, not measured: That the constants are Cody's is inferred from their ratio and from
-both being RN(coefficient/s) for one s; s itself is measured from the two constants and no
-source explains it. That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE and
-GAUSS rows were scored.
+Inferred, not measured: That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE
+and GAUSS rows were scored. D1 is one of two adjacent values that no recorded answer separates.
 
-- Open: The route above 2^-28: about 231,000 ERF.PRECISE rows remain; the full scaled rational is a lead (174 of 176 rows at 2^-27), not a result.
-- Open: Whether subnormal arguments use this route.
-- Open: Whether the rational runs to 0.5 or to Cody's own 0.46875.
+- Open: The route above 2^-16: the next terms of N and D; about 76,000 ERF.PRECISE rows remain.
+- Open: Whether subnormal arguments use this route; Excel reads them back as 0 in a cell, so they cannot be asked that way.
+- Open: Where the small-argument rational ends near 0.5.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — research write-up: the search, the constants, what stays open; product patch not landed at this date
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first research write-up; its Cody attribution is withdrawn by this note
+- DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs` at `f1bf1f0224` — product route below 2^-16
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `e26b7bddb8` (readings)
 

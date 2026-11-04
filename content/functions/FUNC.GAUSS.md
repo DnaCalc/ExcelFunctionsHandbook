@@ -219,17 +219,18 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
-### FN-ERF.PRECISE-001: Small arguments take Cody's rational on the x87 unit, and the last bit can be high
+### FN-ERF.PRECISE-001: Small arguments evaluate x*N(t)/D(t) on the x87 unit with stored steps, and the last bit can be high
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to ERF, ERF.PRECISE, GAUSS.
 
-For normal x with |x| < 2^-28, ERF.PRECISE computes p = RN53(RN64(x*P0)) and y =
-RN53(RN64(p/Q0)): x87 precision 64, the product stored to binary64, then the quotient stored to
-binary64. P0 = 0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. These are A(4) and B(4) of
-Cody's 1969 rational for |x| <= 0.5 (3.20937758913846947e3 and 2.84423683343917062e3), both
-divided by one real scale s = 2873.12583276792695. The two rounded steps can leave the answer 1
-unit above the correctly rounded erf(x), as the rows below show. The same route explains
-GAUSS's small arguments.
+For normal x with |x| < 2^-16, ERF.PRECISE computes x*N(t)/D(t) with t = x^2 on the x87 unit at
+precision 64: N and D are each stored to binary64, then the product, then the quotient. Below
+2^-27 this reduces to p = RN53(RN64(x*P0)) and y = RN53(RN64(p/Q0)), with P0 =
+0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. The coefficient table is unidentified: Cody's
+1969 rational shares the constant-term ratio, as any accurate table does, but its normalised
+linear terms differ (0.1176 and 0.4510 against Excel's 0.1259 and 0.4593), and Cephes and
+fdlibm also miss. The rounded steps can leave the answer 1 unit above the correctly rounded
+erf(x), as the rows below show. The same route explains GAUSS's small arguments.
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
@@ -238,23 +239,23 @@ GAUSS's small arguments.
 
 Correct value: mpmath erf at 800 bits from the binary64 input, correctly rounded.
 
-Basis (measured): 249,300 of 249,300 recorded ERF.PRECISE rows below 2^-27 match, negative
-arguments included; per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of
-131,255). Across the bank the route gains 134,290 ERF.PRECISE rows and 678 GAUSS rows with no
-row lost in any function.
+Basis (measured): All 499,814 recorded ERF.PRECISE rows with 0 < |x| < 2^-16 match;
+per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of 131,255). Bisecting
+live Excel to one input ulp located where stored D and stored N first step, and every answer
+fit those two hypotheses. The measured coefficients give N1/N0 - D1/D0 = -1/3 to 1.2e-16, which
+is erf's Taylor coefficient and was not imposed by the measurement.
 
-Inferred, not measured: That the constants are Cody's is inferred from their ratio and from
-both being RN(coefficient/s) for one s; s itself is measured from the two constants and no
-source explains it. That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE and
-GAUSS rows were scored.
+Inferred, not measured: That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE
+and GAUSS rows were scored. D1 is one of two adjacent values that no recorded answer separates.
 
-- Open: The route above 2^-28: about 231,000 ERF.PRECISE rows remain; the full scaled rational is a lead (174 of 176 rows at 2^-27), not a result.
-- Open: Whether subnormal arguments use this route.
-- Open: Whether the rational runs to 0.5 or to Cody's own 0.46875.
+- Open: The route above 2^-16: the next terms of N and D; about 76,000 ERF.PRECISE rows remain.
+- Open: Whether subnormal arguments use this route; Excel reads them back as 0 in a cell, so they cannot be asked that way.
+- Open: Where the small-argument rational ends near 0.5.
 
 Evidence:
 
-- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — research write-up: the search, the constants, what stays open; product patch not landed at this date
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first research write-up; its Cody attribution is withdrawn by this note
+- DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs` at `f1bf1f0224` — product route below 2^-16
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `e26b7bddb8` (readings)
 - OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `e26b7bddb8` (readings)
 
