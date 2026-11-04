@@ -1,0 +1,121 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ROUND-002",
+  "functions": [
+    "FUNC.ROUND",
+    "FUNC.ROUNDDOWN",
+    "FUNC.ROUNDUP",
+    "FUNC.TRUNC"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "The rounding functions read 15 digits first, so ROUNDDOWN can round up",
+  "statement": "Before choosing a digit these functions read the number to 15 significant digits on the x87 unit: with e the decimal exponent and n = 14 - e, y = RN64(|x| * 10^n), or RN64(|x| / 10^-n) when n is negative, while 10^|n| is exact in 64 bits (|n| <= 27). A half in y goes up for ROUNDDOWN, ROUNDUP and TRUNC and down for ROUND. So digits beyond the 15th are lost even when the requested precision keeps them: ROUND(-1594628480062905,14) loses its last digit, and ROUNDDOWN(283025097725723.5,0) returns 283025097725724, larger than its input.",
+  "status": "measured",
+  "basis": "Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of 36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317, with no row lost and each remaining failure classified in the write-up.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ROUND(-1594628480062905, 14)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-1594628480062905",
+            "bits": "0xc316a939806956e4"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "14",
+            "bits": "0x402c000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1594628480062900",
+        "bits": "0xc316a939806956d0"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-1594628480062905",
+        "bits": "0xc316a939806956e4",
+        "how": "An integer rounded to 14 places is itself."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/ROUND.jsonl.gz",
+        "locator": "line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUNDDOWN(283025097725723.5, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "283025097725723.5",
+            "bits": "0x42f0168ea69971b8"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "283025097725724",
+        "bits": "0x42f0168ea69971c0"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "283025097725723",
+        "bits": "0x42f0168ea69971b0",
+        "how": "ROUNDDOWN drops the fraction .5."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz",
+        "locator": "line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "77873410e3b5b659e3ab1c808a7926dd9f36c5ea",
+      "path": "crates/calc-func/tests/f1_math.rs",
+      "locator": "rounding_family_matches_recorded_bank_rows",
+      "note": "ROUND family rules in the product; failed before the change"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    }
+  ],
+  "open": [
+    "How the scale is formed for |n| > 27: a single correctly rounded 64-bit power and the chained multiplications tried do not fit; 123 ROUND, 548 ROUNDUP, 556 ROUNDDOWN and 555 TRUNC rows remain."
+  ],
+  "recorded_on": "2026-11-04"
+}

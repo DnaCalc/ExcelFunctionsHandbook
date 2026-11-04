@@ -1,0 +1,135 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BESSELI-004",
+  "functions": [
+    "FUNC.BESSELI"
+  ],
+  "kind": "quirk",
+  "title": "BESSELI gives #NUM! just above 709.7, where the function is still finite",
+  "statement": "BESSELI returns a number at |x| = 709.7 and #NUM! at the next binary64 above it, although I0 there is about 2.48E306, well inside the binary64 range. Recorded for orders 0, 1, 2, 3, 10 and 100, and for negative x at orders 0 to 2.",
+  "status": "measured",
+  "basis": "Adjacent-input readings at the boundary.",
+  "inferred": "That the same cut-off applies at every other order is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BESSELI(709.7, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "709.7",
+            "bits": "0x40862d999999999a"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.4788083687166675e+306",
+        "bits": "0x7f8c3d51558ee541"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "28f36d40e4a600fcefa337ddfd446a41c3c31698",
+        "path": "readings/excel-20527/BESSELI.json",
+        "locator": "r11-struct-besseli-01",
+        "note": null
+      }
+    },
+    {
+      "call": "BESSELI(709.7000000000002, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "709.7000000000002",
+            "bits": "0x40862d999999999b"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "28f36d40e4a600fcefa337ddfd446a41c3c31698",
+        "path": "readings/excel-20527/BESSELI.json",
+        "locator": "r11-struct-besseli-02",
+        "note": null
+      }
+    },
+    {
+      "call": "BESSELI(709.7000000000002, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "709.7000000000002",
+            "bits": "0x40862d999999999b"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "28f36d40e4a600fcefa337ddfd446a41c3c31698",
+        "path": "readings/excel-20527/BESSELI.json",
+        "locator": "r11-struct-besseli-06",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f2e72693a5c7871cae57de79f69c3b011e5b9c61",
+      "path": "crates/calc-func/tests/f1_engineering.rs",
+      "locator": "line 108",
+      "note": "the boundary in the product"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

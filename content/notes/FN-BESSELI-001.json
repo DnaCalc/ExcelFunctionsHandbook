@@ -1,0 +1,157 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BESSELI-001",
+  "functions": [
+    "FUNC.BESSELI"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "BESSELI is ITK's published polynomial and recurrence, on the x87 unit",
+  "statement": "BESSELI truncates n to an integer and evaluates the body published in ITK with every operation stored from the x87 unit at precision 64: the I0 and I1 polynomials, and for higher orders Miller backward recurrence from j = 2*(n + int(sqrt(40*n))), rescaling by 1E-10 whenever |q| > 1E10, then normalising by I0(x). The same body in plain binary64 misses by 1 to 4 units in the last place. The published ITK body is itkGaussianOperator.hxx at ITK 311b7060ef39e371f3cd209ec135284ff5fde735 (Apache-2.0).",
+  "status": "measured",
+  "basis": "All 1,318 recorded BESSELI bank rows match (825 gained, no row lost in the bank).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BESSELI(12.514410892637624, 3.987394155038235)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "12.514410892637624",
+            "bits": "0x40290760dd512b66"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "3.987394155038235",
+            "bits": "0x400fe62ee82134c8"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "21360.000787344507",
+        "bits": "0x40d4dc000ce65cba"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "21360.00150112302",
+        "bits": "0x40d4dc0018982a92",
+        "how": "mpmath besseli at 800 bits, order the integer part of n, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/w111-extended-regenerated-20260929/answers-besseli.json.gz",
+        "locator": "w111extended-2026092903-BESSELI-00633",
+        "note": null
+      }
+    },
+    {
+      "call": "BESSELI(1.8661547234119729, 7.047660373731416)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1.8661547234119729",
+            "bits": "0x3ffddbc50e25491c"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "7.047660373731416",
+            "bits": "0x401c30cde189f75e"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0001361367103021099",
+        "bits": "0x3f21d7fd6fe380e0"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.00013613670961869657",
+        "bits": "0x3f21d7fd6e62c6a2",
+        "how": "mpmath besseli at 800 bits, order the integer part of n, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/w111-extended-regenerated-20260929/answers-besseli.json.gz",
+        "locator": "w111extended-2026092903-BESSELI-00440",
+        "note": null
+      }
+    },
+    {
+      "call": "BESSELI(13.469754413420809, 10.617422640816173)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "13.469754413420809",
+            "bits": "0x402af083a685968c"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "10.617422640816173",
+            "bits": "0x40253c1ed2043b18"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1957.477427686333",
+        "bits": "0x409e95e8e2cdac05"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1957.477488938039",
+        "bits": "0x409e95e8f2dc3451",
+        "how": "mpmath besseli at 800 bits, order the integer part of n, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/w111-extended-regenerated-20260929/answers-besseli.json.gz",
+        "locator": "w111extended-2026092903-BESSELI-00674",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "d62b1283bbfe1582589afa37702d7a6d91bdb901",
+      "path": "crates/calc-func/tests/f1_engineering.rs",
+      "locator": "lines 354-468",
+      "note": "recorded answers pinned; the ITK body in the product"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "130ec21b3da03276c01fb27dce70463f08f90d9a",
+      "path": "round22-result.json",
+      "locator": "product; bank.own_BESSELI_gains",
+      "note": "research round 22 result"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PRICEMAT-001",
+  "functions": [
+    "FUNC.PRICEMAT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "PRICEMAT formula order on the x87 unit",
+  "statement": "PRICEMAT = (100 + (DIM/B)*rate*100) / (1 + (DSM/B)*yld) - (A/B)*rate*100, each operation taken from the x87 unit at precision 64 and stored to binary64.",
+  "status": "measured",
+  "basis": "2,404 of 2,404 recorded rows, with the day counts of FN-PRICEMAT-002. Strict binary64 with the same day counts matches 2,400.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "PRICEMAT(38620, 42889, 38168, 0.12180991686638161, 0.019384437069992936, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "38620",
+            "bits": "0x40e2db8000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "42889",
+            "bits": "0x40e4f12000000000"
+          }
+        },
+        {
+          "name": "issue",
+          "value": {
+            "kind": "number",
+            "display": "38168",
+            "bits": "0x40e2a30000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.12180991686638161",
+            "bits": "0x3fbf2eef494503b5"
+          }
+        },
+        {
+          "name": "yld",
+          "value": {
+            "kind": "number",
+            "display": "0.019384437069992936",
+            "bits": "0x3f93d9838d1165c1"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "195.89977581174702",
+        "bits": "0x40687ccaf6a4a5ee"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz",
+        "locator": "line 2282, key PRICEMAT|0x40e2db8000000000|0x40e4f12000000000|0x40e2a30000000000|0x3fbf2eef494503b5|0x3f93d9838d1165c1|0x4000000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "26bb1800d3b349e44d594bed5f8bb589b528ef10",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "lines 435-466",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "f1774082865e3a5ab7dec27ead7aeebb73b078c2",
+      "path": "evidence/round23/pricemat-hard/summary.json",
+      "locator": "counts",
+      "note": "day-count rule against precision"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

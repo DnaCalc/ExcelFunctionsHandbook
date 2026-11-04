@@ -1,0 +1,200 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ROUNDUP-001",
+  "functions": [
+    "FUNC.ROUNDDOWN",
+    "FUNC.ROUNDUP",
+    "FUNC.TRUNC"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "ROUNDUP, ROUNDDOWN and TRUNC read num_digits from its low 16 bits",
+  "statement": "ROUNDUP, ROUNDDOWN and TRUNC take the digit count from the low 16 bits of the integer part of |num_digits|, with the sign of num_digits. If |num_digits| is 2^32 or more, or those low bits are 32768 or more, the truncation happens at 100 places (10^-100, or 10^100 for a negative count). So 65536 acts as 0, 65537 as 1, 32768 to 65535 as 100, and -2147483748, whose low 16 bits are 100, as -100. In the out-of-range case ROUNDUP adds no unit for a positive count, and gives #NUM! for a negative count when a digit is dropped.",
+  "status": "measured",
+  "basis": "Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of 36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317, with no row lost and each remaining failure classified in the write-up. All 13,914 informative ROUNDDOWN and TRUNC rows with large num_digits follow the rule.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ROUNDUP(1.234567890123456e-200, 65536)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.234567890123456e-200",
+            "bits": "0x166e3d71f622be8f"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "65536",
+            "bits": "0x40f0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.234567890123456e-200",
+        "bits": "0x166e3d71f622be8f",
+        "how": "The exact decimal expansion of this binary64 number has fewer than 32768 places, so a truncation at num_digits places returns the number itself."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz",
+        "locator": "w111roundcount-ROUNDUP-00041",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUNDUP(1.234567890123456e-200, 65537)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.234567890123456e-200",
+            "bits": "0x166e3d71f622be8f"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "65537",
+            "bits": "0x40f0001000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.1",
+        "bits": "0x3fb999999999999a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.234567890123456e-200",
+        "bits": "0x166e3d71f622be8f",
+        "how": "The exact decimal expansion of this binary64 number has fewer than 32768 places, so a truncation at num_digits places returns the number itself."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz",
+        "locator": "w111roundcount-ROUNDUP-00043",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUNDUP(1.234567890123456e-200, 32768)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.234567890123456e-200",
+            "bits": "0x166e3d71f622be8f"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "32768",
+            "bits": "0x40e0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.234567890123456e-200",
+        "bits": "0x166e3d71f622be8f",
+        "how": "The exact decimal expansion of this binary64 number has fewer than 32768 places, so a truncation at num_digits places returns the number itself."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz",
+        "locator": "w111roundcount-ROUNDUP-00033",
+        "note": null
+      }
+    },
+    {
+      "call": "TRUNC(1.234567890123456e-200, 65536)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.234567890123456e-200",
+            "bits": "0x166e3d71f622be8f"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "65536",
+            "bits": "0x40f0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.234567890123456e-200",
+        "bits": "0x166e3d71f622be8f",
+        "how": "The exact decimal expansion of this binary64 number has fewer than 32768 places, so a truncation at num_digits places returns the number itself."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-rounding-count-refinement-20260929/answers-trunc.json.gz",
+        "locator": "w111roundcount-TRUNC-00041",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "77873410e3b5b659e3ab1c808a7926dd9f36c5ea",
+      "path": "crates/calc-func/tests/f1_math.rs",
+      "locator": "rounding_family_matches_recorded_bank_rows",
+      "note": "ROUND family rules in the product; failed before the change"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

@@ -50,7 +50,7 @@
     "schema": { "const": "efh.function-note/v1", "type": "string" },
     "note_id": {
       "type": "string",
-      "pattern": "^FN-[A-Z0-9.]+-[0-9][0-9][0-9]$",
+      "pattern": "^FN-[A-Z0-9._]+-[0-9][0-9][0-9]$",
       "description": "R. FN-<stem>-<nnn>, where <stem> is one listed function id without its FUNC./OP. prefix. Equals the file name. Never reused."
     },
     "functions": {

@@ -301,7 +301,7 @@ public static class FunctionNotes
             $"Recorded behaviour of `{Surface(functionId)}` that an implementer matching Excel, or a reader explaining an "
             + "unexpected Excel result, needs to know. Each note gives exact binary64 inputs, Excel's answer and where it "
             + "was recorded; \"measured\" means the statement is read off recorded Excel answers, \"inferred\" marks what "
-            + "goes beyond them. All notes: [Function notes](../notes/NOTES.md).")).Append('\n');
+            + "goes beyond them. Where older text on this page says a behaviour was not measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).")).Append('\n');
         sb.Append('\n');
         foreach (var n in notes)
             sb.Append(RenderNote(n, "###", "../../"));

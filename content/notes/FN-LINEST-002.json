@@ -1,0 +1,103 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LINEST-002",
+  "functions": [
+    "FUNC.LINEST"
+  ],
+  "kind": "quirk",
+  "title": "LINEST with no residual degrees of freedom returns zeros and one #NUM!",
+  "statement": "With three observations, three x columns and const FALSE, LINEST with stats returns standard errors of 0 and se_y of 0 rather than #DIV/0!, R^2 of 1, F of #NUM!, degrees of freedom 0, ss_resid exactly 0 and ss_reg the sum of y^2.",
+  "status": "measured",
+  "basis": "One fit, 20 selections read through INDEX.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),2,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json",
+        "locator": "sheet dcj9k_linest_stats, row 1180, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),3,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json",
+        "locator": "sheet dcj9k_linest_stats, row 1184, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),4,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json",
+        "locator": "sheet dcj9k_linest_stats, row 1188, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),5,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1124.0686",
+        "bits": "0x409190463f141206"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json",
+        "locator": "sheet dcj9k_linest_stats, row 1192, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "db713147318f63906d67ce88be497b66f521951d",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "line 725",
+      "note": "recorded selections pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

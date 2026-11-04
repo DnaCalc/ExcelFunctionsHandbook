@@ -1,0 +1,155 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MROUND-001",
+  "functions": [
+    "FUNC.MROUND"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "MROUND counts a quotient within 5E-15 below a half up",
+  "statement": "MROUND(n,m) forms q = n/m on the x87 unit, counts floor(q), adds 1 when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit. A number just below a half therefore rounds up though it is nearer the lower multiple: 0.499999999999995 with multiple 1 gives 1, and the next binary64 below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient 60.49999999999999 lies 7.1E-15 below the half.",
+  "status": "measured",
+  "basis": "All 50,782 recorded MROUND rows match this rule. The cut-off lies between the adjacent binary64 values 4.996E-15 (rounded up) and 5.0515E-15 (rounded down) from 0.5, measured at floor(q) = 0 over 4,264 rows.",
+  "inferred": "The window is measured between two neighbouring values; that the constant is the decimal 5E-15 is inferred, as the decimal in that window.",
+  "documentation": {
+    "claim": "MROUND rounds up, away from zero, if the remainder of dividing number by multiple is greater than or equal to half the value of multiple.",
+    "source": "https://support.microsoft.com/en-us/office/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427"
+  },
+  "repros": [
+    {
+      "call": "MROUND(0.499999999999995, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.499999999999995",
+            "bits": "0x3fdfffffffffffa6"
+          }
+        },
+        {
+          "name": "multiple",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000",
+        "how": "The number is nearer to 0 than to 1."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz",
+        "locator": "mround-fraction-cutoff-00181",
+        "note": null
+      }
+    },
+    {
+      "call": "MROUND(0.49999999999999495, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.49999999999999495",
+            "bits": "0x3fdfffffffffffa5"
+          }
+        },
+        {
+          "name": "multiple",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz",
+        "locator": "mround-fraction-cutoff-00183",
+        "note": null
+      }
+    },
+    {
+      "call": "MROUND(0.49999999999999994, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.49999999999999994",
+            "bits": "0x3fdfffffffffffff"
+          }
+        },
+        {
+          "name": "multiple",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000",
+        "how": "The number is nearer to 0 than to 1."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz",
+        "locator": "mround-fraction-cutoff-00003",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "77873410e3b5b659e3ab1c808a7926dd9f36c5ea",
+      "path": "crates/calc-func/tests/f1_math.rs",
+      "locator": "rounding_family_matches_recorded_bank_rows",
+      "note": "ROUND family rules in the product; failed before the change"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

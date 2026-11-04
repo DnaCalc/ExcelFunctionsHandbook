@@ -1,0 +1,63 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LINEST-001",
+  "functions": [
+    "FUNC.LINEST",
+    "FUNC.LOGEST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "LINEST's Householder reflector stores each step from the x87 unit",
+  "statement": "In Excel's QR route the reflector arithmetic behaves as stored precision-64 steps: v0 = x0 - alpha, v'v, each dot-product term, f = 2t/v'v, and a - f*v. With this change the row below gets Excel's last bits, where a plain binary64 reflector does not.",
+  "status": "measured",
+  "basis": "Gains 11 recorded answers and loses none over the 3,944 regression rows of the corpus; 35 selections from two fits were checked directly.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=INDEX(LINEST({-17.979;-0.126;8;-5;1.7;37;12.4;14.46;-8;24.2},{20.8,50;34,23.41;38.875,-17.7;4.863,36.9;42.1,6;-14.55,44.41;-4.57,-12.96;-9.909,2.589;47.549,42;54.9,-17.63},TRUE,TRUE),2,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.19054144531344644",
+        "bits": "0x3fc863a97e13b089"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json",
+        "locator": "sheet dcj9k_linest_stats, row 1094, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "3f3b1622003f4f349a08ee8b054163e58f8dba67",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "line 680",
+      "note": "recorded selections pinned"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "130ec21b3da03276c01fb27dce70463f08f90d9a",
+      "path": "round22-result.json",
+      "locator": "reflector_study",
+      "note": "research round 22 result"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "130ec21b3da03276c01fb27dce70463f08f90d9a",
+      "path": "evidence/round22/householder-all-hard.json",
+      "locator": null,
+      "note": "reflector study"
+    }
+  ],
+  "open": [
+    "Norm, rank, mean, pivot and back-substitution policies are not identified. 48 fixed rank policies and 240 rounded Gram/LDL rank labels are contradicted by the 241 recorded degrees-of-freedom observations."
+  ],
+  "recorded_on": "2026-11-04"
+}

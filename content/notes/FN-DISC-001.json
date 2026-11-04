@@ -1,0 +1,219 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DISC-001",
+  "functions": [
+    "FUNC.DISC",
+    "FUNC.INTRATE",
+    "FUNC.PRICEDISC",
+    "FUNC.RECEIVED",
+    "FUNC.TBILLYIELD"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "The discount-security functions run a fixed formula order on the x87 unit",
+  "statement": "With B the year basis and D the day count, Excel evaluates DISC = (1 - pr/red) * (B/D); INTRATE = ((red - inv)/inv) * (B/D); RECEIVED = inv / (1 - (disc*D)/B); PRICEDISC = red - ((disc*red)*D)/B; TBILLYIELD = ((100 - pr)/pr) * (360/D), each + - * / taken from the x87 unit at precision 64 and stored to binary64. Results can sit several units from the exact value: the DISC row below is 5 units below it.",
+  "status": "measured",
+  "basis": "2,400 of 2,400 rows for each function with stored precision-64 arithmetic. Plain binary64 matches 2,398 to 2,399 of the same rows, so few rows separate the two; keeping intermediates in 80-bit registers without stores loses 475 to 1,335.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "37655",
+            "bits": "0x40e262e000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "38261",
+            "bits": "0x40e2aea000000000"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "94.87631295104353",
+            "bits": "0x4057b81582ea72c4"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "102.73579504052532",
+            "bits": "0x4059af174414e760"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.046077868684136686",
+        "bits": "0x3fa79784b622b014"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.04607786868413672",
+        "bits": "0x3fa79784b622b019",
+        "how": "Exact rational value of the same formula from the binary64 inputs, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/DISC.jsonl.gz",
+        "locator": "line 1458, key DISC|0x40e262e000000000|0x40e2aea000000000|0x4057b81582ea72c4|0x4059af174414e760|0x4008000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "TBILLYIELD(47701, 47702, 2.279784366464575)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "47701",
+            "bits": "0x40e74aa000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "47702",
+            "bits": "0x40e74ac000000000"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "2.279784366464575",
+            "bits": "0x40023cff95ff2def"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "15430.96713248709",
+        "bits": "0x40ce237bcaff517a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "15430.967132487087",
+        "bits": "0x40ce237bcaff5178",
+        "how": "Exact rational value of the same formula from the binary64 inputs, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz",
+        "locator": "line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def",
+        "note": null
+      }
+    },
+    {
+      "call": "INTRATE(58548, 58599, 428532.13421818457, 6.805737049418593, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "58548",
+            "bits": "0x40ec968000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "58599",
+            "bits": "0x40ec9ce000000000"
+          }
+        },
+        {
+          "name": "investment",
+          "value": {
+            "kind": "number",
+            "display": "428532.13421818457",
+            "bits": "0x411a27d089707de5"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "6.805737049418593",
+            "bits": "0x401b39132211b6ad"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-7.199885653133469",
+        "bits": "0xc01cccaed31c9766"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/INTRATE.jsonl.gz",
+        "locator": "line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "26bb1800d3b349e44d594bed5f8bb589b528ef10",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "lines 435-466",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "f1774082865e3a5ab7dec27ead7aeebb73b078c2",
+      "path": "evidence/round23/security-1900-hard/summary.json",
+      "locator": "counts",
+      "note": "stored-PC64 against other precisions"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "f1774082865e3a5ab7dec27ead7aeebb73b078c2",
+      "path": "round23-result.json",
+      "locator": "recorded_completed_groups",
+      "note": "18,040 of 18,040 outcomes"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

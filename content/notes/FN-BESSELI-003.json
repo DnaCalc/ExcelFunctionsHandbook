@@ -1,0 +1,152 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BESSELI-003",
+  "functions": [
+    "FUNC.BESSELI"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "At large x the fixed recurrence start makes BESSELI badly wrong",
+  "statement": "Excel's recurrence for orders above 1 starts at a fixed j = 2*(n + int(sqrt(40*n))), which is far too low at large x. At x = 709.7 BESSELI of order 2 is 0.20% high, and order 3 is 53% low, where I3(709.7) is 2.4631E306. Orders 0 and 1, which use the polynomial and not the recurrence, are within about 1.6E-7 at the same x.",
+  "status": "measured",
+  "basis": "Readings at x = 709.7 for orders 0, 1, 2 and 3, compared with mpmath.",
+  "inferred": "That the fixed start is the cause is inferred: a binary64 transcription of the published body gives the same bits for orders 0, 2 and 3 at this x.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BESSELI(709.7, 3)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "709.7",
+            "bits": "0x40862d999999999a"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.1560227990465618e+306",
+        "bits": "0x7f7a56f66ecd12a0"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "2.4631300544524576e+306",
+        "bits": "0x7f8c0f97bbe572f6",
+        "how": "mpmath besseli at 800 bits, order the integer part of n, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "DnaCalc-Research",
+        "commit": "2df115b9512d49c5d21cef02706b4616a130fe96",
+        "path": "evidence/round18/r16-published-score/observations.jsonl",
+        "locator": "line 177, id r16-besseli-021",
+        "note": null
+      }
+    },
+    {
+      "call": "BESSELI(709.7, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "709.7",
+            "bits": "0x40862d999999999a"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.4767103124440567e+306",
+        "bits": "0x7f8c3732e70ce6f9"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "2.47182813908566e+306",
+        "bits": "0x7f8c28f5d197b1dd",
+        "how": "mpmath besseli at 800 bits, order the integer part of n, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "28f36d40e4a600fcefa337ddfd446a41c3c31698",
+        "path": "readings/excel-20527/BESSELI.json",
+        "locator": "r11-struct-besseli-09",
+        "note": null
+      }
+    },
+    {
+      "call": "BESSELI(709.7, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "709.7",
+            "bits": "0x40862d999999999a"
+          }
+        },
+        {
+          "name": "n",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.4788083687166675e+306",
+        "bits": "0x7f8c3d51558ee541"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "2.4788087273156452e+306",
+        "bits": "0x7f8c3d519a191ac9",
+        "how": "mpmath besseli at 800 bits, order the integer part of n, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "28f36d40e4a600fcefa337ddfd446a41c3c31698",
+        "path": "readings/excel-20527/BESSELI.json",
+        "locator": "r11-struct-besseli-01",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "130ec21b3da03276c01fb27dce70463f08f90d9a",
+      "path": "round22-result.json",
+      "locator": "product; bank.own_BESSELI_gains",
+      "note": "research round 22 result"
+    }
+  ],
+  "open": [
+    "How far the error extends at other x is not measured."
+  ],
+  "recorded_on": "2026-11-04"
+}

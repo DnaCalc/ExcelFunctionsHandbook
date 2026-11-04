@@ -1,0 +1,102 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PRICEMAT-002",
+  "functions": [
+    "FUNC.PRICEMAT"
+  ],
+  "kind": "quirk",
+  "title": "PRICEMAT basis 0 applies the 31st rule before the February rule",
+  "statement": "For basis 0, PRICEMAT tests \"end on the 31st gives 30\" before \"start on the last day of February gives 30\"; the US (NASD) 30/360 rule applies the February adjustment first. An issue on 28 February 2025 and maturity on 31 March 2043 gives DIM 6511, not 6510, and moves the price at about 1E-5 relative.",
+  "status": "measured",
+  "basis": "One recorded row separates this rule from the standard one: 2,404 of 2,404 against 2,403.",
+  "inferred": "The order of the two tests is taken from the published ExcelFinancialFunctions getMatFactors rule, which fits; one row cannot pin it alone.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "PRICEMAT(46376, 52321, 45716, 0.04392789506562811, 0.03266239139487676, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "46376",
+            "bits": "0x40e6a50000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "52321",
+            "bits": "0x40e98c2000000000"
+          }
+        },
+        {
+          "name": "issue",
+          "value": {
+            "kind": "number",
+            "display": "45716",
+            "bits": "0x40e6528000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.04392789506562811",
+            "bits": "0x3fa67db79160c3a0"
+          }
+        },
+        {
+          "name": "yld",
+          "value": {
+            "kind": "number",
+            "display": "0.03266239139487676",
+            "bits": "0x3fa0b91ffdb34689"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "109.22025565957247",
+        "bits": "0x405b4e18ab31a7da"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz",
+        "locator": "line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "f1774082865e3a5ab7dec27ead7aeebb73b078c2",
+      "path": "evidence/round23/pricemat-hard/summary.json",
+      "locator": "counts",
+      "note": "day-count rule against precision"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "26bb1800d3b349e44d594bed5f8bb589b528ef10",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "lines 435-466",
+      "note": "recorded answers pinned"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

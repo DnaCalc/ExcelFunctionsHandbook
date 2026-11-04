@@ -14,23 +14,780 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 0, over 0 functions (of the 541 entries = 518 functions + 23 operators).
-- Excel differs from the mathematical answer: 0.
-- Detail for matching Excel's bits: 0.
-- Quirk: 0.
-- Documentation differs from behaviour: 0.
-- Measured: 0; inferred: 0.
+- Notes: 23, over 25 functions (of the 541 entries = 518 functions + 23 operators).
+- Excel differs from the mathematical answer: 12.
+- Detail for matching Excel's bits: 7.
+- Quirk: 3.
+- Documentation differs from behaviour: 1.
+- Measured: 22; inferred: 1.
 
 ## Where Excel's answer is wrong
 
 Notes whose reproducing calls give the exact mathematically correct value beside Excel's
 answer.
 
-None recorded.
+| Note | Call | Excel | Correct value |
+|---|---|---|---|
+| [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit) | `BESSELI(12.514410892637624, 3.987394155038235)` | `21360.000787344507` (`0x40d4dc000ce65cba`) | `21360.00150112302` (`0x40d4dc0018982a92`) |
+| [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit) | `BESSELI(1.8661547234119729, 7.047660373731416)` | `0.0001361367103021099` (`0x3f21d7fd6fe380e0`) | `0.00013613670961869657` (`0x3f21d7fd6e62c6a2`) |
+| [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit) | `BESSELI(13.469754413420809, 10.617422640816173)` | `1957.477427686333` (`0x409e95e8e2cdac05`) | `1957.477488938039` (`0x409e95e8f2dc3451`) |
+| [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) | `BESSELI(-1, 0)` | `1.2660658480342601` (`0x3ff441ce433e3c05`) | `1.2660658777520084` (`0x3ff441ce4b386c2d`) |
+| [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) | `BESSELI(12.514410892637624, 3.987394155038235)` | `21360.000787344507` (`0x40d4dc000ce65cba`) | `21360.00150112302` (`0x40d4dc0018982a92`) |
+| [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) | `BESSELK(1.8447401994787955, 0.15119840195885237)` | `0.1380029049573409` (`0x3fc1aa1445c5bb34`) | `0.13800289523526038` (`0x3fc1aa1430e4f602`) |
+| [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 3)` | `1.1560227990465618e+306` (`0x7f7a56f66ecd12a0`) | `2.4631300544524576e+306` (`0x7f8c0f97bbe572f6`) |
+| [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 2)` | `2.4767103124440567e+306` (`0x7f8c3732e70ce6f9`) | `2.47182813908566e+306` (`0x7f8c28f5d197b1dd`) |
+| [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 0)` | `2.4788083687166675e+306` (`0x7f8c3d51558ee541`) | `2.4788087273156452e+306` (`0x7f8c3d519a191ac9`) |
+| [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)` | `0.046077868684136686` (`0x3fa79784b622b014`) | `0.04607786868413672` (`0x3fa79784b622b019`) |
+| [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `TBILLYIELD(47701, 47702, 2.279784366464575)` | `15430.96713248709` (`0x40ce237bcaff517a`) | `15430.967132487087` (`0x40ce237bcaff5178`) |
+| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.094947017729282e-13)` | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) |
+| [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) | `ERF.PRECISE(9.999999999999998e-11)` | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) |
+| [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) | `MOD(-1.223247290044572e-296, 1.223247290044539e-296)` | `1.223247290044572e-296` (`0x0280000000000079`) | `1.2232472900445062e-296` (`0x027fffffffffff0e`) |
+| [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) | `MOD(1.223247290044539e-296, -1.2232472900445716e-296)` | `#NUM!` | `-3.25938553492266e-310` (`0x80003c0000000000`) |
+| [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) | `MROUND(0.499999999999995, 1)` | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) |
+| [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) | `MROUND(0.49999999999999994, 1)` | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) |
+| [FN-PMT-001](#fn-pmt-001-pmt-stores-the-quotient-before-it-multiplies-by-the-rate) | `=PMT(0.05/12,360,200000)` | `-1073.6432460242781` (`0xc090c692af15f63a`) | `-1073.643246024278` (`0xc090c692af15f639`) |
+| [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) | `=PPMT(0.05/12,1,360,200000)` | `-240.30991269094474` (`0xc06e09eace050723`) | `-240.30991269094463` (`0xc06e09eace05071f`) |
+| [FN-ROUND-001](#fn-round-001-round-counts-digits-in-32-bits-and-the-count-wraps) | `ROUND(-112500000000000, 2147483635)` | `0` (`0x0000000000000000`) | `-112500000000000` (`0xc2d9945ca2620000`) |
+| [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up) | `ROUND(-1594628480062905, 14)` | `-1594628480062900` (`0xc316a939806956d0`) | `-1594628480062905` (`0xc316a939806956e4`) |
+| [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up) | `ROUNDDOWN(283025097725723.5, 0)` | `283025097725724` (`0x42f0168ea69971c0`) | `283025097725723` (`0x42f0168ea69971b0`) |
+| [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers) | `ROUND(1.7976931348623157E+308, 0)` | `NaN bit pattern, shown as 1.8E+308` (`0x7ff000000000000a`) | `1.7976931348623157e+308` (`0x7fefffffffffffff`) |
+| [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers) | `ROUND(1.7976931348623157E+308, -307)` | `NaN bit pattern, shown as 1.8E+308` (`0x7ff005419221015d`) | `#NUM!` |
+| [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers) | `ROUND(1.7976931348623157E+308, -308)` | `NaN bit pattern, shown as 2E+308` (`0x7ff1ccf385ebc8a0`) | `#NUM!` |
+| [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits) | `ROUNDUP(1.234567890123456e-200, 65536)` | `1` (`0x3ff0000000000000`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) |
+| [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits) | `ROUNDUP(1.234567890123456e-200, 65537)` | `0.1` (`0x3fb999999999999a`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) |
+| [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits) | `ROUNDUP(1.234567890123456e-200, 32768)` | `0` (`0x0000000000000000`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) |
+| [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits) | `TRUNC(1.234567890123456e-200, 65536)` | `0` (`0x0000000000000000`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) |
+| [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer) | `ROUNDUP(-1.125, 2)` | `-1.1300000000000001` (`0xbff2147ae147ae15`) | `-1.13` (`0xbff2147ae147ae14`) |
+| [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer) | `ROUNDUP(3.535, 2)` | `3.5399999999999996` (`0x400c51eb851eb851`) | `3.54` (`0x400c51eb851eb852`) |
+| [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) | `SQRT(0.9999999999999999)` | `1` (`0x3ff0000000000000`) | `0.9999999999999999` (`0x3fefffffffffffff`) |
+| [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) | `SQRT(1.7976931348623157e+308)` | `1.3407807929942597e+154` (`0x5ff0000000000000`) | `1.3407807929942596e+154` (`0x5fefffffffffffff`) |
+| [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) | `SQRT(5e-324)` | `0` (`0x0000000000000000`) | `2.2227587494850775e-162` (`0x1e60000000000000`) |
+| [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula) | `TBILLEQ(40633.25, 40836.25, 0.21193100748125787)` | `0.24110326418450792` (`0x3fcedc78c550cec1`) | `0.24110326418450853` (`0x3fcedc78c550ced7`) |
+| [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) | `TRUNC(2.2250738585072014e-308, 0)` | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) |
+| [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) | `TRUNC(2.2250738585072014e-308, 1)` | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) |
 
 ## By function
 
 | Function | Notes |
 |---|---|
+| `BESSELI` (no page yet) | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit), [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded), [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong), [FN-BESSELI-004](#fn-besseli-004-besseli-gives-num-just-above-7097-where-the-function-is-still-finite) |
+| `BESSELK` (no page yet) | [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) |
+| [`CUMIPMT`](../functions/FUNC.CUMIPMT.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-sums-ppmt-left-to-right-and-cumipmt-is-countpmt-less-cumprinc) |
+| [`CUMPRINC`](../functions/FUNC.CUMPRINC.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-sums-ppmt-left-to-right-and-cumipmt-is-countpmt-less-cumprinc) |
+| [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| `ERF` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) |
+| `ERF.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) |
+| [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-small-arguments-take-codys-rational-on-the-x87-unit-and-the-last-bit-can-be-high) |
+| [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| [`LINEST`](../functions/FUNC.LINEST.md) | [FN-LINEST-001](#fn-linest-001-linests-householder-reflector-stores-each-step-from-the-x87-unit), [FN-LINEST-002](#fn-linest-002-linest-with-no-residual-degrees-of-freedom-returns-zeros-and-one-num) |
+| [`LOGEST`](../functions/FUNC.LOGEST.md) | [FN-LINEST-001](#fn-linest-001-linests-householder-reflector-stores-each-step-from-the-x87-unit) |
+| [`MOD`](../functions/FUNC.MOD.md) | [FN-MOD-001](#fn-mod-001-mod-with-operands-below-about-1e-290-gives-wrong-signs-and-num) |
+| [`MROUND`](../functions/FUNC.MROUND.md) | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) |
+| `PMT` (no page yet) | [FN-PMT-001](#fn-pmt-001-pmt-stores-the-quotient-before-it-multiplies-by-the-rate), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
+| `PPMT` (no page yet) | [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
+| `PRICEDISC` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| `PRICEMAT` (no page yet) | [FN-PRICEMAT-001](#fn-pricemat-001-pricemat-formula-order-on-the-x87-unit), [FN-PRICEMAT-002](#fn-pricemat-002-pricemat-basis-0-applies-the-31st-rule-before-the-february-rule) |
+| `RECEIVED` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| [`ROUND`](../functions/FUNC.ROUND.md) | [FN-ROUND-001](#fn-round-001-round-counts-digits-in-32-bits-and-the-count-wraps), [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers) |
+| [`ROUNDDOWN`](../functions/FUNC.ROUNDDOWN.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
+| [`ROUNDUP`](../functions/FUNC.ROUNDUP.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
+| [`SQRT`](../functions/FUNC.SQRT.md) | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) |
+| `TBILLEQ` (no page yet) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula) |
+| `TBILLYIELD` (no page yet) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) |
+| [`TRUNC`](../functions/FUNC.TRUNC.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
 
 ## Notes
+
+### FN-BESSELI-001: BESSELI is ITK's published polynomial and recurrence, on the x87 unit
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.*
+
+BESSELI truncates n to an integer and evaluates the body published in ITK with every operation
+stored from the x87 unit at precision 64: the I0 and I1 polynomials, and for higher orders
+Miller backward recurrence from j = 2*(n + int(sqrt(40*n))), rescaling by 1E-10 whenever |q| >
+1E10, then normalising by I0(x). The same body in plain binary64 misses by 1 to 4 units in the
+last place. The published ITK body is itkGaussianOperator.hxx at ITK
+311b7060ef39e371f3cd209ec135284ff5fde735 (Apache-2.0).
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `BESSELI(12.514410892637624, 3.987394155038235)` | x `12.514410892637624` (`0x40290760dd512b66`); n `3.987394155038235` (`0x400fe62ee82134c8`) (cells) | `21360.000787344507` (`0x40d4dc000ce65cba`) | `21360.00150112302` (`0x40d4dc0018982a92`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `BESSELI(1.8661547234119729, 7.047660373731416)` | x `1.8661547234119729` (`0x3ffddbc50e25491c`); n `7.047660373731416` (`0x401c30cde189f75e`) (cells) | `0.0001361367103021099` (`0x3f21d7fd6fe380e0`) | `0.00013613670961869657` (`0x3f21d7fd6e62c6a2`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `BESSELI(13.469754413420809, 10.617422640816173)` | x `13.469754413420809` (`0x402af083a685968c`); n `10.617422640816173` (`0x40253c1ed2043b18`) (cells) | `1957.477427686333` (`0x409e95e8e2cdac05`) | `1957.477488938039` (`0x409e95e8f2dc3451`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: mpmath besseli at 800 bits, order the integer part of n, correctly rounded.
+
+Basis (measured): All 1,318 recorded BESSELI bank rows match (825 gained, no row lost in the
+bank).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_engineering.rs`, lines 354-468 at `d62b1283bb` — recorded answers pinned; the ITK body in the product
+- DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
+- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00440 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00674 at `e26b7bddb8` (readings)
+
+### FN-BESSELI-002: BESSELI and BESSELK are low-order approximations, rarely correctly rounded
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to
+BESSELI, BESSELK.
+
+BESSELI and BESSELK are low-order polynomial approximations. Over the recorded numeric rows
+with non-negative order, BESSELI gives the correctly rounded value on 2 of 1163 rows and
+BESSELK on 0 of 1155, with largest relative errors 5.0e-04 and 1.7e-07. BESSELI(-1,0) is
+1.2660658480342601 where I0(1) is 1.2660658777520084, about 2.3E-8 relative.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `BESSELI(-1, 0)` | x `-1` (`0xbff0000000000000`); n `0` (`0x0000000000000000`) (cells) | `1.2660658480342601` (`0x3ff441ce433e3c05`) | `1.2660658777520084` (`0x3ff441ce4b386c2d`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `BESSELI(12.514410892637624, 3.987394155038235)` | x `12.514410892637624` (`0x40290760dd512b66`); n `3.987394155038235` (`0x400fe62ee82134c8`) (cells) | `21360.000787344507` (`0x40d4dc000ce65cba`) | `21360.00150112302` (`0x40d4dc0018982a92`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `BESSELK(1.8447401994787955, 0.15119840195885237)` | x `1.8447401994787955` (`0x3ffd840e4ca60c0e`); n `0.15119840195885237` (`0x3fc35a781fcf7430`) (cells) | `0.1380029049573409` (`0x3fc1aa1445c5bb34`) | `0.13800289523526038` (`0x3fc1aa1430e4f602`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: mpmath besseli at 800 bits, order the integer part of n, correctly rounded.
+Correct value: mpmath besselk at 800 bits, order the integer part of n, correctly rounded.
+
+Basis (measured): Every numeric row of the W111 extended capture of each function, compared
+with mpmath at 200 bits.
+
+Evidence:
+
+- DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
+- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00001 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besselk.json.gz`, w111extended-2026092903-BESSELK-00698 at `e26b7bddb8` (readings)
+
+### FN-BESSELI-003: At large x the fixed recurrence start makes BESSELI badly wrong
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+Excel's recurrence for orders above 1 starts at a fixed j = 2*(n + int(sqrt(40*n))), which is
+far too low at large x. At x = 709.7 BESSELI of order 2 is 0.20% high, and order 3 is 53% low,
+where I3(709.7) is 2.4631E306. Orders 0 and 1, which use the polynomial and not the recurrence,
+are within about 1.6E-7 at the same x.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `BESSELI(709.7, 3)` | x `709.7` (`0x40862d999999999a`); n `3` (`0x4008000000000000`) (cells) | `1.1560227990465618e+306` (`0x7f7a56f66ecd12a0`) | `2.4631300544524576e+306` (`0x7f8c0f97bbe572f6`) | Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H |
+| `BESSELI(709.7, 2)` | x `709.7` (`0x40862d999999999a`); n `2` (`0x4000000000000000`) (cells) | `2.4767103124440567e+306` (`0x7f8c3732e70ce6f9`) | `2.47182813908566e+306` (`0x7f8c28f5d197b1dd`) | Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H |
+| `BESSELI(709.7, 0)` | x `709.7` (`0x40862d999999999a`); n `0` (`0x0000000000000000`) (cells) | `2.4788083687166675e+306` (`0x7f8c3d51558ee541`) | `2.4788087273156452e+306` (`0x7f8c3d519a191ac9`) | Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Correct value: mpmath besseli at 800 bits, order the integer part of n, correctly rounded.
+
+Basis (measured): Readings at x = 709.7 for orders 0, 1, 2 and 3, compared with mpmath.
+
+Inferred, not measured: That the fixed start is the cause is inferred: a binary64 transcription
+of the published body gives the same bits for orders 0, 2 and 3 at this x.
+
+- Open: How far the error extends at other x is not measured.
+
+Evidence:
+
+- DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
+- DnaCalc-Research `evidence/round18/r16-published-score/observations.jsonl`, line 177, id r16-besseli-021 at `2df115b951` (readings)
+- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-09 at `28f36d40e4` (readings)
+- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `28f36d40e4` (readings)
+
+### FN-BESSELI-004: BESSELI gives #NUM! just above 709.7, where the function is still finite
+
+*Quirk; measured; recorded 2026-11-04.*
+
+BESSELI returns a number at |x| = 709.7 and #NUM! at the next binary64 above it, although I0
+there is about 2.48E306, well inside the binary64 range. Recorded for orders 0, 1, 2, 3, 10 and
+100, and for negative x at orders 0 to 2.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `BESSELI(709.7, 0)` | x `709.7` (`0x40862d999999999a`); n `0` (`0x0000000000000000`) (cells) | `2.4788083687166675e+306` (`0x7f8c3d51558ee541`) | Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H |
+| `BESSELI(709.7000000000002, 0)` | x `709.7000000000002` (`0x40862d999999999b`); n `0` (`0x0000000000000000`) (cells) | `#NUM!` | Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H |
+| `BESSELI(709.7000000000002, 1)` | x `709.7000000000002` (`0x40862d999999999b`); n `1` (`0x3ff0000000000000`) (cells) | `#NUM!` | Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Basis (measured): Adjacent-input readings at the boundary.
+
+Inferred, not measured: That the same cut-off applies at every other order is inferred.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_engineering.rs`, line 108 at `f2e72693a5` — the boundary in the product
+- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `28f36d40e4` (readings)
+- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-02 at `28f36d40e4` (readings)
+- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-06 at `28f36d40e4` (readings)
+
+### FN-CUMPRINC-001: CUMPRINC sums PPMT left to right, and CUMIPMT is count*PMT less CUMPRINC
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to CUMIPMT,
+CUMPRINC.
+
+On the 30-year loan, CUMPRINC(0.05/12,360,200000,1,12,0) equals the left-to-right binary64 sum
+of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same periods equals
+12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=CUMPRINC(0.05/12,360,200000,1,12,0)` | as typed | `-2950.7306911349597` (`0xc0a70d761d260042`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=CUMIPMT(0.05/12,360,200000,1,12,0)` | as typed | `-9932.988261156377` (`0xc0c3667e7f577146`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=PMT(0.05/12,360,200000)` | as typed | `-1073.6432460242781` (`0xc090c692af15f63a`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): One loan block of the catalogue capture, recomputed from the recorded answers
+by binary64 arithmetic.
+
+Inferred, not measured: That this shape holds for every loan is inferred from this block; PPMT
+and PMT themselves are not yet reproduced, so a wider check is not available.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up, findings F1 to F4; the PMT work is unfinished at this date
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 751, column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 752, column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)
+
+### FN-DISC-001: The discount-security functions run a fixed formula order on the x87 unit
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to DISC, INTRATE,
+PRICEDISC, RECEIVED, TBILLYIELD.
+
+With B the year basis and D the day count, Excel evaluates DISC = (1 - pr/red) * (B/D); INTRATE
+= ((red - inv)/inv) * (B/D); RECEIVED = inv / (1 - (disc*D)/B); PRICEDISC = red -
+((disc*red)*D)/B; TBILLYIELD = ((100 - pr)/pr) * (360/D), each + - * / taken from the x87 unit
+at precision 64 and stored to binary64. Results can sit several units from the exact value: the
+DISC row below is 5 units below it.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)` | settlement `37655` (`0x40e262e000000000`); maturity `38261` (`0x40e2aea000000000`); pr `94.87631295104353` (`0x4057b81582ea72c4`); redemption `102.73579504052532` (`0x4059af174414e760`); basis `3` (`0x4008000000000000`) (cells) | `0.046077868684136686` (`0x3fa79784b622b014`) | `0.04607786868413672` (`0x3fa79784b622b019`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `TBILLYIELD(47701, 47702, 2.279784366464575)` | settlement `47701` (`0x40e74aa000000000`); maturity `47702` (`0x40e74ac000000000`); pr `2.279784366464575` (`0x40023cff95ff2def`) (cells) | `15430.96713248709` (`0x40ce237bcaff517a`) | `15430.967132487087` (`0x40ce237bcaff5178`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `INTRATE(58548, 58599, 428532.13421818457, 6.805737049418593, 0)` | settlement `58548` (`0x40ec968000000000`); maturity `58599` (`0x40ec9ce000000000`); investment `428532.13421818457` (`0x411a27d089707de5`); redemption `6.805737049418593` (`0x401b39132211b6ad`); basis `0` (`0x0000000000000000`) (cells) | `-7.199885653133469` (`0xc01cccaed31c9766`) | — | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Correct value: Exact rational value of the same formula from the binary64 inputs, correctly
+rounded.
+
+Basis (measured): 2,400 of 2,400 rows for each function with stored precision-64 arithmetic.
+Plain binary64 matches 2,398 to 2,399 of the same rows, so few rows separate the two; keeping
+intermediates in 80-bit registers without stores loses 475 to 1,335.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
+- DnaCalc-Research `evidence/round23/security-1900-hard/summary.json`, counts at `f177408286` — stored-PC64 against other precisions
+- DnaCalc-Research `round23-result.json`, recorded_completed_groups at `f177408286` — 18,040 of 18,040 outcomes
+- OxFunc-Evidence `cache/oracle-20430/build-20430/DISC.jsonl.gz`, line 1458, key DISC|0x40e262e000000000|0x40e2aea000000000|0x4057b81582ea72c4|0x4059af174414e760|0x4008000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz`, line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/INTRATE.jsonl.gz`, line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000 at `e26b7bddb8` (readings)
+
+### FN-ERF.PRECISE-001: Small arguments take Cody's rational on the x87 unit, and the last bit can be high
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to ERF, ERF.PRECISE,
+GAUSS.
+
+For normal x with |x| < 2^-28, ERF.PRECISE computes p = RN53(RN64(x*P0)) and y =
+RN53(RN64(p/Q0)): x87 precision 64, the product stored to binary64, then the quotient stored to
+binary64. P0 = 0x3ff1df5e70c7956b and Q0 = 0x3fefada15778ece6. These are A(4) and B(4) of
+Cody's 1969 rational for |x| <= 0.5 (3.20937758913846947e3 and 2.84423683343917062e3), both
+divided by one real scale s = 2873.12583276792695. The two rounded steps can leave the answer 1
+unit above the correctly rounded erf(x), as the rows below show. The same route explains
+GAUSS's small arguments.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ERF.PRECISE(9.094947017729282e-13)` | x `9.094947017729282e-13` (`0x3d70000000000000`) (cells) | `1.0262548740643186e-12` (`0x3d720dd750429b6e`) | `1.0262548740643184e-12` (`0x3d720dd750429b6d`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
+| `ERF.PRECISE(9.999999999999998e-11)` | x `9.999999999999998e-11` (`0x3ddb7cdfd9d7bdb9`) (cells) | `1.1283791670955125e-10` (`0x3ddf044332d68160`) | `1.1283791670955123e-10` (`0x3ddf044332d6815f`) | Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H |
+
+Correct value: mpmath erf at 800 bits from the binary64 input, correctly rounded.
+
+Basis (measured): 249,300 of 249,300 recorded ERF.PRECISE rows below 2^-27 match, negative
+arguments included; per-operation binary64 misses rows in the 2^-40 binade alone (131,201 of
+131,255). Across the bank the route gains 134,290 ERF.PRECISE rows and 678 GAUSS rows with no
+row lost in any function.
+
+Inferred, not measured: That the constants are Cody's is inferred from their ratio and from
+both being RN(coefficient/s) for one s; s itself is measured from the two constants and no
+source explains it. That the legacy ERF(x) shares this body is inferred; only ERF.PRECISE and
+GAUSS rows were scored.
+
+- Open: The route above 2^-28: about 231,000 ERF.PRECISE rows remain; the full scaled rational is a lead (174 of 176 rows at 2^-27), not a result.
+- Open: Whether subnormal arguments use this route.
+- Open: Whether the rational runs to 0.5 or to Cody's own 0.46875.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — research write-up: the search, the constants, what stays open; product patch not landed at this date
+- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `e26b7bddb8` (readings)
+
+### FN-LINEST-001: LINEST's Householder reflector stores each step from the x87 unit
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to LINEST, LOGEST.
+
+In Excel's QR route the reflector arithmetic behaves as stored precision-64 steps: v0 = x0 -
+alpha, v'v, each dot-product term, f = 2t/v'v, and a - f*v. With this change the row below gets
+Excel's last bits, where a plain binary64 reflector does not.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=INDEX(LINEST({-17.979;-0.126;8;-5;1.7;37;12.4;14.46;-8;24.2},{20.8,50;34,23.41;38.875,-17.7;4.863,36.9;42.1,6;-14.55,44.41;-4.57,-12.96;-9.909,2.589;47.549,42;54.9,-17.63},TRUE,TRUE),2,1)` | as typed | `0.19054144531344644` (`0x3fc863a97e13b089`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Gains 11 recorded answers and loses none over the 3,944 regression rows of
+the corpus; 35 selections from two fits were checked directly.
+
+- Open: Norm, rank, mean, pivot and back-substitution policies are not identified. 48 fixed rank policies and 240 rounded Gram/LDL rank labels are contradicted by the 241 recorded degrees-of-freedom observations.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, line 680 at `3f3b162200` — recorded selections pinned
+- DnaCalc-Research `round22-result.json`, reflector_study at `130ec21b3d` — research round 22 result
+- DnaCalc-Research `evidence/round22/householder-all-hard.json` at `130ec21b3d` — reflector study
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json`, sheet dcj9k_linest_stats, row 1094, column 4 at `c9f9d35416` (readings)
+
+### FN-LINEST-002: LINEST with no residual degrees of freedom returns zeros and one #NUM!
+
+*Quirk; measured; recorded 2026-11-04.*
+
+With three observations, three x columns and const FALSE, LINEST with stats returns standard
+errors of 0 and se_y of 0 rather than #DIV/0!, R^2 of 1, F of #NUM!, degrees of freedom 0,
+ss_resid exactly 0 and ss_reg the sum of y^2.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),2,1)` | as typed | `0` (`0x0000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),3,1)` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),4,1)` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=INDEX(LINEST({31.78;5.61;-9.09},{53.56,30.22,32;-9,-17.977,47.17;9.4,-11.83,39.39},FALSE,TRUE),5,1)` | as typed | `1124.0686` (`0x409190463f141206`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): One fit, 20 selections read through INDEX.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, line 725 at `db71314731` — recorded selections pinned
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json`, sheet dcj9k_linest_stats, row 1180, column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json`, sheet dcj9k_linest_stats, row 1184, column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json`, sheet dcj9k_linest_stats, row 1188, column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_linest_stats.capture.json`, sheet dcj9k_linest_stats, row 1192, column 4 at `c9f9d35416` (readings)
+
+### FN-MOD-001: MOD with operands below about 1E-290 gives wrong signs and #NUM!
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+When both operands are below about 1E-290, MOD can return -n itself, or #NUM! at small
+quotients, where the exact answer is an ordinary number. MOD(-(1+121*2^-52)*2^-983, 2^-983)
+returns +(1+121*2^-52)*2^-983, and MOD(2^-983, -(1+120*2^-52)*2^-983) returns #NUM!. All 4,974
+MOD mismatches in the bank lie in this domain.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `MOD(-1.223247290044572e-296, 1.223247290044539e-296)` | number `-1.223247290044572e-296` (`0x8280000000000079`); divisor `1.223247290044539e-296` (`0x0280000000000000`) (cells) | `1.223247290044572e-296` (`0x0280000000000079`) | `1.2232472900445062e-296` (`0x027fffffffffff0e`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `MOD(1.223247290044539e-296, -1.2232472900445716e-296)` | number `1.223247290044539e-296` (`0x0280000000000000`); divisor `-1.2232472900445716e-296` (`0x8280000000000078`) (cells) | `#NUM!` | `-3.25938553492266e-310` (`0x80003c0000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: MOD(n,d) = n - d*INT(n/d) in exact rational arithmetic; the result is exactly
+representable.
+
+Basis (measured): Recorded rows of the W111 MOD tiny-operand discrimination run; 147,458 of
+152,432 bank rows match without this domain.
+
+- Open: The rule. No model of the intermediate subnormal handling explains these rows yet.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00960 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00959 at `e26b7bddb8` (readings)
+
+### FN-MROUND-001: MROUND counts a quotient within 5E-15 below a half up
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+MROUND(n,m) forms q = n/m on the x87 unit, counts floor(q), adds 1 when 0.5 - frac(q) <= 5E-15,
+and returns count*m from the x87 unit. A number just below a half therefore rounds up though it
+is nearer the lower multiple: 0.499999999999995 with multiple 1 gives 1, and the next binary64
+below it gives 0. MROUND(6.05,0.1) stays 6, because its quotient 60.49999999999999 lies 7.1E-15
+below the half.
+
+Documentation: MROUND rounds up, away from zero, if the remainder of dividing number by
+multiple is greater than or equal to half the value of multiple.
+(https://support.microsoft.com/en-us/office/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427)
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `MROUND(0.499999999999995, 1)` | number `0.499999999999995` (`0x3fdfffffffffffa6`); multiple `1` (`0x3ff0000000000000`) (cells) | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `MROUND(0.49999999999999495, 1)` | number `0.49999999999999495` (`0x3fdfffffffffffa5`); multiple `1` (`0x3ff0000000000000`) (cells) | `0` (`0x0000000000000000`) | — | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `MROUND(0.49999999999999994, 1)` | number `0.49999999999999994` (`0x3fdfffffffffffff`); multiple `1` (`0x3ff0000000000000`) (cells) | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: The number is nearer to 0 than to 1.
+
+Basis (measured): All 50,782 recorded MROUND rows match this rule. The cut-off lies between the
+adjacent binary64 values 4.996E-15 (rounded up) and 5.0515E-15 (rounded down) from 0.5,
+measured at floor(q) = 0 over 4,264 rows.
+
+Inferred, not measured: The window is measured between two neighbouring values; that the
+constant is the decimal 5E-15 is inferred, as the decimal in that window.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00181 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00183 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00003 at `e26b7bddb8` (readings)
+
+### FN-PMT-001: PMT stores the quotient before it multiplies by the rate
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-04.*
+
+With fv 0, type 0 and rate > 0, PMT's last two steps are q = RN53(RN64(pv/em)) then
+RN53(RN64(q*rate)): the x87 unit at precision 64, each result stored to binary64, where em =
+(1+rate)^-nper - 1 is a stored binary64. Holding one free binary64 em for each (rate, nper),
+this order admits a consistent em in all 4,802 bank groups with 8 or more pv values. A binary64
+quotient leaves 59 groups with no em, and binary64 for both steps 111. The three other orders
+tested (rate/em, pv*rate then /em, em/rate) fit only 8 to 12 of 40 sampled groups. The common
+30-year loan below comes out 1 unit from the correctly rounded payment.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=PMT(0.05/12,360,200000)` | as typed | `-1073.6432460242781` (`0xc090c692af15f63a`) | `-1073.643246024278` (`0xc090c692af15f639`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Correct value: mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12
+evaluates to; correctly rounded.
+
+Basis (inferred): Exact rational feasibility over the 4,802 groups of recorded PMT answers. It
+fixes the order and precision of the two steps, and fixes em uniquely in 4,720 groups.
+
+Inferred, not measured: The order is inferred from feasibility with em left free: it is not a
+reproduction of PMT's answers, because how Excel forms em is not identified.
+
+- Open: How em is formed: the chains tested reproduce at most 3,258 of the 4,720 pinned values.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up, findings F1 to F4; the PMT work is unfinished at this date
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json` at `c9f9d35416` — recorded answers of the 30-year loan block
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)
+
+### FN-PPMT-001: PPMT is not PMT minus IPMT, and sits further from the exact value than PMT
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to PMT,
+PPMT.
+
+On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5
+units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own
+answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods
+and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=PPMT(0.05/12,1,360,200000)` | as typed | `-240.30991269094474` (`0xc06e09eace050723`) | `-240.30991269094463` (`0xc06e09eace05071f`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Correct value: mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12
+evaluates to; correctly rounded.
+
+Basis (measured): Twelve recorded periods of one loan, read from the catalogue capture,
+compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction.
+
+Inferred, not measured: That PPMT uses its own discount factor rather than PMT's em is
+inferred: the period-1 answer is not P*(1+em) for either em consistent with PMT, and not a
+difference of two binary64 values on the grid its bits would need.
+
+- Open: PPMT's discount route: 9 discount routes by 5 to 6 consumer orders separate nothing from chance on 416 rows.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt`](../../content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt) — research write-up, findings F1 to F4; the PMT work is unfinished at this date
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json` at `c9f9d35416` — recorded answers of the 30-year loan block
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 727, column 4 at `c9f9d35416` (readings)
+
+### FN-PRICEMAT-001: PRICEMAT formula order on the x87 unit
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-04.*
+
+PRICEMAT = (100 + (DIM/B)*rate*100) / (1 + (DSM/B)*yld) - (A/B)*rate*100, each operation taken
+from the x87 unit at precision 64 and stored to binary64.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `PRICEMAT(38620, 42889, 38168, 0.12180991686638161, 0.019384437069992936, 2)` | settlement `38620` (`0x40e2db8000000000`); maturity `42889` (`0x40e4f12000000000`); issue `38168` (`0x40e2a30000000000`); rate `0.12180991686638161` (`0x3fbf2eef494503b5`); yld `0.019384437069992936` (`0x3f93d9838d1165c1`); basis `2` (`0x4000000000000000`) (cells) | `195.89977581174702` (`0x40687ccaf6a4a5ee`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Basis (measured): 2,404 of 2,404 recorded rows, with the day counts of FN-PRICEMAT-002. Strict
+binary64 with the same day counts matches 2,400.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
+- DnaCalc-Research `evidence/round23/pricemat-hard/summary.json`, counts at `f177408286` — day-count rule against precision
+- OxFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 2282, key PRICEMAT|0x40e2db8000000000|0x40e4f12000000000|0x40e2a30000000000|0x3fbf2eef494503b5|0x3f93d9838d1165c1|0x4000000000000000 at `e26b7bddb8` (readings)
+
+### FN-PRICEMAT-002: PRICEMAT basis 0 applies the 31st rule before the February rule
+
+*Quirk; measured; recorded 2026-11-04.*
+
+For basis 0, PRICEMAT tests "end on the 31st gives 30" before "start on the last day of
+February gives 30"; the US (NASD) 30/360 rule applies the February adjustment first. An issue
+on 28 February 2025 and maturity on 31 March 2043 gives DIM 6511, not 6510, and moves the price
+at about 1E-5 relative.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `PRICEMAT(46376, 52321, 45716, 0.04392789506562811, 0.03266239139487676, 0)` | settlement `46376` (`0x40e6a50000000000`); maturity `52321` (`0x40e98c2000000000`); issue `45716` (`0x40e6528000000000`); rate `0.04392789506562811` (`0x3fa67db79160c3a0`); yld `0.03266239139487676` (`0x3fa0b91ffdb34689`); basis `0` (`0x0000000000000000`) (cells) | `109.22025565957247` (`0x405b4e18ab31a7da`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Basis (measured): One recorded row separates this rule from the standard one: 2,404 of 2,404
+against 2,403.
+
+Inferred, not measured: The order of the two tests is taken from the published
+ExcelFinancialFunctions getMatFactors rule, which fits; one row cannot pin it alone.
+
+Evidence:
+
+- DnaCalc-Research `evidence/round23/pricemat-hard/summary.json`, counts at `f177408286` — day-count rule against precision
+- DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
+- OxFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000 at `e26b7bddb8` (readings)
+
+### FN-ROUND-001: ROUND counts digits in 32 bits, and the count wraps
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+ROUND cuts num_digits toward zero to a 32-bit integer D, limited to +/-2147483647, and keeps k
+= D + e + 1 significant digits, where e is the decimal exponent of |number| and the sum is
+computed in 32 bits. k of 15 or more keeps the 15-digit reading of the number; k below 0 gives
+0. A large positive num_digits therefore wraps to no digits at all: for a number near 1.1E14,
+2147483617 returns the number and 2147483635 returns 0. The boundaries move by exactly -e on
+both the +2^31 and -2^31 sides, for e from -308 to 308. num_digits of 2^31 or more acts as
++2147483647 and -2^31 or less as -2147483647.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUND(-112500000000000, 2147483635)` | number `-112500000000000` (`0xc2d9945ca2620000`); num_digits `2147483635` (`0x41dffffffcc00000`) (cells) | `0` (`0x0000000000000000`) | `-112500000000000` (`0xc2d9945ca2620000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `ROUND(-112500000000000, 2147483617)` | number `-112500000000000` (`0xc2d9945ca2620000`); num_digits `2147483617` (`0x41dffffff8400000`) (cells) | `-112500000000000` (`0xc2d9945ca2620000`) | — | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: -112500000000000 is an integer, so rounding it to any non-negative number of
+places returns it.
+
+Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
+36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
+with no row lost and each remaining failure classified in the write-up. The wrap boundary was
+read at every decimal exponent in the bank.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01694 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01682 at `e26b7bddb8` (readings)
+
+### FN-ROUND-002: The rounding functions read 15 digits first, so ROUNDDOWN can round up
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to ROUND,
+ROUNDDOWN, ROUNDUP, TRUNC.
+
+Before choosing a digit these functions read the number to 15 significant digits on the x87
+unit: with e the decimal exponent and n = 14 - e, y = RN64(|x| * 10^n), or RN64(|x| / 10^-n)
+when n is negative, while 10^|n| is exact in 64 bits (|n| <= 27). A half in y goes up for
+ROUNDDOWN, ROUNDUP and TRUNC and down for ROUND. So digits beyond the 15th are lost even when
+the requested precision keeps them: ROUND(-1594628480062905,14) loses its last digit, and
+ROUNDDOWN(283025097725723.5,0) returns 283025097725724, larger than its input.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUND(-1594628480062905, 14)` | number `-1594628480062905` (`0xc316a939806956e4`); num_digits `14` (`0x402c000000000000`) (cells) | `-1594628480062900` (`0xc316a939806956d0`) | `-1594628480062905` (`0xc316a939806956e4`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ROUNDDOWN(283025097725723.5, 0)` | number `283025097725723.5` (`0x42f0168ea69971b8`); num_digits `0` (`0x0000000000000000`) (cells) | `283025097725724` (`0x42f0168ea69971c0`) | `283025097725723` (`0x42f0168ea69971b0`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Correct value: An integer rounded to 14 places is itself.
+Correct value: ROUNDDOWN drops the fraction .5.
+
+Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
+36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
+with no row lost and each remaining failure classified in the write-up.
+
+- Open: How the scale is formed for |n| > 27: a single correctly rounded 64-bit power and the chained multiplications tried do not fit; 123 ROUND, 548 ROUNDUP, 556 ROUNDDOWN and 555 TRUNC rows remain.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUND.jsonl.gz`, line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz`, line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000 at `e26b7bddb8` (readings)
+
+### FN-ROUND-003: Near DBL_MAX, ROUND returns NaN bit patterns that Excel treats as numbers
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to ROUND,
+ROUNDDOWN, TRUNC.
+
+ROUND of a number near 1.8E308 can return a binary64 with an all-ones exponent field: the
+decimal-to-binary conversion does not saturate, and a value of 1.8E308 comes out with the
+exponent overflowed. The bank holds 430 such ROUND rows, 102 ROUNDDOWN and 95 TRUNC. Even
+ROUND(DBL_MAX,0), whose answer is DBL_MAX, returns 0x7ff000000000000a. The cell shows 2E+308 or
+1.8E+308, ISNUMBER gives TRUE, ISERROR FALSE, TYPE 1, and =A1, N(A1), MAX(A1), ABS(A1) and
+IFERROR(A1,...) pass the pattern on, as does =-A1 with its sign unchanged. Arithmetic on it
+(A1+0, A1*1, A1-A1, SUM, ROUND) gives #NUM!, TEXT(A1,"0") gives #VALUE!, ERROR.TYPE(A1) gives
+#N/A. Saved to .xlsx and reopened, the cells read #NUM! until recalculated, when the patterns
+return.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUND(1.7976931348623157E+308, 0)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`); num_digits `0` (`0x0000000000000000`) (cells) | `NaN bit pattern, shown as 1.8E+308` (`0x7ff000000000000a`) | `1.7976931348623157e+308` (`0x7fefffffffffffff`) | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `ROUND(1.7976931348623157E+308, -307)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`); num_digits `-307` (`0xc073300000000000`) (cells) | `NaN bit pattern, shown as 1.8E+308` (`0x7ff005419221015d`) | `#NUM!` | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+| `ROUND(1.7976931348623157E+308, -308)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`); num_digits `-308` (`0xc073400000000000`) (cells) | `NaN bit pattern, shown as 2E+308` (`0x7ff1ccf385ebc8a0`) | `#NUM!` | Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading |
+
+Correct value: DBL_MAX is an integer, so rounding it to 0 places returns it.
+Correct value: The rounded value exceeds the largest binary64; Excel reports overflow in its
+own arithmetic as #NUM!.
+
+Basis (measured): One Excel workbook read cell by cell through Value2 on 2026-11-04, saved,
+reopened and recalculated; bank counts from the rounding write-up.
+
+Inferred, not measured: That one decimal-to-binary conversion routine is the source of all
+these patterns is inferred from the exponent-overflow encoding.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells A1..A4, B1..B24, reopened, recalculated — cell-by-cell Excel reading of the NaN patterns
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.ps1`](../../content/notes/evidence/2026-11-04/round-nan-downstream.ps1) — the script that took the reading
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A3 (readings)
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A2 (readings)
+- [`content/notes/evidence/2026-11-04/round-nan-downstream.json`](../../content/notes/evidence/2026-11-04/round-nan-downstream.json), cells.A1 (readings)
+
+### FN-ROUNDUP-001: ROUNDUP, ROUNDDOWN and TRUNC read num_digits from its low 16 bits
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to
+ROUNDDOWN, ROUNDUP, TRUNC.
+
+ROUNDUP, ROUNDDOWN and TRUNC take the digit count from the low 16 bits of the integer part of
+|num_digits|, with the sign of num_digits. If |num_digits| is 2^32 or more, or those low bits
+are 32768 or more, the truncation happens at 100 places (10^-100, or 10^100 for a negative
+count). So 65536 acts as 0, 65537 as 1, 32768 to 65535 as 100, and -2147483748, whose low 16
+bits are 100, as -100. In the out-of-range case ROUNDUP adds no unit for a positive count, and
+gives #NUM! for a negative count when a digit is dropped.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUNDUP(1.234567890123456e-200, 65536)` | number `1.234567890123456e-200` (`0x166e3d71f622be8f`); num_digits `65536` (`0x40f0000000000000`) (cells) | `1` (`0x3ff0000000000000`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `ROUNDUP(1.234567890123456e-200, 65537)` | number `1.234567890123456e-200` (`0x166e3d71f622be8f`); num_digits `65537` (`0x40f0001000000000`) (cells) | `0.1` (`0x3fb999999999999a`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `ROUNDUP(1.234567890123456e-200, 32768)` | number `1.234567890123456e-200` (`0x166e3d71f622be8f`); num_digits `32768` (`0x40e0000000000000`) (cells) | `0` (`0x0000000000000000`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `TRUNC(1.234567890123456e-200, 65536)` | number `1.234567890123456e-200` (`0x166e3d71f622be8f`); num_digits `65536` (`0x40f0000000000000`) (cells) | `0` (`0x0000000000000000`) | `1.234567890123456e-200` (`0x166e3d71f622be8f`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: The exact decimal expansion of this binary64 number has fewer than 32768 places,
+so a truncation at num_digits places returns the number itself.
+
+Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
+36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
+with no row lost and each remaining failure classified in the write-up. All 13,914 informative
+ROUNDDOWN and TRUNC rows with large num_digits follow the rule.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00041 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00043 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00033 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-trunc.json.gz`, w111roundcount-TRUNC-00041 at `e26b7bddb8` (readings)
+
+### FN-ROUNDUP-002: ROUNDUP adds its unit in binary64, one bit from the decimal answer
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+ROUNDUP forms the ROUNDDOWN result, converts it to binary64, converts one unit 10^-p to
+binary64, and adds the two in binary64. The sum need not be the binary64 value nearest the
+decimal answer, so ROUNDUP(-1.125,2) is -1.1300000000000001 and ROUNDUP(3.535,2) is
+3.5399999999999996. The difference shows when the result is compared with a typed 3.54.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `ROUNDUP(-1.125, 2)` | number `-1.125` (`0xbff2000000000000`); num_digits `2` (`0x4000000000000000`) (cells) | `-1.1300000000000001` (`0xbff2147ae147ae15`) | `-1.13` (`0xbff2147ae147ae14`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+| `ROUNDUP(3.535, 2)` | number `3.535` (`0x400c47ae147ae148`); num_digits `2` (`0x4000000000000000`) (cells) | `3.5399999999999996` (`0x400c51eb851eb851`) | `3.54` (`0x400c51eb851eb852`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Correct value: The decimal answer has a nearest binary64 value; rounding away from zero at 2
+places gives that value.
+
+Basis (measured): Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of
+36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317,
+with no row lost and each remaining failure classified in the write-up.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1863, key ROUNDUP|0xbff2000000000000|0x4000000000000000 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1809, key ROUNDUP|0x400c47ae147ae148|0x4000000000000000 at `e26b7bddb8` (readings)
+
+### FN-SQRT-001: SQRT is rounded twice, once to 64 bits and once to 53
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
+
+The worksheet SQRT is RN53(RN64(sqrt(x))): the root is rounded to the x87 unit's 64-bit
+significand and then stored to binary64. On inputs where that double rounding lands differently
+from a single rounding, Excel takes the double-rounded value: SQRT(0.9999999999999999) is 1.
+The smallest subnormal input returns 0.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `SQRT(0.9999999999999999)` | number `0.9999999999999999` (`0x3fefffffffffffff`) (cells) | `1` (`0x3ff0000000000000`) | `0.9999999999999999` (`0x3fefffffffffffff`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `SQRT(1.7976931348623157e+308)` | number `1.7976931348623157e+308` (`0x7fefffffffffffff`) (cells) | `1.3407807929942597e+154` (`0x5ff0000000000000`) | `1.3407807929942596e+154` (`0x5fefffffffffffff`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `SQRT(5e-324)` | number `5e-324` (`0x0000000000000001`) (cells) | `0` (`0x0000000000000000`) | `2.2227587494850775e-162` (`0x1e60000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: Exact square root at 800 bits, correctly rounded.
+
+Basis (measured): 41,897 of 41,897 distinct normal positive bank rows match. On the 164 rows
+where double and correct rounding differ, Excel follows double rounding every time. The
+subnormal result rests on 1 row.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/sqrt_fn.rs`, excel_sqrt_staged at `b5ce0759bc` — the kernel in the product
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00016 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00025 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00002 at `e26b7bddb8` (readings)
+
+### FN-TBILLEQ-001: For bills longer than 182 days TBILLEQ is a quadratic, not the documented formula
+
+*Documentation differs from behaviour; measured; recorded 2026-11-04.*
+
+When DSM is above 182, TBILLEQ does not use the documented formula. It uses the bond-equivalent
+quadratic (-t + sqrt(t^2 - (2t-1)(1 - 1/p))) / (t - 1/2), with t = DSM/365 and p = price/100.
+The square root is taken in extended precision and stored, RN53(RN64(sqrt)); the rest is
+binary64. For the row below, DSM 203, the documented formula gives 0.244038 and Excel 0.241103.
+Excel's bits are 22 units below the correctly rounded quadratic because of that staging.
+
+Documentation: TBILLEQ is calculated as TBILLEQ = (365 x rate)/(360-(rate x DSM)); the page
+does not mention 182 days.
+(https://support.microsoft.com/en-us/office/tbilleq-function-2ab72d90-9b4d-4efe-9fc2-0f81f2c19c8c)
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `TBILLEQ(40633.25, 40836.25, 0.21193100748125787)` | settlement `40633.25` (`0x40e3d72800000000`); maturity `40836.25` (`0x40e3f08800000000`); discount `0.21193100748125787` (`0x3fcb208e2511f676`) (cells) | `0.24110326418450792` (`0x3fcedc78c550cec1`) | `0.24110326418450853` (`0x3fcedc78c550ced7`) | Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H |
+
+Correct value: mpmath at 800 bits: the exact quadratic at the binary64 inputs, correctly
+rounded.
+
+Basis (measured): 2,400 of 2,400 recorded rows with the stored square root; 2,399 without it.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
+- DnaCalc-Research `evidence/round23/tbilleq-hard/summary.json`, counts at `f177408286` — staged square root against alternatives
+- DnaCalc `crates/calc-func/src/ported/discount_bill_yearfrac_family.rs`, lines 388-410 at `26bb1800d3` — the arithmetic in the product
+- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-01109 at `e26b7bddb8` (readings)
+
+### FN-TRUNC-001: TRUNC of DBL_MIN returns a subnormal, not 0
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to
+ROUNDDOWN, ROUNDUP, TRUNC.
+
+With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal
+0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6
+steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit
+reading 2.22507385850720E-308. The bank holds 256 such rows for each of the three functions.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `TRUNC(2.2250738585072014e-308, 0)` | number `2.2250738585072014e-308` (`0x0010000000000000`); num_digits `0` (`0x0000000000000000`) (cells) | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+| `TRUNC(2.2250738585072014e-308, 1)` | number `2.2250738585072014e-308` (`0x0010000000000000`); num_digits `1` (`0x3ff0000000000000`) (cells) | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) | Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture |
+
+Correct value: DBL_MIN is below 1, so truncating it at 0 or 1 places gives 0.
+
+Basis (measured): Recorded rows of the broad W111 capture; counts from the rounding write-up.
+
+- Open: Why this one input converts 3 steps below nearest.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00026 at `e26b7bddb8` (readings)
+- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00027 at `e26b7bddb8` (readings)

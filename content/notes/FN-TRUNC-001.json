@@ -1,0 +1,113 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TRUNC-001",
+  "functions": [
+    "FUNC.ROUNDDOWN",
+    "FUNC.ROUNDUP",
+    "FUNC.TRUNC"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "TRUNC of DBL_MIN returns a subnormal, not 0",
+  "statement": "With DBL_MIN (0x0010000000000000) as number, TRUNC, ROUNDDOWN and ROUNDUP return the subnormal 0x000ffffffffffffa at each num_digits recorded, so TRUNC(DBL_MIN,0) is not 0. That value is 6 steps below DBL_MIN and 3 steps below 0x000ffffffffffffd, the binary64 nearest the 15-digit reading 2.22507385850720E-308. The bank holds 256 such rows for each of the three functions.",
+  "status": "measured",
+  "basis": "Recorded rows of the broad W111 capture; counts from the rounding write-up.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "TRUNC(2.2250738585072014e-308, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "2.2250738585072014e-308",
+            "bits": "0x0010000000000000"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.2250738585071984e-308",
+        "bits": "0x000ffffffffffffa"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000",
+        "how": "DBL_MIN is below 1, so truncating it at 0 or 1 places gives 0."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-trunc.json.gz",
+        "locator": "w111broad-20260929-TRUNC-00026",
+        "note": null
+      }
+    },
+    {
+      "call": "TRUNC(2.2250738585072014e-308, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "2.2250738585072014e-308",
+            "bits": "0x0010000000000000"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.2250738585071984e-308",
+        "bits": "0x000ffffffffffffa"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000",
+        "how": "DBL_MIN is below 1, so truncating it at 0 or 1 places gives 0."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-trunc.json.gz",
+        "locator": "w111broad-20260929-TRUNC-00027",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    }
+  ],
+  "open": [
+    "Why this one input converts 3 steps below nearest."
+  ],
+  "recorded_on": "2026-11-04"
+}

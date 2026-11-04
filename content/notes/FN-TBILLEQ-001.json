@@ -1,0 +1,93 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TBILLEQ-001",
+  "functions": [
+    "FUNC.TBILLEQ"
+  ],
+  "kind": "documentation-differs",
+  "title": "For bills longer than 182 days TBILLEQ is a quadratic, not the documented formula",
+  "statement": "When DSM is above 182, TBILLEQ does not use the documented formula. It uses the bond-equivalent quadratic (-t + sqrt(t^2 - (2t-1)(1 - 1/p))) / (t - 1/2), with t = DSM/365 and p = price/100. The square root is taken in extended precision and stored, RN53(RN64(sqrt)); the rest is binary64. For the row below, DSM 203, the documented formula gives 0.244038 and Excel 0.241103. Excel's bits are 22 units below the correctly rounded quadratic because of that staging.",
+  "status": "measured",
+  "basis": "2,400 of 2,400 recorded rows with the stored square root; 2,399 without it.",
+  "inferred": null,
+  "documentation": {
+    "claim": "TBILLEQ is calculated as TBILLEQ = (365 x rate)/(360-(rate x DSM)); the page does not mention 182 days.",
+    "source": "https://support.microsoft.com/en-us/office/tbilleq-function-2ab72d90-9b4d-4efe-9fc2-0f81f2c19c8c"
+  },
+  "repros": [
+    {
+      "call": "TBILLEQ(40633.25, 40836.25, 0.21193100748125787)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "40633.25",
+            "bits": "0x40e3d72800000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "40836.25",
+            "bits": "0x40e3f08800000000"
+          }
+        },
+        {
+          "name": "discount",
+          "value": {
+            "kind": "number",
+            "display": "0.21193100748125787",
+            "bits": "0x3fcb208e2511f676"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.24110326418450792",
+        "bits": "0x3fcedc78c550cec1"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.24110326418450853",
+        "bits": "0x3fcedc78c550ced7",
+        "how": "mpmath at 800 bits: the exact quadratic at the binary64 inputs, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz",
+        "locator": "w1115-TBILLEQ-01109",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "26bb1800d3b349e44d594bed5f8bb589b528ef10",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "lines 435-466",
+      "note": "recorded answers pinned"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "f1774082865e3a5ab7dec27ead7aeebb73b078c2",
+      "path": "evidence/round23/tbilleq-hard/summary.json",
+      "locator": "counts",
+      "note": "staged square root against alternatives"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "26bb1800d3b349e44d594bed5f8bb589b528ef10",
+      "path": "crates/calc-func/src/ported/discount_bill_yearfrac_family.rs",
+      "locator": "lines 388-410",
+      "note": "the arithmetic in the product"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

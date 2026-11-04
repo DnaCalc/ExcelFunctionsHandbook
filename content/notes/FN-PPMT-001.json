@@ -1,0 +1,61 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PPMT-001",
+  "functions": [
+    "FUNC.PMT",
+    "FUNC.PPMT"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "PPMT is not PMT minus IPMT, and sits further from the exact value than PMT",
+  "statement": "On the 30-year loan PPMT(0.05/12,k,360,200000), for k from 1 to 12 every PPMT answer is 3 to 5 units above the correctly rounded principal payment, while PMT is 1 unit away. Excel's own answers do not satisfy the identity: in binary64, PMT - IPMT equals PPMT in 2 of the 12 periods and PMT - PPMT equals IPMT in 7. So reproducing PPMT from PMT and IPMT misses the last bits.",
+  "status": "measured",
+  "basis": "Twelve recorded periods of one loan, read from the catalogue capture, compared with exact values and with Excel's own PMT and IPMT by binary64 subtraction.",
+  "inferred": "That PPMT uses its own discount factor rather than PMT's em is inferred: the period-1 answer is not P*(1+em) for either em consistent with PMT, and not a difference of two binary64 values on the grid its bits would need.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PPMT(0.05/12,1,360,200000)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-240.30991269094474",
+        "bits": "0xc06e09eace050723"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-240.30991269094463",
+        "bits": "0xc06e09eace05071f",
+        "how": "mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12 evaluates to; correctly rounded."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity, row 727, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt",
+      "locator": null,
+      "note": "research write-up, findings F1 to F4; the PMT work is unfinished at this date"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+      "locator": null,
+      "note": "recorded answers of the 30-year loan block"
+    }
+  ],
+  "open": [
+    "PPMT's discount route: 9 discount routes by 5 to 6 consumer orders separate nothing from chance on 416 rows."
+  ],
+  "recorded_on": "2026-11-04"
+}

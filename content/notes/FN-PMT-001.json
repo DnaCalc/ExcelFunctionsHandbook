@@ -1,0 +1,60 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PMT-001",
+  "functions": [
+    "FUNC.PMT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "PMT stores the quotient before it multiplies by the rate",
+  "statement": "With fv 0, type 0 and rate > 0, PMT's last two steps are q = RN53(RN64(pv/em)) then RN53(RN64(q*rate)): the x87 unit at precision 64, each result stored to binary64, where em = (1+rate)^-nper - 1 is a stored binary64. Holding one free binary64 em for each (rate, nper), this order admits a consistent em in all 4,802 bank groups with 8 or more pv values. A binary64 quotient leaves 59 groups with no em, and binary64 for both steps 111. The three other orders tested (rate/em, pv*rate then /em, em/rate) fit only 8 to 12 of 40 sampled groups. The common 30-year loan below comes out 1 unit from the correctly rounded payment.",
+  "status": "inferred",
+  "basis": "Exact rational feasibility over the 4,802 groups of recorded PMT answers. It fixes the order and precision of the two steps, and fixes em uniquely in 4,720 groups.",
+  "inferred": "The order is inferred from feasibility with em left free: it is not a reproduction of PMT's answers, because how Excel forms em is not identified.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PMT(0.05/12,360,200000)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-1073.6432460242781",
+        "bits": "0xc090c692af15f63a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-1073.643246024278",
+        "bits": "0xc090c692af15f639",
+        "how": "mpmath at 800 bits with rate the binary64 0x3f71111111111111 that 0.05/12 evaluates to; correctly rounded."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity, row 726, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt",
+      "locator": null,
+      "note": "research write-up, findings F1 to F4; the PMT work is unfinished at this date"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+      "locator": null,
+      "note": "recorded answers of the 30-year loan block"
+    }
+  ],
+  "open": [
+    "How em is formed: the chains tested reproduce at most 3,258 of the 4,720 pinned values."
+  ],
+  "recorded_on": "2026-11-04"
+}

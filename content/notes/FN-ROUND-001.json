@@ -1,0 +1,111 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ROUND-001",
+  "functions": [
+    "FUNC.ROUND"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "ROUND counts digits in 32 bits, and the count wraps",
+  "statement": "ROUND cuts num_digits toward zero to a 32-bit integer D, limited to +/-2147483647, and keeps k = D + e + 1 significant digits, where e is the decimal exponent of |number| and the sum is computed in 32 bits. k of 15 or more keeps the 15-digit reading of the number; k below 0 gives 0. A large positive num_digits therefore wraps to no digits at all: for a number near 1.1E14, 2147483617 returns the number and 2147483635 returns 0. The boundaries move by exactly -e on both the +2^31 and -2^31 sides, for e from -308 to 308. num_digits of 2^31 or more acts as +2147483647 and -2^31 or less as -2147483647.",
+  "status": "measured",
+  "basis": "Under the family rules the OxFunc-Evidence bank matches ROUND 36,391 of 36,945 rows, ROUNDUP 49,013 of 52,841, ROUNDDOWN 59,080 of 59,995 and TRUNC 50,409 of 51,317, with no row lost and each remaining failure classified in the write-up. The wrap boundary was read at every decimal exponent in the bank.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ROUND(-112500000000000, 2147483635)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-112500000000000",
+            "bits": "0xc2d9945ca2620000"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "2147483635",
+            "bits": "0x41dffffffcc00000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-112500000000000",
+        "bits": "0xc2d9945ca2620000",
+        "how": "-112500000000000 is an integer, so rounding it to any non-negative number of places returns it."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-rounding-count-refinement-20260929/answers-round.json.gz",
+        "locator": "w111roundcount-ROUND-01694",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUND(-112500000000000, 2147483617)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-112500000000000",
+            "bits": "0xc2d9945ca2620000"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "2147483617",
+            "bits": "0x41dffffff8400000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-112500000000000",
+        "bits": "0xc2d9945ca2620000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-rounding-count-refinement-20260929/answers-round.json.gz",
+        "locator": "w111roundcount-ROUND-01682",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "77873410e3b5b659e3ab1c808a7926dd9f36c5ea",
+      "path": "crates/calc-func/tests/f1_math.rs",
+      "locator": "rounding_family_matches_recorded_bank_rows",
+      "note": "ROUND family rules in the product; failed before the change"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

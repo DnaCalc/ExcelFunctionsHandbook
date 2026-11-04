@@ -1,0 +1,166 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ROUND-003",
+  "functions": [
+    "FUNC.ROUND",
+    "FUNC.ROUNDDOWN",
+    "FUNC.TRUNC"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "Near DBL_MAX, ROUND returns NaN bit patterns that Excel treats as numbers",
+  "statement": "ROUND of a number near 1.8E308 can return a binary64 with an all-ones exponent field: the decimal-to-binary conversion does not saturate, and a value of 1.8E308 comes out with the exponent overflowed. The bank holds 430 such ROUND rows, 102 ROUNDDOWN and 95 TRUNC. Even ROUND(DBL_MAX,0), whose answer is DBL_MAX, returns 0x7ff000000000000a. The cell shows 2E+308 or 1.8E+308, ISNUMBER gives TRUE, ISERROR FALSE, TYPE 1, and =A1, N(A1), MAX(A1), ABS(A1) and IFERROR(A1,...) pass the pattern on, as does =-A1 with its sign unchanged. Arithmetic on it (A1+0, A1*1, A1-A1, SUM, ROUND) gives #NUM!, TEXT(A1,\"0\") gives #VALUE!, ERROR.TYPE(A1) gives #N/A. Saved to .xlsx and reopened, the cells read #NUM! until recalculated, when the patterns return.",
+  "status": "measured",
+  "basis": "One Excel workbook read cell by cell through Value2 on 2026-11-04, saved, reopened and recalculated; bank counts from the rounding write-up.",
+  "inferred": "That one decimal-to-binary conversion routine is the source of all these patterns is inferred from the exponent-overflow encoding.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ROUND(1.7976931348623157E+308, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.7976931348623157e+308",
+            "bits": "0x7fefffffffffffff"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "nonfinite",
+        "display": "NaN bit pattern, shown as 1.8E+308",
+        "bits": "0x7ff000000000000a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.7976931348623157e+308",
+        "bits": "0x7fefffffffffffff",
+        "how": "DBL_MAX is an integer, so rounding it to 0 places returns it."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+        "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
+        "locator": "cells.A3",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUND(1.7976931348623157E+308, -307)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.7976931348623157e+308",
+            "bits": "0x7fefffffffffffff"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "-307",
+            "bits": "0xc073300000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "nonfinite",
+        "display": "NaN bit pattern, shown as 1.8E+308",
+        "bits": "0x7ff005419221015d"
+      },
+      "correct": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null,
+        "how": "The rounded value exceeds the largest binary64; Excel reports overflow in its own arithmetic as #NUM!."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+        "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
+        "locator": "cells.A2",
+        "note": null
+      }
+    },
+    {
+      "call": "ROUND(1.7976931348623157E+308, -308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.7976931348623157e+308",
+            "bits": "0x7fefffffffffffff"
+          }
+        },
+        {
+          "name": "num_digits",
+          "value": {
+            "kind": "number",
+            "display": "-308",
+            "bits": "0xc073400000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "nonfinite",
+        "display": "NaN bit pattern, shown as 2E+308",
+        "bits": "0x7ff1ccf385ebc8a0"
+      },
+      "correct": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null,
+        "how": "The rounded value exceeds the largest binary64; Excel reports overflow in its own arithmetic as #NUM!."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading",
+      "source": {
+        "repository": "ExcelFunctionsHandbook",
+        "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+        "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
+        "locator": "cells.A1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/round-nan-downstream.json",
+      "locator": "cells A1..A4, B1..B24, reopened, recalculated",
+      "note": "cell-by-cell Excel reading of the NaN patterns"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/round-nan-downstream.ps1",
+      "locator": null,
+      "note": "the script that took the reading"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

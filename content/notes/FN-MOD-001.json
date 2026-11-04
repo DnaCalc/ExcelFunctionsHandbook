@@ -1,0 +1,111 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MOD-001",
+  "functions": [
+    "FUNC.MOD"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "MOD with operands below about 1E-290 gives wrong signs and #NUM!",
+  "statement": "When both operands are below about 1E-290, MOD can return -n itself, or #NUM! at small quotients, where the exact answer is an ordinary number. MOD(-(1+121*2^-52)*2^-983, 2^-983) returns +(1+121*2^-52)*2^-983, and MOD(2^-983, -(1+120*2^-52)*2^-983) returns #NUM!. All 4,974 MOD mismatches in the bank lie in this domain.",
+  "status": "measured",
+  "basis": "Recorded rows of the W111 MOD tiny-operand discrimination run; 147,458 of 152,432 bank rows match without this domain.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "MOD(-1.223247290044572e-296, 1.223247290044539e-296)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-1.223247290044572e-296",
+            "bits": "0x8280000000000079"
+          }
+        },
+        {
+          "name": "divisor",
+          "value": {
+            "kind": "number",
+            "display": "1.223247290044539e-296",
+            "bits": "0x0280000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.223247290044572e-296",
+        "bits": "0x0280000000000079"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.2232472900445062e-296",
+        "bits": "0x027fffffffffff0e",
+        "how": "MOD(n,d) = n - d*INT(n/d) in exact rational arithmetic; the result is exactly representable."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz",
+        "locator": "w111mod-tiny-discriminator-00960",
+        "note": null
+      }
+    },
+    {
+      "call": "MOD(1.223247290044539e-296, -1.2232472900445716e-296)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.223247290044539e-296",
+            "bits": "0x0280000000000000"
+          }
+        },
+        {
+          "name": "divisor",
+          "value": {
+            "kind": "number",
+            "display": "-1.2232472900445716e-296",
+            "bits": "0x8280000000000078"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-3.25938553492266e-310",
+        "bits": "0x80003c0000000000",
+        "how": "MOD(n,d) = n - d*INT(n/d) in exact rational arithmetic; the result is exactly representable."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz",
+        "locator": "w111mod-tiny-discriminator-00959",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/rounding-EVIDENCE.md",
+      "locator": null,
+      "note": "research write-up: full-bank result, the rules, what stays open"
+    }
+  ],
+  "open": [
+    "The rule. No model of the intermediate subnormal handling explains these rows yet."
+  ],
+  "recorded_on": "2026-11-04"
+}

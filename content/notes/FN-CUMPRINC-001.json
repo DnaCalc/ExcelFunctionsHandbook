@@ -1,0 +1,85 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CUMPRINC-001",
+  "functions": [
+    "FUNC.CUMIPMT",
+    "FUNC.CUMPRINC"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "CUMPRINC sums PPMT left to right, and CUMIPMT is count*PMT less CUMPRINC",
+  "statement": "On the 30-year loan, CUMPRINC(0.05/12,360,200000,1,12,0) equals the left-to-right binary64 sum of Excel's own twelve PPMT answers, to the last bit, and CUMIPMT over the same periods equals 12*PMT - CUMPRINC, computed from Excel's own answers, to the last bit.",
+  "status": "measured",
+  "basis": "One loan block of the catalogue capture, recomputed from the recorded answers by binary64 arithmetic.",
+  "inferred": "That this shape holds for every loan is inferred from this block; PPMT and PMT themselves are not yet reproduced, so a wider check is not available.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CUMPRINC(0.05/12,360,200000,1,12,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-2950.7306911349597",
+        "bits": "0xc0a70d761d260042"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity, row 751, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUMIPMT(0.05/12,360,200000,1,12,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-9932.988261156377",
+        "bits": "0xc0c3667e7f577146"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity, row 752, column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PMT(0.05/12,360,200000)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-1073.6432460242781",
+        "bits": "0xc090c692af15f63a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity, row 726, column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "59c9e71da64331e16267ad16d5c34b7cf218914a",
+      "path": "content/notes/evidence/2026-11-04/annuity-EVIDENCE.txt",
+      "locator": null,
+      "note": "research write-up, findings F1 to F4; the PMT work is unfinished at this date"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}

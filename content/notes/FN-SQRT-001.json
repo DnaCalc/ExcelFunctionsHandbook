@@ -1,0 +1,126 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SQRT-001",
+  "functions": [
+    "FUNC.SQRT"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "SQRT is rounded twice, once to 64 bits and once to 53",
+  "statement": "The worksheet SQRT is RN53(RN64(sqrt(x))): the root is rounded to the x87 unit's 64-bit significand and then stored to binary64. On inputs where that double rounding lands differently from a single rounding, Excel takes the double-rounded value: SQRT(0.9999999999999999) is 1. The smallest subnormal input returns 0.",
+  "status": "measured",
+  "basis": "41,897 of 41,897 distinct normal positive bank rows match. On the 164 rows where double and correct rounding differ, Excel follows double rounding every time. The subnormal result rests on 1 row.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SQRT(0.9999999999999999)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.9999999999999999",
+            "bits": "0x3fefffffffffffff"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.9999999999999999",
+        "bits": "0x3fefffffffffffff",
+        "how": "Exact square root at 800 bits, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-sqrt.json.gz",
+        "locator": "w111broad-20260929-SQRT-00016",
+        "note": null
+      }
+    },
+    {
+      "call": "SQRT(1.7976931348623157e+308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.7976931348623157e+308",
+            "bits": "0x7fefffffffffffff"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.3407807929942597e+154",
+        "bits": "0x5ff0000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.3407807929942596e+154",
+        "bits": "0x5fefffffffffffff",
+        "how": "Exact square root at 800 bits, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-sqrt.json.gz",
+        "locator": "w111broad-20260929-SQRT-00025",
+        "note": null
+      }
+    },
+    {
+      "call": "SQRT(5e-324)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "5e-324",
+            "bits": "0x0000000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "2.2227587494850775e-162",
+        "bits": "0x1e60000000000000",
+        "how": "Exact square root at 800 bits, correctly rounded."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture",
+      "source": {
+        "repository": "OxFunc-Evidence",
+        "commit": "e26b7bddb82dab82b3c173ac4912a76cd23caf55",
+        "path": "runs/w111-broad-20260929/answers/answers-sqrt.json.gz",
+        "locator": "w111broad-20260929-SQRT-00002",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "b5ce0759bce6a30fff848a3d82035cadcad1aa49",
+      "path": "crates/calc-func/src/ported/sqrt_fn.rs",
+      "locator": "excel_sqrt_staged",
+      "note": "the kernel in the product"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-04"
+}
