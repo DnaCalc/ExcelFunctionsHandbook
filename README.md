@@ -31,6 +31,9 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 - `data/` — machine projections from OxFunc (the only mechanically synced organ).
 - `content/` — curated prose: call-model chapters, function pages, "The Last Bit" series,
   homepage exhibits, and the versioned working-term explanation registry.
+  `content/notes/` holds the function notes (quirks, answers that differ from the mathematical
+  value, details for matching Excel's bits, documentation differences); see
+  [content/notes/NOTES.md](content/notes/NOTES.md) and [the HOWTO](content/notes/HOWTO.md).
 - `implementations/` — per function × flavour × language; only suite-verified entries are
   published.
 - `vectors/` — versioned test suites (JSONL, bits-hex, hash-manifested).

@@ -1,8 +1,8 @@
 # `tools/schemas/` — the schema set
 
-Twenty-two JSON Schema 2020-12 files cover the file families specified by `FOUNDATION.md` §2 plus
-the deterministic F18 localization source organ and the F19 Excel-environment records declared by
-the Handbook. They are the contract
+Twenty-three JSON Schema 2020-12 files cover the file families specified by `FOUNDATION.md` §2 plus
+the deterministic F18 localization source organ, the F19 Excel-environment records and the F20
+function notes declared by the Handbook. They are the contract
 every other tool in `tools/` is checked against, and they are checked by
 `tools/efh-validate`.
 
@@ -50,6 +50,7 @@ measured **2.6 s**.
 | `f15-name-debris.schema.json` | F15 | `content/` | `content/model/name-debris.json` | T10 curation | §2.7 lines 352–355 |
 | `f17-family-page.schema.json` | F17 | `content/` | `content/families/*.md` (front matter) | T10 curation | §2.8 lines 364–370 |
 | `f19-excel-environments.schema.json` | F19 | `content/` | `content/evidence/environments/*.json` | Handbook curation; later the DnaCalc witness-judge feed (`data/README.md`) | Handbook extension (DnaCalc dc-dfl.1); not in FOUNDATION |
+| `f20-function-note.schema.json` | F20 | `content/` | `content/notes/*.json` | Handbook curation, batch harvest of landed findings (`content/notes/HOWTO.md`) | Handbook extension (2026-11-04); not in FOUNDATION |
 
 **F13 (`site/api/functions/<function_id>.json`) is not in this set.** §2.10 gives it a field list
 rather than a schema table, it belongs to `site/` rather than to `data/` or `content/`, and T8 owns

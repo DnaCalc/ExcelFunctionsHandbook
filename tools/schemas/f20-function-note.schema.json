@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://excelfunctionshandbook.local/schemas/f20-function-note.schema.json",
+  "title": "F20 - content/notes/<note_id>.json",
+  "description": "One function note: a quirk of Excel, a place where Excel's answer differs from the mathematical one, an implementation detail needed to match Excel's bits, or a place where Microsoft's documentation differs from behaviour. Each note carries minimal reproducing calls with exact binary64 inputs and Excel's recorded answer, where and when Excel answered, and evidence links. Rendered by `efh notes render` into a 'Notes' section of each named function page, content/notes/NOTES.md and site/api/notes.json. See content/notes/HOWTO.md.",
+  "efh": {
+    "family": "F20",
+    "organ": "content",
+    "path_glob": "content/notes/*.json",
+    "writer": "Handbook curation, harvested in batches from landed findings (content/notes/HOWTO.md)",
+    "spec": "Handbook extension (2026-11-04); not specified by FOUNDATION.md. Cross-references (function ids, note id stem, number bits against their decimal display, kind-specific fields, claim words) are checked by `efh notes check` and tests/Efh.Rubric.Tests/FunctionNotesTests.cs.",
+    "propertyOrderBasis": "declared-by-this-schema",
+    "keyOrderContract": "Emit keys in propertyOrder exactly. functions[] sorted ordinally; repros[] in reading order; evidence[] in citation order."
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "propertyOrder": [
+    "schema",
+    "note_id",
+    "functions",
+    "kind",
+    "title",
+    "statement",
+    "status",
+    "basis",
+    "inferred",
+    "documentation",
+    "repros",
+    "evidence",
+    "open",
+    "recorded_on"
+  ],
+  "required": [
+    "schema",
+    "note_id",
+    "functions",
+    "kind",
+    "title",
+    "statement",
+    "status",
+    "basis",
+    "inferred",
+    "documentation",
+    "repros",
+    "evidence",
+    "open",
+    "recorded_on"
+  ],
+  "properties": {
+    "schema": { "const": "efh.function-note/v1", "type": "string" },
+    "note_id": {
+      "type": "string",
+      "pattern": "^FN-[A-Z0-9.]+-[0-9][0-9][0-9]$",
+      "description": "R. FN-<stem>-<nnn>, where <stem> is one listed function id without its FUNC./OP. prefix. Equals the file name. Never reused."
+    },
+    "functions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^(FUNC|OP)\\." },
+      "description": "R. Every function the note applies to (each must exist in data/functions). The note renders on each of their pages."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["quirk", "excel-differs-from-math", "bit-matching-detail", "documentation-differs"],
+      "description": "R. excel-differs-from-math requires at least one repro with a correct value; documentation-differs requires documentation."
+    },
+    "title": { "type": "string", "minLength": 1, "maxLength": 120, "description": "R. One line." },
+    "statement": {
+      "type": "string",
+      "minLength": 1,
+      "description": "R. What Excel does, stated precisely with its scope (domain, number of recorded readings). Handbook voice; no inference here."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["measured", "inferred"],
+      "description": "R. measured: the statement is read off, or reproduces, recorded Excel answers over the stated scope. inferred: the statement goes beyond the recorded answers (a mechanism or generalisation consistent with them)."
+    },
+    "basis": {
+      "type": "string",
+      "minLength": 1,
+      "description": "R. What the status rests on: which recorded answers, how many, what was compared."
+    },
+    "inferred": {
+      "type": ["string", "null"],
+      "description": "R, may be null. The part of the note that is inference, labelled as such. Required (non-null) when status is inferred."
+    },
+    "documentation": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "propertyOrder": ["claim", "source"],
+      "required": ["claim", "source"],
+      "properties": {
+        "claim": { "type": "string", "minLength": 1, "description": "R. What the documentation says, quoted briefly or paraphrased." },
+        "source": { "type": "string", "minLength": 1, "description": "R. URL or citation of the documentation." }
+      },
+      "description": "R, may be null. Required (non-null) for kind documentation-differs."
+    },
+    "repros": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/repro" },
+      "description": "R. Minimal reproducing calls. May be empty only for status inferred."
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidence" },
+      "description": "R. Product commit, research write-up, recorded readings."
+    },
+    "open": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "R, may be empty. What is not known yet."
+    },
+    "recorded_on": {
+      "type": "string",
+      "pattern": "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$",
+      "description": "R. Date the note was written."
+    }
+  },
+  "$defs": {
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["kind", "display", "bits"],
+      "required": ["kind", "display", "bits"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["number", "nonfinite", "error", "text", "logical", "blank", "array"],
+          "description": "R. nonfinite: a binary64 NaN or infinity bit pattern, which Excel does not normally hold."
+        },
+        "display": {
+          "type": "string",
+          "description": "R. For number: a decimal that parses to exactly bits. Otherwise the value as text (error code, string, TRUE/FALSE, array literal)."
+        },
+        "bits": {
+          "type": ["string", "null"],
+          "pattern": "^0x[0-9a-f]{16}$",
+          "description": "R, may be null. binary64 bits, lower-case hex. Required for number and nonfinite, null otherwise."
+        }
+      }
+    },
+    "input": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["name", "value"],
+      "required": ["name", "value"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "description": "R. Argument name as documented (number, num_digits, ...)." },
+        "value": { "$ref": "#/$defs/value" }
+      }
+    },
+    "correct": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["kind", "display", "bits", "how"],
+      "required": ["kind", "display", "bits", "how"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["number", "nonfinite", "error", "text", "logical", "blank", "array"] },
+        "display": { "type": "string" },
+        "bits": { "type": ["string", "null"], "pattern": "^0x[0-9a-f]{16}$" },
+        "how": { "type": "string", "minLength": 1, "description": "R. How the correct value was obtained (e.g. exact rational arithmetic, mpmath at 300 bits, correctly rounded)." }
+      }
+    },
+    "repro": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["call", "input_route", "inputs", "excel", "correct", "recorded_in", "source"],
+      "required": ["call", "input_route", "inputs", "excel", "correct", "recorded_in", "source"],
+      "properties": {
+        "call": { "type": "string", "minLength": 1, "description": "R. The call or formula, e.g. ROUNDUP(-1.125, 2) or =ISBLANK(CHOOSE({1,2},Z1,Z2))." },
+        "input_route": {
+          "type": "string",
+          "enum": ["cell-value2", "formula-literal"],
+          "description": "R. cell-value2: inputs were written to cells as exact doubles (COM Value2) and referenced. formula-literal: the call was typed as written (Excel parses each literal itself)."
+        },
+        "inputs": { "type": "array", "items": { "$ref": "#/$defs/input" }, "description": "R. Exact arguments; may be empty for formula-literal." },
+        "excel": { "$ref": "#/$defs/value", "description": "R. Excel's recorded answer." },
+        "correct": {
+          "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/correct" }],
+          "description": "R, may be null. The mathematically correct value, only where it is known exactly."
+        },
+        "recorded_in": {
+          "type": "string",
+          "minLength": 1,
+          "description": "R. Excel version and build, platform, bitness and CPU of the reading, with 'not recorded' for unknown parts."
+        },
+        "source": { "$ref": "#/$defs/evidence", "description": "R. Where this reading is kept." }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "propertyOrder": ["repository", "commit", "path", "locator", "note"],
+      "required": ["repository", "commit", "path", "locator", "note"],
+      "properties": {
+        "repository": {
+          "type": "string",
+          "enum": ["DnaCalc", "DnaCalc-Research", "OxFunc", "OxFunc-Evidence", "ExcelFunctionsHandbook"],
+          "description": "R. github.com/DnaCalc/<repository>."
+        },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$", "description": "R. Full commit at which path holds the cited content." },
+        "path": { "type": "string", "minLength": 1, "description": "R. Repository-relative path." },
+        "locator": { "type": ["string", "null"], "description": "R, may be null. Line, key, witness id or test name." },
+        "note": { "type": ["string", "null"], "description": "R, may be null. What this evidence is." }
+      }
+    }
+  }
+}

@@ -33,12 +33,40 @@ if (args0 == "environments" && args1 is "render" or "check")
     return stale.Count == 0 ? 0 : 1;
 }
 
+if (args0 == "notes" && args1 is "render" or "check")
+{
+    var notesRoot = FindRoot(args);
+    Console.WriteLine($"handbook root: {notesRoot}");
+    var notes = FunctionNotes.Load(notesRoot);
+    var noteErrors = FunctionNotes.Check(notesRoot, notes);
+    foreach (var err in noteErrors)
+        Console.WriteLine($"error {err}");
+    if (noteErrors.Count > 0)
+        return 1;
+    if (args1 == "render")
+    {
+        var changed = FunctionNotes.Render(notesRoot);
+        foreach (var path in changed)
+            Console.WriteLine($"wrote {path}");
+        Console.WriteLine($"{notes.Count} note(s); {changed.Count} file(s) changed");
+        return 0;
+    }
+    var staleNotes = FunctionNotes.Stale(notesRoot);
+    foreach (var path in staleNotes)
+        Console.WriteLine($"stale {path}");
+    Console.WriteLine(staleNotes.Count == 0
+        ? $"{notes.Count} note(s) valid; pages up to date"
+        : $"{staleNotes.Count} file(s) stale; run 'efh notes render'");
+    return staleNotes.Count == 0 ? 0 : 1;
+}
+
 if (args0 != "rubric" || args1 is not ("emit" or "report"))
 {
     Console.Error.WriteLine("usage: efh rubric emit   [--root <handbook-root>]");
     Console.Error.WriteLine("       efh rubric report [--root <handbook-root>]");
     Console.Error.WriteLine("       efh evidence register [--root <handbook-root>]");
     Console.Error.WriteLine("       efh environments render|check [--root <handbook-root>]");
+    Console.Error.WriteLine("       efh notes render|check [--root <handbook-root>]");
     return 2;
 }
 

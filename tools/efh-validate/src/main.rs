@@ -478,6 +478,7 @@ mod tests {
             ("content/projection-gaps.json", "f12-projection-gaps.schema.json"),
             ("content/evidence/environments/FUNC.EXP.json",
              "f19-excel-environments.schema.json"),
+            ("content/notes/FN-ROUND-001.json", "f20-function-note.schema.json"),
         ] {
             let got = r.route(p).map(|s| s.file_name.clone());
             assert_eq!(got.as_deref(), Some(want), "routing {}", p);
