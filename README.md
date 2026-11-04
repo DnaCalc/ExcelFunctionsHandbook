@@ -39,18 +39,32 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 - `vectors/` — versioned test suites (JSONL, bits-hex, hash-manifested).
 - `ledger/` — the Gneiss claims ledger and its canonical export.
 - `site/` — generated static site (plus `site/mockups/` — approved design mockups).
-- `tools/` — `efh-ingest` (Rust) and `efh` (C#).
+- `tools/` — `efh-ingest` and `efh-site` (Rust), and `efh` (C#).
 - `tests/` — vector runners, ratchets, determinism drills.
 - `docs/decisions/` — steward decision records (`EFH-DR-nnn`).
 - `docs/handoffs/` — outbound notes to sibling repos.
+
+## Build the static preview
+
+```sh
+cargo run --release --locked --manifest-path tools/efh-site/Cargo.toml -- build
+```
+
+Writes the ignored folder `site/build/`, with all 541 entry pages, function notes, a category
+index and browser-local search, The Last Bit drafts, coverage and licences. The standalone Rust
+generator does not require C# or an OxFunc checkout and does not publish anything. See
+[its commands and checks](tools/efh-site/README.md). The output describes its pre-ledger status
+and the limits of the source material; this is a local preview pending owner review.
 
 ## Status
 
 Phase H2 (design foundation) is complete. H3 (ledger bootstrap) and H4 (site v1) are `in progress`:
 the build specification is under execution, `ledger/` contains `VOCABULARY.md` only — no ledger
 database and no canonical export. A rubric-focused `efh` tool now exists and emits pre-ledger
-derivation artifacts under `site/api/`; it is not the site-v1 generator, and `site/` has no generated
-function pages or `/coverage`.
+derivation artifacts under `site/api/`. The separate `efh-site` Rust generator now builds entry
+pages, notes, `/coverage`, relative navigation, Working/Explicit reading lenses and seven source
+doors in reduced pre-ledger form. No ledger receipt, answer identity or context hash is invented.
+Generated HTML stays outside git; publication and editorial review remain owner decisions.
 The 2026-08-24 completeness audit also identifies four Microsoft-listed `FORECAST.ETS*` functions
 outside the current OxFunc/Handbook spine; they are retained as an explicit upstream inventory gap,
 not hidden behind the 541-entry denominator.

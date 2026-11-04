@@ -1,7 +1,7 @@
 "use strict";
 document.body.classList.add("js");
 const lensButtons = [...document.querySelectorAll("[data-lens]")];
-document.querySelector(".lensbar").hidden = false;
+document.querySelector(".lensbar").hidden = !document.querySelector(".explain");
 function setLens(lens, updateUrl = true) {
   document.body.classList.toggle("explicit", lens === "explicit");
   lensButtons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.lens === lens)));
@@ -20,7 +20,7 @@ if (filter) {
   const category = document.querySelector("#category-filter");
   const status = document.querySelector("#filter-status");
   const groups = [...document.querySelectorAll("#catalogue section")];
-  const normalize = value => value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase();
+  const normalize = value => value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   filter.value = new URL(location.href).searchParams.get("q") || "";
   function applyFilter() {
     const terms = normalize(filter.value).trim().split(/\s+/).filter(Boolean);
@@ -34,7 +34,7 @@ if (filter) {
       group.hidden = visible === 0;
       visible && (total += visible);
     }
-    status.textContent = `${total} matching entries out of 541. 541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows.`;
+    status.textContent = `${total} matching entries out of 541.`;
     document.querySelector("#no-results").hidden = total !== 0;
     document.querySelector(".category-nav").hidden = terms.length > 0 || category.value !== "";
   }
