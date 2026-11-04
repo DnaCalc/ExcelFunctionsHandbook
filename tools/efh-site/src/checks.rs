@@ -16,7 +16,7 @@ static BLOCK: LazyLock<Regex> = LazyLock::new(|| {
 static ENTITY: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"&(#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z]+);").unwrap());
 static EQUALITY: LazyLock<Regex> =
-    LazyLock::new(|| Regex::new(r"(?i)\bbit[\s-]+(?:exact|for[\s-]+bit)\b").unwrap());
+    LazyLock::new(|| Regex::new(r"(?i)\bbit[\s-]+(?:exact(?:ness|ly)?|for[\s-]+bit)\b").unwrap());
 static TERM: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"(?i)\b(done|complete|verified)\b").unwrap());
 static SCOPE: LazyLock<Regex> = LazyLock::new(|| {
@@ -65,7 +65,7 @@ fn decode(html: &str) -> String {
                     "quot" => "\"",
                     "apos" => "'",
                     "nbsp" => " ",
-                    "hyphen" | "dash" | "ndash" | "mdash" => "-",
+                    "hyphen" | "dash" | "ndash" | "mdash" | "minus" => "-",
                     _ => &c[0],
                 }
                 .to_string()
@@ -236,7 +236,9 @@ fn percent_decode(s: &str) -> String {
     let mut i = 0;
     while i < b.len() {
         if b[i] == b'%' && i + 2 < b.len() {
-            if let Ok(n) = u8::from_str_radix(&s[i + 1..i + 3], 16) {
+            if let Ok(n) =
+                u8::from_str_radix(std::str::from_utf8(&b[i + 1..i + 3]).unwrap_or(""), 16)
+            {
                 out.push(n);
                 i += 3;
                 continue;
@@ -252,6 +254,36 @@ fn percent_decode(s: &str) -> String {
 mod tests {
     use super::*;
     #[test]
+    fn malformed_percent_encoding_never_slices_through_a_unicode_character() {
+        assert_eq!(percent_decode("%aé"), "%aé");
+        assert_eq!(percent_decode("caf%C3%A9"), "café");
+    }
+    #[test]
+    fn dead_targets_fragments_and_reader_visible_attributes_fail_the_gate() {
+        let root = std::env::temp_dir().join(format!("efh-site-check-test-{}", std::process::id()));
+        std::fs::create_dir(&root).unwrap();
+        crate::util::write(&root,"index.html",r##"<h1 id="main">Index</h1><a href="other.html#absent">Other</a><label for="unknown">Name</label><a href="missing.html">Missing</a><p title="bit-exact">Unqualified</p>"##).unwrap();
+        crate::util::write(&root, "other.html", "<h1>Other</h1>").unwrap();
+        let error = check(&root, true, true).unwrap_err();
+        for expected in [
+            "missing fragment",
+            "missing target",
+            "missing local id",
+            "attribute: §7.8",
+        ] {
+            assert!(error.contains(expected), "{expected}: {error}");
+        }
+        crate::util::write(
+            &root,
+            "index.html",
+            r##"<h1 id="main">Index</h1><a href="other.html#present">Other</a>"##,
+        )
+        .unwrap();
+        crate::util::write(&root, "other.html", r##"<h1 id="present">Other</h1>"##).unwrap();
+        check(&root, true, true).unwrap();
+        std::fs::remove_dir_all(root).unwrap();
+    }
+    #[test]
     fn equality_language_cannot_hide_in_markup_or_entities() {
         for html in [
             "<b>bit</b>-exact",
@@ -259,6 +291,8 @@ mod tests {
             "BIT‑EXACT",
             "bit for bit",
             "bit-ex<span>act</span>",
+            "bit&minus;exact",
+            "bit-exactness",
         ] {
             assert!(!claim_issues(&text(html)).is_empty(), "{html}");
         }

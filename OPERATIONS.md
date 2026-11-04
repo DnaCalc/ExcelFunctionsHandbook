@@ -118,6 +118,7 @@ non-increasing. A regression fails CI.
 | Tool | Language | Role |
 |---|---|---|
 | `tools/efh-ingest` | Rust (path-dep on `oxfunc_core`) | Build `data/` projections + sync diffs |
+| `tools/efh-site` | Rust (standalone) | Static pre-ledger preview from data + content; local link/claim checks; no publication step |
 | `tools/efh` | C# (Gneiss.Cell) | Ledger append/ask/why/stale · site generate · suite packaging · feedback ingest · atlas |
 | `tests/` | per language | Vector runners, ratchets, determinism drills |
 
@@ -146,12 +147,12 @@ non-increasing. A regression fails CI.
 | H1 | Evaluation-context review → `content/model/` chapters | `complete` (2026-07-18, chapters 00–07 draft; 36 findings handed off) |
 | H2 | `efh-ingest` + the entry list in `data/` | `complete` (2026-07-18, 541 entries from 534 published rows; byte-stable under section 4 clause 1) |
 | H3 | Gneiss ledger bootstrap: vocabulary + public-current context declared, baseline claims appended, experimental profile emitted | `in progress` — a rubric-focused `efh` tool exists, but `ledger/` holds `VOCABULARY.md` only: no ledger database or canonical export. Nothing appended. |
-| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | `in progress` — `site/` holds `mockups/` plus rubric derivation artifacts under `/api`: no generated function pages, no `/coverage`, and no Working/Explicit lenses. |
+| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | `in progress` — standalone Rust `efh-site` generates all 541 entry pages, notes, a category/search index, homepage exhibits, draft series, coverage and licences into ignored `site/build/`. Reading lenses and seven doors state the pre-ledger boundary. Ledger-backed answer envelopes await H3; editorial review and owner publication approval remain outstanding. |
 | H5 | Depth tranche (~12 fns): curated pages, suites, claims, plates, references, first episodes; ABS+EXP full spread | `planned` — `vectors/` and `implementations/` hold `.gitkeep` only: 0 suites, 0 admitted implementations, 0 plates |
 | H6 | Evidence feedback loop v1 | `planned` |
 | H7+ | Roadmap: tranche expansion, implementation forge, atlas index, locale surfaces, per-build contexts, OneCalc embed, conformance kit | `planned` |
 
-`in progress` means work is under way and no listed deliverable is finished. It is not a partial
-completeness claim: a phase moves to `complete` only when every deliverable named in its row
-exists in the repository. The plan of record for these phases is the approved scoped plan
+`in progress` means work is under way with unfinished deliverables. Each row names what exists
+and what is missing; it is not a partial completeness claim. A phase moves to `complete` only
+when every deliverable named in its row exists in the repository. The plan of record for these phases is the approved scoped plan
 (session-archived); this register is the living truth once phases start moving.

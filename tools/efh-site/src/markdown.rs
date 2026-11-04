@@ -44,17 +44,9 @@ impl Renderer<'_> {
         let (path, fragment) = url.split_once('#').unwrap_or((url, ""));
         let p = normalize(&Path::new(source).parent().unwrap().join(path))?;
         let p = p.to_str()?;
-        let target = self.routes.get(p).cloned().or_else(|| {
-            // A function can lack prose but still has its projection page.
-            let id = Path::new(p).file_stem()?.to_str()?;
-            if p.starts_with("content/functions/") {
-                self.routes
-                    .get(&format!("data/functions/{id}.json"))
-                    .cloned()
-            } else {
-                None
-            }
-        });
+        // Every canonical Markdown function path is registered, including the
+        // entries whose prose is absent. JSON paths retain their JSON target.
+        let target = self.routes.get(p).cloned();
         if let Some(target) = target {
             Some(format!(
                 "{}{}",
@@ -93,7 +85,10 @@ impl Renderer<'_> {
         markdown: &str,
         strip_notes: bool,
     ) -> String {
-        let markdown = body(markdown);
+        // The Windows curator preserves CRLF in Git (* -text). Parse a
+        // normalized in-memory copy; never rewrite the source organ.
+        let normalized = markdown.replace("\r\n", "\n");
+        let markdown = body(&normalized);
         let stripped;
         let markdown = if strip_notes {
             stripped = Regex::new(r"(?s)## Notes\s*<!-- efh:notes begin:.*?<!-- efh:notes end -->")
@@ -236,6 +231,13 @@ mod tests {
         assert!(!h.contains("Old text"));
         assert!(h.contains("Sources"));
         assert_eq!(body(text).lines().next(), Some("# X"));
+        let crlf = r.render(
+            "content/functions/FUNC.X.md",
+            "functions/X.html",
+            &text.replace('\n', "\r\n"),
+            true,
+        );
+        assert_eq!(h, crlf);
     }
     #[test]
     fn escape_raw_html_and_withhold_claims_without_altering_source() {

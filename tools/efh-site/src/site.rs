@@ -14,7 +14,7 @@ fn page(path: &str, title: &str, body: &str, home: bool) -> String {
     format!(
         r##"<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><title>{title} · The Handbook of Excel Functions</title><link rel="stylesheet" href="{css}"><script src="{js}" defer></script></head>
-<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{coverage}">Coverage</a></nav><div class="lensbar" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
+<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{coverage}">Coverage</a></nav><div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
 <main id="main" tabindex="-1"{class}>{body}</main><footer><p>{reconciliation}.</p><p><a href="{licence}">Content: CC BY 4.0 · Code: MIT</a> · <a href="{rules}">How to read the claims</a> · <a href="{api}">Static JSON index</a> · No tracking.</p><p class="small">The Handbook of Excel Functions · DNA Kode. Independent of Microsoft.</p></footer></div></body></html>"##,
         title = esc(title),
         css = link("assets/style.css"),
@@ -55,6 +55,7 @@ struct Inputs {
     notes: Vec<Value>,
     curated: BTreeSet<String>,
     revision: String,
+    tree_state: String,
     note_api_matches: bool,
 }
 impl Inputs {
@@ -85,13 +86,38 @@ impl Inputs {
                 return Err(format!("invalid or duplicate function id {id:?}"));
             }
             let f = json(&repo.join(format!("data/functions/{id}.json")))?;
-            if s(&f["function_id"]) != id {
-                return Err(format!("projection id does not match filename: {id}"));
+            if s(&f["function_id"]) != id
+                || f["entry_kind"] != row["entry_kind"]
+                || f["surface_name"] != row["surface_name"]
+                || f["category"] != row["category"]
+            {
+                return Err(format!(
+                    "projection identity/category disagrees with index row: {id}"
+                ));
             }
             if repo.join(format!("content/functions/{id}.md")).is_file() {
                 curated.insert(id.to_string());
             }
             functions.push(f);
+        }
+        let published_rows = functions
+            .iter()
+            .map(|f| s(&f["published_row_id"]))
+            .collect::<BTreeSet<_>>();
+        if functions
+            .iter()
+            .filter(|f| f["entry_kind"] == "built_in_function")
+            .count()
+            != 518
+            || functions
+                .iter()
+                .filter(|f| f["entry_kind"] == "built_in_operator")
+                .count()
+                != 23
+            || published_rows.len() != 534
+            || published_rows.contains("")
+        {
+            return Err("entry projections do not reconcile to 518 functions, 23 operators and 534 published rows".into());
         }
         let mut notes = Vec::new();
         let mut note_ids = BTreeSet::new();
@@ -116,6 +142,37 @@ impl Inputs {
             let subjects = note["functions"]
                 .as_array()
                 .ok_or_else(|| format!("{id}: missing functions"))?;
+            if subjects.is_empty()
+                || [
+                    "title",
+                    "statement",
+                    "status",
+                    "kind",
+                    "basis",
+                    "recorded_on",
+                ]
+                .iter()
+                .any(|key| s(&note[key]).is_empty())
+                || note["repros"]
+                    .as_array()
+                    .is_none_or(|repros| repros.is_empty())
+            {
+                return Err(format!(
+                    "{id}: note lacks a title, statement, scope, subjects or reproductions"
+                ));
+            }
+            if !matches!(
+                s(&note["kind"]),
+                "excel-differs-from-math"
+                    | "documentation-differs"
+                    | "quirk"
+                    | "bit-matching-detail"
+            ) || !matches!(s(&note["status"]), "measured" | "inferred")
+            {
+                return Err(format!(
+                    "{id}: unknown note kind or status; review the note index taxonomy"
+                ));
+            }
             for subject in subjects {
                 if !ids.contains(s(subject)) {
                     return Err(format!("{id}: unknown function {subject}"));
@@ -130,6 +187,12 @@ impl Inputs {
             .clone();
         api_notes.sort_by_key(|n| s(&n["note_id"]).to_string());
         let note_api_matches = api_notes == notes;
+        if files(&repo.join("ledger"))?.iter().any(|p| {
+            p.extension().is_none_or(|ext| ext != "md")
+                && p.file_name().is_some_and(|name| name != ".gitkeep")
+        }) {
+            return Err("ledger artifacts are now present: integrate their answer envelopes before using the pre-ledger renderer".into());
+        }
         // Suite admission belongs to the existing pipeline; do not invent warrants if new
         // suites or implementations arrive without integration into this renderer.
         if files(&repo.join("vectors"))?
@@ -154,19 +217,85 @@ impl Inputs {
             .map_err(|e| e.to_string())?
             .trim()
             .to_string();
+        let status = std::process::Command::new("git")
+            .arg("-C")
+            .arg(repo)
+            .args(["status", "--porcelain", "--untracked-files=normal"])
+            .output()
+            .map_err(|e| e.to_string())?;
+        if !status.status.success() {
+            return Err("cannot determine source working-tree state".into());
+        }
+        let tree_state = if status.stdout.is_empty() {
+            "clean"
+        } else {
+            "dirty"
+        }
+        .to_string();
         Ok(Self {
             index,
             functions,
             notes,
             curated,
             revision,
+            tree_state,
             note_api_matches,
         })
     }
 }
 
+fn ensure_output_directory(out: &Path) -> Result<(), String> {
+    if out
+        .symlink_metadata()
+        .is_ok_and(|m| m.file_type().is_symlink())
+    {
+        return Err(format!("refusing symlink output {}", out.display()));
+    }
+    if out.exists()
+        && (!out.is_dir()
+            || (!out.join(MARKER).is_file()
+                && std::fs::read_dir(out)
+                    .map_err(|e| e.to_string())?
+                    .next()
+                    .is_some()))
+    {
+        return Err(format!(
+            "refusing to replace nonempty unmarked directory {}",
+            out.display()
+        ));
+    }
+    Ok(())
+}
+fn install_output(stage: &Path, out: &Path) -> Result<(), String> {
+    ensure_output_directory(out)?;
+    let previous = stage.with_file_name(format!(".efh-site-previous-{}", std::process::id()));
+    if previous.exists() {
+        return Err(format!(
+            "previous build backup already exists: {}",
+            previous.display()
+        ));
+    }
+    let had_previous = out.exists();
+    if had_previous {
+        std::fs::rename(out, &previous).map_err(|e| e.to_string())?;
+    }
+    if let Err(e) = std::fs::rename(stage, out) {
+        if had_previous {
+            std::fs::rename(&previous, out).map_err(|rollback| {
+                format!(
+                    "install failed: {e}; rollback failed: {rollback}; previous output is at {}",
+                    previous.display()
+                )
+            })?;
+        }
+        return Err(format!("install failed, earlier output preserved: {e}"));
+    }
+    if had_previous {
+        std::fs::remove_dir_all(&previous).map_err(|e| e.to_string())?;
+    }
+    Ok(())
+}
 pub fn build(repo: &Path, out: &Path) -> Result<(), String> {
-    let input = Inputs::load(repo)?;
     let out = if out.is_absolute() {
         out.to_path_buf()
     } else {
@@ -174,18 +303,8 @@ pub fn build(repo: &Path, out: &Path) -> Result<(), String> {
             .map_err(|e| e.to_string())?
             .join(out)
     };
-    if out.exists()
-        && !out.join(MARKER).is_file()
-        && std::fs::read_dir(&out)
-            .map_err(|e| e.to_string())?
-            .next()
-            .is_some()
-    {
-        return Err(format!(
-            "refusing to replace nonempty unmarked directory {}",
-            out.display()
-        ));
-    }
+    ensure_output_directory(&out)?;
+    let input = Inputs::load(repo)?;
     let parent = out.parent().ok_or("output must have a parent")?;
     std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     let stage = parent.join(format!(".efh-site-stage-{}", std::process::id()));
@@ -195,11 +314,7 @@ pub fn build(repo: &Path, out: &Path) -> Result<(), String> {
         let _ = std::fs::remove_dir_all(&stage);
         return Err(e);
     }
-    // Only directories created and marked by this tool can be removed.
-    if out.exists() {
-        std::fs::remove_dir_all(&out).map_err(|e| e.to_string())?;
-    }
-    std::fs::rename(&stage, &out).map_err(|e| e.to_string())?;
+    install_output(&stage, &out)?;
     let paths = files(&out)?;
     let bytes: u64 = paths
         .iter()
@@ -226,7 +341,10 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     for f in &input.functions {
         let id = s(&f["function_id"]);
         let dest = function_path(id);
-        routes.insert(format!("data/functions/{id}.json"), dest.clone());
+        routes.insert(
+            format!("data/functions/{id}.json"),
+            format!("api/functions/{id}.json"),
+        );
         routes.insert(format!("content/functions/{id}.md"), dest);
         write(
             out,
@@ -236,6 +354,8 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     }
     routes.insert("content/notes/NOTES.md".into(), "notes/index.html".into());
     routes.insert("site/api/notes.json".into(), "api/notes.json".into());
+    routes.insert("data/index.json".into(), "api/index.json".into());
+    routes.insert("site/api/rubric.json".into(), "api/rubric.json".into());
     for path in files(&repo.join("content/model"))? {
         if path.extension().is_some_and(|x| x == "md") {
             let src = path
@@ -265,7 +385,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         if name.starts_with("MATERIAL_") || path.extension().is_none_or(|x| x != "md") {
             continue;
         }
-        let raw = read(&path)?;
+        let raw = read(&path)?.replace("\r\n", "\n");
         let src = path
             .strip_prefix(repo)
             .unwrap()
@@ -390,7 +510,11 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         "Licences and attribution",
         &licences,
     )?;
-    output(out, "rules/index.html", "Reading the claims", RULES)?;
+    let rules = format!(
+        "{RULES}<p><a href=\"{}\">Read the governing charter</a>.</p>",
+        source_link(&input.revision, "CHARTER.md")
+    );
+    output(out, "rules/index.html", "Reading the claims", &rules)?;
     let withheld = r.withheld;
     let unresolved = r.unresolved;
     coverage(out, input, &withheld, &unresolved)?;
@@ -410,7 +534,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             )?;
         }
     }
-    write(out,"api/build.json",&serde_json::to_string_pretty(&json!({"schema":"efh.static-build/v1","source_revision":input.revision,"basis_mode":"pre-ledger","entry_pages":541,"curated_prose_files":input.curated.len(),"notes":input.notes.len(),"input_notes_api_matches_sources":input.note_api_matches,"withheld_passages":withheld,"unresolved_source_references":unresolved,"reconciliation":RECONCILIATION})).unwrap())?;
+    write(out,"api/build.json",&serde_json::to_string_pretty(&json!({"schema":"efh.static-build/v1","source_revision":input.revision,"source_tree_state":input.tree_state,"basis_mode":"pre-ledger","entry_pages":541,"curated_prose_files":input.curated.len(),"notes":input.notes.len(),"input_notes_api_matches_sources":input.note_api_matches,"withheld_passages":withheld,"unresolved_source_references":unresolved,"reconciliation":RECONCILIATION})).unwrap())?;
     Ok(())
 }
 
@@ -521,11 +645,16 @@ fn provenance(input: &Inputs, f: &Value) -> String {
 fn doors(input: &Inputs, f: &Value, dest: &str) -> String {
     let id = s(&f["function_id"]);
     let source = format!("data/functions/{id}.json");
+    let history_source = if input.curated.contains(id) {
+        format!("content/functions/{id}.md")
+    } else {
+        source.clone()
+    };
     format!(
         r#"<section class="doors" aria-labelledby="accountability"><h2 id="accountability">Why, sources and limits</h2><p>Pre-ledger view. No ledger receipt, answer identity or context hash has been issued. Working and Explicit expand the same source record.</p>
 <details><summary>Why</summary><p>Metadata is read from the committed projection; curated prose and note JSON are rendered when present. Curation labels describe file presence, without a claim of behavioural completeness.</p></details>
 <details><summary>Sources</summary><p>{raw} · <a href="{source}">Repository projection</a> · <a href="{notes}">Note records</a></p></details>
-<details><summary>As of</summary><p>Source checkout <code>{revision}</code>. The projection's export and registry bases differ; see Source limits above. Each note states its own capture context.</p></details>
+<details><summary>As of</summary><p>Source checkout <code>{revision}</code>, working tree {tree_state}. The projection's export and registry bases differ; see Source limits above. Each note states its own capture context.</p></details>
 <details><summary>Rules</summary><p>{rules}. No suite-backed equality label is available while Handbook suites are absent.</p></details>
 <details><summary>History</summary><p><a href="{history}">Repository history for this entry</a>. No ledger decision history is available.</p></details>
 <details><summary>Limits</summary><p>No Handbook suite, admitted implementation or ledger warrant. Projected source facts can be stale; per-entry prose and notes state further limits. Mathematical arguments do not establish behaviour in Excel.</p></details>
@@ -534,11 +663,9 @@ fn doors(input: &Inputs, f: &Value, dest: &str) -> String {
         source = source_link(&input.revision, &source),
         notes = esc(&relative(dest, "api/notes.json")),
         revision = esc(&input.revision),
+        tree_state = esc(&input.tree_state),
         rules = a(dest, "rules/index.html", "Claim-language rules"),
-        history = format_args!(
-            "{SOURCE}/commits/{}/content/functions/{id}.md",
-            input.revision
-        )
+        history = format_args!("{SOURCE}/commits/{}/{history_source}", input.revision)
     )
 }
 
@@ -577,7 +704,13 @@ fn source_ref(source: &Value, dest: &str, r: &mut Renderer) -> String {
 }
 fn render_note(note: &Value, dest: &str, r: &mut Renderer) -> String {
     let id = s(&note["note_id"]);
-    let mut h=format!("<article class=\"note\" id=\"{}\"><h3>{}: {}</h3><p class=\"small\">{} · {} · recorded {}</p><p>{}</p>",esc(id),esc(id),esc(s(&note["title"])),esc(s(&note["kind"])),esc(s(&note["status"])),esc(s(&note["recorded_on"])),esc(s(&note["statement"])));
+    let kind = match s(&note["kind"]) {
+        "excel-differs-from-math" => "Excel differs from the mathematical answer",
+        "documentation-differs" => "Documentation differs from behaviour",
+        "bit-matching-detail" => "Detail for matching Excel's bits",
+        _ => "Quirk",
+    };
+    let mut h=format!("<article class=\"note\" id=\"{}\"><h3>{}: {}</h3><p class=\"small\">{} · {} · recorded {}</p><p>{}</p>",esc(id),esc(id),esc(s(&note["title"])),esc(kind),esc(s(&note["status"])),esc(s(&note["recorded_on"])),esc(s(&note["statement"])));
     if note["documentation"].is_object() {
         let doc = &note["documentation"];
         let sources = regex::Regex::new(r"https?://[^\s;]+")
@@ -748,7 +881,7 @@ fn function_index(out: &Path, input: &Inputs) -> Result<(), String> {
     for category in categories.keys() {
         h += &format!("<option>{}</option>", esc(category));
     }
-    h+="</select><p id=\"filter-status\" role=\"status\" aria-live=\"polite\"></p></div><nav class=\"category-nav\" aria-label=\"Categories\">";
+    h+=&format!("</select><p id=\"filter-status\" role=\"status\" aria-live=\"polite\"></p><p class=\"small\">{RECONCILIATION}.</p></div><nav class=\"category-nav\" aria-label=\"Categories\">");
     for category in categories.keys() {
         h += &format!("<a href=\"#{}\">{}</a>", slug(category), esc(category));
     }
@@ -799,7 +932,7 @@ fn homepage(
     episodes: &[(String, String, String, bool)],
 ) -> Result<(), String> {
     let dest = "index.html";
-    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">Every worksheet function, described honestly — down to the last bit.</p><p class=\"explain\">This is a reference in progress. Projected metadata, curated explanations and recorded observations are labelled separately. No Handbook test suites or ledger receipts have been published.</p></div><form class=\"searchrow\" action=\"functions/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" placeholder=\"ROUND, XLOOKUP, payment…\"><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"functions/index.html\">Browse all 541 entries by category →</a></p>");
+    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">Every catalogued entry, described honestly — with its evidence and limits.</p><p class=\"explain\">This is a reference in progress. Projected metadata, curated explanations and recorded observations are labelled separately. No Handbook test suites or ledger receipts have been published.</p></div><form class=\"searchrow\" action=\"functions/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" placeholder=\"ROUND, XLOOKUP, payment…\"><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"functions/index.html\">Browse all 541 entries by category →</a></p>");
     if let Some(n) = input.notes.iter().find(|n| n["note_id"] == "FN-ROUND-001") {
         let repro = &n["repros"][0];
         h+=&format!("<section class=\"card featured\" aria-labelledby=\"featured-note\"><p class=\"eyebrow\">From the measurement record</p><h2 id=\"featured-note\">{}</h2><div class=\"answer-comparison\"><div><span class=\"small\">Excel's recorded answer</span><strong>{}</strong></div><div><span class=\"small\">Mathematical value</span><strong>{}</strong></div></div><p><code>{}</code></p><p class=\"small\">{}</p><p>{} →</p></section>",esc(s(&n["title"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]),esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),a(dest,&format!("notes/{}.html",s(&n["note_id"])),"Read the inputs, evidence and limits"));
@@ -859,7 +992,10 @@ fn coverage(
     );
     h+="<h2>Evidence and provenance</h2><p>This is a pre-ledger presentation of committed projections, curated prose and observation notes. The repository has no ledger database or canonical claim export. No ledger claim counts, freshness checks or receipts are asserted here. The downloadable rubric is an earlier derivation snapshot; its counters are not this build's curation counters.</p>";
     h += &provenance(input, &Value::Null);
-    h+=&format!("<p>Source revision: <code>{}</code>. <a href=\"../api/build.json\">Build inventory and editorial findings</a> · <a href=\"../api/rubric.json\">Earlier rubric derivation JSON</a>.</p>",esc(&input.revision));
+    h+=&format!("<p>Source revision: <code>{}</code>, working tree {}. <a href=\"../api/build.json\">Build inventory and editorial findings</a> · <a href=\"../api/rubric.json\">Earlier rubric derivation JSON</a>.</p>",esc(&input.revision),esc(&input.tree_state));
+    if input.tree_state == "dirty" {
+        h+="<p class=\"notice\">This build includes local changes. Its source revision alone cannot reproduce the folder; review and commit those changes before selecting an artifact for publication.</p>";
+    }
     h+=&format!("<h2>Editorial limits</h2><p>{} source passages are visibly withheld because their wording fails the rendered claim-language gate. The sources remain unchanged. The build inventory records their source paths and excerpts for review. Automated checks detect forbidden phrases, common unscoped status wording and missing count reconciliation; editorial review is still required to assess the meaning and evidence of every claim.</p>",withheld.len());
     if !unresolved.is_empty() {
         h+=&format!("<p>{} source links do not resolve to a known repository file. They link to the citing source page for inspection. These references require editorial review; no local dead link is substituted.</p>",unresolved.len());
@@ -873,6 +1009,26 @@ const RULES: &str = r#"<h1>How to read the claims</h1><p>This site follows Chart
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn output_replacement_preserves_unowned_files_and_rolls_back_on_install_failure() {
+        let scratch =
+            std::env::temp_dir().join(format!("efh-site-install-test-{}", std::process::id()));
+        std::fs::create_dir(&scratch).unwrap();
+        let out = scratch.join("output");
+        let stage = scratch.join("stage");
+        write(&out, "valuable.txt", "user content").unwrap();
+        write(&stage, MARKER, "generated").unwrap();
+        write(&stage, "index.html", "new generation").unwrap();
+        assert!(install_output(&stage, &out).is_err());
+        assert_eq!(read(&out.join("valuable.txt")).unwrap(), "user content");
+        write(&out, MARKER, "generated").unwrap();
+        assert!(install_output(&scratch.join("missing-stage"), &out).is_err());
+        assert_eq!(read(&out.join("valuable.txt")).unwrap(), "user content");
+        install_output(&stage, &out).unwrap();
+        assert!(!out.join("valuable.txt").exists());
+        assert_eq!(read(&out.join("index.html")).unwrap(), "new generation");
+        std::fs::remove_dir_all(scratch).unwrap();
+    }
     #[test]
     fn real_corpus_reconciles_and_two_builds_have_identical_bytes() {
         let repo = Path::new(env!("CARGO_MANIFEST_DIR"))
