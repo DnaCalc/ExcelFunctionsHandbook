@@ -1,6 +1,6 @@
 <#
 How Excel treats the NaN bit pattern ROUND returns near DBL_MAX, downstream of the cell.
-Same rules as codex-runs\spot-check\excel_runner.ps1: its own Excel instance (PID checked),
+Rules: its own Excel instance (process id checked),
 a new blank workbook, inputs as doubles through Value2, quits only that instance. The workbook
 is saved once as .xlsx into this script's folder so the stored <v> can be read.
 #>

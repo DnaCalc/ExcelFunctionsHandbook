@@ -24,7 +24,7 @@ helpers (hardware x87 on x86_64, software x87 elsewhere).
 ## Before / after (full bank, every function)
 
 Command, run in a source snapshot of DnaCalc `6073fff1` (not the orchestrator's clone), with
-`DNACALC_LEGACY_ROOT=C:\Work\DnaCalc`:
+the evidence repository beside it:
 
 ```text
 cargo xtask witness judge --bank full --trace full-before.trace     (unpatched)

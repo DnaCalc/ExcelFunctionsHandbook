@@ -1,20 +1,17 @@
-Annuity family: research round (Opus), 2026-11-04
+Annuity family: research round, 2026-11-04
 =================================================
 
 Outcome: blocked. No patch is offered. Nothing below changes product code, answers or the tracker.
 
-Application revision measured: 6073fff1 (C:\Work\DnaCalc\DnaCalc and the firehorse scratch clone
-~/claude-work/annuity/DnaCalc, same revision). Evidence: ~/projects/DnaCalc/OxFunc-Evidence 4cb48d15
-(read only, through DNACALC_LEGACY_ROOT).
+Application revision measured: 6073fff1. Evidence: OxFunc-Evidence 4cb48d15 (read only).
 
 Baseline (current product), full bank, per function
-  command: DNACALC_LEGACY_ROOT=$HOME/projects/DnaCalc ./target/release/xtask-harness witness judge
-           --bank full --func F --trace ../traces/base-F.jsonl     (firehorse, ~/claude-work/annuity/DnaCalc)
+  command: xtask-harness witness judge --bank full --func F --trace ../traces/base-F.jsonl
   PMT      222,823 / 291,978 matched     IPMT   30 / 57      PPMT   9 / 33
   CUMIPMT       12 / 38                  CUMPRINC 232 / 586  FV  2,264 / 2,561   PV 1,146 / 1,308
 Corpus (catalogue oracle captures, the only workbooks with annuity cells):
   mismatches PMT 1, IPMT 80, PPMT 104, CUMIPMT 67, CUMPRINC 157, RATE 3
-  (counts from ~/projects/DnaCalc/DnaCalc/target/problem-functions-xb08uth2/classification/cells.jsonl)
+  (counts from the problem-functions classification)
 
 Findings (exact, reproducible from files in this folder)
 -------------------------------------------------------
@@ -88,11 +85,57 @@ Q4  (does PPMT reuse PMT?) =PPMT(r,k,n,pv) beside =PMT(r,n,pv)*POWER(1+r,k-1-n) 
 
 Files (this folder)
 -------------------
-corpus-annuity-cells.jsonl  corpus mismatches (from the firehorse problem-functions run)
+corpus-annuity-cells.jsonl  corpus mismatches (from the problem-functions run)
 catalogue-annuity.jsonl     all 748 annuity formulas of the catalogue captures with Excel bits
 base-*.jsonl                bank judge traces (current product)
 structtest.py einv.py rnd.py exact.py   exact consumer-order tests and em pinning (Python, Fraction)
 einv-all.jsonl edata.txt    pinned em per (rate, nper) group
-probe_em.rs probe_pp.rs     research probes (built as cfg(test) modules of calc-func in the
-                            firehorse scratch clone only; not for landing)
+probe_em.rs probe_pp.rs     research probes (built as cfg(test) modules of calc-func in a
+                            scratch clone only; not for landing)
 emdump.txt                  per-group em, product em, log1p, t, exp(t), reproducing t shifts
+
+
+UPDATE, same day: Excel questions asked, two steps landed on master (9ee28020)
+=============================================================================
+This section supersedes "Outcome: blocked" above. Corrections to the text above:
+- F2 "a log1p routine is not the whole cause" was wrong. One double L per rate explains every
+  nper (1,622/1,622 and 1,849/1,849), and that L is a non-correctly-rounded series.
+- F4 "PPMT does not reuse PMT's em" was only half right: PPMT uses exp(t), not 1+em.
+
+Commits: 08ea3d7a (PMT logarithm and quotient), 6c6cbd31 (IPMT/PPMT), both dc-j9k.12.
+
+Identified (type 0, -1/3 <= rate <= 1/2), RN = RN53(RN64(.)):
+  L     = 2s + 2s*(s^2*T), s = r/(2+r), T = 1/3 + s^2/5 + ... + s^20/23, all binary64
+  em_m  = x87 Kahan expm1(-(m*L)); u_m = x87 exp(-(m*L))
+  q     = RN(N/em_n)
+  PMT   = RN(q*r)
+  IPMT  = -RN(RN(RN(q*em_m) - RN(fv*u_m))*r)
+  PPMT  = RN(RN(RN(q-fv)*u_m)*r)
+  fv 0, type 0 scores: PMT 11,706/11,712 (5% sample of the bank) and 720/720 fresh Excel;
+  IPMT 95/95; PPMT 74/74 and 64/64 fresh Excel.
+
+Full bank, before -> after:
+  PMT 222,823 -> 279,887 / 291,978    IPMT 30 -> 48 / 57    PPMT 9 -> 26 / 33
+  CUMIPMT 12 -> 12 / 38               CUMPRINC 232 -> 185 / 586
+  FV, PV unchanged; NPER and RATE not re-judged (they do not call the changed code).
+Corpus, catalogue cells, gained/lost:
+  PMT +1/-0, IPMT +24/-2, PPMT +50/-2, CUMIPMT +7/-5, CUMPRINC +13/-6.
+
+Open, in order:
+1. Type-1 factor K. X(q*K) with one binary64 K per rate holds on 458 of 459 bank rates and 20/20
+   fresh rates. Pinned K values: excel/b1-model.tsv + b1an.py, kpin.txt. Tried and failed:
+   correctly rounded r/(1+r) (344/458), r/D(1+r), r*D(1/(1+r)), -em1, r*(1+em1), r*exp(-L),
+   a/(1+a) with a = expm1(L), 2s/(1+s), and annuity-due forms on em_(n-1).
+2. PMT fv numerator. Best X(X(pv+fv)+X(fv*em)) 5,600/7,491; 146 rows admit no binary64 N.
+   N on u_n, and splitting q into pv and fv quotients, do no better (<= 5,120/7,484).
+3. CUMPRINC per-period route: 56/135 type-0 singletons equal PPMT. Recurrences, closed balances
+   and count*P less interest are all below that.
+4. Rates outside -1/3..1/2 keep the old logarithm. The range is where 12 terms converge, not a
+   measured Excel boundary. Rate 0.419 (near sqrt(2)-1) misses by 1 ulp, so a reduction may start
+   there. Negative-rate em was only checked on 20 rates' controls and the bank.
+
+Questions: excel/questions-b1.tsv, excel/answers-b1.tsv (1,984 rows, Excel 16.0 build 20527, own
+instance, 0 input read-back differences). Q3 was asked. Q2 was answered from the bank without
+asking. Q1 and Q4 were not asked: the series made them unnecessary.
+Sources: A&S 4.1.27, Intel SDM x87, Excel's outputs (tier 1); fdlibm's log1p was tested from memory
+of its published form (tier 2) and rejected. No tier 3 or 4 source was read.
