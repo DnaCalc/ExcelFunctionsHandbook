@@ -271,9 +271,9 @@ Evidence:
   sign of `x` is stated**).
 - Abramowitz & Stegun, *Handbook of Mathematical Functions*, 9.8.5 to 9.8.8 — the polynomial
   approximations.
-- NIST Digital Library of Mathematical Functions, chapter 10, sections 10.25 to 10.32 and 10.40 —
-  <https://dlmf.nist.gov/10.25> (definitions, the relation to J_n and Y_n, recurrence, cross-product,
-  integral form and limiting forms).
+- NIST Digital Library of Mathematical Functions, chapter 10, sections 10.25 to 10.32, 10.34 and
+  10.40 — <https://dlmf.nist.gov/10.25> (definitions, the relation to J_n and Y_n, recurrence,
+  cross-product, integral form, limiting forms and the negative axis).
 - The recorded Excel answers the notes below draw on: 1,236 `BESSELK` calls on Excel 16.0 build
   20430, Windows 64-bit, CPU not recorded, captured 2026-09-29. Statements on this page that go
   beyond the notes (the domain and sign-test counts, the spot check, and the per-order errors) were

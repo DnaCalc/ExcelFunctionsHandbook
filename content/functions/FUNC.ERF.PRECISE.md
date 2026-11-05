@@ -96,8 +96,8 @@ and `ERF.PRECISE(NA())` is `#N/A`. No `#NUM!` is documented, and none appears in
   value. From 0.5 up the relation runs the other way, as *Numerical notes* describes.
 - **[GAUSS](FUNC.GAUSS.md)** and **[NORM.S.DIST](FUNC.NORM.S.DIST.md)** — the normal distribution in
   this function's terms.
-- **[GAMMA.DIST](FUNC.GAMMA.DIST.md)** — mathematically, erf(x) = P(½, x²), where P is the
-  regularized lower incomplete gamma function. Evidence record `EV-DIST-0026` holds the
+- **[GAMMA.DIST](FUNC.GAMMA.DIST.md)** — mathematically, erf(x) = P(½, x²) for x ≥ 0, where P is
+  the regularized lower incomplete gamma function. Evidence record `EV-DIST-0026` holds the
   Excel-against-Excel comparison: `GAMMA.DIST(k²/1024, 1/2, 1, TRUE)` against `ERF.PRECISE(k/32)`.
 
 ## Numerical notes

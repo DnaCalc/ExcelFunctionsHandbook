@@ -16,7 +16,7 @@ references:
     role: "definition, series, and the relation to erfc"
   - work: "NIST Digital Library of Mathematical Functions, chapter 7"
     locator: "https://dlmf.nist.gov/7.2"
-    role: "definition, symmetry, and the relation to the incomplete gamma function"
+    role: "definition (7.2), symmetry (7.4) and the relation to the incomplete gamma function (7.11)"
 episodes: []
 body_sections:
   - What it computes
@@ -336,8 +336,8 @@ Evidence:
   <https://support.microsoft.com/en-us/office/erf-function-c53c7e7b-5482-4b6c-883e-56df3c9af349>
   (the description, syntax, argument meanings, the two `#VALUE!` remarks and the two examples).
 - Abramowitz & Stegun, *Handbook of Mathematical Functions*, §7.1; NIST Digital Library of
-  Mathematical Functions, §7.2, §7.6 and §7.11 — <https://dlmf.nist.gov/7.2> (definition, series,
-  symmetry, asymptotics and the incomplete-gamma relation).
+  Mathematical Functions, §7.2, §7.4, §7.6, §7.11 and §7.12 — <https://dlmf.nist.gov/7.2>
+  (definition, symmetry, series, the incomplete-gamma relation and asymptotics).
 - The recorded Excel answers the notes below draw on, and those this page adds to them: argument
   probes on Excel 16.0 build 20026 and build 20527; the single-argument `ERF` answers on build
   19929; and the `ERF.PRECISE` and `ERFC.PRECISE` answers on build 20131, AMD Ryzen 7 4800H. The

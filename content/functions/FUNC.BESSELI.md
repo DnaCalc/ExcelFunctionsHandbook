@@ -161,10 +161,10 @@ check truncates first, so an `n` between −1 and 0 is evaluated as order 0 inst
 **These are low-order polynomials, by design.** Orders 0 and 1 are the polynomial approximations
 printed in Abramowitz & Stegun as 9.8.1 to 9.8.4: one polynomial in (x/3.75)² for |x| < 3.75 and
 one in 3.75/|x|, multiplied by e^|x|/√|x|, from 3.75 up. The coefficients carry seven or eight
-decimal places, and these forms are good to about 2E-7 on their own scale. In the large-`x` form
-that scale is a factor near 0.4, so the relative error of I_0 can reach about twice that; the
-largest recorded at order 0 is 4.7E-7, at x = 100. The notes below measure the result: correctly
-rounded on 2 of 1,163 recorded rows. Treat the answer as a seven-digit figure.
+decimal places, and the printed error bounds reach 1.9E-7 for I_0 and 2.2E-7 for I_1 on each
+form's own scale. In the large-`x` form that scale is a factor near 0.4, so the relative error of
+I_0 can reach about 2.5 times the bound; the largest recorded at order 0 is 4.7E-7, at x = 100. The
+notes below measure the result: correctly rounded on 2 of 1,163 recorded rows. Treat the answer as a seven-digit figure.
 
 **There is a seam at 3.75, and Excel shows it.** Two different polynomials meet there and they do
 not agree exactly. Build 20527 reads I_0 at adjacent doubles: the double below 3.75 is on the small
@@ -392,9 +392,9 @@ Evidence:
   value; the page's defining equation is an image and was not read as text).
 - Abramowitz & Stegun, *Handbook of Mathematical Functions*, 9.8.1 to 9.8.4 — the polynomial
   approximations and their printed error bounds.
-- NIST Digital Library of Mathematical Functions, chapter 10, sections 10.25 to 10.32 and 10.40 —
-  <https://dlmf.nist.gov/10.25> (definitions, the relation to J_n, recurrence, cross-product,
-  integral form, parity and asymptotics).
+- NIST Digital Library of Mathematical Functions, chapter 10, sections 10.25 to 10.32, 10.34 and
+  10.40 — <https://dlmf.nist.gov/10.25> (definitions, the relation to J_n, recurrence,
+  cross-product, integral form, parity and asymptotics).
 - Press et al., *Numerical Recipes in C*, routines `bessi0`, `bessi1` and `bessi` — the
   backward-recurrence presentation the reference engine's source names.
 - The recorded Excel answers the notes below draw on: 1,236 `BESSELI` calls on Excel 16.0 build
