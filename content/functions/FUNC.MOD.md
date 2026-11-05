@@ -126,7 +126,9 @@ Three features of that finding are worth separating:
    representable; Excel declines to produce it. The upstream catalogue records this as a
    deliberate Excel deviation, and the stated cause is that Excel recovers the remainder from
    `n − d·INT(n/d)` and cannot once `INT(n/d)` exceeds its internal magnitude limit — that is,
-   the documented *formula* is the cause of the undocumented *error*.
+   the documented *formula* is the cause of the undocumented *error*. FN-MOD-001 does not bear
+   that cause out: it reads the remainder as exact. The ceiling stands as recorded; this account
+   of why does not.
 3. **"Matching Excel" here means reproducing the refusal.** The evidence record's own reader
    warning says so. An implementation that returns the mathematically correct remainder above the
    threshold is more correct and less compatible, and the four-flavour framework

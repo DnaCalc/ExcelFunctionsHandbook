@@ -80,8 +80,9 @@ Returns a `Number`: a whole date serial with no time component.
   [coercion chapter](../model/02-coercion-and-lifting.md) already flags the broader text-to-number
   recognizer as an open area with a locale-dependent surface that has been probed only at the
   edges; `DATEVALUE` is where that open area is most exposed.
-- **Two-digit years** have a pivot convention (some window mapping "24" to 2024 rather than 1924)
-  that this page does not state, because the documentation does not and nobody has checked.
+- **Two-digit years** have a pivot convention that the documentation does not state. Through
+  `VALUE`, in en-ZA year-month-day order, FN-VALUE-002 reads "24/2/1" as 2024 and "1/2/1" as 2001.
+  Where the window turns over has not been read.
 - **A date before 1 January 1900** is documented as `#VALUE!` rather than `#NUM!` — worth noting,
   because out-of-range *serials* elsewhere in the category give `#NUM!`. Here the failure is a
   parse failure, and it takes the parse failure's error value.
@@ -111,7 +112,7 @@ An error value passed in propagates in the ordinary way.
   imports this function's locale dependence into an otherwise numeric function.
 - **The `VALUE` function** — the general text-to-number conversion, which also accepts date text in
   practice; the relationship between the two accepted sets is not documented, and it is checked
-  here only for digit scripts (FN-VALUE-001) and the width of month and day (FN-VALUE-002).
+  here only for digit scripts (FN-VALUE-001) and the digits of year, month and day (FN-VALUE-002).
 - **Confusable.** `DATEVALUE` and `DATE` are interchanged constantly in advice, and they have
   nothing in common but a name and a return kind.
 

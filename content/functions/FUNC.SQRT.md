@@ -92,8 +92,9 @@ Returns `Number`.
   difference is the subject of the *Relationships* and *Numerical notes* sections below.
 - **Very large arguments.** `SQRT` cannot overflow: the square root of the largest finite double
   is comfortably in range. Mathematically it also cannot underflow to zero from a non-zero input,
-  because the square root of the smallest subnormal is a normal number, yet `SQRT(5e-324)` returns
-  0 on the one recorded row (FN-SQRT-001). The other hazard on the positive axis is the double
+  because the square root of the smallest subnormal is a normal number. The one recorded row for
+  `SQRT(5e-324)` shows 0, which may be the input cell reading back as 0 and not `SQRT`
+  (FN-SQRT-001). The other hazard on the positive axis is the double
   rounding of that note.
 - **Negative arguments.** `#NUM!`, as documented.
 
@@ -206,7 +207,8 @@ Probes worth running first:
 4. **The boundary of the negative branch**: the largest negative subnormal, and text and logical
    arguments that coerce to a negative number.
 5. **Subnormal inputs**, whose square roots are normal — a place where a poorly written
-   scaling step fails. The one recorded row, `SQRT(5e-324)`, returns 0 (FN-SQRT-001).
+   scaling step fails. The one recorded row, `SQRT(5e-324)`, shows 0, and no read-back of its
+   input is recorded (FN-SQRT-001), so that row does not settle what `SQRT` does here.
 6. **Array arguments**, to confirm elementwise lifting and element-local `#NUM!`.
 7. **The reference engine's `arg_domain_guard=none` classification** against actual behaviour on
    a negative argument, which is the divergence recorded above.

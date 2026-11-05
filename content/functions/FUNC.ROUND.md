@@ -87,17 +87,20 @@ Returns `Number`.
   stop. The reference engine rounds **half away from zero** — `1.25 → 1.3`, `−1.25 → −1.3` — which
   is the convention conventionally attributed to Excel and is *not* the IEEE 754 default
   (ties-to-even). The Handbook records the tie rule as **undocumented on the page it could read**
-  and implemented one way in the reference engine. For Excel the Notes record one tie: in the
-  15-digit reading that comes before any digit is chosen, a half goes down for `ROUND`
-  (FN-ROUND-002). They do not state the tie rule at the requested digit.
-- **Ties mostly do not exist.** For `d > 0` an exact tie requires `x` to be exactly half a
+  and implemented one way in the reference engine. For Excel, FN-ROUND-004 gives the tie rule at the
+  requested digit: away from zero, so `ROUND(2.5,0)` is 3 and `ROUND(-2.5,0)` is -3. Separately, in
+  the 15-digit reading that comes before any digit is chosen, a half goes down for `ROUND`
+  (FN-ROUND-002).
+- **Exact ties in the stored value mostly do not exist.** For `d > 0` an exact tie requires `x` to be exactly half a
   multiple of 10⁻ᵈ, which requires `x` to be exactly representable — true for values like 1.25 and
   0.5, false for 2.675, 1.005, 8.835 and almost every other "obvious" tie a user will type. Those
-  values are *not* ties: their binary64 representations sit strictly below the halfway point, so
+  stored values are *not* exact ties: their binary64 representations sit strictly below the halfway point, so
   "correct" rounding takes them down, while a naive scale-and-round can take them up. Which
   behaviour a system exhibits is the single most-asked question about `ROUND` in any spreadsheet.
   For Excel, FN-ROUND-002 answers it: the number is first read to 15 significant digits on the x87
   unit, and the digit is chosen from that reading, not from the stored binary value.
+  On that reading 1.005 and 2.675 do count as ties: `ROUND(1.005,2)` is 1.01 and `ROUND(2.675,2)` is
+  2.68 (FN-ROUND-004).
 - **Large `num_digits`.** The reference engine returns `number` unchanged once `num_digits` reaches
   308, and returns a signed zero once it reaches −308. Those clamps are implementation limits, not
   documented behaviour. Excel has a different rule: it counts digits in 32 bits, the count wraps,
@@ -198,11 +201,12 @@ Inputs I would probe first:
 1. **`ROUND(2.675, 2)`, `ROUND(1.005, 2)`, `ROUND(8.835, 2)`** — the three canonical
    near-tie decimals. Each stored value lies strictly below its apparent halfway point, so a
    correctly rounding implementation goes down and a scale-and-round implementation goes up.
-   FN-ROUND-002 gives Excel's route, a 15-digit reading before any digit is chosen; these three
-   cells remain a quick control of it.
+   Answered for the first two: Excel gives 2.68 and 1.01 (FN-ROUND-004), by the 15-digit reading
+   of FN-ROUND-002. `ROUND(8.835, 2)` is not among those literal readings.
 2. **`ROUND(1.25, 1)` and `ROUND(-1.25, 1)`, `ROUND(0.5, 0)` and `ROUND(1.5, 0)` and
-   `ROUND(2.5, 0)`** — genuine exact ties, which is the only way to observe the tie rule. If 2.5
-   rounds to 2, the rule is ties-to-even and this page's assumption is wrong.
+   `ROUND(2.5, 0)`** — genuine exact ties. Partly answered: `ROUND(2.5, 0)` is 3 and
+   `ROUND(-2.5, 0)` is -3, so the rule is not ties-to-even (FN-ROUND-004). The other cells would
+   add literal readings to a rule so far inferred from the recorded rows.
 3. **`ROUND(-1, -1)`** and `1/ROUND(-1,-1)` — whether a negative zero survives to the sheet, and
    whether it is observable at all.
 4. **`ROUND(1.5, 0.9)` and `ROUND(1.5, -0.9)`** — non-integral `num_digits`, undocumented

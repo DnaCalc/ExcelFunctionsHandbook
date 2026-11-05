@@ -138,7 +138,8 @@ doing the opposite in both cases.
 - **[DISC](FUNC.DISC.md)** — the discount rate from the price, with a `basis`. It divides by the
   redemption where `TBILLYIELD` divides by the price.
 - **[INTRATE](FUNC.INTRATE.md)** — the same investment-side rate. `INTRATE(s, m, pr, 100, 2)` is the
-  same quantity on Actual/360, apart from the one-year limit and the order of the arithmetic.
+  same quantity on Actual/360, apart from the one-year limit; FN-DISC-001 gives both the same order
+  of arithmetic.
 - **[YEARFRAC](FUNC.YEARFRAC.md)** — not used here. The day count is a plain difference of serials,
   and there is no year-length question at all.
 
