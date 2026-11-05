@@ -143,7 +143,7 @@ rounding functions think in decimal. There is more than one population of code h
 The figures come from 64-bit Excel. As far as we know, Microsoft's x64 compiler does not generate
 x87 instructions for ordinary `double` code, so the x87 population may be hand-written assembly or
 carried-over routines, kept so that 32-bit and 64-bit Excel agree, with plain-double code being
-ordinary compiled C. This is inference from behaviour alone and has not been tested. It would fit
+ordinary compiled C. This is an inference and has not been tested. It would fit
 a routine written in the 1990s and hand-tuned later.
 
 Identifying a program's shape is also not the same as having its constants. Where a published
