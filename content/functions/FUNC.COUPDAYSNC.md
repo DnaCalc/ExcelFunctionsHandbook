@@ -181,16 +181,16 @@ argument or a date serial outside the representable range. Errors in any argumen
 ## What has not been checked
 
 No Handbook vector suite exists for `COUPDAYSNC`. Two evidence records list this surface, and
-neither holds a pass rate. The six-surface record `EV-FIN-0030` lists this surface and holds no pass
-rate: it has a capture count of 6 × 1,060 rows, which says nothing about how they scored, and an
-uncounted statement that the reference engine's six functions matched Excel in one scan on the older
-build 20026. `EV-FIN-0029` holds the `PRICE`-versus-`COUPDAYSNC` divergence described above: its 458
-of 458, at each of bases 2 and 3, counts rows where `COUPDAYSNC` disagrees with the day count
-Excel's `PRICE` uses. That is a count of disagreement between two Excel surfaces, it concerns what
-`PRICE` does, and it says nothing about how any implementation of this function scores. The shared
-`coupon_family` module is named by no record. `COUPDAYSNC` itself is measured on basis 0 in
-FN-COUPDAYSNC-001, which states no rule for the other bases. The battery on this page is the
-reference engine answering its own probes; no Excel was involved.
+neither holds a pass rate. The six-surface record `EV-FIN-0030` has a capture count of 6 × 1,060
+rows, which says nothing about how they scored, and an uncounted statement that the reference
+engine's six functions matched Excel in one scan on the older build 20026. `EV-FIN-0029` holds the
+`PRICE`-versus-`COUPDAYSNC` divergence described above: its 458 of 458, at each of bases 2 and 3,
+counts rows where `COUPDAYSNC` disagrees with the day count Excel's `PRICE` uses. That is a count of
+disagreement between two Excel surfaces, it concerns what `PRICE` does, and it says nothing about
+how any implementation of this function scores. The shared `coupon_family` module is named by no
+record. `COUPDAYSNC` itself is measured on basis 0 in FN-COUPDAYSNC-001, which states no rule for
+the other bases. The battery on this page is the reference engine answering its own probes; no Excel
+was involved.
 
 Inputs worth probing first:
 

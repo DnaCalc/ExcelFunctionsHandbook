@@ -99,6 +99,7 @@ and `ERF.PRECISE(NA())` is `#N/A`. No `#NUM!` is documented, and none appears in
 - **[GAMMA.DIST](FUNC.GAMMA.DIST.md)** — mathematically, erf(x) = P(½, x²) for x ≥ 0, where P is
   the regularized lower incomplete gamma function. Evidence record `EV-DIST-0026` holds the
   Excel-against-Excel comparison: `GAMMA.DIST(k²/1024, 1/2, 1, TRUE)` against `ERF.PRECISE(k/32)`.
+  That comparison does not identify this function's source; see *Numerical notes*.
 
 ## Numerical notes
 
@@ -114,11 +115,14 @@ checked while writing this page. Of the 212 recorded rows in [0.5, 6], 192 are c
 and the other 20 are within 2 units. See [ERF](FUNC.ERF.md) for why the complement hides the noise
 of `ERFC`.
 
-**An older record says otherwise, and the notes are the later word.** `EV-DIST-0026` predates the
-notes and identifies a different source for this function, stating that no coefficient table exists.
-The stored rational in the notes below replaces that account. The record's figures remain what its
-own warning says they are: comparisons of Excel with mathematical truth, Excel with Excel, and
-research models. None is a pass rate for any implementation.
+**`EV-DIST-0026` is out of date on this function's source.** The record predates the notes. It
+attributes `ERF.PRECISE` and `ERFC.PRECISE` to the a < 1 branches of the NSWC `GRATIO` routine and
+says no coefficient table exists. Below 0.5 FN-ERF.PRECISE-001 replaces that attribution: Excel
+uses a stored (4, 5) rational from a table not yet identified. From 0.5 up the notes name no source
+for this function, so nothing on this page supports the record's attribution there either. The
+record is kept unchanged as the upstream statement of its date. Its figures remain what its own
+warning says they are: comparisons of Excel with mathematical truth, Excel with Excel, and research
+models. None is a pass rate for any implementation.
 
 **Reference engine.** At the commit named under Sources it calls a general-purpose library `erf`,
 and does not implement the rational.
@@ -135,8 +139,9 @@ random sets on build 20527 show a small residue of unexplained rows, mostly in [
 
 Beyond those:
 
-1. **The range from 0.5 up is thinly recorded.** Only 212 rows on record lie there, stopping at about
-   6, and the factor that the complement depends on is unidentified, as the notes on `ERFC` record.
+1. **The range from 0.5 up is thinly recorded.** Apart from the 2,000 consecutive doubles from 0.5
+   up that FN-ERF.PRECISE-001 reads to place the cut, only 212 rows on record lie there, stopping
+   at about 6, and the factor that the complement depends on is unidentified, as the notes on `ERFC` record.
 2. **Negative arguments above 0.5.** No such row is on record for this surface. The rational below
    0.5 is odd by construction, and `ERF` has a few negative rows on build 19929.
 3. **Other platforms.** The recorded answers are from Windows, on builds 19929 to 20527. No reading
@@ -166,11 +171,14 @@ and the coefficients read off Excel's answers, order 0 upward, are N: 0x3ff1df5e
 0x3f4609751b5b6488, 0x3ef4f20a473a5ab0. The rational stops at 0.5 itself. It equals erf to a
 flat 9E-17 up to 0.5, and its error climbs at once beyond, so 0.5 is its design interval and
 not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is refuted by its
-linear terms, and Cephes has the same shape with different ratios. Because every step rounds,
-answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5),
-400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit
-high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS at tiny
-arguments takes half of it at its stored z/sqrt(2).
+linear terms, and Cephes has the same shape with different ratios. Evidence record
+EV-DIST-0026, which predates this note, attributes ERF.PRECISE and ERFC.PRECISE to the a < 1
+branches of the NSWC GRATIO routine and says no coefficient table exists; below 0.5 this note
+replaces that attribution. Because every step rounds, answers need not be correctly rounded: of
+the 654 recorded rows of build 20131 in [0.25, 0.5), 400 differ from the correctly rounded erf,
+by up to 3 units, and small arguments can be 1 unit high, as below. ERFC and ERFC.PRECISE below
+0.5 are 1 less this value, and GAUSS at tiny arguments takes half of it at its stored
+z/sqrt(2).
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|

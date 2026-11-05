@@ -236,11 +236,14 @@ and the coefficients read off Excel's answers, order 0 upward, are N: 0x3ff1df5e
 0x3f4609751b5b6488, 0x3ef4f20a473a5ab0. The rational stops at 0.5 itself. It equals erf to a
 flat 9E-17 up to 0.5, and its error climbs at once beyond, so 0.5 is its design interval and
 not Cody's 0.46875. No published table has been matched: Cody's 1969 rational is refuted by its
-linear terms, and Cephes has the same shape with different ratios. Because every step rounds,
-answers need not be correctly rounded: of the 654 recorded rows of build 20131 in [0.25, 0.5),
-400 differ from the correctly rounded erf, by up to 3 units, and small arguments can be 1 unit
-high, as below. ERFC and ERFC.PRECISE below 0.5 are 1 less this value, and GAUSS at tiny
-arguments takes half of it at its stored z/sqrt(2).
+linear terms, and Cephes has the same shape with different ratios. Evidence record
+EV-DIST-0026, which predates this note, attributes ERF.PRECISE and ERFC.PRECISE to the a < 1
+branches of the NSWC GRATIO routine and says no coefficient table exists; below 0.5 this note
+replaces that attribution. Because every step rounds, answers need not be correctly rounded: of
+the 654 recorded rows of build 20131 in [0.25, 0.5), 400 differ from the correctly rounded erf,
+by up to 3 units, and small arguments can be 1 unit high, as below. ERFC and ERFC.PRECISE below
+0.5 are 1 less this value, and GAUSS at tiny arguments takes half of it at its stored
+z/sqrt(2).
 
 | Call | Inputs (binary64) | Excel | Correct value | Recorded in |
 |---|---|---|---|---|
