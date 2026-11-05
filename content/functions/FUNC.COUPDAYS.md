@@ -3,7 +3,8 @@ schema: efh.function-page/v1
 function_id: FUNC.COUPDAYS
 depth: curated
 curated_at_oxfunc_commit: "473efa3"
-evidence_records: []
+evidence_records:
+  - EV-FIN-0030
 open_problems: []
 references:
   - work: "Microsoft Learn: WorksheetFunction.CoupDays method (Excel)"
@@ -204,10 +205,12 @@ argument or a date serial outside the representable range. Errors in any argumen
 
 ## What has not been checked
 
-No Handbook vector suite exists for `COUPDAYS`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. The Excel
-readings on this page are in FN-COUPDAYS-001 and FN-COUPDAYSNC-001. The battery on this page is
-the reference engine answering its own probes; no Excel was involved.
+No Handbook vector suite exists for `COUPDAYS`. The six-surface record `EV-FIN-0030` lists this
+surface and holds no pass rate: it has a capture count of 6 × 1,060 rows, which says nothing about
+how they scored, and an uncounted statement that the reference engine's six functions matched Excel
+in one scan on the older build 20026. The shared `coupon_family` module is named by no record. The
+Excel readings on this page are in FN-COUPDAYS-001 and FN-COUPDAYSNC-001. The battery on this page
+is the reference engine answering its own probes; no Excel was involved.
 
 FN-COUPDAYS-001 settles the basis table in the second section: Excel returns `360/frequency` on
 bases 0, 2 and 4, `365/frequency` on basis 3, and on basis 1 actual days by the walk that note
@@ -366,6 +369,7 @@ Evidence:
 - Handbook, `content/lastbit/MATERIAL_W109_PRIMITIVES.md` §18 — the recorded case of Excel's
   `PRICE` deriving days-to-next-coupon by subtraction and disagreeing with `COUPDAYSNC` on the
   actual/360 and actual/365 bases.
+- Handbook evidence record `EV-FIN-0030` — what the six `COUP*` figures are, and are not.
 - Handbook chapters [01 the value universe](../model/01-value-universe.md),
   [02 coercion and lifting](../model/02-coercion-and-lifting.md),
   [06 claim language](../model/06-claim-language.md).

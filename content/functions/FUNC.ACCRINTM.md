@@ -3,7 +3,8 @@ schema: efh.function-page/v1
 function_id: FUNC.ACCRINTM
 depth: curated
 curated_at_oxfunc_commit: "473efa3"
-evidence_records: []
+evidence_records:
+  - EV-FIN-0031
 open_problems: []
 references:
   - work: "Microsoft Learn: WorksheetFunction.AccrIntM method (Excel)"
@@ -183,11 +184,13 @@ and not as Excel's:
 
 ## What has not been checked
 
-No Handbook vector suite exists for `ACCRINTM`, and **no evidence record lists this surface in
-its subjects**. The `bond_core_family` module that implements it is measured — the family's
-`ACCRINT` and `PRICE` surfaces carry open records — but this surface was not measured
-separately, and family-level evidence may not be attributed to it. The Excel readings of
-`ACCRINTM` on this page are in FN-YEARFRAC-001, where it takes the same 365 and 366 as `YEARFRAC`.
+No Handbook vector suite exists for `ACCRINTM`. Evidence record `EV-FIN-0031` lists this surface and
+holds no count: it says the reference engine's `ACCRINTM` matched Excel on equivalent inputs on the
+older build 20026, and not how many. The record excludes this surface from every `ACCRINT` figure.
+The `bond_core_family` module that implements it is measured — the family's `ACCRINT` and `PRICE`
+surfaces carry open records — but family-level evidence may not be attributed to this surface. The
+Excel readings of `ACCRINTM` on this page are in FN-YEARFRAC-001, where it takes the same 365 and
+366 as `YEARFRAC`.
 
 The battery on this page is the reference engine answering its own probes; no Excel was
 involved.
@@ -282,6 +285,8 @@ Evidence:
   host returned HTTP 403), so nothing here is quoted from it.
 - Handbook, [YEARFRAC](FUNC.YEARFRAC.md) — the day-count basis axis and the open actual/actual
   question, stated once and not restated here.
+- Handbook evidence record `EV-FIN-0031` — the uncounted comparison, and its exclusion from the
+  `ACCRINT` figures.
 - Handbook chapters [01 the value universe](../model/01-value-universe.md),
   [02 coercion and lifting](../model/02-coercion-and-lifting.md),
   [06 claim language](../model/06-claim-language.md).

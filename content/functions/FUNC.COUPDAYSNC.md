@@ -3,7 +3,9 @@ schema: efh.function-page/v1
 function_id: FUNC.COUPDAYSNC
 depth: curated
 curated_at_oxfunc_commit: "473efa3"
-evidence_records: []
+evidence_records:
+  - EV-FIN-0029
+  - EV-FIN-0030
 open_problems: []
 references:
   - work: "Microsoft Learn: WorksheetFunction.CoupDaysNc method (Excel)"
@@ -77,7 +79,7 @@ give 40 (FN-COUPDAYSNC-001). On **actual/360 and actual/365** they do
 not, because `COUPDAYS` reports a declared `360/frequency` or `365/frequency` while `COUPDAYBS`
 counts real days. The subtraction then yields a number that no calendar produces.
 
-The Handbook's research record documents Excel's `PRICE` taking route 2 — deriving
+The Handbook's research record (`EV-FIN-0029`) documents Excel's `PRICE` taking route 2 — deriving
 days-to-next-coupon from the period length and the accrued days for every basis — while Excel's
 `COUPDAYSNC`, on the same bond and the same arguments, publishes route 1. The two numbers differ
 by whole days at bases 2 and 3, and the resulting prices differ in the first decimal place, not
@@ -178,11 +180,15 @@ argument or a date serial outside the representable range. Errors in any argumen
 
 ## What has not been checked
 
-No Handbook vector suite exists for `COUPDAYSNC`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. The
-`PRICE`-versus-`COUPDAYSNC` divergence described above comes from the Handbook's own research
-narrative, not from an evidence record attached to this surface, and it concerns what `PRICE`
-does — it is not a measurement of this function. `COUPDAYSNC` itself is measured on basis 0 in
+No Handbook vector suite exists for `COUPDAYSNC`. Two evidence records list this surface, and
+neither holds a pass rate. The six-surface record `EV-FIN-0030` lists this surface and holds no pass
+rate: it has a capture count of 6 × 1,060 rows, which says nothing about how they scored, and an
+uncounted statement that the reference engine's six functions matched Excel in one scan on the older
+build 20026. `EV-FIN-0029` holds the `PRICE`-versus-`COUPDAYSNC` divergence described above: its 458
+of 458, at each of bases 2 and 3, counts rows where `COUPDAYSNC` disagrees with the day count
+Excel's `PRICE` uses. That is a count of disagreement between two Excel surfaces, it concerns what
+`PRICE` does, and it says nothing about how any implementation of this function scores. The shared
+`coupon_family` module is named by no record. `COUPDAYSNC` itself is measured on basis 0 in
 FN-COUPDAYSNC-001, which states no rule for the other bases. The battery on this page is the
 reference engine answering its own probes; no Excel was involved.
 
@@ -287,6 +293,8 @@ Evidence:
   actual/360 and actual/365 bases.
 - Handbook, [COUPNCD](FUNC.COUPNCD.md#the-coupon-schedule) and
   [COUPDAYS](FUNC.COUPDAYS.md#the-additivity-that-fails).
+- Handbook evidence records `EV-FIN-0029` and `EV-FIN-0030` — what the `COUP*` figures are, and
+  are not.
 - Handbook chapters [01 the value universe](../model/01-value-universe.md),
   [02 coercion and lifting](../model/02-coercion-and-lifting.md),
   [06 claim language](../model/06-claim-language.md).

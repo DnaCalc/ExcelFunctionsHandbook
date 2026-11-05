@@ -3,7 +3,8 @@ schema: efh.function-page/v1
 function_id: FUNC.COUPNUM
 depth: curated
 curated_at_oxfunc_commit: "473efa3"
-evidence_records: []
+evidence_records:
+  - EV-FIN-0030
 open_problems: []
 references:
   - work: "Microsoft Learn: WorksheetFunction.CoupNum method (Excel)"
@@ -150,10 +151,12 @@ argument or a date serial outside the representable range. Errors in any argumen
 
 ## What has not been checked
 
-No Handbook vector suite exists for `COUPNUM`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. FN-COUPNUM-001
-measures `COUPNUM` around the start of the calendar. The battery on this page is
-the reference engine answering its own probes; no Excel was involved.
+No Handbook vector suite exists for `COUPNUM`. The six-surface record `EV-FIN-0030` lists this
+surface and holds no pass rate: it has a capture count of 6 × 1,060 rows, which says nothing about
+how they scored, and an uncounted statement that the reference engine's six functions matched Excel
+in one scan on the older build 20026. The shared `coupon_family` module is named by no record.
+FN-COUPNUM-001 measures `COUPNUM` around the start of the calendar. The battery on this page is the
+reference engine answering its own probes; no Excel was involved.
 
 The documented "rounded up to the nearest whole coupon" clause pins the interior behaviour
 firmly. What it does not pin is the boundary — a settlement landing exactly on a coupon date —
@@ -254,6 +257,7 @@ Evidence:
   The worksheet-surface page; **not retrieved** for this entry (the host returned HTTP 403), so
   nothing here is quoted from it.
 - Handbook, [COUPNCD](FUNC.COUPNCD.md#the-coupon-schedule) — the shared schedule construction.
+- Handbook evidence record `EV-FIN-0030` — what the six `COUP*` figures are, and are not.
 - Handbook chapters [01 the value universe](../model/01-value-universe.md),
   [02 coercion and lifting](../model/02-coercion-and-lifting.md),
   [06 claim language](../model/06-claim-language.md).

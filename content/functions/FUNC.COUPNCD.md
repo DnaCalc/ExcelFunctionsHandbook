@@ -3,7 +3,8 @@ schema: efh.function-page/v1
 function_id: FUNC.COUPNCD
 depth: curated
 curated_at_oxfunc_commit: "473efa3"
-evidence_records: []
+evidence_records:
+  - EV-FIN-0030
 open_problems: []
 references:
   - work: "Microsoft Learn: WorksheetFunction.CoupNcd method (Excel)"
@@ -201,11 +202,13 @@ serial. The engineering content is all in the schedule.
 
 ## What has not been checked
 
-No Handbook vector suite exists for `COUPNCD`, and **no evidence record lists this surface in
-its subjects**. The `coupon_family` module that implements all six coupon functions is named by
-no record either. The Excel readings of `COUPNCD` on this page are in FN-COUPDAYS-001 and
-FN-COUPNUM-001.
-The battery on this page is the reference engine answering its own probes; no Excel was involved.
+No Handbook vector suite exists for `COUPNCD`. The six-surface record `EV-FIN-0030` lists this
+surface and holds no pass rate: it has a capture count of 6 × 1,060 rows, which says nothing about
+how they scored, and an uncounted statement that the reference engine's six functions matched Excel
+in one scan on the older build 20026. The `coupon_family` module that implements all six coupon
+functions is named by no record. The Excel readings of `COUPNCD` on this page are in FN-COUPDAYS-001
+and FN-COUPNUM-001. The battery on this page is the reference engine answering its own probes; no
+Excel was involved.
 
 The schedule construction described above is only partly measured, and it is the load-bearing
 unknown for the whole family. It
@@ -366,6 +369,7 @@ Evidence:
   <https://support.microsoft.com/en-us/office/coupncd-function-fd962fef-506b-4d9d-8590-16df5393691f>.
   The worksheet-surface page; **not retrieved** for this entry (the host returned HTTP 403), so
   nothing here is quoted from it.
+- Handbook evidence record `EV-FIN-0030` — what the six `COUP*` figures are, and are not.
 - Handbook chapters [01 the value universe](../model/01-value-universe.md),
   [02 coercion and lifting](../model/02-coercion-and-lifting.md),
   [06 claim language](../model/06-claim-language.md).

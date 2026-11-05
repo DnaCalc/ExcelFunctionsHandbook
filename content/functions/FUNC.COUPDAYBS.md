@@ -3,7 +3,8 @@ schema: efh.function-page/v1
 function_id: FUNC.COUPDAYBS
 depth: curated
 curated_at_oxfunc_commit: "473efa3"
-evidence_records: []
+evidence_records:
+  - EV-FIN-0030
 open_problems: []
 references:
   - work: "Microsoft Learn: WorksheetFunction.CoupDayBs method (Excel)"
@@ -173,10 +174,12 @@ argument or a date serial outside the representable range. Errors in any argumen
 
 ## What has not been checked
 
-No Handbook vector suite exists for `COUPDAYBS`, and **no evidence record lists this surface in
-its subjects**. The shared `coupon_family` module is named by no record either. The Excel
-readings on this page are in FN-COUPDAYSNC-001, which is mainly about `COUPDAYSNC`. The battery on
-this page is the reference engine answering its own probes; no Excel was involved.
+No Handbook vector suite exists for `COUPDAYBS`. The six-surface record `EV-FIN-0030` lists this
+surface and holds no pass rate: it has a capture count of 6 × 1,060 rows, which says nothing about
+how they scored, and an uncounted statement that the reference engine's six functions matched Excel
+in one scan on the older build 20026. The shared `coupon_family` module is named by no record. The
+Excel readings on this page are in FN-COUPDAYSNC-001, which is mainly about `COUPDAYSNC`. The
+battery on this page is the reference engine answering its own probes; no Excel was involved.
 
 Inputs worth probing first:
 
@@ -275,6 +278,7 @@ Evidence:
   [COUPDAYS](FUNC.COUPDAYS.md#the-additivity-that-fails) — the additivity failure.
 - Handbook, `content/lastbit/MATERIAL_W109_PRIMITIVES.md` §18 and §21 — the recorded day-count
   divergences in the same engine and in Excel's own bond routines.
+- Handbook evidence record `EV-FIN-0030` — what the six `COUP*` figures are, and are not.
 - Handbook chapters [01 the value universe](../model/01-value-universe.md),
   [02 coercion and lifting](../model/02-coercion-and-lifting.md),
   [06 claim language](../model/06-claim-language.md).
