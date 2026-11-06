@@ -21,12 +21,12 @@ for (let i = 0; i < args.length; i += 2) {
 options.out = resolve(options.out);
 options.screenshots = resolve(options.screenshots);
 const catalogue = JSON.parse(await readFile(join(options.out, "api/index.json"), "utf8"));
-let thinPath;
-for (const id of new Set(["FUNC.IMLOG10", ...catalogue.rows.map(row => row.function_id)])) {
+for (const { function_id: id } of catalogue.rows) {
   const candidate = `functions/${id.replace(/^FUNC\./, "")}.html`;
-  if ((await readFile(join(options.out, candidate), "utf8")).includes("Detailed argument guidance is still being written.")) { thinPath = candidate; break; }
+  assert.ok(!(await readFile(join(options.out, candidate), "utf8")).includes("Detailed argument guidance is still being written."), `${id} must retain its authored guide`);
 }
-assert.ok(thinPath, "No brief page remains: revise the thin-page case for the new curation state");
+const complexPath = "functions/IMLOG10.html";
+const roundExample = JSON.parse(await readFile(join(options.out, "api/functions/FUNC.ROUND.json"), "utf8")).try_it.formula;
 await mkdir(options.screenshots, { recursive: true });
 const prefix = "/preview/handbook/";
 const mime = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json", ".svg": "image/svg+xml", ".wasm": "application/wasm", ".txt": "text/plain" };
@@ -105,7 +105,7 @@ class CDP {
 }
 
 let browser;
-const report = { cases: [], checks: [], failures: [], screenshots: options.screenshots, thinRoute: thinPath };
+const report = { cases: [], checks: ["all catalogue pages retain authored guides"], failures: [], screenshots: options.screenshots, complexRoute: complexPath };
 try {
   browser = await CDP.open(debugUrl);
   report.browser = await browser.send("Browser.getVersion");
@@ -139,14 +139,13 @@ try {
       return value;
     } finally { clearTimeout(loadTimer); cdp?.close(); await browser.send("Target.closeTarget", { targetId }); }
   }
-  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["thin", thinPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "functions/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"], ["lambda", "functions/LAMBDA.html"], ["operator", "functions/OP_TRIM_REF_BOTH.html"], ["parity", "functions/ISEVEN.html"]];
+  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["complex", complexPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "functions/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"], ["lambda", "functions/LAMBDA.html"], ["operator", "functions/OP_TRIM_REF_BOTH.html"], ["parity", "functions/ISEVEN.html"]];
   for (const width of [390, 1440]) for (const mode of ["light", "dark"]) for (const [name, path] of routes) {
     const result = await withPage(path, width, mode, async cdp => {
       const metrics = await cdp.evaluate(`({width: innerWidth, client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth, heading: document.querySelector('h1').innerText, h1s: document.querySelectorAll('h1').length, scheme: getComputedStyle(document.body).backgroundColor, bytes: performance.getEntriesByType('resource').reduce((sum,r)=>sum+r.transferSize,0), duration: performance.getEntriesByType('navigation')[0].duration})`);
       assert.equal(metrics.width, width);
       assert.equal(metrics.scroll, metrics.client, `${path} document overflow at ${width}`);
       assert.equal(metrics.h1s, 1, `${path} heading hierarchy`);
-      if (name === "thin") assert.ok(await cdp.evaluate(`document.body.innerText.includes('Detailed argument guidance is still being written.')`), "thin-page case must retain its stated scope");
       for (const type of ["keyDown", "keyUp"]) await cdp.send("Input.dispatchKeyEvent", { type, key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
       assert.ok(await cdp.evaluate(`document.activeElement.classList.contains('skip')`), "Tab reaches skip link first");
       for (const type of ["keyDown", "keyUp"]) await cdp.send("Input.dispatchKeyEvent", { type, key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
@@ -169,7 +168,7 @@ try {
       const height = await cdp.evaluate(`document.documentElement.scrollHeight`);
       for (let y = 0; y < height; y += 750) await cdp.evaluate(`window.scrollTo(0,${y});`);
       await cdp.evaluate(`window.scrollTo(0,0);`);
-      if (["home", "round", "thin", "lambda", "operator", "parity"].includes(name)) {
+      if (["home", "round", "complex", "lambda", "operator", "parity"].includes(name)) {
         const file = `${name}-${width}-${mode}.png`;
         const screenshot = await cdp.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
         await writeFile(join(options.screenshots, file), Buffer.from(screenshot.data, "base64"));
@@ -229,7 +228,7 @@ try {
     assert.equal(await cdp.evaluate(`document.querySelector('#eval-result').dataset.status`),"stale");
     assert.ok(await cdp.evaluate(`document.querySelector('#eval-result').textContent.includes('Calculate to update')`));
     await cdp.evaluate(`document.querySelector('[data-reset]').click()`);
-    assert.equal(await cdp.evaluate(`document.querySelector('#formula').value`),"=ROUND(1.005,2)");
+    assert.equal(await cdp.evaluate(`document.querySelector('#formula').value`),roundExample);
   });
   report.checks.push("browser wasm calculates formulas, cells, arrays, LAMBDA, errors and refusals; numeric bits agree with API");
   await withPage("contribute/index.html?function=FUNC.ROUND",390,"light",async cdp=>{
