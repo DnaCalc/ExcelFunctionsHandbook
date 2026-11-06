@@ -27,15 +27,32 @@ role_in_family: null
 
 ## Try it
 
-`=SERIESSUM(2,0,1,{1,3,2})` returns `15`: `1*2^0+3*2^1+2*2^2=1+6+8`. Choosing m=2 would instead use powers zero, two and four.
+`=SERIESSUM(2,0,1,{1,3,2})` returns `15`:
+
+| Coefficient index | Exponent | Term |
+|---:|---:|---:|
+| 0 | 0 | `1*2^0=1` |
+| 1 | 1 | `3*2^1=6` |
+| 2 | 2 | `2*2^2=8` |
+
+Changing m to two uses exponents zero, two and four: `=SERIESSUM(2,0,2,{1,3,2})` returns `45`. The exponent step belongs to the powers, rather than changing the coefficient values.
 
 ## Quirks
 
-Microsoft documents `#VALUE!` for nonnumeric arguments. The current coefficient-grid route also propagates worksheet errors and rejects nonnumeric coefficient cells. A zero coefficient does not necessarily excuse an invalid power operation: the current graph computes each power before multiplying. Negative x with noninteger exponents needs the power function’s real-domain policy.
+Microsoft documents `#VALUE!` for nonnumeric arguments. The current first-three-argument reader rejects logical values. Its coefficient grid accepts numeric cells, propagates a worksheet error and returns `#VALUE!` for other coefficient kinds; blank or text coefficients are not skipped as they can be in some aggregates.
+
+The current graph evaluates a power before multiplying by its coefficient. A zero coefficient therefore does not erase an invalid power: the current route for `SERIESSUM(-1,0.5,1,{0})` reaches `#NUM!`. Negative bases and fractional exponents need the real power-domain policy. Overflow and underflow of terms can matter even when the mathematical sum would be finite.
 
 ## How to implement
 
-Walk coefficient cells in the established row order. For index i compute exponent `n+i*m`, evaluate the internal runtime power of x, multiply by the coefficient and add sequentially. The current route calls `crt_pow`, rather than the worksheet POWER wrapper. The example has exact small integer powers and additions. A polynomial Horner or a repeated-power update can be faster, but changes intermediate rounding and exceptional values; publish it as a different implementation choice until compared.
+1. Read numeric `x,n,m`, then the coefficient grid. Traverse coefficient cells in row order, retaining their positions.
+2. For zero-based coefficient index i, form exponent `e=n+i*m` with a binary64 multiplication followed by an addition.
+3. Obtain the internal runtime power `crt_pow(x,e)`. This is the current code’s leaf, not the public worksheet POWER wrapper.
+4. Multiply by coefficient `a_i`, then add the term to a binary64 accumulator initialized to zero. Preserve the term and sum order and apply worksheet result publication afterward.
+
+For the first example, the accumulator visits one, seven, then fifteen. With a two-row coefficient array `{1,3;2,4}`, the same row traversal at x=2, n=0, m=1 gives `1+6+8+32=47`.
+
+Horner evaluation can avoid repeated powers for an ordinary polynomial. It can also change rounding, overflow and invalid-power behaviour. Treat it as a separate numerical implementation choice until compared; the series definition alone does not identify Excel’s internal power algorithm or all its storage stages.
 
 ## Version differences
 

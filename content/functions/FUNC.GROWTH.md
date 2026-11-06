@@ -23,19 +23,42 @@ role_in_family: null
 
 ## What it does
 
-`GROWTH(known_ys,[known_xs],[new_xs],[const])` fits an exponential relationship and returns predicted y values. In one variable the model is `y=b*m^x`; multiple predictors multiply corresponding exponential factors. With omitted x values it uses positions one, two and so on.
+`GROWTH(known_ys,[known_xs],[new_xs],[const])` fits an exponential relationship and returns a prediction for each new observation. With one predictor the model is `y=b*m^x`; with several, it is `y=b*m1^x1*m2^x2*...`.
+
+Omitting known x values substitutes positions one, two and so on. Omitting new x values predicts at the training positions. This second use returns fitted values, which need not equal noisy observed y values.
 
 ## Try it
 
-`=GROWTH({3,9,27},{1,2,3},{4,5})` returns approximately `{81,243}`. The model is `3^x`, so each step triples the prediction. The result is an array even though only two forecasts are requested.
+`=GROWTH({3,9,27},{1,2,3},{4,5})` returns approximately `{81,243}`. The fitted mathematical model is `3^x`, so each step triples the prediction.
+
+To see the role of the constant, use `=GROWTH({6,18,54},{1,2,3},{0,4})`. The mathematical model is `2*3^x`, giving approximately `{2,162}`. With the final `const` argument FALSE, the prediction at x=0 is one because the fitted multiplier b is fixed at one.
+
+A two-predictor example is `=GROWTH({2;6;10;30},{0,0;1,0;0,1;1,1},{2,1})`, approximately `90`. The observations fit `2*3^x1*5^x2`; at `(2,1)`, the prediction is `2*9*5`.
 
 ## Quirks
 
-Known y values must be positive; zero or a negative value gives `#NUM!`. Predictor and response shapes must agree. Const FALSE fixes b at one, which means fixing the intercept at zero in log space. It does not fix a slope at one. Omitted new_xs predicts at the supplied training x values.
+Known y values must be positive; zero or a negative observation gives `#NUM!`. The predictor layout matters when there is more than one independent variable:
+
+| Known y layout | Predictor layout |
+|---|---|
+| One column of observations | One predictor per column of known/new x data |
+| One row of observations | One predictor per row of known/new x data |
+
+With multiple predictors, known y must be a vector. New data needs the same number of predictors as training data. For one predictor, Microsoft also allows equally shaped known x and y ranges of other shapes.
+
+`const=FALSE` fits a new model with b fixed at one: it sets the log-space intercept to zero and adjusts the slopes. It does not take a fit with an intercept and simply remove its constant afterward. Duplicate or nearly dependent predictor columns require a rank decision, which can affect coefficients and predictions.
 
 ## How to implement
 
-Take the logarithm of admitted positive y values, form the design matrix with an intercept when requested, and solve the least-squares problem in log space. Use a rank-aware QR-style solver for a numerical implementation rather than unstable normal equations; then form each fitted log prediction and exponentiate. The current regression family retains specific centering, scaling, rank and exponential choices. Those stages and remaining last-bit discrepancies are not solved by the mathematical transformation alone. The example has exact log-linear structure, making it a useful control without establishing a general regression route.
+1. Prepare the observation vector, predictor columns and requested output layout. Apply omitted-x defaults before fitting.
+2. Validate positive finite y values and obtain each stored public `LN(y)` result.
+3. Fit a linear least-squares model to those logarithms. With a constant, the current code centres predictor columns and the transformed response on their forward-sum means. It uses a pivoted Householder QR fit, selecting the largest remaining predictor-column squared norm first; the constant column keeps its own position. Without a constant, it fits the raw transformed data with zero intercept.
+4. For each new predictor vector, start `P=1`. In predictor order, compute the ordinary binary64 product `u_j=coefficient_j*x_j`, obtain the public `EXP(u_j)`, and multiply it into P with ordinary binary64 multiplication.
+5. Return `EXP(intercept)*P`, in the requested shape. Do not replace this prediction tree by `EXP(intercept+sum(coefficient_j*x_j))`: it stores different intermediates.
+
+For the two-predictor example, the mathematical log coefficients are `LN(2)`, `LN(3)` and `LN(5)`. At `(2,1)`, the separate exponentials represent factors two, nine and five, whose product is ninety. The calculated coefficients and exponentials can differ in their last bits from those mathematical values.
+
+The source retains specific reflector stores and structural/numerical rank decisions, with remaining accumulator-layout questions. A generic QR library supplies a mathematical alternative, not the complete measured Excel fit. The outer prediction tree above is distinct from those unresolved fitting details, and no whole-function Handbook suite is published.
 
 ## Version differences
 
