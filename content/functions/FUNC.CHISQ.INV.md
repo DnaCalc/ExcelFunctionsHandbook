@@ -31,11 +31,19 @@ role_in_family: null
 
 ## Quirks
 
-Degrees of freedom are truncated. Invalid probabilities or degree counts give `#NUM!`; nonnumeric arguments give `#VALUE!`. The current right-tail inverse requires `0<p<1`, even though the old documentation’s range wording can appear to include endpoints. The current left inverse admits zero as zero and rejects probability one as `#NUM!`.
+Degrees of freedom are truncated. Microsoft documents `#NUM!` below one or above `10^10`, and for probabilities outside zero to one; nonnumeric arguments give `#VALUE!`.
+
+The current left inverse returns zero at probability zero and `#NUM!` at one. Probability one has no finite mathematical quantile, despite being inside the range described by the page’s out-of-range test. The companion right-tail inverse uses a different endpoint policy and is not obtained by relabelling the same probability.
 
 ## How to implement
 
-The current kernel calls a gamma inverse with shape `df/2` and scale two. Validate probability endpoints before search, expand an upper bracket as needed and use a monotone inverse routine. Worked at df=2, `x=-2*ln(0.5)` gives about `1.38629436111989`. Inverse accuracy depends on the forward routine and on its stopping rule; the family still has recorded last-bit differences.
+1. Truncate and validate the degree count k, including the current upper limit `10^10`. Validate finite p and handle its endpoints.
+2. Call the current [GAMMA.INV](FUNC.GAMMA.INV.md) kernel with probability p, shape `k/2` and scale two. This shared composition is supported by the source’s retained 63 interior pairs; it is not a claim that any gamma library can be substituted unchanged.
+3. That inverse uses its own generic lower incomplete-gamma forward callback. It expands an upper x bound and bisects the ordered binary64 encodings until the endpoints are adjacent, then returns the upper one. Preserve its callback and return rule rather than stopping when an arbitrary real-valued residual looks small.
+
+At k=2, the mathematical CDF is `1-exp(-x/2)`. Probability one half therefore gives `x=-2*ln(0.5)`, about `1.38629436111989`. This identity explains the example; the implementation still goes through the shared inverse.
+
+The public GAMMA.DIST wrapper has special-case branches that the inverse callback does not automatically inherit. Complete forward last bits and all inverse edge cases remain open; the 63-pair composition does not identify private Excel source or settle the whole domain.
 
 ## Version differences
 

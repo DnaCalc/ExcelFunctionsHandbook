@@ -35,7 +35,13 @@ Alpha must be strictly between zero and one, standard deviation positive, and tr
 
 ## How to implement
 
-Truncate the sample size, validate the parameters, find the standard-normal quantile at `1-alpha/2`, and multiply it by `sigma/sqrt(n)` under the chosen operation order. In the example `sigma/sqrt(n)=10/10=1`, leaving the critical value, approximately 1.96. The generic normal inverse and its return rounding remain separate compatibility obligations; a mathematically valid quantile routine is not evidence of Excel’s private inverse method.
+1. Truncate size toward zero and validate `0<alpha<1`, positive standard deviation and `n>=1`.
+2. Form `p=1-alpha/2` with a binary64 division and subtraction, then obtain the current standard-normal inverse at p.
+3. Multiply that critical value by standard_dev, storing to binary64. Divide the stored product by the binary64 square root of n. The current order is `(critical*standard_dev)/sqrt(n)`, rather than multiplying critical by a precomputed standard error.
+
+In the example n=100 has square root ten, so the margin is approximately `1.9599639845*10/10`, or 1.96. With sample mean fifty, add and subtract that margin outside the function.
+
+For very small alpha, the stored probability expression can round to one even while alpha is positive. A tail-aware inverse can avoid that loss in a mathematical implementation, but changes the current operation tree. The normal inverse approximation and its return rounding remain separate compatibility obligations; a valid quantile algorithm alone is not evidence of Excel’s private method.
 
 ## Version differences
 
@@ -48,3 +54,4 @@ No same-input comparison between named Excel builds is recorded for this functio
 ## Sources
 
 - [Microsoft: CONFIDENCE function](https://support.microsoft.com/en-us/excel/functions/confidence-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [Current normal-confidence implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/normal_log_family.rs); `confidence_norm_kernel`, probability expression and product/division order.
