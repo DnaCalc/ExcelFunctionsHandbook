@@ -27,15 +27,25 @@ role_in_family: null
 
 ## Try it
 
-`=SUM(7,-2,5)` returns `10`. With A1:A3 containing `7`, the text `pending`, and `5`, `=SUM(A1:A3)` returns `12` because the referenced text is skipped.
+`=SUM(7,-2,5)` returns `10`. With B2:B4 containing `7`, the text `pending`, and `5`, `=SUM(B2:B4)` returns `12` because the referenced text is skipped.
+
+Direct constants use a different admission rule: `=SUM(1,TRUE,"2")` adds one, one and two to give four. Putting those three values in an array, `=SUM({1,TRUE,"2"})`, admits only the numeric one. A cell's numeric value and its text spelling are different inputs.
 
 ## Quirks
 
-Referenced text and empty cells are ignored. A zero is a number and participates. Ordinary error values in the data can stop the total. A cell formatted as text is not made numeric by its appearance. Changing the evaluation order of large positive and negative terms can change a floating-point result.
+Referenced text, logical values and blanks are skipped; numeric zero participates. Direct logicals and numeric text convert, while unconvertible direct text causes `#VALUE!`.
+
+Recorded error controls give direct-argument failures priority over errors held inside ranges or arrays. For example, `SUM({1,#REF!},"a")` gives `#VALUE!`. Among held errors, reading order matters. A later worksheet error can also determine the result after the numeric accumulator has overflowed.
+
+Changing the order of large positive and negative terms can change a floating-point sum. Compensation or sorting is a different numerical recipe, even when it is more accurate mathematically.
 
 ## How to implement
 
-Walk arguments in order and retain whether a value arrived directly or through a reference. Apply the aggregate inclusion rules before adding. Begin at zero and add admitted numbers sequentially; propagate errors according to the argument route. The imported implementation declares a sequential fold. A compensated or pairwise sum can improve numerical accuracy, but has a different rounding history. For `7,-2,5`, the accumulator is `0 → 7 → 5 → 10`. The reduction order and worksheet error policy need separate tests from the mathematical sum.
+1. Preserve each argument's origin: direct scalar, reference or array. Validate direct arguments through numeric conversion first, in argument order, before processing held errors.
+2. Visit arguments in order. For a reference visit areas in order and cells in row order; for an array visit elements in row order. Admit held numbers, skip held text/logicals/blanks, and propagate errors under the priority above.
+3. Begin with `total=0`. For each admitted number x, assign `total=R(total+x)`, where [R](../model/09-staged-arithmetic.md) rounds to a 64-bit significand and then stores to binary64. Keep one store per addition. Publish the final number under the worksheet finite/subnormal policy.
+
+For `7,-2,5`, the accumulator is `0 → 7 → 5 → 10`. A direct scalar that converts successfully must still be added at its original traversal position; the initial validation pass is not an instruction to sum scalars ahead of ranges. The current implementation also reads arrays boxed inside a GROUPBY result through to their elements. Keep that extension distinct from ordinary rectangular-array collection. The cited source and captures establish these specific routes; no published Handbook suite is supplied here.
 
 ## Version differences
 
@@ -55,4 +65,6 @@ Use [SUMIFS](FUNC.SUMIFS.md) for conditions, [SUMPRODUCT](FUNC.SUMPRODUCT.md) fo
 
 ## Sources
 
+- [Aggregate fold and error controls](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/aggregate.rs).
+- [Stored addition primitive](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/kernel.rs).
 - [Microsoft: SUM function](https://support.microsoft.com/en-us/office/sum-function-043e1c7d-7726-4e80-8f32-07b23e057f89), opened 6 November 2026; syntax, documented argument rules and errors.

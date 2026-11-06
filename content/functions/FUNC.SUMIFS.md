@@ -37,7 +37,7 @@ Every criteria range must have the same shape as the amount range. Wildcards wor
 
 Parse a leading comparison (`=`, `<>`, `<`, `<=`, `>`, `>=`) separately from its operand. Distinguish a numeric comparison from a text pattern. For text patterns support `?`, `*`, and tilde escaping, with Excel’s case-insensitive matching. Keep blank cells, empty strings and zero as distinct inputs until the criteria rule decides how each matches.
 
-Check the dimensions, then walk corresponding offsets. Evaluate every criterion before admitting that position’s amount. Fold only the admitted numeric amounts into the sum. In the example the admitted positions are rows two and four, yielding `0+11+13=24`. Keep criteria matching separate from numeric reduction, so errors and blank rules can be tested independently.
+Check the dimensions, then walk corresponding offsets. Evaluate every criterion before admitting that position’s amount. Fold only the admitted numeric amounts into the sum. In the example the admitted cells are B3 and B5, yielding `0+11+13=24`. Keep criteria matching separate from numeric reduction, so errors and blank rules can be tested independently.
 
 ## Version differences
 

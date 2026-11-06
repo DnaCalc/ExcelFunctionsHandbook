@@ -32,11 +32,15 @@ role_in_family: null
 
 ## Quirks
 
-Nonnumeric arguments give `#VALUE!` under the documented rule. The equality is applied to the numbers Excel actually received; two decimal expressions that are mathematically equal can arrive as different floating-point values. A tolerance comparison would be a different function.
+The recorded wrapper rejects logicals in either position, including TRUE held in a cell, with `#VALUE!`. A referenced blank instead reads as zero. Errors reveal the read order: `DELTA(TRUE,#REF!)` returns `#REF!`, while `DELTA(#REF!,TRUE)` returns `#VALUE!`, because the second scalar is read first.
+
+Equality applies to the represented inputs, with no tolerance. Mathematically equal decimal expressions can arrive as different binary64 values. A tolerance comparison is a different operation.
 
 ## How to implement
 
-Apply the numeric argument rules, default the omitted second value to zero, and compare the two admitted values for equality. Return the numeric value one or zero, rather than the logical TRUE or FALSE. For the first example both inputs have the same representation, so the indicator is one. Keep argument errors and failed coercions separate from a legitimate unequal comparison.
+Read and convert the supplied second scalar first, or use zero when it is omitted. Reject a logical and return an error encountered in that position before reading the first scalar. Then read the first scalar under the same nonlogical numeric rules. A referenced blank is numeric zero.
+
+Compare the admitted numbers for equality and return numeric one or zero, rather than logical TRUE or FALSE. For `(6,6)` the indicator is one. If both inputs are errors, the recorded result is the second error. This read order is part of the implementation; validating left to right changes the answer before the equality test is reached.
 
 ## Version differences
 
@@ -111,5 +115,6 @@ Evidence:
 
 ## Sources
 
+- [FN-DELTA-001](../notes/FN-DELTA-001.json): scalar read order, logical rejection and blank-cell controls.
 - [Microsoft: DELTA function](https://support.microsoft.com/en-us/excel/functions/delta-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/engineering.rs); implementation steps and the limits identified in the text.

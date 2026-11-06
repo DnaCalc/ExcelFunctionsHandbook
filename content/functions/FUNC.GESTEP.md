@@ -32,11 +32,15 @@ role_in_family: null
 
 ## Quirks
 
-Microsoft documents `#VALUE!` for nonnumeric arguments. A threshold test compares represented numbers exactly; no tolerance band is implied by the name. Do not confuse it with DELTA, which tests equality only.
+The recorded wrapper reads the threshold before the first number. `GESTEP(TRUE,#REF!)` therefore returns `#REF!`, while `GESTEP(#REF!,TRUE)` returns `#VALUE!`. A logical is rejected in either slot, including through a cell reference; a blank cell instead reads as zero.
+
+The represented number at the threshold gives one. There is no tolerance band. DELTA tests equality alone and does not include larger values.
 
 ## How to implement
 
-Coerce the first number and the optional threshold, supplying zero if omitted. Evaluate a greater-than-or-equal comparison and map it to numeric one or zero. In the example the equality `6>=6` selects one. Preserve propagation of worksheet errors instead of treating a failed comparison as false. For an array-capable host apply the scalar predicate with the host’s established lifting rules.
+First read the optional threshold, using zero if omitted. Apply the nonlogical numeric conversion and return its error before reading the first number. Read the first number under the same rules. This is the second-argument-first order retained in the recorded controls.
+
+Evaluate `number>=step` and map the result to numeric one or zero. In the example `6>=6` selects one. Preserve errors and failed conversion separately from a valid false comparison; an implementation that catches every failure and returns zero loses this distinction. Array lifting, if supplied by the host, must preserve its own error ordering.
 
 ## Version differences
 
@@ -111,5 +115,6 @@ Evidence:
 
 ## Sources
 
+- [FN-DELTA-001](../notes/FN-DELTA-001.json): scalar read order, logical rejection and blank-cell controls.
 - [Microsoft: GESTEP function](https://support.microsoft.com/en-us/excel/functions/gestep-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/engineering.rs); implementation steps and the limits identified in the text.

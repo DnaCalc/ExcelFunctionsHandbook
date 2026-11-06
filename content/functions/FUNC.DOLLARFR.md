@@ -34,6 +34,9 @@ role_in_family: "The decimal-to-fraction direction: it encodes a fractional nume
 
 The denominator is truncated. A negative denominator gives `#NUM!`; a denominator that truncates to zero gives `#DIV/0!`. The output is a number, not text containing a slash. Numerator digit width depends on the denominator’s decimal scale, and negative amounts need a consistent toward-zero integer part.
 
+
+A power-of-ten denominator uses that power itself as the decimal scale, rather than one more digit position. The current helper therefore has an identity transform at denominators one and ten. It does not round the encoded numerator to an integer; arbitrary decimal inputs can encode fractional numerators.
+
 ## How to implement
 
 Split the admitted decimal amount into its toward-zero integer part and signed fractional part. For denominator f choose the kernel’s decimal scale `10^ceil(log10(f))`; multiply the fractional part by f, divide by that scale and add the integer part. For f=32 the scale is 100, so `12+(0.375*32)/100=12.12`. The current helper constructs the scale by multiplying by ten until it is at least the denominator, rather than taking a floating-point logarithm; use its retained code for those boundaries rather than assuming all algebraic orderings agree.

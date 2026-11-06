@@ -32,11 +32,13 @@ role_in_family: null
 
 ## Quirks
 
-Referenced text, logical values and blanks are ignored; numeric zeros count. No repeated numeric value gives `#N/A`. An error or unconvertible direct text can cause an error. A data set can have more than one mode even though this function returns only one.
+The recorded collection rule takes **numbers only**, including when text or logicals are typed directly. It skips numeric-looking text and TRUE rather than converting them. Thus `MODE("2",2)` and `MODE(TRUE,1)` have only one admitted number and give `#N/A`; `MODE("x",2,2)` still returns two.
+
+A data set without any repeated number gives `#N/A`. Numeric zero participates. Error values propagate, with the first recorded error winning; arbitrary text is skipped rather than turned into a conversion error. A tied data set can have several modes although this function returns one.
 
 ## How to implement
 
-Collect admitted numbers, normalise positive and negative zero as one key, and count occurrences. Track each key’s first occurrence. Find the largest count; if it is below two, return `#N/A`. Return a key attaining that count. The current code orders tied modes by first appearance and uses that order for the single-result choice. That is the implementation’s tie policy, not a whole-domain identification from the public function page. Keep the tie case in compatibility tests.
+Collect numeric values only from direct arguments and held collections; skip text and logical values, and propagate errors. Normalize positive and negative zero as one key, and count occurrences. Track each key’s first occurrence. Find the largest count; if it is below two, return `#N/A`. Return a key attaining that count. The current code orders tied modes by first appearance and uses that order for the single-result choice. That is the implementation’s tie policy, not a whole-domain identification from the public function page. Keep the tie case in compatibility tests.
 
 ## Version differences
 
@@ -103,5 +105,6 @@ Evidence:
 
 ## Sources
 
+- [FN-MODE-001](../notes/FN-MODE-001.json): recorded direct-text, logical and error controls.
 - [Microsoft: MODE function](https://support.microsoft.com/en-us/excel/functions/mode-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/statistics.rs); implementation steps and the limits identified in the text.

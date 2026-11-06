@@ -47,6 +47,9 @@ role_in_family: >-
 
 Nonnumeric arguments give `#VALUE!`. The PRECISE name does not imply correctly rounded results on every input. The measured below-half stage and the unresolved upper stage need separate treatment. Subnormal inputs transferred to worksheet cells can be read back as zero, so the input route is part of a useful reproduction.
 
+
+The recorded two-argument ERF wrapper reads left to right and rejects logicals: `ERF(TRUE,#REF!)` returns `#VALUE!`, while `ERF(#REF!,TRUE)` returns `#REF!`. DELTA and GESTEP have a different recorded read order.
+
 ## How to implement
 
 For normal `abs(x)<0.5`, use `R(op)=RN53(RN64(op))`: round each operation to a 64-bit significand, then store to binary64. Decode the following hexadecimal strings as **binary64 bit patterns**, not integers converted to floating-point values.
