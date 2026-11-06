@@ -45,7 +45,7 @@ The current helper returns the sole observation for any admitted `k` when `n=1`.
 4. Let `j=floor(h)`. If the rank is integral, return sorted observation `j`, converting the one-based position to a zero-based index as needed.
 5. Otherwise store `f=h-j` and interpolate `lower+f*(upper-lower)` between observations `j` and `j+1`.
 
-For four observations and `k=0.25`, `h=1.75`, `f=0.75` and the result is `10+0.75*(20-10)=17.5`. This gives a complete indexing and interpolation recipe. It does not identify every Excel rounding boundary: the current helper uses binary64 arithmetic, and algebraically rearranging the interpolation changes its numerical candidate.
+For four observations and `k=0.25`, `h=1.75`, `f=0.75` and the result is `10+0.75*(20-10)=17.5`. These steps specify the indexing and interpolation. It does not identify every Excel rounding boundary: the current helper uses binary64 arithmetic, and algebraically rearranging the interpolation changes its numerical candidate.
 
 ## Version differences
 
