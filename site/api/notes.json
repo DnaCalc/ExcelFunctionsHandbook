@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 69,
+  "note_count": 70,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -4719,6 +4719,119 @@
       ],
       "open": [],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-GEOMEAN-001",
+      "functions": [
+        "FUNC.GEOMEAN",
+        "FUNC.SQRT"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "GEOMEAN(1,2) and SQRT(2) return adjacent values in retained build 20430 controls",
+      "statement": "In two retained build 20430 controls, GEOMEAN(1,2) returned 1.414213562373095 (0x3ff6a09e667f3bcc), while SQRT(2) returned 1.4142135623730951 (0x3ff6a09e667f3bcd). Both functions mathematically return the positive square root of two; the SQRT result is the nearest binary64 value. A fifteen-significant-digit display hides the difference.",
+      "status": "measured",
+      "basis": "Two rows read directly from the landed regenerated W111 capture files. Both record Excel build 20430, Windows 64-bit, Compatibility Version 2 and exact-double bulk Value2 inputs, on 29 September 2026. The calls are to different functions in the same recorded environment class; this is not a comparison between builds and no fresh Excel calls were made.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "GEOMEAN(1,2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.414213562373095",
+            "bits": "0x3ff6a09e667f3bcc"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "1.4142135623730951",
+            "bits": "0x3ff6a09e667f3bcd",
+            "how": "Exact rational comparison: 2 lies strictly between the squares of the lower and upper binary64 midpoints around 0x3ff6a09e667f3bcd. Therefore that value is the nearest binary64 square root of 2."
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/w111-broad-regenerated-20260929/answers-geomean.json.gz",
+            "locator": "w111broad-20260929-GEOMEAN-00003",
+            "note": "Capture provenance records exact-double bulk Value2 cell input."
+          }
+        },
+        {
+          "call": "SQRT(2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.4142135623730951",
+            "bits": "0x3ff6a09e667f3bcd"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz",
+            "locator": "w111broad-20260929-SQRT-00014",
+            "note": "Capture provenance records exact-double bulk Value2 cell input."
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+          "path": "cache/w111-broad-regenerated-20260929/answers-geomean.json.gz",
+          "locator": "w111broad-20260929-GEOMEAN-00003",
+          "note": "Recorded GEOMEAN(1,2) answer and capture provenance."
+        },
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+          "path": "cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz",
+          "locator": "w111broad-20260929-SQRT-00014",
+          "note": "Recorded SQRT(2) answer and capture provenance."
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+          "path": "crates/calc-func/src/ported/excel_numeric/x87_chains.rs",
+          "locator": "excel_root_x87",
+          "note": "Current normalized LN, reciprocal and EXP root reconstruction."
+        }
+      ],
+      "open": [
+        "Whether other inputs or environments retain the same difference; the two rows do not certify whole-function agreement or identify private Excel code."
+      ],
+      "recorded_on": "2026-11-06"
     },
     {
       "schema": "efh.function-note/v1",

@@ -78,6 +78,17 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=LN(0.00878906250000000)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `-4.734247228263234` (`0xc012efde816246e6`) |
+| 20131, AMD Ryzen 7 4800H with Radeon Graphics | [`LN(1.5)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/LN.jsonl.gz) | `0.4054651081081644` (`0x3fd9f323ecbf984c`) |
+| 20228, CPU not recorded | [`LN(0.93229377243277)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/work/w109/G6-solvers/answers-pmt-general-ln-20260809.json.gz) | `-0.0701073074907403` (`0xbfb1f28d70e222ed`) |
+| 20430, CPU not recorded | [`LN(2)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-extended-regenerated-20260929/answers-ln.json.gz) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 Use [LOG](FUNC.LOG.md) for an explicit base, [LOG10](FUNC.LOG10.md) for base ten, and [IMLN](FUNC.IMLN.md) for a principal complex logarithm. [EXP](FUNC.EXP.md) converts a natural-log result back to a positive scale. For tiny financial rates, see the separate series in [PMT](FUNC.PMT.md) before constructing `1+rate`.

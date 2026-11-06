@@ -79,6 +79,15 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=ERF.PRECISE(0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/broad-scalar-cycle-011-cellref/comparisons/excel_sample_comparisons.jsonl.gz) | `0.0` (`0x0000000000000000`) |
+| 20131, AMD Ryzen 7 4800H with Radeon Graphics | [`ERF.PRECISE(1)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/ERF.PRECISE.jsonl.gz) | `0.8427007929497149` (`0x3feaf767a741088b`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [ERFC](FUNC.ERFC.md) computes the complementary tail directly. [NORM.S.DIST](FUNC.NORM.S.DIST.md) provides a standard-normal CDF with a different argument transformation.

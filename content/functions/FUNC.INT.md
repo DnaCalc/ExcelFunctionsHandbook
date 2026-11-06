@@ -71,6 +71,15 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 The current source also retains a later build-20527 COM group of 109 INT readings from 30 October 2026. It records `INT(2.9999999999999982)=3` and the large-input exception `INT(4503599627370495.5)=4503599627370495`. These are additional controls, not a matched-input comparison with the earlier environments.
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=INT(0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `0.0` (`0x0000000000000000`) |
+| 20430, CPU not recorded | [`INT(1)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-broad-regenerated-20260929/answers-int.json.gz) | `1` (`0x3ff0000000000000`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [TRUNC](FUNC.TRUNC.md) removes a fraction toward zero. [FLOOR.MATH](FUNC.FLOOR.MATH.md) chooses a multiple with explicit negative-number mode, and [ROUND](FUNC.ROUND.md) chooses a nearest decimal position. [MOD](FUNC.MOD.md) has a documented floor identity but a separately recovered numerical route.

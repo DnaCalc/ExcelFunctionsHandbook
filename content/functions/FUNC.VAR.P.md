@@ -54,6 +54,14 @@ The record contains no same-input comparison between these environments. Reading
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.VAR.P.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 20430, CPU not recorded | [`VAR.P(1,2)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-broad-regenerated-20260929/answers-var.p.json.gz) | `0.25` (`0x3fd0000000000000`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 Use [VAR.S](FUNC.VAR.S.md) when the observations are a sample. [STDEV.P](FUNC.STDEV.P.md) reports population spread in the original units. [VARPA](FUNC.VARPA.md) includes logical values and referenced text.

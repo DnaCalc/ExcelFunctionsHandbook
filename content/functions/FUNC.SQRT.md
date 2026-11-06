@@ -45,6 +45,8 @@ role_in_family: "The principal real square root, with a measured 64-significand-
 
 `=SQRT(-9)` gives `#NUM!`. `=SQRT(ABS(-9))` returns three because it changes the input to positive nine. Use IMSQRT when a complex root of the original negative value is intended.
 
+The retained build 20430 controls give `GEOMEAN(1,2)=1.414213562373095` and `SQRT(2)=1.4142135623730951`, adjacent binary64 values. [FN-GEOMEAN-001](../notes/FN-GEOMEAN-001.json) retains the exact cell inputs and both answers. Their mathematical values agree, but the recorded calculation routes do not publish the same bits.
+
 ## Quirks
 
 Recorded worksheet SQRT uses a root rounded to a 64-bit significand followed by a binary64 store. That can differ by a final bit from one correctly rounded binary64 square root. In the exact-cell control `0x3fefffffffffffff` (`0.9999999999999999`), Excel returns one; a single-rounding mathematical reference returns the preceding binary64 value.
@@ -80,6 +82,15 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.SQRT.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=SQRT(0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/broad-scalar-cycle-011-cellref/comparisons/excel_sample_comparisons.jsonl.gz) | `0.0` (`0x0000000000000000`) |
+| 20430, CPU not recorded | [`SQRT(2)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz) | `1.4142135623730951` (`0x3ff6a09e667f3bcd`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [IMSQRT](FUNC.IMSQRT.md) accepts complex inputs. [SQRTPI](FUNC.SQRTPI.md) includes a multiplication by pi, and [IMABS](FUNC.IMABS.md) uses a hypotenuse route for complex magnitude. [POWER](FUNC.POWER.md) accepts other exponents but must retain its own numerical graph.
@@ -93,6 +104,39 @@ unexpected Excel result, needs to know. Each note gives exact binary64 inputs, E
 and where it was recorded; "measured" means the statement is read off recorded Excel answers,
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
+
+### FN-GEOMEAN-001: GEOMEAN(1,2) and SQRT(2) return adjacent values in retained build 20430 controls
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-06.* Applies to GEOMEAN, SQRT.
+
+In two retained build 20430 controls, GEOMEAN(1,2) returned 1.414213562373095
+(0x3ff6a09e667f3bcc), while SQRT(2) returned 1.4142135623730951 (0x3ff6a09e667f3bcd). Both
+functions mathematically return the positive square root of two; the SQRT result is the nearest
+binary64 value. A fifteen-significant-digit display hides the difference.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `GEOMEAN(1,2)` | number1 `1` (`0x3ff0000000000000`); number2 `2` (`0x4000000000000000`) (cells) | `1.414213562373095` (`0x3ff6a09e667f3bcc`) | `1.4142135623730951` (`0x3ff6a09e667f3bcd`) | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+| `SQRT(2)` | number `2` (`0x4000000000000000`) (cells) | `1.4142135623730951` (`0x3ff6a09e667f3bcd`) | — | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+
+Correct value: Exact rational comparison: 2 lies strictly between the squares of the lower and
+upper binary64 midpoints around 0x3ff6a09e667f3bcd. Therefore that value is the nearest
+binary64 square root of 2.
+
+Basis (measured): Two rows read directly from the landed regenerated W111 capture files. Both
+record Excel build 20430, Windows 64-bit, Compatibility Version 2 and exact-double bulk Value2
+inputs, on 29 September 2026. The calls are to different functions in the same recorded
+environment class; this is not a comparison between builds and no fresh Excel calls were made.
+
+- Open: Whether other inputs or environments retain the same difference; the two rows do not certify whole-function agreement or identify private Excel code.
+
+Evidence:
+
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-geomean.json.gz`, w111broad-20260929-GEOMEAN-00003 at `4287ba192d` — Recorded GEOMEAN(1,2) answer and capture provenance.
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00014 at `4287ba192d` — Recorded SQRT(2) answer and capture provenance.
+- DnaCalc `crates/calc-func/src/ported/excel_numeric/x87_chains.rs`, excel_root_x87 at `da3ecc4fb1` — Current normalized LN, reciprocal and EXP root reconstruction.
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-geomean.json.gz`, w111broad-20260929-GEOMEAN-00003 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00014 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
 
 ### FN-SQRT-001: SQRT is rounded twice, once to 64 bits and once to 53
 
@@ -210,3 +254,4 @@ Evidence for every row: [`content/evidence/environments/FUNC.SQRT.json`](../../c
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/mod.rs); implementation steps and the limits identified in the text.
 - [FN-SQRT-001](../notes/FN-SQRT-001.json): exact inputs, recorded results and the subnormal transfer limit.
 - [Software extended root and binary64 store](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/soft87.rs).
+- [FN-GEOMEAN-001](../notes/FN-GEOMEAN-001.json): two retained build 20430 controls, with a rational check of the nearest square root.

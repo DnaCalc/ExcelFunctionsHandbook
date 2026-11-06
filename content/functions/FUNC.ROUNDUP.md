@@ -83,6 +83,16 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=ROUNDUP(-1.08328420449386575,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `-2.0` (`0xc000000000000000`) |
+| 20430, AMD Ryzen 7 4800H with Radeon Graphics | [`ROUNDUP(2.5,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz) | `3` (`0x4008000000000000`) |
+| 20430, CPU not recorded | [`ROUNDUP(817094511.6142203,6)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/w111-directed-initial-discriminators-20260929/answers-roundup.json.gz) | `817094511.61422` (`0x41c859efb7ce9ec3`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [ROUND](FUNC.ROUND.md) chooses a nearest decimal; [MROUND](FUNC.MROUND.md) chooses a multiple. [INT](FUNC.INT.md) floors negatives; [TRUNC](FUNC.TRUNC.md) removes their fraction toward zero.

@@ -75,6 +75,15 @@ The record contains no same-input comparison between these environments. Reading
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.TRUNC.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=TRUNC(0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `0.0` (`0x0000000000000000`) |
+| 20430, CPU not recorded | [`TRUNC(1,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-broad-regenerated-20260929/answers-trunc.json.gz) | `1` (`0x3ff0000000000000`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [ROUND](FUNC.ROUND.md) chooses a nearest decimal; [MROUND](FUNC.MROUND.md) chooses a multiple. [INT](FUNC.INT.md) rounds negatives downward; [ROUNDDOWN](FUNC.ROUNDDOWN.md) makes the digit count explicit.

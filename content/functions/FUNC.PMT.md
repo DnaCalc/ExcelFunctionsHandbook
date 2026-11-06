@@ -95,6 +95,15 @@ The record contains no same-input comparison between these environments. Reading
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PMT.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 20131, AMD Ryzen 7 4800H with Radeon Graphics | [`PMT(0.1,1,1000,0,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/PMT.jsonl.gz) | `-1100.0000000000002` (`0xc091300000000001`) |
+| 20228, CPU not recorded | [`PMT(0.0649385261097155,17,1567.723775140197,0,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/work/w109/G6-cumprinc/answers-pmt-cumprinc-companion-20260809.json.gz) | `-154.99052913979685` (`0xc0635fb26a2aa533`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [IPMT](FUNC.IPMT.md) and [PPMT](FUNC.PPMT.md) split interest and principal; [PV](FUNC.PV.md) and [FV](FUNC.FV.md) solve for a balance; [RATE](FUNC.RATE.md) solves for the periodic rate.

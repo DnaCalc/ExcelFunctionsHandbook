@@ -60,6 +60,16 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.MROUND.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=MROUND(0,0.25000000000000000)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `0.0` (`0x0000000000000000`) |
+| 20430, AMD Ryzen 7 4800H with Radeon Graphics | [`MROUND(45.5,7)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle-20430/build-20430/MROUND.jsonl.gz) | `49` (`0x4048800000000000`) |
+| 20430, CPU not recorded | [`MROUND(0.5,1)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-extended-regenerated-20260929/answers-mround.json.gz) | `1` (`0x3ff0000000000000`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [ROUND](FUNC.ROUND.md) chooses decimal places; [CEILING.MATH](FUNC.CEILING.MATH.md) and [FLOOR.MATH](FUNC.FLOOR.MATH.md) choose a directional multiple.

@@ -94,6 +94,17 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.EXP.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=EXP(0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `1.0` (`0x3ff0000000000000`) |
+| 20131, AMD Ryzen 7 4800H with Radeon Graphics | [`EXP(-4.4545571568632)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/EXP.jsonl.gz) | `0.01162546699313378` (`0x3f87cf17c44a36a5`) |
+| 20228, CPU not recorded | [`EXP(-0.651804390066281)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/work/w109/G6-solvers/answers-pmt-general-exp-20260809.json.gz) | `0.5211046518808217` (`0x3fe0ace3a9b3e419`) |
+| 20430, CPU not recorded | [`EXP(1)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-extended-regenerated-20260929/answers-exp.json.gz) | `2.718281828459045` (`0x4005bf0a8b145769`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 Use [LN](FUNC.LN.md) for the inverse and [POWER](FUNC.POWER.md) or `^` for another base. See [GEOMEAN](FUNC.GEOMEAN.md) and [BINOM.DIST](FUNC.BINOM.DIST.md) for measured compositions that reuse EXP, and [PMT](FUNC.PMT.md) for a compensated exponential-minus-one route.

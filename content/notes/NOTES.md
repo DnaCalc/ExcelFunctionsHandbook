@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 69, over 103 functions (of the 541 entries = 518 functions + 23 operators).
-- Excel differs from the mathematical answer: 22.
+- Notes: 70, over 104 functions (of the 541 entries = 518 functions + 23 operators).
+- Excel differs from the mathematical answer: 23.
 - Detail for matching Excel's bits: 10.
 - Quirk: 32.
 - Documentation differs from behaviour: 5.
-- Measured: 67; inferred: 2.
+- Measured: 68; inferred: 2.
 
 ## Where Excel's answer is wrong
 
@@ -65,6 +65,7 @@ answer.
 | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) | `GAMMALN(3)` | `0.6931471805599454` (`0x3fe62e42fefa39f0`) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) |
 | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) | `GAMMALN.PRECISE(3)` | `0.6931471805599454` (`0x3fe62e42fefa39f0`) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) |
 | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) | `GAMMALN(6.020222407046596)` | `4.8220305792560145` (`0x401349c26258ddb7`) | `4.822030579256015` (`0x401349c26258ddb8`) |
+| [FN-GEOMEAN-001](#fn-geomean-001-geomean12-and-sqrt2-return-adjacent-values-in-retained-build-20430-controls) | `GEOMEAN(1,2)` | `1.414213562373095` (`0x3ff6a09e667f3bcc`) | `1.4142135623730951` (`0x3ff6a09e667f3bcd`) |
 | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) | `=IPMT(0.05/12,12,360,200000)` | `-822.0867740866778` (`0xc089b0b1b69cc35f`) | `-822.0867740866777` (`0xc089b0b1b69cc35e`) |
 | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) | `=PPMT(0.05/12,12,360,200000)` | `-251.5564719376004` (`0xc06f71ce9e3ca456`) | `-251.5564719376003` (`0xc06f71ce9e3ca452`) |
 | [FN-MOD-001](#fn-mod-001-mod-with-tiny-operands-gives-wrong-signs-and-num-by-a-rule-that-fits-every-recorded-row) | `MOD(-1.223247290044572e-296, 1.223247290044539e-296)` | `1.223247290044572e-296` (`0x0280000000000079`) | `1.2232472900445062e-296` (`0x027fffffffffff0e`) |
@@ -139,6 +140,7 @@ answer.
 | [`GAMMALN.PRECISE`](../functions/FUNC.GAMMALN.PRECISE.md) | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) |
 | [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
 | [`GCD`](../functions/FUNC.GCD.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
+| [`GEOMEAN`](../functions/FUNC.GEOMEAN.md) | [FN-GEOMEAN-001](#fn-geomean-001-geomean12-and-sqrt2-return-adjacent-values-in-retained-build-20430-controls) |
 | [`GESTEP`](../functions/FUNC.GESTEP.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
 | [`HSTACK`](../functions/FUNC.HSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`HYPGEOM.DIST`](../functions/FUNC.HYPGEOM.DIST.md) | [FN-HYPGEOM.DIST-001](#fn-hypgeomdist-001-recorded-hypergeometric-calls-admit-zero-counts-and-counts-above-the-support) |
@@ -173,7 +175,7 @@ answer.
 | [`ROUNDDOWN`](../functions/FUNC.ROUNDDOWN.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
 | [`ROUNDUP`](../functions/FUNC.ROUNDUP.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer), [FN-ROUNDUP-003](#fn-roundup-003-at-tiny-magnitudes-roundup-may-add-no-unit-and-the-two-signs-differ), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
 | [`SORT`](../functions/FUNC.SORT.md) | [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
-| [`SQRT`](../functions/FUNC.SQRT.md) | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53), [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits) |
+| [`SQRT`](../functions/FUNC.SQRT.md) | [FN-GEOMEAN-001](#fn-geomean-001-geomean12-and-sqrt2-return-adjacent-values-in-retained-build-20430-controls), [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53), [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits) |
 | [`STDEV`](../functions/FUNC.STDEV.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`STDEV.P`](../functions/FUNC.STDEV.P.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`STDEV.S`](../functions/FUNC.STDEV.S.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
@@ -1187,6 +1189,40 @@ Evidence:
 - CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00190 at `4d5320dfdc` (readings)
 - CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz`, w111boundary-LCM-00194 at `4d5320dfdc` (readings)
 - CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00217 at `4d5320dfdc` (readings)
+
+### FN-GEOMEAN-001: GEOMEAN(1,2) and SQRT(2) return adjacent values in retained build 20430 controls
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-06.* Applies to
+GEOMEAN, SQRT.
+
+In two retained build 20430 controls, GEOMEAN(1,2) returned 1.414213562373095
+(0x3ff6a09e667f3bcc), while SQRT(2) returned 1.4142135623730951 (0x3ff6a09e667f3bcd). Both
+functions mathematically return the positive square root of two; the SQRT result is the nearest
+binary64 value. A fifteen-significant-digit display hides the difference.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `GEOMEAN(1,2)` | number1 `1` (`0x3ff0000000000000`); number2 `2` (`0x4000000000000000`) (cells) | `1.414213562373095` (`0x3ff6a09e667f3bcc`) | `1.4142135623730951` (`0x3ff6a09e667f3bcd`) | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+| `SQRT(2)` | number `2` (`0x4000000000000000`) (cells) | `1.4142135623730951` (`0x3ff6a09e667f3bcd`) | — | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+
+Correct value: Exact rational comparison: 2 lies strictly between the squares of the lower and
+upper binary64 midpoints around 0x3ff6a09e667f3bcd. Therefore that value is the nearest
+binary64 square root of 2.
+
+Basis (measured): Two rows read directly from the landed regenerated W111 capture files. Both
+record Excel build 20430, Windows 64-bit, Compatibility Version 2 and exact-double bulk Value2
+inputs, on 29 September 2026. The calls are to different functions in the same recorded
+environment class; this is not a comparison between builds and no fresh Excel calls were made.
+
+- Open: Whether other inputs or environments retain the same difference; the two rows do not certify whole-function agreement or identify private Excel code.
+
+Evidence:
+
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-geomean.json.gz`, w111broad-20260929-GEOMEAN-00003 at `4287ba192d` — Recorded GEOMEAN(1,2) answer and capture provenance.
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00014 at `4287ba192d` — Recorded SQRT(2) answer and capture provenance.
+- DnaCalc `crates/calc-func/src/ported/excel_numeric/x87_chains.rs`, excel_root_x87 at `da3ecc4fb1` — Current normalized LN, reciprocal and EXP root reconstruction.
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-geomean.json.gz`, w111broad-20260929-GEOMEAN-00003 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
+- CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00014 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
 
 ### FN-HSTACK-001: A direct error stops these array functions; the same error in an array or cell is an element
 

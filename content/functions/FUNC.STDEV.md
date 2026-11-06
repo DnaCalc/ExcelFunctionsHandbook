@@ -54,6 +54,14 @@ The record contains no same-input comparison between these environments. Reading
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.STDEV.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 20430, CPU not recorded | [`STDEV(1,2)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-broad-regenerated-20260929/answers-stdev.json.gz) | `0.7071067811865476` (`0x3fe6a09e667f3bcd`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 Use [STDEV.S](FUNC.STDEV.S.md) as the explicit modern spelling of sample standard deviation. [STDEV.P](FUNC.STDEV.P.md) uses the population divisor. [VAR.S](FUNC.VAR.S.md) returns variance without the final root.

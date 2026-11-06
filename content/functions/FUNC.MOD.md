@@ -68,6 +68,15 @@ The record contains no same-input comparison between these environments. Reading
 
 [Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.MOD.json).
 
+Retained controls from the indexed captures:
+
+| Build and recorded CPU | Captured call or arguments | Excel result |
+|---|---|---|
+| 19929, CPU not recorded | [`=MOD(-32.02542717687437346,1.00000000000000000)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `0.9745728231256265` (`0x3fef2fb3585ca380`) |
+| 20430, CPU not recorded | [`MOD(1,2)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-broad-regenerated-20260929/answers-mod.json.gz) | `1` (`0x3ff0000000000000`) |
+
+These are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals.
+
 ## Alternatives
 
 [QUOTIENT](FUNC.QUOTIENT.md) truncates the quotient, so pairing it with MOD does not reconstruct mixed-sign inputs. [INT](FUNC.INT.md) supplies the floor convention; a language’s `%` may use another convention.
