@@ -311,7 +311,7 @@ public static class FunctionNotes
 
     /// <summary>Returns the page text with the Notes section inserted, replaced or removed, and
     /// body_sections kept in step. The section goes before the generated environment section when the
-    /// page has one, otherwise before Page vocabulary.</summary>
+    /// page has one, otherwise before Page vocabulary or the compact Sources footer.</summary>
     public static string ApplyToPage(string pageText, string functionId, IReadOnlyList<Note> notes)
     {
         var lines = pageText.Split('\n').ToList();
@@ -338,7 +338,7 @@ public static class FunctionNotes
         }
         if (notes.Count > 0)
         {
-            string[] anchors = [ExcelEnvironments.SectionTitle, "Page vocabulary"];
+            string[] anchors = [ExcelEnvironments.SectionTitle, "Page vocabulary", "Sources"];
             var anchor = anchors.First(a => lines.Contains("## " + a));
             var entry = lines.FindIndex(bs, l => l == "  - " + anchor || l == "  - \"" + anchor + "\"");
             if (entry < 0 || entry > fmEnd)

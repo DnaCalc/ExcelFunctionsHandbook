@@ -2,14 +2,16 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.COUNTIFS",
   "try_it": {
-    "formula": "=COUNTIFS(B2:B4,\">1\",C2:C4,\"<30\")",
+    "formula": "=COUNTIFS(A1:A4,\">=10\",B1:B4,\"east\")",
     "inputs": {
-      "B2": 1,
-      "B3": 2,
-      "B4": 3,
-      "C2": 10,
-      "C3": 20,
-      "C4": 30
+      "A1": 4,
+      "A2": 11,
+      "A3": 7,
+      "A4": 13,
+      "B1": "east",
+      "B2": "east",
+      "B3": "west",
+      "B4": "east"
     }
   },
   "versions": [],

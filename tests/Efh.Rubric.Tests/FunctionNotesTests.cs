@@ -78,6 +78,16 @@ public sealed class FunctionNotesTests
     }
 
     [Fact]
+    public void Notes_on_a_six_section_guide_are_idempotent_and_precede_the_sources_footer()
+    {
+        const string page = "---\nfunction_id: FUNC.ROUNDUP\nbody_sections:\n  - What it does\n  - Try it\n  - Quirks\n  - How to implement\n  - Version differences\n  - Alternatives\n  - Sources\n---\n\n## What it does\n\nText.\n\n## Try it\n\nT.\n\n## Quirks\n\nQ.\n\n## How to implement\n\nI.\n\n## Version differences\n\nV.\n\n## Alternatives\n\nA.\n\n## Sources\n\nS.\n";
+        var once = FunctionNotes.ApplyToPage(page, "FUNC.ROUNDUP", [Sample(correct: Exact)]);
+        Assert.Equal(once, FunctionNotes.ApplyToPage(once, "FUNC.ROUNDUP", [Sample(correct: Exact)]));
+        Assert.Contains("  - Notes\n  - Sources", once);
+        Assert.Equal(page, FunctionNotes.ApplyToPage(once, "FUNC.ROUNDUP", []));
+    }
+
+    [Fact]
     public void Applying_the_section_is_idempotent_removable_and_sits_before_the_environment_section()
     {
         const string page = "---\nfunction_id: FUNC.ROUNDUP\nbody_sections:\n  - What it computes\n  - Excel versions, platforms and CPUs\n  - Page vocabulary\n  - Sources\n---\n\n## What it computes\n\nText.\n\n## Excel versions, platforms and CPUs\n\nE.\n\n## Page vocabulary\n\nV.\n\n## Sources\n\nS.\n";

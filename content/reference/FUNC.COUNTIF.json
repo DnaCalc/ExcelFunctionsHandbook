@@ -2,11 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.COUNTIF",
   "try_it": {
-    "formula": "=COUNTIF(B2:B4,\">1\")",
+    "formula": "=COUNTIF(A1:A4,\">=10\")",
     "inputs": {
-      "B2": 1,
-      "B3": 2,
-      "B4": 3
+      "A1": 4,
+      "A2": 11,
+      "A3": 7,
+      "A4": 13
     }
   },
   "versions": [],

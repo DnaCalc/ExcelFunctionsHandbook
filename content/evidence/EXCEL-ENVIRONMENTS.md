@@ -291,7 +291,7 @@ results are known to agree elsewhere.
 | [`COSH`](../functions/FUNC.COSH.md) | 16.0 build 19929, CPU not recorded (44); 16.0 build 20430, CPU not recorded (33,550) | compared, no difference found | [record](environments/FUNC.COSH.json) |
 | [`COT`](../functions/FUNC.COT.md) | 16.0 build 19929, CPU not recorded (31); 16.0 build 20131, AMD Zen 2 (906); 16.0 build 20430, CPU not recorded (1,224) | compared, no difference found | [record](environments/FUNC.COT.json) |
 | [`COTH`](../functions/FUNC.COTH.md) | 16.0 build 19929, CPU not recorded (42); 16.0 build 20430, CPU not recorded (40,241) | compared, no difference found | [record](environments/FUNC.COTH.json) |
-| `COUNT` (no page yet) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.COUNT.json) |
+| [`COUNT`](../functions/FUNC.COUNT.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.COUNT.json) |
 | [`COUNTA`](../functions/FUNC.COUNTA.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.COUNTA.json) |
 | [`COUPDAYBS`](../functions/FUNC.COUPDAYBS.md) | 16.0 build 20131, AMD Zen 2 (1,060); 16.0 build 20430, AMD Zen 2 (3,012) | read in several environments, not compared on the same inputs | [record](environments/FUNC.COUPDAYBS.json) |
 | [`COUPDAYS`](../functions/FUNC.COUPDAYS.md) | 16.0 build 20131, AMD Zen 2 (1,060); 16.0 build 20430, AMD Zen 2 (3,012) | read in several environments, not compared on the same inputs | [record](environments/FUNC.COUPDAYS.json) |
@@ -316,7 +316,7 @@ results are known to agree elsewhere.
 | [`DECIMAL`](../functions/FUNC.DECIMAL.md) | 16.0 build 20430, CPU not recorded (1,230) | read in one environment only | [record](environments/FUNC.DECIMAL.json) |
 | [`DEGREES`](../functions/FUNC.DEGREES.md) | 16.0 build 19929, CPU not recorded (41); 16.0 build 20430, CPU not recorded (1,227) | compared, no difference found | [record](environments/FUNC.DEGREES.json) |
 | `DELTA` (no page yet) | 16.0 build 20430, CPU not recorded (1,092) | read in one environment only | [record](environments/FUNC.DELTA.json) |
-| `DEVSQ` (no page yet) | 16.0 build 20430, CPU not recorded (23,096) | read in one environment only | [record](environments/FUNC.DEVSQ.json) |
+| [`DEVSQ`](../functions/FUNC.DEVSQ.md) | 16.0 build 20430, CPU not recorded (23,096) | read in one environment only | [record](environments/FUNC.DEVSQ.json) |
 | [`DISC`](../functions/FUNC.DISC.md) | 16.0 build 20430, AMD Zen 2 (2,400) | read in one environment only | [record](environments/FUNC.DISC.json) |
 | [`DOLLARDE`](../functions/FUNC.DOLLARDE.md) | 16.0 build 20430, AMD Zen 2 (2,406); 16.0 build 20430, CPU not recorded (1,235) | read in several environments, not compared on the same inputs | [record](environments/FUNC.DOLLARDE.json) |
 | [`DOLLARFR`](../functions/FUNC.DOLLARFR.md) | 16.0 build 20430, AMD Zen 2 (2,406); 16.0 build 20430, CPU not recorded (1,235) | read in several environments, not compared on the same inputs | [record](environments/FUNC.DOLLARFR.json) |
@@ -361,7 +361,7 @@ results are known to agree elsewhere.
 | [`GEOMEAN`](../functions/FUNC.GEOMEAN.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.GEOMEAN.json) |
 | `GESTEP` (no page yet) | 16.0 build 20430, CPU not recorded (1,096) | read in one environment only | [record](environments/FUNC.GESTEP.json) |
 | `GROWTH` (no page yet) | 16.0 build 20228, CPU not recorded (180) | read in one environment only | [record](environments/FUNC.GROWTH.json) |
-| `HARMEAN` (no page yet) | 16.0 build 20430, CPU not recorded (19,214) | read in one environment only | [record](environments/FUNC.HARMEAN.json) |
+| [`HARMEAN`](../functions/FUNC.HARMEAN.md) | 16.0 build 20430, CPU not recorded (19,214) | read in one environment only | [record](environments/FUNC.HARMEAN.json) |
 | `HEX2BIN` (no page yet) | 16.0 build 20430, CPU not recorded (1,214) | read in one environment only | [record](environments/FUNC.HEX2BIN.json) |
 | `HEX2DEC` (no page yet) | 16.0 build 20430, CPU not recorded (1,025) | read in one environment only | [record](environments/FUNC.HEX2DEC.json) |
 | `HEX2OCT` (no page yet) | 16.0 build 20430, CPU not recorded (1,218) | read in one environment only | [record](environments/FUNC.HEX2OCT.json) |
@@ -485,11 +485,11 @@ results are known to agree elsewhere.
 | [`STANDARDIZE`](../functions/FUNC.STANDARDIZE.md) | 16.0 build 20430, CPU not recorded (10,310) | read in one environment only | [record](environments/FUNC.STANDARDIZE.json) |
 | [`STDEV.P`](../functions/FUNC.STDEV.P.md) | 16.0 build 20430, CPU not recorded (1,211) | read in one environment only | [record](environments/FUNC.STDEV.P.json) |
 | [`STDEV.S`](../functions/FUNC.STDEV.S.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.STDEV.S.json) |
-| `STDEV` (no page yet) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.STDEV.json) |
+| [`STDEV`](../functions/FUNC.STDEV.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.STDEV.json) |
 | [`STDEVA`](../functions/FUNC.STDEVA.md) | 16.0 build 20430, CPU not recorded (1,210) | read in one environment only | [record](environments/FUNC.STDEVA.json) |
-| `STDEVP` (no page yet) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.STDEVP.json) |
+| [`STDEVP`](../functions/FUNC.STDEVP.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.STDEVP.json) |
 | [`STDEVPA`](../functions/FUNC.STDEVPA.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.STDEVPA.json) |
-| `SUM` (no page yet) | 16.0 build 20430, CPU not recorded (1,211) | read in one environment only | [record](environments/FUNC.SUM.json) |
+| [`SUM`](../functions/FUNC.SUM.md) | 16.0 build 20430, CPU not recorded (1,211) | read in one environment only | [record](environments/FUNC.SUM.json) |
 | [`SUMSQ`](../functions/FUNC.SUMSQ.md) | 16.0 build 20430, CPU not recorded (1,211) | read in one environment only | [record](environments/FUNC.SUMSQ.json) |
 | [`SWITCH`](../functions/FUNC.SWITCH.md) | 16.0 build 20430, CPU not recorded (4,151) | read in one environment only | [record](environments/FUNC.SWITCH.json) |
 | `SYD` (no page yet) | 16.0 build 20430, CPU not recorded (50,859) | read in one environment only | [record](environments/FUNC.SYD.json) |
@@ -507,12 +507,12 @@ results are known to agree elsewhere.
 | [`TRUE`](../functions/FUNC.TRUE.md) | 16.0 build 20430, CPU not recorded (1) | read in one environment only | [record](environments/FUNC.TRUE.json) |
 | [`TRUNC`](../functions/FUNC.TRUNC.md) | 16.0 build 19929, CPU not recorded (43); 16.0 build 20430, CPU not recorded (51,317) | read in several environments, not compared on the same inputs | [record](environments/FUNC.TRUNC.json) |
 | [`TYPE`](../functions/FUNC.TYPE.md) | 16.0 build 20430, CPU not recorded (1,227) | read in one environment only | [record](environments/FUNC.TYPE.json) |
-| `VAR.P` (no page yet) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.VAR.P.json) |
-| `VAR.S` (no page yet) | 16.0 build 20228, CPU not recorded (102); 16.0 build 20430, CPU not recorded (1,211) | read in several environments, not compared on the same inputs | [record](environments/FUNC.VAR.S.json) |
-| `VAR` (no page yet) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.VAR.json) |
-| `VARA` (no page yet) | 16.0 build 20430, CPU not recorded (1,211) | read in one environment only | [record](environments/FUNC.VARA.json) |
-| `VARP` (no page yet) | 16.0 build 20430, CPU not recorded (1,210) | read in one environment only | [record](environments/FUNC.VARP.json) |
-| `VARPA` (no page yet) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.VARPA.json) |
+| [`VAR.P`](../functions/FUNC.VAR.P.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.VAR.P.json) |
+| [`VAR.S`](../functions/FUNC.VAR.S.md) | 16.0 build 20228, CPU not recorded (102); 16.0 build 20430, CPU not recorded (1,211) | read in several environments, not compared on the same inputs | [record](environments/FUNC.VAR.S.json) |
+| [`VAR`](../functions/FUNC.VAR.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.VAR.json) |
+| [`VARA`](../functions/FUNC.VARA.md) | 16.0 build 20430, CPU not recorded (1,211) | read in one environment only | [record](environments/FUNC.VARA.json) |
+| [`VARP`](../functions/FUNC.VARP.md) | 16.0 build 20430, CPU not recorded (1,210) | read in one environment only | [record](environments/FUNC.VARP.json) |
+| [`VARPA`](../functions/FUNC.VARPA.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.VARPA.json) |
 | [`VDB`](../functions/FUNC.VDB.md) | 16.0 build 20430, CPU not recorded (106); 16.0 build 20430, CPU not recorded (166,843) | read in several environments, not compared on the same inputs | [record](environments/FUNC.VDB.json) |
 | [`WEEKDAY`](../functions/FUNC.WEEKDAY.md) | 16.0 build 20430, CPU not recorded (19,523) | read in one environment only | [record](environments/FUNC.WEEKDAY.json) |
 | [`WEEKNUM`](../functions/FUNC.WEEKNUM.md) | 16.0 build 20430, CPU not recorded (13,332) | read in one environment only | [record](environments/FUNC.WEEKNUM.json) |

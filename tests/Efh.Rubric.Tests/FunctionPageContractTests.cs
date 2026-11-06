@@ -200,11 +200,14 @@ public sealed class FunctionPageContractTests
                        + $"!= authored H2s [{string.Join(" | ", actualSections)}]");
         }
 
-        if (actualSections.Count < RequiredClosingSections.Length
+        string[] readerSections = ["What it does", "Try it", "Quirks", "How to implement", "Version differences", "Alternatives", "Sources"];
+        var hasReaderSections = actualSections.Where(s => s != "Notes")
+            .SequenceEqual(readerSections, StringComparer.Ordinal);
+        if (!hasReaderSections && (actualSections.Count < RequiredClosingSections.Length
             || !actualSections.TakeLast(RequiredClosingSections.Length)
-                .SequenceEqual(RequiredClosingSections, StringComparer.Ordinal))
+                .SequenceEqual(RequiredClosingSections, StringComparer.Ordinal)))
         {
-            errors.Add($"{relativePath}: final H2s must be Page vocabulary, Sources");
+            errors.Add($"{relativePath}: use the six reader sections and Sources, or end legacy pages with Page vocabulary, Sources");
         }
     }
 

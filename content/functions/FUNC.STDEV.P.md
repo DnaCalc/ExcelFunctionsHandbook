@@ -20,16 +20,14 @@ references:
     role: "reference-engine kernel: the two-pass centred variance and the population divisor"
 episodes: []
 body_sections:
-  - "What it computes"
-  - "Arguments"
-  - "Result and edge cases"
-  - "Errors"
-  - "Relationships"
-  - "Numerical notes"
-  - "What has not been checked"
-  - "Notes"
-  - "Page vocabulary"
-  - "Sources"
+  - What it does
+  - Try it
+  - Quirks
+  - How to implement
+  - Version differences
+  - Alternatives
+  - Notes
+  - Sources
 family: stdev_p_fn
 role_in_family: >-
   The population standard deviation: the plain n divisor, numeric cells only, defined for a
@@ -38,206 +36,41 @@ role_in_family: >-
 
 # STDEV.P
 
-## What it computes
+## What it does
 
-`STDEV.P(number1, [number2], …)` returns the **population standard deviation** of the numeric
-values it is given: the root mean squared deviation about their own mean.
+`STDEV.P(number1, [number2], ...)` measures population standard deviation. It reports spread in the original units by taking the square root of variance. The divisor is `n`: use this when the observations constitute the whole population.
 
-For values `x_1, …, x_n` with mean `xbar`,
+## Try it
 
-    sigma^2  =  ( 1 / n )  *  sum_{i=1..n} (x_i - xbar)^2
-    sigma    =  sqrt( sigma^2 )
+`=STDEV.P(-2,0,2)` returns approximately `1.63299316185545`. The mean is zero and the squared deviations total eight. Divide by three and then take the square root.
 
-The divisor is `n`, with no Bessel correction. That is the entire difference from
-[STDEV.S](FUNC.STDEV.S.md), and it encodes a statement about what the data *is*: `STDEV.P` treats
-the supplied values as the **whole population** — every member, nothing outside — rather than as
-a sample drawn from something larger.
+## Quirks
 
-Two ways to see what the `n` divisor means:
+Numbers in references and arrays count, including zero; referenced text, logical values and empty cells do not. Direct logical values and numeric text can count, so moving a constant into a cell can change the admitted data set. An empty numeric set gives `#DIV/0!`; a one-value population has zero spread. A centered mathematical formula alone does not reproduce the observed numerical path.
 
-1. **It is the exact second central moment of the empirical distribution.** Put mass `1/n` on
-   each value; `sigma^2` is the variance of that distribution, full stop. Under this reading
-   `STDEV.P` is not an *estimator* of anything and there is nothing to correct for. It is a
-   descriptive summary of the numbers in front of you, computed exactly.
-2. **As an estimator of a larger population's variance it is biased downward.** If the `x_i` were
-   a sample, `E[sigma^2] = ((n-1)/n) * sigma_true^2`, an underestimate, because the deviations are
-   taken about the fitted sample mean rather than the true one. That is the shortfall
-   [STDEV.S](FUNC.STDEV.S.md)'s `n - 1` repairs.
+## How to implement
 
-The relationship between the two is exact:
+Apply the collection rules above, then use the [stored variance recipe](FUNC.VAR.S.md#how-to-implement). This function uses the **population** branch, with final divisor `n` and the staged square root.
 
-    STDEV.P  =  STDEV.S * sqrt( (n-1) / n )
+For the three values `-2,0,2`, the stored totals are `S=0`, `Q=8`, `T=0`. The population numerator is `3*8-0=24` and the stored divisor is `3*3=9`. Take the staged square root of the resulting variance. Do not replace the population operation tree by the sample tree with a changed final divisor.
 
-so `STDEV.P` is always the smaller, by a factor that approaches `1` as `n` grows and that matters
-most on the small data sets spreadsheets usually hold. On five values the gap is about eleven
-per cent — large enough to change a reported figure, small enough to go unnoticed.
+The same two guards can redirect this call to the centered pass. For `1000,1001,1002`, that pass sums `1+0+1=2` and divides by `3`. The result then takes the staged square root. The exact scalar guard edges are measured; their transfer to references and arrays remains open. Nonfinite raw-moment fallback is inferred. No Handbook vector suite is published for this function.
 
-**`STDEV.P` is defined for a single data point**, where `STDEV.S` is not: `n = 1` gives a
-deviation of exactly zero and a standard deviation of exactly `0`. That is mathematically correct
-(a one-member population has no spread) and statistically vacuous, and it is a real difference in
-the error surface of the two functions rather than a curiosity.
+## Version differences
 
-The result is in the **units of the data**. Its invariances are the same as
-[STDEV.S](FUNC.STDEV.S.md)'s: unchanged by adding a constant to every value, multiplied by `|c|`
-when every value is scaled by `c`. Shift invariance is what the numerical test below exploits.
+The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.
 
-## Arguments
+| Excel 16.0 build | Platform and CPU | Captured inputs |
+|---|---|---:|
+| 20430 | Windows, 64-bit-bit, CPU not recorded | 1,211 |
 
-| Argument | Meaning | Required |
-|---|---|---|
-| `number1` | The first value, range or array. | yes |
-| `number2`, … | Further values, ranges or arrays. | optional, up to the declared maximum |
+The record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.
 
-The arguments form a flat bag: everything is flattened and concatenated, and argument boundaries
-have no effect.
+[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.STDEV.P.json).
 
-`STDEV.P` is an **aggregate**, not a lift kernel, and carries the dual coercion policy of
-[coercion and lifting](../model/02-coercion-and-lifting.md):
+## Alternatives
 
-- **Reached by scanning a range or array**: only numbers count. Text, logical values and blank
-  cells are **skipped** — not converted to zero, and not counted toward `n`.
-- **Passed directly as a scalar argument**: ordinary to-number coercion applies, so
-  `STDEV.P(1,2,"3")` admits `"3"` as `3` and `STDEV.P(1,2,TRUE)` admits `TRUE` as `1`, where the
-  same values in scanned cells would be ignored.
-
-[STDEVPA](FUNC.STDEVPA.md) is the same estimator with the opposite range policy: text in a range
-counts as `0` there rather than being skipped. The two functions therefore compute over different
-data sets and can differ by a great deal.
-
-## Result and edge cases
-
-Returns `Number`, non-negative, in the units of the data.
-
-- **No numeric values at all.** `#DIV/0!`.
-- **Exactly one numeric value.** Exactly `0`. This is where `STDEV.P` and
-  [STDEV.S](FUNC.STDEV.S.md) part company: the same single-cell range gives `0` here and
-  `#DIV/0!` there.
-- **All values equal.** Exactly `0`; each deviation is exactly zero and `sqrt(0) = +0`.
-- **Two values.** `sigma = |x_1 - x_2| / 2`, exactly representable when the difference is. Excel
-  reaches it through the raw moments or the centered sum of FN-VAR.S-001, and their steps round.
-- **A blank cell inside a scanned range** is skipped, so `n` is smaller than the column height.
-- **Errors anywhere** propagate as themselves.
-- The result can overflow to an infinity when the squared deviations do — see Numerical notes.
-
-## Errors
-
-| Error | Condition | Source |
-|---|---|---|
-| `#DIV/0!` | no numeric data points | documented and implemented |
-| `#VALUE!` | direct text that does not parse as a number | shared coercion rule |
-| propagated | An error value in any argument surfaces as that error | shared coercion rule |
-
-Note the shorter table compared with [STDEV.S](FUNC.STDEV.S.md): with an `n` divisor there is no
-`n = 1` failure, so the only way to reach `#DIV/0!` is to supply nothing numeric at all.
-
-## Relationships
-
-- **[STDEV.S](FUNC.STDEV.S.md)** is the sample form with the `n - 1` divisor, related exactly by
-  `STDEV.P = STDEV.S * sqrt((n-1)/n)`. Choosing between them is a statistical decision about what
-  the data represents, not a stylistic one. The common workbook error is using `STDEV.P` because
-  it gives the smaller number.
-- **`VAR.P`** is the square: `STDEV.P = SQRT(VAR.P)`, and that is literally how
-  the reference engine computes it.
-- **[STDEVPA](FUNC.STDEVPA.md)** uses the same `n` divisor with a different inclusion rule — text
-  in a range counts as `0`, logicals as `1`/`0`. Same estimator, different data set.
-- **`STDEVP`** is the legacy Compatibility-category name. Microsoft's replacement
-  guidance points `STDEVP` at `STDEV.P`, and the two are documented as computing the same
-  quantity. **The Handbook does not treat that as an identity.** A legacy alias and its modern
-  name are two registered entry points, and Excel is free to route them to different code; that
-  they agree is a claim requiring evidence, and the Handbook's record holds only indirect evidence:
-  all recorded rows of both names match the rule of FN-VAR.S-001. The variance
-  algorithms were changed at Excel 2003 with both names still in the product, which is exactly
-  the situation in which an unverified alias assumption is worth least.
-- **[AVERAGE](FUNC.AVERAGE.md)** supplies `xbar` and shares the scan policy exactly.
-- **`DEVSQ`** returns the numerator alone, and is the right diagnostic when a
-  discrepancy might be a divisor question rather than an algorithm question.
-- **[SKEW.P](FUNC.SKEW.P.md)** uses this same `sigma` as its standardising scale, which is why
-  the population skewness and the population standard deviation fail on the same data.
-- **[Z.TEST](FUNC.Z.TEST.md)** and the normal-theory functions consume a population `sigma` when
-  one is genuinely known — the case `STDEV.P` is actually for.
-
-## Numerical notes
-
-Everything on [STDEV.S](FUNC.STDEV.S.md)'s numerical notes applies here, because in the reference
-engine the two functions share one kernel and differ only in the final divisor; Excel's raw-moment
-forms differ by more (FN-VAR.S-001). The summary, with the points that are
-specific to the population form.
-
-**Two-pass centred, not raw power sums.** The reference engine computes `xbar` first and then
-accumulates `sum (x_i - xbar)^2` in a second pass. The textbook one-pass identity
-
-    sum (x - xbar)^2  =  sum x^2  -  (sum x)^2 / n
-
-is algebraically equal and catastrophically unstable: when the mean is large relative to the
-spread it subtracts two nearly-equal large numbers, losing roughly `2*log10(xbar/sigma)`
-significant digits, and can return a **negative** sum of squares — the signature by which this
-bug is identified. Chan, Golub and LeVeque (1983) give the analysis; Welford (1962) gives the
-stable single-pass alternative for cases where the data cannot be stored. Excel uses raw moments
-with stored steps, and two stored tests switch it to a centered sum (FN-VAR.S-001).
-
-**The published record on Excel.** McCullough and Wilson's assessments in *Computational
-Statistics & Data Analysis* from 1999 onward, Knüsel's parallel work, and Welinder's writing on
-Excel's statistical functions arising from the Gnumeric project are the standing published record
-on Excel's variance accuracy, and the algorithms were changed at Excel 2003 in response. **What
-Excel's `STDEV.P` does is recorded in FN-VAR.S-001**: raw moments with stored steps, a centered sum
-when either of two stored tests holds, and a root rounded to 64 bits and then stored. So Excel uses
-both families of algorithm and switches between them. The shift test below remains a measurement
-anyone can make.
-
-**Specific to the population divisor.** `sumsq / n` is a division by an exactly representable
-integer, and for `n` a power of two it is exact. `STDEV.S`'s `sumsq / (n-1)` has no such property
-in general. On Excel's raw-moment path the division is by `n*n` instead (FN-VAR.S-001). This makes
-`STDEV.P` the marginally cleaner of the two, and it also means the exact
-identity `STDEV.P = STDEV.S * sqrt((n-1)/n)` will not hold to the last bit even when both functions
-are computed correctly: the two divisions round differently and the correcting square root adds
-its own rounding. A suite asserting that identity must assert it to a tolerance, and the size of
-that tolerance is itself worth measuring.
-
-**Residual hazards.** The mean and the sum of squares are both accumulated by naive
-left-to-right summation, so their error grows with `n` where compensated or pairwise summation
-would bound it; the reference engine uses neither. The sum of squares has non-negative terms and
-is therefore well-conditioned. The final `sqrt` *halves* the relative error of the variance, and
-in Excel is rounded to 64 bits and then stored (FN-VAR.S-001), so the whole accuracy question lives
-in the variance. Squared deviations
-overflow above roughly `1.3 * 10^154` and underflow to zero below roughly `10^{-162}`, so
-`STDEV.P` can report an infinity or an exact zero for finite, nonzero-spread data; a scale-aware
-formulation that factors out the largest deviation first would avoid both, and is not used.
-
-**Reproducibility.** Summation order is part of the answer, so two correct implementations that
-traverse or vectorise differently will disagree in the last bits.
-
-## What has not been checked
-
-No Handbook vector suite exists for `STDEV.P`, and no Handbook evidence record names `STDEV.P` as
-a subject. FN-VAR.S-001 checks this function against Excel: with the rest of the variance family,
-all 14,679
-recorded rows match. Still open there: whether its two tests keep the same edges for ranges and
-arrays. The implementing module carries no tests of its own in the reference engine; the shared
-variance
-kernel it calls carries a small number, which speaks to that kernel rather than to this surface.
-
-Everything above marked as documented comes from Microsoft's `STDEV.P` page. **Retrieval of that
-page was blocked by the upstream host on this pass**, so those statements are recorded as
-documented behaviour with the source named and should be re-read against the live page.
-
-Inputs worth probing first:
-
-1. **The shift test.** A small data set with a known exact answer, evaluated as given and then
-   with `10^6`, `10^9` and `10^{12}` added to every value. The true answer is invariant.
-   FN-VAR.S-001 has since identified the algorithm, so this is now a four-cell check of it.
-2. **A single numeric cell.** `STDEV.P` should return `0` where [STDEV.S](FUNC.STDEV.S.md)
-   returns `#DIV/0!`. This is the cheapest probe that the two functions are genuinely different
-   surfaces rather than one with a parameter.
-3. **`STDEV.P` against `SQRT(VAR.P)`**, bitwise. Answered: `STDEV.P` is the root of the variance,
-   rounded to 64 bits and then stored (FN-VAR.S-001).
-4. **`STDEV.P` against `STDEV.S * SQRT((n-1)/n)`**, measuring the gap the exact identity leaves
-   after three roundings. The size of that gap is the tolerance a suite would have to allow.
-5. **`STDEV.P` against the legacy `STDEVP`** on the same data, bitwise — the probe that would
-   turn the documented replacement relationship into an evidenced one.
-6. **An empty range and a range of only text**, confirming `#DIV/0!` and not `#VALUE!`.
-7. **The scan/direct split**: `STDEV.P(1,2,"3",TRUE)` against the same four values in cells,
-   which should give different answers and different `n`.
-8. **Overflow and underflow**: deviations near `10^{154}` and near `10^{-162}`.
+Use [VAR.S](FUNC.VAR.S.md) for the other variance divisor. [STDEV.P](FUNC.STDEV.P.md) expresses spread in the original units. Use VARA or VARPA only when logical values and referenced text belong in the data set.
 
 ## Notes
 
@@ -305,37 +138,8 @@ Evidence:
 
 <!-- efh:notes end -->
 
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| population divisor | The plain `n`, with no Bessel correction |
-| second central moment | The exact variance of the empirical distribution on the supplied values |
-| two-pass centred form | Compute the mean, then accumulate squared deviations; the stable route |
-| raw sums-of-squares form | `sum x^2 - (sum x)^2/n`; the unstable one-pass textbook formula |
-| shift test | Adding a large constant to every value; the true answer is invariant, the computed one need not be |
-
 ## Sources
 
-- Microsoft, *STDEV.P function* —
-  <https://support.microsoft.com/en-us/office/stdev-p-function-6e917c05-31a0-496f-ade7-4f4e7462f285>
-  (signature, the stated equation with the `n` divisor, the rule that text and logicals in
-  scanned ranges are ignored while direct arguments are converted, and the `#DIV/0!` condition).
-  Retrieval was blocked by the upstream host for this page; the documented behaviour above is
-  stated as documented behaviour and should be re-checked against the page.
-- T. F. Chan, G. H. Golub and R. J. LeVeque, "Algorithms for Computing the Sample Variance:
-  Analysis and Recommendations", *The American Statistician* 37(3), 1983, pp. 242–247.
-- B. P. Welford, "Note on a Method for Calculating Corrected Sums of Squares and Products",
-  *Technometrics* 4(3), 1962, pp. 419–420.
-- B. D. McCullough and B. Wilson, "On the accuracy of statistical procedures in Microsoft Excel",
-  *Computational Statistics & Data Analysis*, 1999, and the follow-up assessments through 2005;
-  L. Knüsel's parallel work; M. Welinder's writing on Excel's statistical functions arising from
-  the Gnumeric project.
-- N. J. Higham, *Accuracy and Stability of Numerical Algorithms*, 2nd ed., chapter 4.
-- OxFunc `crates/oxfunc_core/src/functions/stdev_p_fn.rs` and
-  `crates/oxfunc_core/src/functions/variance_common.rs` at commit `473efa3` — the two-pass
-  centred variance, the population divisor, the empty-input `#DIV/0!` guard, and the final
-  `sqrt`.
-- Handbook [coercion and lifting](../model/02-coercion-and-lifting.md) — the direct-argument
-  versus range-scan dual policy.
-- Handbook `data/functions/FUNC.STDEV.P.json`, `data/presence/FUNC.STDEV.P.json`.
+- [Microsoft: STDEV.P function](https://support.microsoft.com/en-us/office/stdev-p-function-6e917c05-31a0-496f-ade7-4f4e7462f285), opened 6 November 2026; syntax, documented argument rules and errors.
+- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/variance_common.rs); implementation steps and the limits identified in the text.
+- [FN-VAR.S-001](../notes/FN-VAR.S-001.json): guard bisections, stored arithmetic and unresolved scope.
