@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[F.DIST.RT](FUNC.F.DIST.RT.md) gives a forward probability; [F.INV.RT](FUNC.F.INV.RT.md) gives a critical value; [F.TEST](FUNC.F.TEST.md) starts from samples.
+[F.INV.RT](FUNC.F.INV.RT.md) maps an upper-tail probability to a critical value. [F.DIST](FUNC.F.DIST.md) provides the left CDF or density; [F.TEST](FUNC.F.TEST.md) starts with two samples.
 
 ## Sources
 

@@ -56,7 +56,7 @@ First construct the number’s fifteen-significant-digit **reading**. Extract th
 This reading step is a measured reconstruction with a known counterexample even inside the stated scale range. For `abs(s)>27`, Excel’s scaling is still open; the current code falls back to exact binary64-to-decimal rounding to fifteen digits. That fallback is a candidate, not an identified Excel stage.
 
 1. Truncate the magnitude of `num_digits` and retain its low sixteen bits, then restore the sign. Magnitudes at least `2^32`, or low bits at least `32768`, select an out-of-range sentinel of 100 places with the original sign.
-2. Truncate the exact decimal reading at unit `10^(-D)`, then convert that truncation to nearest binary64.
+2. Before digit rounding, check the special initial-reading return described below. If it applies, return its packed result immediately. Otherwise truncate the exact decimal reading at unit `10^(-D)`, then convert that truncation to nearest binary64.
 3. Return that stored truncation without adding a unit. Flush final subnormal results to zero, apart from the special initial-reading path below.
 
 Worked: `x=-7.29`, `D=1` retains 72 tenths of the magnitude and restores the negative sign, giving `-7.2`. A count of `65537` uses low bits equal to one, so it selects the same decimal position. This conversion rule is distinct from ROUND’s signed 32-bit count.

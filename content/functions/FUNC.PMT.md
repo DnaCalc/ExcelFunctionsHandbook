@@ -56,16 +56,30 @@ Cash inflows and outflows have opposite signs. A monthly payment needs a monthly
 
 ## How to implement
 
-The following is the current **type-zero positive-rate discount route**, with the identified logarithm used on `-1/3<=rate<=1/2`. Its negative-rate and outer-domain limitations are stated below. Let `D(op)` mean ordinary binary64 round-to-nearest/even, and `R(op)` the stored 64-bit-significand operation from the variance recipe.
+The following is the current **type-zero positive-rate discount route**, with the recovered logarithm series used on `-1/3<=rate<=1/2`. The series reproduces 1,181 of 1,184 inferred logarithm values in the note; it still has exceptions inside that range. Its negative-rate and outer-domain limitations are stated below. Let `D(op)` mean ordinary binary64 round-to-nearest/even, and `R(op)` the [stored 64-bit-significand operation](../model/09-staged-arithmetic.md).
 
-1. At exactly `r=0`, return `-(pv+fv)/n`. Reject zero periods and a growth base `1+r<=0`.
+1. Reject zero periods with `#NUM!`. At exactly `r=0`, return `-(pv+fv)/n`. Otherwise reject a growth base `1+r<=0`.
 2. Form `s=D(r/D(2+r))`, `s2=D(s*s)`. Start `T=D(1/23)`. For `k=10` down to `1`, assign `T=D(D(T*s2)+D(1/(2*k+1)))`. Form `a=D(2*s)` and `L=D(a+D(a*D(s2*T)))`. This is a twelve-term atanh expansion, **not** a correctly rounded log1p call.
-3. Store `t=-D(n*L)`. Obtain the measured public exponential `u=EXP(t)`. If `u==1`, let `em=t`. Otherwise set `d=R(u-1)`; for `abs(t)<1`, use `em=R(R(d*t)/LN(u))`, where LN is the measured public stored result; otherwise use `em=d`. This Kahan correction avoids cancellation in `exp(t)-1`.
+3. Store `t=-D(n*L)`. Obtain the measured public exponential `u=EXP(t)`. If `u==1`, let `em=t`. Otherwise set `d=R(u-1)`; for `abs(t)<1`, use `em=R(R(d*t)/LN(u))`, where LN is the measured public stored result; otherwise use `em=d`. Reject `em=0` with `#NUM!` before division. This Kahan correction avoids cancellation in `exp(t)-1`.
 4. On the positive-rate, positive-period discount arm (`t<0`), form `b=R(pv+fv)`, `q=R(R(b/em)+fv)`, and return `R(q*r)` for type zero. Each addition and the division is a separate store. With `fv=0` this reduces to quotient first, rate last.
 
-Worked zero-future-value case, `r=0.25,n=1,pv=1000`: `s=1/9` approximately, `L` approximates `ln(1.25)`, `t` is about `-0.22314355131420976`, `u` about `0.8` and `em` about `-0.2`. The quotient is about `-5000`; multiplying by `0.25` gives about `-1250`. Keep the full binary values in an implementation: the decimal intermediates here are explanatory approximations.
+Worked zero-future-value case, `r=0.25,n=1,pv=1000`: the stated reconstruction gives the following binary64 values. The stored correction moves `em` one representable step from the direct subtraction.
 
-The code separately handles opposite equal balances as interest-only. Negative-rate composition, rates outside the series’ chosen convergence range and remaining last-bit cases are not solved by this recipe. The series range is an implementation choice, not a measured global Excel boundary. The current type-one coefficient has its own measured stores; it must not be folded into the type-zero recipe by algebra alone. The old annuity write-up’s initial “blocked” section is superseded by its update and later code.
+| Stage | Value | Bits |
+|---|---:|---|
+| Series logarithm `L` | `0.22314355131420974` | `0x3fcc8ff7c79a9a21` |
+| `t=-n*L` | `-0.22314355131420974` | `0xbfcc8ff7c79a9a21` |
+| Stored EXP `u` | `0.8` | `0x3fe999999999999a` |
+| Direct difference `d` | `-0.19999999999999996` | `0xbfc9999999999998` |
+| Corrected difference `em` | `-0.19999999999999998` | `0xbfc9999999999999` |
+| Balance quotient `q` | `-5000` | `0xc0b3880000000000` |
+| Payment | `-1250` | `0xc093880000000000` |
+
+With the same rate, period and principal but `fv=250`, the first stored balance is `1250`. Dividing by em and then adding 250 gives `q=-6000.000000000001`; the final payment is `-1500.0000000000002`. An algebraic one-period calculation rounds differently. These are worked evaluations of the reconstruction, not additional Excel captures.
+
+The nonzero-future-value discount fold is supported by 192 paired calls in the current source; 60 and 99 separately selected readings distinguish its two additions. This later result supersedes that part of the older note's open list. The common loan `PMT(0.05/12,360,200000)` has recorded result `-1073.6432460242781` in FN-PMT-001; replaying the stated series and stored quotient also gives that value.
+
+The code separately handles opposite equal balances as interest-only. Negative-rate composition, rates outside the series’ chosen convergence range and remaining last-bit cases are not solved by this recipe. The note retains an in-range exception at rate `0.419`; a global reduction boundary has not been identified. The series range is an implementation choice, not a measured global Excel boundary. The current type-one coefficient has its own measured stores; it must not be folded into the type-zero recipe by algebra alone. The old annuity write-up’s initial “blocked” section is superseded by its update and later code.
 
 ## Version differences
 

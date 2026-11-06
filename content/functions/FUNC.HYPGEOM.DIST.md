@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BINOM.DIST](FUNC.BINOM.DIST.md) models independent trials with replacement; [COMBIN](FUNC.COMBIN.md) counts combinations; [HYPGEOM.DIST](FUNC.HYPGEOM.DIST.md) exposes the cumulative switch.
+[HYPGEOMDIST](FUNC.HYPGEOMDIST.md) is the mass-only compatibility spelling. [BINOM.DIST](FUNC.BINOM.DIST.md) describes independent trials with one fixed probability, and [COMBIN](FUNC.COMBIN.md) counts selections.
 
 ## Sources
 

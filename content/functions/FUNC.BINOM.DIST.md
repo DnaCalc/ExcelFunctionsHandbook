@@ -43,9 +43,9 @@ After truncating successes `k` and trials `n` toward zero, validate `0<=k<=n` an
 
 For the **all-success, noncumulative** route `k=n>0`, `0<p<1`:
 
-1. Obtain the stored measured public `LN(p)` result, called `L`.
-2. Compute `t=R(n*L)`, rounding once to a 64-bit significand and then storing to binary64.
-3. Pass the stored `t` to the measured public EXP route and publish its result under the function’s finite/subnormal policy.
+1. Obtain the stored measured public [LN](FUNC.LN.md#how-to-implement) result for p, called `L`.
+2. Compute `t=R(n*L)` with the [stored-arithmetic recipe](../model/09-staged-arithmetic.md), rounding once to a 64-bit significand and then storing to binary64.
+3. Pass the stored `t` to the measured public [EXP route](FUNC.EXP.md#how-to-implement) and publish its result under the function’s finite/subnormal policy.
 
 Worked `n=3,p=0.5`: `L` is about `-0.6931471805599453`, the stored product is about `-2.0794415416798357`, and the exponential is about `0.125`, the probability of three successes. A direct `pow(p,n)` has different intermediate stages and is not a substitute for this identified computation tree.
 

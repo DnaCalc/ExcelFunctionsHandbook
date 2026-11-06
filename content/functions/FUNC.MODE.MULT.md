@@ -44,7 +44,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[MODE.SNGL](FUNC.MODE.SNGL.md) returns a single mode; [MODE.MULT](FUNC.MODE.MULT.md) returns tied modes; [MEDIAN](FUNC.MEDIAN.md) measures a different kind of centre.
+[MODE.SNGL](FUNC.MODE.SNGL.md) returns one mode. [MEDIAN](FUNC.MEDIAN.md) gives the middle value and [AVERAGE](FUNC.AVERAGE.md) the arithmetic mean; neither needs a repeated observation.
 
 ## Notes
 

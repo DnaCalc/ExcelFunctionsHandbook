@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[ISFORMULA](FUNC.ISFORMULA.md) asks whether a formula is present; [FORMULATEXT](FUNC.FORMULATEXT.md) retrieves it; [TEXT](FUNC.TEXT.md) formats a calculated value.
+[ISFORMULA](FUNC.ISFORMULA.md) checks whether a cell contains a formula. [TEXT](FUNC.TEXT.md) formats its calculated value rather than returning its formula text.
 
 ## Sources
 

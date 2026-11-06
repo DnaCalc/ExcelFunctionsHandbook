@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[F.DIST](FUNC.F.DIST.md) gives a forward probability; [F.INV](FUNC.F.INV.md) gives a critical value; [F.TEST](FUNC.F.TEST.md) starts from samples.
+[F.DIST](FUNC.F.DIST.md) supplies the forward left CDF. [F.INV.RT](FUNC.F.INV.RT.md) takes an upper-tail probability; [F.TEST](FUNC.F.TEST.md) computes a sample test probability.
 
 ## Sources
 

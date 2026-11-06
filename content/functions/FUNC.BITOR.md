@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BITAND](FUNC.BITAND.md) masks bits, [BITOR](FUNC.BITOR.md) sets selected bits and [BITXOR](FUNC.BITXOR.md) toggles them. [BITLSHIFT](FUNC.BITLSHIFT.md) moves bit positions.
+[BITAND](FUNC.BITAND.md) masks bits and [BITXOR](FUNC.BITXOR.md) toggles them. [BITLSHIFT](FUNC.BITLSHIFT.md) moves a pattern before combining it.
 
 ## Sources
 

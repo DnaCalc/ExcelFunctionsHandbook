@@ -56,7 +56,7 @@ First construct the number’s fifteen-significant-digit **reading**. Extract th
 This reading step is a measured reconstruction with a known counterexample even inside the stated scale range. For `abs(s)>27`, Excel’s scaling is still open; the current code falls back to exact binary64-to-decimal rounding to fifteen digits. That fallback is a candidate, not an identified Excel stage.
 
 1. Truncate the magnitude of `num_digits` and retain its low sixteen bits, then restore the sign. Magnitudes at least `2^32`, or low bits at least `32768`, select an out-of-range sentinel of 100 places with the original sign.
-2. Truncate the exact decimal reading at unit `10^(-D)`, then convert that truncation to nearest binary64.
+2. Before digit rounding, check the special initial-reading return described below. If it applies, return its packed result immediately. Otherwise truncate the exact decimal reading at unit `10^(-D)`, then convert that truncation to nearest binary64.
 3. If a nonzero digit was discarded, convert one unit separately to binary64, add it to the truncated magnitude with the stored 64-bit-significand operation from the variance recipe, and restore the sign. Do not convert the already-incremented decimal in one step: that has a different rounding history.
 4. Suppress the added unit if it is subnormal. For positive inputs also suppress it when the stored reading minus the stored truncation is below `2^-1026`. Negative inputs do not use that distance test. Out-of-range positive counts add no unit; negative ones give `#NUM!` when a unit would be required.
 

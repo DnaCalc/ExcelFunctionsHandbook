@@ -35,7 +35,7 @@ Basis defaults to zero: 0 US 30/360, 1 actual/actual, 2 actual/360, 3 actual/365
 
 ## How to implement
 
-Generate quasi-coupon periods forward from last_interest through maturity. Sum the normalized full odd-period fraction, accrued fraction and settlement-to-maturity fraction. Form the final coupon and redemption under the simple-discount denominator, then subtract accrued interest. The worked zero-yield example isolates the coupon and accrual arithmetic from discount powers. Calendar seams, long/short-period branches and residual numerical differences remain open where the recorded reports say so. The current odd-first code includes an Apache-licensed translation of ExcelFinancialFunctions changed after Excel measurements; its method is not solely inferred from black-box readings.
+Generate quasi-coupon periods forward from last_interest through maturity. Sum the normalized full odd-period fraction, accrued fraction and settlement-to-maturity fraction. Form the final coupon and redemption under the simple-discount denominator, then subtract accrued interest. The worked zero-yield example isolates the coupon and accrual arithmetic from discount powers. Calendar seams, long/short-period branches and residual numerical differences remain open where the recorded reports say so. The family combines a credited Apache-licensed ExcelFinancialFunctions translation in its odd-first kernel and calendar helpers with project-owned kernels and changes guided by recorded Excel answers.
 
 ## Version differences
 
@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[ODDLPRICE](FUNC.ODDLPRICE.md) and [ODDLYIELD](FUNC.ODDLYIELD.md) form the corresponding price/yield pair. [PRICE](FUNC.PRICE.md) and [YIELD](FUNC.YIELD.md) handle regular coupons.
+[ODDLYIELD](FUNC.ODDLYIELD.md) solves yield from the same last-coupon schedule. [ODDFPRICE](FUNC.ODDFPRICE.md) handles an irregular first coupon; [PRICE](FUNC.PRICE.md) handles regular coupons.
 
 ## Sources
 
