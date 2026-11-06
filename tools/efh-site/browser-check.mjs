@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // Node >=22, installed Chrome. Uses the Chrome DevTools Protocol; no npm packages.
-import { createServer } from "node:http";
+import { createServer, request as proxyRequest } from "node:http";
+import { createHandbookServer } from "../efh-api/server.mjs";
+import { DatabaseSync } from "node:sqlite";
 import { spawn } from "node:child_process";
 import { mkdtemp, readFile, writeFile, mkdir, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
@@ -22,17 +24,27 @@ const catalogue = JSON.parse(await readFile(join(options.out, "api/index.json"),
 let thinPath;
 for (const id of new Set(["FUNC.IMLOG10", ...catalogue.rows.map(row => row.function_id)])) {
   const candidate = `functions/${id.replace(/^FUNC\./, "")}.html`;
-  if ((await readFile(join(options.out, candidate), "utf8")).includes("Projection only · no curated prose")) { thinPath = candidate; break; }
+  if ((await readFile(join(options.out, candidate), "utf8")).includes("Detailed argument guidance is still being written.")) { thinPath = candidate; break; }
 }
-assert.ok(thinPath, "No projection-only page remains: revise the thin-page case for the new curation state");
+assert.ok(thinPath, "No brief page remains: revise the thin-page case for the new curation state");
 await mkdir(options.screenshots, { recursive: true });
 const prefix = "/preview/handbook/";
-const mime = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json", ".svg": "image/svg+xml" };
+const mime = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".json": "application/json", ".svg": "image/svg+xml", ".wasm": "application/wasm", ".txt": "text/plain" };
+const privateStore = join(options.screenshots, "browser-contributions.sqlite");
+const apiServer = await createHandbookServer({ root: options.out, store: privateStore });
+await new Promise(resolve => apiServer.listen(0, "127.0.0.1", resolve));
 const server = createServer(async (req, res) => {
   try {
     const path = new URL(req.url, "http://localhost").pathname;
     if (path === "/favicon.ico") { res.writeHead(204); res.end(); return; }
     if (!path.startsWith(prefix)) throw new Error("outside preview prefix");
+    if (["api/eval", "api/contributions"].includes(path.slice(prefix.length))) {
+      const upstream = proxyRequest({ host: "127.0.0.1", port: apiServer.address().port, path: "/" + path.slice(prefix.length), method: req.method, headers: req.headers }, response => {
+        res.writeHead(response.statusCode, response.headers); response.pipe(res);
+      });
+      upstream.on("error", () => { res.writeHead(502); res.end(); });
+      req.pipe(upstream); return;
+    }
     let file = resolve(options.out, decodeURIComponent(path.slice(prefix.length)));
     if (file !== options.out && !file.startsWith(options.out + sep)) throw new Error("outside output");
     if ((await stat(file)).isDirectory()) file = join(file, "index.html");
@@ -127,14 +139,14 @@ try {
       return value;
     } finally { clearTimeout(loadTimer); cdp?.close(); await browser.send("Target.closeTarget", { targetId }); }
   }
-  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["thin", thinPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "functions/index.html"], ["series", "lastbit/index.html"]];
+  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["thin", thinPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "functions/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"]];
   for (const width of [390, 1440]) for (const mode of ["light", "dark"]) for (const [name, path] of routes) {
     const result = await withPage(path, width, mode, async cdp => {
       const metrics = await cdp.evaluate(`({width: innerWidth, client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth, heading: document.querySelector('h1').innerText, h1s: document.querySelectorAll('h1').length, scheme: getComputedStyle(document.body).backgroundColor, bytes: performance.getEntriesByType('resource').reduce((sum,r)=>sum+r.transferSize,0), duration: performance.getEntriesByType('navigation')[0].duration})`);
       assert.equal(metrics.width, width);
       assert.equal(metrics.scroll, metrics.client, `${path} document overflow at ${width}`);
       assert.equal(metrics.h1s, 1, `${path} heading hierarchy`);
-      if (name === "thin") assert.ok(await cdp.evaluate(`document.body.innerText.includes('Projection only · no curated prose')`), "thin-page case must retain its stated scope");
+      if (name === "thin") assert.ok(await cdp.evaluate(`document.body.innerText.includes('Detailed argument guidance is still being written.')`), "thin-page case must retain its stated scope");
       for (const type of ["keyDown", "keyUp"]) await cdp.send("Input.dispatchKeyEvent", { type, key: "Tab", code: "Tab", windowsVirtualKeyCode: 9 });
       assert.ok(await cdp.evaluate(`document.activeElement.classList.contains('skip')`), "Tab reaches skip link first");
       for (const type of ["keyDown", "keyUp"]) await cdp.send("Input.dispatchKeyEvent", { type, key: "Enter", code: "Enter", windowsVirtualKeyCode: 13 });
@@ -188,11 +200,47 @@ try {
   report.checks.push("search query, empty results, localized names, category filter");
   await withPage("functions/ROUND.html", 390, "dark", async cdp => {
     assert.ok(await cdp.evaluate(`document.querySelectorAll('.note').length>=3 && document.body.innerText.includes('0xc2d9945ca2620000')`));
-    await cdp.evaluate(`document.querySelectorAll('.doors details').forEach(el=>el.open=true);`);
-    assert.equal(await cdp.evaluate(`document.querySelectorAll('.doors details[open]').length`), 7);
-    assert.ok(await cdp.evaluate(`document.body.innerText.includes('No ledger receipt')`));
+    assert.deepEqual(await cdp.evaluate(`[...document.querySelectorAll('.function-section > h2')].map(el=>el.textContent)`), ["What it does","Try it","Quirks","How to implement","Version differences","Alternatives"]);
+    assert.ok(await cdp.evaluate(`!document.body.innerText.match(/mixed-vintage|pre-ledger|export commit|OxFunc admission/i)`));
+    await cdp.evaluate(`document.querySelector('.source-footer details').open=true`);
+    assert.ok(await cdp.evaluate(`document.querySelector('.source-footer').innerText.includes('Function JSON')`));
   });
-  report.checks.push("ROUND notes and raw bits; seven source doors");
+  report.checks.push("six reader sections, ROUND quirks and raw bits, compact source footer");
+  for (const [formula, expectedStatus, expectedText, inputs] of [
+    ["=ROUND(1.005,2)","calculated","1.01",{}],
+    ["=SUM(B2:B3)","calculated","7",{B2:3,B3:4}],
+    ["=SEQUENCE(2,3)","calculated","2 × 3",{}],
+    ["=1/0","worksheet-error","#DIV/0!",{}],
+    ["=B2","refused","could not calculate",{}],
+    ["=LAMBDA(x,x+1)(4)","calculated","5",{}],
+  ]) await withPage("functions/ROUND.html", 390, "light", async cdp => {
+    const result = await cdp.evaluate(`new Promise(resolve=>{
+      const form=document.querySelector('[data-evaluator]'),out=form.querySelector('output');
+      form.elements.formula.value=${JSON.stringify(formula)};
+      form.elements.inputs.value=${JSON.stringify(JSON.stringify(inputs))};
+      const observer=new MutationObserver(()=>{if(out.dataset.status && out.dataset.status!=='pending'){observer.disconnect();resolve({status:out.dataset.status,text:out.textContent});}});
+      observer.observe(out,{childList:true,subtree:true,attributes:true});form.requestSubmit();
+    })`);
+    assert.equal(result.status,expectedStatus,JSON.stringify(result));assert.ok(result.text.includes(expectedText),JSON.stringify(result));
+    const response=await cdp.evaluate(`fetch(new URL('../api/eval',location.href),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({formula:${JSON.stringify(formula)},inputs:${JSON.stringify(inputs)}})}).then(r=>r.json())`);
+    assert.equal(response.status,result.status);
+    if(response.value?.bits) assert.ok(result.text.includes(response.value.bits));
+    await cdp.evaluate(`document.querySelector('[data-reset]').click()`);
+    assert.equal(await cdp.evaluate(`document.querySelector('#formula').value`),"=ROUND(1.005,2)");
+  });
+  report.checks.push("browser wasm calculates formulas, cells, arrays, LAMBDA, errors and refusals; numeric bits agree with API");
+  await withPage("contribute/index.html?function=FUNC.ROUND",390,"light",async cdp=>{
+    assert.equal(await cdp.evaluate(`document.querySelector('#contribution-function').value`),"FUNC.ROUND");
+    const message=await cdp.evaluate(`new Promise(resolve=>{
+      const form=document.querySelector('#contribution-form'),out=form.querySelector('output');
+      form.elements.details.value='Browser test contribution: ROUND example checked locally.';
+      const observer=new MutationObserver(()=>{if(out.textContent.startsWith('Saved for review.')){observer.disconnect();resolve(out.textContent);}});
+      observer.observe(out,{childList:true,subtree:true});form.requestSubmit();
+    })`);
+    const id=message.split('Reference: ')[1];const db=new DatabaseSync(privateStore);
+    assert.equal(db.prepare('SELECT function_id FROM contributions WHERE id=?').get(id).function_id,'FUNC.ROUND');db.close();
+  });
+  report.checks.push("contribution form saves through API into private SQLite");
   await withPage("functions/index.html", 390, "light", async cdp => {
     assert.equal(await cdp.evaluate(`document.querySelectorAll('[data-search]').length`), 541);
     assert.ok(await cdp.evaluate(`[...document.querySelectorAll('.filter-controls')].every(el=>getComputedStyle(el).display==='none')`));
@@ -208,7 +256,7 @@ try {
     assert.equal(overflow.overflow, 0, `${path} narrow-width overflow: ${JSON.stringify(overflow.elements)}`);
     assert.equal(await cdp.evaluate(`(() => { const s=document.createElement('style');s.textContent='*{letter-spacing:.04em!important}';document.head.append(s);return document.documentElement.scrollWidth-document.documentElement.clientWidth; })()`), 0, `${path} narrow-width text stress`);
   });
-  report.checks.push("320px and 375px overflow and text-width stress across seven routes");
+  report.checks.push("320px and 375px overflow and text-width stress across eight routes");
   await withPage(pathToFileURL(join(options.out, "index.html")).href, 390, "light", async cdp => {
     assert.ok(await cdp.evaluate(`document.body.classList.contains('js') && document.querySelector('h1').innerText==='The Handbook of Excel Functions'`));
   });
@@ -223,6 +271,8 @@ try {
     chrome.kill("SIGTERM");
     await exited;
     await new Promise(resolve => server.close(resolve));
+    apiServer.closeAllConnections(); await new Promise(resolve => apiServer.close(resolve));
+    for (const suffix of ["", "-shm", "-wal"]) await rm(privateStore+suffix,{force:true});
     // Chrome helper processes can finish profile writes just after the parent exits.
     await rm(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
   } catch (error) { report.failures.push(`Browser cleanup: ${error.stack || error}`); process.exitCode = 1; }

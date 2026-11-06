@@ -77,14 +77,19 @@ launches headless Chrome and writes screenshots plus a JSON report to the
 ignored `.tmp/site-browser/`. Use `--out PATH`, `--screenshots PATH` or
 `--chrome PATH`; `CHROME` also selects the browser executable.
 
-Its declared matrix covers seven routes at 390 and 1440 px in light and dark,
-with homepage, ROUND and a projection-only page's screenshots, plus ROUND note
-details. It checks runtime/request errors, no external resource requests,
-keyboard skip/focus, lens behaviour, source doors, search/category/empty states,
-JavaScript-disabled reading, file URLs, and 320/375 px overflow with text-width
-stress. It selects IMLOG10 while that entry lacks prose, then another thin entry
-from the generated catalogue. The report identifies the selection. Inspect the screenshots
-as well as the machine report. These are headless Chrome checks, without a
-claim about real iOS devices or other browser engines.
+Its matrix covers eight routes at 390 and 1440 px in light and dark. It checks keyboard
+navigation, search/category/empty states, six function sections, compact sources, no-JS reading,
+file URLs, and 320/375 px overflow. It also calculates actual formulas in browser wasm, compares
+numeric bits with the local API, and submits the contribution form into a temporary private
+SQLite store. Build the engine before running it. Screenshots and the JSON report support visual
+review; they do not establish results on iOS or other browser engines.
+
+## Calculation and contributions
+
+Build the pinned [OneCalc bridge](../efh-engine/README.md) into ignored `site/engine/` before the
+site build; the generator includes those assets. A reference-only build without the engine is
+also allowed, and Calculate reports that the calculator is unavailable. Run the
+[local server](../efh-api/README.md) for the evaluation API and private contribution collection.
+`node --test tools/efh-api/server.test.mjs` exercises real wasm and a temporary SQLite store.
 
 This command never deploys or changes hosting configuration.

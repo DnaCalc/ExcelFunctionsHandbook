@@ -319,6 +319,17 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     )?;
     write(out, "assets/style.css", CSS)?;
     write(out, "assets/site.js", JS)?;
+    write(out, "assets/eval-worker.js", include_str!("eval-worker.js"))?;
+    let engine_dir = repo.join("site/engine");
+    if engine_dir.join("engine_bg.wasm").is_file() {
+        for path in files(&engine_dir)? {
+            let target = out
+                .join("assets/onecalc")
+                .join(path.strip_prefix(&engine_dir).unwrap());
+            std::fs::create_dir_all(target.parent().unwrap()).map_err(|e| e.to_string())?;
+            std::fs::copy(&path, target).map_err(|e| e.to_string())?;
+        }
+    }
     let mut routes = BTreeMap::new();
     let mut docs = Vec::<(String, String, String)>::new();
     for f in &input.functions {
@@ -566,8 +577,9 @@ fn function_page(
         }
         if key == "try-it" {
             html += &format!(
-                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><button type="submit">Calculate</button><button type="button" data-reset>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
-                esc(s(&record["try_it"]["formula"]))
+                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit">Calculate</button><button type="button" data-reset>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
+                esc(s(&record["try_it"]["formula"])),
+                esc(&record["try_it"].get("inputs").unwrap_or(&json!({})).to_string())
             );
         } else {
             html += &r.render(&src, &dest, s(&record["sections"][key]), false);
