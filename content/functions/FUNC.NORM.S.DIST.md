@@ -82,16 +82,9 @@ Microsoft's page gives two required arguments:
 | `z` | "the value for which you want the distribution" | yes |
 | `cumulative` | "can be either TRUE or FALSE… If cumulative is TRUE then NORM.S.DIST returns the cumulative distribution function. If it is FALSE, it returns the probability mass function." | yes |
 
-`cumulative` has no default: the switch must be written. The reference engine records an arity
-of exactly 2, matching.
+`cumulative` has no default: the switch must be written.
 
-The reference engine's projection marks this surface's signature as a **placeholder**
-(`signature_placeholder: true`), so no parameter list is published from that source; the table
-above is Microsoft's.
-
-The recorded coercion/lift profile is `Custom`, meaning the admission of logicals, text and
-empty cells in each slot is this function's own decision rather than a family default. See
-[Coercion and lifting](../model/02-coercion-and-lifting.md).
+The pinned catalogue supplies `NORM.S.DIST(z, cumulative)` with two required arguments. Keep the cumulative switch explicit.
 
 ## A documentation defect worth naming
 
@@ -296,9 +289,5 @@ Inputs worth probing first:
   Named as literature; no figure restated.
 - Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md) and
   [About implementation options](../model/07-implementation-options.md).
-- `data/functions/FUNC.NORM.S.DIST.json` (arity 2, `Custom` profile,
-  `signature_placeholder: true`, XLL symbol `xlfNorm_s_dist`) and
-  `data/functions/FUNC.NORMSDIST.json` (arity 1) — the source of the added-argument finding.
-- `data/presence/FUNC.NORM.S.DIST.json` — implementing module
-  `crates/oxfunc_core/src/functions/normal_log_family.rs`, shared with twelve other normal and
-  lognormal surfaces.
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.NORM.S.DIST.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/distributions.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.

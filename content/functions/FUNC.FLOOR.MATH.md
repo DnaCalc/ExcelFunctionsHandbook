@@ -79,11 +79,7 @@ gives truncation toward zero.
 | `significance` | The multiple to round to. Optional. | 1 |
 | `mode` | The direction, toward or away from zero, used for negative numbers. Optional. | see the note below |
 
-The reference engine records an arity of one to three arguments, matching the documented
-signature. It also carries `signature_placeholder: true` for this surface, meaning the
-Handbook's own projection holds **no real signature string** for it — the argument names above
-come from Microsoft's page, not from the projection, and the projection's absence is shown
-rather than faked.
+The pinned catalogue supplies `FLOOR.MATH(number, [significance], [mode])`: one required argument and two optional arguments.
 
 **A documentation inconsistency, recorded as observed at curation.** Microsoft's page states
 the default for negative numbers as rounding *away* from zero, and then, in the paragraph on
@@ -278,6 +274,5 @@ Inputs I would probe first:
   roundings and the failure of naive grid arithmetic.
 - Handbook, `FLOOR.PRECISE` and [EVEN](FUNC.EVEN.md);
   [Coercion and lifting](../model/02-coercion-and-lifting.md).
-- Handbook projections `data/functions/FUNC.FLOOR.MATH.json` (arity 1–3, `signature_placeholder`
-  true, `Custom` coercion and kernel classifications) and `data/presence/FUNC.FLOOR.MATH.json`
-  (the shared `ceiling_floor_family` module and the open array-lift defect stream).
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.FLOOR.MATH.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/rounding_more.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.

@@ -104,11 +104,7 @@ Microsoft's page gives four required arguments:
 distribution functions in other systems default to the CDF, and here the switch must be
 written. Its argument descriptions above are Microsoft's own wording.
 
-The reference engine records an arity of exactly 4 and a `Custom` coercion/lift profile — the
-admission of logicals, text and empty cells in each slot is decided by this function, not
-inherited from a family default. The signature in the projection is a **placeholder**: the
-projection's `signature_placeholder` flag is set, so no parameter list is published from that
-source, and the table above comes from Microsoft's page rather than from the projection.
+The pinned catalogue supplies `NORM.DIST(x, mean, standard_dev, cumulative)` with four required arguments. The table above explains the documented roles of those arguments.
 
 ## Result and edge cases
 
@@ -298,7 +294,6 @@ Inputs worth probing first:
 | complementary tail | `1 − Φ(z)`; not available as its own Excel surface in the normal family |
 | saturation point | The `z` beyond which the CDF rounds to exactly `1` and carries no information |
 | region switch | The argument-dependent choice among series, rational and asymptotic forms |
-| `signature_placeholder` | The projection flag marking that no real parameter list is published |
 
 ## Sources
 
@@ -326,8 +321,5 @@ Inputs worth probing first:
   implementing this family in a spreadsheet.
 - Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md) and
   [About implementation options](../model/07-implementation-options.md).
-- `data/functions/FUNC.NORM.DIST.json` — arity 4, `Custom` coercion/lift profile,
-  `signature_placeholder: true`, XLL symbol `xlfNorm_dist`.
-- `data/presence/FUNC.NORM.DIST.json` — implementing module
-  `crates/oxfunc_core/src/functions/normal_log_family.rs`, shared with twelve other normal and
-  lognormal surfaces.
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.NORM.DIST.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/distributions.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.

@@ -107,9 +107,7 @@ Microsoft's page gives four required arguments:
 **`number_f` and `number_s` are truncated to integers**, per Microsoft's remark.
 `probability_s` is not truncated. `cumulative` has no default.
 
-The reference engine records an arity of exactly 4 and a `Custom` coercion/lift profile, and
-marks the projected signature as a **placeholder** (`signature_placeholder: true`) — the table
-above is Microsoft's.
+The pinned catalogue supplies `NEGBINOM.DIST(number_f, number_s, probability_s, cumulative)` with four required arguments.
 
 ## The rename that added an argument
 
@@ -348,9 +346,5 @@ Inputs worth probing first:
   Named as literature; no figure restated.
 - Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md) and
   [About implementation options](../model/07-implementation-options.md).
-- `data/functions/FUNC.NEGBINOM.DIST.json` (arity 4, `Custom` profile,
-  `signature_placeholder: true`, XLL symbol `xlfNegbinom_dist`) and
-  `data/functions/FUNC.NEGBINOMDIST.json` (arity 3) — the source of the added-argument finding.
-- `data/presence/FUNC.NEGBINOM.DIST.json` — implementing module
-  `crates/oxfunc_core/src/functions/discrete_dist_family.rs`, shared with twelve other discrete
-  distribution surfaces.
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.NEGBINOM.DIST.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/distributions.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.

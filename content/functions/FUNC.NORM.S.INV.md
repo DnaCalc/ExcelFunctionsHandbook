@@ -86,9 +86,7 @@ Microsoft's page gives one required argument:
 |---|---|---|
 | `probability` | "A probability corresponding to the normal distribution" | yes |
 
-The reference engine records an arity of exactly 1 and a `Custom` coercion/lift profile, and
-marks the projected signature as a **placeholder** (`signature_placeholder: true`) — the table
-above is Microsoft's.
+The pinned catalogue supplies `NORM.S.INV(probability)` with one required argument.
 
 ## The documented algorithm
 
@@ -294,10 +292,5 @@ Inputs worth probing first:
   Named as literature; no figure restated.
 - Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md) and
   [About implementation options](../model/07-implementation-options.md).
-- `data/functions/FUNC.NORM.S.INV.json` (arity 1, `Custom` profile,
-  `signature_placeholder: true`, XLL symbol `xlfNorm_s_inv`) and
-  `data/functions/FUNC.NORMSINV.json` (arity 1) — the source of the unchanged-signature
-  observation, contrasted with the `NORMSDIST`/`NORM.S.DIST` pair.
-- `data/presence/FUNC.NORM.S.INV.json` — implementing module
-  `crates/oxfunc_core/src/functions/normal_log_family.rs`, shared with twelve other normal and
-  lognormal surfaces.
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.NORM.S.INV.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/distributions.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.
