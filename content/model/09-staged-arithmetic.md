@@ -158,6 +158,26 @@ zero. Those are distinct operations.
 The reading's large-power scaling remains open, as the function guides explain. Reproducing
 these observed output encodings does not settle that earlier stage.
 
+## Retain an extended intermediate when the recipe requires it
+
+A stored operation R and a resident extended operation E have different meanings. Write
+`E(a op b)=round_to_64_significant_bits(exact(a op b))`, retaining its extended exponent and
+64-bit significand without an intervening binary64 store. Write D for ordinary binary64
+storage. Thus R is `D(E(...))`, but an extended chain can feed E’s result directly into its
+next E operation.
+
+Use the same integer quotient/remainder rounding construction with p=64 for each E operation.
+Keep that rounded value as an exact rational until an explicit D store. Loading a binary64
+constant into the extended representation is exact; a coefficient written as a fraction in a
+source table can nevertheless require an initial D rounding before that load. The recipe must
+say which it means. Apply extended overflow and underflow rules when the chain can reach them.
+
+The [POISSON mass helpers](../functions/FUNC.POISSON.DIST.md#how-to-implement) retain Horner
+intermediates in E for one Stirling series, but store other products and sums with R. Its
+compensated exponential retains the part of an extended subtraction lost by D. Using R at
+every line would discard that correction. The operations describe the current public source;
+they do not turn a mathematical logarithm or exponential into an x87 instruction model.
+
 ## Sources
 
 - [DnaCalc software x87 format, rounding and stores](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/soft87.rs), especially `ext_from_f64`, `round_shift`, `round_pack` and `ext_to_f64`.
@@ -166,3 +186,4 @@ these observed output encodings does not settle that earlier stage.
 - [Recorded variance and root controls](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/tests/f1_stats.rs), `variance_uses_raw_moments_and_stores_pc64_steps` and `stdev_stores_the_extended_square_root`.
 - [Rounding's preliminary reading and publication rules](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/rounding.rs).
 - [FN-ROUND-003](../notes/FN-ROUND-003.json) and [FN-TRUNC-001](../notes/FN-TRUNC-001.json): recorded overflow and initial-reading encodings, with their worksheet scope.
+- [R31 resident series and compensated exponentials](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/excel_numeric/x87_chains.rs), `stirling_series`, `deviance_series`, `exp_compensated` and `exp_running`.
