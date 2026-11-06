@@ -1,10 +1,6 @@
-# The Last Bit — raw material from the ERF/GAUSS/NORMSDIST theory swarm
+# The error-function swarm
 
-Story-grade snippets from the 2026-08-21 session (W109 error-function group:
-eight rival-theory agents + adversarial verifiers, all offline). Source of
-record: OxFunc docs/function-lane/W109_ERF_SWARM_RESULTS_20260821.md and the
-handoff it corrects (W109_ERF_GAUSS_NORMSDIST_THEORY_HANDOFF_20260821.md).
-Numbers below are as banked; verify against the results doc when drafting.
+Working notes kept during the work, lightly edited for public reading. They are not finished articles. Numbers are as recorded at the time, and later work may supersede them. Statements about how Excel's authors worked are hypotheses drawn from the evidence, which was recorded answers, published algorithms and instruction manuals.
 
 ## 1. The instrument that measured itself (candidate: "876/1024")
 
@@ -160,5 +156,5 @@ the agent had proposed "fresh" probe inputs that were already answered in
 the frozen bank). Net: one theory killed (T1c), one law retired as an
 artifact (§4.4), one phantom exorcised (gam1 mantissa), one wrapper
 identified (NORMSDIST), one wrapper inverted (GAUSS), and seven capture
-scripts queued, each with a bit-exact answer key that names its own death
+scripts queued, each with an exact answer key that names its own death
 condition before Excel is asked.

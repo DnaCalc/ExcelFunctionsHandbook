@@ -139,7 +139,7 @@ try {
       return value;
     } finally { clearTimeout(loadTimer); cdp?.close(); await browser.send("Target.closeTarget", { targetId }); }
   }
-  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["complex", complexPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "catalogue/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"], ["lambda", "functions/LAMBDA.html"], ["operator", "functions/OP_TRIM_REF_BOTH.html"], ["parity", "functions/ISEVEN.html"]];
+  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["complex", complexPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "catalogue/index.html"], ["az", "catalogue/a-z.html"], ["implementation", "implementation/index.html"], ["code", "code/ported-excel_numeric-x87.html"], ["exp", "functions/EXP.html"], ["py", "functions/PY.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"], ["lambda", "functions/LAMBDA.html"], ["operator", "functions/OP_TRIM_REF_BOTH.html"], ["parity", "functions/ISEVEN.html"]];
   for (const width of [390, 1440]) for (const mode of ["light", "dark"]) for (const [name, path] of routes) {
     const result = await withPage(path, width, mode, async cdp => {
       const metrics = await cdp.evaluate(`({width: innerWidth, client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth, heading: document.querySelector('h1').innerText, h1s: document.querySelectorAll('h1').length, scheme: getComputedStyle(document.body).backgroundColor, bytes: performance.getEntriesByType('resource').reduce((sum,r)=>sum+r.transferSize,0), duration: performance.getEntriesByType('navigation')[0].duration})`);
@@ -168,7 +168,7 @@ try {
       const height = await cdp.evaluate(`document.documentElement.scrollHeight`);
       for (let y = 0; y < height; y += 750) await cdp.evaluate(`window.scrollTo(0,${y});`);
       await cdp.evaluate(`window.scrollTo(0,0);`);
-      if (["home", "round", "complex", "lambda", "operator", "parity"].includes(name)) {
+      if (["home", "round", "complex", "lambda", "operator", "parity", "implementation", "exp", "py", "az", "code"].includes(name)) {
         const file = `${name}-${width}-${mode}.png`;
         const screenshot = await cdp.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
         await writeFile(join(options.screenshots, file), Buffer.from(screenshot.data, "base64"));
@@ -197,6 +197,43 @@ try {
     assert.ok(await cdp.evaluate(`[...document.querySelectorAll('#catalogue section')].filter(el=>!el.hidden).every(el=>el.dataset.category==='Financial functions')`));
   });
   report.checks.push("search query, empty results, localized names, category filter");
+  await withPage("notes/index.html", 390, "dark", async cdp => {
+    const key = async (name, code) => { for (const type of ["keyDown", "keyUp"]) await cdp.send("Input.dispatchKeyEvent", { type, key: name, code, windowsVirtualKeyCode: name === "ArrowDown" ? 40 : name === "Escape" ? 27 : 191, text: type === "keyDown" && name === "/" ? "/" : undefined }); };
+    await key("/", "Slash");
+    assert.equal(await cdp.evaluate(`document.activeElement.id`), "site-search", "slash focuses search");
+    const search = term => cdp.evaluate(`new Promise(resolve=>{const box=document.querySelector('#site-search');const panel=document.querySelector('#site-search-results');panel.replaceChildren();box.value=${JSON.stringify(term)};box.dispatchEvent(new Event('input'));let n=0;const tick=()=>{const rows=[...panel.querySelectorAll('[role=option]')];if(rows.length||panel.querySelector('.search-empty')||n++>100)resolve(rows.map(r=>r.innerText));else setTimeout(tick,20)};tick()})`);
+    assert.ok((await search("ROUND"))[0].startsWith("ROUND"), "exact name first");
+    assert.ok((await search("ARRONDI"))[0].startsWith("ROUND"), "local name finds the function");
+    assert.ok((await search("ESTVIDE")).some(row => row.startsWith("ISBLANK")), "shared family names find the family");
+    assert.ok((await search("present value")).some(row => row.startsWith("PV")), "descriptions are searched");
+    assert.ok((await search("Engineering")).length > 0, "categories are searched");
+    await search("ROUND");
+    await key("ArrowDown", "ArrowDown");
+    assert.equal(await cdp.evaluate(`document.querySelector('#site-search').getAttribute('aria-activedescendant')`), "site-search-results-1", "arrow moves selection");
+    await key("Escape", "Escape");
+    assert.ok(await cdp.evaluate(`document.querySelector('#site-search-results').hidden`), "Escape closes results");
+    assert.equal(await cdp.evaluate(`document.documentElement.scrollWidth-document.documentElement.clientWidth`), 0);
+  });
+  report.checks.push("instant search: slash, names, local names, shared family names, descriptions, categories, keyboard");
+  await withPage("catalogue/index.html?state=close", 390, "light", async cdp => {
+    assert.ok(await cdp.evaluate(`[...document.querySelectorAll('[data-search]')].filter(el=>!el.hidden).every(el=>el.dataset.state==='close')`));
+    assert.ok(await cdp.evaluate(`[...document.querySelectorAll('[data-search]')].some(el=>!el.hidden)`));
+  });
+  await withPage("functions/ROUND.html", 390, "dark", async cdp => {
+    assert.ok(await cdp.evaluate(`document.querySelector('.impl-state strong').innerText.length>0`));
+    assert.ok(await cdp.evaluate(`!document.querySelector('.rust-code').open`), "code starts collapsed");
+    await cdp.evaluate(`document.querySelector('.impl-state a[href="#rust-code"]').click()`);
+    await new Promise(resolve => setTimeout(resolve, 100));
+    assert.ok(await cdp.evaluate(`document.querySelector('.rust-code').open`), "the code link opens the code");
+    assert.ok(await cdp.evaluate(`document.querySelector('.rust-code .tok-k')!==null`), "code is highlighted");
+    await cdp.evaluate(`{const p=document.querySelector('#language-picker');p.value='fr-FR';p.dispatchEvent(new Event('change'))}`);
+    assert.ok(await cdp.evaluate(`document.querySelector('#local-name').innerText.includes('ARRONDI')`), "picker shows the local name");
+    assert.equal(await cdp.evaluate(`document.documentElement.scrollWidth-document.documentElement.clientWidth`), 0, "open code keeps the page width");
+    const shot = await cdp.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+    await writeFile(join(options.screenshots, "round-code-390-dark.png"), Buffer.from(shot.data, "base64"));
+    await cdp.evaluate(`{const p=document.querySelector('#language-picker');p.value='';p.dispatchEvent(new Event('change'))}`);
+  });
+  report.checks.push("state filter, collapsed highlighted code, language picker, phone width in dark mode");
   await withPage("functions/ROUND.html", 390, "dark", async cdp => {
     assert.ok(await cdp.evaluate(`document.querySelectorAll('.note').length>=3 && document.body.innerText.includes('0xc2d9945ca2620000')`));
     assert.deepEqual(await cdp.evaluate(`[...document.querySelectorAll('.function-section > h2')].map(el=>el.textContent)`), ["What it does","Try it","Quirks","How to implement","Version differences","Alternatives"]);

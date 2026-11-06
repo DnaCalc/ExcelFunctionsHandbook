@@ -1,6 +1,6 @@
 use crate::{
     checks,
-    util::{normalize, relative, slug, SOURCE},
+    util::{normalize, reader_words, relative, slug, SOURCE},
 };
 use pulldown_cmark::{html, CowStr, Event, Options, Parser, Tag, TagEnd};
 use regex::Regex;
@@ -118,7 +118,10 @@ impl Renderer<'_> {
         };
         let events = Parser::new_ext(
             markdown,
-            Options::ENABLE_TABLES | Options::ENABLE_STRIKETHROUGH | Options::ENABLE_TASKLISTS,
+            Options::ENABLE_TABLES
+                | Options::ENABLE_STRIKETHROUGH
+                | Options::ENABLE_TASKLISTS
+                | Options::ENABLE_FOOTNOTES,
         );
         let mut result = String::new();
         let mut group = Vec::new();
@@ -203,6 +206,12 @@ impl Renderer<'_> {
                         }));
                     }
                     Event::Start(Tag::Image { .. }) | Event::End(TagEnd::Image) => (),
+                    Event::Text(text) if text.contains("OxFunc") || text.contains("oxfunc") => {
+                        transformed.push(Event::Text(reader_words(&text).into()));
+                    }
+                    Event::Code(text) if text.contains("OxFunc") || text.contains("oxfunc") => {
+                        transformed.push(Event::Code(reader_words(&text).into()));
+                    }
                     Event::Html(h) | Event::InlineHtml(h) => {
                         if !h.trim_start().starts_with("<!--") {
                             transformed.push(Event::Text(h));

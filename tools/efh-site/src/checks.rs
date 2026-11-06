@@ -167,6 +167,12 @@ pub fn check(root: &Path, links: bool, claims: bool) -> Result<(), String> {
                     path.display()
                 ));
             }
+            if visible.to_ascii_lowercase().contains("oxfunc") {
+                problems.push(format!(
+                    "{}: retired project name in reader text",
+                    path.display()
+                ));
+            }
             if READINESS.is_match(&visible) {
                 problems.push(format!("{}: prohibited readiness label", path.display()));
             }
