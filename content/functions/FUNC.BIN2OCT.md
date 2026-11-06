@@ -29,6 +29,8 @@ role_in_family: null
 
 `=BIN2OCT("101101",4)` returns `"0055"`. All of these represent the same integer: decimal 45, binary `101101`, octal `55`, and hexadecimal `2D`.
 
+For a negative value, `=BIN2OCT("1111010011",4)` returns `"7777777723"`. Decode `979-1024=-45`, then encode `2^30-45` in ten octal digits. Copying or padding the binary digits would lose the signed value.
+
 ## Quirks
 
 These engineering conversions use signed fixed-width encodings, not arbitrary-length integers. The source accepts at most ten digits; a full ten-digit encoding uses 10-bit two’s complement. `1111111111` represents minus one. Invalid source digits or an oversized input give `#NUM!`. For a positive result a width too small gives `#NUM!`. A negative result uses ten digits; the current code still validates an explicitly supplied width before emitting it, despite documentation describing the width as ignored.
@@ -51,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign conventions. [DEC2BIN](FUNC.DEC2BIN.md) is the reverse direction.
+[OCT2BIN](FUNC.OCT2BIN.md) converts in the reverse direction. [BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign rules. A full-width negative engineering encoding is not a minus-prefixed numeral; choose the pair whose sign convention fits your input.
 
 ## Sources
 

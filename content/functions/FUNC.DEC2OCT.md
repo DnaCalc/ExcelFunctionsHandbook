@@ -29,6 +29,8 @@ role_in_family: null
 
 `=DEC2OCT(45,4)` returns `"0055"`. All of these represent the same integer: decimal 45, binary `101101`, octal `55`, and hexadecimal `2D`.
 
+For a negative value, `=DEC2OCT(-45,4)` returns `"7777777723"`. Encode `2^30-45=1073741779` in octal. The sign representation occupies ten digits even though `places` is four.
+
 ## Quirks
 
 These engineering conversions use signed fixed-width encodings, not arbitrary-length integers. The destination’s numeric range is -536,870,912 through 536,870,911. The decimal input is truncated toward zero. For a positive result a width too small gives `#NUM!`. A negative result uses ten digits; the current code still validates an explicitly supplied width before emitting it, despite documentation describing the width as ignored.
@@ -51,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign conventions. [OCT2DEC](FUNC.OCT2DEC.md) is the reverse direction.
+[OCT2DEC](FUNC.OCT2DEC.md) converts in the reverse direction. [BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign rules. A full-width negative engineering encoding is not a minus-prefixed numeral; choose the pair whose sign convention fits your input.
 
 ## Sources
 

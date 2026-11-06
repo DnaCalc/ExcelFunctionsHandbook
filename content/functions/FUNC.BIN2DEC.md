@@ -29,6 +29,8 @@ role_in_family: null
 
 `=BIN2DEC("101101")` returns `45`. All of these represent the same integer: decimal 45, binary `101101`, octal `55`, and hexadecimal `2D`.
 
+For a negative value, `=BIN2DEC("1111010011")` returns `-45`. Accumulation gives `979`; the full-width sign bit is set, so subtract `1024` to get `-45`. The shorter source `"111101001"` is positive `489`.
+
 ## Quirks
 
 These engineering conversions use signed fixed-width encodings, not arbitrary-length integers. The source accepts at most ten digits; a full ten-digit encoding uses 10-bit two’s complement. `1111111111` represents minus one. Invalid source digits or an oversized input give `#NUM!`. Quote source digits to keep leading zeros and prevent worksheet number parsing from changing the input.
@@ -51,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign conventions. [DEC2BIN](FUNC.DEC2BIN.md) is the reverse direction.
+[DEC2BIN](FUNC.DEC2BIN.md) converts in the reverse direction. [BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign rules. A full-width negative engineering encoding is not a minus-prefixed numeral; choose the pair whose sign convention fits your input.
 
 ## Sources
 
