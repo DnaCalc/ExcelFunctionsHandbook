@@ -47,5 +47,6 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Sources
 
+- [Licensed seed and backward helpers](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/bessel_rational.rs).
 - [Microsoft: BESSELY function](https://support.microsoft.com/en-us/excel/functions/bessely-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/bessel.rs); implementation steps and the limits identified in the text.

@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 67, over 101 functions (of the 541 entries = 518 functions + 23 operators).
-- Excel differs from the mathematical answer: 21.
+- Notes: 68, over 102 functions (of the 541 entries = 518 functions + 23 operators).
+- Excel differs from the mathematical answer: 22.
 - Detail for matching Excel's bits: 10.
 - Quirk: 32.
 - Documentation differs from behaviour: 4.
-- Measured: 65; inferred: 2.
+- Measured: 66; inferred: 2.
 
 ## Where Excel's answer is wrong
 
@@ -45,6 +45,7 @@ answer.
 | [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 3)` | `1.1560227990465618e+306` (`0x7f7a56f66ecd12a0`) | `2.4631300544524576e+306` (`0x7f8c0f97bbe572f6`) |
 | [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 2)` | `2.4767103124440567e+306` (`0x7f8c3732e70ce6f9`) | `2.47182813908566e+306` (`0x7f8c28f5d197b1dd`) |
 | [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong) | `BESSELI(709.7, 0)` | `2.4788083687166675e+306` (`0x7f8c3d51558ee541`) | `2.4788087273156452e+306` (`0x7f8c3d519a191ac9`) |
+| [FN-BESSELJ-001](#fn-besselj-001-besselj-at-zero-and-order-zero-is-slightly-above-one) | `=BESSELJ(0,0)` | `1.00000000283141` (`0x3ff0000000c292b1`) | `1` (`0x3ff0000000000000`) |
 | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)` | `0.046077868684136686` (`0x3fa79784b622b014`) | `0.04607786868413672` (`0x3fa79784b622b019`) |
 | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit) | `TBILLYIELD(47701, 47702, 2.279784366464575)` | `15430.96713248709` (`0x40ce237bcaff517a`) | `15430.967132487087` (`0x40ce237bcaff5178`) |
 | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) | `ERF.PRECISE(0.4524739583333333)` | `0.4777590107351978` (`0x3fde939a879e86f6`) | `0.4777590107351976` (`0x3fde939a879e86f3`) |
@@ -106,6 +107,7 @@ answer.
 | [`ASINH`](../functions/FUNC.ASINH.md) | [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) |
 | [`BAHTTEXT`](../functions/FUNC.BAHTTEXT.md) | [FN-BAHTTEXT-001](#fn-bahttext-001-a-tiny-negative-amount-keeps-the-word-for-minus-before-zero-baht) |
 | [`BESSELI`](../functions/FUNC.BESSELI.md) | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit), [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded), [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong), [FN-BESSELI-004](#fn-besseli-004-besseli-gives-num-just-above-7097-where-the-function-is-still-finite) |
+| [`BESSELJ`](../functions/FUNC.BESSELJ.md) | [FN-BESSELJ-001](#fn-besselj-001-besselj-at-zero-and-order-zero-is-slightly-above-one) |
 | [`BESSELK`](../functions/FUNC.BESSELK.md) | [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) |
 | [`BYCOL`](../functions/FUNC.BYCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`BYROW`](../functions/FUNC.BYROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
@@ -445,6 +447,41 @@ Evidence:
 - CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `dec750f162` (readings)
 - CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-02 at `dec750f162` (readings)
 - CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-06 at `dec750f162` (readings)
+
+### FN-BESSELJ-001: BESSELJ at zero and order zero is slightly above one
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-06.*
+
+In the retained catalogue capture, BESSELJ(0,0) returns 1.00000000283141 (0x3ff0000000c292b1),
+while the mathematical Bessel function J0(0) is exactly 1. The raw answer, saved workbook cache
+and answer after reopening retain that same value. This is one captured input on the named
+Excel environment, not a general accuracy statement.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=BESSELJ(0,0)` | as typed | `1.00000000283141` (`0x3ff0000000c292b1`) | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, workbook Compatibility Version 1 |
+
+Correct value: Exact identity J0(0)=1: in the defining series in NIST DLMF 10.2.2
+(https://dlmf.nist.gov/10.2#E2), only the constant term remains at order zero and x=0.
+
+Basis (measured): One formula-literal control at sheet dc96l3_bessel, row 309, column 4 in the
+landed capture. Its environment is Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H,
+en-ZA, workbook Compatibility Version 1. The raw and reopened binary64 encodings are both
+3ff0000000c292b1; the saved numeric text is 1.00000000283141. The product test also pins these
+result bits.
+
+Inferred, not measured: The current published small-J0 implementation evaluates its constant
+coefficients as 57568490574/57568490411 at x=0, which produces the recorded bits. That
+source-level explanation does not prove that Microsoft uses the same private program.
+
+- Open: The generic J/Y numerical bodies retain disagreements on other inputs; this control does not identify the full seed or recurrence program.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json`, sheet dc96l3_bessel, row 309, column 4 at `da3ecc4fb1` — recorded formula and results with environment
+- DnaCalc `crates/calc-func/src/ported/bessel.rs`, spot_values_record_exact_controls_and_known_gaps at `da3ecc4fb1` — recorded answer pinned in the product test
+- DnaCalc `crates/calc-func/src/ported/bessel_rational.rs`, J0_NUM, J0_DEN and j0 at `da3ecc4fb1` — current licensed published-method candidate; constant-term ratio at zero
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json`, sheet dc96l3_bessel, row 309, column 4; formulas, observations, saved and reopened at `da3ecc4fb1` — one capture with raw, saved and reopened views; not three independent runs (readings)
 
 ### FN-CHOOSE-001: An array index in CHOOSE turns selected blank cells into 0
 

@@ -1,0 +1,67 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BESSELJ-001",
+  "functions": [
+    "FUNC.BESSELJ"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "BESSELJ at zero and order zero is slightly above one",
+  "statement": "In the retained catalogue capture, BESSELJ(0,0) returns 1.00000000283141 (0x3ff0000000c292b1), while the mathematical Bessel function J0(0) is exactly 1. The raw answer, saved workbook cache and answer after reopening retain that same value. This is one captured input on the named Excel environment, not a general accuracy statement.",
+  "status": "measured",
+  "basis": "One formula-literal control at sheet dc96l3_bessel, row 309, column 4 in the landed capture. Its environment is Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA, workbook Compatibility Version 1. The raw and reopened binary64 encodings are both 3ff0000000c292b1; the saved numeric text is 1.00000000283141. The product test also pins these result bits.",
+  "inferred": "The current published small-J0 implementation evaluates its constant coefficients as 57568490574/57568490411 at x=0, which produces the recorded bits. That source-level explanation does not prove that Microsoft uses the same private program.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=BESSELJ(0,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.00000000283141",
+        "bits": "0x3ff0000000c292b1"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000",
+        "how": "Exact identity J0(0)=1: in the defining series in NIST DLMF 10.2.2 (https://dlmf.nist.gov/10.2#E2), only the constant term remains at order zero and x=0."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, workbook Compatibility Version 1",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json",
+        "locator": "sheet dc96l3_bessel, row 309, column 4; formulas, observations, saved and reopened",
+        "note": "one capture with raw, saved and reopened views; not three independent runs"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json",
+      "locator": "sheet dc96l3_bessel, row 309, column 4",
+      "note": "recorded formula and results with environment"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+      "path": "crates/calc-func/src/ported/bessel.rs",
+      "locator": "spot_values_record_exact_controls_and_known_gaps",
+      "note": "recorded answer pinned in the product test"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+      "path": "crates/calc-func/src/ported/bessel_rational.rs",
+      "locator": "J0_NUM, J0_DEN and j0",
+      "note": "current licensed published-method candidate; constant-term ratio at zero"
+    }
+  ],
+  "open": [
+    "The generic J/Y numerical bodies retain disagreements on other inputs; this control does not identify the full seed or recurrence program."
+  ],
+  "recorded_on": "2026-11-06"
+}
