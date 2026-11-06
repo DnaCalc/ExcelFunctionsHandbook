@@ -26,7 +26,9 @@ pressed. Serve over HTTP; browsers restrict workers on `file:` pages.
 `evaluate(request_json)` returns JSON with `engine`, `engine_revision`, and one of:
 `calculated`, `worksheet-error`, `refused` or `invalid-request`. The hosts additionally report
 `engine-error` and `timeout` when the wasm cannot finish. Errors and refusals are not answers.
-A numeric answer includes its shortest decimal, JSON number and 16-digit binary64 `bits` string;
+A numeric answer includes its shortest decimal, JSON number and 16-digit binary64 `bits` string.
+For a non-finite IEEE pattern carried as an Excel numeric overflow encoding, the JSON number is
+null and the bits retain the pattern; it is not a blank value.
 large results have a bounded 32 × 16 display window. The module's linear memory is capped at
 128 MiB; each host terminates the worker on timeout.
 

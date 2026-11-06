@@ -49,6 +49,8 @@ if (calculator) {
   const formula = calculator.elements.formula;
   const result = calculator.querySelector("output");
   const initialFormula = formula.value;
+  calculator.querySelector('[type="submit"]').disabled = false;
+  calculator.querySelector('[data-reset]').disabled = false;
   let worker = null;
   let timer;
   function stopCalculation() {
@@ -123,6 +125,7 @@ if (calculator) {
 
 const contribution = document.querySelector("#contribution-form");
 if (contribution) {
+  contribution.querySelector('[type="submit"]').disabled = false;
   const initialFunction = new URL(location.href).searchParams.get("function");
   if (initialFunction) contribution.elements.function_id.defaultValue = initialFunction;
   contribution.addEventListener("submit", async event => {

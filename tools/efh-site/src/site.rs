@@ -470,7 +470,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         out,
         "contribute/index.html",
         "Contribute to the Handbook",
-        r#"<h1>Contribute to the Handbook</h1><p>Share a correction, Excel observation, implementation or variant. Submissions are stored privately by DNA Kode for review. Your contact details will not be published.</p><form id="contribution-form"><label for="contribution-function">Function</label><input id="contribution-function" name="function_id" placeholder="FUNC.ROUND" required maxlength="100"><label for="contribution-kind">Contribution</label><select id="contribution-kind" name="kind"><option value="correction">Correction</option><option value="observation">Excel observation</option><option value="implementation">Implementation</option><option value="variant">Variant</option></select><label for="contribution-build">Excel build and platform (if relevant)</label><input id="contribution-build" name="excel_build" maxlength="200"><label for="contribution-details">Details, formula, observed answer and sources</label><textarea id="contribution-details" name="details" required maxlength="20000" rows="8"></textarea><label for="contribution-contact">Contact (optional)</label><input id="contribution-contact" name="contact" maxlength="320"><button type="submit">Send contribution</button><output id="contribution-status" role="status" aria-live="polite"></output><noscript><p>Enable JavaScript to submit this form.</p></noscript></form>"#,
+        r#"<h1>Contribute to the Handbook</h1><p>Share a correction, Excel observation, implementation or variant. Submissions are stored privately by DNA Kode for review. Your contact details will not be published.</p><form id="contribution-form"><label for="contribution-function">Function</label><input id="contribution-function" name="function_id" placeholder="FUNC.ROUND" required maxlength="100"><label for="contribution-kind">Contribution</label><select id="contribution-kind" name="kind"><option value="correction">Correction</option><option value="observation">Excel observation</option><option value="implementation">Implementation</option><option value="variant">Variant</option></select><label for="contribution-build">Excel build and platform (if relevant)</label><input id="contribution-build" name="excel_build" maxlength="200"><label for="contribution-details">Details, formula, observed answer and sources</label><textarea id="contribution-details" name="details" required maxlength="20000" rows="8"></textarea><label for="contribution-contact">Contact (optional)</label><input id="contribution-contact" name="contact" maxlength="320"><button type="submit" disabled>Send contribution</button><output id="contribution-status" role="status" aria-live="polite"></output><noscript><p>Enable JavaScript to submit this form.</p></noscript></form>"#,
     )?;
     let mut r = Renderer {
         repo,
@@ -586,7 +586,7 @@ fn function_page(
         }
         if key == "try-it" {
             html += &format!(
-                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" maxlength="20000" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit">Calculate</button><button type="button" data-reset>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
+                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" maxlength="20000" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit" disabled>Calculate</button><button type="button" data-reset disabled>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
                 esc(s(&record["try_it"]["formula"])),
                 esc(&record["try_it"]
                     .get("inputs")
@@ -647,8 +647,41 @@ fn function_page(
             }
         }
         if key == "alternatives" {
-            for variant in record["variants"].as_array().into_iter().flatten() {
-                html += &format!("<article><h3>{}</h3><p>{}</p><p>Error bound: {}. OneCalc UDF: <code>{}</code>.</p></article>",esc(s(&variant["name"])),esc(s(&variant["difference"])),esc(&variant["error_bound"].to_string()),esc(&variant["onecalc_udf"].to_string()));
+            html += "<h3>Named variants</h3>";
+            let variants = record["variants"].as_array().unwrap();
+            if variants.is_empty() {
+                html += "<p class=\"small\">No named variants are recorded yet.</p>";
+            }
+            for variant in variants {
+                html += &format!(
+                    "<article><h4>{}</h4><p>{}</p>",
+                    esc(s(&variant["name"])),
+                    esc(s(&variant["difference"]))
+                );
+                let bound = &variant["error_bound"];
+                if bound.is_null() {
+                    html += "<p>Error bound: not recorded.</p>";
+                } else {
+                    html += &format!(
+                        "<p>Error bound: {} {} over {}. {}</p>",
+                        esc(&bound["bound"].to_string()),
+                        esc(s(&bound["metric"])),
+                        esc(s(&bound["domain"])),
+                        esc(s(&bound["basis"]))
+                    );
+                }
+                let hook = &variant["onecalc_udf"];
+                if hook.is_null() {
+                    html += "<p>No executable OneCalc UDF hook is published.</p>";
+                } else {
+                    html += &format!(
+                        "<p>OneCalc UDF: <code>{}</code> ({}) · <code>{}</code></p>",
+                        esc(s(&hook["name"])),
+                        esc(s(&hook["language"])),
+                        esc(s(&hook["source"]))
+                    );
+                }
+                html += "</article>";
             }
         }
         html += "</section>";

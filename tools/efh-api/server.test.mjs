@@ -49,7 +49,7 @@ test("OneCalc UDF hook accepts an actual VBA module",async t => {
 
 test("invalid requests, origins, content types and methods are rejected",async t => {
   const {post,base}=await fixture(t);
-  for(const data of [{},[],{formula:5},{formula:"=1",inputs:[]},{formula:"=1",inputs:{A1:2}},{formula:"="+"1".repeat(4096)}]) assert.equal((await post("/api/eval",data)).status,400);
+  for(const data of [{},[],{formula:5},{formula:"=1",inputs:[]},{formula:"=1",date_system:1904},{formula:"=1",inputs:{A1:2}},{formula:"="+"1".repeat(4096)}]) assert.equal((await post("/api/eval",data)).status,400);
   assert.equal((await post("/api/eval",{formula:"=1"},{Origin:"https://elsewhere.example"})).status,403);
   assert.equal((await fetch(base+"/api/eval")).status,405);
   assert.equal((await fetch(base+"/api/eval",{method:"POST",body:"{}"})).status,415);

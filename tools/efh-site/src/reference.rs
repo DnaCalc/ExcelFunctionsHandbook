@@ -231,8 +231,29 @@ fn reader_prose(text: &str) -> String {
     static ADMIN: LazyLock<Regex> = LazyLock::new(|| {
         Regex::new(r"(?i)\b(projection|projected|registry|admission|reference.engine|lane.csv|curation|curated_at|contract.row|axis.provenance|export.only|export.snapshot|oxfunc|handbook.voice|page vocabulary|ledger|this checkout|this pass|source organ|provenance|this revision|KernelSignatureClass|ErrorAlgebra|ErrorCollapseProfile|ArgPreparationProfile|LiftBroadcastProfile|admission_interface_kind)\b").unwrap()
     });
+    static LIST_ITEM: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"(?m)^(?:- |\d+\. )").unwrap());
     text.split("\n\n")
-        .filter(|p| !ADMIN.is_match(p) && !p.trim().starts_with("<!--"))
+        .filter_map(|paragraph| {
+            if paragraph.trim().starts_with("<!--") {
+                return None;
+            }
+            if !ADMIN.is_match(paragraph) {
+                return Some(paragraph.to_string());
+            }
+            // A metadata sentence in one list item must not erase the other items.
+            let mut starts: Vec<_> = LIST_ITEM.find_iter(paragraph).map(|m| m.start()).collect();
+            if starts.is_empty() {
+                return None;
+            }
+            starts.push(paragraph.len());
+            let items: Vec<_> = starts
+                .windows(2)
+                .map(|at| &paragraph[at[0]..at[1]])
+                .filter(|item| !ADMIN.is_match(item))
+                .collect();
+            (!items.is_empty()).then(|| items.join(""))
+        })
         .collect::<Vec<_>>()
         .join("\n\n")
 }
@@ -322,5 +343,9 @@ mod tests {
         assert!(!p["what-it-does"].contains("projection"));
         assert!(p["how-to-implement"].contains("Use decimal digits"));
         assert!(!p.values().any(|x| x.contains("Internal label")));
+        let mixed=sections("## Notes for implementers\n\n1. Preserve the sign.\n2. The registry records a flag.\n3. Check scale overflow.");
+        assert!(mixed["how-to-implement"].contains("Preserve the sign"));
+        assert!(mixed["how-to-implement"].contains("Check scale overflow"));
+        assert!(!mixed["how-to-implement"].contains("registry"));
     }
 }

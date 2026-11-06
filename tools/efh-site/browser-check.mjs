@@ -254,7 +254,13 @@ try {
   await withPage("functions/ROUND.html", 390, "light", async cdp => {
     assert.ok(await cdp.evaluate(`[...document.querySelectorAll('.explain')].every(el=>getComputedStyle(el).display!=='none')`));
   }, true);
-  report.checks.push("scope explanations visible without JavaScript");
+  await withPage("functions/ROUND.html",390,"light",async cdp=>{
+    assert.ok(await cdp.evaluate(`document.querySelector('[data-evaluator] [type=submit]').disabled`));
+  },true);
+  await withPage("contribute/index.html",390,"light",async cdp=>{
+    assert.ok(await cdp.evaluate(`document.querySelector('#contribution-form [type=submit]').disabled`));
+  },true);
+  report.checks.push("scope explanations visible without JavaScript; interactive forms cannot fall back to GET");
   for (const width of [320, 375]) for (const [, path] of routes) await withPage(path, width, "light", async cdp => {
     const overflow = await cdp.evaluate(`({overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth,elements:[...document.querySelectorAll('main *')].filter(e=>!e.closest('.table-scroll,pre')&&e.getBoundingClientRect().right>document.documentElement.clientWidth+1).map(e=>({tag:e.tagName,class:e.className,text:e.innerText?.slice(0,100),right:e.getBoundingClientRect().right})).slice(0,10)})`);
     assert.equal(overflow.overflow, 0, `${path} narrow-width overflow: ${JSON.stringify(overflow.elements)}`);
