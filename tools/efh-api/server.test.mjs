@@ -92,6 +92,23 @@ test("static server serves wasm and stable JSON, rejects escapes and public-stor
   assert.match(await (await fetch(base+"/llms.txt")).text(),/FUNC.ROUND.json/);
   const record=await (await fetch(base+"/api/functions/FUNC.ROUND.json")).json();assert.equal(record.schema,"efh.function-reference/v1");
   assert.equal((await fetch(base+"/%2e%2e%2fREADME.md")).status,404);
-  assert.equal((await fetch(base+"/api/%zz")).status,500);
+  assert.equal((await fetch(base+"/api/%zz")).status,400);
   await assert.rejects(()=>createHandbookServer({root,store:join(root,"private.sqlite")}),/outside/);
+});
+
+
+test("private store cannot be redirected into the public tree by a symlink", async t => {
+  const work=await mkdtemp(join(tmpdir(),"efh-private-path-"));
+  t.after(()=>rm(work,{recursive:true,force:true}));
+  await symlink(root,join(work,"redirect"));
+  await assert.rejects(()=>createHandbookServer({root,store:join(work,"redirect","private.sqlite")}),/outside/);
+});
+
+test("concurrent evaluations are bounded and array output is windowed", async t => {
+  const {post}=await fixture(t,{maxConcurrent:1});
+  const responses=await Promise.all([post("/api/eval",{formula:"=SUM(1,2,3)"}),post("/api/eval",{formula:"=SUM(4,5,6)"})]);
+  assert.deepEqual(responses.map(r=>r.status).sort(),[200,503]);
+  const array=await post("/api/eval",{formula:"=SEQUENCE(40,20)"});
+  assert.equal(array.body.value.rows,40);assert.equal(array.body.value.columns,20);
+  assert.equal(array.body.value.cells.length,32);assert.equal(array.body.value.cells[0].length,16);assert.equal(array.body.value.truncated,true);
 });

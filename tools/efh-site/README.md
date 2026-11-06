@@ -77,7 +77,7 @@ launches headless Chrome and writes screenshots plus a JSON report to the
 ignored `.tmp/site-browser/`. Use `--out PATH`, `--screenshots PATH` or
 `--chrome PATH`; `CHROME` also selects the browser executable.
 
-Its matrix covers eight routes at 390 and 1440 px in light and dark. It checks keyboard
+Its matrix covers eleven routes at 390 and 1440 px in light and dark. It checks keyboard
 navigation, search/category/empty states, six function sections, compact sources, no-JS reading,
 file URLs, and 320/375 px overflow. It also calculates actual formulas in browser wasm, compares
 numeric bits with the local API, and submits the contribution form into a temporary private

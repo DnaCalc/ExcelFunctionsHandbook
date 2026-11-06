@@ -45,6 +45,14 @@ fn validate(repo: &Path, id: &str, owned: &Value) -> Result<(), String> {
             return Err(format!("{id}: signature needs a display and parameters"));
         }
     }
+    if let Some(status) = owned["try_it"].get("preview_status") {
+        if !matches!(
+            status.as_str(),
+            Some("calculated" | "worksheet-error" | "refused")
+        ) {
+            return Err(format!("{id}: unknown preview status"));
+        }
+    }
     for (field, keys) in [
         (
             "versions",
@@ -180,7 +188,10 @@ pub fn sections(source: &str) -> BTreeMap<String, String> {
         }
         if let Some(h) = line.strip_prefix("## ") {
             flush(key, &heading, &mut blocks, &mut parts);
-            heading = h.into();
+            heading = h.replace(
+                "The admission table, side by side with AVERAGE",
+                "Values included by AVERAGE and AVERAGEA",
+            );
             key = match h {
                 "What it computes" | "What it does" | "Arguments" => "what-it-does",
                 "Try it" => "try-it",
@@ -218,7 +229,7 @@ pub fn sections(source: &str) -> BTreeMap<String, String> {
 
 fn reader_prose(text: &str) -> String {
     static ADMIN: LazyLock<Regex> = LazyLock::new(|| {
-        Regex::new(r"(?i)\b(projection|projected|registry|admission|reference.engine|lane.csv|curation|curated_at|contract.row|axis.provenance|export.only|export.snapshot|oxfunc|handbook.voice|page vocabulary|ledger|this checkout|this pass|source organ)\b").unwrap()
+        Regex::new(r"(?i)\b(projection|projected|registry|admission|reference.engine|lane.csv|curation|curated_at|contract.row|axis.provenance|export.only|export.snapshot|oxfunc|handbook.voice|page vocabulary|ledger|this checkout|this pass|source organ|provenance|this revision|KernelSignatureClass|ErrorAlgebra|ErrorCollapseProfile|ArgPreparationProfile|LiftBroadcastProfile|admission_interface_kind)\b").unwrap()
     });
     text.split("\n\n")
         .filter(|p| !ADMIN.is_match(p) && !p.trim().starts_with("<!--"))
@@ -265,7 +276,7 @@ pub fn record(repo: &Path, f: &Value, owned: &Value, notes: &[Value]) -> Result<
         })
         .collect();
     Ok(json!({
-        "schema":"efh.function-reference/v1", "function_id":id, "name":f["surface_name"],
+        "schema":"efh.function-reference/v1", "function_id":id, "name":f["surface_name"], "display_name":owned.get("display_name").unwrap_or(&f["surface_name"]),
         "category":f["category"], "entry_kind":f["entry_kind"],
         "url":format!("https://handbook.dnacalc.com/functions/{}.html",id.trim_start_matches("FUNC.")),
         "json_url":format!("https://handbook.dnacalc.com/api/functions/{id}.json"),
@@ -281,6 +292,29 @@ pub fn record(repo: &Path, f: &Value, owned: &Value, notes: &[Value]) -> Result<
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn implementation_records_cannot_name_an_unpublished_suite() {
+        let record = serde_json::json!({"schema":"efh.reference/v1","function_id":"FUNC.EXP","try_it":{"formula":"=EXP(1)"},"versions":[],"implementations":[{"language":"Rust","flavour":"math-correct","source":"implementations/FUNC.EXP/rust.rs","suite":"vectors/FUNC.EXP/v99999/MANIFEST.json"}],"variants":[]});
+        assert!(
+            validate(Path::new(env!("CARGO_MANIFEST_DIR")), "FUNC.EXP", &record)
+                .unwrap_err()
+                .contains("not published")
+        );
+    }
+    #[test]
+    fn typed_missingness_and_variant_bounds_are_distinct_from_accuracy_claims() {
+        let mut record = serde_json::json!({"schema":"efh.reference/v1","function_id":"FUNC.EXP","try_it":{"formula":"=EXP(1)"},"versions":[{"excel_build":null,"platform":null,"behaviour":"Build not recorded.","sources":["https://example.invalid/capture"]}],"implementations":[],"variants":[{"name":"EXP.PROPOSED","difference":"A proposal, not an implementation.","error_bound":null,"onecalc_udf":null}]});
+        validate(Path::new("."), "FUNC.EXP", &record).unwrap();
+        record["variants"][0]["error_bound"] = serde_json::json!({"bound":0.5});
+        assert!(validate(Path::new("."), "FUNC.EXP", &record)
+            .unwrap_err()
+            .contains("metric, bound, domain and basis"));
+        record["variants"][0]["error_bound"] = Value::Null;
+        record["versions"][0]["sources"] = serde_json::json!([]);
+        assert!(validate(Path::new("."), "FUNC.EXP", &record)
+            .unwrap_err()
+            .contains("sources"));
+    }
     #[test]
     fn reader_order_ignores_administration_and_keeps_mathematical_details() {
         let p=sections("---\na: b\n---\n# ROUND\n\n## What it computes\n\nRound a number.\n\nThe projection is old.\n\n## Arguments\n\nTwo numeric slots.\n\n## Numerical notes\n\nUse decimal digits.\n\n## Page vocabulary\n\nInternal label.\n\n## Sources\n\nA book.");

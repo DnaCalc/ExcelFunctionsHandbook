@@ -3,8 +3,8 @@
 import { createServer } from "node:http";
 import { Worker } from "node:worker_threads";
 import { DatabaseSync } from "node:sqlite";
-import { readFile, stat, realpath, mkdir, chmod } from "node:fs/promises";
-import { resolve, join, extname, dirname, sep } from "node:path";
+import { readFile, stat, realpath, mkdir, chmod, lstat } from "node:fs/promises";
+import { resolve, join, extname, dirname, basename, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
 
@@ -53,6 +53,11 @@ export async function createHandbookServer({ root, store, evalLimit = 30, contri
   store = resolve(store || ".tmp/handbook/contributions.sqlite");
   if (store.startsWith(root + sep) || store === root) throw new Error("The private contribution store must be outside the public root.");
   await mkdir(dirname(store), { recursive: true, mode: 0o700 });
+  const physicalParent = await realpath(dirname(store));
+  store = join(physicalParent, basename(store));
+  if (store.startsWith(root + sep) || store === root) throw new Error("The private contribution store must be outside the public root.");
+  try { if ((await lstat(store)).isSymbolicLink()) throw new Error("The private contribution store cannot be a symlink."); }
+  catch (error) { if (error.code !== "ENOENT") throw error; }
   const database = new DatabaseSync(store);
   await chmod(store, 0o600);
   database.exec("PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; CREATE TABLE IF NOT EXISTS contributions (id TEXT PRIMARY KEY, created_at TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', function_id TEXT NOT NULL, kind TEXT NOT NULL, excel_build TEXT NOT NULL, details TEXT NOT NULL, contact TEXT NOT NULL)");
@@ -108,7 +113,10 @@ export async function createHandbookServer({ root, store, evalLimit = 30, contri
       }
       if (!["GET","HEAD"].includes(req.method)) { json(405, { message: "Use GET or HEAD." }, { Allow: "GET, HEAD" }); return; }
       if (url.pathname === "/favicon.ico") { res.writeHead(204); res.end(); return; }
-      let file = resolve(root, "." + decodeURIComponent(url.pathname));
+      let decodedPath;
+      try { decodedPath = decodeURIComponent(url.pathname); }
+      catch { throw Object.assign(new Error("Invalid URL encoding."), { status: 400 }); }
+      let file = resolve(root, "." + decodedPath);
       if (file !== root && !file.startsWith(root + sep)) throw Object.assign(new Error("Not found."), { status: 404 });
       if ((await stat(file)).isDirectory()) file = join(file, "index.html");
       file = await realpath(file);

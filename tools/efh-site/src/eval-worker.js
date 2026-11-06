@@ -4,6 +4,7 @@ const ready = init();
 self.onmessage = async ({ data }) => {
   try {
     await ready;
+    self.postMessage({ phase: "ready" });
     self.postMessage(JSON.parse(evaluate(JSON.stringify(data))));
   } catch {
     self.postMessage({ status: "engine-error", message: "The calculation exceeded the engine's limits or the calculator is unavailable in this preview." });

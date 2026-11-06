@@ -11,11 +11,22 @@ const MARKER: &str = ".efh-site-output";
 
 fn page(path: &str, title: &str, body: &str, home: bool) -> String {
     let link = |to: &str| esc(&relative(path, to));
+    let discovery = path
+        .strip_prefix("functions/")
+        .and_then(|name| name.strip_suffix(".html"))
+        .filter(|name| *name != "index")
+        .map(|name| {
+            format!(
+                "<link rel=\"alternate\" type=\"application/json\" href=\"{}\">",
+                link(&format!("api/functions/FUNC.{name}.json"))
+            )
+        })
+        .unwrap_or_default();
     format!(
         r##"<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><title>{title} · The Handbook of Excel Functions</title><link rel="stylesheet" href="{css}"><script src="{js}" defer></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><title>{title} · The Handbook of Excel Functions</title><link rel="stylesheet" href="{css}"><script src="{js}" defer></script>{discovery}</head>
 <body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{coverage}">Coverage</a></nav><div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
-<main id="main" tabindex="-1"{class}>{body}</main><footer><p>{reconciliation}.</p><p><a href="{licence}">Content: CC BY 4.0 · Code: MIT</a> · <a href="{rules}">How to read the claims</a> · <a href="{api}">Static JSON index</a> · No tracking.</p><p class="small">The Handbook of Excel Functions · DNA Kode. Independent of Microsoft.</p></footer></div></body></html>"##,
+<main id="main" tabindex="-1"{class}>{body}</main><footer><p>{reconciliation}.</p><p><a href="{licence}">Content: CC BY 4.0 · Code: MIT</a> · <a href="{rules}">Measurement limits</a> · <a href="{api}">Static JSON index</a> · No tracking.</p><p class="small">The Handbook of Excel Functions · DNA Kode. Independent of Microsoft.</p></footer></div></body></html>"##,
         title = esc(title),
         css = link("assets/style.css"),
         js = link("assets/site.js"),
@@ -50,7 +61,6 @@ fn source_link(revision: &str, source: &str) -> String {
 }
 
 struct Inputs {
-    index: Value,
     functions: Vec<Value>,
     notes: Vec<Value>,
     curated: BTreeSet<String>,
@@ -216,7 +226,6 @@ impl Inputs {
         }
         .to_string();
         Ok(Self {
-            index,
             functions,
             notes,
             curated,
@@ -489,7 +498,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         function_page(repo, out, input, f, &mut r)?;
     }
     note_pages(out, input, &mut r)?;
-    function_index(out, input)?;
+    function_index(repo, out, input)?;
     homepage(out, input, &episodes)?;
     let mut series=String::from("<p class=\"eyebrow\">Research essays</p><h1>The Last Bit</h1><p>Investigating how Excel computes its answers, with the scope and limits of each measurement kept in view.</p><ul class=\"entries\">");
     for (_, dest, title, ready) in &episodes {
@@ -530,11 +539,11 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     let withheld = r.withheld;
     let unresolved = r.unresolved;
     coverage(out, input, &withheld, &unresolved)?;
-    write(
-        out,
-        "api/index.json",
-        &serde_json::to_string_pretty(&input.index).unwrap(),
-    )?;
+    let rows: Vec<_> = input.functions.iter().map(|f| {
+        let id=s(&f["function_id"]);
+        json!({"function_id":id,"surface_name":f["surface_name"],"entry_kind":f["entry_kind"],"category":f["category"],"url":format!("https://handbook.dnacalc.com/{}",function_path(id)),"json_url":format!("https://handbook.dnacalc.com/api/functions/{id}.json")})
+    }).collect();
+    write(out,"api/index.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-index/v1","counts":{"entries":541,"functions":518,"operators":23,"published_rows":534,"split_byte_variant_rows":7},"reconciliation":RECONCILIATION,"rows":rows})).unwrap())?;
     write(out,"api/notes.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-notes-api/v1","source":"content/notes/FN-*.json (efh.function-note/v1)","note_count":input.notes.len(),"notes":input.notes})).unwrap())?;
     // Earlier research derivations remain downloadable.
     for name in ["rubric.json", "rubric-hygiene.json"] {
@@ -558,10 +567,10 @@ fn function_page(
     r: &mut Renderer,
 ) -> Result<(), String> {
     let id = s(&f["function_id"]);
-    let name = s(&f["surface_name"]);
     let dest = function_path(id);
     let owned = reference::load(repo, f)?;
     let record = reference::record(repo, f, &owned, &input.notes)?;
+    let name = s(&record["display_name"]);
     let mut html = format!("<p class=\"eyebrow\">{}</p><h1 class=\"function-name\">{}</h1><nav class=\"section-nav\" aria-label=\"On this page\">",esc(s(&f["category"])),esc(name));
     for (key, title) in reference::SECTIONS {
         html += &format!("<a href=\"#{key}\">{title}</a>");
@@ -577,7 +586,7 @@ fn function_page(
         }
         if key == "try-it" {
             html += &format!(
-                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit">Calculate</button><button type="button" data-reset>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
+                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" maxlength="20000" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit">Calculate</button><button type="button" data-reset>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
                 esc(s(&record["try_it"]["formula"])),
                 esc(&record["try_it"]
                     .get("inputs")
@@ -593,6 +602,9 @@ fn function_page(
             }
         }
         if key == "try-it" {
+            if let Some(note) = record["try_it"]["note"].as_str() {
+                html += &format!("<p class=\"small\">{}</p>", esc(note));
+            }
             if let Some(prose) = record["sections"][key].as_str() {
                 html += &r.render(&src, &dest, prose, false);
             }
@@ -661,6 +673,25 @@ fn function_page(
             )
         );
     }
+    let mut capture_sources = BTreeSet::new();
+    for version in record["versions"].as_array().into_iter().flatten() {
+        for source in version["sources"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .filter_map(Value::as_str)
+        {
+            if capture_sources.insert(source) {
+                html += &format!(
+                    "<p class=\"small\"><a href=\"{}\">Excel {}: observation source</a></p>",
+                    esc(source),
+                    esc(version["excel_build"]
+                        .as_str()
+                        .unwrap_or("build not recorded"))
+                );
+            }
+        }
+    }
     html += "<p class=\"small\">Recorded Excel answers apply to their named builds, platforms and input routes. No Handbook test suite is published for this entry. Microsoft source text is excluded from the content licence.</p></details></aside>";
     html += &format!(
         "<p class=\"small\">{} · {}</p>",
@@ -690,7 +721,25 @@ fn reader_note(note: &Value, dest: &str) -> String {
     }
     h += "<div class=\"table-scroll\" role=\"region\" aria-label=\"Excel examples\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Formula</th><th scope=\"col\">Excel</th><th scope=\"col\">Mathematical value</th></tr></thead><tbody>";
     for repro in note["repros"].as_array().into_iter().flatten() {
-        h += &format!("<tr><td><code>{}</code><br><span class=\"small\">{}</span></td><td>{}</td><td>{}</td></tr>",esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]));
+        let route = if repro["input_route"] == "cell-value2" {
+            "Number supplied through a cell"
+        } else {
+            "Typed formula"
+        };
+        let mut details =
+            format!("<details><summary>Inputs and reference value</summary><p>{route}.</p>");
+        for input in repro["inputs"].as_array().into_iter().flatten() {
+            details += &format!(
+                "<p>{}: {}</p>",
+                esc(s(&input["name"])),
+                cell_value(&input["value"])
+            );
+        }
+        if let Some(how) = repro["correct"]["how"].as_str() {
+            details += &format!("<p>{}</p>", esc(how));
+        }
+        details += "</details>";
+        h += &format!("<tr><td><code>{}</code><br><span class=\"small\">{}</span>{details}</td><td>{}</td><td>{}</td></tr>",esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]));
     }
     h += &format!(
         "</tbody></table></div><p class=\"small\">{}</p></article>",
@@ -902,7 +951,7 @@ fn note_pages(out: &Path, input: &Inputs, r: &mut Renderer) -> Result<(), String
     Ok(())
 }
 
-fn function_index(out: &Path, input: &Inputs) -> Result<(), String> {
+fn function_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     let dest = "functions/index.html";
     let mut categories = BTreeMap::<String, Vec<&Value>>::new();
     for f in &input.functions {
@@ -929,6 +978,10 @@ fn function_index(out: &Path, input: &Inputs) -> Result<(), String> {
         );
         for f in functions {
             let id = s(&f["function_id"]);
+            let owned = reference::load(repo, f)?;
+            let label = owned["display_name"]
+                .as_str()
+                .unwrap_or(s(&f["surface_name"]));
             let localized = f["localized_names"]
                 .as_array()
                 .into_iter()
@@ -937,14 +990,14 @@ fn function_index(out: &Path, input: &Inputs) -> Result<(), String> {
                 .collect::<Vec<_>>()
                 .join(" ");
             let query = format!(
-                "{} {id} {} {localized}",
+                "{} {id} {} {localized} {label}",
                 s(&f["surface_name"]),
                 s(&f["descriptions"]["short"])
             );
             h += &format!(
                 "<li data-search=\"{}\">{}<span>{}</span><span class=\"small\">{} · {}</span></li>",
                 esc(&query),
-                a(dest, &function_path(id), s(&f["surface_name"])),
+                a(dest, &function_path(id), label),
                 esc(s(&f["descriptions"]["short"])),
                 if input.curated.contains(id) {
                     "Function guide"
@@ -1098,6 +1151,33 @@ mod tests {
             }
             assert!(html.contains(RECONCILIATION));
             assert_eq!(html.matches("<h1").count(), 1);
+            assert_eq!(html.matches("<h2").count(), 6, "{}", s(&f["function_id"]));
+            for forbidden in [
+                "mixed-vintage",
+                "pre-ledger",
+                "OxFunc admission",
+                "live-registry",
+                "KernelSignatureClass",
+            ] {
+                assert!(
+                    !html.contains(forbidden),
+                    "{}: {forbidden}",
+                    s(&f["function_id"])
+                );
+            }
+            let record =
+                json(&first.join(format!("api/functions/{}.json", s(&f["function_id"])))).unwrap();
+            assert_eq!(record["function_id"], f["function_id"]);
+            for key in ["versions", "implementations", "variants"] {
+                assert!(record[key].is_array());
+            }
+            assert_eq!(
+                record["url"],
+                format!(
+                    "https://handbook.dnacalc.com/{}",
+                    function_path(s(&f["function_id"]))
+                )
+            );
         }
         assert_eq!(inventory.len(), files(&second).unwrap().len());
         for path in inventory {

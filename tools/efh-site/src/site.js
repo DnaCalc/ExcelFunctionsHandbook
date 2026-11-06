@@ -78,24 +78,40 @@ if (calculator) {
     try { inputs = JSON.parse(calculator.elements.inputs?.value || "{}"); }
     catch { result.textContent = "Input cells must be valid JSON, for example {\"B2\": 3}."; return; }
     const request = { formula: formula.value, inputs, now: (Date.now() - new Date().getTimezoneOffset() * 60000) / 86400000 + 25569 };
-    result.textContent = "Calculating…";
+    result.textContent = "Loading calculator…";
     result.dataset.status = "pending";
     calculator.setAttribute("aria-busy", "true");
     calculator.querySelector('[type="submit"]').disabled = true;
     try {
       worker = new Worker(new URL("eval-worker.js", assetBase), { type: "module" });
-      worker.onmessage = ({ data }) => { stopCalculation(); showResult(data); };
+      const job = worker;
+      worker.onmessage = ({ data }) => {
+        if (worker !== job) return;
+        if (data.phase === "ready") {
+          clearTimeout(timer); result.textContent = "Calculating…";
+          timer = setTimeout(() => {
+            stopCalculation(); showResult({ status: "timeout", message: "Calculation stopped after 5 seconds. Try a smaller input." });
+          }, 5000);
+          return;
+        }
+        stopCalculation(); showResult(data);
+      };
       worker.onerror = event => {
-        event.preventDefault(); stopCalculation();
+        event.preventDefault(); if (worker !== job) return; stopCalculation();
         showResult({ status: "engine-error", message: "Calculator unavailable in this preview." });
       };
       worker.postMessage(request);
       timer = setTimeout(() => {
-        stopCalculation(); showResult({ status: "timeout", message: "Calculation stopped after 5 seconds. Try a smaller input." });
-      }, 5000);
+        stopCalculation(); showResult({ status: "timeout", message: "Calculator could not load. Check your connection and try again." });
+      }, 30000);
     } catch {
       stopCalculation(); showResult({ status: "engine-error", message: "Calculator unavailable in this preview." });
     }
+  });
+  for (const field of [formula, calculator.elements.inputs].filter(Boolean)) field.addEventListener("input", () => {
+    stopCalculation();
+    result.textContent = "Formula or inputs changed. Calculate to update the result.";
+    result.dataset.status = "stale";
   });
   calculator.querySelector("[data-reset]").addEventListener("click", () => {
     stopCalculation(); formula.value = initialFormula;
@@ -108,7 +124,7 @@ if (calculator) {
 const contribution = document.querySelector("#contribution-form");
 if (contribution) {
   const initialFunction = new URL(location.href).searchParams.get("function");
-  if (initialFunction) contribution.elements.function_id.value = initialFunction;
+  if (initialFunction) contribution.elements.function_id.defaultValue = initialFunction;
   contribution.addEventListener("submit", async event => {
     event.preventDefault();
     const output = contribution.querySelector("output");

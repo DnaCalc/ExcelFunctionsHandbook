@@ -139,7 +139,7 @@ try {
       return value;
     } finally { clearTimeout(loadTimer); cdp?.close(); await browser.send("Target.closeTarget", { targetId }); }
   }
-  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["thin", thinPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "functions/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"]];
+  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["thin", thinPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "functions/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"], ["lambda", "functions/LAMBDA.html"], ["operator", "functions/OP_TRIM_REF_BOTH.html"], ["parity", "functions/ISEVEN.html"]];
   for (const width of [390, 1440]) for (const mode of ["light", "dark"]) for (const [name, path] of routes) {
     const result = await withPage(path, width, mode, async cdp => {
       const metrics = await cdp.evaluate(`({width: innerWidth, client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth, heading: document.querySelector('h1').innerText, h1s: document.querySelectorAll('h1').length, scheme: getComputedStyle(document.body).backgroundColor, bytes: performance.getEntriesByType('resource').reduce((sum,r)=>sum+r.transferSize,0), duration: performance.getEntriesByType('navigation')[0].duration})`);
@@ -169,7 +169,7 @@ try {
       const height = await cdp.evaluate(`document.documentElement.scrollHeight`);
       for (let y = 0; y < height; y += 750) await cdp.evaluate(`window.scrollTo(0,${y});`);
       await cdp.evaluate(`window.scrollTo(0,0);`);
-      if (["home", "round", "thin"].includes(name)) {
+      if (["home", "round", "thin", "lambda", "operator", "parity"].includes(name)) {
         const file = `${name}-${width}-${mode}.png`;
         const screenshot = await cdp.send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
         await writeFile(join(options.screenshots, file), Buffer.from(screenshot.data, "base64"));
@@ -225,6 +225,9 @@ try {
     const response=await cdp.evaluate(`fetch(new URL('../api/eval',location.href),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({formula:${JSON.stringify(formula)},inputs:${JSON.stringify(inputs)}})}).then(r=>r.json())`);
     assert.equal(response.status,result.status);
     if(response.value?.bits) assert.ok(result.text.includes(response.value.bits));
+    await cdp.evaluate(`const edited=document.querySelector('#formula'); edited.value='=2+3'; edited.dispatchEvent(new Event('input'));`);
+    assert.equal(await cdp.evaluate(`document.querySelector('#eval-result').dataset.status`),"stale");
+    assert.ok(await cdp.evaluate(`document.querySelector('#eval-result').textContent.includes('Calculate to update')`));
     await cdp.evaluate(`document.querySelector('[data-reset]').click()`);
     assert.equal(await cdp.evaluate(`document.querySelector('#formula').value`),"=ROUND(1.005,2)");
   });
@@ -237,6 +240,7 @@ try {
       const observer=new MutationObserver(()=>{if(out.textContent.startsWith('Saved for review.')){observer.disconnect();resolve(out.textContent);}});
       observer.observe(out,{childList:true,subtree:true});form.requestSubmit();
     })`);
+    assert.equal(await cdp.evaluate(`document.querySelector('#contribution-function').value`),"FUNC.ROUND");
     const id=message.split('Reference: ')[1];const db=new DatabaseSync(privateStore);
     assert.equal(db.prepare('SELECT function_id FROM contributions WHERE id=?').get(id).function_id,'FUNC.ROUND');db.close();
   });
@@ -256,7 +260,7 @@ try {
     assert.equal(overflow.overflow, 0, `${path} narrow-width overflow: ${JSON.stringify(overflow.elements)}`);
     assert.equal(await cdp.evaluate(`(() => { const s=document.createElement('style');s.textContent='*{letter-spacing:.04em!important}';document.head.append(s);return document.documentElement.scrollWidth-document.documentElement.clientWidth; })()`), 0, `${path} narrow-width text stress`);
   });
-  report.checks.push("320px and 375px overflow and text-width stress across eight routes");
+  report.checks.push("320px and 375px overflow and text-width stress across eleven routes");
   await withPage(pathToFileURL(join(options.out, "index.html")).href, 390, "light", async cdp => {
     assert.ok(await cdp.evaluate(`document.body.classList.contains('js') && document.querySelector('h1').innerText==='The Handbook of Excel Functions'`));
   });

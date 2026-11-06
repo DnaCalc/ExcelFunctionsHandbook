@@ -45,16 +45,21 @@ fn calculate(request: &Value) -> Result<Value, String> {
         return Err("formula must contain 1 to 4096 UTF-8 bytes".into());
     }
     let mut depth = 0usize;
-    for ch in formula.chars() {
-        if ch == '(' {
-            depth += 1;
-            if depth > 64 {
-                return Err("formula nesting exceeds 64".into());
+    let mut quote = None;
+    let mut chars = formula.chars().peekable();
+    while let Some(ch) = chars.next() {
+        if let Some(delimiter) = quote {
+            if ch == delimiter {
+                if chars.peek() == Some(&delimiter) { chars.next(); }
+                else { quote = None; }
             }
+            continue;
         }
-        if ch == ')' {
-            depth = depth.saturating_sub(1);
-        }
+        if ch == '\"' || ch == '\'' { quote = Some(ch); }
+        else if ch == '(' {
+            depth += 1;
+            if depth > 64 { return Err("formula nesting exceeds 64".into()); }
+        } else if ch == ')' { depth = depth.saturating_sub(1); }
     }
     let mut session = Session::new("Sheet1").map_err(|e| format!("{e:?}"))?;
     let mut env = CalcEnvironment::dates(match request["date_system"].as_str().unwrap_or("1900") {
@@ -169,6 +174,13 @@ mod tests {
         ))
         .unwrap();
         assert_eq!(cells["value"]["number"], 7.0);
+    }
+    #[test]
+    fn parentheses_in_excel_strings_are_not_formula_nesting() {
+        let request = json!({"formula":format!("=LEN(\"{}\")", "(".repeat(100))});
+        let value:Value = serde_json::from_str(&evaluate(&request.to_string())).unwrap();
+        assert_eq!(value["value"]["number"],100.0);
+        assert_eq!(run(&format!("={}1{}", "(".repeat(65), ")".repeat(65)))["status"],"invalid-request");
     }
     #[test]
     fn transport_rejects_invalid_inputs_instead_of_substituting_values() {

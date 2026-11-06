@@ -25,7 +25,7 @@ same wasm module as Try it, in an isolated worker; it does not run a native appr
 
 Limits: 30 evaluations/minute per direct peer address, 120 total API requests/minute, two concurrent
 evaluations, 3 seconds per evaluation, 32 KiB per request, 128 MiB wasm memory. The browser allows
-5 seconds including download. Excess rate returns 429 and Retry-After; saturation returns 503;
+30 seconds for loading and 5 seconds for calculation. Excess rate returns 429 and Retry-After; saturation returns 503;
 timeout returns 408; invalid input returns 400. Worksheet errors and engine refusals return 200
 with their distinct statuses. X-Forwarded-For is ignored. A future reverse proxy must enforce
 per-client limits at the edge; otherwise its shared address receives one combined allowance.
