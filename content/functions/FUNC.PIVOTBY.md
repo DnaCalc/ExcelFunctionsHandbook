@@ -23,15 +23,33 @@ role_in_family: null
 
 ## What it does
 
-`PIVOTBY(row_fields,col_fields,values,function,...)` groups records along row and column keys, applies an aggregation callback and spills the cross-tabulation. Its optional arguments control headers, row/column totals and sorting, filtering, and the comparison set for a two-argument callback.
+`PIVOTBY(row_fields,col_fields,values,function,[field_headers],[row_total_depth],[row_sort_order],[col_total_depth],[col_sort_order],[filter_array],[relative_to])` groups records along row and column keys, applies an aggregation callback and spills the cross-tabulation. Its optional arguments control headers, row/column totals and sorting, filtering, and the comparison set for a two-argument callback.
 
 ## Try it
 
 Put regions `east,east,west,west` in B2:B5, periods `Q1,Q2,Q1,Q2` in C2:C5 and amounts `3,7,5,11` in D2:D5. `=PIVOTBY(B2:B5,C2:C5,D2:D5,LAMBDA(v,SUM(v)),0,0,,0)` returns east with Q1=3, Q2=7, and west with Q1=5, Q2=11, without totals.
 
+A two-argument share callback can use the whole table as its denominator:
+
+```excel
+=PIVOTBY(B2:B5,C2:C5,D2:D5,LAMBDA(s,t,SUM(s)/SUM(t)),0,0,,0,,,2)
+```
+
+The final `2` selects the grand-total comparison set. East/Q1 is `3/26`, about `0.1153846154`. With relative_to zero its column denominator is `3+5=8`, giving `0.375`; with one its row denominator is `3+7=10`, giving `0.3`. Percentage formatting changes their display, not those fractions.
+
 ## Quirks
 
 Header inference and spill space matter. Totals have separate row and column depth controls, including negative depths for totals before details. Relative_to applies only to two-argument callbacks: the public page lists column, row, grand, parent-column and parent-row comparison sets. Empty intersections are not automatically numeric zeros in the current recorded route.
+
+| Optional argument | What it controls |
+|---|---|
+| `field_headers` | Whether the first source row is data or headings, and which headings appear. Modes are shared with GROUPBY. |
+| `row_total_depth`, `col_total_depth` | Independent grand totals and hierarchy subtotals; `0` omits that axis's totals. |
+| `row_sort_order`, `col_sort_order` | Signed sort positions; negative means descending. |
+| `filter_array` | One Boolean for each source record. |
+| `relative_to` | `0` column, `1` row, `2` grand, `3` parent-column, `4` parent-row comparison set. |
+
+The row and column field arguments both describe source **columns**. They are not already shaped row/column headers to cross-multiply. This formula returns a spill array; it does not create an Excel PivotTable object.
 
 ## How to implement
 

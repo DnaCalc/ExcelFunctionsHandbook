@@ -4,7 +4,16 @@
   "try_it": {
     "formula": "=PERCENTOF({2,3},{2,3,5,10})"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20527",
+      "platform": "Windows through COM; bitness and CPU not stated in these comments",
+      "behaviour": "COM controls retained in the implementation on 30 October 2026 include PERCENTOF(1,4)=0.25 and direct-versus-held coercion/error cases. No same-input other-build comparison is recorded.",
+      "sources": [
+        "https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/group_pivot.rs"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }
