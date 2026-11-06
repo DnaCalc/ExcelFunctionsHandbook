@@ -8,7 +8,7 @@
     {
       "excel_build": "16.0 build 20430",
       "platform": "Windows 64-bit, CPU not recorded in this capture",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "TRUNC(1.234567890123456e-200, 65536) returned 0 (0x0000000000000000). TRUNC(2.2250738585072014e-308, 0) returned 2.2250738585071984e-308 (0x000ffffffffffffa). 1 further recorded control is attached. Inputs were supplied through cells using Value2. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "TRUNC(1.234567890123456e-200, 65536)",
@@ -96,8 +96,8 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-ROUNDUP-001.html",
-        "https://handbook.dnacalc.com/notes/FN-TRUNC-001.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-ROUNDUP-001.json",
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-TRUNC-001.json"
       ]
     },
     {

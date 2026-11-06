@@ -8,7 +8,7 @@
     {
       "excel_build": "16.0.20527.20088",
       "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "=DELTA(TRUE,#REF!) returned #REF!. =DELTA(#REF!,TRUE) returned #VALUE!. 2 further recorded controls are attached. Inputs were supplied through cells using Value2, formula literals. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "=DELTA(TRUE,#REF!)",
@@ -74,13 +74,13 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-DELTA-001.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-DELTA-001.json"
       ]
     },
     {
       "excel_build": "16.0.20527.20088",
       "platform": "Windows, bitness and CPU not recorded in this reading file",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "DELTA(A1, A2) returned #REF!. Inputs were supplied through cells using Value2. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "DELTA(A1, A2)",
@@ -112,7 +112,7 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-DELTA-001.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-DELTA-001.json"
       ]
     },
     {

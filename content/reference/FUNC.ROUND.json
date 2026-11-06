@@ -8,7 +8,7 @@
     {
       "excel_build": "16.0 build 20430",
       "platform": "Windows 64-bit, CPU not recorded in this capture",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "ROUND(-112500000000000, 2147483635) returned 0 (0x0000000000000000). ROUND(-112500000000000, 2147483617) returned -112500000000000 (0xc2d9945ca2620000). Inputs were supplied through cells using Value2. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "ROUND(-112500000000000, 2147483635)",
@@ -68,13 +68,13 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-ROUND-001.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-ROUND-001.json"
       ]
     },
     {
       "excel_build": "16.0 build 20430",
       "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "ROUND(-1594628480062905, 14) returned -1594628480062900 (0xc316a939806956d0). Inputs were supplied through cells using Value2. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "ROUND(-1594628480062905, 14)",
@@ -106,13 +106,13 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-ROUND-002.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-ROUND-002.json"
       ]
     },
     {
       "excel_build": "16.0 build 20527",
       "platform": "Windows; bitness and CPU not recorded in this reading",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "ROUND(1.7976931348623157E+308, 0) returned NaN bit pattern, shown as 1.8E+308 (0x7ff000000000000a). ROUND(1.7976931348623157E+308, -307) returned NaN bit pattern, shown as 1.8E+308 (0x7ff005419221015d). 1 further recorded control is attached. Inputs were supplied through cells using Value2. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "ROUND(1.7976931348623157E+308, 0)",
@@ -200,13 +200,13 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-ROUND-003.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-ROUND-003.json"
       ]
     },
     {
       "excel_build": "16.0.20527.20088",
       "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "=ROUND(2.5,0) returned 3 (0x4008000000000000). =ROUND(-2.5,0) returned -3 (0xc008000000000000). 2 further recorded controls are attached. Inputs were supplied through formula literals. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "=ROUND(2.5,0)",
@@ -254,7 +254,7 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-ROUND-004.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-ROUND-004.json"
       ]
     },
     {

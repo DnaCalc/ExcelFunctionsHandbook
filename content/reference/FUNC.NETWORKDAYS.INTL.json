@@ -8,7 +8,7 @@
     {
       "excel_build": "16.0.20527.20088",
       "platform": "Windows, bitness and CPU not recorded in this reading file",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "NETWORKDAYS.INTL(A1, 5, 0) returned #NUM!. NETWORKDAYS.INTL(2, 5, A3) returned #VALUE!. Inputs were supplied through cells using Value2. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "NETWORKDAYS.INTL(A1, 5, 0)",
@@ -84,13 +84,13 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-NETWORKDAYS.INTL-001.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-NETWORKDAYS.INTL-001.json"
       ]
     },
     {
       "excel_build": "16.0.20527.20088",
       "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
-      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "behaviour": "=NETWORKDAYS.INTL(2,5,TRUE) returned 4 (0x4010000000000000). =NETWORKDAYS.INTL(2,5,FALSE) returned #NUM!. 1 further recorded control is attached. Inputs were supplied through cells using Value2, formula literals. These are controls from this environment, not a same-input comparison with another build.",
       "observations": [
         {
           "call": "=NETWORKDAYS.INTL(2,5,TRUE)",
@@ -136,8 +136,8 @@
         }
       ],
       "sources": [
-        "https://handbook.dnacalc.com/notes/FN-NETWORKDAYS.INTL-001.html",
-        "https://handbook.dnacalc.com/notes/FN-WORKDAY-001.html"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-NETWORKDAYS.INTL-001.json",
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/3345a87/content/notes/FN-WORKDAY-001.json"
       ]
     },
     {
