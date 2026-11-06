@@ -52,9 +52,8 @@ contest. Contested and stale are ordinary published results, never embarrassment
    hash, capture route). The stronger declared labels named in CHARTER 7.8 additionally require the domain/mechanism evidence stated by the claim — and are
    unavailable today under rule 6 below.
 3. **Coverage is counted, not gestured.** Coverage statements are absolute counts against the
-   full 541-entry function surface ("12 of 541 entries curated"), never percentages of an
-   undisclosed base. The reconciliation travels with the count: 541 entries = 518 functions +
-   23 operators = 534 published Excel rows + 7 split byte-variant rows. 534 is Microsoft's
+   full 554-entry function surface ("12 of 554 entries curated"), never percentages of an
+   undisclosed base. The reconciliation travels with the count: 554 entries = 531 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 13 added functions. 534 is Microsoft's
    published-row count; it is never used as a coverage denominator, because seven of those rows
    document a byte-variant pair that the Handbook publishes as two entries.
 4. **Verification is named.** An implementation is shown only after passing its function's

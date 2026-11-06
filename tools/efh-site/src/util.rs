@@ -18,6 +18,8 @@ pub fn reader_words(text: &str) -> String {
     .replace("crates/oxfunc_", "earlier-implementation/")
     .replace("oxfunc_", "earlier_")
     .replace("the OxFunc project", "an earlier DNA Calc project")
+    .replace("The reference engine", "The earlier implementation")
+    .replace("the reference engine", "the earlier implementation")
     .replace("OxFunc-Evidence", "CalcFunc-Evidence")
     .replace("OxFunc's", "the earlier implementation's")
     .replace("OxFunc", "the earlier implementation")
