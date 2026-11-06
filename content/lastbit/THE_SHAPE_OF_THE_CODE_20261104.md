@@ -9,8 +9,8 @@ and nothing here is a claim about inputs nobody has asked Excel about.
 
 ## The hypothesis
 
-Suppose you want to know how a closed program computes `ERF.PRECISE`. You can ask it, as many times
-as you like, for an answer. You cannot look inside. The space of programs that could produce those
+Suppose you are investigating `ERF.PRECISE` through recorded worksheet answers. Those observations
+expose inputs and outputs, rather than the instructions between them. The space of programs that could produce those
 answers is enormous, and a search that treats it as enormous fails: you end up fitting a smooth
 surface through sparse points, and the fit tells you nothing about the program.
 
@@ -18,12 +18,18 @@ The way out is a guess about the authors, and it is a guess. Suppose most of Exc
 was written in the 1990s, by hand, by people with a textbook open, for machines where every multiply
 cost something. Then the code had to be short and fit in someone's head. So the computation tree you are looking for is
 small and direct: a Horner loop, a recurrence, the formula from a statistics textbook, one guard
-for the awkward case. Nothing is correctly rounded, because nobody could afford that, and the
-rounding errors of that small tree are exactly what you see in the last bit.
+for the awkward case. Such a program can leave rounding errors that distinguish its evaluation
+order from a more accurate implementation. This is a useful candidate-generating hypothesis;
+it does not establish when a routine was written or exclude routines with stronger rounding guarantees.
 
 We called this the code-shape hypothesis. It changes the question from "what function fits these
-numbers?" to "what would someone have typed?". A candidate is ranked by how plausibly it was
-written, not by how accurate it is, and being inaccurate in the right way is the evidence.
+numbers?" to "what short sequence of operations predicts them?" Plausibility helps choose candidates;
+new answers that distinguish their predictions decide between them.
+
+Measurement is one part of this project's method. The calculation source also uses published
+algorithms, instruction specifications and licensed translations. For example, the
+[x87 chains cite Intel's instruction manuals](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/x87_chains.rs),
+while the [odd-coupon bond family credits a licensed ExcelFinancialFunctions translation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/odd_bond_family.rs).
 
 On 4 November 2026 it paid off in five unrelated corners of the function suite in one day.
 
@@ -108,7 +114,9 @@ double pmt0(double r, double n, double pv) {
 This is the textbook `ln(1+x) = 2 atanh(x/(2+x))` (Abramowitz and Stegun 4.1.27). A correctly
 rounded logarithm reproduces the logarithm Excel used for 667 of 1,184 rates; this series
 reproduces 1,181. 720 of 720 fresh Excel answers in the shape match. Payments at the start of the
-period and payments with a future value use other paths we have not identified.
+period and payments with a future value were still open in this 4 November snapshot.
+The [current PMT guide](../functions/FUNC.PMT.md) describes the subsequent future-value work and
+separates it from the less settled routes.
 
 **Gamma, below 10.** A product from the top, each step stored, ending on a seed value.
 
@@ -154,8 +162,10 @@ table matches, we cite it. Where none does, the constants are labelled as measur
 Three methods did the work, and all of them follow from taking the shape seriously.
 
 **Ask for consecutive doubles.** Sample a function sparsely and you get a smooth curve. Ask for
-4,096 consecutive doubles and you get a sawtooth, and each stored quantity adds its own line to the
-spectrum. The lines tell you how many stages the program has before you have written a candidate.
+4,096 consecutive doubles and you can see a sawtooth. Its spectrum helps choose candidate
+evaluation orders. A spectral line does not identify a store, and an absent line does not exclude
+one. Identifying a stage requires computation-tree predictions that differ on measured inputs;
+the [fingerprint map states these limits explicitly](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/docs/generated/numeric-fingerprints.md).
 
 **Bisect to the edge.** A stored value changes at a precise input. Bisecting Excel to one input step
 finds that edge, which pins a constant directly, with no fitting. For ERF, the two denominator edges
@@ -171,7 +181,8 @@ bisection that also agrees with a Taylor series is not a coincidence.
 In August 2026 this project spent two sessions fitting a "tooth law" for Excel's erf, down to a
 prized period of 2.996, and every constant in it turned out to be our own apparatus: the low bits of
 the reference model's constant, beating against the scan ladder. Refining the grid made the law
-vanish. Today's stored steps are the opposite kind of result. Refining the grid makes them sharper.
+vanish. The later stored-step candidates also have to survive changes to the scan grid and direct
+comparisons against competing evaluation orders.
 
 The second lesson came on the same day. A rule that no candidate may lose any match looks rigorous.
 It rejected correct pieces of algorithms, because a right step can expose an old error that a wrong

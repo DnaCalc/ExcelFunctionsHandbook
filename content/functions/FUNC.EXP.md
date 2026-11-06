@@ -25,15 +25,13 @@ references:
     role: "the reference branch structure, and the expm1 companion that cancellation demands"
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Numerical notes
-  - What has not been checked
+  - What it does
+  - Try it
+  - Quirks
+  - How to implement
+  - Version differences
+  - Alternatives
   - Excel versions, platforms and CPUs
-  - Page vocabulary
   - Sources
 family: exp_fn
 role_in_family: >-
@@ -43,182 +41,64 @@ role_in_family: >-
 
 # EXP
 
-## What it computes
+## What it does
 
-`EXP(number)` returns `e` raised to the power of its argument. Microsoft's page gives the
-constant to fifteen digits and states the two relationships that matter to a reader: `EXP` is
-the inverse of `LN`, and powers of other bases go through the `^` operator.
+`EXP(number)` raises `e` to the supplied exponent. Microsoft documents EXP and LN as inverses; use `base^exponent` for a different base. EXP is useful when a growth model is written as an exponent, or when returning log-scale values to their original scale.
 
-    exp(x) = e^x = Σ_{n≥0} x^n / n!
+## Try it
 
-| Property | Statement |
-|---|---|
-| Domain | all real `x` |
-| Range | `(0, ∞)` — strictly positive, never zero, never negative |
-| Series | `1 + x + x²/2! + x³/3! + …`, convergent for every `x` |
-| Defining property | the unique solution of `f' = f` with `f(0) = 1` |
-| Functional equation | `exp(x+y) = exp(x)·exp(y)` |
-| Inverse | `ln`, on `(0, ∞)` |
-| Fixed point | none on the reals; `exp(x) > x` everywhere |
-| Entire | no poles, no branch cuts; periodic with period `2πi` in the complex plane |
-| Overflow threshold | `ln(DBL_MAX) ≈ 709.782712893384` |
-| Underflow to zero | below about `-745.133` the true value is under half the smallest subnormal |
-| Gradual underflow | between about `-708.396` and `-745.133` the result is subnormal and loses bits |
+`=EXP(0.05)` is about `1.051271096376024`. Applied to an initial balance of `200`, `=200*EXP(0.05)` is about `210.2542192752048`. The exponent is the total continuously compounded rate over the interval; it is not a count of discrete interest payments.
 
-The three thresholds in the last rows are the whole edge-case story, and they are properties of
-binary64 rather than of any implementation. Note the asymmetry: the overflow cliff is sharp —
-one argument returns a finite value, the next does not — while the underflow side degrades
-gradually through the subnormal range before reaching zero.
+`=EXP(0)` returns `1`. A negative exponent gives a positive reciprocal-scale result, such as `=EXP(-1)` at about `0.3678794411714423`.
 
-## Arguments
+## Quirks
 
-| Argument | Meaning | Notes |
-|---|---|---|
-| `number` | The exponent applied to base `e`. Required. | Microsoft documents no constraint |
+A finite mathematical exponential can exceed the largest representable binary64 number. The recorded `EXP(1000)` worksheet reading is `#NUM!`, which the current finite-result policy reproduces. At the opposite end, rounding can produce a subnormal or zero in the kernel; the worksheet's publication policy and input route must be considered separately.
 
-Ordinary to-number coercion applies; the reference engine declares the surface a scalar kernel
-that lifts elementwise over arrays. See
-[Coercion and lifting](../model/02-coercion-and-lifting.md).
+For tiny `x`, `EXP(x)` rounds close to one. Subtracting one can lose the quantity you wanted, and may give zero. PMT's small-rate route has a separate compensated exponential-minus-one step.
 
-## Result and edge cases
+Do not replace an entire composition with one exponential: the stored LN result and multiply in BINOM.DIST's all-success route, and the normalized product in GEOMEAN, are separately observed stages. The LN/EXP environment comparison also records machine-dependent answers on some inputs.
 
-Returns `Number`, strictly positive.
+## How to implement
 
-- **`EXP(0)`** — exactly 1. This is the only argument whose result is exact for a reason.
-- **`EXP(1)`** — the double nearest `e`. Microsoft's page prints `e` to fifteen digits, which is
-  the value's decimal shadow rather than its bits.
-- **Overflow** — beyond `ln(DBL_MAX)` the true value is not representable. The reference
-  engine records `non_finite=num` for this surface, and `EV-MATH-0008` records the convention
-  that a non-finite real result surfaces as an error rather than as an infinity, with a large
-  `EXP` argument among its named witnesses. That record publishes **no count**; it establishes
-  where an error code appears, with witnesses and no denominator.
-- **Underflow** — the result becomes subnormal and then zero. Zero is outside the mathematical
-  range of the function, so `EXP` returning `0` is the format speaking, not the function.
-  Whether Excel returns `0` or an error there is not documented and is on the probe list.
-- **Never negative, never zero for moderate arguments.** A negative result would be a defect,
-  and the invariant costs nothing to test.
-- **Small arguments** — `EXP(x)` for tiny `x` returns a value very close to 1, and the
-  *interesting* quantity `EXP(x) - 1` is then destroyed by cancellation. See the numerical
-  notes: this is the single most consequential accuracy issue on the worksheet surface, and it
-  is not a defect in `EXP`.
+The current source uses an extended x87 chain. Its working precision has a 64-bit significand and extended exponent range; the final result is stored to binary64 once.
 
-## Errors
+1. Load `x` exactly and multiply it, in extended precision with ties-to-even, by the resident `log2(e)` constant. The source constant is `0xB8AA3B295C17F0BC * 2^-63`. Call the extended result `t`; do not store it as a binary64 intermediate.
+2. Work on `u=abs(t)`. Round `u` to the nearest integer, ties-to-even, giving `k`. Compute the extended fraction `f=u-k`, which lies between `-0.5` and `0.5`.
+3. Evaluate the modeled `F2XM1(f)` instruction, add extended `1`, and scale the result by `2^k` with the modeled `FSCALE` operation. This gives an approximation to `2^u` without an intermediate binary64 assignment.
+4. If `t` was negative, take the extended reciprocal of that positive result. Store the answer once to binary64, ties-to-even. Map a nonfinite published result to the worksheet error through the surface policy.
 
-Microsoft's `EXP` page documents no error conditions.
+At `x=0`, `t=k=f=0`, so the fractional instruction gives zero and the reconstructed result is exactly one. For `x=1`, `t` is about `1.442695`, `k=1` and `f` about `0.442695`; doubling the fractional result reconstructs about `2.718281828459045`. Negative inputs take the reciprocal before storage, rather than storing the positive answer and dividing afterward.
 
-| Error | Condition | Source |
-|---|---|---|
-| `#VALUE!` | Non-numeric argument | Shared call model, not this page |
-| `#NUM!` | The true result is not finite | `EV-MATH-0008`, which names `EXP` — a kind and error-code convention, no count |
+`F2XM1` is an approximate instruction leaf. A portable implementation must model it or declare a different numerical target; replacing it with an ideal power-of-two leaf is contradicted by recorded broader windows. The local fingerprint labels do not identify every input region or the CPU's private implementation. The source offers native and software x87 backends, with residual and environment limits described in the cited records.
 
-## Relationships
+## Version differences
 
-- **`LN`** — the documented inverse. `EV-MATH-0001` treats `EXP`, `LN`, `LOG10` and `LOG`
-  together as one identification problem, which is the right way to read them.
-- **`POWER` and `^`** — Microsoft's page routes other bases here. Note that `POWER(EXP(1), x)`
-  and `EXP(x)` are different computations and need not agree in the last bit.
-- **[COSH](FUNC.COSH.md), `SINH`, `TANH`, [COTH](FUNC.COTH.md), [CSCH](FUNC.CSCH.md), `SECH`** —
-  every hyperbolic surface is built on this one. Their accuracy is bounded by its accuracy, and
-  their branch structures exist to keep its overflow out of their expressions.
-- **`LOG`, `LOG10`** — the other members of the log/exp identification.
-- **Financial surfaces** — `PMT`, `RATE`, `PV`, `FV`, `NPER`, `PDURATION` and friends evaluate
-  `(1+r)^n` compounding, which is exponential arithmetic in disguise; the presence projection
-  attaches an annuity-exactness defect stream that mentions this module.
-- **`GAMMALN`, and through it [COMBINA](FUNC.COMBINA.md)** — the `exp(lnΓ)` composition, whose
-  final step is this function.
-- **`EXPON.DIST`, `LOGNORM.DIST`, `NORM.DIST`, `POISSON.DIST`** — distributions whose kernels
-  are exponentials, and where the cancellation issue below is the difference between a usable
-  and an unusable tail.
+The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.
 
-## Numerical notes
+| Excel 16.0 build | Platform and CPU | Captured inputs |
+|---|---|---:|
+| 19929 | Windows, bitness not recorded, CPU not recorded | 36 |
+| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 734 |
+| 18429 | Windows, 64-bit, Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz | 54 |
+| 20131 | Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics | 54 |
+| 20228 | Windows, 64-bit, CPU not recorded | 90 |
+| 20430 | Windows, 64-bit, CPU not recorded | 1,612 |
 
-The exponential is the best-studied function in numerical analysis, and it is one of the few
-where the modern state of the art is well ahead of what most software actually ships.
+- XC-EXP-001: build 19929 versus build 20430; 3 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.
+- XC-EXP-002: build 20131 versus build 18429; 54 same-input pairs, 6 differing answers. Compared axes: cpu, excel-build, os. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.
 
-**The standard algorithm**, in three stages, essentially unchanged since Cody & Waite and
-refined by Tang:
+The differing machines changed Excel build and other recorded environment properties together. These observations do not isolate a build-only or CPU-only cause. The linked record retains each input, answer, and recheck status.
 
-1. **Reduce.** Write `x = k·ln2 + r` with `k = round(x/ln2)` and `ABS(r) ≤ ln2/2`. Because
-   `ln2` is irrational, this needs `ln2` split into a high part exactly representable and a low
-   correction, so that `x - k·ln2_hi - k·ln2_lo` is computed without losing bits.
-2. **Approximate.** Evaluate `e^r` on the small interval by a minimax polynomial or rational —
-   A&S 4.2.44–4.2.45 gives classical coefficient sets; Tang's table-driven variant reduces
-   further onto a table of `2^{j/32}` values so the polynomial degree drops.
-3. **Reconstruct.** Scale by `2^k`, exactly, by adding to the exponent field. The only care
-   needed is at the boundaries, where `2^k` itself would overflow or where the result is
-   subnormal and the scaling must be split in two.
+A recorded example, XD-EXP-001: the input `1.816072400038452` has bits `0x3ffd0ea1eed55587`. On 2026-07-03, build 20131 on AMD Ryzen 7 4800H with Radeon Graphics returned `6.1476654002836915` (`0x401897359943e077`). On the other machine, 2026-07-05, build 18429 on Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz returned `6.147665400283691` (`0x401897359943e076`). These answers differ by one unit in the last place. Each machine ran this probe once; no repeat is recorded. The input was placed in a cell through `Range.Value2` and its round trip was checked, rather than entered as a rounded decimal formula literal.
 
-fdlibm's `e_exp.c` is the reference implementation of this shape; every step's error budget is
-documented there.
+Agreement on these compared inputs does not establish agreement on unmeasured inputs.
 
-**What the evidence says about Excel's route.** `EV-MATH-0001` is a live-verification record
-naming `EXP` as one of four log/exp surfaces, and its substrate identification is unusually
-specific: an x87 instruction sequence — `F2XM1` and `FYL2X` at 64-bit precision (control word
-`0x133F`, as measured against live Excel), with one final store to binary64. It records that **every modern libm is ruled out at the bit level** for these
-surfaces, including UCRT, glibc, MKL-VML, SVML, and the correctly-rounded value itself. The
-record also carries an honest structural caveat: the source calls its sweep "fresh" and never
-uses the words "held out", so the held-out state is published as partial; and the per-surface
-figures do not reconcile with the sweep total the source names, with the record publishing that
-gap as an open question rather than smoothing it. Every one of the four surfaces inherits a
-host-CPU microcode caveat on `F2XM1`/`FYL2X`: an answer produced through those instructions is a
-property of the CPU as much as of the software. All figures live in the evidence layer and
-render beside this page.
+[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.EXP.json).
 
-**The `expm1` problem, which is the practically important one.** For small `x`, `e^x` is close
-to 1, so `EXP(x) - 1` loses every leading digit to cancellation: at `x = 10^-10` about ten
-significant digits are gone, and at `x = 10^-16` the answer is zero. This matters constantly —
-continuous compounding, hazard rates, small-return finance, `1 - EXP(-λt)` survival terms — and
-**Excel has no `EXPM1` on the worksheet surface**. The remedies available in a worksheet:
+## Alternatives
 
-- use the series `x + x²/2 + x³/6` for small `ABS(x)`, which is accurate and cheap;
-- restructure algebraically so the subtraction never appears;
-- for `1 - EXP(-x)`, use `-EXPM1(-x)` conceptually and implement it as the series.
-
-The Handbook's "The Last Bit" series treats the `expm1` family in the financial surfaces at
-length; the phenomenon is the same one, and the fact that the worksheet exposes `EXP` but not
-`EXPM1` is a design gap rather than an accuracy defect.
-
-**Argument reduction here is easy, unlike the trigonometric case.** The reduction constant is
-`ln2`, and `k` is bounded by about 1024, so `k·ln2` never needs many extra bits. That is why
-`EXP` has no analogue of [COS](FUNC.COS.md)'s large-argument catastrophe: the exponential's
-domain is bounded by overflow long before reduction precision becomes an issue.
-
-## What has not been checked
-
-Two evidence records name this surface. `EV-MATH-0001` carries a per-surface live-Excel count
-for `EXP` and a specific substrate identification, together with a reader warning: two further
-figures in the same upstream lane are **not** surface pass rates — one scores a backend module
-over two surfaces jointly, the other scores an out-of-repo reference implementation — and none
-of them may be attributed to any single surface. The record also publishes the unreconciled
-sweep-total gap as an open question, and attaches the host-CPU microcode caveat.
-`EV-MATH-0008` names `EXP` in the FINITE error-code convention family and publishes no count at
-all.
-
-No Handbook vector suite exists for `EXP`. Microsoft's page documents the inverse relationship
-to `LN` and the pointer to `^`, and no error conditions or thresholds.
-
-Inputs I would probe first:
-
-1. **The overflow boundary, bisected**: `EXP(709.78)`, `EXP(709.7827128933839)`,
-   `EXP(709.7827128933841)`, `EXP(710)`. The last finite argument locates the boundary exactly,
-   and the answer changes kind rather than value, so it settles without any bit comparison.
-2. **The underflow ladder**: `EXP(-708)`, `EXP(-745)`, `EXP(-745.2)`, `EXP(-746)`. Three
-   distinct behaviours are possible — normal, subnormal, zero — and a fourth, `#NUM!`, would be
-   a finding, since zero is a perfectly good finite value and the FINITE convention would not
-   require an error.
-3. **The subnormal band**, where results lose significand bits gradually. An implementation
-   that scales by `2^k` in one step returns zero across the whole band; one that splits the
-   scaling keeps the digits. The two are distinguishable by the *ratio* `EXP(-720)/EXP(-721)`,
-   which should be close to `e`.
-4. **`EXP(x) · EXP(-x) - 1`** across the range — a metamorphic probe requiring no oracle, and
-   one whose residual pattern reflects the reduction's rounding directly.
-5. **`LN(EXP(x)) - x`** and `EXP(LN(y)) - y` — the documented inverse relation, and the natural
-   joint probe for the four surfaces `EV-MATH-0001` identifies together.
-6. **Small arguments**: `EXP(2^-30)`, `EXP(2^-52)`, `EXP(2^-60)`. The first argument for which
-   `EXP(x)` returns exactly 1 marks where the worksheet's missing `EXPM1` starts costing users
-   everything, and it is worth publishing for that reason alone.
-7. **The same vectors on a second CPU vendor**, given the explicit `F2XM1`/`FYL2X` microcode
-   caveat. Any difference is a platform axis rather than a defect.
+Use [LN](FUNC.LN.md) for the inverse and [POWER](FUNC.POWER.md) or `^` for another base. See [GEOMEAN](FUNC.GEOMEAN.md) and [BINOM.DIST](FUNC.BINOM.DIST.md) for measured compositions that reuse EXP, and [PMT](FUNC.PMT.md) for a compensated exponential-minus-one route.
 
 ## Excel versions, platforms and CPUs
 
@@ -291,36 +171,10 @@ Evidence for every row: [`content/evidence/environments/FUNC.EXP.json`](../../co
 
 <!-- efh:environments end -->
 
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| argument reduction | Writing `x = k·ln2 + r` so the polynomial only sees a small `r` |
-| table-driven | Tang's refinement: an extra reduction onto a table of `2^{j/N}` values |
-| reconstruction | Scaling the approximated `e^r` by `2^k` through the exponent field |
-| `expm1` | `e^x - 1` computed without cancellation; absent from the worksheet surface |
-| gradual underflow | The subnormal band where results lose significand bits before reaching zero |
-| FINITE convention | The recorded convention that a non-finite real result surfaces as an error |
-| host-scoped | A result whose last bits depend on the CPU executing it |
-
 ## Sources
 
-- Microsoft, "EXP function" —
-  <https://support.microsoft.com/en-us/office/exp-function-c578f034-2c45-4c37-bc8c-329660a63abe>
-  (fetched at curation: signature, the printed value of `e`, the statement that `EXP` is the
-  inverse of `LN`, and the pointer to the `^` operator for other bases. No error conditions are
-  documented there).
-- Handbook evidence records `EV-MATH-0001` (the four-surface log/exp live verification, the x87
-  CRT substrate identification, the ruled-out modern libms, the partial held-out state, the
-  unreconciled sweep total, and the microcode caveat) and `EV-MATH-0008` (the FINITE error-code
-  convention, no count). Read both reader warnings.
-- Abramowitz & Stegun, chapter 4.2 — the exponential function and its approximations.
-- Tang, *Table-driven implementation of the exponential function in IEEE floating-point
-  arithmetic*, ACM TOMS (1989).
-- Cody & Waite, *Software Manual for the Elementary Functions* — the classical reduction.
-- fdlibm `e_exp.c` and `s_expm1.c`.
-- Handbook, [COSH](FUNC.COSH.md) and [COMBINA](FUNC.COMBINA.md) — two surfaces that inherit this
-  one's accuracy; [Coercion and lifting](../model/02-coercion-and-lifting.md).
-- Handbook projections `data/functions/FUNC.EXP.json` (the `non_finite=num` axis value) and
-  `data/presence/FUNC.EXP.json` (implementing module and the annuity-exactness defect stream
-  that mentions it).
+- [Microsoft: EXP function](https://support.microsoft.com/en-us/excel/functions/exp-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/x87_chains.rs); implementation steps and the limits identified in the text.
+- [Overflow witness and finite-result policy](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/exp_fn.rs).
+- [Extended constants and software instruction model](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/soft87.rs).
+- [Fingerprint scope and broader-window counterexamples](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/docs/generated/numeric-fingerprints.md).
