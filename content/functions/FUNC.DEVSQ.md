@@ -23,7 +23,7 @@ role_in_family: null
 
 ## What it does
 
-`DEVSQ(number1, [number2], ...)` returns the sum of squared distances from the data’s mean. It is the unnormalised numerator of centered variance.
+`DEVSQ(number1, [number2], ...)` returns the sum of squared distances from the data’s mean. It supplies a centered variance numerator without choosing either the sample or population divisor. If the observations are lengths, the result has squared-length units.
 
 ## Try it
 
@@ -31,11 +31,23 @@ role_in_family: null
 
 ## Quirks
 
-Referenced text, logical values and blanks are skipped; referenced zero counts. Direct logical values and numeric text can be admitted. An error or unconvertible direct text can produce an error. The sum has squared input units.
+Referenced or array text, logical values and blanks are skipped; a numeric zero is an observation. Direct logical values and numeric text can be converted. Worksheet errors propagate, and unconvertible direct text gives `#VALUE!`. In the current code, direct scalar errors are checked before errors reached through a reference or array.
+
+The current implementation returns `#NUM!` for no collected numbers. A single number has zero deviation from its own mean and returns zero. Adding a constant to all observations leaves the mathematical answer unchanged, but a floating-point implementation can lose that property at extreme magnitudes.
 
 ## How to implement
 
-Collect numeric observations, compute their mean, subtract it from each value, square each difference, and add. Do not divide by the count. In DnaCalc’s current route the subtraction and accumulation use ordinary double operations; each square uses a stored x87 operation, and a square below the minimum normal binary64 value is replaced by zero. This is an implementation recipe, not a proof that all Excel input routes share those stages.
+The current code uses a centered pass with a particular mixture of operations:
+
+1. Collect the numeric observations in their argument and traversal order. Reject an empty collection with `#NUM!`.
+2. Sum the observations in ordinary binary64 and divide that sum by `n` in binary64 to obtain `mean`.
+3. For each observation, store the ordinary binary64 subtraction `d=x-mean`.
+4. Compute the square using `R(d*d)`, where `R` rounds to a 64-bit significand and then stores to binary64. Replace a square below the minimum normal binary64 value by zero.
+5. Add these squares in ordinary binary64 and publish the sum. Do not divide it by `n` or `n-1`.
+
+For `2,4,6`, the sum is 12 and the mean is four. Differences `-2,0,2` give squares `4,0,4` and total eight. By comparison, `SUMSQ(2,4,6)=56` squares the uncentered inputs.
+
+A direct calculation `sum(x*x)-sum(x)^2/n` is mathematically equivalent but can subtract two large, nearly equal quantities. It also has a different operation tree from this code. The stated mixed-store route is an implementation recipe; no whole-domain Excel stage identification is claimed.
 
 ## Version differences
 

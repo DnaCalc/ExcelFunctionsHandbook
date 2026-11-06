@@ -23,19 +23,32 @@ role_in_family: null
 
 ## What it does
 
-`HARMEAN(number1, [number2], ...)` is the reciprocal of the mean of reciprocals. It is useful when equal-sized portions contribute rates, such as two equal distances travelled at different speeds.
+`HARMEAN(number1, [number2], ...)` returns `n / sum(1/x)` for positive observations. It is useful for rates attached to equal-sized portions. Two equal distances travelled at different speeds have equal distance weights, not equal time weights; averaging their speeds arithmetically answers a different question.
 
 ## Try it
 
-`=HARMEAN(30,60)` returns `40`. One distance at 30 and the same distance at 60 take a combined time proportional to `1/30+1/60=1/20`; two distances divided by that time give 40.
+`=HARMEAN(30,60)` returns `40`. Travelling 60 km at 30 km/h takes two hours; another 60 km at 60 km/h takes one hour. Total distance 120 km divided by total time three hours is 40 km/h.
+
+`=AVERAGE(30,60)` returns `45`. That is the average speed for equal amounts of time at the two speeds. The difference comes from what receives equal weight.
 
 ## Quirks
 
-Every admitted value must be positive; zero or a negative value gives `#NUM!`. Referenced text, logical values and blanks are ignored, while numeric zero is included and then rejected. Direct numeric text and logical constants can be admitted.
+Every admitted value must be positive. A numeric zero or negative value gives `#NUM!`; a blank cell is skipped rather than treated as zero. References and arrays also skip logical values and text, including numeric-looking text. Direct numeric text and logical constants can be converted, so direct `FALSE` becomes a rejected zero.
+
+Worksheet errors propagate, and unconvertible direct text gives `#VALUE!`. The current code checks direct scalars before reading held values, returns `#N/A` when collection finds no numbers, and gives `#NUM!` for a nonfinite reciprocal sum. Those last two choices are implementation behaviour, not claims established by Microsoft’s published error list.
 
 ## How to implement
 
-Collect the admitted numbers and reject any value at or below zero. Sum their reciprocals, then divide the count by that sum. For `30,60`, the reciprocal sum is `0.05`, so `2/0.05=40`. Very small inputs can make reciprocals overflow; a scaled reciprocal sum is a mathematical robustness option, but requires fresh comparisons before being presented as an Excel compatibility route.
+The mathematical identity `n/sum(1/x)` is not the current operation tree. Use `R` for the [stored 64-bit-significand operation](../model/09-staged-arithmetic.md).
+
+1. Preserve whether each value is direct, a reference cell or an array element; collect it using the rules above. Reject any admitted `x<=0`.
+2. Starting from `S=0`, visit the admitted values in order. Store `r=R(1/x)`, then store `S=R(S+r)` for each one.
+3. After the empty-set and nonfinite-sum checks, store the reciprocal mean `m=R(S/n)`.
+4. Return `R(1/m)`, subject to worksheet number publication. Replacing these last two divisions by `R(n/S)` changes the intermediate rounding history.
+
+For `30,60`, the mathematical reciprocal sum is `1/20`; the reciprocal mean is `1/40`, whose reciprocal is 40. The current staged route also publishes 40. These worked numbers explain the route; they do not identify all Excel rounding stages on every input.
+
+Small positive inputs can make a reciprocal overflow. Scaling the reciprocal sum can help a mathematical implementation, but its different arithmetic needs separate Excel comparisons before being offered as a compatibility route.
 
 ## Version differences
 
