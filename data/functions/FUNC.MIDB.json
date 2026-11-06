@@ -5,7 +5,7 @@
   "entry_kind": "built_in_function",
   "category": "Text functions",
   "admission": {
-    "label": "supported",
+    "label": "implemented",
     "reason": null
   },
   "metadata_status": "function_meta_curated",
@@ -139,24 +139,184 @@
     "microsoft_url": "https://support.microsoft.com/en-us/office/mid-function-d5f9e25c-d7d6-472e-b568-4ecb12433028",
     "english_description": "Returns a specific number of characters from a text string starting at the position you specify"
   },
-  "localized_names": [],
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "MIDB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "MIDB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "MIDB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "MIDTB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "MIDB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "MIDB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "MIDB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "MIDB"
+    },
+    {
+      "locale": "en-US",
+      "name": "MIDB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "EXTRAEB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "MIDB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "POIMI.TEKSTIB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "STXTB"
+    },
+    {
+      "locale": "he-IL",
+      "name": "MIDB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "MIDB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "KÖZÉP2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "MIDB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "MIDB"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "MIDB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "MIDB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "MIDB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "MIDB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "MIDB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "DEELB"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "FRAGMENT.TEKSTU.B"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "MIDB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "SEG.TEXTOB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "MIDB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПСТРБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "MIDB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "MIDB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "MIDB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "EXTEXTB"
+    },
+    {
+      "locale": "th-TH",
+      "name": "MIDB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ORTAB işlevleri"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "MIDB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "MIDB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "MIDB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "MIDB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "MIDB"
+    }
+  ],
   "localization": {
     "raw_organ": "data/localization/microsoft-support-function-index.json",
     "function_article_guid": "d5f9e25c-d7d6-472e-b568-4ecb12433028",
     "scope": "shared_published_row",
-    "status": "combined_row",
+    "status": "split_combined_row",
     "article_row_count": 40,
-    "resolved_name_count": 0
+    "resolved_name_count": 40
   },
   "artifacts": null,
   "version_marker": null,
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": true,
-  "oxfunc_tree_clean": true,
   "vintage": {
-    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
-    "arity": "live-registry:473efa3:clean:undated",
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "live-registry:473efa3:clean:undated",
     "axis_provenance": "live-registry:473efa3:clean:undated",
@@ -169,10 +329,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
-    "registry_backed": "live-registry:473efa3:clean:undated",
-    "signature": "live-registry:473efa3:clean:undated",
-    "signature_placeholder": "live-registry:473efa3:clean:undated",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

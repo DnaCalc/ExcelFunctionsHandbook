@@ -6,18 +6,29 @@
   "category": "Text functions",
   "admission": {
     "label": "deferred",
-    "reason": "Deferred external/provider function."
+    "reason": "Deferred by policy: the answer needs Microsoft's language service. DNA Calc does not run this function yet."
   },
   "metadata_status": "catalog_only",
   "xlcall": null,
   "arity": {
-    "min": null,
-    "max": null
+    "min": 1,
+    "max": 1
   },
   "classification": {},
   "axes": null,
   "axis_provenance": {},
-  "signature": null,
+  "signature": {
+    "display": "DETECTLANGUAGE(text)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "text",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
   "signature_placeholder": false,
   "descriptions": {
     "short": "Code of the language a text is written in",
@@ -203,10 +214,9 @@
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": false,
-  "oxfunc_tree_clean": true,
   "vintage": {
-    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
-    "arity": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "absent:no-live-registry-entry-for-this-id",
     "axis_provenance": "absent:no-live-registry-entry-for-this-id",
@@ -219,10 +229,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
-    "registry_backed": "live-registry:473efa3:clean:undated",
-    "signature": "absent:no-live-registry-entry-for-this-id",
-    "signature_placeholder": "absent:no-live-registry-entry-for-this-id",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

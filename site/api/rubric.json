@@ -2,15 +2,15 @@
   "schema": "efh.rubric/v1",
   "rubric_version": "rubric-derivation/v1.0.0",
   "basis_mode": "pre-ledger",
-  "denominator_sentence": "541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows",
-  "entries_total": 541,
+  "denominator_sentence": "550 entries = 527 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 9 added functions",
+  "entries_total": 550,
   "evidence_records_read": 117,
   "evidence_layer_is_still_being_written": true,
   "standing": [
     "No level on this page is asserted. Every warrant level, depth tier and axis state carries rubric_version and a derivation trace naming the records and the fields that produced it.",
     "handbook_reverified is false on every evidence record read. The Handbook has re-run nothing.",
     "basis_mode is pre-ledger: no claim has been recorded in a ledger, so the seven doors render in reduced form and the Why door shows this derivation rather than an assertion graph.",
-    "541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows."
+    "550 entries = 527 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 9 added functions."
   ],
   "honesty_counters": {
     "admitted_handbook_implementations": 0,
@@ -27,7 +27,7 @@
     "entries_numeric_clean_no_open_row_and_no_defect_stream_file_names_it": 4,
     "entries_numeric_clean_no_open_row_and_no_open_defect_stream_record": 17,
     "entries_numeric_clean_no_open_row_streams_ignored": 18,
-    "entries_total": 541,
+    "entries_total": 550,
     "entries_whose_counted_corpus_was_the_repair_target": 66,
     "entries_whose_only_counted_axis_is_structural_admission": 43,
     "entries_whose_only_counted_evidence_is_a_handbook_recomputation": 0,
@@ -43,8 +43,8 @@
     "entries_with_any_evidence_record": 185,
     "entries_with_curated_handbook_prose": 541,
     "entries_with_low_name_match_confidence": 53,
-    "entries_with_no_evidence_record_of_any_kind": 356,
-    "entries_with_no_implementation_module": 15,
+    "entries_with_no_evidence_record_of_any_kind": 365,
+    "entries_with_no_implementation_module": 24,
     "evidence_records": 117,
     "of_those_whose_only_counted_evidence_is_a_group_total": 68,
     "of_those_with_a_per_surface_count": 40,
@@ -54,10 +54,10 @@
   "comparison_against_prior_documents": [
     {
       "fact": "W0",
-      "derived_now": 15,
+      "derived_now": 24,
       "foundation_3": 15,
       "attribution_corrections_4": null,
-      "difference_vs_foundation": 0,
+      "difference_vs_foundation": 9,
       "explanation": ""
     },
     {
@@ -110,10 +110,10 @@
     },
     {
       "fact": "D0",
-      "derived_now": 15,
+      "derived_now": 24,
       "foundation_3": 15,
       "attribution_corrections_4": null,
-      "difference_vs_foundation": 0,
+      "difference_vs_foundation": 9,
       "explanation": ""
     },
     {
@@ -222,10 +222,10 @@
     },
     {
       "fact": "N8",
-      "derived_now": 402,
+      "derived_now": 411,
       "foundation_3": 426,
       "attribution_corrections_4": null,
-      "difference_vs_foundation": -24,
+      "difference_vs_foundation": -15,
       "explanation": ""
     },
     {
@@ -262,10 +262,10 @@
     },
     {
       "fact": "S8",
-      "derived_now": 469,
+      "derived_now": 478,
       "foundation_3": 494,
       "attribution_corrections_4": null,
-      "difference_vs_foundation": -25,
+      "difference_vs_foundation": -16,
       "explanation": ""
     },
     {
@@ -374,10 +374,10 @@
     },
     {
       "fact": "entries with no evidence record of any kind",
-      "derived_now": 356,
+      "derived_now": 365,
       "foundation_3": 221,
       "attribution_corrections_4": null,
-      "difference_vs_foundation": 135,
+      "difference_vs_foundation": 144,
       "explanation": ""
     },
     {
@@ -20310,6 +20310,128 @@
       }
     },
     {
+      "function_id": "FUNC.ECMA.CEILING",
+      "surface_name": "ECMA.CEILING",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
       "function_id": "FUNC.EDATE",
       "surface_name": "EDATE",
       "rubric_version": "rubric-derivation/v1.0.0",
@@ -23784,6 +23906,128 @@
       }
     },
     {
+      "function_id": "FUNC.FIELDVALUE",
+      "surface_name": "FIELDVALUE",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
       "function_id": "FUNC.FILTER",
       "surface_name": "FILTER",
       "rubric_version": "rubric-derivation/v1.0.0",
@@ -25384,6 +25628,494 @@
         "impl_module_absent": false,
         "capped_by_g1": false,
         "has_battery": true,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
+      "function_id": "FUNC.FORECAST.ETS",
+      "surface_name": "FORECAST.ETS",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
+      "function_id": "FUNC.FORECAST.ETS.CONFINT",
+      "surface_name": "FORECAST.ETS.CONFINT",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
+      "function_id": "FUNC.FORECAST.ETS.SEASONALITY",
+      "surface_name": "FORECAST.ETS.SEASONALITY",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
+      "function_id": "FUNC.FORECAST.ETS.STAT",
+      "surface_name": "FORECAST.ETS.STAT",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
         "declared_artifacts_present": false,
         "low_name_match_confidence": false,
         "in_pigeonhole_set": false
@@ -32073,6 +32805,250 @@
         "declared_artifacts_present": false,
         "low_name_match_confidence": false,
         "in_pigeonhole_set": true
+      }
+    },
+    {
+      "function_id": "FUNC.IMPORTCSV",
+      "surface_name": "IMPORTCSV",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
+      "function_id": "FUNC.IMPORTTEXT",
+      "surface_name": "IMPORTTEXT",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
+        "in_pigeonhole_set": false
       }
     },
     {
@@ -54153,6 +55129,128 @@
         "has_battery": true,
         "declared_artifacts_present": false,
         "low_name_match_confidence": true,
+        "in_pigeonhole_set": false
+      }
+    },
+    {
+      "function_id": "FUNC.PY",
+      "surface_name": "PY",
+      "rubric_version": "rubric-derivation/v1.0.0",
+      "warrant": {
+        "level": "W0",
+        "label": "registry name only — no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "warrant/W0",
+            "rule": "data/presence impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "test_depth": {
+        "tier": "D0",
+        "label": "no implementation module located in the places searched",
+        "derivation_trace": [
+          {
+            "rung": "depth/D0",
+            "rule": "impl_modules is empty",
+            "records": [],
+            "fields_read": [
+              "impl_modules"
+            ]
+          }
+        ]
+      },
+      "excel_relationship": {
+        "axis_order_worst_first": [
+          "numeric-bits",
+          "structural-admission"
+        ],
+        "numeric_bits": {
+          "state": "N8",
+          "label": "no numeric comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "numeric/N8",
+              "rule": "no record in the sources listed under Sources carries a numeric comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        },
+        "structural_admission": {
+          "state": "S8",
+          "label": "no structural comparison record in the six sources listed under Sources",
+          "primary_count": null,
+          "passed": null,
+          "total": null,
+          "comparison_predicate": null,
+          "derivation_trace": [
+            {
+              "rung": "structural/S8",
+              "rule": "no record in the sources listed under Sources carries a structural comparison naming this surface",
+              "records": [],
+              "fields_read": [
+                "counts"
+              ]
+            }
+          ]
+        }
+      },
+      "internal_equality_predicate": null,
+      "internal_equality_predicate_label": null,
+      "records_that_must_not_render_alone": [],
+      "companion_records": [],
+      "why_no_count": null,
+      "why_no_count_all_applicable": [],
+      "evidence_records": [],
+      "open_defect_stream_records": [],
+      "defect_stream_files_naming_this_surface": [],
+      "limitations": [
+        "Nothing on this entry has been compared to a running copy of Excel in the sources the Handbook has read.",
+        "basis_mode pre-ledger: no claim has been recorded in a ledger, so this assignment carries a derivation trace rather than an assertion graph."
+      ],
+      "flags": {
+        "has_any_evidence_record": false,
+        "has_counted_record": false,
+        "has_per_surface_count": false,
+        "has_numeric_counted_record": false,
+        "has_per_surface_numeric_count": false,
+        "has_structural_counted_record": false,
+        "only_counted_axis_is_structural": false,
+        "only_counted_evidence_is_group_total": false,
+        "has_held_out_counted_record": false,
+        "corpus_was_repair_target": false,
+        "cpu_not_stated_on_a_counted_record": false,
+        "non_single_build_on_a_counted_record": false,
+        "currency_not_annotated_on_a_counted_record": false,
+        "dropped_from_counted_by_attribution_gate": false,
+        "dropped_from_counted_by_measurement_subject_gate": false,
+        "has_unbindable_per_surface_count": false,
+        "unbindable_per_surface_count_rows": 0,
+        "has_handbook_recomputation_count": false,
+        "has_open_defect_stream_record": false,
+        "named_in_a_defect_stream_file_any_status": false,
+        "has_open_catalogue_row": false,
+        "has_residual_register_row": false,
+        "numeric_clean_no_open_row_and_no_defect_stream_file_names_it": false,
+        "numeric_clean_no_open_row_and_no_open_defect_stream_record": false,
+        "numeric_clean_no_open_row": false,
+        "open_row_classifier_used_fallback": false,
+        "impl_module_absent": true,
+        "capped_by_g1": false,
+        "has_battery": false,
+        "declared_artifacts_present": false,
+        "low_name_match_confidence": false,
         "in_pigeonhole_set": false
       }
     },

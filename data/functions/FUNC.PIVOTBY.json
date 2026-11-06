@@ -5,14 +5,14 @@
   "entry_kind": "built_in_function",
   "category": "Lookup and reference functions",
   "admission": {
-    "label": "supported",
+    "label": "implemented",
     "reason": null
   },
   "metadata_status": "function_meta_extracted",
   "xlcall": null,
   "arity": {
     "min": 4,
-    "max": 255
+    "max": 11
   },
   "classification": {
     "arg_preparation_profile": "ValuesOnlyPreAdapter",
@@ -106,8 +106,8 @@
     }
   },
   "signature": {
-    "display": "PIVOTBY(row_fields, column_fields, values, array_agg, ...)",
-    "trailing_repeats": true,
+    "display": "PIVOTBY(row_fields, col_fields, values, function, [field_headers], [row_total_depth], [row_sort_order], [col_total_depth], [col_sort_order], [filter_array], [relative_to])",
+    "trailing_repeats": false,
     "parameters": [
       {
         "name": "row_fields",
@@ -116,7 +116,7 @@
         "description": null
       },
       {
-        "name": "column_fields",
+        "name": "col_fields",
         "optional": false,
         "repeats": false,
         "description": null
@@ -128,9 +128,51 @@
         "description": null
       },
       {
-        "name": "array_agg",
+        "name": "function",
         "optional": false,
-        "repeats": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "field_headers",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "row_total_depth",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "row_sort_order",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "col_total_depth",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "col_sort_order",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "filter_array",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "relative_to",
+        "optional": true,
+        "repeats": false,
         "description": null
       }
     ]
@@ -320,10 +362,9 @@
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": true,
-  "oxfunc_tree_clean": true,
   "vintage": {
-    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
-    "arity": "live-registry:473efa3:clean:undated",
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "live-registry:473efa3:clean:undated",
     "axis_provenance": "live-registry:473efa3:clean:undated",
@@ -336,10 +377,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
-    "registry_backed": "live-registry:473efa3:clean:undated",
-    "signature": "live-registry:473efa3:clean:undated",
-    "signature_placeholder": "live-registry:473efa3:clean:undated",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

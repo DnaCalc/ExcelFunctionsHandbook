@@ -43,7 +43,6 @@
     "admission_interface_kind",
     "registry_backed",
     "text_integrity",
-    "oxfunc_tree_clean",
     "vintage"
   ],
   "required": [
@@ -70,7 +69,6 @@
     "special_interface_kind",
     "admission_interface_kind",
     "registry_backed",
-    "oxfunc_tree_clean",
     "vintage"
   ],
   "properties": {
@@ -93,7 +91,7 @@
       "propertyOrder": ["label", "reason"],
       "required": ["label", "reason"],
       "properties": {
-        "label": { "type": "string", "enum": ["supported", "deferred"] },
+        "label": { "type": "string", "enum": ["implemented", "formula_layer", "not_modelled", "not_implemented", "deferred", "host"] },
         "reason": { "type": ["string", "null"] }
       },
       "description": "R."

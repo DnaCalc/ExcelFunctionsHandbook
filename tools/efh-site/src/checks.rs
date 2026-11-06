@@ -6,8 +6,9 @@ use std::{
     path::Path,
 };
 
+// Quoted Rust is a captioned quotation at a named commit, so its comments are not Handbook voice.
 static HIDDEN: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"(?s)<!--.*?-->|<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>").unwrap()
+    Regex::new(r#"(?s)<!--.*?-->|<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>|<figure class="code-block">.*?</figure>|<ul class="kernel-list">.*?</ul>"#).unwrap()
 });
 static TAG: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"<[^>]*>").unwrap());
 static BLOCK: LazyLock<Regex> = LazyLock::new(|| {
@@ -31,7 +32,7 @@ static SCOPE: LazyLock<Regex> = LazyLock::new(|| {
 });
 
 static COUNT: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"\b(?:\d+\s+(?:of\s+541|curated|projection-only|entries|functions)|\d+(?:\.\d+)?%)")
+    Regex::new(r"\b(?:\d+\s+(?:of\s+550|curated|projection-only|entries|functions)|\d+(?:\.\d+)?%)")
         .unwrap()
 });
 static READINESS: LazyLock<Regex> =
@@ -175,6 +176,15 @@ pub fn check(root: &Path, links: bool, claims: bool) -> Result<(), String> {
         }
         for c in attrs.captures_iter(html) {
             let value = decode(&c[2]);
+            if let Some(repository) = dnacalc_repository(&value) {
+                if !PUBLIC_REPOSITORIES.contains(&repository.as_str()) {
+                    problems.push(format!(
+                        "{}: link to a repository not on the public list: {value}",
+                        path.display()
+                    ));
+                    continue;
+                }
+            }
             if value
                 .to_ascii_lowercase()
                 .contains("github.com/dnacalc/oxfunc-evidence")
@@ -266,6 +276,25 @@ pub fn check(root: &Path, links: bool, claims: bool) -> Result<(), String> {
         ))
     }
 }
+/// The repositories a page may link. Anything else under the organisation may be private.
+const PUBLIC_REPOSITORIES: [&str; 4] = [
+    "excelfunctionshandbook",
+    "dnacalc",
+    "calcfunc-evidence",
+    "dnacalc-research",
+];
+
+fn dnacalc_repository(url: &str) -> Option<String> {
+    let lower = url.to_ascii_lowercase();
+    let rest = lower.split_once("github.com/dnacalc/")?.1;
+    Some(
+        rest.split(['/', '#', '?'])
+            .next()?
+            .trim_end_matches(".git")
+            .to_string(),
+    )
+}
+
 fn between<'a>(html: &'a str, start: &str, end: &str) -> &'a str {
     html.split_once(start)
         .and_then(|(_, rest)| rest.split_once(end))
@@ -366,7 +395,7 @@ mod tests {
             "missing target",
             "missing local id",
             "attribute: §7.8",
-            "private evidence repository link",
+            "link to a repository not on the public list",
         ] {
             assert!(error.contains(expected), "{expected}: {error}");
         }

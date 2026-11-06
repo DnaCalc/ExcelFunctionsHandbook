@@ -1,0 +1,319 @@
+{
+  "about": "Entries the calc-func catalogue does not decide by itself. Signatures here were read from the named public Microsoft page; everything else comes from the pinned DnaCalc commit.",
+  "entries": {
+    "LET": {
+      "kind": "formula-layer",
+      "signature": "LET(name1, name_value1, calculation_or_name2, [name_value2], [calculation_or_name3], ...)",
+      "max_arity": 253,
+      "reason": "Compiled by the formula layer, which owns names and scopes, so it has no catalogue row.",
+      "code": [
+        "eval/compile::let_call"
+      ]
+    },
+    "LAMBDA": {
+      "kind": "formula-layer",
+      "signature": "LAMBDA([parameter1], [parameter2], ..., calculation)",
+      "max_arity": 254,
+      "reason": "Compiled by the formula layer, which owns parameters and closures, so it has no catalogue row.",
+      "code": [
+        "eval/compile::lambda"
+      ]
+    },
+    "GETPIVOTDATA": {
+      "reason": "The catalogue row declines every call until pivot tables land; they are being implemented in full, and this function with them."
+    },
+    "WEBSERVICE": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "WEBSERVICE(url)",
+      "reason": "No catalogue row at this commit. WEBSERVICE fetches from the URL in the workbook, not from a Microsoft back end, and is being implemented as an ordinary function."
+    },
+    "STOCKHISTORY": {
+      "kind": "deferred",
+      "summary": "Deferred: needs an outside service",
+      "signature": "STOCKHISTORY(stock, start_date, [end_date], [interval], [headers], [property0], [property1], [property2], [property3], [property4], [property5])",
+      "reason": "Deferred by policy: the answer needs Microsoft's market data service. DNA Calc does not run this function yet."
+    },
+    "TRANSLATE": {
+      "kind": "deferred",
+      "summary": "Deferred: needs an outside service",
+      "signature": "TRANSLATE(text, [source_language], [target_language])",
+      "reason": "Deferred by policy: the answer needs Microsoft's translation service. DNA Calc does not run this function yet."
+    },
+    "DETECTLANGUAGE": {
+      "kind": "deferred",
+      "summary": "Deferred: needs an outside service",
+      "signature": "DETECTLANGUAGE(text)",
+      "reason": "Deferred by policy: the answer needs Microsoft's language service. DNA Calc does not run this function yet."
+    },
+    "COPILOT": {
+      "kind": "deferred",
+      "summary": "Deferred: needs an outside service",
+      "signature": "COPILOT(prompt, [reference])",
+      "reason": "Deferred by policy: the answer needs Microsoft's Copilot service. DNA Calc does not run this function yet. Microsoft's page says the function left Excel on 14 September 2026."
+    },
+    "IMAGE": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "IMAGE(source, [alt_text], [sizing], [height], [width])",
+      "reason": "No catalogue row at this commit. IMAGE fetches from the URL in the workbook, not from a Microsoft back end, and is being implemented as an ordinary function."
+    },
+    "RTD": {
+      "kind": "host",
+      "summary": "Needs a real-time data server",
+      "signature": "RTD(ProgID, server, topic1, [topic2], ...)",
+      "max_arity": 255,
+      "reason": "The answer comes from a COM server the host starts. DNA Calc recognises the name and calculates no answer."
+    },
+    "CALL": {
+      "kind": "host",
+      "summary": "Needs a host that can load code",
+      "signature": "CALL(register_id, [argument1], ...)",
+      "max_arity": 255,
+      "reason": "It calls a procedure in a loaded library, which is the host's to do. DNA Calc recognises the name and calculates no answer."
+    },
+    "REGISTER.ID": {
+      "kind": "host",
+      "summary": "Needs a host that can load code",
+      "signature": "REGISTER.ID(module_text, procedure, [type_text])",
+      "reason": "It registers a procedure in a library with the host. DNA Calc recognises the name and calculates no answer."
+    },
+    "CUBEVALUE": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "CUBEVALUE(connection, [member_expression1], [member_expression2], ...)",
+      "max_arity": 255,
+      "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
+    },
+    "CUBEMEMBER": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "CUBEMEMBER(connection, member_expression, [caption])",
+      "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
+    },
+    "CUBEMEMBERPROPERTY": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "CUBEMEMBERPROPERTY(connection, member_expression, property)",
+      "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
+    },
+    "CUBEKPIMEMBER": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "CUBEKPIMEMBER(connection, kpi_name, kpi_property, [caption])",
+      "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
+    },
+    "CUBERANKEDMEMBER": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "CUBERANKEDMEMBER(connection, set_expression, rank, [caption])",
+      "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
+    },
+    "CUBESET": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "CUBESET(connection, set_expression, [caption], [sort_order], [sort_by])",
+      "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
+    },
+    "CUBESETCOUNT": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "CUBESETCOUNT(set)",
+      "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
+    },
+    "EUROCONVERT": {
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "EUROCONVERT(number, source, target, [full_precision], [triangulation_precision])",
+      "reason": "No catalogue row at this commit. In Excel it comes with the Euro Currency Tools add-in; build 20527 on Windows gives #NAME? without it."
+    },
+    "JIS": {
+      "kind": "absent",
+      "summary": "Not implemented; recorded Windows Excel does not have it either",
+      "signature": "JIS(text)",
+      "reason": "Excel 16.0 build 20527 on Windows gives #NAME? for JIS, so the catalogue holds no row for it."
+    },
+    "OP_RANGE_REF": {
+      "code": [
+        "eval/refops::range"
+      ],
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "OP_UNION_REF": {
+      "code": [
+        "eval/refops::union"
+      ],
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "OP_INTERSECTION_REF": {
+      "code": [
+        "eval/refops::intersect"
+      ],
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "OP_IMPLICIT_INTERSECTION": {
+      "code": [
+        "eval/refops::implicit"
+      ],
+      "operator_signature": "@A",
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "OP_SPILL_REF": {
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "OP_TRIM_REF_BOTH": {
+      "operator_signature": "A.:.B",
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "OP_TRIM_REF_LEADING": {
+      "operator_signature": "A.:B",
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "OP_TRIM_REF_TRAILING": {
+      "operator_signature": "A:.B",
+      "reason": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator."
+    },
+    "NOW": {
+      "note": "A volatile function: the recorded formulas hold it fixed, for example RAND()*0, so these cells show that the call works and not a clock or random value."
+    },
+    "TODAY": {
+      "note": "A volatile function: the recorded formulas hold it fixed, for example RAND()*0, so these cells show that the call works and not a clock or random value."
+    },
+    "RAND": {
+      "note": "A volatile function: the recorded formulas hold it fixed, for example RAND()*0, so these cells show that the call works and not a clock or random value."
+    },
+    "RANDBETWEEN": {
+      "note": "A volatile function: the recorded formulas hold it fixed, for example RAND()*0, so these cells show that the call works and not a clock or random value."
+    },
+    "RANDARRAY": {
+      "note": "A volatile function: the recorded formulas hold it fixed, for example RAND()*0, so these cells show that the call works and not a clock or random value."
+    }
+  },
+  "added": {
+    "PY": {
+      "category": "External data functions",
+      "short": "Runs Python in Microsoft's cloud runtime",
+      "kind": "deferred",
+      "summary": "Deferred: needs an outside service",
+      "signature": "PY(python_code, return_type)",
+      "reason": "Deferred by policy: the code runs in Microsoft's cloud runtime. DNA Calc does not run this function yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/py-function",
+      "try_it": "=PY(\"1+1\",0)"
+    },
+    "IMPORTCSV": {
+      "category": "External data functions",
+      "short": "Loads a CSV file into a refreshable array",
+      "kind": "host",
+      "summary": "Needs a host that can read files",
+      "signature": "IMPORTCSV(path, [skip_rows], [take_rows], [locale])",
+      "reason": "The answer is a file the host reads. Microsoft's page lists it for Insiders on Windows; DNA Calc does not know the name yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/importcsv-function",
+      "try_it": "=IMPORTCSV(\"data.csv\")"
+    },
+    "IMPORTTEXT": {
+      "category": "External data functions",
+      "short": "Loads a delimited or fixed-width text file into a refreshable array",
+      "kind": "host",
+      "summary": "Needs a host that can read files",
+      "signature": "IMPORTTEXT(path, [delimiter], [skip_rows], [take_rows], [encoding], [locale])",
+      "reason": "The answer is a file the host reads. Microsoft's page lists it for Insiders on Windows; DNA Calc does not know the name yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/importtext-function",
+      "try_it": "=IMPORTTEXT(\"data.txt\")"
+    },
+    "FORECAST.ETS": {
+      "category": "Statistical functions",
+      "short": "Future value by exponential triple smoothing",
+      "kind": "absent",
+      "summary": "Not implemented",
+      "signature": "FORECAST.ETS(target_date, values, timeline, [seasonality], [data_completion], [aggregation])",
+      "reason": "Listed by Microsoft; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/forecast-ets-function",
+      "try_it": "=FORECAST.ETS(6,{1,2,3,4,5},{1,2,3,4,5})"
+    },
+    "FORECAST.ETS.CONFINT": {
+      "category": "Statistical functions",
+      "short": "Confidence interval of an exponential triple smoothing forecast",
+      "kind": "absent",
+      "summary": "Not implemented",
+      "signature": "FORECAST.ETS.CONFINT(target_date, values, timeline, [confidence_level], [seasonality], [data_completion], [aggregation])",
+      "reason": "Listed by Microsoft; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/forecast-ets-confint-function",
+      "try_it": "=FORECAST.ETS.CONFINT(6,{1,2,3,4,5},{1,2,3,4,5})"
+    },
+    "FORECAST.ETS.SEASONALITY": {
+      "category": "Statistical functions",
+      "short": "Length of the repeating pattern found in a time series",
+      "kind": "absent",
+      "summary": "Not implemented",
+      "signature": "FORECAST.ETS.SEASONALITY(values, timeline, [data_completion], [aggregation])",
+      "reason": "Listed by Microsoft; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/forecast-ets-seasonality-function",
+      "try_it": "=FORECAST.ETS.SEASONALITY({1,2,3,4,5},{1,2,3,4,5})"
+    },
+    "FORECAST.ETS.STAT": {
+      "category": "Statistical functions",
+      "short": "A statistic of an exponential triple smoothing forecast",
+      "kind": "absent",
+      "summary": "Not implemented",
+      "signature": "FORECAST.ETS.STAT(values, timeline, statistic_type, [seasonality], [data_completion], [aggregation])",
+      "reason": "Listed by Microsoft; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/forecast-ets-stat-function",
+      "try_it": "=FORECAST.ETS.STAT({1,2,3,4,5},{1,2,3,4,5},1)"
+    },
+    "FIELDVALUE": {
+      "category": "Lookup and reference functions",
+      "short": "A named field of a linked data type",
+      "source": "https://support.microsoft.com/en-us/office/fieldvalue-function-4a579c45-7326-4168-b556-df8b5685175b",
+      "try_it": "=FIELDVALUE(1,\"Name\")"
+    },
+    "ECMA.CEILING": {
+      "category": "Compatibility",
+      "short": "Rounds a number up to a multiple, the form kept for ECMA-376 workbooks",
+      "try_it": "=ECMA.CEILING(2.5,1)"
+    }
+  },
+  "variants": {
+    "FUNC.GEOMEAN": [
+      {
+        "name": "GEOMEAN root control, Excel 16.0 build 20430",
+        "key": {
+          "excel_build_range": "16.0 build 20430",
+          "cpu": "CPU not recorded (Windows, 64-bit)"
+        },
+        "difference": "GEOMEAN(1,2) returned 0x3ff6a09e667f3bcc where SQRT(2) returned 0x3ff6a09e667f3bcd, adjacent values, in one build. No second build or CPU has been compared on the same inputs.",
+        "state": "matches",
+        "state_summary": "Matches every recorded GEOMEAN answer; the root is a reconstruction of stored stages.",
+        "evidence": [
+          {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/w111-broad-regenerated-20260929/answers-geomean.json.gz",
+            "locator": "w111broad-20260929-GEOMEAN-00003",
+            "note": "FN-GEOMEAN-001"
+          }
+        ]
+      }
+    ],
+    "FUNC.WEEKNUM": [
+      {
+        "name": "WEEKNUM conflicting readings, Excel 16.0 build 20430",
+        "key": {
+          "excel_build_range": "16.0 build 20430",
+          "cpu": "CPU not recorded (Windows, 64-bit)"
+        },
+        "difference": "Two capture runs in one environment disagree on 479 recorded inputs: one recorded #NUM! where the other recorded a week number. The recorded cause is unresolved.",
+        "state": "differs",
+        "state_summary": "One implementation can match only one reading of each conflicting input.",
+        "evidence": [
+          {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz",
+            "locator": "",
+            "note": "compared with runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz"
+          }
+        ]
+      }
+    ]
+  }
+}

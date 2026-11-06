@@ -18,6 +18,8 @@ const filter = document.querySelector("#function-filter");
 if (filter) {
   document.querySelector(".filter-controls").hidden = false;
   const category = document.querySelector("#category-filter");
+  const stateFilter = document.querySelector("#state-filter");
+  stateFilter.value = new URL(location.href).searchParams.get("state") || "";
   const status = document.querySelector("#filter-status");
   const groups = [...document.querySelectorAll("#catalogue section")];
   const normalize = value => value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
@@ -28,18 +30,19 @@ if (filter) {
     for (const group of groups) {
       let visible = 0;
       for (const item of group.querySelectorAll("[data-search]")) {
-        item.hidden = (category.value && category.value !== group.dataset.category) || !terms.every(term => normalize(item.dataset.search).includes(term));
+        item.hidden = (category.value && category.value !== group.dataset.category) || (stateFilter.value && stateFilter.value !== item.dataset.state) || !terms.every(term => normalize(item.dataset.search).includes(term));
         if (!item.hidden) visible++;
       }
       group.hidden = visible === 0;
       visible && (total += visible);
     }
-    status.textContent = `${total} matching entries out of 541.`;
+    status.textContent = `${total} matching entries out of ${groups.reduce((sum, group) => sum + group.querySelectorAll("[data-search]").length, 0)}.`;
     document.querySelector("#no-results").hidden = total !== 0;
-    document.querySelector(".category-nav").hidden = terms.length > 0 || category.value !== "";
+    document.querySelector(".category-nav").hidden = terms.length > 0 || category.value !== "" || stateFilter.value !== "";
   }
   filter.addEventListener("input", applyFilter);
   category.addEventListener("change", applyFilter);
+  stateFilter.addEventListener("change", applyFilter);
   applyFilter();
 }
 
@@ -57,9 +60,11 @@ function loadSearchIndex() {
     const script = document.createElement("script");
     script.src = new URL("search-index.js", assetBase);
     script.onload = () => {
+      const tags = window.EFH_SEARCH.locales;
       searchIndex = window.EFH_SEARCH.rows.map(([name, path, category, summary, id, locals]) => {
-        const names = locals ? locals.split("|") : [];
-        return { name, path, category, summary, id, names, foldedName: fold(name), foldedLocals: names.map(fold), foldedText: fold(`${summary} ${category}`), foldedId: fold(id) };
+        const pairs = locals ? locals.split("|").map(item => { const at = item.indexOf("="); return [tags[Number(item.slice(0, at))] || "", item.slice(at + 1)]; }) : [];
+        const names = [...new Set(pairs.map(pair => pair[1]))];
+        return { name, path, category, summary, id, names, byLocale: Object.fromEntries(pairs.filter(pair => pair[0])), foldedName: fold(name), foldedLocals: names.map(fold), foldedText: fold(`${summary} ${category}`), foldedId: fold(id) };
       });
       resolve(searchIndex);
     };
@@ -112,6 +117,8 @@ function attachSearch(input) {
       link.className = "search-result"; link.id = `${panel.id}-${position}`; link.setAttribute("role", "option");
       link.href = new URL(entry.path, siteBase);
       const name = document.createElement("strong"); name.textContent = entry.name; link.append(name);
+      const preferred = entry.byLocale[storedLanguage()];
+      if (preferred && !local) { const tag = document.createElement("span"); tag.className = "local"; tag.textContent = preferred; link.append(tag); }
       if (local && fold(local) !== entry.foldedName) { const tag = document.createElement("span"); tag.className = "local"; tag.textContent = local; link.append(tag); }
       const detail = document.createElement("span"); detail.className = "small"; detail.textContent = [entry.summary, entry.category].filter(Boolean).join(" · "); link.append(detail);
       return link;
@@ -132,6 +139,42 @@ function attachSearch(input) {
   document.addEventListener("click", event => { if (!input.form.contains(event.target)) close(); });
 }
 document.querySelectorAll("[data-instant-search]").forEach(attachSearch);
+
+// The language picker: remembers one language, shows its name on this page and in the lists.
+const picker = document.querySelector("#language-picker");
+function showLanguage(tag) {
+  const line = document.querySelector("#local-name");
+  if (line) {
+    const row = tag && document.querySelector(`#local-names [data-locale="${tag}"]`);
+    line.hidden = !row;
+    if (row) { line.textContent = `${row.cells[0].textContent}: ${row.cells[1].textContent}`; line.lang = tag; }
+    document.querySelectorAll("#local-names tr").forEach(item => item.classList.toggle("chosen", Boolean(tag) && item.dataset.locale === tag));
+  }
+  const rows = document.querySelectorAll("[data-entry]");
+  document.querySelectorAll(".entry-local").forEach(item => item.remove());
+  if (!tag || !rows.length) return;
+  loadSearchIndex().then(index => {
+    const byId = new Map(index.map(entry => [entry.id, entry]));
+    rows.forEach(row => {
+      const name = byId.get(row.dataset.entry)?.byLocale[tag];
+      if (name) { const label = document.createElement("span"); label.className = "entry-local"; label.lang = tag; label.textContent = name; row.querySelector("a").after(label); }
+    });
+  }).catch(() => {});
+}
+if (picker) {
+  picker.closest("label").hidden = false;
+  picker.value = storedLanguage();
+  picker.addEventListener("change", () => { storeLanguage(picker.value); showLanguage(picker.value); });
+  showLanguage(picker.value);
+}
+
+// A link to the code opens it; the section stays collapsed until asked for.
+function openFragment() {
+  const target = location.hash && document.querySelector(`${CSS.escape(location.hash.slice(1)) ? "#" + CSS.escape(location.hash.slice(1)) : ""}`);
+  if (target?.id === "rust-code") target.nextElementSibling.open = true;
+}
+addEventListener("hashchange", openFragment);
+openFragment();
 addEventListener("keydown", event => {
   if (event.key !== "/" || event.ctrlKey || event.metaKey || event.altKey) return;
   const target = event.target;

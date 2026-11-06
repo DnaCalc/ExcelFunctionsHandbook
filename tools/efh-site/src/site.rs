@@ -1,4 +1,7 @@
-use crate::{checks, markdown::Renderer, reference, util::*};
+use crate::{
+    checks, implementation, implementation::CalcFunc, markdown::Renderer, reference, util::*,
+};
+use regex::Regex;
 use serde_json::{json, Value};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -29,7 +32,7 @@ fn page(path: &str, title: &str, body: &str, home: bool) -> String {
     format!(
         r##"<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><title>{title} · The Handbook of Excel Functions</title><link rel="stylesheet" href="{css}"><script src="{js}" defer></script>{discovery}</head>
-<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{a_to_z}">A to Z</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{coverage}">Coverage</a></nav><form class="site-search" role="search" action="{index}" method="get"><label class="sr-only" for="site-search">Search functions</label><input id="site-search" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search functions, press /" data-instant-search><div class="search-results" id="site-search-results" hidden></div></form><div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
+<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{a_to_z}">A to Z</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{implementation}">Our implementation</a><a href="{coverage}">Coverage</a></nav><form class="site-search" role="search" action="{index}" method="get"><label class="sr-only" for="site-search">Search functions</label><input id="site-search" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search functions, press /" data-instant-search><div class="search-results" id="site-search-results" hidden></div></form>{picker}<div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
 <main id="main" tabindex="-1"{class}>{body}</main><footer><p>{reconciliation}.</p><p><a href="{licence}">Content: CC BY 4.0 · Code: MIT</a> · <a href="{rules}">Measurement limits</a> · <a href="{api}">Static JSON index</a> · No tracking.</p><p class="small">The Handbook of Excel Functions · DNA Kode. Independent of Microsoft.</p></footer></div></body></html>"##,
         title = esc(title),
         css = link("assets/style.css"),
@@ -39,6 +42,8 @@ fn page(path: &str, title: &str, body: &str, home: bool) -> String {
         a_to_z = link(A_TO_Z),
         notes = link("notes/index.html"),
         lastbit = link("lastbit/index.html"),
+        implementation = link("implementation/index.html"),
+        picker = implementation::language_picker(),
         coverage = link("coverage/index.html"),
         licence = link("licence/index.html"),
         rules = link("rules/index.html"),
@@ -72,6 +77,7 @@ struct Inputs {
     revision: String,
     tree_state: String,
     note_api_matches: bool,
+    calc: CalcFunc,
 }
 impl Inputs {
     fn load(repo: &Path) -> Result<Self, String> {
@@ -79,8 +85,8 @@ impl Inputs {
         let rows = index["rows"]
             .as_array()
             .ok_or("data/index.json: rows is not an array")?;
-        if rows.len() != 541
-            || index["counts"]["functions"] != 518
+        if rows.len() != ENTRIES
+            || index["counts"]["functions"] != FUNCTIONS
             || index["counts"]["operators"] != 23
         {
             return Err(
@@ -123,16 +129,32 @@ impl Inputs {
             .iter()
             .filter(|f| f["entry_kind"] == "built_in_function")
             .count()
-            != 518
+            != FUNCTIONS
             || functions
                 .iter()
                 .filter(|f| f["entry_kind"] == "built_in_operator")
                 .count()
                 != 23
-            || published_rows.len() != 534
+            || published_rows.len() != PUBLISHED_ROWS_AND_ADDED
             || published_rows.contains("")
         {
-            return Err("entry projections do not reconcile to 518 functions, 23 operators and 534 published rows".into());
+            return Err(format!(
+                "entry projections do not reconcile: {RECONCILIATION}"
+            ));
+        }
+        // A signature is a real signature or the build stops; an unknown one is not a page state.
+        let placeholder = Regex::new(r"\(\.\.\.\)?$").unwrap();
+        for f in &functions {
+            let display = s(&f["signature"]["display"]);
+            if f["signature_placeholder"] != false
+                || display.is_empty()
+                || placeholder.is_match(display)
+            {
+                return Err(format!(
+                    "{}: placeholder signature {display:?}; run tools/efh-calcfunc/regenerate.py",
+                    s(&f["function_id"])
+                ));
+            }
         }
         let mut notes = Vec::new();
         let mut note_ids = BTreeSet::new();
@@ -237,6 +259,7 @@ impl Inputs {
             revision,
             tree_state,
             note_api_matches,
+            calc: CalcFunc::load(repo)?,
         })
     }
 }
@@ -318,7 +341,7 @@ pub fn build(repo: &Path, out: &Path) -> Result<(), String> {
         .map(|p| p.metadata().map(|m| m.len()).unwrap_or(0))
         .sum();
     println!(
-        "Wrote {} files, {bytes} bytes to {} (541 entry pages)",
+        "Wrote {} files, {bytes} bytes to {} ({ENTRIES} entry pages)",
         paths.len(),
         out.display()
     );
@@ -362,6 +385,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
                 f,
                 &reference::load(repo, f)?,
                 &input.notes,
+                &input.calc,
             )?)
             .unwrap(),
         )?;
@@ -465,7 +489,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             std::fs::copy(&path, target).map_err(|e| e.to_string())?;
         }
     }
-    write(out, "llms.txt", "# The Handbook of Excel Functions\n\nCanonical open reference for Excel functions and operators.\n\n- Catalogue: https://handbook.dnacalc.com/api/index.json\n- Function page: https://handbook.dnacalc.com/functions/ROUND.html\n- Stable function JSON: https://handbook.dnacalc.com/api/functions/FUNC.ROUND.json\n- Schema: https://handbook.dnacalc.com/api/function-reference.schema.json\n- Evaluation: POST https://handbook.dnacalc.com/api/eval with {\"formula\":\"=ROUND(1.005,2)\"}\n- Contributions: POST https://handbook.dnacalc.com/api/contributions\n\nReplace ROUND with the case-sensitive function name, including dots; use operator IDs such as OP_ADD. All 541 catalogue IDs resolve. JSON contains section_order, sections (Markdown), try_it, versions (Excel build and platform), implementations (language and suite), variants (difference, error_bound, onecalc_udf) and sources. Empty lists mean no records, not proof of identical behaviour. OneCalc results are not Excel measurements. API errors and engine refusals must be preserved.\n")?;
+    write(out, "llms.txt", "# The Handbook of Excel Functions\n\nCanonical open reference for Excel functions and operators.\n\n- Catalogue: https://handbook.dnacalc.com/api/index.json\n- Function page: https://handbook.dnacalc.com/functions/ROUND.html\n- Stable function JSON: https://handbook.dnacalc.com/api/functions/FUNC.ROUND.json\n- Schema: https://handbook.dnacalc.com/api/function-reference.schema.json\n- Evaluation: POST https://handbook.dnacalc.com/api/eval with {\"formula\":\"=ROUND(1.005,2)\"}\n- Contributions: POST https://handbook.dnacalc.com/api/contributions\n\nReplace ROUND with the case-sensitive function name, including dots; use operator IDs such as OP_ADD. All catalogue IDs resolve. JSON contains section_order, sections (Markdown), try_it, versions (Excel build and platform), implementations (language and suite), variants (difference, error_bound, onecalc_udf, and for recorded Excel environments excel_build_range, cpu, state, code and evidence), implementation_state (what we conclude about our own Rust, with counts) and sources. Empty lists mean no records, not proof of identical behaviour. OneCalc results are not Excel measurements. API errors and engine refusals must be preserved.\n")?;
     write(
         out,
         "api/function-reference.schema.json",
@@ -505,6 +529,15 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     note_pages(out, input, &mut r)?;
     function_index(repo, out, input)?;
     search_index(repo, out, input)?;
+    implementation::code_pages(&input.calc, |path, title, body| {
+        output(out, path, title, body)
+    })?;
+    output(
+        out,
+        "implementation/index.html",
+        "How close our Rust is to Excel",
+        &implementation::summary_page(&input.calc, &input.functions, function_path),
+    )?;
     homepage(out, input, &episodes)?;
     let mut series=String::from("<p class=\"eyebrow\">Research essays</p><h1>The Last Bit</h1><p>Investigating how Excel computes its answers, with the scope and limits of each measurement kept in view.</p><ul class=\"entries\">");
     for (_, dest, title, ready) in &episodes {
@@ -547,9 +580,9 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     coverage(out, input, &withheld, &unresolved)?;
     let rows: Vec<_> = input.functions.iter().map(|f| {
         let id=s(&f["function_id"]);
-        json!({"function_id":id,"surface_name":f["surface_name"],"entry_kind":f["entry_kind"],"category":f["category"],"url":format!("https://handbook.dnacalc.com/{}",function_path(id)),"json_url":format!("https://handbook.dnacalc.com/api/functions/{id}.json")})
+        json!({"function_id":id,"surface_name":f["surface_name"],"entry_kind":f["entry_kind"],"category":f["category"],"implementation_state":input.calc.entry(id)["state"],"url":format!("https://handbook.dnacalc.com/{}",function_path(id)),"json_url":format!("https://handbook.dnacalc.com/api/functions/{id}.json")})
     }).collect();
-    write(out,"api/index.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-index/v1","counts":{"entries":541,"functions":518,"operators":23,"published_rows":534,"split_byte_variant_rows":7},"reconciliation":RECONCILIATION,"rows":rows})).unwrap())?;
+    write(out,"api/index.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-index/v1","counts":{"entries":ENTRIES,"functions":FUNCTIONS,"operators":23,"published_rows":534,"split_byte_variant_rows":7,"added_functions":9},"reconciliation":RECONCILIATION,"rows":rows})).unwrap())?;
     write(out,"api/notes.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-notes-api/v1","source":"content/notes/FN-*.json (efh.function-note/v1)","note_count":input.notes.len(),"notes":input.notes})).unwrap())?;
     // Earlier research derivations remain downloadable.
     for name in ["rubric.json", "rubric-hygiene.json"] {
@@ -561,7 +594,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             )?;
         }
     }
-    write(out,"api/build.json",&serde_json::to_string_pretty(&json!({"schema":"efh.static-build/v1","source_revision":input.revision,"source_tree_state":input.tree_state,"entry_pages":541,"curated_prose_files":input.curated.len(),"notes":input.notes.len(),"input_notes_api_matches_sources":input.note_api_matches,"withheld_passages":withheld,"unresolved_source_references":unresolved,"reconciliation":RECONCILIATION})).unwrap())?;
+    write(out,"api/build.json",&serde_json::to_string_pretty(&json!({"schema":"efh.static-build/v1","source_revision":input.revision,"source_tree_state":input.tree_state,"entry_pages":ENTRIES,"curated_prose_files":input.curated.len(),"notes":input.notes.len(),"input_notes_api_matches_sources":input.note_api_matches,"withheld_passages":withheld,"unresolved_source_references":unresolved,"reconciliation":RECONCILIATION})).unwrap())?;
     Ok(())
 }
 
@@ -575,9 +608,9 @@ fn function_page(
     let id = s(&f["function_id"]);
     let dest = function_path(id);
     let owned = reference::load(repo, f)?;
-    let record = reference::record(repo, f, &owned, &input.notes)?;
+    let record = reference::record(repo, f, &owned, &input.notes, &input.calc)?;
     let name = s(&record["display_name"]);
-    let mut html = format!("<p class=\"eyebrow\">{}</p><h1 class=\"function-name\">{}</h1><nav class=\"section-nav\" aria-label=\"On this page\">",esc(s(&f["category"])),esc(name));
+    let mut html = format!("<p class=\"eyebrow\">{}</p><h1 class=\"function-name\">{}</h1><p class=\"local-name\" id=\"local-name\" hidden></p>{}{}<nav class=\"section-nav\" aria-label=\"On this page\">",esc(s(&f["category"])),esc(name),implementation::state_block(&input.calc, id, &dest),implementation::local_names(f));
     for (key, title) in reference::SECTIONS {
         html += &format!("<a href=\"#{key}\">{title}</a>");
     }
@@ -590,7 +623,13 @@ fn function_page(
                 html += &format!("<p class=\"signature\"><code>{}</code></p>", esc(signature));
             }
         }
-        if key == "try-it" {
+        let deferred = input.calc.entry(id)["state"] == "deferred";
+        if key == "try-it" && deferred {
+            html += &format!(
+                "<p class=\"notice\">DNA Calc does not run this function yet: its answer needs an outside service. In Excel you would write:</p><pre><code>{}</code></pre>",
+                esc(s(&record["try_it"]["formula"]))
+            );
+        } else if key == "try-it" {
             html += &format!(
                 r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" maxlength="20000" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit" disabled>Calculate</button><button type="button" data-reset disabled>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
                 esc(s(&record["try_it"]["formula"])),
@@ -637,7 +676,13 @@ fn function_page(
             }
         }
         if key == "how-to-implement" {
-            for implementation in record["implementations"].as_array().into_iter().flatten() {
+            let suites: Vec<_> = record["implementations"]
+                .as_array()
+                .into_iter()
+                .flatten()
+                .filter(|i| i["suite"].is_string())
+                .collect();
+            for implementation in &suites {
                 html += &format!(
                     "<p>{}: <code>{}</code> · suite {}</p>",
                     esc(s(&implementation["language"])),
@@ -645,16 +690,22 @@ fn function_page(
                     esc(s(&implementation["suite"]))
                 );
             }
-            if record["implementations"]
-                .as_array()
-                .is_some_and(|v| v.is_empty())
-            {
+            html += &implementation::code_section(&input.calc, id, &dest);
+            if suites.is_empty() {
                 html += "<p class=\"small\">No implementation has been published with a Handbook test suite for this function.</p>";
             }
         }
+        if key == "version-differences" {
+            html += &environment_variants(&record, &dest, r);
+        }
         if key == "alternatives" {
             html += "<h3>Named variants</h3>";
-            let variants = record["variants"].as_array().unwrap();
+            let variants: Vec<_> = record["variants"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter(|v| v["kind"] != "environment")
+                .collect();
             if variants.is_empty() {
                 html += "<p class=\"small\">No named variants are recorded yet.</p>";
             }
@@ -742,6 +793,43 @@ fn function_page(
         a(&dest, "llms.txt", "For agents")
     );
     output(out, &dest, name, &html)
+}
+
+/// One record per Excel environment with its own recorded answers: build range, CPU, state of
+/// our Rust for that environment, code and evidence.
+fn environment_variants(record: &Value, dest: &str, r: &mut Renderer) -> String {
+    let variants: Vec<_> = record["variants"]
+        .as_array()
+        .into_iter()
+        .flatten()
+        .filter(|v| v["kind"] == "environment")
+        .collect();
+    if variants.is_empty() {
+        return String::new();
+    }
+    let mut h = "<h3 id=\"recorded-variants\">Recorded variants</h3><div class=\"table-scroll\" role=\"region\" aria-label=\"Recorded variants\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Excel build</th><th scope=\"col\">CPU</th><th scope=\"col\">Recorded behaviour</th><th scope=\"col\">Our Rust</th><th scope=\"col\">Evidence</th></tr></thead><tbody>".to_string();
+    for v in variants {
+        let key = &v["key"];
+        let evidence = v["evidence"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .map(|e| source_ref(e, dest, r))
+            .collect::<Vec<_>>()
+            .join("<br>");
+        let code = v["code"]
+            .as_str()
+            .map(|u| format!(" <a href=\"{}\">Code</a>", esc(u)))
+            .unwrap_or_default();
+        h += &format!(
+            "<tr><td>{}</td><td>{}</td><td>{}</td><td>{}{code}</td><td class=\"small\">{evidence}</td></tr>",
+            esc(s(&key["excel_build_range"])),
+            esc(s(&key["cpu"])),
+            esc(s(&v["difference"])),
+            esc(s(&v["state_summary"]))
+        );
+    }
+    h + "</tbody></table></div>"
 }
 
 fn reader_note(note: &Value, dest: &str) -> String {
@@ -904,7 +992,7 @@ fn render_note(note: &Value, dest: &str, r: &mut Renderer) -> String {
 fn note_pages(out: &Path, input: &Inputs, r: &mut Renderer) -> Result<(), String> {
     let dest = "notes/index.html";
     let mut h=String::from("<p class=\"eyebrow\">Function notes</p><h1>Where Excel's answer is inaccurate</h1><p>Recorded calls with the mathematical value beside Excel's answer. Each note states the capture build and machine, the input route, and the evidence; missing capture information stays explicit.</p>");
-    h+=&format!("<p>{} notes, attached to {} distinct entries in the 541-entry catalogue. {RECONCILIATION}.</p>",input.notes.len(),input.notes.iter().flat_map(|n|n["functions"].as_array().unwrap().iter().map(s)).collect::<BTreeSet<_>>().len());
+    h+=&format!("<p>{} notes, attached to {} distinct entries in the {ENTRIES}-entry catalogue. {RECONCILIATION}.</p>",input.notes.len(),input.notes.iter().flat_map(|n|n["functions"].as_array().unwrap().iter().map(s)).collect::<BTreeSet<_>>().len());
     h+="<div class=\"table-scroll\" role=\"region\" aria-label=\"Excel and mathematical answers\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Note / call</th><th scope=\"col\">Excel</th><th scope=\"col\">Correct value</th></tr></thead><tbody>";
     for n in input
         .notes
@@ -999,11 +1087,19 @@ fn function_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String>
             .or_default()
             .push(f);
     }
-    let mut h=format!("<p class=\"eyebrow\">The catalogue</p><h1>Functions and operators</h1><p>Browse all 541 entries by category, or filter by name, description, localized name, or function id. {RECONCILIATION}.</p><div class=\"filter-controls\" hidden><label for=\"function-filter\">Filter entries</label><input id=\"function-filter\" type=\"search\" autocomplete=\"off\" placeholder=\"ROUND, payment, ARRONDI…\"><label for=\"category-filter\">Category</label><select id=\"category-filter\"><option value=\"\">All categories</option>");
+    let mut h=format!("<p class=\"eyebrow\">The catalogue</p><h1>Functions and operators</h1><p>Browse all {ENTRIES} entries by category, or filter by name, description, localized name, function id or the state of our implementation. {RECONCILIATION}.</p><div class=\"filter-controls\" hidden><label for=\"function-filter\">Filter entries</label><input id=\"function-filter\" type=\"search\" autocomplete=\"off\" placeholder=\"ROUND, payment, ARRONDI…\"><label for=\"category-filter\">Category</label><select id=\"category-filter\"><option value=\"\">All categories</option>");
     for category in categories.keys() {
         h += &format!("<option>{}</option>", esc(category));
     }
-    h+=&format!("</select><p id=\"filter-status\" role=\"status\" aria-live=\"polite\"></p><p class=\"small\">{RECONCILIATION}.</p></div><nav class=\"category-nav\" aria-label=\"Categories\">");
+    h += "</select><label for=\"state-filter\">Our implementation</label><select id=\"state-filter\"><option value=\"\">Any state</option>";
+    for (state, title, _) in implementation::STATES {
+        h += &format!(
+            "<option value=\"{state}\">{} ({})</option>",
+            esc(title),
+            input.calc.state["counts"][state]
+        );
+    }
+    h+="</select><p id=\"filter-status\" role=\"status\" aria-live=\"polite\"></p></div><nav class=\"category-nav\" aria-label=\"Categories\">";
     for category in categories.keys() {
         h += &format!("<a href=\"#{}\">{}</a>", slug(category), esc(category));
     }
@@ -1021,29 +1117,21 @@ fn function_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String>
             let label = owned["display_name"]
                 .as_str()
                 .unwrap_or(s(&f["surface_name"]));
-            let localized = f["localized_names"]
-                .as_array()
-                .into_iter()
-                .flatten()
-                .map(|n| s(&n["name"]))
-                .collect::<Vec<_>>()
-                .join(" ");
+            let localized = local_search_names(f).join(" ");
             let query = format!(
                 "{} {id} {} {localized} {label}",
                 s(&f["surface_name"]),
                 s(&f["descriptions"]["short"])
             );
+            let state = input.calc.entry(id);
             h += &format!(
-                "<li data-search=\"{}\">{}<span>{}</span><span class=\"small\">{} · {}</span></li>",
+                "<li data-search=\"{}\" data-state=\"{}\" data-entry=\"{id}\">{}<span>{}</span><span class=\"small state-{}\"><span class=\"state-dot\" aria-hidden=\"true\"></span>{}</span></li>",
                 esc(&query),
+                esc(s(&state["state"])),
                 a(dest, &function_path(id), label),
                 esc(s(&f["descriptions"]["short"])),
-                if input.curated.contains(id) {
-                    "Function guide"
-                } else {
-                    "Brief entry"
-                },
-                esc(s(&f["admission"]["label"]))
+                esc(s(&state["state"])),
+                esc(s(&state["summary"]))
             );
         }
         h += "</ul></section>";
@@ -1053,9 +1141,24 @@ fn function_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String>
     a_to_z(repo, out, input)
 }
 
+/// Every local name that should find this entry, shared family lists included.
+fn local_search_names(f: &Value) -> Vec<&str> {
+    let mut names: Vec<&str> = f["localized_names"]
+        .as_array()
+        .into_iter()
+        .flatten()
+        .map(|n| s(&n["name"]))
+        .collect();
+    for list in f["localized_family_names"].as_array().into_iter().flatten() {
+        names.extend(list["names"].as_array().into_iter().flatten().map(s));
+    }
+    names.sort();
+    names.dedup();
+    names
+}
+
 /// The static index behind the header search: one row per entry, with its local names.
 fn search_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
-    let mut locales = BTreeSet::new();
     let mut rows = Vec::new();
     for f in &input.functions {
         let id = s(&f["function_id"]);
@@ -1063,11 +1166,24 @@ fn search_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         let label = owned["display_name"]
             .as_str()
             .unwrap_or(s(&f["surface_name"]));
-        let mut names = BTreeSet::new();
+        let mut names = Vec::new();
         for n in f["localized_names"].as_array().into_iter().flatten() {
-            locales.insert(s(&n["locale"]).to_string());
             if s(&n["name"]) != label {
-                names.insert(s(&n["name"]).replace('|', " "));
+                let at = implementation::LANGUAGES
+                    .iter()
+                    .position(|(tag, _)| *tag == s(&n["locale"]))
+                    .ok_or_else(|| format!("{id}: unknown locale {}", s(&n["locale"])))?;
+                names.push(format!("{at}={}", s(&n["name"]).replace('|', " ")));
+            }
+        }
+        for name in f["localized_family_names"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .flat_map(|n| n["names"].as_array().into_iter().flatten())
+        {
+            if !names.iter().any(|n| n.ends_with(&format!("={}", s(name)))) && s(name) != label {
+                names.push(format!("={}", s(name).replace('|', " ")));
             }
         }
         rows.push(json!([
@@ -1076,9 +1192,14 @@ fn search_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             f["category"],
             f["descriptions"]["short"],
             id,
-            names.into_iter().collect::<Vec<_>>().join("|")
+            names.join("|"),
+            input.calc.entry(id)["state"]
         ]));
     }
+    let locales: Vec<_> = implementation::LANGUAGES
+        .iter()
+        .map(|(tag, _)| *tag)
+        .collect();
     let data = json!({"locales": locales, "rows": rows});
     write(
         out,
@@ -1137,7 +1258,7 @@ fn homepage(
     episodes: &[(String, String, String, bool)],
 ) -> Result<(), String> {
     let dest = "index.html";
-    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p></div><form class=\"searchrow\" action=\"catalogue/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"ROUND, XLOOKUP, ARRONDI, payment…\" data-instant-search><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"catalogue/index.html\">Browse all 541 entries by category →</a> · <a href=\"catalogue/a-z.html\">A to Z index</a></p>");
+    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p></div><form class=\"searchrow\" action=\"catalogue/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"ROUND, XLOOKUP, ARRONDI, payment…\" data-instant-search><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"catalogue/index.html\">Browse every entry by category →</a> · <a href=\"catalogue/a-z.html\">A to Z index</a></p>");
     if let Some(n) = input.notes.iter().find(|n| n["note_id"] == "FN-ROUND-001") {
         let repro = &n["repros"][0];
         h+=&format!("<section class=\"card featured\" aria-labelledby=\"featured-note\"><p class=\"eyebrow\">From the measurement record</p><h2 id=\"featured-note\">{}</h2><div class=\"answer-comparison\"><div><span class=\"small\">Excel's recorded answer</span><strong>{}</strong></div><div><span class=\"small\">Mathematical value</span><strong>{}</strong></div></div><p><code>{}</code></p><p class=\"small\">{}</p><p>{} →</p></section>",esc(s(&n["title"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]),esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),a(dest,&format!("notes/{}.html",s(&n["note_id"])),"Read the inputs, evidence and limits"));
@@ -1165,7 +1286,7 @@ fn homepage(
             if *ready { "Series article" } else { "Draft" }
         );
     }
-    h+=&format!("</section><p class=\"small coverage-line\">{} of 541 entries have curated prose files; {} have projection-only pages. {RECONCILIATION}. <a href=\"coverage/index.html\">Read the coverage and limits →</a></p>",input.curated.len(),541-input.curated.len());
+    h+=&format!("</section><p class=\"small coverage-line\">{} entries match every recorded Excel answer in our Rust implementation. <a href=\"implementation/index.html\">See every state →</a></p><p class=\"small coverage-line\">{} of {ENTRIES} entries have curated prose files; {} have projection-only pages. {RECONCILIATION}. <a href=\"coverage/index.html\">Read the coverage and limits →</a></p>",input.calc.state["counts"]["matches"],input.curated.len(),ENTRIES-input.curated.len());
     output(out, dest, "The Handbook of Excel Functions", &h)
 }
 
@@ -1175,19 +1296,47 @@ fn coverage(
     withheld: &[Value],
     unresolved: &BTreeSet<String>,
 ) -> Result<(), String> {
-    let deferred = input
-        .functions
-        .iter()
-        .filter(|f| f["admission"]["label"] == "deferred")
-        .count();
     let placeholder = input
         .functions
         .iter()
         .filter(|f| f["signature_placeholder"] == true)
         .count();
-    let mut h=format!("<p class=\"eyebrow\">What exists in this build</p><h1>Coverage and limits</h1><p>{RECONCILIATION}. Every count below uses this full 541-entry catalogue. The published-row count is not a coverage denominator.</p><dl class=\"counts\"><dt>Entry pages generated</dt><dd>541 of 541</dd><dt>Curated prose files present</dt><dd>{} of 541</dd><dt>Projection-only pages</dt><dd>{} of 541</dd><dt>Deferred reference-engine entries</dt><dd>{deferred} of 541</dd><dt>Placeholder signatures</dt><dd>{placeholder} of 541</dd><dt>Entries with Handbook vector suites</dt><dd>0 of 541</dd><dt>Entries with admitted Handbook implementations</dt><dd>0 of 541</dd></dl><p>Curation counts file presence; it does not grade accuracy or depth. Notes and projected metadata can exist on a projection-only page. Deferred entries stay in the catalogue with their reasons.</p>",input.curated.len(),541-input.curated.len());
+    let counts = &input.calc.state["counts"];
+    let mut h=format!("<p class=\"eyebrow\">What exists in this build</p><h1>Coverage and limits</h1><p>{RECONCILIATION}. Every count below uses this full {ENTRIES}-entry catalogue. The published-row count is not a coverage denominator.</p><dl class=\"counts\"><dt>Entry pages generated</dt><dd>{ENTRIES} of {ENTRIES}</dd><dt>Curated prose files present</dt><dd>{} of {ENTRIES}</dd><dt>Projection-only pages</dt><dd>{} of {ENTRIES}</dd><dt>Placeholder signatures</dt><dd>{placeholder} of {ENTRIES}</dd><dt>Entries with Handbook vector suites</dt><dd>0 of {ENTRIES}</dd><dt>Entries with suite-admitted Handbook implementations</dt><dd>0 of {ENTRIES}</dd></dl><p>Curation counts file presence; it does not grade accuracy or depth. Notes and projected metadata can exist on a projection-only page.</p>",input.curated.len(),ENTRIES-input.curated.len());
+    h += "<h2>Our Rust implementation</h2><dl class=\"counts\">";
+    for (state, title, _) in implementation::STATES {
+        h += &format!(
+            "<dt><a href=\"../implementation/index.html#{state}\">{}</a></dt><dd>{} of {ENTRIES}</dd>",
+            esc(title),
+            counts[state]
+        );
+    }
+    h += "</dl><p>Signatures, arity and admission come from the calc-func catalogue and the calc-fml built-ins at the pinned DnaCalc commit, or, for an entry those do not describe, from the named Microsoft page.</p>";
+    let group = |label: &str| {
+        let members: Vec<_> = input
+            .functions
+            .iter()
+            .filter(|f| f["admission"]["label"] == label)
+            .map(|f| {
+                a(
+                    "coverage/index.html",
+                    &function_path(s(&f["function_id"])),
+                    s(&f["surface_name"]),
+                )
+            })
+            .collect();
+        format!("{} of {ENTRIES}: {}", members.len(), members.join(", "))
+    };
+    h += &format!(
+        "<h2>Entries that do not calculate here</h2><dl class=\"counts wide\"><dt>Deferred by policy</dt><dd>{}</dd><dt>Not yet implemented</dt><dd>{}</dd><dt>Catalogue row that declines every call</dt><dd>{}</dd><dt>Needs a host</dt><dd>{}</dd></dl><p>Deferred by policy means the answer needs an outside service, so DNA Calc does not run the function yet; each still has a full entry. Not yet implemented means the work is still to land. These states come from the pinned commit and change when code lands.</p><p>The formula layer handles {} without a catalogue row; they calculate here.</p>",
+        group("deferred"),
+        group("not_implemented"),
+        group("not_modelled"),
+        group("host"),
+        group("formula_layer"),
+    );
     h+=&format!("<h2>Notes</h2><p>{} note records, rendered from <code>content/notes/FN-*.json</code>. {} The generated output includes its own <a href=\"../api/notes.json\">notes API</a> derived from those same records. <a href=\"../notes/index.html\">Read the notes</a>.</p>",input.notes.len(),if input.note_api_matches {"The checked-in notes API agrees with these inputs."}else{"The checked-in notes API differs from source JSON; this site uses the source records to avoid dropping later notes."});
-    h+="<h2>Catalogue boundary</h2><p>The current upstream inventory omits four Microsoft-listed functions: FORECAST.ETS, FORECAST.ETS.CONFINT, FORECAST.ETS.SEASONALITY and FORECAST.ETS.STAT. They are outside this 541-entry spine. This omission is an upstream inventory gap, not evidence that the functions are absent from Excel.</p>";
+    h+="<h2>Catalogue boundary</h2><p>The first catalogue held 541 entries. Nine functions were added from Microsoft's pages and the calc-func catalogue: PY, FIELDVALUE, ECMA.CEILING, IMPORTCSV, IMPORTTEXT and the four FORECAST.ETS functions. Excel macro-sheet functions and the Thai language functions stay outside the catalogue: Microsoft's alphabetical function list does not include them.</p>";
     h += &format!(
         "<p><a href=\"{}\">Function-help completeness audit, 24 August 2026</a></p>",
         source_link(
@@ -1313,6 +1462,14 @@ mod tests {
         assert!(round.contains("0xc2d9945ca2620000"));
         let notes = read(&first.join("notes/index.html")).unwrap();
         assert!(notes.contains("<h1>Where Excel's answer is inaccurate</h1>"));
+        // The catalogue must never share a case-folded path with the INDEX function's page.
+        assert!(!first.join("functions/index.html").exists());
+        assert!(first.join("functions/INDEX.html").exists());
+        let seriessum = read(&first.join("functions/SERIESSUM.html")).unwrap();
+        assert!(seriessum.contains("SERIESSUM(x, n, m, coefficients)"));
+        assert!(seriessum.contains("<details class=\"rust-code\">"));
+        assert!(seriessum.contains("github.com/DnaCalc/DnaCalc/blob/"));
+        assert!(seriessum.contains("Matches all"));
         let series = read(&first.join("lastbit/index.html")).unwrap();
         assert!(series.contains("Draft"));
         checks::check(&first, true, true).unwrap();
