@@ -60,7 +60,7 @@ The following is the current **type-zero positive-rate discount route**, with th
 
 1. Reject zero periods with `#NUM!`. At exactly `r=0`, return `-(pv+fv)/n`. Otherwise reject a growth base `1+r<=0`.
 2. Form `s=D(r/D(2+r))`, `s2=D(s*s)`. Start `T=D(1/23)`. For `k=10` down to `1`, assign `T=D(D(T*s2)+D(1/(2*k+1)))`. Form `a=D(2*s)` and `L=D(a+D(a*D(s2*T)))`. This is a twelve-term atanh expansion, **not** a correctly rounded log1p call.
-3. Store `t=-D(n*L)`. Obtain the measured public exponential `u=EXP(t)`. If `u==1`, let `em=t`. Otherwise set `d=R(u-1)`; for `abs(t)<1`, use `em=R(R(d*t)/LN(u))`, where LN is the measured public stored result; otherwise use `em=d`. Reject `em=0` with `#NUM!` before division. This Kahan correction avoids cancellation in `exp(t)-1`.
+3. Store `t=-D(n*L)`. Obtain the measured public exponential `u=EXP(t)`. If `u==1`, let `em=t`. Otherwise set `d=R(u-1)`; for `abs(t)<1`, use `em=R(R(d*t)/LN(u))`, where LN is the measured public stored result; otherwise use `em=d`. Reject zero or nonfinite em with `#NUM!` before division. This Kahan correction avoids cancellation in `exp(t)-1`.
 4. On the positive-rate, positive-period discount arm (`t<0`), form `b=R(pv+fv)`, `q=R(R(b/em)+fv)`, and return `R(q*r)` for type zero. Each addition and the division is a separate store. With `fv=0` this reduces to quotient first, rate last.
 
 Worked zero-future-value case, `r=0.25,n=1,pv=1000`: the stated reconstruction gives the following binary64 values. The stored correction moves `em` one representable step from the direct subtraction.
@@ -79,7 +79,11 @@ With the same rate, period and principal but `fv=250`, the first stored balance 
 
 The nonzero-future-value discount fold is supported by 192 paired calls in the current source; 60 and 99 separately selected readings distinguish its two additions. This later result supersedes that part of the older note's open list. The common loan `PMT(0.05/12,360,200000)` has recorded result `-1073.6432460242781` in FN-PMT-001; replaying the stated series and stored quotient also gives that value.
 
-The code separately handles opposite equal balances as interest-only. Negative-rate composition, rates outside the series’ chosen convergence range and remaining last-bit cases are not solved by this recipe. The note retains an in-range exception at rate `0.419`; a global reduction boundary has not been identified. The series range is an implementation choice, not a measured global Excel boundary. The current type-one coefficient has its own measured stores; it must not be folded into the type-zero recipe by algebra alone. The old annuity write-up’s initial “blocked” section is superseded by its update and later code.
+The later R31 source also isolates the **negative-rate type-zero balance fold**. For a valid negative rate and finite nonzero em, use the same `b=R(pv+fv)`, `q=R(R(b/em)+fv)`, `payment=R(q*r)` stores. Its source records 192 paired future-value calls for that rate sign, 84 and 114 ties for the two additions, and 32 independently measured final-product ties. This closes that composition stage; it does not make the logarithm or every route exact.
+
+Worked negative-rate composition: `r=-0.25,n=1,pv=1000,fv=250`. The series gives `L=-0.2876820724517809`, t is positive and stored EXP is `1.3333333333333333`. The correction changes the direct difference `0.33333333333333326` to em `0.3333333333333333`. The stored balance is 1250, q is 4000 and payment is `-1000`. These are reconstruction values, not new Excel readings. The interactive calculator is pinned separately and can predate this later source update.
+
+The positive-rate code separately handles opposite equal balances as interest-only. Negative-rate calls now retain the common stored fold instead. Rates outside the series’ chosen convergence range, its in-range exceptions and remaining last-bit cases are not solved by this recipe. The note retains an in-range exception at rate `0.419`; a global reduction boundary has not been identified. The series range is an implementation choice, not a measured global Excel boundary. The current type-one coefficient has its own measured stores; it must not be folded into the type-zero recipe by algebra alone. The old annuity write-up’s initial “blocked” section is superseded by its update and later code.
 
 ## Version differences
 
@@ -234,6 +238,7 @@ Evidence for every row: [`content/evidence/environments/FUNC.PMT.json`](../../co
 ## Sources
 
 - [Microsoft: PMT function](https://support.microsoft.com/en-us/excel/functions/pmt-function), opened 6 November 2026; syntax, documented argument rules and errors.
-- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/financial_time_value_family.rs); implementation steps and the limits identified in the text.
+- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/financial_time_value_family.rs); implementation steps and the limits identified in the text.
 - [Annuity research, including the superseding update](../notes/evidence/2026-11-04/annuity-EVIDENCE.txt).
 - [Logarithm and cancellation correction](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/mod.rs).
+- [R31 negative-rate controls](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/tests/f3_financial.rs); retained paired-balance and final-product controls.
