@@ -284,7 +284,7 @@ results are known to agree elsewhere.
 | `CHISQ.TEST` (no page yet) | 16.0 build 20131, AMD Zen 2 (5) | read in one environment only | [record](environments/FUNC.CHISQ.TEST.json) |
 | [`COMBIN`](../functions/FUNC.COMBIN.md) | 16.0 build 19929, CPU not recorded (148); 16.0 build 20131, AMD Zen 2 (503); 16.0 build 20228, CPU not recorded (23,468); 16.0 build 20430, CPU not recorded (1,242) | compared, no difference found | [record](environments/FUNC.COMBIN.json) |
 | [`COMBINA`](../functions/FUNC.COMBINA.md) | 16.0 build 19929, CPU not recorded (144); 16.0 build 20228, CPU not recorded (39,773); 16.0 build 20430, CPU not recorded (1,242) | compared, no difference found | [record](environments/FUNC.COMBINA.json) |
-| `COMPLEX` (no page yet) | 16.0 build 20430, CPU not recorded (10,694) | read in one environment only | [record](environments/FUNC.COMPLEX.json) |
+| [`COMPLEX`](../functions/FUNC.COMPLEX.md) | 16.0 build 20430, CPU not recorded (10,694) | read in one environment only | [record](environments/FUNC.COMPLEX.json) |
 | [`CONFIDENCE.T`](../functions/FUNC.CONFIDENCE.T.md) | 16.0 build 19929, CPU not recorded (87) | read in one environment only | [record](environments/FUNC.CONFIDENCE.T.json) |
 | `CONVERT` (no page yet) | 16.0 build 20228, CPU not recorded (33,972) | read in one environment only | [record](environments/FUNC.CONVERT.json) |
 | [`COS`](../functions/FUNC.COS.md) | 16.0 build 19929, CPU not recorded (32); 16.0 build 20131, AMD Zen 2 (913); 16.0 build 20228, CPU not recorded (1,540); 16.0 build 20430, CPU not recorded (1,224) | compared, no difference found | [record](environments/FUNC.COS.json) |
@@ -369,28 +369,28 @@ results are known to agree elsewhere.
 | `HYPGEOM.DIST` (no page yet) | 16.0 build 20430, CPU not recorded (3,653) | read in one environment only | [record](environments/FUNC.HYPGEOM.DIST.json) |
 | `HYPGEOMDIST` (no page yet) | 16.0 build 19929, CPU not recorded (46); 16.0 build 20131, AMD Zen 2 (3) | read in several environments, not compared on the same inputs | [record](environments/FUNC.HYPGEOMDIST.json) |
 | [`IFS`](../functions/FUNC.IFS.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.IFS.json) |
-| `IMABS` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMABS.json) |
-| `IMAGINARY` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMAGINARY.json) |
-| `IMARGUMENT` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMARGUMENT.json) |
-| `IMCONJUGATE` (no page yet) | 16.0 build 20430, CPU not recorded (3,245) | read in one environment only | [record](environments/FUNC.IMCONJUGATE.json) |
-| `IMCOS` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCOS.json) |
-| `IMCOSH` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCOSH.json) |
-| `IMCOT` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCOT.json) |
-| `IMCSC` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCSC.json) |
-| `IMCSCH` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCSCH.json) |
-| `IMDIV` (no page yet) | 16.0 build 20430, CPU not recorded (2,067) | read in one environment only | [record](environments/FUNC.IMDIV.json) |
-| `IMLN` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMLN.json) |
-| `IMLOG10` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMLOG10.json) |
-| `IMLOG2` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMLOG2.json) |
-| `IMPRODUCT` (no page yet) | 16.0 build 20430, CPU not recorded (3,260) | read in one environment only | [record](environments/FUNC.IMPRODUCT.json) |
-| `IMREAL` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMREAL.json) |
-| `IMSECH` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMSECH.json) |
-| `IMSIN` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMSIN.json) |
-| `IMSINH` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMSINH.json) |
-| `IMSQRT` (no page yet) | 16.0 build 20430, CPU not recorded (2,029) | read in one environment only | [record](environments/FUNC.IMSQRT.json) |
-| `IMSUB` (no page yet) | 16.0 build 20430, CPU not recorded (1,216) | read in one environment only | [record](environments/FUNC.IMSUB.json) |
-| `IMSUM` (no page yet) | 16.0 build 20430, CPU not recorded (3,260) | read in one environment only | [record](environments/FUNC.IMSUM.json) |
-| `IMTAN` (no page yet) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMTAN.json) |
+| [`IMABS`](../functions/FUNC.IMABS.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMABS.json) |
+| [`IMAGINARY`](../functions/FUNC.IMAGINARY.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMAGINARY.json) |
+| [`IMARGUMENT`](../functions/FUNC.IMARGUMENT.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMARGUMENT.json) |
+| [`IMCONJUGATE`](../functions/FUNC.IMCONJUGATE.md) | 16.0 build 20430, CPU not recorded (3,245) | read in one environment only | [record](environments/FUNC.IMCONJUGATE.json) |
+| [`IMCOS`](../functions/FUNC.IMCOS.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCOS.json) |
+| [`IMCOSH`](../functions/FUNC.IMCOSH.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCOSH.json) |
+| [`IMCOT`](../functions/FUNC.IMCOT.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCOT.json) |
+| [`IMCSC`](../functions/FUNC.IMCSC.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCSC.json) |
+| [`IMCSCH`](../functions/FUNC.IMCSCH.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMCSCH.json) |
+| [`IMDIV`](../functions/FUNC.IMDIV.md) | 16.0 build 20430, CPU not recorded (2,067) | read in one environment only | [record](environments/FUNC.IMDIV.json) |
+| [`IMLN`](../functions/FUNC.IMLN.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMLN.json) |
+| [`IMLOG10`](../functions/FUNC.IMLOG10.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMLOG10.json) |
+| [`IMLOG2`](../functions/FUNC.IMLOG2.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMLOG2.json) |
+| [`IMPRODUCT`](../functions/FUNC.IMPRODUCT.md) | 16.0 build 20430, CPU not recorded (3,260) | read in one environment only | [record](environments/FUNC.IMPRODUCT.json) |
+| [`IMREAL`](../functions/FUNC.IMREAL.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMREAL.json) |
+| [`IMSECH`](../functions/FUNC.IMSECH.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMSECH.json) |
+| [`IMSIN`](../functions/FUNC.IMSIN.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMSIN.json) |
+| [`IMSINH`](../functions/FUNC.IMSINH.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMSINH.json) |
+| [`IMSQRT`](../functions/FUNC.IMSQRT.md) | 16.0 build 20430, CPU not recorded (2,029) | read in one environment only | [record](environments/FUNC.IMSQRT.json) |
+| [`IMSUB`](../functions/FUNC.IMSUB.md) | 16.0 build 20430, CPU not recorded (1,216) | read in one environment only | [record](environments/FUNC.IMSUB.json) |
+| [`IMSUM`](../functions/FUNC.IMSUM.md) | 16.0 build 20430, CPU not recorded (3,260) | read in one environment only | [record](environments/FUNC.IMSUM.json) |
+| [`IMTAN`](../functions/FUNC.IMTAN.md) | 16.0 build 20430, CPU not recorded (1,209) | read in one environment only | [record](environments/FUNC.IMTAN.json) |
 | [`INT`](../functions/FUNC.INT.md) | 16.0 build 19929, CPU not recorded (40); 16.0 build 20430, CPU not recorded (124,403) | compared, no difference found | [record](environments/FUNC.INT.json) |
 | [`INTERCEPT`](../functions/FUNC.INTERCEPT.md) | 16.0 build 20131, AMD Zen 2 (4) | read in one environment only | [record](environments/FUNC.INTERCEPT.json) |
 | [`INTRATE`](../functions/FUNC.INTRATE.md) | 16.0 build 20430, AMD Zen 2 (2,400) | read in one environment only | [record](environments/FUNC.INTRATE.json) |
