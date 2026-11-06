@@ -26,9 +26,7 @@ body_sections:
   - Excel versions, platforms and CPUs
   - Sources
 family: special_dist_family
-role_in_family: >-
-  The one-argument error function, and the surface with the largest recorded population in the
-  family: the rational the notes describe was scored on its rows.
+role_in_family: "The one-argument error function; its below-half rational and stored operations have recorded discriminants, with coefficient and upper-body limits."
 ---
 
 # ERF.PRECISE

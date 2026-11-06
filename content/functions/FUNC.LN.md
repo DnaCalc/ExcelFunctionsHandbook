@@ -18,9 +18,7 @@ body_sections:
   - Excel versions, platforms and CPUs
   - Sources
 family: ln_fn
-role_in_family: >-
-  Sole member of its module; the natural logarithm, and the kernel the rest of the log family
-  is defined through — LOG divides by it and LOG10 is its scaled companion.
+role_in_family: "The public natural logarithm. LOG composes stored LN results; LOG10 has a separate instruction-chain constant."
 ---
 
 # LN

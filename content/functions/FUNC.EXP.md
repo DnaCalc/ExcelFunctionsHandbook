@@ -34,9 +34,7 @@ body_sections:
   - Excel versions, platforms and CPUs
   - Sources
 family: exp_fn
-role_in_family: >-
-  The natural exponential — the substrate under most of the hyperbolic and financial surfaces,
-  and the surface whose evaluation route has been identified most precisely of any in this batch.
+role_in_family: "The public natural exponential, implemented by an extended instruction chain with one final binary64 store and environment-scoped instruction leaves."
 ---
 
 # EXP

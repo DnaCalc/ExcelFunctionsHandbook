@@ -30,7 +30,7 @@ body_sections:
   - Excel versions, platforms and CPUs
   - Sources
 family: roundup_fn
-role_in_family: "The away-from-zero member of the directed-rounding trio; the conservative-overstatement counterpart of ROUNDDOWN."
+role_in_family: "The directed away-from-zero decimal rounder, with a preliminary fifteen-digit reading and separately converted binary increment."
 ---
 
 # ROUNDUP

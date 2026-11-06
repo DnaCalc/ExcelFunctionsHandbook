@@ -18,10 +18,7 @@ body_sections:
   - Notes
   - Sources
 family: mod_fn
-role_in_family: >-
-  Sole member of its module; the floored remainder, whose result takes the sign of the divisor —
-  and the math surface carrying the most sharply characterised Excel departure from mathematics
-  in this category.
+role_in_family: "The floored remainder, with separately recorded quotient limits and tiny-remainder compatibility branches."
 ---
 
 # MOD

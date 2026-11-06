@@ -17,10 +17,7 @@ body_sections:
   - Alternatives
   - Sources
 family: dollar_fraction_family
-role_in_family: >-
-  The decimal-to-fraction direction: packs the fractional remainder back into a digit field over the
-  given denominator. DOLLARDE's inverse, and the member the reference engine declares with an
-  explicit two-position array broadcast.
+role_in_family: "The decimal-to-fraction direction: it encodes a fractional numerator in decimal digits over the supplied denominator."
 ---
 
 # DOLLARFR

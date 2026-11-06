@@ -28,9 +28,7 @@ body_sections:
   - Alternatives
   - Sources
 family: geomean_fn
-role_in_family: >-
-  Sole member of its module; the multiplicative mean, and the one of the three Pythagorean means
-  whose reference implementation runs entirely in log space.
+role_in_family: "The multiplicative mean: a stored product followed by exponent normalization and stored LN, reciprocal and EXP stages; the product fallback remains open."
 ---
 
 # GEOMEAN

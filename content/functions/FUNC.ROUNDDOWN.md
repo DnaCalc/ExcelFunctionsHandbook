@@ -30,7 +30,7 @@ body_sections:
   - Excel versions, platforms and CPUs
   - Sources
 family: rounddown_fn
-role_in_family: "The toward-zero member of the directed-rounding trio; ROUND's floor-side sibling, and TRUNC by another name."
+role_in_family: "The directed toward-zero decimal rounder; TRUNC supplies the same operation with an optional digit count."
 ---
 
 # ROUNDDOWN

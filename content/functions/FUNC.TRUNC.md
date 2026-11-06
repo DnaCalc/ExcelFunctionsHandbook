@@ -26,9 +26,7 @@ body_sections:
   - Notes
   - Sources
 family: trunc_fn
-role_in_family: >-
-  The sole member: rounding toward zero, with an optional decimal-place argument that turns a
-  clean integral operation into a scaled one.
+role_in_family: "The toward-zero decimal rounder with an optional digit count that defaults to zero."
 ---
 
 # TRUNC
