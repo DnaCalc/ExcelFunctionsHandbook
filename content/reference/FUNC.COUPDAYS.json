@@ -322,8 +322,27 @@
       "sources": [
         "https://handbook.dnacalc.com/notes/FN-COUPDAYS-001.html"
       ]
+    },
+    {
+      "excel_build": "16.0 build 20131",
+      "platform": "Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "behaviour": "1,060 captured inputs are indexed for this environment. Capture dates: 2026-07-19 to 2026-07-19. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.COUPDAYS.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "behaviour": "3,012 captured inputs are indexed for this environment. Capture dates: 2026-09-24 to 2026-09-25. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.COUPDAYS.json"
+      ]
     }
   ],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "sections": {
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 1,060 |\n| 20430 | Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics | 3,012 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.COUPDAYS.json)."
+  }
 }

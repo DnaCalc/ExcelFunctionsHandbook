@@ -4,7 +4,59 @@
   "try_it": {
     "formula": "=LN(2)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 19929",
+      "platform": "Windows, bitness not recorded, CPU not recorded",
+      "behaviour": "45 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20131",
+      "platform": "Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "behaviour": "349 captured inputs are indexed for this environment. Capture dates: 2026-07-21 to 2026-07-23. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 18429",
+      "platform": "Windows, 64-bit-bit, Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
+      "behaviour": "52 captured inputs are indexed for this environment. Capture dates: 2026-07-05 to 2026-07-05. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20131",
+      "platform": "Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "behaviour": "52 captured inputs are indexed for this environment. Capture dates: 2026-07-03 to 2026-07-03. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20228",
+      "platform": "Windows, 64-bit-bit, CPU not recorded",
+      "behaviour": "90 captured inputs are indexed for this environment. Capture dates: 2026-08-09 to 2026-08-09. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows, 64-bit-bit, CPU not recorded",
+      "behaviour": "1,227 captured inputs are indexed for this environment. Capture dates: 2026-09-29 to 2026-09-29. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ]
+    }
+  ],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "sections": {
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 45 |\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 349 |\n| 18429 | Windows, 64-bit-bit, Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz | 52 |\n| 20131 | Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics | 52 |\n| 20228 | Windows, 64-bit-bit, CPU not recorded | 90 |\n| 20430 | Windows, 64-bit-bit, CPU not recorded | 1,227 |\n\n- XC-LN-001: build 19929 versus build 20430; 2 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n- XC-LN-002: build 20131 versus build 18429; 52 same-input pairs, 17 differing answers. Compared axes: cpu, excel-build, os. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n\nThe differing machines changed Excel build and other recorded environment properties together. These observations do not isolate a build-only or CPU-only cause. The linked record retains each input, answer, and recheck status.\n\nAgreement on these compared inputs does not establish agreement on unmeasured inputs.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json)."
+  }
 }

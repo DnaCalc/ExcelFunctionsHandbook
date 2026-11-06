@@ -256,8 +256,35 @@
       "sources": [
         "https://handbook.dnacalc.com/notes/FN-ROUND-004.html"
       ]
+    },
+    {
+      "excel_build": "16.0 build 19929",
+      "platform": "Windows, bitness not recorded, CPU not recorded",
+      "behaviour": "135 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUND.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "behaviour": "4,071 captured inputs are indexed for this environment. Capture dates: 2026-09-25 to 2026-09-25. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUND.json"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows, 64-bit-bit, CPU not recorded",
+      "behaviour": "32,874 captured inputs are indexed for this environment. Capture dates: 2026-09-29 to 2026-09-29. This is a reading count, not a comparison with another build.",
+      "sources": [
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUND.json"
+      ]
     }
   ],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "sections": {
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 135 |\n| 20430 | Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics | 4,071 |\n| 20430 | Windows, 64-bit-bit, CPU not recorded | 32,874 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUND.json)."
+  }
 }
