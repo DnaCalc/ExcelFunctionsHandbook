@@ -65,13 +65,7 @@ has: it removes the special function from the picture entirely and tests only wh
 implementation knows where the centre is. `φ(0) = 1/√(2π)` plays the same role for the density,
 testing only the stored constant.
 
-**Where the values stop being informative.** In binary64, `Φ(z)` rounds to exactly `1` once
-`1 − Φ(z)` falls below half an ULP of `1`, which happens around `z ≈ 8.3`. Beyond that point
-the upper tail is unrecoverable from this surface, no matter how the implementation is written —
-the loss is in the representation of the answer. The reflection `Φ(−z)` is the route to the
-upper tail, and Excel's normal family provides no right-tailed surface of its own (contrast
-`CHISQ.DIST.RT`, `F.DIST.RT`, `T.DIST.RT`). At the other end, `Φ(z)` underflows to `0` around
-`z ≈ −37.5`, with a subnormal band before it.
+**Tail probabilities and worksheet publication.** A stored CDF can round to one, losing the upper-tail probability in a later `1-CDF` subtraction. Evaluating the reflected lower tail avoids that subtraction. At the left end, the current DnaCalc wrapper flushes a result below `2^-1022` to zero; its source includes a `z=-37.52` control. That is a worksheet publication rule, not the point where IEEE binary64 runs out of representable positive values. The ERFC body inside the wrapper remains an open approximation.
 
 ## Arguments
 
@@ -82,37 +76,15 @@ Microsoft's page gives two required arguments:
 | `z` | "the value for which you want the distribution" | yes |
 | `cumulative` | "can be either TRUE or FALSE… If cumulative is TRUE then NORM.S.DIST returns the cumulative distribution function. If it is FALSE, it returns the probability mass function." | yes |
 
-`cumulative` has no default: the switch must be written. The reference engine records an arity
-of exactly 2, matching.
+`cumulative` has no default: the switch must be written.
 
-The reference engine's projection marks this surface's signature as a **placeholder**
-(`signature_placeholder: true`), so no parameter list is published from that source; the table
-above is Microsoft's.
+The pinned catalogue supplies `NORM.S.DIST(z, cumulative)` with two required arguments. Keep the cumulative switch explicit.
 
-The recorded coercion/lift profile is `Custom`, meaning the admission of logicals, text and
-empty cells in each slot is this function's own decision rather than a family default. See
-[Coercion and lifting](../model/02-coercion-and-lifting.md).
+## Density wording in the documentation
 
-## A documentation defect worth naming
+Microsoft's `NORM.S.DIST` syntax description calls the `FALSE` result a “probability mass function”, while its remarks call the equation a density. The `NORM.DIST` syntax uses density, although its example table also uses the mass label. Both pages were opened on 7 November 2026.
 
-Microsoft's `NORM.S.DIST` page describes the `cumulative = FALSE` branch as returning "the
-**probability mass function**".
-
-That is wrong, and not merely as pedantry. A probability mass function assigns probability to
-individual outcomes and is defined only for discrete distributions; the normal distribution is
-continuous, every individual outcome has probability zero, and what `cumulative = FALSE`
-returns is a probability **density** — a quantity with units of probability per unit of `z`,
-which can and does exceed... well, which is not a probability at all, and whose value at the
-origin is about `0.3989`.
-
-Microsoft's own `NORM.DIST` page, describing the identical branch of the identical function,
-says "probability density function". The two pages disagree with each other, and the
-`NORM.S.DIST` page is the one that is wrong.
-
-The Handbook records this because the confusion it invites is a real one: a reader who believes
-`NORM.S.DIST(z, FALSE)` is a probability will interpret its value as one, and densities are not
-probabilities. The behaviour is not in dispute — both pages describe the same computation — but
-the published description of it is defective on one page.
+For a continuous normal distribution, the `FALSE` branch returns the height of the density curve. A probability over an interval is an integral of that curve; the density at one point is not the probability of that individual outcome. This is a documentation wording issue, not evidence of a change between Excel builds.
 
 ## Result and edge cases
 
@@ -124,9 +96,7 @@ Returns `Number`.
   their outcomes show beside this page.
 - **`z = 0`.** The cumulative branch is exactly `0.5`; the density branch is the stored
   constant `1/√(2π)`. Both are diagnostic single cells, for different reasons.
-- **Right-tail saturation** around `z ≈ 8.3` and **left-tail underflow** around `z ≈ −37.5`,
-  as described above. The density branch underflows around `|z| ≈ 38.6`, with a subnormal band
-  before it — see [PHI](FUNC.PHI.md).
+- **Tail limits.** The CDF and density implementations flush final subnormal results to zero. This differs from preserving every positive IEEE binary64 subnormal. The density branch also rejects a nonfinite staged square; see [PHI](FUNC.PHI.md).
 - **Symmetry.** `Φ(z) + Φ(−z) = 1` and `φ(z) = φ(−z)` are exact mathematically. Whether the
   implementation reproduces them in the last bit is a metamorphic property that can be tested
   without any external oracle, and is on the probe list.
@@ -296,9 +266,6 @@ Inputs worth probing first:
   Named as literature; no figure restated.
 - Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md) and
   [About implementation options](../model/07-implementation-options.md).
-- `data/functions/FUNC.NORM.S.DIST.json` (arity 2, `Custom` profile,
-  `signature_placeholder: true`, XLL symbol `xlfNorm_s_dist`) and
-  `data/functions/FUNC.NORMSDIST.json` (arity 1) — the source of the added-argument finding.
-- `data/presence/FUNC.NORM.S.DIST.json` — implementing module
-  `crates/oxfunc_core/src/functions/normal_log_family.rs`, shared with twelve other normal and
-  lognormal surfaces.
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.NORM.S.DIST.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/distributions.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.
+- [Normal wrapper and publication stages](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/normal_log_family.rs) and [shared density kernel](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/normal_dist_common.rs).

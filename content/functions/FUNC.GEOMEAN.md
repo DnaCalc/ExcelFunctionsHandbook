@@ -50,8 +50,8 @@ An admitted zero or negative value gives `#NUM!`. References ignore text, logica
 
 ## How to implement
 
-1. Collect positive numbers. The current code returns the common input immediately when all admitted values are equal; a singleton is also an identity.
-2. Fold the product in input order, storing **each** multiplication with `R(op)` from the [variance recipe](FUNC.VAR.S.md#how-to-implement). Call the positive normal result `P` and count `n`.
+1. Collect the admitted numeric values. Reject an empty collection or any nonpositive admitted value with `#NUM!` before indexing the first value or taking logarithms. The current code returns the common positive input immediately when all admitted values are equal; a singleton is also an identity.
+2. Fold the product in input order, storing **each** multiplication with `R(op)` from the [variance recipe](FUNC.VAR.S.md#how-to-implement). Continue with positive normal product `P` and count `n`. If the product is zero, subnormal or nonfinite, stop this normalized recipe: the current sum-of-logs fallback is a separately unresolved candidate.
 3. Extract the integer binary exponent `e=floor(log2(P))` from the encoded exponent. Compute the integer `q=trunc(e/n)`, toward zero. Scale by an exact power of two: `M=P*2^(-q*n)`. Do not use floor for negative exponent division.
 4. Store the measured public `LN(M)` result. Separately compute and store `R(1/n)`, then store `R(LN(M)*reciprocal)`. A direct `LN(M)/n` removes an observed rounding stage.
 5. Call the measured public EXP on that stored argument, store its result, and scale by `2^q`.

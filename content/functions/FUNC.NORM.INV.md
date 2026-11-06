@@ -91,9 +91,7 @@ Microsoft's page gives three required arguments:
 Microsoft further notes that with `mean = 0` and `standard_dev = 1`, `NORM.INV` "uses the
 standard normal distribution".
 
-The reference engine records an arity of exactly 3 and a `Custom` coercion/lift profile, and
-marks the projected signature as a **placeholder** (`signature_placeholder: true`) — so the
-table above is Microsoft's, not the projection's.
+The pinned catalogue supplies `NORM.INV(probability, mean, standard_dev)` with three required arguments.
 
 ## The documented algorithm
 
@@ -322,8 +320,5 @@ Inputs worth probing first:
   Named as literature; no figure restated.
 - Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md) and
   [About implementation options](../model/07-implementation-options.md).
-- `data/functions/FUNC.NORM.INV.json` — arity 3, `Custom` coercion/lift profile,
-  `signature_placeholder: true`, XLL symbol `xlfNorm_inv`.
-- `data/presence/FUNC.NORM.INV.json` — implementing module
-  `crates/oxfunc_core/src/functions/normal_log_family.rs`, shared with twelve other normal and
-  lognormal surfaces.
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.NORM.INV.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/distributions.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.

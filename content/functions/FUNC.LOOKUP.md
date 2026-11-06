@@ -35,12 +35,7 @@ Microsoft documents the requirement that makes it work: the keys must be in **as
 complaint. Everything difficult about this function traces back to that one unchecked
 precondition.
 
-There is a second reason `LOOKUP` is difficult, and it is unusual in the catalog: **the
-Handbook's projection carries no signature for it.** `data/functions/FUNC.LOOKUP.json` records
-`signature_placeholder: true` with a null signature, so the generator suppresses the signature
-rather than faking one. That is the honest rendering of a function whose two forms take
-differently-named arguments in the same positions — and it is a fair warning about how much of
-this page is documentation rather than measurement.
+The pinned catalogue displays the vector form, `LOOKUP(lookup_value, lookup_vector, [result_vector])`, and accepts two or three arguments. The array form below shares that name but assigns a different role to its second argument.
 
 ## The two forms
 
@@ -233,6 +228,5 @@ into a description of the function.
   a function-local capability).
 - Handbook `content/model/06-claim-language.md` (why an undocumented but widely relied-upon
   behaviour is published as an open question rather than as a fact).
-- Handbook `data/functions/FUNC.LOOKUP.json` (arity 2–3; `signature_placeholder: true`) and
-  `data/presence/FUNC.LOOKUP.json` (implementing module shared with `FREQUENCY`, `PROB` and
-  `MODE.MULT`).
+- [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.LOOKUP.json): current signature and argument count, projected from DnaCalc.
+- [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/lookup.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.
