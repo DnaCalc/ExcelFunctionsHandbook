@@ -8,136 +8,67 @@ open_problems: []
 references: []
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Notes for implementers
-  - What has not been checked
-  - Page vocabulary
-  - Sources
+  - "What it does"
+  - "Try it"
+  - "Quirks"
+  - "How to implement"
+  - "Version differences"
+  - "Alternatives"
+  - "Sources"
 family: operator_reference_family
 role_in_family: "Trailing whitespace normalization: the trim position that sits directly against the intersection operator, since a space after a reference is exactly where the two readings compete."
 ---
 
-## What it computes
+# OP_TRIM_REF_TRAILING
 
-`OP_TRIM_REF_TRAILING` normalizes a reference operand that carries whitespace **after** it,
-yielding the same reference without the trailing space.
+## What it does
 
-Of the three trim identities this is the one with the sharpest reason to exist. A space
-*after* a reference is precisely the position in which the space would be the intersection
-operator, if another reference followed it. `A1 ` and `A1 B1` begin identically; the first is
-a padded reference and the second is a call to
-[`FUNC.OP_INTERSECTION_REF`](FUNC.OP_INTERSECTION_REF.md). The disambiguation is
-lookahead — grammar, not semantics — and this row is the identity that owns the outcome when
-the lookahead finds nothing.
+Ordinary formula whitespace after a reference can be padding. In `=SUM(B2 )`, the padded
+reference still names B2; the surrounding spaces do not change which cell SUM reads.
 
-OxFunc's provisional reference-family contract admits the trim rows as "structural
-reference-target normalization only" and records whitespace-trimmed reference forms such as
-`SUM(( A1 ))` as transparent on the seeded slice. So on the admitted evidence this operator
-changes no computed value; it exists so that the whitespace is modelled rather than silently
-absorbed.
+Padding around one reference must be distinguished from a space joining two reference
+expressions. The latter can calculate an intersection.
 
-## Arguments
+## Try it
 
-| Position | Name | Meaning |
-|---|---|---|
-| 0 | `A` | The reference whose trailing whitespace is normalized. Required. |
+Calculate `=SUM(B2 )` with the supplied B2 value. Compare `=SUM(B2)` and
+`=SUM(B2:C3 B3:C4)`: the last formula uses a space as an intersection operator and reads only
+the cells common to both ranges.
 
-Arity is exactly 1. The signature display recorded in `data/functions/` for this row is `A@`,
-which is not a typed form — no reader types `A@` to invoke it, and the `@` glyph is a
-placeholder, not the implicit-intersection operator
-([`FUNC.OP_IMPLICIT_INTERSECTION`](FUNC.OP_IMPLICIT_INTERSECTION.md)). The operator-inventory
-source records the surface syntax for this row as the placeholder `<trim-trailing>`, which is
-the honest statement: there is no spelling.
+## Quirks
 
-## Result and edge cases
+Whitespace cannot be discarded blindly before parsing. Excel uses a space between reference
+expressions for intersection. Confusing that use with padding changes the referenced cells and
+can introduce `#NULL!` when the intersection is empty.
 
-Returns a `Reference` (`KernelSignatureClass::Custom`,
-`ArgPreparationProfile::RefsVisibleInAdapter`).
+An at sign has its own meaning: `@` requests implicit intersection. It is not a general spelling
+for trimming leading or trailing spaces. Whitespace inside quoted text is data and must not be
+removed by formula normalization.
 
-- **Ordinary case.** The operand reference, unchanged.
-- **Followed by another reference.** Then the space is not this operator; it is the
-  intersection operator. Which reading applies is decided by grammar, and the contract puts
-  parser whitespace ownership beyond the trim slice explicitly out of scope — so the exact
-  boundary is not stated by any document this Handbook can cite.
-- **Before a closing parenthesis or an argument separator.** The padding reading, on the
-  admitted slice.
-- **Non-reference operand.** Outside the admitted slice.
+## How to implement
 
-## Errors
+Retain whitespace as syntax information until the parser can determine whether it separates two
+reference expressions. When it is padding, keep the operand's reference identity and extent
+unchanged. When it is intersection, construct that reference operation instead.
 
-| Error | Condition |
-|---|---|
-| `#REF!` | The operand is not a usable reference. |
-| any incoming error | An error operand propagates. |
+Preserve the user's formula spelling separately from the evaluated reference. Share the
+lookahead and token classification across the parser and formatter so that saving or displaying
+a formula does not reinterpret its spaces. Test padding next to parentheses, commas, range and
+spill operators, plus quoted text containing spaces. Tabs, line breaks and nonbreaking spaces
+need separate lexical rules; this page does not treat every Unicode space as equivalent.
 
-`data/functions/FUNC.OP_TRIM_REF_TRAILING.json` records no Microsoft documentation URL
-(`docs` is `null`). No cited document states an error surface specific to this row.
+## Version differences
 
-## Relationships
+No build-by-build comparison of whitespace normalization is recorded here. Dynamic-array `@`
+notation is a separate feature with its own compatibility rules.
 
-- [`FUNC.OP_TRIM_REF_LEADING`](FUNC.OP_TRIM_REF_LEADING.md) and
-  [`FUNC.OP_TRIM_REF_BOTH`](FUNC.OP_TRIM_REF_BOTH.md) — the other two positions.
-- [`FUNC.OP_INTERSECTION_REF`](FUNC.OP_INTERSECTION_REF.md) — the competing reading of the
-  same character, and the operator this row is most easily confused with in a parser.
-- [`FUNC.OP_RANGE_REF`](FUNC.OP_RANGE_REF.md), [`FUNC.OP_UNION_REF`](FUNC.OP_UNION_REF.md) —
-  the constructors whose operands may carry padding on either side.
-- `TRIM` — the text function. Unrelated: values, not syntax.
+## Alternatives
 
-## Notes for implementers
-
-- Resolve trailing space by lookahead in one place. If the tokenizer and the binder each
-  guess, formulas like `=SUM(A1 )` and `=SUM(A1 B1)` will eventually be handled
-  inconsistently, and the failure surfaces as a spurious `#NULL!` — which readers will report
-  as an intersection bug, not a whitespace bug.
-- Preserve the whitespace in the stored form. Normalizing it away rewrites the user's
-  formula.
-- Keep the trim identities distinct from the intersection identity in whatever
-  representation the evaluator uses, so that a later pass can still tell which reading was
-  chosen.
-
-## What has not been checked
-
-No Handbook vector suite covers this operator, no Excel-comparison evidence record is
-attached to this page, and whether the row has any user-observable behaviour of its own is
-itself unresolved.
-
-Probes worth running first:
-
-1. **The lookahead boundary.** `=SUM(A1 )`, `=SUM(A1 B1)`, `=SUM(A1 ,B1)`, `=SUM((A1 ))` —
-   the minimal set that separates padding from intersection, with `#NULL!` as the tell when
-   the intersection reading wins.
-2. **Value transparency.** The padded forms against their unpadded equivalents.
-3. **Stored-form round-trip.** Save and reopen, reading the stored formula text to see
-   whether the trailing space survives.
-4. **Whitespace classes.** Tab, non-breaking space and line break in the trailing position.
-5. **Adjacent operators.** `A1 #`, `A1 :B2` and `A1 ^2`, where a trailing space meets another
-   operator's token.
-
-## Page vocabulary
-
-| Machine name | Meaning |
-|---|---|
-| `Arity { min: 1, max: 1 }` | Exactly one operand |
-| `ArgPreparationProfile::RefsVisibleInAdapter` | The operator sees live references and controls dereference itself |
-| `KernelSignatureClass::Custom` | Kernel shape is function-specific |
-| `HostInteractionClass::WorkbookState` | The operator's meaning depends on workbook state |
-| `reference_normalization` | The operator-inventory family this row belongs to |
+Use the [range operator](FUNC.OP_RANGE_REF.md) for a rectangular reference, the
+[union operator](FUNC.OP_UNION_REF.md) to combine references, and
+[intersection](FUNC.OP_INTERSECTION_REF.md) to retain their common cells.
+[TRIM](FUNC.TRIM.md) changes text contents rather than parsing formula whitespace.
 
 ## Sources
 
-- `data/functions/FUNC.OP_TRIM_REF_TRAILING.json` at OxFunc `473efa3` — identity, arity 1,
-  the `A@` signature display, `RefsVisibleInAdapter` preparation. `docs` is `null`: **no
-  Microsoft documentation URL is recorded for this entry.**
-- `data/presence/FUNC.OP_TRIM_REF_TRAILING.json` — implementing module
-  `crates/oxfunc_core/src/functions/operator_reference_family.rs`.
-- OxFunc `docs/function-lane/FUNCTION_SLICE_OPERATOR_REFERENCE_FAMILY_CONTRACT_PRELIM.md` —
-  the normalization-only admission, the `SUM(( A1 ))` transparency finding, and the
-  out-of-slice statement on parser whitespace ownership. Provisional by its own header.
-- OxFunc `docs/function-lane/W45_NON_AT_OPERATOR_INVENTORY.csv` — the `<trim-trailing>`
-  surface-syntax placeholder and the `reference_normalization` family.
-- Handbook `content/model/01-value-universe.md`, `03-call-pipeline.md`, and the
-  [`FUNC.OP_INTERSECTION_REF`](FUNC.OP_INTERSECTION_REF.md) page for the competing reading.
+- [Microsoft: calculation operators and precedence](https://support.microsoft.com/en-us/excel/calculation-operators-and-precedence-in-excel).

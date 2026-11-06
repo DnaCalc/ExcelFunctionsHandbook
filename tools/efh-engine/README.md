@@ -32,8 +32,9 @@ large results have a bounded 32 × 16 display window. The module's linear memory
 
 Request: `formula` (at most 4096 UTF-8 bytes); optional `inputs` keyed by cell address (at most
 256 cells; number, text, boolean, null for blank, or `{"error":"#N/A"}`); `date_system` (`1900`
-or `1904`); `compatibility_version`; `now` (Excel serial for NOW/TODAY). A1 holds the formula.
-The fixed locale is en-US. Missing cells remain missing. The browser passes the local clock;
+or `1904`); `compatibility_version`; `now` (1900-system Excel serial for NOW/TODAY). A1 holds the formula.
+The fixed locale is en-US. Missing cells remain missing. The browser allows 30 seconds to load the engine and 5 seconds for calculation. Editing the
+formula invalidates its displayed result. The browser passes the local clock;
 API clients must pass `now` explicitly if their formula needs it.
 
 The variant hook accepts `udf: {language: "vba", source: "…"}` and loads a standard module
@@ -47,3 +48,9 @@ hook or error bound is `null`, never an implied accuracy claim. Example API requ
 
 Native bridge tests check transport, not Excel agreement. The browser/API tests exercise the
 wasm file readers receive. Neither test set is a published Handbook function suite.
+
+After a site build, `node tools/efh-engine/check-examples.mjs [report.json]` runs all 541 starter
+formulas on the shipped wasm, with a fixed clock supplied to NOW/TODAY. Each case expects a
+calculated value unless `try_it.preview_status` explicitly documents a worksheet error or
+refusal. The report counts every status. It checks that the examples are usable and limits are
+explicit; it does not compare OneCalc answers to Excel or establish numerical accuracy.

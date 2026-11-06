@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.EUROCONVERT",
   "try_it": {
-    "formula": "=EUROCONVERT(1,1,1)"
+    "formula": "=EUROCONVERT(100,\"DEM\",\"EUR\")",
+    "preview_status": "worksheet-error",
+    "note": "This spelling is not registered in the OneCalc preview engine, so calculation returns #NAME? here. See the function guide for Excel availability."
   },
   "versions": [],
   "implementations": [],

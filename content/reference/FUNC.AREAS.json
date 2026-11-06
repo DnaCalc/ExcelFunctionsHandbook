@@ -2,7 +2,15 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.AREAS",
   "try_it": {
-    "formula": "=AREAS(5)"
+    "formula": "=AREAS((B2:B4,D2:D4))",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3,
+      "D2": 1,
+      "D3": 1,
+      "D4": 2
+    }
   },
   "versions": [],
   "implementations": [],

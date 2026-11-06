@@ -4,7 +4,222 @@
   "try_it": {
     "formula": "=ISEVEN(2.5)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA",
+      "behaviour": "The formulas below were read directly from Excel in the named capture. These rows do not establish behaviour on other builds or on unmeasured inputs.",
+      "observations": [
+        {
+          "call": "=ISEVEN(-0.5)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 68,
+            "column": 4
+          }
+        },
+        {
+          "call": "=ISEVEN(\"2\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 70,
+            "column": 4
+          }
+        },
+        {
+          "call": "=ISEVEN(\" 2 \")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 72,
+            "column": 4
+          }
+        },
+        {
+          "call": "=ISEVEN(TRUE)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 77,
+            "column": 4
+          }
+        },
+        {
+          "call": "=ISEVEN(@{2,3})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 88,
+            "column": 4
+          }
+        },
+        {
+          "call": "=ISEVEN(\"$4\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 90,
+            "column": 4
+          }
+        },
+        {
+          "call": "=ISEVEN(2.99999999999)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 158,
+            "column": 4
+          }
+        },
+        {
+          "call": "=ISEVEN(-2.99999999999)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows (64-bit) NT 10.00, AMD Ryzen 7 4800H with Radeon Graphics, en-ZA; workbook compatibility 1",
+          "source_locator": {
+            "sheet": "information_functions",
+            "row": 161,
+            "column": 4
+          }
+        }
+      ],
+      "sources": [
+        "https://github.com/DnaCalc/DnaCalc/blob/96fc6795f714b4530bdaa0a5276fe08059937869/crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json"
+      ],
+      "capture": {
+        "repository_revision": "96fc6795f714b4530bdaa0a5276fe08059937869",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "sha256": "350617950d36906deedf6caa9e9d2f093f6c30b053bfb6770125f5f0af4231ab",
+        "environment": {
+          "excel_build": "16.0.20527.20088",
+          "channel": "current",
+          "compatibility": "compat-1/calc-191029",
+          "numeric_environment": "excel-x86-64/cpu-x86-64",
+          "settings": {
+            "workbook_compatibility_version": "1",
+            "excel_version": "16.0",
+            "excel_build_number": "20527",
+            "excel_machine": "x86-64",
+            "calculation_version": "191029",
+            "workbook_calculation_version": "191029",
+            "channel_source": "http://officecdn.microsoft.com/pr/492350f6-3a01-4f97-b9c0-c7c6ddf67d60",
+            "operating_system": "Windows (64-bit) NT 10.00",
+            "os_version": "Microsoft Windows NT 10.0.26200.0",
+            "cpu_architecture": "AMD64",
+            "cpu": "AMD Ryzen 7 4800H with Radeon Graphics         ",
+            "processor_count": "16",
+            "user_culture": "en-ZA",
+            "ui_language_id": "1033",
+            "install_language_id": "7177",
+            "country_code": "1",
+            "country_setting": "27",
+            "decimal_separator": ".",
+            "thousands_separator": " ",
+            "list_separator": ",",
+            "date_separator": "/",
+            "date_order": "2",
+            "use_system_separators": "true",
+            "date1904": "false",
+            "calculation": "automatic",
+            "iteration": "false",
+            "calculation_state": "done",
+            "max_iterations": "100",
+            "max_change": "3f50624dd2f1a9fc",
+            "precision_as_displayed": "false",
+            "automation_security": "3",
+            "enable_events": "false",
+            "interactive": "false",
+            "display_alerts": "false",
+            "ask_to_update_links": "false",
+            "ignore_remote_requests": "false",
+            "add_ins": "COM add-in Carousel.ExcelAddin connect=false;COM add-in Dna_78b015d8b23f56a68ecce694f11f8794_3 connect=false;COM add-in ExcelPlugInShell.PowerMapConnect connect=false;COM add-in ExcelVstoAddIn1 connect=false;COM add-in MicrosoftDataStreamerforExcel connect=false;COM add-in NativeShim.InquireConnector.1 connect=false;COM add-in OxVbaExcelAddin.ExcelAddin connect=false;COM add-in PDFMaker.OfficeAddin connect=false;COM add-in PowerPivotExcelClientAddIn.NativeEntry.1 connect=false;COM add-in TestComAddIn.ComAddIn connect=false;COM add-in TestRibbonRegistration.MyCustomRibbon connect=false;COM add-in VS15ExcelAdaptor connect=true;COM add-in xlPerf connect=false;add-in ANALYS32.XLL open=false installed=false;add-in ATPVBAEN.XLAM open=false installed=false;add-in CsTest160PR-AddIn64-packed.xll open=false installed=false;add-in EUROTOOL.XLAM open=false installed=false;add-in ExcelDna.IntelliSense.Tools-AddIn64.xll open=false installed=false;add-in ExcelDna.IntelliSense64.xll open=false installed=false;add-in ExcelDna64.xll open=false installed=false;add-in GENERIC.xll open=false installed=false;add-in McpExcel-AddIn64.xll open=false installed=true;add-in RibbonTest-AddIn64.xll open=false installed=false;add-in SOLVER.XLAM open=false installed=false;add-in Test160rc1Local-AddIn64.xll open=false installed=false;add-in TestCrashGuard-AddIn64.xll open=false installed=true;add-in TestCs170rc2-AddIn64.xll open=false installed=false;add-in TestDoc170-AddIn64.xll open=false installed=false;add-in TestIntelliEmbed-AddIn64.xll open=false installed=false;add-in TestOpen16-AddIn64-packed.xll open=false installed=false",
+            "com_add_ins_connected": "VS15ExcelAdaptor|Visual Studio Tools for Office Design-Time Adaptor for Excel",
+            "add_ins_installed": "McpExcel-AddIn64.xll;TestCrashGuard-AddIn64.xll",
+            "has_vb_project": "false",
+            "opened_read_only": "true",
+            "external_links": "",
+            "ole_dde_links": "",
+            "connections": "",
+            "calculation_clock": "40e69e958719a0fb"
+          }
+        },
+        "session": {
+          "revision": 0,
+          "operations": [],
+          "context": "excel-calc-context/1;date1904=false;iteration=false;max_iterations=100;max_change=3f50624dd2f1a9fc;precision_as_displayed=false",
+          "tool": "calc-oracle-excel 0.1.0; worker sha256:599032d018da3b9889269e0ca46c2c1c7f2f21572fb378bc1781a73b9cd93d25; repository 4f063f15a5447eae93ae8d2d5fe0edb6376207b7+dirty",
+          "packages": {
+            "input": "sha256:a00beb0092961e06082007939d1d8d92c53e7f7f6f2f73e8d7048ec9b3875460",
+            "output": "sha256:eb8bb7f4fe7999ab822768596fede42bbc30cf3cdfad73ef081dbc9f2ffa6057"
+          },
+          "failures": [
+            {
+              "stage": "value",
+              "sheet": "information_functions",
+              "row": 157,
+              "column": 4,
+              "message": "Excel error code 2051 is not one this value model holds"
+            },
+            {
+              "stage": "reopen",
+              "sheet": "information_functions",
+              "row": 157,
+              "column": 4,
+              "message": "Excel error code 2051 is not one this value model holds"
+            }
+          ]
+        }
+      }
+    }
+  ],
   "implementations": [],
   "variants": []
 }

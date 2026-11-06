@@ -2,7 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.GETPIVOTDATA",
   "try_it": {
-    "formula": "=GETPIVOTDATA(1)"
+    "formula": "=GETPIVOTDATA(\"Sales\",B2)",
+    "inputs": {
+      "B2": 1
+    },
+    "preview_status": "refused",
+    "note": "This example needs a worksheet PivotTable. OneCalc has no PivotTable in this preview."
   },
   "versions": [],
   "implementations": [],

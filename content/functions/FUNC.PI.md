@@ -20,14 +20,12 @@ references:
     role: "why a rounded pi is not enough for large-argument trigonometric reduction"
 episodes: []
 body_sections:
-  - "What it computes"
-  - "Arguments"
-  - "Result and edge cases"
-  - "Errors"
-  - "Relationships"
-  - "Numerical notes"
-  - "What has not been checked"
-  - "Page vocabulary"
+  - "What it does"
+  - "Try it"
+  - "Quirks"
+  - "How to implement"
+  - "Version differences"
+  - "Alternatives"
   - "Sources"
 family: pi
 role_in_family: "The whole family: a nullary constant with its own module, no arguments and no domain."
@@ -35,144 +33,59 @@ role_in_family: "The whole family: a nullary constant with its own module, no ar
 
 # PI
 
-## What it computes
+## What it does
 
-`PI()` returns the circle constant π — the ratio of a circle's circumference to its diameter,
-equivalently the least positive zero of `sin`, equivalently `4·arctan(1)`.
+`PI()` returns Excel's floating-point approximation to π, the ratio of a circle's circumference
+to its diameter. It takes no arguments. Use `PI()*radius^2` for a circle's area and `2*PI()*radius`
+for its circumference when ordinary floating-point arithmetic is appropriate.
 
-    π = 3.14159265358979323846264338327950288...
+In the recorded Excel 16.0.20527.20088 capture, the returned binary64 is
+`0x400921fb54442d18`, approximately 3.141592653589793. This is the nearest binary64 value to π;
+it is still a finite approximation to an irrational number.
 
-π is irrational (Lambert, 1761) and transcendental (Lindemann, 1882). Neither property is
-decorative here: **no floating-point number is π**. What a worksheet can hand back is the
-binary64 value nearest to π, which is the exact dyadic rational
+## Try it
 
-    7074237752028440 / 2^51
+Calculate `=PI()` to see the decimal and raw binary64 bits. Compare `=PI()-3.14159265358979` to
+see why a decimal copied from a documentation display is not the same stored constant.
 
-and which differs from π by δ ≈ 1.2246467991473532×10⁻¹⁶ — the number that shows up whenever
-someone asks why the sine of a right angle is not zero.
+## Quirks
 
-Microsoft's VBA reference describes the return as "the mathematical constant pi, accurate to 15
-digits". Fifteen digits is a statement about the decimal rendering, not about the stored value:
-the stored double carries the full ~17 significant decimal digits of the nearest binary64.
+Microsoft's description gives π to fifteen significant decimal digits. Parsing that shorter
+decimal, 3.14159265358979, produces binary64 `0x400921fb54442d11`, seven representable steps below
+the recorded PI result. The description is not an instruction to store that truncated string.
 
-## Arguments
+Identities involving exact π need not hold exactly when evaluated with a rounded constant and
+rounded arithmetic. Multiplying or dividing this normal binary64 constant by 2 is exact in
+binary arithmetic; dividing by 3 or 180 generally introduces another rounding.
 
-None. The projection records an arity of exactly zero and the kernel class `NullaryConst`: the
-function takes no arguments, has no optional slots, and admits no coercion. The parentheses are
-mandatory syntax, not an empty argument list.
+The order of operations also matters: `x*PI()/180` and `x*(PI()/180)` round at different places.
+Their mathematical equality does not imply identical numeric results.
 
-Because there is no argument, none of the shared coercion machinery in
-[Coercion and lifting](../model/02-coercion-and-lifting.md) applies to this surface.
+## How to implement
 
-## Result and edge cases
+For the recorded constant, construct binary64 from the 64-bit pattern `0x400921fb54442d18` or
+the equivalent hexadecimal floating-point literal `0x1.921fb54442d18p+1`. Return a numeric value
+and reject an argument-bearing call at the formula boundary. Computing π through a platform
+inverse-trigonometric function adds an unnecessary dependency on that function's rounding.
 
-Returns `Number`. The projection classifies it `Deterministic`, `NonVolatile`, `SafePure` — the
-same value on every call, every recalculation and every thread. There is no edge case in the
-argument domain, because there is no argument domain.
+Keep a worksheet PI constant separate from a high-precision constant used inside trigonometric
+argument reduction. Reducing a large angle with only a rounded binary64 π loses information;
+many-word reduction methods address a different problem from returning this worksheet constant.
 
-The two edges that exist are elsewhere:
+## Version differences
 
-1. **`PI()` is not π.** Any identity that holds exactly for π holds only approximately for
-   `PI()`. `SIN(PI())` is not zero; mathematically `sin(fl(π)) = sin(π − δ) = sin δ ≈ δ`, so the
-   result is the tiny residual above rather than zero. This is correct arithmetic on a correct
-   constant, and it is the most common "bug report" the constant attracts.
-2. **`PI()/2` is exact, `PI()*2` is exact, `PI()/3` is not.** Halving and doubling a binary
-   float are exact; dividing by three is not. Formulas that need π/2 or 2π lose nothing;
-   formulas that need π/180 (see [RADIANS](FUNC.RADIANS.md)) round twice.
+The raw constant below was captured on Excel 16.0.20527.20088 for Windows. It is not a comparison
+of every build. The documentation's fifteen-digit wording describes accuracy at that decimal
+scale and does not specify all of the returned bits on every platform.
 
-## Errors
+## Alternatives
 
-No documented error condition and no domain to violate. The only refusal available is an
-argument count other than zero, which is an admission failure at formula entry rather than a
-runtime error value — see the entry-time rejection rule in
-[Coercion and lifting](../model/02-coercion-and-lifting.md).
-
-## Relationships
-
-- **[RADIANS](FUNC.RADIANS.md)** and **`DEGREES`** — the two functions that exist so you do not
-  have to write `x*PI()/180`, and which round differently from that expression.
-- **`SQRTPI`** — returns `SQRT(number·π)`. OxFunc's math-deviation catalogue records `SQRTPI` as
-  evaluated through a general power rather than a correctly rounded square root, which makes it a
-  poorer route to `√π` than the name suggests.
-- **The trigonometric family** (`SIN`, `COS`, `TAN`, `SEC`, `CSC`, `COT`) — all of which reduce
-  their argument modulo 2π internally, using a π that is not `PI()` and not visible from the
-  worksheet.
-- **There is no `E()`.** Excel publishes π as a function and Euler's number only as `EXP(1)`.
-  The asymmetry is historical, not principled.
-
-## Numerical notes
-
-The interesting numerics of a constant are entirely about what happens downstream.
-
-**Argument reduction is the reason a rounded π is not enough.** Computing `sin(x)` for large `x`
-requires `x mod 2π` — and the modulus must be taken against *π*, not against `fl(π)`. Reducing
-with a 53-bit π loses one bit of the reduced argument for every bit by which `x` exceeds π, so a
-naive reduction is worthless well before the exponent range is exhausted. The standard remedy is
-Payne–Hanek reduction, which multiplies by a many-word representation of 2/π and keeps only the
-bits that survive; fdlibm's `__ieee754_rem_pio2` is the canonical implementation. Excel's own
-circular-trigonometric surfaces sidestep the problem instead: OxFunc's math-deviation catalogue
-records live Excel refusing arguments of magnitude 2²⁷ or greater with `#NUM!` — see
-[SEC](FUNC.SEC.md).
-
-**Writing `3.14159265358979` in a cell is not the same as writing `PI()`.** The literal parses to
-a different double: the decimal shown in the documentation is π truncated, not π rounded to 15
-digits, and truncation and round-to-nearest disagree here. Spreadsheets that hard-code the
-constant from the documentation string are working with a different number from the ones that
-call the function.
-
-**Where π appears inside a formula, association matters.** `x*PI()/180` and `x*(PI()/180)` are
-two different computations: the first rounds `x·fl(π)` and then divides, the second rounds
-`fl(π)/180` once and then multiplies. Neither is uniformly better; they differ, and the
-difference is the whole subject of [RADIANS](FUNC.RADIANS.md).
-
-## What has not been checked
-
-No Handbook vector suite exists for `PI`, and no evidence record in
-`content/evidence/records/` lists this surface among its subjects. Nobody has checked this
-function against Excel within the Handbook's record. The probe battery rendered beside this page
-is a reference-engine measurement, not an Excel measurement.
-
-The whole question for this surface is a single bit pattern, so the probe list is short and
-decisive:
-
-1. **The returned bits.** Whether Excel's `PI()` is the binary64 nearest to π or a different
-   nearby double. `=PI()-3.14159265358979` and `=PI()*2^51` are the two cheapest discriminators
-   that survive display rounding; the second is exact and integral if and only if the value is
-   the nearest double.
-2. **`SIN(PI())`.** If the constant is the nearest double, the result is the residual δ above.
-   Any other value means either the constant or `SIN` is not what this page assumes.
-3. **`PI()` under a non-English locale and under Compatibility Version 1**, to establish that the
-   constant is not one of the surfaces that shifts with workbook mode.
-4. **`PI()` inside an add-in call across the C API boundary**, which is where a value that is
-   normalized on the worksheet would show its raw form.
-
-Until those exist, the honest statement is that the Handbook knows what π is and does not know
-what Excel returns for it.
-
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| nullary | Takes no arguments; the parentheses are syntax, not an empty argument list |
-| nearest double | The binary64 value closest to the exact real number, under round-to-nearest-even |
-| δ (delta) | The gap π − fl(π); the value `SIN(PI())` should return |
-| argument reduction | Reducing a trigonometric argument modulo 2π before evaluating a kernel |
+[RADIANS](FUNC.RADIANS.md) and [DEGREES](FUNC.DEGREES.md) convert angle units; they have their
+own arithmetic and rounding order. [SQRTPI](FUNC.SQRTPI.md) computes a function involving π.
+Use a higher-precision representation when the surrounding calculation needs more precision
+than binary64 can retain.
 
 ## Sources
 
-- Microsoft, "WorksheetFunction.Pi method (Excel)" —
-  <https://learn.microsoft.com/en-us/office/vba/api/excel.worksheetfunction.pi> (the "accurate to
-  15 digits" wording, and the absence of any statement about the stored bits).
-- Microsoft Support, "PI function" —
-  <https://support.microsoft.com/en-us/office/pi-function-264199d0-a3ba-46b8-975a-c4a04608989b>
-  (the worksheet page named in `data/functions/FUNC.PI.json`; the Handbook's retrieval of this
-  page was refused with HTTP 403 during this pass, so nothing on this page is sourced from it).
-- Abramowitz & Stegun, *Handbook of Mathematical Functions*, chapter 4 — the elementary
-  transcendental functions and the high-precision value of π.
-- Payne & Hanek, "Radian reduction for trigonometric functions", SIGNUM Newsletter 18 (1983);
-  fdlibm `__ieee754_rem_pio2` — the standard treatment of reduction against an exact π.
-- Handbook, [The value universe](../model/01-value-universe.md) and
-  [Coercion and lifting](../model/02-coercion-and-lifting.md).
-- Handbook projections `data/functions/FUNC.PI.json` (arity 0, `NullaryConst`, `Deterministic`,
-  `NonVolatile`, `SafePure`) and `data/presence/FUNC.PI.json` (implementing module, no sibling
-  surfaces, no upstream defect streams).
+- [Microsoft: PI function](https://support.microsoft.com/en-us/excel/functions/pi-function).
+- Payne and Hanek, *Radian reduction for trigonometric functions* (1983).

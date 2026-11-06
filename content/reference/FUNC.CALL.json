@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.CALL",
   "try_it": {
-    "formula": "=CALL(1)"
+    "formula": "=CALL(\"example.dll\",\"ExampleFunction\",\"J\")",
+    "preview_status": "refused",
+    "note": "This Excel interface needs a host library. OneCalc cannot load a native library in this preview."
   },
   "versions": [],
   "implementations": [],

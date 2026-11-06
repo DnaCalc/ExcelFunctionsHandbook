@@ -2,7 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.AGGREGATE",
   "try_it": {
-    "formula": "=AGGREGATE(9, 6, {1,2,3})"
+    "formula": "=AGGREGATE(9,6,B2:B4)",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3
+    }
   },
   "versions": [],
   "implementations": [],

@@ -11,119 +11,71 @@ references:
     role: "documented behaviour of the serial_number argument and the 0-59 return range"
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Notes for implementers
-  - What has not been checked
-  - Page vocabulary
-  - Sources
+  - "What it does"
+  - "Try it"
+  - "Quirks"
+  - "How to implement"
+  - "Version differences"
+  - "Alternatives"
+  - "Sources"
 family: date_parts_family
 role_in_family: "Extracts the second component from the fractional part of a serial; the finest
   projection Excel's time model exposes, and the one where floating-point rounding is visible."
 ---
 
-## What it computes
+# SECOND
 
-`SECOND` reads the second-within-the-minute out of a serial's fractional part:
+## What it does
 
-> `SECOND(s)` = ⌊ 86400 · frac(s) ⌋ mod 60, as an integer 0…59
+`SECOND(serial_number)` returns the second within the minute, as an integer from 0 through 59.
+Excel represents a day by one unit, so 0.5 is noon. A full date-time serial can be supplied;
+this function extracts a clock component rather than an elapsed duration.
 
-Days, hours and minutes are all discarded; the result is a clock reading, not a count. `SECOND` is
-also the end of the road: Excel's time model exposes nothing finer, so sub-second information
-present in the double is not reachable through this family.
+The argument may be a serial number, a time produced by another formula, or time text that the
+locale can parse. Text parsing and component extraction are separate operations.
 
-This is the function where the representability problem in Excel's time model becomes visible
-rather than theoretical. The fraction of a day corresponding to one second is 1/86400, which is
-not representable in binary; a serial built to mean 08:30:00 differs from the exact mathematical
-value by a fraction of an ulp, and 86400 times that error can push the floor across an integer
-boundary. Every credible implementation therefore rounds the fraction to a whole second before
-splitting it. **The exact rounding rule Excel uses is not stated on the documentation page and has
-not been established for this Handbook** — which is precisely why this function is worth a suite.
+## Try it
 
-## Arguments
+Start with `=SECOND(TIME(12,34,56))`. Compare `=HOUR(TIME(12,34,56))`, `=MINUTE(TIME(12,34,56))` and
+`=SECOND(TIME(12,34,56))` to see the three components of the same time.
 
-`SECOND(serial_number)` — one required argument: the time whose second is wanted.
+## Quirks
 
-Microsoft's category guidance applies: prefer serials from [TIME](FUNC.TIME.md),
-[NOW](FUNC.NOW.md) or another formula over text, whose parse is locale-dependent. Coercion follows
-[the ordinary scalar rules](../model/02-coercion-and-lifting.md).
+A day has 24 hours and each hour and minute has 60 subdivisions. The component wraps; for total
+elapsed hours, minutes or seconds, use arithmetic on the duration rather than this extractor.
 
-## Result and edge cases
+On Excel 16.0.20527.20088 for Windows, `SECOND(0.5+1/86400*1.5)` returns 1. The expression lies near a rounding boundary; replacing the arithmetic with exact decimal 12:00:01.5 can change the question.
 
-Returns a `Number` in 0…59.
+The documentation describes the returned component, but does not specify every binary64 boundary
+or intermediate rounding. A simple floor of a scaled fractional day is therefore an incomplete
+compatibility specification. Invalid date/time input and negative serial handling also need the
+target workbook's date-system rules.
 
-- **Whole serials** have no fractional part; `SECOND` of a pure date is 0.
-- **No sub-second precision is exposed.** A serial carrying half a second of extra offset reports
-  the same integer as one that does not — until the rounding rule pushes it over.
-- **Values produced by subtraction** are where mismatches surface first. The difference of two
-  timestamps accumulates representation error from both operands, so `SECOND(b−a)` is the most
-  fragile common use of the function.
-- **Negative serials** fall in this category's documented `#NUM!` region.
+## How to implement
 
-## Errors
+Separate argument coercion and range checks from the clock calculation. Preserve the numeric
+serial as binary64. OneCalc's compatibility candidate first adds `0.5/86400` to the serial,
+then takes its fractional day. It multiplies by 24, takes the integer hour, multiplies the
+remaining fraction by 60, takes the integer minute, and multiplies the next remainder by 60 to
+obtain the integer second, reduced modulo 60.
 
-- `#NUM!` when `serial_number` is out of range for the workbook's date-base value.
-- `#VALUE!` when the argument cannot be coerced to a number (ordinary coercion behaviour).
-- An error argument propagates.
+That operation order matters near a boundary. Computing a single rounded total-second integer
+and splitting it is a sensible mathematical design, but is not established as interchangeable
+with this sequence. Test a value and its adjacent binary64 neighbours around each second, minute,
+hour and midnight transition. Do not let date formatting decide the numeric result.
 
-The linked Microsoft page documents no `SECOND`-specific condition beyond these.
+## Version differences
 
-## Relationships
+The observations below are scoped to their captured Excel build, platform and input expression.
+No comparison across builds establishes a change in the component-rounding rule here. The
+1900/1904 date system is workbook context, separate from the Excel product version.
 
-- **[HOUR](FUNC.HOUR.md), [MINUTE](FUNC.MINUTE.md)** — the coarser projections. The three together
-  invert [TIME](FUNC.TIME.md) to whole-second resolution.
-- **[TIME](FUNC.TIME.md)** — the constructor. `TIME(HOUR(s),MINUTE(s),SECOND(s))` versus `frac(s)`
-  is the round trip that any rounding-rule hypothesis has to survive.
-- **[NOW](FUNC.NOW.md)** — whether `NOW` even carries a nonzero seconds component is a property of
-  the host's clock granularity, not of `SECOND`.
-- **Confusable.** `SECOND(b−a)` for elapsed seconds; the correct expression is `(b−a)*86400`.
+## Alternatives
 
-## Notes for implementers
-
-1. **Round to a whole second-of-day once, in shared code.** `HOUR`, `MINUTE` and `SECOND` must all
-   read the same integer or their answers can be mutually inconsistent — a triple like 08:59:60 is
-   reachable if each function rounds independently.
-2. **Choose the rounding mode deliberately and record the choice.** Round-half-up, round-half-even
-   and "nearest representable second" agree almost everywhere and disagree on a thin, findable set.
-   An implementation that has not written down which one it uses does not know what it does.
-3. **Guard the carry.** Rounding 59.6 seconds up must carry into the minute and, at 23:59:59.6,
-   into the day. An implementation that rounds seconds without carrying will emit 60.
-
-## What has not been checked
-
-No Handbook vector suite exists for `SECOND`, and no Excel-comparison evidence is recorded. The
-battery on this page is the reference engine's own answer set; no Excel was involved. The probes
-that would actually settle something:
-
-- **Serials one ulp either side of every second boundary in a representative hour.** This is the
-  discriminating set for the rounding rule and the reason this function, alone in the parts family,
-  deserves a large suite rather than a small one.
-- **`SECOND` of differences** — build two timestamps a known number of seconds apart via
-  `DATE`+`TIME`, subtract, and read the seconds back. Round-trip failures here are what users
-  actually report.
-- **The 23:59:59.5 region** — whether rounding carries into the next day, and what `HOUR` and
-  `MINUTE` report for the same input.
-- **`SECOND(0)` and the negative boundary.**
-
-Until such a suite exists, no statement about `SECOND` agreeing with Excel at the boundary can be
-made in either direction, and this page makes none.
-
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| clock reading | A value determined by position within the minute, discarding larger units |
-| second-of-day | The integer 0…86399 that shared code should derive once |
-| discriminating set | The thin set of inputs on which candidate rounding rules disagree |
+Use [TIME](FUNC.TIME.md) to construct a clock value and [TIMEVALUE](FUNC.TIMEVALUE.md) to parse
+text. For elapsed time, multiplying a duration by 24, 1440 or 86400 retains the full interval.
+[TEXT](FUNC.TEXT.md) or a cell format controls presentation without extracting a numeric component.
 
 ## Sources
 
-- Microsoft 365 support, **SECOND function** —
-  <https://support.microsoft.com/en-us/office/second-function-740d1cfc-553c-4099-b668-80eaa24e8af1>.
-- [FUNC.TIME](FUNC.TIME.md) — the constructor and its documented 0…0.99988426 range.
-- Handbook call-model chapter [02 coercion and lifting](../model/02-coercion-and-lifting.md).
-- `data/functions/FUNC.SECOND.json`, `data/presence/FUNC.SECOND.json`,
-  `data/battery/FUNC.SECOND.json`.
+- [Microsoft: SECOND function](https://support.microsoft.com/en-us/excel/functions/second-function).

@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.CUBERANKEDMEMBER",
   "try_it": {
-    "formula": "=CUBERANKEDMEMBER(1)"
+    "formula": "=CUBERANKEDMEMBER(\"ThisWorkbookDataModel\",\"[Product].[All Products].Children\",1)",
+    "preview_status": "refused",
+    "note": "This example needs an Excel cube connection. OneCalc cannot provide that connection in this preview."
   },
   "versions": [],
   "implementations": [],

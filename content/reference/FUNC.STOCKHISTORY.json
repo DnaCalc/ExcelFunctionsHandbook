@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.STOCKHISTORY",
   "try_it": {
-    "formula": "=STOCKHISTORY(1)"
+    "formula": "=STOCKHISTORY(\"MSFT\",DATE(2026,1,1),DATE(2026,1,8))",
+    "preview_status": "refused",
+    "note": "This example needs an Excel service or external provider that OneCalc cannot supply in this preview."
   },
   "versions": [],
   "implementations": [],

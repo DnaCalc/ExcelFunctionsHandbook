@@ -2,7 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.SUBTOTAL",
   "try_it": {
-    "formula": "=SUBTOTAL(1,1)"
+    "formula": "=SUBTOTAL(9,B2:B4)",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3
+    }
   },
   "versions": [],
   "implementations": [],

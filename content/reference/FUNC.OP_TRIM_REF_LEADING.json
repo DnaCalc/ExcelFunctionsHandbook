@@ -2,9 +2,25 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.OP_TRIM_REF_LEADING",
   "try_it": {
-    "formula": "=SUM( B2)"
+    "formula": "=SUM( B2)",
+    "inputs": {
+      "B2": 1
+    }
   },
   "versions": [],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "display_name": "Whitespace before a reference",
+  "signature": {
+    "display": "SUM( reference)",
+    "parameters": [
+      {
+        "name": "reference",
+        "optional": false,
+        "repeats": false,
+        "description": "A reference surrounded by ordinary formula whitespace."
+      }
+    ],
+    "trailing_repeats": false
+  }
 }

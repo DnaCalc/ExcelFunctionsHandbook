@@ -2,7 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.COUNTIF",
   "try_it": {
-    "formula": "=COUNTIF({1;2;3},\">1\")"
+    "formula": "=COUNTIF(B2:B4,\">1\")",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3
+    }
   },
   "versions": [],
   "implementations": [],

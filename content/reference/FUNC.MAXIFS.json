@@ -2,7 +2,15 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.MAXIFS",
   "try_it": {
-    "formula": "=MAXIFS(1)"
+    "formula": "=MAXIFS(C2:C4,B2:B4,\">1\")",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3,
+      "C2": 10,
+      "C3": 20,
+      "C4": 30
+    }
   },
   "versions": [],
   "implementations": [],

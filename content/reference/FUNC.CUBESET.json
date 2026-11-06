@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.CUBESET",
   "try_it": {
-    "formula": "=CUBESET(1)"
+    "formula": "=CUBESET(\"ThisWorkbookDataModel\",\"[Product].[All Products].Children\")",
+    "preview_status": "refused",
+    "note": "This example needs an Excel cube connection. OneCalc cannot provide that connection in this preview."
   },
   "versions": [],
   "implementations": [],

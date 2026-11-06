@@ -2,9 +2,18 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.OP_INTERSECTION_REF",
   "try_it": {
-    "formula": "=OP_INTERSECTION_REF(1,1)"
+    "formula": "=SUM(B2:C3 B3:C4)",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3,
+      "C2": 10,
+      "C3": 20,
+      "C4": 30
+    }
   },
   "versions": [],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "display_name": "Intersection of references (space)"
 }

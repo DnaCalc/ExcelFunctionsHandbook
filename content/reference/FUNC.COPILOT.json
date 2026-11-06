@@ -2,7 +2,14 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.COPILOT",
   "try_it": {
-    "formula": "=COPILOT(1)"
+    "formula": "=COPILOT(\"Describe these values\",B2:B4)",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3
+    },
+    "preview_status": "refused",
+    "note": "This example needs an Excel service or external provider that OneCalc cannot supply in this preview."
   },
   "versions": [],
   "implementations": [],

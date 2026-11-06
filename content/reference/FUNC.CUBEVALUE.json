@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.CUBEVALUE",
   "try_it": {
-    "formula": "=CUBEVALUE(1)"
+    "formula": "=CUBEVALUE(\"ThisWorkbookDataModel\",\"[Measures].[Sales]\")",
+    "preview_status": "refused",
+    "note": "This example needs an Excel cube connection. OneCalc cannot provide that connection in this preview."
   },
   "versions": [],
   "implementations": [],

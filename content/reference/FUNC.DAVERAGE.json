@@ -2,7 +2,26 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.DAVERAGE",
   "try_it": {
-    "formula": "=DAVERAGE(1)"
+    "formula": "=DAVERAGE(B2:D6,\"Amount\",F2:F3)",
+    "inputs": {
+      "B2": "Name",
+      "C2": "Group",
+      "D2": "Amount",
+      "B3": "A",
+      "C3": "East",
+      "D3": 10,
+      "B4": "B",
+      "C4": "East",
+      "D4": 20,
+      "B5": "C",
+      "C5": "West",
+      "D5": 30,
+      "B6": "D",
+      "C6": "East",
+      "D6": 40,
+      "F2": "Group",
+      "F3": "East"
+    }
   },
   "versions": [],
   "implementations": [],

@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.CUBEMEMBER",
   "try_it": {
-    "formula": "=CUBEMEMBER(1)"
+    "formula": "=CUBEMEMBER(\"ThisWorkbookDataModel\",\"[Measures].[Sales]\")",
+    "preview_status": "refused",
+    "note": "This example needs an Excel cube connection. OneCalc cannot provide that connection in this preview."
   },
   "versions": [],
   "implementations": [],

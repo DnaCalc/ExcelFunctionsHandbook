@@ -2,7 +2,21 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.PIVOTBY",
   "try_it": {
-    "formula": "=PIVOTBY(1,1,{1;2;3},{1;2;3})"
+    "formula": "=PIVOTBY(B2:B5,D2:D5,C2:C5,LAMBDA(x,SUM(x)))",
+    "inputs": {
+      "B2": 1,
+      "B3": 2,
+      "B4": 3,
+      "B5": 4,
+      "C2": 10,
+      "C3": 20,
+      "C4": 30,
+      "C5": 40,
+      "D2": 1,
+      "D3": 1,
+      "D4": 2,
+      "D5": 2
+    }
   },
   "versions": [],
   "implementations": [],

@@ -2,7 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.FORMULATEXT",
   "try_it": {
-    "formula": "=FORMULATEXT({1;2;3})"
+    "formula": "=FORMULATEXT(B2)",
+    "inputs": {
+      "B2": 1
+    },
+    "note": "Input cells in this preview hold values rather than authored formulas, so FORMULATEXT cannot retrieve a stored formula here.",
+    "preview_status": "worksheet-error"
   },
   "versions": [],
   "implementations": [],

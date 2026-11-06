@@ -2,7 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.PHONETIC",
   "try_it": {
-    "formula": "=PHONETIC(\"...\")"
+    "formula": "=PHONETIC(B2)",
+    "inputs": {
+      "B2": 1
+    },
+    "preview_status": "worksheet-error",
+    "note": "Input cells in this preview do not carry phonetic annotations. OneCalc therefore returns #N/A for this example."
   },
   "versions": [],
   "implementations": [],

@@ -2,7 +2,9 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.CUBEMEMBERPROPERTY",
   "try_it": {
-    "formula": "=CUBEMEMBERPROPERTY(1)"
+    "formula": "=CUBEMEMBERPROPERTY(\"ThisWorkbookDataModel\",\"[Product].[All Products]\",\"Caption\")",
+    "preview_status": "refused",
+    "note": "This example needs an Excel cube connection. OneCalc cannot provide that connection in this preview."
   },
   "versions": [],
   "implementations": [],

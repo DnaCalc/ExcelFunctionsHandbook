@@ -2,7 +2,12 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.CUBESETCOUNT",
   "try_it": {
-    "formula": "=CUBESETCOUNT(\"hello\")"
+    "formula": "=CUBESETCOUNT(B2)",
+    "inputs": {
+      "B2": 1
+    },
+    "preview_status": "refused",
+    "note": "This example needs an Excel cube connection. OneCalc cannot provide that connection in this preview."
   },
   "versions": [],
   "implementations": [],

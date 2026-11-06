@@ -2,9 +2,15 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.OP_SPILL_REF",
   "try_it": {
-    "formula": "=OP_SPILL_REF()"
+    "formula": "=SUM(B2#)",
+    "inputs": {
+      "B2": 1
+    },
+    "note": "The spill operator needs a worksheet spill. OneCalc cannot provide a spilled worksheet range in this preview.",
+    "preview_status": "worksheet-error"
   },
   "versions": [],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "display_name": "Spill reference (#)"
 }
