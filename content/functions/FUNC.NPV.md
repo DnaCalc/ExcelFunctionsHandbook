@@ -35,7 +35,14 @@ Order determines timing. Use numeric zero to represent a period with no cash flo
 
 ## How to implement
 
-Collect the admitted numeric flows in worksheet order. The current kernel sets `base=1+rate`, `discount=1`, `total=0`, then for each flow assigns `discount*=base` followed by `total+=flow/discount`. Reject a zero base and nonfinite final results under its error policy. A power-per-term implementation or reverse Horner fold has a different rounding history. The two-flow example advances the factor through 1.25 and 1.5625. This numerical fold remains distinct from its array/reference admission policy.
+1. Collect admitted numeric flows in worksheet order. Keep this traversal separate from data admission: an ignored cell does not become a zero-valued period.
+2. With `D` denoting ordinary nearest/even binary64 storage, set `base=D(1+rate)`, `discount=1` and `total=0`. A zero base gives `#DIV/0!` in the current helper.
+3. For each admitted flow, store `discount=D(discount*base)`, `term=D(flow/discount)`, then `total=D(total+term)`.
+4. After the last flow, reject a nonfinite total with `#NUM!`; otherwise publish the numeric result. The current helper also rejects an empty numeric sequence.
+
+In the example, the first discount factor is 1.25 and the first term 100. The next factor is 1.5625 and the next term is also 100, giving 200. At rate `-2`, the base is minus one and factors alternate signs: the current retained control `NPV(-2,100)` returns `-100` rather than rejecting every rate below minus one.
+
+A power-per-term implementation or reverse Horner fold has a different rounding history. The loop above describes current code, including its stored factors; the mathematical definition alone does not identify Excel’s entire numerical implementation.
 
 ## Version differences
 

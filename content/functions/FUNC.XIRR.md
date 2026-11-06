@@ -31,11 +31,25 @@ Put `-1000,1250` in B2:B3 and enter `=DATE(2027,1,1)` and `=DATE(2028,1,1)` in C
 
 ## Quirks
 
-Values and dates must align; a date before the first supplied date or differing counts gives `#NUM!`, while invalid dates give `#VALUE!`. Date serials are truncated. At least one positive and one negative flow are required. Several sign changes can admit multiple roots, and failure to converge gives `#NUM!`.
+Values and dates must align; a date before the first supplied date or differing counts gives `#NUM!`, while invalid dates give `#VALUE!`. Date serials are truncated. At least one positive and one negative flow are required. Later dates may be out of order, but the first supplied date remains the anchor.
+
+Several sign changes can admit multiple roots. Guess can affect the selected result and its last digits even when the mathematical root is unique. Microsoft documents an iterative result accuracy of 0.000001 percent and a limit of 100 tries; failure gives `#NUM!`. That public stopping description does not identify every private residual or iteration step.
 
 ## How to implement
 
-Solve `sum(value_i/(1+r)^((date_i-date_0)/365))=0` using the supplied guess, domain guards and a convergence test. A bracketed fallback makes a mathematical solver safer than unguarded Newton steps, but it need not reproduce Excel’s chosen root. The current code has a distinct two-cash-flow route and other iterative routes; do not assume its internal residual is the public XNPV wrapper. In the example the equation reduces to `-1000+1250/(1+r)=0`. Root and power last-bit stages remain partly open.
+The mathematical equation is `sum(value_i/(1+r)^t_i)=0`, with `t_i=(date_i-date_0)/365`. It provides a residual, not a complete rule for choosing one root.
+
+The current reconstruction uses the following routes after validating signed flows and aligned dates:
+
+1. Its internal residual forms `base=1+r` with ordinary binary64 arithmetic. For each input in supplied order it calculates the binary64 year fraction, calls the internal runtime power leaf `crt_pow(base,t_i)`, divides the flow by it, and adds to a binary64 total. Rates at or below `-0.999999999` are outside this current solver’s accepted domain.
+2. For exactly two flows, compute the candidate `(-value_1/value_0)^(1/t_1)-1`. Reject a nonpositive date difference or an invalid ratio. A negative candidate can return directly. For a nonnegative candidate, a negative or zero guess is rejected by the current path; it does not simply publish the closed form.
+3. For the two-flow positive route, evaluate the residual at zero and at the guess. If they have the same sign, repeatedly move the lower endpoint up to the upper one and double the upper rate, with a limit of 128 expansions. Return an endpoint whose residual is exactly zero.
+4. Bisect the bracket. Before testing the midpoint residual, the current route returns the midpoint when `(upper-lower)/abs(midpoint)<=2e-8`; otherwise replace the endpoint with the same residual sign. It permits at most 100 bisections.
+5. For more than two flows, the positive-guess route also brackets and bisects, but uses width `<=1e-8*(1+2*abs(midpoint))`. A failed positive route can fall back to the source’s bounded secant/Newton solver. That fallback has its own derivative and bounds; it is not established by the two-flow recipe.
+
+For the example, the residual is `-1000+1250/(1+r)`. Starting at guess 0.1 gives a positive residual, as does 0.2; 0.4 gives a negative one. Bisection tests 0.3 and then 0.25, where this simple example reaches zero. On less convenient inputs the width test can publish an approximation before an exactly zero residual appears.
+
+Do not call the public XNPV wrapper as this internal residual: it uses worksheet POWER, stored x87 operations and a different rate guard. The route above describes the cited implementation and its retained controls. Full root-selection coverage, runtime-power last bits and transfer of every stopping boundary remain open.
 
 ## Version differences
 

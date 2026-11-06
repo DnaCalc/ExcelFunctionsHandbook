@@ -32,11 +32,23 @@ role_in_family: null
 
 ## Quirks
 
-Date values are truncated. Invalid dates give `#VALUE!`; a nonpositive discount or an invalid/too-long settlement-to-maturity interval gives `#NUM!`. The public interval limit is one calendar year, not an arbitrary fixed count of 365 days. There is no optional basis argument.
+Date values are truncated. Invalid dates give `#VALUE!`; a nonpositive discount or an invalid/too-long settlement-to-maturity interval gives `#NUM!`. There is no optional basis argument.
+
+The one-year limit follows calendar rollover, rather than a fixed 365-day cap or an end-of-month clamp. The cited build-20430 controls admit settlement 29 February 2044 with maturity 1 March 2045, but reject settlement 28 February 1991 with maturity 29 February 1992. The first limit is the result of `DATE(2045,2,29)`, which rolls into March.
+
+The current helper rejects equal settlement and maturity, and also rejects a calculated price at or below zero. The opened Microsoft remarks explicitly mention settlement later than maturity and nonpositive discount; they do not spell out those two additional guards. A positive discount alone does not ensure a positive price.
 
 ## How to implement
 
-Validate the date interval against the documented calendar-year limit, compute actual days D, and apply `100*(1-discount*D/360)` under the source’s operation order. A discount rate is applied to redemption here, while an investment yield divides return by the purchase price. Keep that distinction when implementing related bill functions; converting one rate to the other requires a price-dependent transformation.
+1. Coerce the date arguments through the workbook’s date system and truncate their serial values. Validate the discount as finite and positive. Keep the date coercion layer separate: the notes below record a blank reference reading as serial zero, while a logical reference gives `#VALUE!`.
+2. Require settlement before maturity. Convert settlement to year, month and day; construct the next-year date with Excel’s day rollover. Reject maturity beyond that serial date. In the current helper this uses the 1900 date-system conversion functions, including their treatment of Excel’s fictitious leap day.
+3. Let `days=maturity-settlement`. These are actual serial days, without a 30/360 adjustment.
+4. With `D` meaning one nearest/even binary64 rounding, calculate `product=D(discount*days)`, `fraction=D(product/360)`, `remaining=D(1-fraction)`, then `price=D(100*remaining)`. Keep these separate stores and disable contraction into fused operations.
+5. Return `#NUM!` for a nonpositive calculated price; otherwise pass the result through the worksheet’s numeric publisher.
+
+For the thirty-day example, the mathematical discount fraction is `0.06*30/360=0.005`, so the price is `100*(1-0.005)=99.5`. A discount of twelve over thirty days instead consumes the full face value and reaches the nonpositive-price guard.
+
+This is the current code’s ordinary binary64 graph. The security functions beside it use other stored arithmetic sites, and [PRICEDISC](FUNC.PRICEDISC.md) subtracts a redemption discount using a different association. An algebraically identical formula does not settle their last bits.
 
 ## Version differences
 

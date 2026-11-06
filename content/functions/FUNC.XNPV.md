@@ -31,11 +31,24 @@ Put `-1000,1250` in B2:B3 and enter `=DATE(2027,1,1)` and `=DATE(2028,1,1)` in C
 
 ## Quirks
 
-Values and dates must align; a date before the first supplied date or differing counts gives `#NUM!`, while invalid dates give `#VALUE!`. Date serials are truncated. The current XNPV kernel requires a positive rate; its `#NUM!` result at zero or a negative rate is a compatibility limitation beyond the finite mathematical sum. The first date is an anchor, not an instruction to sort the inputs.
+Values and dates must align; a date before the first supplied date or differing counts gives `#NUM!`, while invalid dates give `#VALUE!`. Date serials are truncated. The first date is an anchor, rather than an instruction to sort the inputs.
+
+The current XNPV kernel requires a positive rate and returns `#NUM!` at zero or a negative rate, even when the mathematical dated sum is finite. Its source records that guard as measured; the opened Microsoft page does not explicitly state it. This differs from the internal residual used by XIRR, whose iterates can go negative.
+
+Microsoft describes both a positive and a negative cash flow as required. The current helper and its retained all-positive source control accept `100,200` at dates `45000,45100` and rate `0.1`, giving about `294.8451203808644`. Keep this source-scoped observation separate from the documented sign requirement.
 
 ## How to implement
 
-Validate aligned dated values and construct the stored base `R(1+r)`. For each date form the binary64 year fraction `(date-date0)/365`, call the worksheet power route, store `R(value/power)` and accumulate using stored addition. These are current x87 operation sites. In the example the exponents are zero and one, giving `-1000+1000=0`. Root and power last-bit stages remain partly open.
+Use `D` for ordinary binary64 storage and [R](../model/09-staged-arithmetic.md) for the stored x87-style operation.
+
+1. Validate finite numeric flows, aligned truncated dates and the first-date anchor. Require a finite positive rate in the current public route.
+2. Calculate `base=R(1+rate)` and initialize `total=0`.
+3. For each flow in its supplied order, calculate `years=D((date-date_0)/365)`. Call the public worksheet [POWER](FUNC.POWER.md) route on `(base,years)`; integer year counts can select its integer-exponent path.
+4. Store `term=R(value/power)`, then `total=R(total+term)`. Preserve every store and the forward accumulation order. Apply the final finite-result and worksheet publication rules.
+
+For the example, the year counts are zero and one, the powers one and 1.25, and the terms minus 1000 and plus 1000. The stored sum is zero. By contrast, putting the first payment into NPV would discount it by one period.
+
+This current arithmetic chain is distinct from XIRR’s runtime-power, ordinary-binary64 residual. POWER’s complete fractional-exponent behaviour and transfer to other environments are not solved by the dated-sum loop.
 
 ## Version differences
 

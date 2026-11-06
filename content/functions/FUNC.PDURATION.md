@@ -32,11 +32,30 @@ role_in_family: null
 
 ## Quirks
 
-The documented arguments must all be positive; invalid values give `#NUM!`, and invalid data types give `#VALUE!`. Equal positive starting and target values give zero. A very small rate can make a stored `1+rate` indistinguishable from one.
+The documented arguments must all be positive; invalid values give `#NUM!`, and invalid data types give `#VALUE!`. A target below the starting amount is still permitted and gives a negative duration at a positive rate.
+
+The current helper has no equal-value shortcut before its logarithm calculation. Equal positive amounts normally give zero, but a rate so small that stored `1+rate` equals one makes the denominator zero; the resulting nonfinite calculation gives `#NUM!`. Replacing the denominator by a stable `log1p(rate)` would change this boundary behaviour.
 
 ## How to implement
 
-The recorded current graph computes **separate** worksheet logarithms: `(LN(fv)-LN(pv))/LN(1+rate)`, with binary64 subtraction and division. It does not first form `fv/pv` and then take one logarithm. For the example, the numerator is mathematically `ln(100)-ln(64)=ln(1.5625)` and the denominator `ln(1.25)`, giving two. The split-log graph is supported on its cited controls; the algebraic identity does not justify replacing its stored operations with a ratio-log or log1p route.
+Let `D` denote ordinary nearest/even binary64 storage. The current graph uses three separate [public worksheet LN](FUNC.LN.md#how-to-implement) results:
+
+1. Validate finite, strictly positive rate, present value and future value.
+2. Obtain `Lf=LN(fv)` and `Lp=LN(pv)`, each stored to binary64.
+3. Form `base=D(1+rate)` and obtain the stored `Lb=LN(base)`.
+4. Store `difference=D(Lf-Lp)`, then `duration=D(difference/Lb)`. Return `#NUM!` if the result is nonfinite.
+
+For rate `0.25`, pv `64` and fv `100`, the current x87-LN reconstruction gives these intermediate numbers:
+
+| Stage | Stored binary64 value |
+|---|---:|
+| LN(100) | 4.605170185988092 |
+| LN(64) | 4.1588830833596715 |
+| Difference | 0.4462871026284203 |
+| LN(1.25) | 0.22314355131420976 |
+| Division | 2.0000000000000036 |
+
+The mathematical duration is exactly two; the table is a worked reconstruction of the cited operation tree, rather than an additional Excel measurement. Its split logarithms can lose low bits in the subtraction. Do not first compute `fv/pv` and take one logarithm: the source’s retained 80-input control distinguishes that ratio-log candidate from the split graph. The LN instruction approximation and transfer to other CPUs remain separately scoped.
 
 ## Version differences
 
