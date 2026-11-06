@@ -109,7 +109,7 @@ impl CalcFunc {
         let first = &self.fragments[s(&own[0])];
         vec![json!({
             "language": "Rust",
-            "flavour": "excel-bitexact",
+            "flavour": "excel-compatibility-candidate",
             "name": "CalcFunc",
             "repository": self.pin["repository"],
             "commit": self.commit(),

@@ -36,6 +36,8 @@ Sources and evidence appear in a compact footer. Existing essays are divided by 
 editorial metadata stays in the source files and JSON. `content/reference/FUNC.*.json` owns
 examples, section overrides, Excel-build records, implementations by language and named variants.
 The stable `api/functions/FUNC.*.json` combines these with explanations and attached observations.
+Pinned source snapshots use `flavour: "excel-compatibility-candidate"` and `suite: null` until
+admitted against a published Handbook suite; showing the source does not confer that admission.
 `llms.txt` documents predictable page and JSON URLs.
 
 Series Markdown is labelled Draft unless its frontmatter explicitly says

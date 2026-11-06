@@ -51,7 +51,7 @@ hook or error bound is `null`, never an implied accuracy claim. Example API requ
 Native bridge tests check transport, not Excel agreement. The browser/API tests exercise the
 wasm file readers receive. Neither test set is a published Handbook function suite.
 
-After a site build, `node tools/efh-engine/check-examples.mjs [report.json]` runs all 541 starter
+After a site build, `node tools/efh-engine/check-examples.mjs [report.json]` runs every catalogue starter
 formulas on the shipped wasm, with a fixed clock supplied to NOW/TODAY. Each case expects a
 calculated value unless `try_it.preview_status` explicitly documents a worksheet error or
 refusal. The report counts every status. It checks that the examples are usable and limits are

@@ -489,7 +489,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             std::fs::copy(&path, target).map_err(|e| e.to_string())?;
         }
     }
-    write(out, "llms.txt", "# The Handbook of Excel Functions\n\nCanonical open reference for Excel functions and operators.\n\n- Catalogue: https://handbook.dnacalc.com/api/index.json\n- Function page: https://handbook.dnacalc.com/functions/ROUND.html\n- Stable function JSON: https://handbook.dnacalc.com/api/functions/FUNC.ROUND.json\n- Schema: https://handbook.dnacalc.com/api/function-reference.schema.json\n- Evaluation: POST https://handbook.dnacalc.com/api/eval with {\"formula\":\"=ROUND(1.005,2)\"}\n- Contributions: POST https://handbook.dnacalc.com/api/contributions\n\nReplace ROUND with the case-sensitive function name, including dots; use operator IDs such as OP_ADD. All catalogue IDs resolve. JSON contains section_order, sections (Markdown), try_it, versions (Excel build and platform), implementations (language and suite), variants (difference, error_bound, onecalc_udf, and for recorded Excel environments excel_build_range, cpu, state, code and evidence), implementation_state (what we conclude about our own Rust, with counts) and sources. Empty lists mean no records, not proof of identical behaviour. OneCalc results are not Excel measurements. API errors and engine refusals must be preserved.\n")?;
+    write(out, "llms.txt", "# The Handbook of Excel Functions\n\nCanonical open reference for Excel functions and operators.\n\n- Catalogue: https://handbook.dnacalc.com/api/index.json\n- Function page: https://handbook.dnacalc.com/functions/ROUND.html\n- Stable function JSON: https://handbook.dnacalc.com/api/functions/FUNC.ROUND.json\n- Schema: https://handbook.dnacalc.com/api/function-reference.schema.json\n- Evaluation: POST https://handbook.dnacalc.com/api/eval with {\"formula\":\"=ROUND(1.005,2)\"}\n- Contributions: POST https://handbook.dnacalc.com/api/contributions\n\nReplace ROUND with the case-sensitive function name, including dots; use operator IDs such as OP_ADD. All catalogue IDs resolve. JSON contains section_order, sections (Markdown), try_it, versions (Excel build and platform), implementations (language and suite), variants (difference, error_bound, onecalc_udf, and for recorded Excel environments excel_build_range, cpu, state, code and evidence), implementation_state (what we conclude about our own Rust, with counts) and sources. Pinned source snapshots use flavour excel-compatibility-candidate and suite null until admitted against a published Handbook suite. Empty lists mean no records, not proof of identical behaviour. OneCalc results are not Excel measurements. API errors and engine refusals must be preserved.\n")?;
     write(
         out,
         "api/function-reference.schema.json",
@@ -1437,6 +1437,16 @@ mod tests {
             assert_eq!(record["function_id"], f["function_id"]);
             for key in ["versions", "implementations", "variants"] {
                 assert!(record[key].is_array());
+            }
+            for implementation in record["implementations"].as_array().unwrap() {
+                if implementation["suite"].is_null() {
+                    assert_eq!(
+                        implementation["flavour"],
+                        "excel-compatibility-candidate",
+                        "{}: a source snapshot without a published suite must remain a candidate",
+                        s(&f["function_id"])
+                    );
+                }
             }
             assert_eq!(
                 record["url"],
