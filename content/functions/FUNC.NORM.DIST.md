@@ -62,9 +62,7 @@ subject of the Numerical notes below.
 **Domain and range.** `x` and `μ` range over the reals; `σ > 0` is required — `σ ≤ 0` is a
 documented `#NUM!`. The density is strictly positive with range `(0, 1/(σ√(2π))]`, attaining
 its maximum at `x = μ`. The cumulative is strictly increasing with range `(0, 1)`, never
-reaching either endpoint mathematically, though in binary64 it rounds to `0` for
-`(x−μ)/σ ≲ −37.5` and to `1` for `(x−μ)/σ ≳ 8.3`. There are no poles and no branch cuts; both
-forms are entire in `x`.
+reaching either endpoint mathematically. Stored worksheet results can nevertheless be zero or one. The current DnaCalc implementation flushes final subnormal CDF and density values to zero; that policy must be distinguished from ordinary IEEE binary64 rounding. Both mathematical forms are entire in `x`.
 
 **Standardization is the whole structure of this family.** Writing `z = (x − μ)/σ`:
 
@@ -118,17 +116,9 @@ Returns `Number`.
   `NORM.DIST(x, μ, σ, 1)` is the CDF, and any nonzero value selects the CDF. The reference
   engine's battery renders the all-`TRUE` and all-zero rows, and their outcomes show beside
   this page.
-- **Far left tail.** `F` underflows to `0` for `z` below roughly `−37.5`. The last few orders
-  of magnitude before that are subnormal, and the relative accuracy there is a genuine
-  implementation difference rather than a formality.
-- **Far right tail.** `F` rounds to exactly `1` for `z` above roughly `8.3`, because
-  `1 − F(z)` falls below half an ULP of `1`. **All information about the upper tail is lost at
-  that point**, and no rearrangement of `NORM.DIST` recovers it — the loss is in the
-  representation of the answer, not in the algorithm. A user who needs upper-tail probabilities
-  must compute `NORM.DIST(2μ − x, μ, σ, TRUE)` by reflection, or use `1 − Φ` written as `Φ(−z)`.
-  This is the single most consequential practical fact on this page.
-- **Density at large `|z|`** underflows around `|z| ≈ 38.6`, with a subnormal band before it —
-  the same band discussed on [PHI](FUNC.PHI.md).
+- **Far left tail.** The current CDF wrapper flushes a final value below `2^-1022` to zero, including its `z=-37.52` source control. IEEE binary64 itself can represent smaller positive values; the worksheet publication policy is a separate stage.
+- **Far right tail.** Once the stored CDF is one, subtracting it from one loses the upper-tail probability. For symmetric mathematical tails, evaluate a reflected lower-tail argument instead. Building that reflected argument introduces its own rounding, so the identity alone does not establish identical worksheet results.
+- **Density at large `|z|`.** The current density route flushes its final result after scaling by sigma and the normal constant. It checks the staged square for overflow first. Calling worksheet PHI and then dividing by sigma can flush an intermediate too early.
 - **Arrays.** The recorded profile is `Custom`; whether `NORM.DIST` lifts elementwise over
   array arguments is not settled here.
 
@@ -323,3 +313,4 @@ Inputs worth probing first:
   [About implementation options](../model/07-implementation-options.md).
 - [Pinned catalogue record](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/89d3496b32159c5fee04c2244feabd4e7c4ff648/data/functions/FUNC.NORM.DIST.json): current signature and argument count, projected from DnaCalc.
 - [Current DnaCalc source](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/distributions.rs): the code quoted in this page’s implementation panel. A source listing does not constitute admission against a published Handbook suite.
+- [Normal wrapper and publication stages](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/normal_log_family.rs) and [shared density kernel](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/normal_dist_common.rs).
