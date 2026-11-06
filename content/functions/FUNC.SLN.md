@@ -31,11 +31,20 @@ role_in_family: null
 
 ## Quirks
 
-Cost and salvage are amounts in the same units; life supplies the number of those periods. The function does not take a current-period argument or track accumulated depreciation. The current kernel returns `#DIV/0!` for zero life and has its own validation for negative life and nonfinite inputs.
+Life is a count of periods, with the same time unit used for the requested allowance. There is no current-period argument and no accumulated balance. The current kernel admits either sign of cost and salvage and any nonzero life, including negative life; it returns `#DIV/0!` for exactly zero life. That arithmetic admission is broader than an ordinary asset-depreciation schedule.
+
+The subtraction and division have different rounding steps. A subnormal difference is retained until division, while a final subnormal amount is published as positive zero. Nonfinite numeric inputs or a nonfinite result give `#NUM!` in this kernel; failed worksheet numeric conversion is handled outside it. Microsoft's opened page defines the arguments but does not enumerate these edge codes.
 
 ## How to implement
 
-Coerce the three inputs, validate the life under the desired worksheet policy, compute `cost-salvage`, then divide by life. Keep subtraction before division if reproducing the current binary64 graph. For the example `1200-200=1000`, followed by `1000/5=200`. A worksheet formatting choice such as currency changes display, not the mathematical amount. The simple formula does not supply jurisdiction-specific depreciation rules.
+1. Validate finite numeric inputs. Reject `life=0` with `#DIV/0!`; do not introduce a positive-life guard when reproducing the current route.
+2. Compute `difference=cost-salvage` with ordinary binary64 subtraction. Preserve a subnormal difference at this point.
+3. Compute `result=R(difference/life)` with the [stored operation](../model/09-staged-arithmetic.md): round the quotient to a 64-bit significand, then store to binary64. A single ordinary binary64 divide is a different graph.
+4. If the result is nonfinite, return `#NUM!`. If its magnitude is below the minimum normal binary64 value, return positive zero. Otherwise publish it.
+
+For `1200,200,5`, the difference is exactly `1000` and the quotient exactly `200`. Changing life to `-5` makes this code return `-200`; it does not create a different depreciation method. Changing salvage changes the depreciable amount before the division.
+
+The source attributes this quotient and final-flush route to retained Excel build-20430, compatibility-version-2 probes. Its input conversion and worksheet context are separate obligations; this recipe is not a published Handbook conformance suite.
 
 ## Version differences
 

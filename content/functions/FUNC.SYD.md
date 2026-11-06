@@ -31,11 +31,22 @@ role_in_family: null
 
 ## Quirks
 
-Period and life use the same time unit. The current kernel requires positive life and a period inside its admitted range; invalid values produce worksheet errors. The result is a single period’s amount, not cumulative depreciation through that period.
+Life and period use the same time unit and are not automatically truncated to whole years. The current kernel admits negative cost, but rejects negative salvage, nonpositive life or period, and a period above life when their positive difference is at least the minimum normal binary64 value. The very-small-difference condition is an explicit compatibility guard.
+
+The output is one period's depreciation. It is not the total through that period. The denominator's overflow/subnormal handling differs from the numerator's: the current denominator becomes zero and gives `#DIV/0!`, while a nonfinite basis or final result gives `#NUM!`. Microsoft's opened page describes the method without spelling out these numerical branches.
 
 ## How to implement
 
-Compute `depreciable=cost-salvage` and the mathematical denominator `life*(life+1)/2`. Weight the requested period by `life-per+1`, giving `depreciable*(life-per+1)/denominator`. Preserve the current source’s multiplication/division ordering when numerical compatibility matters; rearranging the factor two changes possible rounding. For life four the denominator is ten and the weights total ten. Fractional life or period needs the kernel’s explicit admission policy rather than an invented calendar convention.
+Let `R` be the [stored 64-bit-significand operation](../model/09-staged-arithmetic.md), and let `D` mean ordinary binary64 arithmetic. First validate finite inputs and the guards above.
+
+1. Store `L=R(life+1)`. Compute `den=D(R(life*L)/2)`. If den is nonfinite or has magnitude below the minimum normal value, replace it with zero; reject a zero denominator with `#DIV/0!`.
+2. Compute `basis=R(cost-salvage)`. Reject a nonfinite basis and flush a subnormal basis to positive zero.
+3. Compute `remaining=R(L-per)`, then `numerator=R(basis*remaining)`. Keep `(life+1)-per` in that order: `life-per+1` can lose different low bits.
+4. Compute `result=R(numerator/den)`. Reject nonfinite output with `#NUM!` and publish a subnormal result as positive zero.
+
+Worked at `cost=1200,salvage=200,life=4,per=1`: `L=5`, `den=4*5/2=10`, `basis=1000`, `remaining=4`, `numerator=4000`, result `400`. At periods two, three and four the remaining weights are three, two and one, giving `300,200,100`. These four exact small examples total the depreciable 1000.
+
+A ratio-first implementation of the same mathematical equation has different rounded intermediates. The current source's selected store discriminants support this operation order; they do not settle every data-admission or workbook route.
 
 ## Version differences
 

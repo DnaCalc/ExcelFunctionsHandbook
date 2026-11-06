@@ -34,6 +34,9 @@ role_in_family: null
 
 The equation may have no acceptable root or more than one root; guess and search behaviour can affect the answer. Nonconvergence gives `#NUM!` under the documented policy. A returned monthly rate times twelve is a nominal annual calculation, not a change of the function’s period units.
 
+
+Microsoft describes convergence within `0.0000001` after at most twenty iterations. That is the public stopping description, not a specification of every step in the current alternative solver. Comparing the returned residual alone does not establish Excel's root-selection or stopping behavior.
+
 ## How to implement
 
 Form the annuity balance residual `pv*(1+r)^n+pmt*(1+r*type)*((1+r)^n-1)/r+fv`, with its zero-rate limit handled explicitly. Starting from guess, search a valid rate domain with guarded Newton/secant steps and a bracketed fallback. The current solver has its own iteration, bracketing and root-polishing policy; it is not identified simply by the PMT operation tree. Check the residual and retain the documented failure result rather than returning a last iterate unconditionally. Remaining root-selection and numeric differences are recorded.

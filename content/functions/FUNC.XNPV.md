@@ -31,7 +31,7 @@ Put `-1000,1250` in B2:B3 and enter `=DATE(2027,1,1)` and `=DATE(2028,1,1)` in C
 
 ## Quirks
 
-Values and dates must align; a date before the first supplied date or differing counts gives `#NUM!`, while invalid dates give `#VALUE!`. Date serials are truncated. The current XNPV kernel requires a positive rate; its zero/negative-rate refusal is a compatibility limitation beyond the finite mathematical sum. The first date is an anchor, not an instruction to sort the inputs.
+Values and dates must align; a date before the first supplied date or differing counts gives `#NUM!`, while invalid dates give `#VALUE!`. Date serials are truncated. The current XNPV kernel requires a positive rate; its `#NUM!` result at zero or a negative rate is a compatibility limitation beyond the finite mathematical sum. The first date is an anchor, not an instruction to sort the inputs.
 
 ## How to implement
 

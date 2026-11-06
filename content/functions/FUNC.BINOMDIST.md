@@ -35,7 +35,7 @@ Counts are truncated toward zero. A probability outside zero to one, or an out-o
 
 ## How to implement
 
-After truncating successes `k` and trials `n` toward zero, validate `0<=k<=n` and `0<=p<=1`. The current recorded domain rejects `n>=2147483647` before selecting endpoint shortcuts. At `p=0` or `p=1`, handle the degenerate distribution explicitly; the recorded `p=1,k=0,n>0` mass refusal is a compatibility exception to the mathematical zero.
+After truncating successes `k` and trials `n` toward zero, validate `0<=k<=n` and `0<=p<=1`. The current recorded domain rejects `n>=2147483647` before selecting endpoint shortcuts. At `p=0` or `p=1`, handle the degenerate distribution explicitly; the recorded noncumulative `p=1,k=0,n>0` case gives `#NUM!`, a compatibility exception to the mathematical zero.
 
 For the **all-success, noncumulative** route `k=n>0`, `0<p<1`:
 
