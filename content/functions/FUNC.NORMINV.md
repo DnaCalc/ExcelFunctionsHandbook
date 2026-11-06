@@ -33,7 +33,7 @@ role_in_family: null
 
 The probability must be strictly between zero and one; endpoints or out-of-range values give `#NUM!`. Nonnumeric arguments give `#VALUE!`. A nonpositive standard deviation also gives `#NUM!`; the mean may be any admitted numeric location.
 
-A small probability refers to the far **left** tail. For an upper-tail cutoff use the corresponding cumulative probability, while recognizing that `1-small_tail` can round to one for very small tails. The requested probability is a number, not a percentage-formatted string.
+A small probability refers to the far **left** tail. For an upper-tail cutoff use the corresponding cumulative probability, while recognizing that `1-small_tail` can round to one for very small tails. Supply probability as a number, such as `0.5` or a numeric `50%` cell.
 
 Microsoft describes an iterative inverse search over the forward normal CDF, with `#N/A` if it has not converged after 100 iterations on this legacy page. That documented method and limit do not identify the current candidate’s rational coefficients or numerical stopping stages.
 

@@ -23,21 +23,41 @@ role_in_family: null
 
 ## What it does
 
-`COUNTIFS(criteria_range1, criteria1, ...)` counts positions where every range meets its paired condition. The ranges align by position; they need not be adjacent.
+`COUNTIFS(criteria_range1,criteria1,[criteria_range2,criteria2],...)` counts positions where **all** paired conditions hold. It combines conditions with AND. Up to 127 range/criterion pairs are documented. The ranges align by their row and column offsets and need not be adjacent on the sheet.
 
 ## Try it
 
-Put `4,11,7,13` in B2:B5 and `east,east,west,east` in C2:C5. `=COUNTIFS(B2:B5,">=10",C2:C5,"east")` returns `2`.
+Use these four rows:
+
+| Row | B: amount | C: region |
+|---:|---:|---|
+| 2 | 4 | east |
+| 3 | 11 | east |
+| 4 | 7 | west |
+| 5 | 13 | east |
+
+`=COUNTIFS(B2:B5,">=10",C2:C5,"east")` returns `2`, for rows three and five. Repeating a range creates an interval: `=COUNTIFS(B2:B5,">=7",B2:B5,"<=11")` returns `2`.
+
+Adding separate counts implements an OR only when overlap is handled. Here `COUNTIF(B2:B5,">=10")+COUNTIF(C2:C5,"east")` is five, because rows three and five are counted twice. Subtract their intersection, the first COUNTIFS result, to get three distinct rows meeting either condition.
 
 ## Quirks
 
-All criteria ranges must have the same row and column dimensions. Conditions use AND, including repeated conditions on the same range. A criterion referring to an empty cell is treated as zero. Wildcards use `?`, `*`, and `~` escaping.
+Every criteria range must have the same row and column dimensions as the first. Equal total cell counts in different shapes are not enough. The current implementation returns `#VALUE!` for a shape mismatch before reading any criterion.
+
+Conditions on the same range still use AND. For example, `">=7"` and `"<=11"` define an inclusive interval; the pair `">=10"` and `"<5"` cannot match one numeric value. For OR, count a union without double-counting its overlap.
+
+A criterion referencing an empty cell is treated as zero. This does not make every blank tested cell equivalent to zero under every predicate. Text criteria retain case-insensitive matching and `?`, `*`, `~` wildcard syntax; preserve leading and trailing spaces when their presence is meaningful.
 
 ## How to implement
 
-Parse a leading comparison (`=`, `<>`, `<`, `<=`, `>`, `>=`) separately from its operand. Distinguish a numeric comparison from a text pattern. For text patterns support `?`, `*`, and tilde escaping, with Excel’s case-insensitive matching. Keep blank cells, empty strings and zero as distinct inputs until the criteria rule decides how each matches.
+1. Validate the argument pairs and resolve all range references. Check row and column dimensions before reading criteria or range values, preserving the current error order.
+2. Read each criterion once and compile the typed [COUNTIF predicate](FUNC.COUNTIF.md#how-to-implement): operator, operand kind and any wildcard tokens.
+3. Align ranges by offset inside their own rectangles. At a position, combine every predicate’s verdict with AND. A known false verdict rules that position out; do not add independent per-range counts.
+4. Increment once for each position satisfying all conditions. Return one numeric count after visiting the aligned positions.
 
-Validate range shapes and build one predicate per pair. At each offset evaluate all predicates against the cells at that offset; increment only if all pass. B2/C2 fails the numeric test; B3/C3 passes both; B4/C4 fails; B5/C5 passes. Return two. Preserve the distinction between the criterion reference being empty and a blank cell being tested.
+In the main example, B2/C2 fails the amount condition, B3/C3 passes both, B4/C4 fails, and B5/C5 passes both, giving two. For the interval example, seven and eleven pass both tests.
+
+The current sparse implementation keeps verdicts for visited cells and counts matching blank positions in bulk, so whole-column references need not allocate a Boolean entry for every worksheet cell. It preserves unresolved verdicts and refuses only when one can affect the count. Copying its supported predicates is an implementation route; the explicitly unmodeled text, array and collation cases still need evidence before coverage can be extended.
 
 ## Version differences
 
@@ -50,3 +70,4 @@ No same-input comparison between named Excel builds is recorded for this functio
 ## Sources
 
 - [Microsoft: COUNTIFS function](https://support.microsoft.com/en-us/excel/functions/countifs-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [DnaCalc criteria grammar, range validation and count planning](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/conditional.rs); implementation rules and its explicit unsupported cases.
