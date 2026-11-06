@@ -2,7 +2,13 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.VARPA",
   "try_it": {
-    "formula": "=VARPA(-2,0,2)"
+    "formula": "=VARPA(B2:B5)",
+    "inputs": {
+      "B2": 4,
+      "B3": 8,
+      "B4": true,
+      "B5": "missing"
+    }
   },
   "versions": [
     {

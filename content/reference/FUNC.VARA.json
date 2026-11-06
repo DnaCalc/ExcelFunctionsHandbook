@@ -2,7 +2,13 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.VARA",
   "try_it": {
-    "formula": "=VARA(-2,0,2)"
+    "formula": "=VARA(B2:B5)",
+    "inputs": {
+      "B2": 4,
+      "B3": 8,
+      "B4": true,
+      "B5": "missing"
+    }
   },
   "versions": [
     {

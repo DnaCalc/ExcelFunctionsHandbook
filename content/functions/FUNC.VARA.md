@@ -24,21 +24,42 @@ role_in_family: null
 
 ## What it does
 
-`VARA(number1, [number2], ...)` measures sample variance. It measures squared distance from the mean, so its units are the square of the input units. The divisor is `n-1`: use this when the observations are a sample of a larger population. This A-family function also admits logical values and text under its inclusion rules.
+`VARA(value1, [value2], ...)` measures sample variance. It measures squared distance from the mean, so its units are the square of the input units. The divisor is `n-1`: use this when the observations are a sample of a larger population. This A-family function also admits logical values and text under its inclusion rules.
 
 ## Try it
 
-`=VARA(-2,0,2)` returns `4`. The mean is zero and the squared deviations total eight. Divide by two.
+Put these four entries in `B2:B5`:
+
+| Cell | Value |
+|---|---|
+| B2 | `4` |
+| B3 | `8` |
+| B4 | logical `TRUE` |
+| B5 | text `missing` |
+
+`=VARA(B2:B5)` returns `12.916666666666666`. The admitted values are `4,8,1,0`: their mean is `3.25`, and their squared deviations total `38.75`. Divide by `4-1=3`.
+
+Compare `=VARA({4,8,TRUE,"missing"})`: the current array rule skips the logical and text elements, leaving only `4,8`, and returns `8`. The range and array forms therefore use different counts.
 
 ## Quirks
 
-In references the implementation counts `TRUE` as 1 and `FALSE` or text as 0, while skipping empty cells. This changes both the total and the count. Microsoft’s A-family page has conflicting statements about referenced text; keep this documented-versus-implemented distinction explicit. Numeric text supplied directly can be converted. An empty numeric set gives `#DIV/0!` and a one-value sample does too. A centered mathematical formula alone does not reproduce the observed numerical path.
+Keep the argument's origin until collection is complete:
+
+| Origin | Logical value | Text | Empty cell |
+|---|---|---|---|
+| Direct scalar | `TRUE` is 1, `FALSE` is 0 | Numeric text converts; other text gives `#VALUE!` | Ordinary scalar coercion |
+| Reference cell | 1 or 0 | Counted as 0, including numeric-looking text | Skipped |
+| Array element | Skipped | Skipped | Skipped |
+
+These are the current implementation rules. Retained Excel build 20527 controls distinguish the array route; the source records, for example, `VARPA({1,TRUE,3})=1` and `STDEVPA({1,"a",3})=1`. They do not establish every collection edge on every build. Microsoft’s remarks describe broad inclusion, then also say array/reference text is ignored; that wording does not settle the observed range/array distinction.
+
+No admitted values, or only one admitted value, gives `#DIV/0!` for this sample statistic. Worksheet errors propagate. Changing the collection rule changes the count as well as the total. A centered mathematical formula alone does not reproduce the observed numerical path.
 
 ## How to implement
 
 Apply the collection rules above, then use the [stored variance recipe](FUNC.VAR.S.md#how-to-implement). This function uses the **sample** branch, with final divisor `n-1` and no square root.
 
-For the three values `-2,0,2`, the stored totals are `S=0`, `Q=8`, `T=0`. The sample numerator is `8-0/3=8` and the divisor is `2`. Do not replace the population operation tree by the sample tree with a changed final divisor.
+For the reference example, `n=4`, `S=13`, `Q=81` and `T=R(S*S)=169`. The sample numerator is `Q-R(T/n)=81-42.25=38.75`; dividing by `3` gives `12.916666666666666`. Neither centered-pass guard fires: the cancellation ratio is `42.25/81`, below `0.99`, and the variance is too large for the mean-size test. These integer and quarter-valued intermediate steps are exact; the division by three and any square root still use the prescribed stores.
 
 The same two guards can redirect this call to the centered pass. For `1000,1001,1002`, that pass sums `1+0+1=2` and divides by `2`. The exact scalar guard edges are measured; their transfer to references and arrays remains open. Nonfinite raw-moment fallback is inferred. No Handbook vector suite is published for this function.
 
@@ -128,4 +149,5 @@ Evidence:
 
 - [Microsoft: VARA function](https://support.microsoft.com/en-us/office/vara-function-3de77469-fa3a-47b4-85fd-81758a1e1d07), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/variance_common.rs); implementation steps and the limits identified in the text.
+- [DnaCalc collection rules](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/aggregate.rs), `Held::Values` and `number_of`; [retained array controls](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/tests/f1_stats.rs), `variances`.
 - [FN-VAR.S-001](../notes/FN-VAR.S-001.json): guard bisections, stored arithmetic and unresolved scope.

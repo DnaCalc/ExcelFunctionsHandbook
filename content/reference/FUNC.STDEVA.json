@@ -2,7 +2,13 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.STDEVA",
   "try_it": {
-    "formula": "=STDEVA(-2,0,2)"
+    "formula": "=STDEVA(B2:B5)",
+    "inputs": {
+      "B2": 4,
+      "B3": 8,
+      "B4": true,
+      "B5": "missing"
+    }
   },
   "versions": [
     {
