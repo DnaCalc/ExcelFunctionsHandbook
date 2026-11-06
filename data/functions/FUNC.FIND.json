@@ -5,7 +5,7 @@
   "entry_kind": "built_in_function",
   "category": "Text functions",
   "admission": {
-    "label": "supported",
+    "label": "implemented",
     "reason": null
   },
   "metadata_status": "function_meta_curated",
@@ -139,24 +139,184 @@
     "microsoft_url": "https://support.microsoft.com/en-us/office/find-function-c7912941-af2a-4bdf-a553-d0d89b0a0628",
     "english_description": "Finds one text value within another (case-sensitive)"
   },
-  "localized_names": [],
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FIND"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FIND"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "NAJÍT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FIND"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FINDEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FIND"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FIND"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FIND"
+    },
+    {
+      "locale": "en-US",
+      "name": "FIND"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ENCONTRAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FIND"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ETSI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TROUVE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FIND‏"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FIND"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÖVEG.TALÁL"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FIND"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TROVA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FIND"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FIND"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FIND"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FIND"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FINN"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VIND.ALLES"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZNAJDŹ"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PROCURAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "LOCALIZAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FIND"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАЙТИ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FIND"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FIND"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FIND"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HITTA"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FIND"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BUL"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FIND"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "Các hàm FIND"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FIND"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FIND"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FIND"
+    }
+  ],
   "localization": {
     "raw_organ": "data/localization/microsoft-support-function-index.json",
     "function_article_guid": "c7912941-af2a-4bdf-a553-d0d89b0a0628",
     "scope": "shared_published_row",
-    "status": "combined_row",
+    "status": "split_combined_row",
     "article_row_count": 40,
-    "resolved_name_count": 0
+    "resolved_name_count": 40
   },
   "artifacts": null,
   "version_marker": null,
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": true,
-  "oxfunc_tree_clean": true,
   "vintage": {
-    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
-    "arity": "live-registry:473efa3:clean:undated",
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "live-registry:473efa3:clean:undated",
     "axis_provenance": "live-registry:473efa3:clean:undated",
@@ -169,10 +329,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
-    "registry_backed": "live-registry:473efa3:clean:undated",
-    "signature": "live-registry:473efa3:clean:undated",
-    "signature_placeholder": "live-registry:473efa3:clean:undated",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

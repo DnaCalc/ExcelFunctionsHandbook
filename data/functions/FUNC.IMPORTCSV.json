@@ -1,0 +1,74 @@
+{
+  "function_id": "FUNC.IMPORTCSV",
+  "surface_name": "IMPORTCSV",
+  "published_row_id": "FUNC.IMPORTCSV",
+  "entry_kind": "built_in_function",
+  "category": "External data functions",
+  "admission": {
+    "label": "host",
+    "reason": "The answer is a file the host reads. Microsoft's page lists it for Insiders on Windows; DNA Calc does not know the name yet."
+  },
+  "metadata_status": "added_from_catalogue_or_public_source",
+  "xlcall": null,
+  "arity": {
+    "min": 1,
+    "max": 4
+  },
+  "classification": {},
+  "axes": null,
+  "axis_provenance": {},
+  "signature": {
+    "display": "IMPORTCSV(path, [skip_rows], [take_rows], [locale])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "path",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "skip_rows",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "take_rows",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "locale",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Loads a CSV file into a refreshable array",
+    "short_source": "dna-calc-own",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/excel/functions/importcsv-function",
+    "english_description": null
+  },
+  "localized_names": [],
+  "localization": null,
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": null,
+  "admission_interface_kind": null,
+  "registry_backed": false,
+  "vintage": {
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b"
+  }
+}

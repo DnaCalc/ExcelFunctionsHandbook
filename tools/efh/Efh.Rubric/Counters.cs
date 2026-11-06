@@ -15,7 +15,7 @@ public sealed record ComparisonRow(
 public sealed class Counters
 {
     public const string DenominatorSentence =
-        "541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows";
+        "554 entries = 531 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 13 added functions";
 
     private readonly RubricEngine _e;
     private readonly Loader _loader;

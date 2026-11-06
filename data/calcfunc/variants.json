@@ -1,0 +1,156 @@
+{
+  "FUNC.EXP": [
+    {
+      "kind": "environment",
+      "name": "EXP on Excel 16.0 build 18429, Intel Coffee Lake (Windows, 64-bit)",
+      "key": {
+        "excel_build_range": "16.0 build 18429",
+        "cpu": "Intel Coffee Lake (Windows, 64-bit)",
+        "env_id": "win-x64-16.0.18429-intel-coffee-lake"
+      },
+      "difference": "On 6 recorded inputs this environment's answer is 1 ULP from the answer recorded in 16.0 build 20131, AMD Zen 2 (Windows, 64-bit). CPU, Excel build and operating system all differ between the two machines, so the cause is not isolated.",
+      "state": "matches",
+      "state_summary": "Run on Intel Core Processor (Haswell, no TSX): gives this answer on 6 of 6 of these inputs.",
+      "evaluated_on": "Intel Core Processor (Haswell, no TSX)",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/exp_fn.rs#L4-L8",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+          "locator": "XD-EXP-001,XD-EXP-002,XD-EXP-003,XD-EXP-004,XD-EXP-005,XD-EXP-006",
+          "note": "not rechecked"
+        }
+      ],
+      "error_bound": null,
+      "onecalc_udf": null
+    },
+    {
+      "kind": "environment",
+      "name": "EXP on Excel 16.0 build 20131, AMD Zen 2 (Windows, 64-bit)",
+      "key": {
+        "excel_build_range": "16.0 build 20131",
+        "cpu": "AMD Zen 2 (Windows, 64-bit)",
+        "env_id": "win-x64-16.0.20131-amd-zen2"
+      },
+      "difference": "On 6 recorded inputs this environment's answer is 1 ULP from the answer recorded in 16.0 build 18429, Intel Coffee Lake (Windows, 64-bit). CPU, Excel build and operating system all differ between the two machines, so the cause is not isolated.",
+      "state": "not-run",
+      "state_summary": "Not run on this CPU. On x86_64 the kernel executes the CPU's own x87 instructions, so its answer follows the machine; on Intel Core Processor (Haswell, no TSX) it gave this answer on 0 of 6.",
+      "evaluated_on": "Intel Core Processor (Haswell, no TSX)",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/exp_fn.rs#L4-L8",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+          "locator": "XD-EXP-001,XD-EXP-002,XD-EXP-003,XD-EXP-004,XD-EXP-005,XD-EXP-006",
+          "note": "not rechecked"
+        }
+      ],
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ],
+  "FUNC.LN": [
+    {
+      "kind": "environment",
+      "name": "LN on Excel 16.0 build 18429, Intel Coffee Lake (Windows, 64-bit)",
+      "key": {
+        "excel_build_range": "16.0 build 18429",
+        "cpu": "Intel Coffee Lake (Windows, 64-bit)",
+        "env_id": "win-x64-16.0.18429-intel-coffee-lake"
+      },
+      "difference": "On 17 recorded inputs this environment's answer is 1 ULP from the answer recorded in 16.0 build 20131, AMD Zen 2 (Windows, 64-bit). CPU, Excel build and operating system all differ between the two machines, so the cause is not isolated.",
+      "state": "matches",
+      "state_summary": "Run on Intel Core Processor (Haswell, no TSX): gives this answer on 17 of 17 of these inputs.",
+      "evaluated_on": "Intel Core Processor (Haswell, no TSX)",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/ln_fn.rs#L3-L9",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_GenuineIntel_20260705-191433.json",
+          "locator": "XD-LN-001,XD-LN-002,XD-LN-003,XD-LN-004,XD-LN-005,XD-LN-006,XD-LN-007,XD-LN-008,XD-LN-009,XD-LN-010,XD-LN-011,XD-LN-012,XD-LN-013,XD-LN-014,XD-LN-015,XD-LN-016,XD-LN-017",
+          "note": "not rechecked"
+        }
+      ],
+      "error_bound": null,
+      "onecalc_udf": null
+    },
+    {
+      "kind": "environment",
+      "name": "LN on Excel 16.0 build 20131, AMD Zen 2 (Windows, 64-bit)",
+      "key": {
+        "excel_build_range": "16.0 build 20131",
+        "cpu": "AMD Zen 2 (Windows, 64-bit)",
+        "env_id": "win-x64-16.0.20131-amd-zen2"
+      },
+      "difference": "On 17 recorded inputs this environment's answer is 1 ULP from the answer recorded in 16.0 build 18429, Intel Coffee Lake (Windows, 64-bit). CPU, Excel build and operating system all differ between the two machines, so the cause is not isolated.",
+      "state": "not-run",
+      "state_summary": "Not run on this CPU. On x86_64 the kernel executes the CPU's own x87 instructions, so its answer follows the machine; on Intel Core Processor (Haswell, no TSX) it gave this answer on 0 of 17.",
+      "evaluated_on": "Intel Core Processor (Haswell, no TSX)",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/ln_fn.rs#L3-L9",
+      "evidence": [
+        {
+          "repository": "ExcelFunctionsHandbook",
+          "commit": "1b00c7bdb28624b0f2c3785586e076414d9d92bb",
+          "path": "content/evidence/measurements/excel-exp-ln-cross-cpu-2026-07/ExcelExpData_AuthenticAMD_20260703-223049.json",
+          "locator": "XD-LN-001,XD-LN-002,XD-LN-003,XD-LN-004,XD-LN-005,XD-LN-006,XD-LN-007,XD-LN-008,XD-LN-009,XD-LN-010,XD-LN-011,XD-LN-012,XD-LN-013,XD-LN-014,XD-LN-015,XD-LN-016,XD-LN-017",
+          "note": "not rechecked"
+        }
+      ],
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ],
+  "FUNC.GEOMEAN": [
+    {
+      "name": "GEOMEAN root control, Excel 16.0 build 20430",
+      "key": {
+        "excel_build_range": "16.0 build 20430",
+        "cpu": "CPU not recorded (Windows, 64-bit)"
+      },
+      "difference": "GEOMEAN(1,2) returned 0x3ff6a09e667f3bcc where SQRT(2) returned 0x3ff6a09e667f3bcd, adjacent values, in one build. No second build or CPU has been compared on the same inputs.",
+      "state": "matches",
+      "state_summary": "Matches every recorded GEOMEAN answer; the root is a reconstruction of stored stages.",
+      "evidence": [
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+          "path": "cache/w111-broad-regenerated-20260929/answers-geomean.json.gz",
+          "locator": "w111broad-20260929-GEOMEAN-00003",
+          "note": "FN-GEOMEAN-001"
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/statistics.rs#L214-L237",
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ],
+  "FUNC.WEEKNUM": [
+    {
+      "name": "WEEKNUM conflicting readings, Excel 16.0 build 20430",
+      "key": {
+        "excel_build_range": "16.0 build 20430",
+        "cpu": "CPU not recorded (Windows, 64-bit)"
+      },
+      "difference": "Two capture runs in one environment disagree on 479 recorded inputs: one recorded #NUM! where the other recorded a week number. The recorded cause is unresolved.",
+      "state": "differs",
+      "state_summary": "One implementation can match only one reading of each conflicting input.",
+      "evidence": [
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+          "path": "runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz",
+          "locator": "",
+          "note": "compared with runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz"
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/dates.rs#L310-L314",
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ]
+}

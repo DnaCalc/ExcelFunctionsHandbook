@@ -23,7 +23,7 @@ Write-ups cited by the records: [The Last Bit, July
 
 ## Summary
 
-- Functions with recorded readings: 287 (of the 541 entries = 518 functions + 23 operators).
+- Functions with recorded readings: 287 (of the 554 entries = 531 functions + 23 operators).
 - Excel environments named: 8.
 - Same-input comparisons between environments: 89, over 57 functions.
 - Differences observed: 23, in 2 functions.

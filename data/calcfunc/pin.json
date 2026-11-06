@@ -1,0 +1,48 @@
+{
+  "repository": "https://github.com/DnaCalc/DnaCalc",
+  "commit": "481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8",
+  "commit_date": "2026-11-06",
+  "measured_application_revision": "919dd43269b918b9ea5445eb14ffd30a80685639",
+  "report_commit": "7ce6fef53b986b1027e683acfc694511d21a983f",
+  "calc_func_unchanged_since_report": true,
+  "answer_bank": {
+    "rows": 3910007,
+    "matched": 3831336,
+    "failed": 78671,
+    "counts": {
+      "matched": 3831336,
+      "refused": 994,
+      "last_bit": 72432,
+      "larger_numeric": 4577,
+      "other_mismatch": 552,
+      "unread": 116
+    },
+    "pass_rate": 0.9798795756631637,
+    "canonical_trace_sha256": "5f9458ce2ba4428aa9a960a68ff95d666e9e09eeeedd5b22a8f3f5240f0a5b12"
+  },
+  "corpus": {
+    "formula_cells": 54794,
+    "matched": 52988,
+    "inclusive_failed": 1806,
+    "awaiting_capture": 100,
+    "pass_rate": 0.9670401868817754,
+    "other_failed_verdicts": {
+      "not_modeled": 307,
+      "not_run": 7
+    },
+    "mismatches": 1305,
+    "counts": {
+      "larger_numeric": 529,
+      "last_bit": 575,
+      "other_mismatch": 201
+    }
+  },
+  "rule": "Last-bit: finite numeric mismatches <=16 ULP; larger numeric: >16 ULP. This split is triage, not a relaxed verdict. Every mismatch, refusal, unread, missing, pending, external and circular-policy cell remains an inclusive failure. Corpus labels follow exact single-cell aliases, infer calls from formula spelling and unwrap INDEX selections; unresolved references and infix operators remain explicit. Bank functions use canonical judge identities. Counts are observations per source; corpus and bank may overlap and must not be added as unique calls. Bank reference/locale context gaps remain failures, not proven numerical defects.",
+  "sources": {
+    "docs/generated/problem-functions.json": "906ba8291276730137acf3906078c77d3c327912415395b3b4b3ffbd2e639885",
+    "docs/generated/numeric-fingerprints.json": "3f5d16d289cd36f0539eab4c91e2fdacd650013290a3d7652ed2cade994d4fc6",
+    "crates/calc-func/witness-status.tsv": "ead0370451fece140ca4851c368a391fe46425ea649aa9c13c8755c4b1a42e1d",
+    "crates/calc-func/witness-differences.tsv": "ece00c7704cb7732324b464c44adbc495acae7485d924a0160ac91eb231fc412",
+    "crates/calc-fml/src/eval/builtins.rs": "bfe4b0f216ec361075e84cdcc5e3dfc61c7dad0464df1d226858dd32d25c228d"
+  }
+}

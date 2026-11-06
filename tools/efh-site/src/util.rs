@@ -1,7 +1,10 @@
 use serde_json::Value;
 use std::path::{Component, Path, PathBuf};
 
-pub const RECONCILIATION: &str = "541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows";
+pub const RECONCILIATION: &str = "554 entries = 531 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 13 added functions";
+pub const ENTRIES: usize = 554;
+pub const FUNCTIONS: usize = 531;
+pub const PUBLISHED_ROWS_AND_ADDED: usize = 547;
 pub const SOURCE: &str = "https://github.com/DnaCalc/ExcelFunctionsHandbook";
 
 pub fn esc(s: &str) -> String {

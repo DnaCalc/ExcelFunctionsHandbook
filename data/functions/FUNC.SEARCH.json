@@ -5,7 +5,7 @@
   "entry_kind": "built_in_function",
   "category": "Text functions",
   "admission": {
-    "label": "supported",
+    "label": "implemented",
     "reason": null
   },
   "metadata_status": "function_meta_curated",
@@ -139,24 +139,184 @@
     "microsoft_url": "https://support.microsoft.com/en-us/office/search-function-9ab04538-0e55-4719-a72e-b6f54513b495",
     "english_description": "Finds one text value within another (not case-sensitive)"
   },
-  "localized_names": [],
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "HLEDAT"
+    },
+    {
+      "locale": "da-DK",
+      "name": "SØG"
+    },
+    {
+      "locale": "de-DE",
+      "name": "SUCHEN"
+    },
+    {
+      "locale": "el-GR",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "en-AU",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "en-GB",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "en-US",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "es-ES",
+      "name": "HALLAR"
+    },
+    {
+      "locale": "et-EE",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "KÄY.LÄPI"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "CHERCHE"
+    },
+    {
+      "locale": "he-IL",
+      "name": "SEARCH‏"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÖVEG.KERES"
+    },
+    {
+      "locale": "id-ID",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "it-IT",
+      "name": "RICERCA"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "SØK"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VIND.SPEC"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "SZUKAJ.TEKST"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LOCALIZAR"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "PROCURAR"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ПОИСК"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "SÖK"
+    },
+    {
+      "locale": "th-TH",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "ARA"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "Các hàm SEARCH"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "SEARCH"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "SEARCH"
+    }
+  ],
   "localization": {
     "raw_organ": "data/localization/microsoft-support-function-index.json",
     "function_article_guid": "9ab04538-0e55-4719-a72e-b6f54513b495",
     "scope": "shared_published_row",
-    "status": "combined_row",
+    "status": "split_combined_row",
     "article_row_count": 40,
-    "resolved_name_count": 0
+    "resolved_name_count": 40
   },
   "artifacts": null,
   "version_marker": null,
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": true,
-  "oxfunc_tree_clean": true,
   "vintage": {
-    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
-    "arity": "live-registry:473efa3:clean:undated",
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "live-registry:473efa3:clean:undated",
     "axis_provenance": "live-registry:473efa3:clean:undated",
@@ -169,10 +329,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
-    "registry_backed": "live-registry:473efa3:clean:undated",
-    "signature": "live-registry:473efa3:clean:undated",
-    "signature_placeholder": "live-registry:473efa3:clean:undated",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

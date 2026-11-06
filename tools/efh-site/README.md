@@ -29,7 +29,8 @@ ownership at replacement time. Keep output paths outside
 source directories. Serve the folder with any ordinary static file server, at
 the root or under a URL prefix. Internal links include filenames and are relative.
 
-The 541-entry spine is read from `data/index.json`. Each page uses the same order:
+The entry spine is read from `data/index.json`. `data/calcfunc/` supplies the state of our
+implementation, quoted Rust and Excel-environment variants; see `tools/efh-calcfunc/README.md`. Each page uses the same order:
 What it does, Try it, Quirks, How to implement, Version differences, Alternatives.
 Sources and evidence appear in a compact footer. Existing essays are divided by subject;
 editorial metadata stays in the source files and JSON. `content/reference/FUNC.*.json` owns
@@ -50,7 +51,9 @@ Prose blocks that fail it are visibly withheld with a source link. Their source
 paths, reasons and excerpts are recorded in `api/build.json`; source content is
 unchanged. Note JSON is not rewritten to pass a gate: offending note wording
 fails the build for editorial correction. Coverage lists outstanding references.
-Link checks cover local targets, fragments, duplicate ids and label/control ids;
+Link checks cover local targets, fragments, duplicate ids, label/control ids, paths that differ
+only by case, navigation words linked to a function of the same name, and repositories outside the
+public list;
 they do not contact external servers.
 
 The source-schema validator (`tools/efh-validate`) is an independent research-data diagnostic.

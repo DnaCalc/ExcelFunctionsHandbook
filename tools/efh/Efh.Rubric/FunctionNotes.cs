@@ -379,7 +379,7 @@ public static class FunctionNotes
 
         var fnCount = notes.SelectMany(n => n.Functions).Distinct().Count();
         sb.Append("## Summary\n\n");
-        sb.Append($"- Notes: {notes.Count}, over {fnCount} functions (of the 541 entries = 518 functions + 23 operators).\n");
+        sb.Append($"- Notes: {notes.Count}, over {fnCount} functions (of the 554 entries = 531 functions + 23 operators).\n");
         foreach (var kind in new[] { "excel-differs-from-math", "bit-matching-detail", "quirk", "documentation-differs" })
             sb.Append($"- {KindLabel(kind)}: {notes.Count(n => n.Kind == kind)}.\n");
         sb.Append($"- Measured: {notes.Count(n => n.Status == "measured")}; inferred: {notes.Count(n => n.Status == "inferred")}.\n\n");

@@ -3,8 +3,8 @@
 A comprehensive, honest, evidence-backed reference for every Excel worksheet function and
 operator — the Abramowitz & Stegun of Excel functions.
 
-For each of the 541 canonical entries — 541 entries = 518 functions + 23 operators = 534 published
-Excel rows + 7 split byte-variant rows — the Handbook grows toward: uniform call
+For each of the 554 canonical entries — 554 entries = 531 functions + 23 operators = 534 published
+Excel rows + 7 split byte-variant rows + 13 added functions — the Handbook grows toward: uniform call
 semantics, full metadata and localized names, links to official documentation (and where reality
 diverges from it), implementations in four flavours across multiple languages, versioned and
 independently checkable test suites, curated references, residual-portrait plates (the ULP
@@ -20,7 +20,8 @@ Read [CHARTER.md](CHARTER.md), [OPERATIONS.md](OPERATIONS.md) and the
 
 ## Layout
 
-- `data/` — machine projections from OxFunc (the only mechanically synced organ).
+- `data/` — machine projections (the only mechanically synced organ); `data/calcfunc/` holds what
+  `tools/efh-calcfunc` regenerates from a pinned DnaCalc commit.
 - `content/` — curated prose: call-model chapters, function pages, "The Last Bit" series,
   homepage exhibits, and the versioned working-term explanation registry.
   `content/notes/` holds the function notes (quirks, answers that differ from the mathematical
@@ -31,7 +32,7 @@ Read [CHARTER.md](CHARTER.md), [OPERATIONS.md](OPERATIONS.md) and the
 - `vectors/` — versioned test suites (JSONL, bits-hex, hash-manifested).
 - `content/reference/` — handbook-owned examples, versions, implementations and variants.
 - `site/` — generated static site (plus `site/mockups/` — approved design mockups).
-- `tools/` — `efh-ingest` and `efh-site` (Rust), and `efh` (C#).
+- `tools/` — `efh-calcfunc` (Python and Rust), `efh-site` (Rust) and `efh` (C#).
 - `tests/` — vector runners, ratchets, determinism drills.
 - `docs/decisions/` — steward decision records (`EFH-DR-nnn`).
 - `docs/handoffs/` — outbound notes to sibling repos.
@@ -42,16 +43,15 @@ Read [CHARTER.md](CHARTER.md), [OPERATIONS.md](OPERATIONS.md) and the
 cargo run --release --locked --manifest-path tools/efh-site/Cargo.toml -- build
 ```
 
-Writes the ignored folder `site/build/`, with all 541 entry pages, function notes, a category
+Writes the ignored folder `site/build/`, with all 554 entry pages, function notes, a category
 index and browser-local search, The Last Bit drafts, coverage and licences. The standalone Rust
 generator does not require C# or an OxFunc checkout and does not publish anything. See
 [its commands and checks](tools/efh-site/README.md). Function JSON lives at
-`api/functions/FUNC.<NAME>.json`; `llms.txt` documents agent access. All 541 catalogue entries
+`api/functions/FUNC.<NAME>.json`; `llms.txt` documents agent access. All catalogue entries
 use the same six-section layout. Build and platform information travels with measured answers.
 
 `vectors/` has no published suites. The restrictions on equality wording in Charter §7 remain.
-The catalogue still omits four Microsoft-listed `FORECAST.ETS*` functions; this is an inventory
-gap, not evidence that Excel lacks those functions. Local building never publishes the site.
+Local building never publishes the site.
 
 ## Licenses
 

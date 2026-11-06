@@ -172,7 +172,38 @@
             "type": "string"
           },
           "suite": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A published Handbook suite manifest, or null while none is published."
+          },
+          "name": {
             "type": "string"
+          },
+          "repository": {
+            "type": "string"
+          },
+          "commit": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "own_code": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "shared_code": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }
@@ -245,6 +276,44 @@
               "language",
               "source"
             ]
+          },
+          "kind": {
+            "enum": [
+              "environment"
+            ],
+            "description": "Present on a record of one Excel environment: a build range and CPU with its own recorded answers."
+          },
+          "key": {
+            "type": "object",
+            "properties": {
+              "excel_build_range": {
+                "type": "string"
+              },
+              "cpu": {
+                "type": "string"
+              },
+              "env_id": {
+                "type": "string"
+              }
+            }
+          },
+          "state": {
+            "type": "string"
+          },
+          "state_summary": {
+            "type": "string"
+          },
+          "evaluated_on": {
+            "type": "string"
+          },
+          "code": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "array"
           }
         }
       }
@@ -274,6 +343,53 @@
     "display_name": {
       "type": "string",
       "minLength": 1
+    },
+    "implementation_state": {
+      "type": "object",
+      "required": [
+        "state",
+        "summary"
+      ],
+      "properties": {
+        "state": {
+          "enum": [
+            "matches",
+            "close",
+            "differs",
+            "refuses",
+            "deferred",
+            "host",
+            "unmeasured"
+          ]
+        },
+        "state_label": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "answer_bank": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "workbook_corpus": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "in_catalogue": {
+          "type": "boolean"
+        },
+        "dnacalc_commit": {
+          "type": "string"
+        }
+      }
     }
   }
 }

@@ -31,7 +31,6 @@
         "export_source_tree_state",
         "oxfunc_commit_at_ingest",
         "oxfunc_commit_at_ingest_full",
-        "oxfunc_tree_clean",
         "registry_snapshot_family",
         "registry_generation",
         "registry_content_fingerprint",
@@ -156,7 +155,7 @@
         "total_entries": {
           "const": 541,
           "type": "integer",
-          "description": "STEWARD DECISION SD-1: 541 entries is the coverage denominator; CHARTER 7.3, model chapter 06 and README line 6 are amended to match. FOUNDATION 3 line 427: 541 entries = 518 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows."
+          "description": "STEWARD DECISION SD-1: 541 entries is the coverage denominator; CHARTER 7.3, model chapter 06 and README line 6 are amended to match. FOUNDATION 3 line 427: 554 entries = 531 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 13 added functions."
         },
         "published_rows": { "const": 534, "type": "integer" },
         "split_combined_rows": { "const": 7, "type": "integer" },
@@ -191,7 +190,7 @@
           "surface_name": { "type": "string" },
           "entry_kind": { "type": "string", "enum": ["built_in_function", "built_in_operator"] },
           "category": { "type": ["string", "null"] },
-          "admission": { "type": "string", "enum": ["supported", "deferred"] }
+          "admission": { "type": "string", "enum": ["implemented", "formula_layer", "not_modelled", "not_implemented", "deferred", "host"] }
         }
       },
       "description": "R. Exactly 541, per SD-1."

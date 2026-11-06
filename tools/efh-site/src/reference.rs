@@ -1,5 +1,5 @@
 //! Reader sections shared by HTML and the stable function JSON.
-use crate::{markdown, util::*};
+use crate::{implementation::CalcFunc, markdown, util::*};
 use regex::Regex;
 use serde_json::{json, Value};
 use std::{collections::BTreeMap, path::Path, sync::LazyLock};
@@ -269,7 +269,13 @@ fn reader_prose(text: &str) -> String {
         .join("\n\n")
 }
 
-pub fn record(repo: &Path, f: &Value, owned: &Value, notes: &[Value]) -> Result<Value, String> {
+pub fn record(
+    repo: &Path,
+    f: &Value,
+    owned: &Value,
+    notes: &[Value],
+    calc: &CalcFunc,
+) -> Result<Value, String> {
     let id = s(&f["function_id"]);
     let path = repo.join(format!("content/functions/{id}.md"));
     let mut sections = if path.is_file() {
@@ -307,6 +313,22 @@ pub fn record(repo: &Path, f: &Value, owned: &Value, notes: &[Value]) -> Result<
                 .is_some_and(|fs| fs.iter().any(|v| s(v) == id))
         })
         .collect();
+    let row = calc.entry(id);
+    let mut implementations = owned["implementations"]
+        .as_array()
+        .cloned()
+        .unwrap_or_default();
+    implementations.extend(calc.implementation(id));
+    let mut variants = owned["variants"].as_array().cloned().unwrap_or_default();
+    variants.extend(calc.variants[id].as_array().cloned().unwrap_or_default());
+    // Readers get identity and calling facts; the working fields of the projection stay in data/.
+    let metadata = json!({
+        "surface_name": f["surface_name"], "category": f["category"], "entry_kind": f["entry_kind"],
+        "admission": f["admission"], "arity": f["arity"], "signature": f["signature"],
+        "descriptions": f["descriptions"], "docs": f["docs"], "xlcall": f["xlcall"],
+        "localized_names": f["localized_names"], "localized_family_names": f["localized_family_names"],
+        "classification": f["classification"], "version_marker": f["version_marker"],
+    });
     Ok(json!({
         "schema":"efh.function-reference/v1", "function_id":id, "name":f["surface_name"], "display_name":owned.get("display_name").unwrap_or(&f["surface_name"]),
         "category":f["category"], "entry_kind":f["entry_kind"],
@@ -315,8 +337,9 @@ pub fn record(repo: &Path, f: &Value, owned: &Value, notes: &[Value]) -> Result<
         "signature":owned.get("signature").cloned().unwrap_or_else(|| if f["signature_placeholder"] == true { Value::Null } else { f["signature"].clone() }),
         "section_order":SECTIONS.iter().map(|(id,_)| *id).collect::<Vec<_>>(),
         "sections":sections, "try_it":owned["try_it"],
-        "versions":owned["versions"], "implementations":owned["implementations"], "variants":owned["variants"],
-        "notes":attached, "sources":{"microsoft":f["docs"]["microsoft_url"], "metadata":f},
+        "versions":owned["versions"], "implementations":implementations, "variants":variants,
+        "implementation_state":{"state":row["state"],"state_label":row["state_label"],"summary":row["summary"],"detail":row["detail"],"answer_bank":row["bank"],"workbook_corpus":row["corpus"],"in_catalogue":row["in_catalogue"],"dnacalc_commit":calc.commit()},
+        "notes":attached, "sources":{"microsoft":f["docs"]["microsoft_url"], "metadata":metadata},
         "eval_api":{"url":"https://handbook.dnacalc.com/api/eval","method":"POST"}
     }))
 }

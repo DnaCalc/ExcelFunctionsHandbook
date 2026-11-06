@@ -5,7 +5,7 @@
   "entry_kind": "built_in_function",
   "category": "Text functions",
   "admission": {
-    "label": "supported",
+    "label": "implemented",
     "reason": null
   },
   "metadata_status": "function_meta_curated",
@@ -139,24 +139,184 @@
     "microsoft_url": "https://support.microsoft.com/en-us/office/find-function-c7912941-af2a-4bdf-a553-d0d89b0a0628",
     "english_description": "Finds one text value within another (case-sensitive)"
   },
-  "localized_names": [],
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "FINDB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "FINDB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "FINDB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "FINDB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "FINDENB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "FINDB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "FINDB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "FINDB"
+    },
+    {
+      "locale": "en-US",
+      "name": "FINDB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "ENCONTRARB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "FINDB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "ETSIB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "TROUVERB"
+    },
+    {
+      "locale": "he-IL",
+      "name": "FINDB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "FINDB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "SZÖVEG.TALÁL2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "FINDB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "TROVA.B"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "FINDB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "FINDB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "FINDB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "FINDB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "FINNB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "VIND.ALLES.B."
+    },
+    {
+      "locale": "pl-PL",
+      "name": "ZNAJDŹB"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "PROCURARB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "LOCALIZARB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "FINDB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "НАЙТИБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "FINDB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "FINDB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "FINDB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "HITTAB"
+    },
+    {
+      "locale": "th-TH",
+      "name": "FINDB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "BULB"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "FINDB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "FINDB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "FINDB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "FINDB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "FINDB"
+    }
+  ],
   "localization": {
     "raw_organ": "data/localization/microsoft-support-function-index.json",
     "function_article_guid": "c7912941-af2a-4bdf-a553-d0d89b0a0628",
     "scope": "shared_published_row",
-    "status": "combined_row",
+    "status": "split_combined_row",
     "article_row_count": 40,
-    "resolved_name_count": 0
+    "resolved_name_count": 40
   },
   "artifacts": null,
   "version_marker": null,
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": true,
-  "oxfunc_tree_clean": true,
   "vintage": {
-    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
-    "arity": "live-registry:473efa3:clean:undated",
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "live-registry:473efa3:clean:undated",
     "axis_provenance": "live-registry:473efa3:clean:undated",
@@ -169,10 +329,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
-    "registry_backed": "live-registry:473efa3:clean:undated",
-    "signature": "live-registry:473efa3:clean:undated",
-    "signature_placeholder": "live-registry:473efa3:clean:undated",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

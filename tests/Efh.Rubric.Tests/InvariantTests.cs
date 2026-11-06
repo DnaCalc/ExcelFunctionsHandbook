@@ -4,16 +4,16 @@ using Xunit;
 namespace Efh.Rubric.Tests;
 
 /// <summary>
-/// The invariants of FOUNDATION 3.7, asserted over all 541 entries rather than over a sample.
+/// The invariants of FOUNDATION 3.7, asserted over all 554 entries rather than over a sample.
 /// These are the assertions that make a wrong label impossible rather than unlikely.
 /// </summary>
 public class InvariantTests
 {
     [Fact]
-    public void The_denominator_is_541_entries()
+    public void The_denominator_is_554_entries()
     {
-        Assert.Equal(541, HandbookFixture.All.Count);
-        Assert.Equal(541, HandbookFixture.All.Select(a => a.FunctionId).Distinct().Count());
+        Assert.Equal(554, HandbookFixture.All.Count);
+        Assert.Equal(554, HandbookFixture.All.Select(a => a.FunctionId).Distinct().Count());
     }
 
     [Fact]

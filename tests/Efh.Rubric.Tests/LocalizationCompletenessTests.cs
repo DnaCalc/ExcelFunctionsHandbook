@@ -99,14 +99,20 @@ public class LocalizationCompletenessTests
         }
     }
 
+    private static bool IsAdded(JsonElement page) =>
+        page.GetProperty("localization").ValueKind == JsonValueKind.Null;
+
     [Fact]
     public void Function_pages_associate_to_raw_rows_without_cross_products_or_combined_labels()
     {
         var pages = FunctionPages();
-        Assert.Equal(541, pages.Count);
+        Assert.Equal(554, pages.Count);
         var functions = pages.Where(p => Text(p, "entry_kind") == "built_in_function").ToList();
         var operators = pages.Where(p => Text(p, "entry_kind") == "built_in_operator").ToList();
-        Assert.Equal(518, functions.Count);
+        Assert.Equal(531, functions.Count);
+        // Entries added after the 40-locale harvest have no row in it.
+        Assert.Equal(13, functions.Count(IsAdded));
+        functions = functions.Where(p => !IsAdded(p)).ToList();
         Assert.Equal(23, operators.Count);
         Assert.All(operators, p => Assert.Equal(JsonValueKind.Null, p.GetProperty("localization").ValueKind));
 
@@ -123,7 +129,7 @@ public class LocalizationCompletenessTests
             .ToDictionary(g => g.Key, g => g.ToList(), StringComparer.Ordinal);
         Assert.Equal(491, byStatus["article_unique"].Count);
         Assert.Single(byStatus["english_name_match"]);
-        Assert.Equal(14, byStatus["combined_row"].Count);
+        Assert.Equal(14, byStatus["split_combined_row"].Count);
         Assert.Equal(10, byStatus["unresolved_shared_guid"].Count);
         Assert.Equal(2, byStatus["missing_source_row"].Count);
 
@@ -168,6 +174,15 @@ public class LocalizationCompletenessTests
                     Assert.Equal(Text(page, "surface_name"), Text(englishRow, "localized_name"));
                 }
             }
+            else if (status == "split_combined_row")
+            {
+                // One name of each two-name row; a row that does not split yields no name.
+                Assert.NotEmpty(names);
+                Assert.Equal(names.Count, association.GetProperty("resolved_name_count").GetInt32());
+                Assert.All(names, name => Assert.Contains(rawRows, row =>
+                    Text(row, "locale_tag") == Text(name, "locale")
+                    && Text(row, "localized_name").Contains(Text(name, "name"), StringComparison.Ordinal)));
+            }
             else
             {
                 Assert.Empty(names);
@@ -175,7 +190,7 @@ public class LocalizationCompletenessTests
             }
 
             if (CombinedRows.Contains(id))
-                Assert.Equal(("shared_published_row", "combined_row"),
+                Assert.Equal(("shared_published_row", "split_combined_row"),
                     (Text(association, "scope"), Text(association, "status")));
             if (UnresolvedSharedArticles.Contains(id))
             {
@@ -189,7 +204,7 @@ public class LocalizationCompletenessTests
         }
 
         Assert.True(EnglishNameMatches.SetEquals(IdSet(byStatus["english_name_match"])));
-        Assert.True(CombinedRows.SetEquals(IdSet(byStatus["combined_row"])));
+        Assert.True(CombinedRows.SetEquals(IdSet(byStatus["split_combined_row"])));
         Assert.True(UnresolvedSharedArticles.SetEquals(IdSet(byStatus["unresolved_shared_guid"])));
         Assert.True(MissingRows.SetEquals(IdSet(byStatus["missing_source_row"])));
     }
@@ -198,7 +213,7 @@ public class LocalizationCompletenessTests
     public void Every_function_has_official_English_help_and_F0_reports_the_association_partition()
     {
         var pages = FunctionPages();
-        foreach (var page in pages.Where(p => Text(p, "entry_kind") == "built_in_function"))
+        foreach (var page in pages.Where(p => Text(p, "entry_kind") == "built_in_function" && !IsAdded(p)))
         {
             Assert.False(string.IsNullOrWhiteSpace(Text(page.GetProperty("docs"), "microsoft_url")));
             Assert.False(string.IsNullOrWhiteSpace(Text(page.GetProperty("docs"), "english_description")));

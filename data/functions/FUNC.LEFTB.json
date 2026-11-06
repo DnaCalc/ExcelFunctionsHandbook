@@ -5,7 +5,7 @@
   "entry_kind": "built_in_function",
   "category": "Text functions",
   "admission": {
-    "label": "supported",
+    "label": "implemented",
     "reason": null
   },
   "metadata_status": "function_meta_curated",
@@ -133,24 +133,184 @@
     "microsoft_url": "https://support.microsoft.com/en-us/office/left-function-9203d2d2-7960-479b-84c6-1ea52b99640c",
     "english_description": "Returns the leftmost characters from a text value"
   },
-  "localized_names": [],
+  "localized_names": [
+    {
+      "locale": "ar-SA",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "bg-BG",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "cs-CZ",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "da-DK",
+      "name": "VENSTREB"
+    },
+    {
+      "locale": "de-DE",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "el-GR",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "en-AU",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "en-GB",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "en-US",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "es-ES",
+      "name": "IZQUIERDAB"
+    },
+    {
+      "locale": "et-EE",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "fi-FI",
+      "name": "VASENB"
+    },
+    {
+      "locale": "fr-FR",
+      "name": "GAUCHEB"
+    },
+    {
+      "locale": "he-IL",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "hr-HR",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "hu-HU",
+      "name": "BAL2"
+    },
+    {
+      "locale": "id-ID",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "it-IT",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "ja-JP",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "ko-KR",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "lt-LT",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "lv-LV",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "nb-NO",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "nl-NL",
+      "name": "LINKSB"
+    },
+    {
+      "locale": "pl-PL",
+      "name": "LEWYB"
+    },
+    {
+      "locale": "pt-BR",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "pt-PT",
+      "name": "ESQUERDAB"
+    },
+    {
+      "locale": "ro-RO",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "ru-RU",
+      "name": "ЛЕВБ"
+    },
+    {
+      "locale": "sk-SK",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "sl-SI",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "sr-Latn-RS",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "sv-SE",
+      "name": "VÄNSTERB"
+    },
+    {
+      "locale": "th-TH",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "tr-TR",
+      "name": "SOLB işlevleri"
+    },
+    {
+      "locale": "uk-UA",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "vi-VN",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "zh-CN",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "zh-HK",
+      "name": "LEFTB"
+    },
+    {
+      "locale": "zh-TW",
+      "name": "LEFTB"
+    }
+  ],
   "localization": {
     "raw_organ": "data/localization/microsoft-support-function-index.json",
     "function_article_guid": "9203d2d2-7960-479b-84c6-1ea52b99640c",
     "scope": "shared_published_row",
-    "status": "combined_row",
+    "status": "split_combined_row",
     "article_row_count": 40,
-    "resolved_name_count": 0
+    "resolved_name_count": 40
   },
   "artifacts": null,
   "version_marker": null,
   "special_interface_kind": "ordinary",
   "admission_interface_kind": "ordinary_call",
   "registry_backed": true,
-  "oxfunc_tree_clean": true,
   "vintage": {
-    "admission": "lane-csv:W50_DEFERRED_CURRENT_VERSION_INVENTORY.csv@473efa3:clean:undated",
-    "arity": "live-registry:473efa3:clean:undated",
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "live-registry:473efa3:clean:undated",
     "axis_provenance": "live-registry:473efa3:clean:undated",
@@ -163,10 +323,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "oxfunc_tree_clean": "live-registry:473efa3:clean:undated",
-    "registry_backed": "live-registry:473efa3:clean:undated",
-    "signature": "live-registry:473efa3:clean:undated",
-    "signature_placeholder": "live-registry:473efa3:clean:undated",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

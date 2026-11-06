@@ -245,11 +245,11 @@ try {
   });
   report.checks.push("contribution form saves through API into private SQLite");
   await withPage("catalogue/index.html", 390, "light", async cdp => {
-    assert.equal(await cdp.evaluate(`document.querySelectorAll('[data-search]').length`), 541);
+    assert.equal(await cdp.evaluate(`document.querySelectorAll('[data-search]').length`), 554);
     assert.ok(await cdp.evaluate(`[...document.querySelectorAll('.filter-controls')].every(el=>getComputedStyle(el).display==='none')`));
     assert.ok(await cdp.evaluate(`document.querySelector('section[data-category]')!==null`));
   }, true);
-  report.checks.push("541 catalogue links without JavaScript");
+  report.checks.push("554 catalogue links without JavaScript");
   await withPage("functions/ROUND.html", 390, "light", async cdp => {
     assert.ok(await cdp.evaluate(`[...document.querySelectorAll('.explain')].every(el=>getComputedStyle(el).display!=='none')`));
   }, true);

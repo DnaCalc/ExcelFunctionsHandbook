@@ -1,0 +1,92 @@
+{
+  "function_id": "FUNC.FORECAST.ETS.CONFINT",
+  "surface_name": "FORECAST.ETS.CONFINT",
+  "published_row_id": "FUNC.FORECAST.ETS.CONFINT",
+  "entry_kind": "built_in_function",
+  "category": "Statistical functions",
+  "admission": {
+    "label": "not_implemented",
+    "reason": "Listed by Microsoft; no catalogue row yet."
+  },
+  "metadata_status": "added_from_catalogue_or_public_source",
+  "xlcall": null,
+  "arity": {
+    "min": 3,
+    "max": 7
+  },
+  "classification": {},
+  "axes": null,
+  "axis_provenance": {},
+  "signature": {
+    "display": "FORECAST.ETS.CONFINT(target_date, values, timeline, [confidence_level], [seasonality], [data_completion], [aggregation])",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "target_date",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "values",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "timeline",
+        "optional": false,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "confidence_level",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "seasonality",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "data_completion",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "aggregation",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      }
+    ]
+  },
+  "signature_placeholder": false,
+  "descriptions": {
+    "short": "Confidence interval of an exponential triple smoothing forecast",
+    "short_source": "dna-calc-own",
+    "long": null
+  },
+  "docs": {
+    "microsoft_url": "https://support.microsoft.com/en-us/excel/functions/forecast-ets-confint-function",
+    "english_description": null
+  },
+  "localized_names": [],
+  "localization": null,
+  "artifacts": null,
+  "version_marker": null,
+  "special_interface_kind": null,
+  "admission_interface_kind": null,
+  "registry_backed": false,
+  "vintage": {
+    "admission": "calcfunc-catalogue:481f4ab85d3b",
+    "arity": "calcfunc-catalogue:481f4ab85d3b",
+    "registry_backed": "calcfunc-catalogue:481f4ab85d3b",
+    "signature": "calcfunc-catalogue:481f4ab85d3b",
+    "signature_placeholder": "calcfunc-catalogue:481f4ab85d3b"
+  }
+}
