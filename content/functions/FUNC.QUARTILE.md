@@ -27,15 +27,31 @@ role_in_family: null
 
 ## Try it
 
-`=QUARTILE({10,20,30,40},1)` returns `17.5`, the inclusive 25th percentile. Selector two returns `25`, halfway between twenty and thirty.
+`=QUARTILE({10,20,30,40},1)` returns `17.5`, the inclusive 25th percentile. The five selectors give:
+
+| Selector | Meaning | Value for these observations |
+|---:|---|---:|
+| 0 | minimum | 10 |
+| 1 | lower quartile | 17.5 |
+| 2 | median | 25 |
+| 3 | upper quartile | 32.5 |
+| 4 | maximum | 40 |
+
+Using medians of the lower and upper halves would give different lower and upper quartiles for this example.
 
 ## Quirks
 
-The selector is truncated to an integer. Empty numeric data or an admitted selector outside zero through four gives `#NUM!`. The exclusive quartile convention can produce different values from this compatibility function.
+The selector is truncated to an integer. Empty numeric data or a selector outside zero through four after the current truncation gives `#NUM!`; a nonnumeric selector gives `#VALUE!`. Referenced text, logical values and blanks do not extend the numeric sample; zeros and repeated numbers do.
+
+The array need not already be sorted. The selector is a quartile number, not a percentile fraction: pass one for the lower quartile, rather than `0.25`. The exclusive quartile convention uses different positions and can reject a requested quartile when the sample is too small.
 
 ## How to implement
 
-Collect and sort numeric observations, validate the truncated selector q, and call the inclusive percentile calculation with `k=q/4`. Its one-based rank is `1+(n-1)*k`. For q=1 and four observations this is 1.75; interpolate `10+0.75*(20-10)=17.5`. Keep data admission separate from sorting and retain numeric zeros. A direct split into “halves” and then taking their medians can implement a different quartile definition.
+Collect the numeric observations, truncate and validate the selector `q`, then call the inclusive percentile helper with `k=q/4`. Sorting and interpolation follow [PERCENTILE](FUNC.PERCENTILE.md#how-to-implement).
+
+For `q=1,n=4`, the one-based position is `1+(4-1)/4=1.75`; interpolate `10+0.75*(20-10)=17.5`. For `q=3`, the position is `3.25`, giving `30+0.25*(40-30)=32.5`. Selectors zero and four select endpoints without interpolation. A single numeric observation supplies all five inclusive quartiles.
+
+This definition is a specific percentile convention. Splitting the sample into halves, dropping repeated observations or changing how an odd middle observation joins those halves implements another convention. The current helper’s rank and interpolation arithmetic still need their own numerical controls before a whole-domain Excel claim.
 
 ## Version differences
 

@@ -31,11 +31,20 @@ With `30,20,20,10` in B2:B5, `=RANK(20,B2:B5)` returns `2`. Both twenties have r
 
 ## Quirks
 
-Nonnumeric values in the reference are ignored. Equal values share the rank they first occupy, rather than receiving consecutive ranks or an average rank. A number absent from the admitted data gives `#N/A` in the current helper. Changing the order reverses which observations precede it.
+Text, logical values and blanks in the reference are ignored, while zeros and repeated numbers remain observations. Ties share their first occupied rank; they do not receive consecutive ranks or an average. A number absent from the admitted data gives `#N/A` in the current helper.
+
+Microsoft describes any nonzero `order` as ascending. The current wrapper truncates its numeric order toward zero before testing it, so fractional flags between minus one and one select descending. That is an implementation rule, not a measured statement about every Excel build. A nonnumeric target is also `#N/A` in this wrapper; it is not automatically parsed from numeric-looking text.
 
 ## How to implement
 
-After collecting numeric observations, determine whether the target is present. Descending rank is `1+count(value>target)`; ascending rank is `1+count(value<target)`. In the example only thirty is greater than twenty, so the result is two. Sorting is optional for a single query; repeated queries can benefit from a sorted index. Keep exact target equality distinct from text coercion, and preserve the call’s argument-validation policy.
+1. Validate the target as the current wrapper does: preserve a numeric value or worksheet error; other target kinds give `#N/A`.
+2. Collect the reference’s numeric observations. Coerce and truncate a supplied order flag, then test zero versus nonzero.
+3. Confirm the target occurs. If it is absent, return `#N/A`.
+4. Descending rank is `1+count(value>target)`; ascending rank is `1+count(value<target)`. Equal observations contribute no preceding positions, so each member of a tie receives the same result.
+
+With `30,20,20,10`, only thirty exceeds twenty, giving rank two. All three other observations exceed ten, giving rank four. In ascending order thirty is fourth rather than first.
+
+For a single query, counting avoids sorting and uses exact comparisons of the admitted numeric values. A sorted index can support many queries, provided it retains multiplicities and the same equality rule. Pairing this function with ROW-based tie breakers produces unique positions, which is a different ranking convention.
 
 ## Version differences
 

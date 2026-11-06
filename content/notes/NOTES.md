@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 70, over 104 functions (of the 541 entries = 518 functions + 23 operators).
+- Notes: 71, over 106 functions (of the 541 entries = 518 functions + 23 operators).
 - Excel differs from the mathematical answer: 23.
 - Detail for matching Excel's bits: 10.
 - Quirk: 32.
-- Documentation differs from behaviour: 5.
-- Measured: 68; inferred: 2.
+- Documentation differs from behaviour: 6.
+- Measured: 69; inferred: 2.
 
 ## Where Excel's answer is wrong
 
@@ -163,6 +163,8 @@ answer.
 | [`OP_EQUAL`](../functions/FUNC.OP_EQUAL.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable) |
 | [`OP_GREATER_THAN`](../functions/FUNC.OP_GREATER_THAN.md) | [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han) |
 | [`OP_LESS_THAN`](../functions/FUNC.OP_LESS_THAN.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable), [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han), [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
+| [`PERCENTRANK`](../functions/FUNC.PERCENTRANK.md) | [FN-PERCENTRANK-001](#fn-percentrank-001-two-percent-rank-controls-retain-decimal-places-rather-than-significant-digits) |
+| [`PERCENTRANK.INC`](../functions/FUNC.PERCENTRANK.INC.md) | [FN-PERCENTRANK-001](#fn-percentrank-001-two-percent-rank-controls-retain-decimal-places-rather-than-significant-digits) |
 | [`PMT`](../functions/FUNC.PMT.md) | [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
 | [`PPMT`](../functions/FUNC.PPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
 | [`PRICEDISC`](../functions/FUNC.PRICEDISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
@@ -1737,6 +1739,41 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q006, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q027, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4.capture.json`, sheet q003, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-PERCENTRANK-001: Two percent-rank controls retain decimal places rather than significant digits
+
+*Documentation differs from behaviour; measured; recorded 2026-11-06.* Applies to PERCENTRANK,
+PERCENTRANK.INC.
+
+In the retained catalogue capture, PERCENTRANK({37.15,46,54},38.59,6) returns 0.081355, and
+PERCENTRANK.INC({0,1,2,3,4,5,6,7,8,9,10,11,12},1) returns 0.083 with omitted significance.
+These results retain six and three decimal places respectively, and differ from keeping that
+many significant digits in the untruncated ranks. The scope is these two build 20527 calls.
+
+Documentation: The opened PERCENTRANK and PERCENTRANK.INC pages describe significance as the
+number of significant digits; omission defaults to three.
+(https://support.microsoft.com/en-us/excel/functions/percentrank-function;
+https://support.microsoft.com/en-us/excel/functions/percentrank-inc-function)
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=PERCENTRANK({37.15,46,54},38.59,6)` | as typed | `0.081355` (`0x3fb4d3ae685db76b`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1 |
+| `=PERCENTRANK.INC({0,1,2,3,4,5,6,7,8,9,10,11,12},1)` | as typed | `0.083` (`0x3fb53f7ced916873`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1 |
+
+Basis (measured): Two formula-literal rows in the landed statistics capture. Raw and reopened
+binary64 results agree, and the saved numeric text parses to those values. The first
+interpolated mathematical rank is about 0.0813559322; the second is 1/12. Six and three
+significant digits would retain 0.0813559 and 0.0833, respectively. This harvest made no new
+Excel calls.
+
+- Open: These two controls do not establish all duplicate-selection, significance-limit or cross-build behaviour. PERCENTRANK.EXC shares the current helper but is not a measured precision discriminator in this note.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json`, sheet dcj9k_statistics, rows 933 and 1028, column 4 at `da3ecc4fb1` — Formula-literal answers and full environment, with raw/saved/reopened views.
+- DnaCalc `crates/calc-func/src/ported/percentrank_common.rs`, truncate_to_decimal_places at `da3ecc4fb1` — Current decimal-place truncation and its stated recorded scope.
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json`, sheet dcj9k_statistics, row 933, column 4; formulas, observations, saved and reopened at `da3ecc4fb1` — One capture with three retained views, not three independent runs. (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json`, sheet dcj9k_statistics, row 1028, column 4; formulas, observations, saved and reopened at `da3ecc4fb1` — One capture with three retained views, not three independent runs. (readings)
 
 ### FN-PMT-001: PMT takes ln(1+rate) from a series, and stores its quotient before the rate
 

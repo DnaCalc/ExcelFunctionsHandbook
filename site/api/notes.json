@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 70,
+  "note_count": 71,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -7288,6 +7288,84 @@
         "The collation rule behind this is not identified, and none is claimed here."
       ],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-PERCENTRANK-001",
+      "functions": [
+        "FUNC.PERCENTRANK",
+        "FUNC.PERCENTRANK.INC"
+      ],
+      "kind": "documentation-differs",
+      "title": "Two percent-rank controls retain decimal places rather than significant digits",
+      "statement": "In the retained catalogue capture, PERCENTRANK({37.15,46,54},38.59,6) returns 0.081355, and PERCENTRANK.INC({0,1,2,3,4,5,6,7,8,9,10,11,12},1) returns 0.083 with omitted significance. These results retain six and three decimal places respectively, and differ from keeping that many significant digits in the untruncated ranks. The scope is these two build 20527 calls.",
+      "status": "measured",
+      "basis": "Two formula-literal rows in the landed statistics capture. Raw and reopened binary64 results agree, and the saved numeric text parses to those values. The first interpolated mathematical rank is about 0.0813559322; the second is 1/12. Six and three significant digits would retain 0.0813559 and 0.0833, respectively. This harvest made no new Excel calls.",
+      "inferred": null,
+      "documentation": {
+        "claim": "The opened PERCENTRANK and PERCENTRANK.INC pages describe significance as the number of significant digits; omission defaults to three.",
+        "source": "https://support.microsoft.com/en-us/excel/functions/percentrank-function; https://support.microsoft.com/en-us/excel/functions/percentrank-inc-function"
+      },
+      "repros": [
+        {
+          "call": "=PERCENTRANK({37.15,46,54},38.59,6)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.081355",
+            "bits": "0x3fb4d3ae685db76b"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json",
+            "locator": "sheet dcj9k_statistics, row 933, column 4; formulas, observations, saved and reopened",
+            "note": "One capture with three retained views, not three independent runs."
+          }
+        },
+        {
+          "call": "=PERCENTRANK.INC({0,1,2,3,4,5,6,7,8,9,10,11,12},1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.083",
+            "bits": "0x3fb53f7ced916873"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json",
+            "locator": "sheet dcj9k_statistics, row 1028, column 4; formulas, observations, saved and reopened",
+            "note": "One capture with three retained views, not three independent runs."
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json",
+          "locator": "sheet dcj9k_statistics, rows 933 and 1028, column 4",
+          "note": "Formula-literal answers and full environment, with raw/saved/reopened views."
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+          "path": "crates/calc-func/src/ported/percentrank_common.rs",
+          "locator": "truncate_to_decimal_places",
+          "note": "Current decimal-place truncation and its stated recorded scope."
+        }
+      ],
+      "open": [
+        "These two controls do not establish all duplicate-selection, significance-limit or cross-build behaviour. PERCENTRANK.EXC shares the current helper but is not a measured precision discriminator in this note."
+      ],
+      "recorded_on": "2026-11-06"
     },
     {
       "schema": "efh.function-note/v1",

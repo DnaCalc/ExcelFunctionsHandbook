@@ -4,7 +4,32 @@
   "try_it": {
     "formula": "=PERCENTRANK.EXC({10,20,30,40},15)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1",
+      "behaviour": "The retained catalogue capture on Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1 records =PERCENTRANK.EXC({12.7,51.9,92.5},87) = 0.716 (0x3fe6e978d4fdf3b6). Inputs were entered as the shown formula literal. Raw, saved and reopened views belong to one capture; this is not a comparison between builds.",
+      "observations": [
+        {
+          "call": "=PERCENTRANK.EXC({12.7,51.9,92.5},87)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.716",
+            "bits": "0x3fe6e978d4fdf3b6"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1"
+        }
+      ],
+      "sources": [
+        "https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json"
+      ]
+    }
+  ],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "sections": {
+    "version-differences": "No same-input comparison between named Excel builds is recorded for this function here. The documented behaviour below is not a measurement of every Excel release.\n\nThe retained catalogue capture on Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H, en-ZA, Workbook Compatibility Version 1 records =PERCENTRANK.EXC({12.7,51.9,92.5},87) = 0.716 (0x3fe6e978d4fdf3b6). Inputs were entered as the shown formula literal. Raw, saved and reopened views belong to one capture; this is not a comparison between builds."
+  }
 }
