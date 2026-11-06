@@ -258,25 +258,25 @@ results are known to agree elsewhere.
 | [`BAHTTEXT`](../functions/FUNC.BAHTTEXT.md) | 16.0 build 20430, AMD Zen 2 (1,983) | read in one environment only | [record](environments/FUNC.BAHTTEXT.json) |
 | [`BASE`](../functions/FUNC.BASE.md) | 16.0 build 20430, CPU not recorded (3,560) | read in one environment only | [record](environments/FUNC.BASE.json) |
 | [`BESSELI`](../functions/FUNC.BESSELI.md) | 16.0 build 20430, CPU not recorded (1,236) | read in one environment only | [record](environments/FUNC.BESSELI.json) |
-| `BESSELJ` (no page yet) | 16.0 build 20228, CPU not recorded (794) | read in one environment only | [record](environments/FUNC.BESSELJ.json) |
+| [`BESSELJ`](../functions/FUNC.BESSELJ.md) | 16.0 build 20228, CPU not recorded (794) | read in one environment only | [record](environments/FUNC.BESSELJ.json) |
 | [`BESSELK`](../functions/FUNC.BESSELK.md) | 16.0 build 20430, CPU not recorded (1,236) | read in one environment only | [record](environments/FUNC.BESSELK.json) |
 | [`BETA.DIST`](../functions/FUNC.BETA.DIST.md) | 16.0 build 20131, AMD Zen 2 (2,805); 16.0 build 20430, CPU not recorded (17) | read in several environments, not compared on the same inputs | [record](environments/FUNC.BETA.DIST.json) |
 | `BETADIST` (no page yet) | 16.0 build 19929, CPU not recorded (28); 16.0 build 20131, AMD Zen 2 (294) | read in several environments, not compared on the same inputs | [record](environments/FUNC.BETADIST.json) |
 | `BETAINV` (no page yet) | 16.0 build 19929, CPU not recorded (71); 16.0 build 20131, AMD Zen 2 (62) | compared, no difference found | [record](environments/FUNC.BETAINV.json) |
-| `BIN2DEC` (no page yet) | 16.0 build 20430, CPU not recorded (313) | read in one environment only | [record](environments/FUNC.BIN2DEC.json) |
-| `BIN2HEX` (no page yet) | 16.0 build 20430, CPU not recorded (748) | read in one environment only | [record](environments/FUNC.BIN2HEX.json) |
-| `BIN2OCT` (no page yet) | 16.0 build 20430, CPU not recorded (742) | read in one environment only | [record](environments/FUNC.BIN2OCT.json) |
+| [`BIN2DEC`](../functions/FUNC.BIN2DEC.md) | 16.0 build 20430, CPU not recorded (313) | read in one environment only | [record](environments/FUNC.BIN2DEC.json) |
+| [`BIN2HEX`](../functions/FUNC.BIN2HEX.md) | 16.0 build 20430, CPU not recorded (748) | read in one environment only | [record](environments/FUNC.BIN2HEX.json) |
+| [`BIN2OCT`](../functions/FUNC.BIN2OCT.md) | 16.0 build 20430, CPU not recorded (742) | read in one environment only | [record](environments/FUNC.BIN2OCT.json) |
 | [`BINOM.DIST.RANGE`](../functions/FUNC.BINOM.DIST.RANGE.md) | 16.0 build 20430, CPU not recorded (1,224) | read in one environment only | [record](environments/FUNC.BINOM.DIST.RANGE.json) |
 | [`BINOM.DIST`](../functions/FUNC.BINOM.DIST.md) | 16.0 build 20131, AMD Zen 2 (70,201) | read in one environment only | [record](environments/FUNC.BINOM.DIST.json) |
 | `BINOM.INV` (no page yet) | 16.0 build 20430, CPU not recorded (2,152) | read in one environment only | [record](environments/FUNC.BINOM.INV.json) |
-| `BITAND` (no page yet) | 16.0 build 20430, CPU not recorded (5,989) | read in one environment only | [record](environments/FUNC.BITAND.json) |
-| `BITLSHIFT` (no page yet) | 16.0 build 20430, CPU not recorded (8,131) | read in one environment only | [record](environments/FUNC.BITLSHIFT.json) |
-| `BITOR` (no page yet) | 16.0 build 20430, CPU not recorded (5,989) | read in one environment only | [record](environments/FUNC.BITOR.json) |
-| `BITRSHIFT` (no page yet) | 16.0 build 20430, CPU not recorded (8,128) | read in one environment only | [record](environments/FUNC.BITRSHIFT.json) |
-| `BITXOR` (no page yet) | 16.0 build 20430, CPU not recorded (5,989) | read in one environment only | [record](environments/FUNC.BITXOR.json) |
-| `CEILING.MATH` (no page yet) | 16.0 build 20430, CPU not recorded (1,362) | read in one environment only | [record](environments/FUNC.CEILING.MATH.json) |
-| `CEILING.PRECISE` (no page yet) | 16.0 build 20430, CPU not recorded (1,335) | read in one environment only | [record](environments/FUNC.CEILING.PRECISE.json) |
-| `CEILING` (no page yet) | 16.0 build 20430, CPU not recorded (1,335) | read in one environment only | [record](environments/FUNC.CEILING.json) |
+| [`BITAND`](../functions/FUNC.BITAND.md) | 16.0 build 20430, CPU not recorded (5,989) | read in one environment only | [record](environments/FUNC.BITAND.json) |
+| [`BITLSHIFT`](../functions/FUNC.BITLSHIFT.md) | 16.0 build 20430, CPU not recorded (8,131) | read in one environment only | [record](environments/FUNC.BITLSHIFT.json) |
+| [`BITOR`](../functions/FUNC.BITOR.md) | 16.0 build 20430, CPU not recorded (5,989) | read in one environment only | [record](environments/FUNC.BITOR.json) |
+| [`BITRSHIFT`](../functions/FUNC.BITRSHIFT.md) | 16.0 build 20430, CPU not recorded (8,128) | read in one environment only | [record](environments/FUNC.BITRSHIFT.json) |
+| [`BITXOR`](../functions/FUNC.BITXOR.md) | 16.0 build 20430, CPU not recorded (5,989) | read in one environment only | [record](environments/FUNC.BITXOR.json) |
+| [`CEILING.MATH`](../functions/FUNC.CEILING.MATH.md) | 16.0 build 20430, CPU not recorded (1,362) | read in one environment only | [record](environments/FUNC.CEILING.MATH.json) |
+| [`CEILING.PRECISE`](../functions/FUNC.CEILING.PRECISE.md) | 16.0 build 20430, CPU not recorded (1,335) | read in one environment only | [record](environments/FUNC.CEILING.PRECISE.json) |
+| [`CEILING`](../functions/FUNC.CEILING.md) | 16.0 build 20430, CPU not recorded (1,335) | read in one environment only | [record](environments/FUNC.CEILING.json) |
 | `CHIDIST` (no page yet) | 16.0 build 19929, CPU not recorded (41); 16.0 build 20131, AMD Zen 2 (388) | compared, no difference found | [record](environments/FUNC.CHIDIST.json) |
 | `CHIINV` (no page yet) | 16.0 build 19929, CPU not recorded (14); 16.0 build 20131, AMD Zen 2 (100) | compared, no difference found | [record](environments/FUNC.CHIINV.json) |
 | `CHISQ.DIST.RT` (no page yet) | 16.0 build 20131, AMD Zen 2 (6) | read in one environment only | [record](environments/FUNC.CHISQ.DIST.RT.json) |
@@ -286,7 +286,7 @@ results are known to agree elsewhere.
 | [`COMBINA`](../functions/FUNC.COMBINA.md) | 16.0 build 19929, CPU not recorded (144); 16.0 build 20228, CPU not recorded (39,773); 16.0 build 20430, CPU not recorded (1,242) | compared, no difference found | [record](environments/FUNC.COMBINA.json) |
 | [`COMPLEX`](../functions/FUNC.COMPLEX.md) | 16.0 build 20430, CPU not recorded (10,694) | read in one environment only | [record](environments/FUNC.COMPLEX.json) |
 | [`CONFIDENCE.T`](../functions/FUNC.CONFIDENCE.T.md) | 16.0 build 19929, CPU not recorded (87) | read in one environment only | [record](environments/FUNC.CONFIDENCE.T.json) |
-| `CONVERT` (no page yet) | 16.0 build 20228, CPU not recorded (33,972) | read in one environment only | [record](environments/FUNC.CONVERT.json) |
+| [`CONVERT`](../functions/FUNC.CONVERT.md) | 16.0 build 20228, CPU not recorded (33,972) | read in one environment only | [record](environments/FUNC.CONVERT.json) |
 | [`COS`](../functions/FUNC.COS.md) | 16.0 build 19929, CPU not recorded (32); 16.0 build 20131, AMD Zen 2 (913); 16.0 build 20228, CPU not recorded (1,540); 16.0 build 20430, CPU not recorded (1,224) | compared, no difference found | [record](environments/FUNC.COS.json) |
 | [`COSH`](../functions/FUNC.COSH.md) | 16.0 build 19929, CPU not recorded (44); 16.0 build 20430, CPU not recorded (33,550) | compared, no difference found | [record](environments/FUNC.COSH.json) |
 | [`COT`](../functions/FUNC.COT.md) | 16.0 build 19929, CPU not recorded (31); 16.0 build 20131, AMD Zen 2 (906); 16.0 build 20430, CPU not recorded (1,224) | compared, no difference found | [record](environments/FUNC.COT.json) |
@@ -310,12 +310,12 @@ results are known to agree elsewhere.
 | [`DAYS360`](../functions/FUNC.DAYS360.md) | 16.0 build 20430, AMD Zen 2 (3,061) | read in one environment only | [record](environments/FUNC.DAYS360.json) |
 | [`DB`](../functions/FUNC.DB.md) | 16.0 build 20430, CPU not recorded (129,326) | read in one environment only | [record](environments/FUNC.DB.json) |
 | [`DDB`](../functions/FUNC.DDB.md) | 16.0 build 20430, CPU not recorded (61,630) | read in one environment only | [record](environments/FUNC.DDB.json) |
-| `DEC2BIN` (no page yet) | 16.0 build 20430, CPU not recorded (4,807) | read in one environment only | [record](environments/FUNC.DEC2BIN.json) |
-| `DEC2HEX` (no page yet) | 16.0 build 20430, CPU not recorded (4,807) | read in one environment only | [record](environments/FUNC.DEC2HEX.json) |
-| `DEC2OCT` (no page yet) | 16.0 build 20430, CPU not recorded (4,807) | read in one environment only | [record](environments/FUNC.DEC2OCT.json) |
+| [`DEC2BIN`](../functions/FUNC.DEC2BIN.md) | 16.0 build 20430, CPU not recorded (4,807) | read in one environment only | [record](environments/FUNC.DEC2BIN.json) |
+| [`DEC2HEX`](../functions/FUNC.DEC2HEX.md) | 16.0 build 20430, CPU not recorded (4,807) | read in one environment only | [record](environments/FUNC.DEC2HEX.json) |
+| [`DEC2OCT`](../functions/FUNC.DEC2OCT.md) | 16.0 build 20430, CPU not recorded (4,807) | read in one environment only | [record](environments/FUNC.DEC2OCT.json) |
 | [`DECIMAL`](../functions/FUNC.DECIMAL.md) | 16.0 build 20430, CPU not recorded (1,230) | read in one environment only | [record](environments/FUNC.DECIMAL.json) |
 | [`DEGREES`](../functions/FUNC.DEGREES.md) | 16.0 build 19929, CPU not recorded (41); 16.0 build 20430, CPU not recorded (1,227) | compared, no difference found | [record](environments/FUNC.DEGREES.json) |
-| `DELTA` (no page yet) | 16.0 build 20430, CPU not recorded (1,092) | read in one environment only | [record](environments/FUNC.DELTA.json) |
+| [`DELTA`](../functions/FUNC.DELTA.md) | 16.0 build 20430, CPU not recorded (1,092) | read in one environment only | [record](environments/FUNC.DELTA.json) |
 | [`DEVSQ`](../functions/FUNC.DEVSQ.md) | 16.0 build 20430, CPU not recorded (23,096) | read in one environment only | [record](environments/FUNC.DEVSQ.json) |
 | [`DISC`](../functions/FUNC.DISC.md) | 16.0 build 20430, AMD Zen 2 (2,400) | read in one environment only | [record](environments/FUNC.DISC.json) |
 | [`DOLLARDE`](../functions/FUNC.DOLLARDE.md) | 16.0 build 20430, AMD Zen 2 (2,406); 16.0 build 20430, CPU not recorded (1,235) | read in several environments, not compared on the same inputs | [record](environments/FUNC.DOLLARDE.json) |
@@ -345,7 +345,7 @@ results are known to agree elsewhere.
 | [`FISHERINV`](../functions/FUNC.FISHERINV.md) | 16.0 build 19929, CPU not recorded (41) | read in one environment only | [record](environments/FUNC.FISHERINV.json) |
 | [`FIXED`](../functions/FUNC.FIXED.md) | 16.0 build 20430, AMD Zen 2 (989) | read in one environment only | [record](environments/FUNC.FIXED.json) |
 | [`FLOOR.MATH`](../functions/FUNC.FLOOR.MATH.md) | 16.0 build 20430, CPU not recorded (1,362) | read in one environment only | [record](environments/FUNC.FLOOR.MATH.json) |
-| `FLOOR.PRECISE` (no page yet) | 16.0 build 20430, CPU not recorded (1,335) | read in one environment only | [record](environments/FUNC.FLOOR.PRECISE.json) |
+| [`FLOOR.PRECISE`](../functions/FUNC.FLOOR.PRECISE.md) | 16.0 build 20430, CPU not recorded (1,335) | read in one environment only | [record](environments/FUNC.FLOOR.PRECISE.json) |
 | [`FLOOR`](../functions/FUNC.FLOOR.md) | 16.0 build 20430, CPU not recorded (1,335) | read in one environment only | [record](environments/FUNC.FLOOR.json) |
 | [`FORECAST`](../functions/FUNC.FORECAST.md) | 16.0 build 20131, AMD Zen 2 (70) | read in one environment only | [record](environments/FUNC.FORECAST.json) |
 | [`FV`](../functions/FUNC.FV.md) | 16.0 build 20131, AMD Zen 2 (789); 16.0 build 20228, CPU not recorded (512); 16.0 build 20430, CPU not recorded (1,230) | read in several environments, not compared on the same inputs | [record](environments/FUNC.FV.json) |
@@ -359,12 +359,12 @@ results are known to agree elsewhere.
 | [`GAUSS`](../functions/FUNC.GAUSS.md) | 16.0 build 19929, CPU not recorded (42); 16.0 build 20228, CPU not recorded (9,216); 16.0 build 20430, CPU not recorded (512) | compared, no difference found | [record](environments/FUNC.GAUSS.json) |
 | [`GCD`](../functions/FUNC.GCD.md) | 16.0 build 20430, CPU not recorded (7,966) | read in one environment only | [record](environments/FUNC.GCD.json) |
 | [`GEOMEAN`](../functions/FUNC.GEOMEAN.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.GEOMEAN.json) |
-| `GESTEP` (no page yet) | 16.0 build 20430, CPU not recorded (1,096) | read in one environment only | [record](environments/FUNC.GESTEP.json) |
+| [`GESTEP`](../functions/FUNC.GESTEP.md) | 16.0 build 20430, CPU not recorded (1,096) | read in one environment only | [record](environments/FUNC.GESTEP.json) |
 | `GROWTH` (no page yet) | 16.0 build 20228, CPU not recorded (180) | read in one environment only | [record](environments/FUNC.GROWTH.json) |
 | [`HARMEAN`](../functions/FUNC.HARMEAN.md) | 16.0 build 20430, CPU not recorded (19,214) | read in one environment only | [record](environments/FUNC.HARMEAN.json) |
-| `HEX2BIN` (no page yet) | 16.0 build 20430, CPU not recorded (1,214) | read in one environment only | [record](environments/FUNC.HEX2BIN.json) |
-| `HEX2DEC` (no page yet) | 16.0 build 20430, CPU not recorded (1,025) | read in one environment only | [record](environments/FUNC.HEX2DEC.json) |
-| `HEX2OCT` (no page yet) | 16.0 build 20430, CPU not recorded (1,218) | read in one environment only | [record](environments/FUNC.HEX2OCT.json) |
+| [`HEX2BIN`](../functions/FUNC.HEX2BIN.md) | 16.0 build 20430, CPU not recorded (1,214) | read in one environment only | [record](environments/FUNC.HEX2BIN.json) |
+| [`HEX2DEC`](../functions/FUNC.HEX2DEC.md) | 16.0 build 20430, CPU not recorded (1,025) | read in one environment only | [record](environments/FUNC.HEX2DEC.json) |
+| [`HEX2OCT`](../functions/FUNC.HEX2OCT.md) | 16.0 build 20430, CPU not recorded (1,218) | read in one environment only | [record](environments/FUNC.HEX2OCT.json) |
 | [`HOUR`](../functions/FUNC.HOUR.md) | 16.0 build 20430, CPU not recorded (14,631) | read in one environment only | [record](environments/FUNC.HOUR.json) |
 | `HYPGEOM.DIST` (no page yet) | 16.0 build 20430, CPU not recorded (3,653) | read in one environment only | [record](environments/FUNC.HYPGEOM.DIST.json) |
 | `HYPGEOMDIST` (no page yet) | 16.0 build 19929, CPU not recorded (46); 16.0 build 20131, AMD Zen 2 (3) | read in several environments, not compared on the same inputs | [record](environments/FUNC.HYPGEOMDIST.json) |
@@ -443,9 +443,9 @@ results are known to agree elsewhere.
 | [`NOT`](../functions/FUNC.NOT.md) | 16.0 build 20430, CPU not recorded (1,227) | read in one environment only | [record](environments/FUNC.NOT.json) |
 | `NPER` (no page yet) | 16.0 build 20131, AMD Zen 2 (1,291); 16.0 build 20430, CPU not recorded (1,210) | read in several environments, not compared on the same inputs | [record](environments/FUNC.NPER.json) |
 | `NPV` (no page yet) | 16.0 build 20131, AMD Zen 2 (142) | read in one environment only | [record](environments/FUNC.NPV.json) |
-| `OCT2BIN` (no page yet) | 16.0 build 20430, CPU not recorded (1,201) | read in one environment only | [record](environments/FUNC.OCT2BIN.json) |
-| `OCT2DEC` (no page yet) | 16.0 build 20430, CPU not recorded (998) | read in one environment only | [record](environments/FUNC.OCT2DEC.json) |
-| `OCT2HEX` (no page yet) | 16.0 build 20430, CPU not recorded (1,198) | read in one environment only | [record](environments/FUNC.OCT2HEX.json) |
+| [`OCT2BIN`](../functions/FUNC.OCT2BIN.md) | 16.0 build 20430, CPU not recorded (1,201) | read in one environment only | [record](environments/FUNC.OCT2BIN.json) |
+| [`OCT2DEC`](../functions/FUNC.OCT2DEC.md) | 16.0 build 20430, CPU not recorded (998) | read in one environment only | [record](environments/FUNC.OCT2DEC.json) |
+| [`OCT2HEX`](../functions/FUNC.OCT2HEX.md) | 16.0 build 20430, CPU not recorded (1,198) | read in one environment only | [record](environments/FUNC.OCT2HEX.json) |
 | [`ODD`](../functions/FUNC.ODD.md) | 16.0 build 19929, CPU not recorded (41); 16.0 build 20430, CPU not recorded (1,227) | compared, no difference found | [record](environments/FUNC.ODD.json) |
 | [`OP_POWER`](../functions/FUNC.OP_POWER.md) |  | no reading with a recorded build | [record](environments/FUNC.OP_POWER.json) |
 | [`OR`](../functions/FUNC.OR.md) | 16.0 build 20430, CPU not recorded (1,212) | read in one environment only | [record](environments/FUNC.OR.json) |

@@ -120,7 +120,7 @@ answer.
 | [`CUMIPMT`](../functions/FUNC.CUMIPMT.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-follows-ppmt-on-one-loan-and-not-in-general-its-own-route-is-open) |
 | [`CUMPRINC`](../functions/FUNC.CUMPRINC.md) | [FN-CUMPRINC-001](#fn-cumprinc-001-cumprinc-follows-ppmt-on-one-loan-and-not-in-general-its-own-route-is-open) |
 | [`DATEVALUE`](../functions/FUNC.DATEVALUE.md) | [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits), [FN-VALUE-002](#fn-value-002-a-date-as-text-takes-at-most-two-digits-for-month-and-day) |
-| `DELTA` (no page yet) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
+| [`DELTA`](../functions/FUNC.DELTA.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
 | [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
 | [`DOLLAR`](../functions/FUNC.DOLLAR.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
 | [`ERF`](../functions/FUNC.ERF.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first), [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
@@ -137,7 +137,7 @@ answer.
 | [`GAMMALN.PRECISE`](../functions/FUNC.GAMMALN.PRECISE.md) | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) |
 | [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
 | [`GCD`](../functions/FUNC.GCD.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
-| `GESTEP` (no page yet) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
+| [`GESTEP`](../functions/FUNC.GESTEP.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
 | [`HSTACK`](../functions/FUNC.HSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`IFS`](../functions/FUNC.IFS.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
 | [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
@@ -149,8 +149,8 @@ answer.
 | [`LOWER`](../functions/FUNC.LOWER.md) | [FN-LOWER-001](#fn-lower-001-lower-leaves-letters-above-uffff-alone-and-a-combining-mark-stops-the-final-sigma) |
 | [`MAP`](../functions/FUNC.MAP.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`MOD`](../functions/FUNC.MOD.md) | [FN-MOD-001](#fn-mod-001-mod-with-tiny-operands-gives-wrong-signs-and-num-by-a-rule-that-fits-every-recorded-row) |
-| `MODE` (no page yet) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
-| `MODE.MULT` (no page yet) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
+| [`MODE`](../functions/FUNC.MODE.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
+| [`MODE.MULT`](../functions/FUNC.MODE.MULT.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
 | [`MODE.SNGL`](../functions/FUNC.MODE.SNGL.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
 | [`MROUND`](../functions/FUNC.MROUND.md) | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) |
 | [`NETWORKDAYS`](../functions/FUNC.NETWORKDAYS.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
