@@ -37,23 +37,145 @@
     {
       "excel_build": "16.0 build 20131",
       "platform": "Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
-      "behaviour": "289,642 captured inputs are indexed for this environment. Capture dates: 2026-07-11 to 2026-07-23. This is a reading count, not a comparison with another build.",
+      "behaviour": "289,642 captured inputs are indexed for this environment. Capture dates: 2026-07-11 to 2026-07-23. This is a reading count, not a comparison with another build. Retained control PMT(0.1,1,1000,0,0) returned -1100.0000000000002 (0xc091300000000001). The selected archive row does not record its input plumbing; no input route is inferred.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PMT.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PMT.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/PMT.jsonl.gz"
+      ],
+      "observations": [
+        {
+          "call": "PMT(0.1,1,1000,0,0)",
+          "input_route": "not-recorded",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "0.1",
+                "bits": "0x3fb999999999999a"
+              }
+            },
+            {
+              "name": "argument2",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "argument3",
+              "value": {
+                "kind": "number",
+                "display": "1000",
+                "bits": "0x408f400000000000"
+              }
+            },
+            {
+              "name": "argument4",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "argument5",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-1100.0000000000002",
+            "bits": "0xc091300000000001"
+          },
+          "recorded_in": "Excel 16.0 build 20131, Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/oracle/build-20131/PMT.jsonl.gz",
+            "locator": "PMT|0x3fb999999999999a|0x3ff0000000000000|0x408f400000000000|0x0000000000000000|0x0000000000000000"
+          }
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20228",
       "platform": "Windows, 64-bit, CPU not recorded",
-      "behaviour": "2,076 captured inputs are indexed for this environment. Capture dates: 2026-08-09 to 2026-08-09. This is a reading count, not a comparison with another build.",
+      "behaviour": "2,076 captured inputs are indexed for this environment. Capture dates: 2026-08-09 to 2026-08-09. This is a reading count, not a comparison with another build. Retained control PMT(0.0649385261097155,17,1567.723775140197,0,0) returned -154.99052913979685 (0xc0635fb26a2aa533). The capture specifies exact-double bulk Value2 cell input.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PMT.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PMT.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/work/w109/G6-cumprinc/answers-pmt-cumprinc-companion-20260809.json.gz"
+      ],
+      "observations": [
+        {
+          "call": "PMT(0.0649385261097155,17,1567.723775140197,0,0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "0.0649385261097155",
+                "bits": "0x3fb09fcfade4447f"
+              }
+            },
+            {
+              "name": "argument2",
+              "value": {
+                "kind": "number",
+                "display": "17",
+                "bits": "0x4031000000000000"
+              }
+            },
+            {
+              "name": "argument3",
+              "value": {
+                "kind": "number",
+                "display": "1567.723775140197",
+                "bits": "0x40987ee5254f7337"
+              }
+            },
+            {
+              "name": "argument4",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "argument5",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-154.99052913979685",
+            "bits": "0xc0635fb26a2aa533"
+          },
+          "recorded_in": "Excel 16.0 build 20228, Windows, 64-bit, CPU not recorded.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "work/w109/G6-cumprinc/answers-pmt-cumprinc-companion-20260809.json.gz",
+            "locator": "cumx-c00-t0-v00-pmt"
+          }
+        }
       ]
     }
   ],
   "implementations": [],
   "variants": [],
   "sections": {
-    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 47 |\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 289,642 |\n| 20228 | Windows, 64-bit, CPU not recorded | 2,076 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PMT.json)."
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 47 |\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 289,642 |\n| 20228 | Windows, 64-bit, CPU not recorded | 2,076 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PMT.json).\n\nRetained controls from the indexed captures:\n\n| Build and recorded CPU | Captured call or arguments | Excel result |\n|---|---|---|\n| 20131, AMD Ryzen 7 4800H with Radeon Graphics | [`PMT(0.1,1,1000,0,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/PMT.jsonl.gz) | `-1100.0000000000002` (`0xc091300000000001`) |\n| 20228, CPU not recorded | [`PMT(0.0649385261097155,17,1567.723775140197,0,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/work/w109/G6-cumprinc/answers-pmt-cumprinc-companion-20260809.json.gz) | `-154.99052913979685` (`0xc0635fb26a2aa533`) |\n\nThese are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals."
   }
 }

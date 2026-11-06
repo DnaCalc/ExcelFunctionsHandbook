@@ -8,55 +8,212 @@
     {
       "excel_build": "16.0 build 19929",
       "platform": "Windows, bitness not recorded, CPU not recorded",
-      "behaviour": "45 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build.",
+      "behaviour": "45 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build. Retained control =LN(0.00878906250000000) returned -4.734247228263234 (0xc012efde816246e6). The selected archive row does not record its input plumbing; no input route is inferred.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz"
+      ],
+      "observations": [
+        {
+          "call": "=LN(0.00878906250000000)",
+          "input_route": "not-recorded",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-4.734247228263234",
+            "bits": "0xc012efde816246e6"
+          },
+          "recorded_in": "Excel 16.0 build 19929, Windows, bitness not recorded, CPU not recorded.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz",
+            "locator": "BSE-000000119"
+          }
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20131",
       "platform": "Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
-      "behaviour": "349 captured inputs are indexed for this environment. Capture dates: 2026-07-21 to 2026-07-23. This is a reading count, not a comparison with another build.",
+      "behaviour": "349 captured inputs are indexed for this environment. Capture dates: 2026-07-21 to 2026-07-23. This is a reading count, not a comparison with another build. Retained control LN(1.5) returned 0.4054651081081644 (0x3fd9f323ecbf984c). The selected archive row does not record its input plumbing; no input route is inferred.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/LN.jsonl.gz"
+      ],
+      "observations": [
+        {
+          "call": "LN(1.5)",
+          "input_route": "not-recorded",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "1.5",
+                "bits": "0x3ff8000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.4054651081081644",
+            "bits": "0x3fd9f323ecbf984c"
+          },
+          "recorded_in": "Excel 16.0 build 20131, Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/oracle/build-20131/LN.jsonl.gz",
+            "locator": "LN|0x3ff8000000000000"
+          }
+        }
       ]
     },
     {
       "excel_build": "16.0 build 18429",
       "platform": "Windows, 64-bit, Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz",
-      "behaviour": "52 captured inputs are indexed for this environment. Capture dates: 2026-07-05 to 2026-07-05. This is a reading count, not a comparison with another build.",
+      "behaviour": "52 captured inputs are indexed for this environment. Capture dates: 2026-07-05 to 2026-07-05. This is a reading count, not a comparison with another build. The indexed same-input control LN(3.677168983357276e-222) returned -509.87174748655957 (0xc07fddf2ad7e124c); XD-LN-001 changed CPU, Excel build and OS together and remains not-rechecked.",
       "sources": [
         "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ],
+      "observations": [
+        {
+          "call": "LN(3.677168983357276e-222)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "3.677168983357276e-222",
+                "bits": "0x11f544676cf1bf2f"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-509.87174748655957",
+            "bits": "0xc07fddf2ad7e124c"
+          },
+          "recorded_in": "Excel 16.0 build 18429, Windows, 64-bit, Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz, observed 2026-07-05.",
+          "comparison": "XD-LN-001",
+          "recheck_status": "not-rechecked",
+          "source_record": "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20131",
       "platform": "Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
-      "behaviour": "52 captured inputs are indexed for this environment. Capture dates: 2026-07-03 to 2026-07-03. This is a reading count, not a comparison with another build.",
+      "behaviour": "52 captured inputs are indexed for this environment. Capture dates: 2026-07-03 to 2026-07-03. This is a reading count, not a comparison with another build. The indexed same-input control LN(3.677168983357276e-222) returned -509.8717474865596 (0xc07fddf2ad7e124d); XD-LN-001 changed CPU, Excel build and OS together and remains not-rechecked.",
       "sources": [
         "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+      ],
+      "observations": [
+        {
+          "call": "LN(3.677168983357276e-222)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "3.677168983357276e-222",
+                "bits": "0x11f544676cf1bf2f"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-509.8717474865596",
+            "bits": "0xc07fddf2ad7e124d"
+          },
+          "recorded_in": "Excel 16.0 build 20131, Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics, observed 2026-07-03.",
+          "comparison": "XD-LN-001",
+          "recheck_status": "not-rechecked",
+          "source_record": "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20228",
       "platform": "Windows, 64-bit, CPU not recorded",
-      "behaviour": "90 captured inputs are indexed for this environment. Capture dates: 2026-08-09 to 2026-08-09. This is a reading count, not a comparison with another build.",
+      "behaviour": "90 captured inputs are indexed for this environment. Capture dates: 2026-08-09 to 2026-08-09. This is a reading count, not a comparison with another build. Retained control LN(0.93229377243277) returned -0.0701073074907403 (0xbfb1f28d70e222ed). The capture specifies exact-double bulk Value2 cell input.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/work/w109/G6-solvers/answers-pmt-general-ln-20260809.json.gz"
+      ],
+      "observations": [
+        {
+          "call": "LN(0.93229377243277)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "0.93229377243277",
+                "bits": "0x3fedd559bfdb9f72"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-0.0701073074907403",
+            "bits": "0xbfb1f28d70e222ed"
+          },
+          "recorded_in": "Excel 16.0 build 20228, Windows, 64-bit, CPU not recorded.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "work/w109/G6-solvers/answers-pmt-general-ln-20260809.json.gz",
+            "locator": "pmt-gen-ln-0006"
+          }
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20430",
       "platform": "Windows, 64-bit, CPU not recorded",
-      "behaviour": "1,227 captured inputs are indexed for this environment. Capture dates: 2026-09-29 to 2026-09-29. This is a reading count, not a comparison with another build.",
+      "behaviour": "1,227 captured inputs are indexed for this environment. Capture dates: 2026-09-29 to 2026-09-29. This is a reading count, not a comparison with another build. Retained control LN(2) returned 0.6931471805599453 (0x3fe62e42fefa39ef). The capture specifies exact-double bulk Value2 cell input.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-extended-regenerated-20260929/answers-ln.json.gz"
+      ],
+      "observations": [
+        {
+          "call": "LN(2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.6931471805599453",
+            "bits": "0x3fe62e42fefa39ef"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows, 64-bit, CPU not recorded.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/w111-extended-regenerated-20260929/answers-ln.json.gz",
+            "locator": "w111extended-2026092903-LN-00011"
+          }
+        }
       ]
     }
   ],
   "implementations": [],
   "variants": [],
   "sections": {
-    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 45 |\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 349 |\n| 18429 | Windows, 64-bit, Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz | 52 |\n| 20131 | Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics | 52 |\n| 20228 | Windows, 64-bit, CPU not recorded | 90 |\n| 20430 | Windows, 64-bit, CPU not recorded | 1,227 |\n\n- XC-LN-001: build 19929 versus build 20430; 2 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n- XC-LN-002: build 20131 versus build 18429; 52 same-input pairs, 17 differing answers. Compared axes: cpu, excel-build, os. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n\nThe differing machines changed Excel build and other recorded environment properties together. These observations do not isolate a build-only or CPU-only cause. The linked record retains each input, answer, and recheck status.\n\nA recorded example, XD-LN-001: the input `3.677168983357276e-222` has bits `0x11f544676cf1bf2f`. On 2026-07-03, build 20131 on AMD Ryzen 7 4800H with Radeon Graphics returned `-509.8717474865596` (`0xc07fddf2ad7e124d`). On the other machine, 2026-07-05, build 18429 on Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz returned `-509.87174748655957` (`0xc07fddf2ad7e124c`). These answers differ by one unit in the last place. Each machine ran this probe once; no repeat is recorded. The input was placed in a cell through `Range.Value2` and its round trip was checked, rather than entered as a rounded decimal formula literal.\n\nAgreement on these compared inputs does not establish agreement on unmeasured inputs.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json)."
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 45 |\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 349 |\n| 18429 | Windows, 64-bit, Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz | 52 |\n| 20131 | Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics | 52 |\n| 20228 | Windows, 64-bit, CPU not recorded | 90 |\n| 20430 | Windows, 64-bit, CPU not recorded | 1,227 |\n\n- XC-LN-001: build 19929 versus build 20430; 2 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n- XC-LN-002: build 20131 versus build 18429; 52 same-input pairs, 17 differing answers. Compared axes: cpu, excel-build, os. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n\nThe differing machines changed Excel build and other recorded environment properties together. These observations do not isolate a build-only or CPU-only cause. The linked record retains each input, answer, and recheck status.\n\nA recorded example, XD-LN-001: the input `3.677168983357276e-222` has bits `0x11f544676cf1bf2f`. On 2026-07-03, build 20131 on AMD Ryzen 7 4800H with Radeon Graphics returned `-509.8717474865596` (`0xc07fddf2ad7e124d`). On the other machine, 2026-07-05, build 18429 on Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz returned `-509.87174748655957` (`0xc07fddf2ad7e124c`). These answers differ by one unit in the last place. Each machine ran this probe once; no repeat is recorded. The input was placed in a cell through `Range.Value2` and its round trip was checked, rather than entered as a rounded decimal formula literal.\n\nAgreement on these compared inputs does not establish agreement on unmeasured inputs.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.LN.json).\n\nRetained controls from the indexed captures:\n\n| Build and recorded CPU | Captured call or arguments | Excel result |\n|---|---|---|\n| 19929, CPU not recorded | [`=LN(0.00878906250000000)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `-4.734247228263234` (`0xc012efde816246e6`) |\n| 20131, AMD Ryzen 7 4800H with Radeon Graphics | [`LN(1.5)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/LN.jsonl.gz) | `0.4054651081081644` (`0x3fd9f323ecbf984c`) |\n| 20228, CPU not recorded | [`LN(0.93229377243277)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/work/w109/G6-solvers/answers-pmt-general-ln-20260809.json.gz) | `-0.0701073074907403` (`0xbfb1f28d70e222ed`) |\n| 20430, CPU not recorded | [`LN(2)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/w111-extended-regenerated-20260929/answers-ln.json.gz) | `0.6931471805599453` (`0x3fe62e42fefa39ef`) |\n\nThese are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals."
   }
 }

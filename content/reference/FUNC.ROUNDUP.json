@@ -253,31 +253,125 @@
     {
       "excel_build": "16.0 build 19929",
       "platform": "Windows, bitness not recorded, CPU not recorded",
-      "behaviour": "155 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build.",
+      "behaviour": "155 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build. Retained control =ROUNDUP(-1.08328420449386575,0) returned -2.0 (0xc000000000000000). The selected archive row does not record its input plumbing; no input route is inferred.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz"
+      ],
+      "observations": [
+        {
+          "call": "=ROUNDUP(-1.08328420449386575,0)",
+          "input_route": "not-recorded",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-2.0",
+            "bits": "0xc000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 19929, Windows, bitness not recorded, CPU not recorded.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz",
+            "locator": "BSE-000000781"
+          }
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20430",
       "platform": "Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
-      "behaviour": "3,454 captured inputs are indexed for this environment. Capture dates: 2026-09-25 to 2026-09-25. This is a reading count, not a comparison with another build.",
+      "behaviour": "3,454 captured inputs are indexed for this environment. Capture dates: 2026-09-25 to 2026-09-25. This is a reading count, not a comparison with another build. Retained control ROUNDUP(2.5,0) returned 3 (0x4008000000000000). The selected archive row does not record its input plumbing; no input route is inferred.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz"
+      ],
+      "observations": [
+        {
+          "call": "ROUNDUP(2.5,0)",
+          "input_route": "not-recorded",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "2.5",
+                "bits": "0x4004000000000000"
+              }
+            },
+            {
+              "name": "argument2",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz",
+            "locator": "ROUNDUP|0x4004000000000000|0x0000000000000000"
+          }
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20430",
       "platform": "Windows, 64-bit, CPU not recorded",
-      "behaviour": "49,387 captured inputs are indexed for this environment. Capture dates: 2026-09-29 to 2026-09-29. This is a reading count, not a comparison with another build.",
+      "behaviour": "49,387 captured inputs are indexed for this environment. Capture dates: 2026-09-29 to 2026-09-29. This is a reading count, not a comparison with another build. Retained control ROUNDUP(817094511.6142203,6) returned 817094511.61422 (0x41c859efb7ce9ec3). The capture specifies exact-double bulk Value2 cell input.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/w111-directed-initial-discriminators-20260929/answers-roundup.json.gz"
+      ],
+      "observations": [
+        {
+          "call": "ROUNDUP(817094511.6142203,6)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "817094511.6142203",
+                "bits": "0x41c859efb7ce9ec5"
+              }
+            },
+            {
+              "name": "argument2",
+              "value": {
+                "kind": "number",
+                "display": "6",
+                "bits": "0x4018000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "817094511.61422",
+            "bits": "0x41c859efb7ce9ec3"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows, 64-bit, CPU not recorded.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "runs/w111-directed-initial-discriminators-20260929/answers-roundup.json.gz",
+            "locator": "w111initialdiscriminator-ROUNDUP-01242"
+          }
+        }
       ]
     }
   ],
   "implementations": [],
   "variants": [],
   "sections": {
-    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 155 |\n| 20430 | Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics | 3,454 |\n| 20430 | Windows, 64-bit, CPU not recorded | 49,387 |\n\n- XC-ROUNDUP-001: build 19929 versus build 20430; 1 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n\nAgreement on these compared inputs does not establish agreement on unmeasured inputs.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json)."
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 155 |\n| 20430 | Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics | 3,454 |\n| 20430 | Windows, 64-bit, CPU not recorded | 49,387 |\n\n- XC-ROUNDUP-001: build 19929 versus build 20430; 1 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n\nAgreement on these compared inputs does not establish agreement on unmeasured inputs.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUNDUP.json).\n\nRetained controls from the indexed captures:\n\n| Build and recorded CPU | Captured call or arguments | Excel result |\n|---|---|---|\n| 19929, CPU not recorded | [`=ROUNDUP(-1.08328420449386575,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/W097-R-B-validation-cellref-module/comparisons/excel_sample_comparisons.jsonl.gz) | `-2.0` (`0xc000000000000000`) |\n| 20430, AMD Ryzen 7 4800H with Radeon Graphics | [`ROUNDUP(2.5,0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz) | `3` (`0x4008000000000000`) |\n| 20430, CPU not recorded | [`ROUNDUP(817094511.6142203,6)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/w111-directed-initial-discriminators-20260929/answers-roundup.json.gz) | `817094511.61422` (`0x41c859efb7ce9ec3`) |\n\nThese are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals."
   }
 }

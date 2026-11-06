@@ -78,23 +78,72 @@
     {
       "excel_build": "16.0 build 19929",
       "platform": "Windows, bitness not recorded, CPU not recorded",
-      "behaviour": "42 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build.",
+      "behaviour": "42 captured inputs are indexed for this environment. Capture dates are not recorded. This is a reading count, not a comparison with another build. Retained control =ERF.PRECISE(0) returned 0.0 (0x0000000000000000). The selected archive row does not record its input plumbing; no input route is inferred.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/broad-scalar-cycle-011-cellref/comparisons/excel_sample_comparisons.jsonl.gz"
+      ],
+      "observations": [
+        {
+          "call": "=ERF.PRECISE(0)",
+          "input_route": "not-recorded",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 19929, Windows, bitness not recorded, CPU not recorded.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "runs/broad-scalar-cycle-011-cellref/comparisons/excel_sample_comparisons.jsonl.gz",
+            "locator": "BSE-000000133"
+          }
+        }
       ]
     },
     {
       "excel_build": "16.0 build 20131",
       "platform": "Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
-      "behaviour": "409,213 captured inputs are indexed for this environment. Capture dates: 2026-07-16 to 2026-07-17. This is a reading count, not a comparison with another build.",
+      "behaviour": "409,213 captured inputs are indexed for this environment. Capture dates: 2026-07-16 to 2026-07-17. This is a reading count, not a comparison with another build. Retained control ERF.PRECISE(1) returned 0.8427007929497149 (0x3feaf767a741088b). The selected archive row does not record its input plumbing; no input route is inferred.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/ERF.PRECISE.jsonl.gz"
+      ],
+      "observations": [
+        {
+          "call": "ERF.PRECISE(1)",
+          "input_route": "not-recorded",
+          "inputs": [
+            {
+              "name": "argument1",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.8427007929497149",
+            "bits": "0x3feaf767a741088b"
+          },
+          "recorded_in": "Excel 16.0 build 20131, Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics.",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+            "path": "cache/oracle/build-20131/ERF.PRECISE.jsonl.gz",
+            "locator": "ERF.PRECISE|0x3ff0000000000000"
+          }
+        }
       ]
     }
   ],
   "implementations": [],
   "variants": [],
   "sections": {
-    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 42 |\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 409,213 |\n\n- XC-ERF.PRECISE-001: build 19929 versus build 20131; 1 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n\nAgreement on these compared inputs does not establish agreement on unmeasured inputs.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json)."
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 19929 | Windows, bitness not recorded, CPU not recorded | 42 |\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 409,213 |\n\n- XC-ERF.PRECISE-001: build 19929 versus build 20131; 1 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.\n\nAgreement on these compared inputs does not establish agreement on unmeasured inputs.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json).\n\nRetained controls from the indexed captures:\n\n| Build and recorded CPU | Captured call or arguments | Excel result |\n|---|---|---|\n| 19929, CPU not recorded | [`=ERF.PRECISE(0)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/broad-scalar-cycle-011-cellref/comparisons/excel_sample_comparisons.jsonl.gz) | `0.0` (`0x0000000000000000`) |\n| 20131, AMD Ryzen 7 4800H with Radeon Graphics | [`ERF.PRECISE(1)`](https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/cache/oracle/build-20131/ERF.PRECISE.jsonl.gz) | `0.8427007929497149` (`0x3feaf767a741088b`) |\n\nThese are earlier recorded answers, not new Excel runs or an additional cross-build comparison. The function JSON retains each source locator, exact argument bits where available, and input-route status. Call notation does not imply that captured binary64 values were entered as decimal formula literals."
   }
 }
