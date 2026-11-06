@@ -28,7 +28,9 @@ role_in_family: null
 
 ## Try it
 
-`=YIELD(DATE(2027,1,1),DATE(2028,1,1),0.06,100,100,2,0)` is about `0.06`. Settlement is on a coupon date, coupon and yield both correspond to six percent, and redemption is par.
+`=YIELD(DATE(2027,1,1),DATE(2028,1,1),0.06,100,100,2,0)` is about `0.06`. This on-coupon par bond takes the current exact par shortcut, rather than needing a generic numerical inversion.
+
+`=YIELD(DATE(2027,4,1),DATE(2027,7,1),0.06,100,100,2,0)` is about `0.0591133005`. The final coupon is three and accrued interest is 1.5, so the clean price of 100 corresponds to an invested dirty amount of 101.5.
 
 ## Quirks
 
@@ -36,7 +38,19 @@ Basis defaults to zero: 0 US 30/360, 1 actual/actual, 2 actual/360, 3 actual/365
 
 ## How to implement
 
-Build the same coupon calendar and day-count quantities used in pricing. For one remaining coupon use the special short-horizon yield formula. For multiple coupons solve `price(y)-target=0`; retain a bracket, derivative safeguards and a convergence test. The current solver can examine candidate negative yields internally even though the public PRICE wrapper rejects them. Its path and stopping rule remain separate compatibility questions. In the example there is no accrued interest and two coupons of three. Day-count, power and reduction last bits remain partly open in the recorded reports.
+After validating dates, positive price/redemption, nonnegative coupon rate and the frequency/basis, build the coupon schedule and remaining count N. The current code uses three distinct routes, all with ordinary binary64 arithmetic.
+
+1. For an on-coupon settlement with N>1 and both price and redemption exactly 100, return the coupon rate when its coupon amount is finite. This par shortcut has its own retained controls; it is not evidence of the general solver’s accuracy.
+2. For N=1, calculate coupon `C=100*rate/frequency`, coupon denominator E, accrued span A and the **direct** settlement-to-next-coupon span S using the current day-count helpers. Return `(((redemption+C)/(price+C*A/E))-1)*frequency*E/S`, preserving the source’s left-to-right multiplication and division. This one-coupon YIELD span differs from PRICE’s use of derived `E-A` where the calendar rules distinguish them.
+3. For N>1, solve the internal clean-price callback for the supplied target price. Its schedule quantities use the derived settlement complement, but its current discount leaf is the runtime `crt_pow`, whereas the public PRICE route uses its newer integer and x87-chain helper. Calling public PRICE unconditionally would also reject the negative trial yields that this solver needs to probe.
+
+The current general solver starts at `lo=-frequency+1e-10`; an unevaluable lower endpoint is treated as infinite price. Start hi at one and double it, up to eighty times, until its internal price is no greater than target. Reject an unreachable target or propagate an unhandled evaluation error.
+
+Bisect with ordinary arithmetic midpoint `(lo+hi)/2` for up to 2,200 iterations. Return an exact-price midpoint immediately. Otherwise move lo upward when its price is above target and hi downward when below. Stop when the midpoint can no longer lie strictly between the stored bounds, then choose the endpoint with smaller absolute price residual; a tie chooses hi. This is an arithmetic-midpoint search, distinct from the encoding-midpoint distribution inverses.
+
+For the one-coupon example, C=3, A=90, E=180 and S=90. The first ratio is `103/101.5`; subtracting one and multiplying by `2*180/90=4` gives about `0.0591133005`.
+
+Microsoft documents a one-coupon formula and a hundred-iteration Newton method for longer bonds. The current candidate instead uses the bisection route above. Its internal price callback, root selection, return rounding and remaining report differences are not fully identified. The pinned source’s explicit split between PRICE and YIELD is a limit to retain, rather than an algebraic identity to remove.
 
 ## Version differences
 
@@ -88,3 +102,5 @@ Evidence for every row: [`content/evidence/environments/FUNC.YIELD.json`](../../
 
 - [Microsoft: YIELD function](https://support.microsoft.com/en-us/excel/functions/yield-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/bond_core_family.rs); implementation steps and the limits identified in the text.
+- [Stored LN/product/EXP discount chain](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/mod.rs); `excel_pow_chain`, separate from runtime pow.
+- [COUPDAYSNC’s retained internal/public difference](FUNC.COUPDAYSNC.md); the published coupon-day quantity is not an unconditional replacement for PRICE’s internal complement.
