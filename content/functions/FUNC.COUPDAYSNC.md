@@ -38,9 +38,10 @@ role_in_family: >-
 `COUPDAYSNC(settlement, maturity, frequency, [basis])` returns **the number of days from the
 settlement date to the next coupon date**.
 
-It is the forward complement of [COUPDAYBS](FUNC.COUPDAYBS.md) and the numerator of the
-first discounting exponent in bond pricing: the first coupon is discounted over
-`COUPDAYSNC / COUPDAYS` of a period, and every later one over a whole period more.
+It measures the forward span while [COUPDAYBS](FUNC.COUPDAYBS.md) measures the accrued
+backward span. Bond pricing uses a related remaining fraction, but its internal numerator
+cannot always be replaced by the published `COUPDAYSNC` answer. The retained discrepancy
+below explains why `COUPDAYSNC / COUPDAYS` is not an unconditional PRICE discount recipe.
 
 The next coupon date is what [COUPNCD](FUNC.COUPNCD.md) returns, derived from the schedule
 described on [COUPNCD](FUNC.COUPNCD.md#the-coupon-schedule).
