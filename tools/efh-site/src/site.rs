@@ -582,7 +582,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         let id=s(&f["function_id"]);
         json!({"function_id":id,"surface_name":f["surface_name"],"entry_kind":f["entry_kind"],"category":f["category"],"implementation_state":input.calc.entry(id)["state"],"url":format!("https://handbook.dnacalc.com/{}",function_path(id)),"json_url":format!("https://handbook.dnacalc.com/api/functions/{id}.json")})
     }).collect();
-    write(out,"api/index.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-index/v1","counts":{"entries":ENTRIES,"functions":FUNCTIONS,"operators":23,"published_rows":534,"split_byte_variant_rows":7,"added_functions":9},"reconciliation":RECONCILIATION,"rows":rows})).unwrap())?;
+    write(out,"api/index.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-index/v1","counts":{"entries":ENTRIES,"functions":FUNCTIONS,"operators":23,"published_rows":534,"split_byte_variant_rows":7,"added_functions":13},"reconciliation":RECONCILIATION,"rows":rows})).unwrap())?;
     write(out,"api/notes.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-notes-api/v1","source":"content/notes/FN-*.json (efh.function-note/v1)","note_count":input.notes.len(),"notes":input.notes})).unwrap())?;
     // Earlier research derivations remain downloadable.
     for name in ["rubric.json", "rubric-hygiene.json"] {
@@ -1336,7 +1336,7 @@ fn coverage(
         group("formula_layer"),
     );
     h+=&format!("<h2>Notes</h2><p>{} note records, rendered from <code>content/notes/FN-*.json</code>. {} The generated output includes its own <a href=\"../api/notes.json\">notes API</a> derived from those same records. <a href=\"../notes/index.html\">Read the notes</a>.</p>",input.notes.len(),if input.note_api_matches {"The checked-in notes API agrees with these inputs."}else{"The checked-in notes API differs from source JSON; this site uses the source records to avoid dropping later notes."});
-    h+="<h2>Catalogue boundary</h2><p>The first catalogue held 541 entries. Nine functions were added from Microsoft's pages and the calc-func catalogue: PY, FIELDVALUE, ECMA.CEILING, IMPORTCSV, IMPORTTEXT and the four FORECAST.ETS functions. Excel macro-sheet functions and the Thai language functions stay outside the catalogue: Microsoft's alphabetical function list does not include them.</p>";
+    h+="<h2>Catalogue boundary</h2><p>The first catalogue held 541 entries. Thirteen functions were added from Microsoft's pages and the calc-func catalogue: PY, FIELDVALUE, ECMA.CEILING, IMPORTCSV, IMPORTTEXT, FLATTEN, HAS, HASANY, HASALL and the four FORECAST.ETS functions. Excel macro-sheet functions and the Thai language functions stay outside the catalogue: Microsoft's alphabetical function list does not include them.</p>";
     h += &format!(
         "<p><a href=\"{}\">Function-help completeness audit, 24 August 2026</a></p>",
         source_link(

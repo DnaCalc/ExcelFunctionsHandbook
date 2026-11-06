@@ -1,15 +1,15 @@
 {
   "schema": "efh.ratchets/v1",
   "rubric_version": "rubric-derivation/v1.0.0",
-  "denominator_sentence": "550 entries = 527 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 9 added functions",
-  "denominator": 550,
+  "denominator_sentence": "554 entries = 531 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 13 added functions",
+  "denominator": 554,
   "evidence_records_at_baseline": 117,
   "baseline_caveat": "This baseline was taken while content/evidence/records was still being written. Regenerate with 'efh rubric emit' once the evidence layer is complete; the RATCHETED counters may only rise, so a baseline taken too early is safe, and a baseline taken from an over-complete state would wedge the build.",
   "ratcheted": [
     {
       "id": "RC-1",
       "counter": "entries with curated Handbook prose (content/functions/*.md)",
-      "today": 541,
+      "today": 554,
       "direction": "up",
       "note": "CI-red if it falls."
     },
@@ -82,7 +82,7 @@
     {
       "id": "RP-W0",
       "counter": "entries at W0",
-      "today": 24,
+      "today": 28,
       "on_rise": "review note",
       "never": "a red build",
       "note": "A fact about the read-only OxFunc tree."
@@ -138,7 +138,7 @@
     {
       "id": "RP-D0D1",
       "counter": "entries at D0 or D1",
-      "today": 68,
+      "today": 72,
       "on_rise": "review note",
       "never": "a red build",
       "note": "A fact about OxFunc's test layout."
@@ -186,7 +186,7 @@
     {
       "id": "RP-N8",
       "counter": "entries at N8",
-      "today": 411,
+      "today": 415,
       "on_rise": "review note",
       "never": "a red build",
       "note": "A fact about what OxFunc has measured."
@@ -194,7 +194,7 @@
     {
       "id": "RP-S8",
       "counter": "entries at S8",
-      "today": 478,
+      "today": 482,
       "on_rise": "review note",
       "never": "a red build",
       "note": "A fact about what OxFunc has measured."
@@ -226,7 +226,7 @@
     {
       "id": "RP-NORECORD",
       "counter": "entries with no evidence record of any kind",
-      "today": 365,
+      "today": 369,
       "on_rise": "review note",
       "never": "a red build",
       "note": "Falls as the evidence layer is written; a rise is a review note."

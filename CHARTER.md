@@ -39,9 +39,9 @@ For each function it aims to provide:
 1. **Honesty.** Show what exists; promise nothing. Uncurated, placeholder, and deferred entries
    are labeled as such, plainly. Claim language is always qualified (see section 7). Contested
    and stale are first-class published states, never suppressed.
-2. **Comprehensiveness.** All 550 catalogued entries are present from the first publication, each
-   honestly labeled with its curation depth. 550 entries = 527 functions + 23 operators = 534
-   published Excel rows + 7 split byte-variant rows + 9 added functions.
+2. **Comprehensiveness.** All 554 catalogued entries are present from the first publication, each
+   honestly labeled with its curation depth. 554 entries = 531 functions + 23 operators = 534
+   published Excel rows + 7 split byte-variant rows + 13 added functions.
 3. **Evidence.** Load-bearing facts cite sources. Bulk evidence lives in Git, suites and external
    archives; the reference explains the function and links to that evidence.
 4. **Independent checkability.** Test suites are versioned, hash-manifested, downloadable, and
@@ -63,10 +63,10 @@ For each function it aims to provide:
 1. The published Excel worksheet function/operator surface. Microsoft's published row count on
    the current reading is **534 rows** (511 functions + 23 operators); this figure is the
    published-row statement and is not a coverage denominator. The Handbook catalogues that
-   surface as **550 entries**: seven published rows each document a byte-variant pair
-   (e.g. `FIND, FINDB`) that the Handbook splits into two entries, and nine functions were added
-   from Microsoft's pages and the calc-func catalogue: 550 entries = 527 functions + 23 operators =
-   534 published Excel rows + 7 split byte-variant rows + 9 added functions. Functions deferred by
+   surface as **554 entries**: seven published rows each document a byte-variant pair
+   (e.g. `FIND, FINDB`) that the Handbook splits into two entries, and thirteen functions were added
+   from Microsoft's pages and the calc-func catalogue: 554 entries = 531 functions + 23 operators =
+   534 published Excel rows + 7 split byte-variant rows + 13 added functions. Functions deferred by
    policy appear with full entries.
 2. Four implementation flavours per function:
    - `excel-bitexact` — returns exactly what Excel returns, quirks included; always scoped to
@@ -101,9 +101,9 @@ Reference data and presentation:
 
 1. No unqualified "done", "complete", or "verified". Every such claim names its scope.
 2. Bit-exactness claims always carry three axes: Excel build, platform, and suite version.
-3. Coverage statements are counts against the full 550-entry surface, never percentages of an
-   undisclosed base. Every coverage statement carries the reconciliation adjacent: 550 entries =
-   527 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 9 added
+3. Coverage statements are counts against the full 554-entry surface, never percentages of an
+   undisclosed base. Every coverage statement carries the reconciliation adjacent: 554 entries =
+   531 functions + 23 operators = 534 published Excel rows + 7 split byte-variant rows + 13 added
    functions. 534 is the published-row count and is never used as a coverage denominator.
 4. An implementation is listed only after passing the function's versioned test suite; the badge
    names the suite version.

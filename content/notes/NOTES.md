@@ -14,7 +14,7 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 71, over 106 functions (of the 541 entries = 518 functions + 23 operators).
+- Notes: 71, over 106 functions (of the 554 entries = 531 functions + 23 operators).
 - Excel differs from the mathematical answer: 23.
 - Detail for matching Excel's bits: 10.
 - Quirk: 32.

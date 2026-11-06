@@ -29,7 +29,7 @@ Microsoft Corporation, not Handbook content, and not under the Handbook's CC BY 
 `descriptions.short` is the Handbook's own one-line description (`short_source`
 `dna-calc-own`, from `content/descriptions/dna-calc-own.json`), not Microsoft's.
 
-## The spine, and the 534 → 550 reconciliation
+## The spine, and the 534 → 554 reconciliation
 
 The row spine is OxFunc's published snapshot export (534 rows: 511 functions + 23 operators).
 Seven of those rows are combined byte-variant documentation rows (`FIND, FINDB`; `LEFT, LEFTB`;
@@ -37,7 +37,7 @@ Seven of those rows are combined byte-variant documentation rows (`FIND, FINDB`;
 artifact of Microsoft documenting each pair in one article. The OxFunc runtime registry (the
 canonical metadata source) models the variants as distinct functions with distinct semantics,
 and so does the Handbook: each combined row is split into per-function entries, giving
-541 entries covering the 534 published rows, and nine added functions make 550. Every entry's `published_row_id` records which
+541 entries covering the 534 published rows, and thirteen added functions make 554. Every entry's `published_row_id` records which
 published row it came from.
 
 ## Field notes

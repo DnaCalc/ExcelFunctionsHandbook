@@ -32,7 +32,7 @@ static SCOPE: LazyLock<Regex> = LazyLock::new(|| {
 });
 
 static COUNT: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"\b(?:\d+\s+(?:of\s+550|curated|projection-only|entries|functions)|\d+(?:\.\d+)?%)")
+    Regex::new(r"\b(?:\d+\s+(?:of\s+554|curated|projection-only|entries|functions)|\d+(?:\.\d+)?%)")
         .unwrap()
 });
 static READINESS: LazyLock<Regex> =

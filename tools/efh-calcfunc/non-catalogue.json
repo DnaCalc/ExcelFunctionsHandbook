@@ -49,8 +49,9 @@
     "COPILOT": {
       "kind": "deferred",
       "summary": "Deferred: needs an outside service",
-      "signature": "COPILOT(prompt, [reference])",
-      "reason": "Deferred by policy: the answer needs Microsoft's Copilot service. DNA Calc does not run this function yet. Microsoft's page says the function left Excel on 14 September 2026."
+      "signature": "COPILOT(prompt_part1, [context1], [prompt_part2], [context2], ...)",
+      "reason": "Deferred by policy: the answer needs Microsoft's Copilot service. DNA Calc does not run this function yet. Microsoft's page says the function left Excel on 14 September 2026.",
+      "max_arity": 255
     },
     "IMAGE": {
       "kind": "absent",
@@ -270,6 +271,46 @@
       "category": "Compatibility",
       "short": "Rounds a number up to a multiple, the form kept for ECMA-376 workbooks",
       "try_it": "=ECMA.CEILING(2.5,1)"
+    },
+    "FLATTEN": {
+      "category": "Lookup and reference functions",
+      "short": "Removes nesting layers from an array",
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "FLATTEN(array, [pad_value], [levels])",
+      "reason": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/flatten-function",
+      "try_it": "=FLATTEN({1,2;3,4})"
+    },
+    "HAS": {
+      "category": "Lookup and reference functions",
+      "short": "Whether a value appears in an array",
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "HAS(array, value)",
+      "reason": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/has-function",
+      "try_it": "=HAS({1,2,3},2)"
+    },
+    "HASANY": {
+      "category": "Lookup and reference functions",
+      "short": "Whether any of the values appear in an array",
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "HASANY(array, values)",
+      "reason": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/hasany-function",
+      "try_it": "=HASANY({1,2,3},{2,9})"
+    },
+    "HASALL": {
+      "category": "Lookup and reference functions",
+      "short": "Whether all of the values appear in an array",
+      "kind": "absent",
+      "summary": "Not yet implemented",
+      "signature": "HASALL(array, values)",
+      "reason": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "source": "https://support.microsoft.com/en-us/excel/functions/hasall-function",
+      "try_it": "=HASALL({1,2,3},{2,3})"
     }
   },
   "variants": {

@@ -81,7 +81,7 @@ non-increasing. A regression fails CI.
 
 ## 9. Current work
 
-All 550 entries use the same reference structure and stable JSON URLs. Further work prioritizes
+All 554 entries use the same reference structure and stable JSON URLs. Further work prioritizes
 thin explanations, measured version comparisons, implementation guidance and published suites.
 Browser calculation uses OneCalc; the local server runs the same wasm module for `/api/eval`.
 Local checks and the private contribution store are described in the tooling documentation.

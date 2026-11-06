@@ -106,12 +106,12 @@ public class LocalizationCompletenessTests
     public void Function_pages_associate_to_raw_rows_without_cross_products_or_combined_labels()
     {
         var pages = FunctionPages();
-        Assert.Equal(550, pages.Count);
+        Assert.Equal(554, pages.Count);
         var functions = pages.Where(p => Text(p, "entry_kind") == "built_in_function").ToList();
         var operators = pages.Where(p => Text(p, "entry_kind") == "built_in_operator").ToList();
-        Assert.Equal(527, functions.Count);
+        Assert.Equal(531, functions.Count);
         // Entries added after the 40-locale harvest have no row in it.
-        Assert.Equal(9, functions.Count(IsAdded));
+        Assert.Equal(13, functions.Count(IsAdded));
         functions = functions.Where(p => !IsAdded(p)).ToList();
         Assert.Equal(23, operators.Count);
         Assert.All(operators, p => Assert.Equal(JsonValueKind.Null, p.GetProperty("localization").ValueKind));

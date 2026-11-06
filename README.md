@@ -3,8 +3,8 @@
 A comprehensive, honest, evidence-backed reference for every Excel worksheet function and
 operator — the Abramowitz & Stegun of Excel functions.
 
-For each of the 550 canonical entries — 550 entries = 527 functions + 23 operators = 534 published
-Excel rows + 7 split byte-variant rows + 9 added functions — the Handbook grows toward: uniform call
+For each of the 554 canonical entries — 554 entries = 531 functions + 23 operators = 534 published
+Excel rows + 7 split byte-variant rows + 13 added functions — the Handbook grows toward: uniform call
 semantics, full metadata and localized names, links to official documentation (and where reality
 diverges from it), implementations in four flavours across multiple languages, versioned and
 independently checkable test suites, curated references, residual-portrait plates (the ULP
@@ -43,7 +43,7 @@ Read [CHARTER.md](CHARTER.md), [OPERATIONS.md](OPERATIONS.md) and the
 cargo run --release --locked --manifest-path tools/efh-site/Cargo.toml -- build
 ```
 
-Writes the ignored folder `site/build/`, with all 550 entry pages, function notes, a category
+Writes the ignored folder `site/build/`, with all 554 entry pages, function notes, a category
 index and browser-local search, The Last Bit drafts, coverage and licences. The standalone Rust
 generator does not require C# or an OxFunc checkout and does not publish anything. See
 [its commands and checks](tools/efh-site/README.md). Function JSON lives at

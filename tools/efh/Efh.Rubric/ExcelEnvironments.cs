@@ -509,7 +509,7 @@ public static class ExcelEnvironments
             sb.Append("Write-ups cited by the records: ").Append(string.Join(", ", writeUps)).Append(".\n\n");
 
         sb.Append("## Summary\n\n");
-        sb.Append($"- Functions with recorded readings: {records.Count} (of the 541 entries = 518 functions + 23 operators).\n");
+        sb.Append($"- Functions with recorded readings: {records.Count} (of the 554 entries = 531 functions + 23 operators).\n");
         sb.Append($"- Excel environments named: {envs.Length}.\n");
         sb.Append($"- Same-input comparisons between environments: {comps.Length}, over {records.Count(r => r.Comparisons.Count > 0)} functions.\n");
         sb.Append($"- Differences observed: {diffs.Length}, in {records.Count(r => r.Differences.Count > 0)} functions.\n");

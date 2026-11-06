@@ -71,13 +71,13 @@
     }
   },
   "counts": {
-    "total_entries": 550,
+    "total_entries": 554,
     "published_rows": 534,
     "split_combined_rows": 7,
-    "functions": 527,
+    "functions": 531,
     "operators": 23,
     "registry_backed": 515,
-    "export_only": 35,
+    "export_only": 39,
     "deferred": 0,
     "placeholder_signatures": 0,
     "with_docs_link": 518,
@@ -104,7 +104,7 @@
     "short_differs_from_english_description": 0,
     "short_no_english_description_to_compare": 0,
     "short_absent": 23,
-    "added_entries": 9
+    "added_entries": 13
   },
   "rows": [
     {
@@ -1382,6 +1382,13 @@
       "admission": "implemented"
     },
     {
+      "function_id": "FUNC.FLATTEN",
+      "surface_name": "FLATTEN",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "not_implemented"
+    },
+    {
       "function_id": "FUNC.FLOOR",
       "surface_name": "FLOOR",
       "entry_kind": "built_in_function",
@@ -1583,6 +1590,27 @@
       "entry_kind": "built_in_function",
       "category": "Statistical functions",
       "admission": "implemented"
+    },
+    {
+      "function_id": "FUNC.HAS",
+      "surface_name": "HAS",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "not_implemented"
+    },
+    {
+      "function_id": "FUNC.HASALL",
+      "surface_name": "HASALL",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "not_implemented"
+    },
+    {
+      "function_id": "FUNC.HASANY",
+      "surface_name": "HASANY",
+      "entry_kind": "built_in_function",
+      "category": "Lookup and reference functions",
+      "admission": "not_implemented"
     },
     {
       "function_id": "FUNC.HEX2BIN",

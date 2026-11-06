@@ -12,25 +12,37 @@
   "xlcall": null,
   "arity": {
     "min": 1,
-    "max": 2
+    "max": 255
   },
   "classification": {},
   "axes": null,
   "axis_provenance": {},
   "signature": {
-    "display": "COPILOT(prompt, [reference])",
-    "trailing_repeats": false,
+    "display": "COPILOT(prompt_part1, [context1], [prompt_part2], [context2], ...)",
+    "trailing_repeats": true,
     "parameters": [
       {
-        "name": "prompt",
+        "name": "prompt_part1",
         "optional": false,
         "repeats": false,
         "description": null
       },
       {
-        "name": "reference",
+        "name": "context1",
         "optional": true,
         "repeats": false,
+        "description": null
+      },
+      {
+        "name": "prompt_part2",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "context2",
+        "optional": true,
+        "repeats": true,
         "description": null
       }
     ]
