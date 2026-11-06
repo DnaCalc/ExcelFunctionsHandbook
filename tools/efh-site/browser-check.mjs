@@ -139,7 +139,7 @@ try {
       return value;
     } finally { clearTimeout(loadTimer); cdp?.close(); await browser.send("Target.closeTarget", { targetId }); }
   }
-  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["complex", complexPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "functions/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"], ["lambda", "functions/LAMBDA.html"], ["operator", "functions/OP_TRIM_REF_BOTH.html"], ["parity", "functions/ISEVEN.html"]];
+  const routes = [["home", "index.html"], ["round", "functions/ROUND.html"], ["complex", complexPath], ["notes", "notes/index.html"], ["coverage", "coverage/index.html"], ["catalogue", "catalogue/index.html"], ["series", "lastbit/index.html"], ["contribute", "contribute/index.html"], ["lambda", "functions/LAMBDA.html"], ["operator", "functions/OP_TRIM_REF_BOTH.html"], ["parity", "functions/ISEVEN.html"]];
   for (const width of [390, 1440]) for (const mode of ["light", "dark"]) for (const [name, path] of routes) {
     const result = await withPage(path, width, mode, async cdp => {
       const metrics = await cdp.evaluate(`({width: innerWidth, client: document.documentElement.clientWidth, scroll: document.documentElement.scrollWidth, heading: document.querySelector('h1').innerText, h1s: document.querySelectorAll('h1').length, scheme: getComputedStyle(document.body).backgroundColor, bytes: performance.getEntriesByType('resource').reduce((sum,r)=>sum+r.transferSize,0), duration: performance.getEntriesByType('navigation')[0].duration})`);
@@ -187,7 +187,7 @@ try {
     report.cases.push({ name, path, width, mode, ...result });
     process.stdout.write(`OK ${name} ${width}px ${mode}\n`);
   }
-  await withPage("functions/index.html?q=ROUND", 390, "light", async cdp => {
+  await withPage("catalogue/index.html?q=ROUND", 390, "light", async cdp => {
     assert.ok(await cdp.evaluate(`document.querySelector('#function-filter').value==='ROUND' && [...document.querySelectorAll('[data-search]')].some(el=>!el.hidden && el.innerText.includes('ROUND'))`));
     await cdp.evaluate(`const f=document.querySelector('#function-filter'); f.value='no-such-function-xyz'; f.dispatchEvent(new Event('input'));`);
     assert.ok(await cdp.evaluate(`!document.querySelector('#no-results').hidden && [...document.querySelectorAll('#catalogue section')].every(el=>el.hidden)`));
@@ -244,7 +244,7 @@ try {
     assert.equal(db.prepare('SELECT function_id FROM contributions WHERE id=?').get(id).function_id,'FUNC.ROUND');db.close();
   });
   report.checks.push("contribution form saves through API into private SQLite");
-  await withPage("functions/index.html", 390, "light", async cdp => {
+  await withPage("catalogue/index.html", 390, "light", async cdp => {
     assert.equal(await cdp.evaluate(`document.querySelectorAll('[data-search]').length`), 541);
     assert.ok(await cdp.evaluate(`[...document.querySelectorAll('.filter-controls')].every(el=>getComputedStyle(el).display==='none')`));
     assert.ok(await cdp.evaluate(`document.querySelector('section[data-category]')!==null`));
