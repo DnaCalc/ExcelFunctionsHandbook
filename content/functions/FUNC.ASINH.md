@@ -310,15 +310,15 @@ Evidence:
 - DnaCalc `crates/calc-func/src/ported/asinh.rs`, asinh_kernel at `b28be66620` — the route as implemented
 - DnaCalc `crates/calc-func/tests/f1_math.rs`, asinh_stores_each_identity_operation_from_pc64 at `b28be66620` — the three inputs that need the stored steps
 - DnaCalc `crates/calc-func/witness-status.tsv`, ASINH at `2d0eddcac8` — matched rows per function
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz` at `e26b7bddb8` — 3,017 recorded rows
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-asinh.json.gz` at `e26b7bddb8` — 1,517 recorded rows, the same inputs read again
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbda6447d498e6f26 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbca579bb4790a498 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3c9e447b5a2fd072 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x0000000000000001 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3e734f4b587c834b at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5fe60a092f72d845 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5ffc73a8ae6c7c25 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz` at `4d5320dfdc` — 3,017 recorded rows
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-asinh.json.gz` at `4d5320dfdc` — 1,517 recorded rows, the same inputs read again
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbda6447d498e6f26 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbca579bb4790a498 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3c9e447b5a2fd072 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x0000000000000001 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3e734f4b587c834b at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5fe60a092f72d845 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5ffc73a8ae6c7c25 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

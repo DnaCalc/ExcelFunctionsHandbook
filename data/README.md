@@ -111,13 +111,13 @@ A record holds, for one function:
 - `sensitivities[]`: reasons to expect a difference that no Excel-to-Excel comparison has settled
   (for example a result that follows x87 microcode, which differs by CPU vendor in principle).
 
-Every evidence entry names `repository` (OxFunc, OxFunc-Evidence, ExcelFunctionsHandbook or
+Every evidence entry names `repository` (OxFunc, CalcFunc-Evidence, ExcelFunctionsHandbook or
 DnaCalc), the full `commit`, the `path` (a file or a folder), an optional `locator` and the raw
 `sha256` where one file is cited.
 
 ### Seed (2026-10-30, DnaCalc dc-dfl.1)
 
-The seed was harvested from the Excel answers in OxFunc-Evidence (`cache/`, `runs/` and the W109
+The seed was harvested from the Excel answers in CalcFunc-Evidence (`cache/`, `runs/` and the W109
 banks under `work/w109/`) and OxFunc's committed `docs/function-lane/evidence/`, keyed by function
 and exact argument bits. Accepted as readings: `oracle-cache-v1` records, cell-reference
 `*_excel_comparison*` records, and `answers-*.json` files whose environment is recorded (in the

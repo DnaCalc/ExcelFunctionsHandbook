@@ -239,7 +239,7 @@ Evidence:
 
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - DnaCalc-Research `evidence/round23/pricemat-hard/summary.json`, counts at `f177408286` — day-count rule against precision
-- OxFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 2282, key PRICEMAT|0x40e2db8000000000|0x40e4f12000000000|0x40e2a30000000000|0x3fbf2eef494503b5|0x3f93d9838d1165c1|0x4000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 2282, key PRICEMAT|0x40e2db8000000000|0x40e4f12000000000|0x40e2a30000000000|0x3fbf2eef494503b5|0x3f93d9838d1165c1|0x4000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-PRICEMAT-002: PRICEMAT basis 0 applies the 31st rule before the February rule
 
@@ -264,7 +264,7 @@ Evidence:
 
 - DnaCalc-Research `evidence/round23/pricemat-hard/summary.json`, counts at `f177408286` — day-count rule against precision
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
-- OxFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

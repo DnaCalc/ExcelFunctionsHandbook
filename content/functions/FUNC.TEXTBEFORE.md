@@ -214,9 +214,9 @@ run.
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/f2_text.rs`, empty_text_delimiter_errors_match_the_recorded_excel_values at `080a6f2f7b` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00274-textbefore-arg1-empty-text at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00266-textafter-arg1-empty-text at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00282-textsplit-arg1-empty-text at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00274-textbefore-arg1-empty-text at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00266-textafter-arg1-empty-text at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00282-textsplit-arg1-empty-text at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

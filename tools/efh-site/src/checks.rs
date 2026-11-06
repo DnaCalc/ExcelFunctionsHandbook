@@ -149,6 +149,13 @@ pub fn check(root: &Path, links: bool, claims: bool) -> Result<(), String> {
         }
         for c in attrs.captures_iter(html) {
             let value = decode(&c[2]);
+            if value.to_ascii_lowercase().contains("github.com/dnacalc/oxfunc-evidence") {
+                problems.push(format!(
+                    "{}: private evidence repository link; cite the mapped CalcFunc-Evidence commit: {value}",
+                    path.display()
+                ));
+                continue;
+            }
             if matches!(
                 &c[1],
                 "aria-controls" | "aria-describedby" | "aria-labelledby" | "for"
@@ -262,7 +269,7 @@ mod tests {
     fn dead_targets_fragments_and_reader_visible_attributes_fail_the_gate() {
         let root = std::env::temp_dir().join(format!("efh-site-check-test-{}", std::process::id()));
         std::fs::create_dir(&root).unwrap();
-        crate::util::write(&root,"index.html",r##"<h1 id="main">Index</h1><a href="other.html#absent">Other</a><label for="unknown">Name</label><a href="missing.html">Missing</a><p title="bit-exact">Unqualified</p>"##).unwrap();
+        crate::util::write(&root,"index.html",r##"<h1 id="main">Index</h1><a href="other.html#absent">Other</a><label for="unknown">Name</label><a href="missing.html">Missing</a><p title="bit-exact">Unqualified</p><a href="https://github.com/DnaCalc/OxFunc-Evidence/blob/old/answer.json">Private</a>"##).unwrap();
         crate::util::write(&root, "other.html", "<h1>Other</h1>").unwrap();
         let error = check(&root, true, true).unwrap_err();
         for expected in [
@@ -270,6 +277,7 @@ mod tests {
             "missing target",
             "missing local id",
             "attribute: §7.8",
+            "private evidence repository link",
         ] {
             assert!(error.contains(expected), "{expected}: {error}");
         }

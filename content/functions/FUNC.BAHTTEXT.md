@@ -193,9 +193,9 @@ Basis (measured): 8 recorded readings.
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_bahttext_retains_the_sign_of_a_negative_amount at `36ff603e69` — recorded readings pinned
-- OxFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1210, key BAHTTEXT|0xbf50624dd2f1a9fc at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1225, key BAHTTEXT|0x8000000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1212, key BAHTTEXT|0xbf747ae147ae147b at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1210, key BAHTTEXT|0xbf50624dd2f1a9fc at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1225, key BAHTTEXT|0x8000000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1212, key BAHTTEXT|0xbf747ae147ae147b at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

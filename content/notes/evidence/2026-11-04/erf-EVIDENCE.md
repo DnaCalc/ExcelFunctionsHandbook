@@ -82,7 +82,7 @@ The wasm32 browser run was not done.
 
 Sources: Cody, W. J., "Rational Chebyshev approximations for the error function", Math. Comp.
 23 (1969) (tier 1), coefficient values as in SPECFUN CALERF (netlib, tier 2); Intel SDM x87
-precision control (tier 1); Excel's recorded answers in OxFunc-Evidence. No code was copied;
+precision control (tier 1); Excel's recorded answers in CalcFunc-Evidence. No code was copied;
 only two published coefficient values appear (scaled). `s` itself is not explained by a
 source: it is determined by the two constants, and both are needed. Treat it as a measured
 normalisation (open question 1 below).

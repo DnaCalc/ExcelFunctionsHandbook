@@ -298,8 +298,8 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00960 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00959 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00960 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00959 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

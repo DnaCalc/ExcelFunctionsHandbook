@@ -305,9 +305,9 @@ calls.
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_vdb_explicit_missing_factor_is_zero at `cfdc059510` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00022-vdb-optional-5-22 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00025-vdb-optional-5-25 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00026-vdb-optional-5-26 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00022-vdb-optional-5-22 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00025-vdb-optional-5-25 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00026-vdb-optional-5-26 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

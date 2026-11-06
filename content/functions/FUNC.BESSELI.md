@@ -283,9 +283,9 @@ Evidence:
 
 - DnaCalc `crates/calc-func/tests/f1_engineering.rs`, lines 354-468 at `d62b1283bb` — recorded answers pinned; the ITK body in the product
 - DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00440 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00674 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00440 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00674 at `4d5320dfdc` (readings)
 
 ### FN-BESSELI-002: BESSELI and BESSELK are low-order approximations, rarely correctly rounded
 
@@ -311,9 +311,9 @@ mpmath at 200 bits.
 Evidence:
 
 - DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00001 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besselk.json.gz`, w111extended-2026092903-BESSELK-00698 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00001 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besselk.json.gz`, w111extended-2026092903-BESSELK-00698 at `4d5320dfdc` (readings)
 
 ### FN-BESSELI-003: At large x the fixed recurrence start makes BESSELI badly wrong
 
@@ -343,8 +343,8 @@ Evidence:
 
 - DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
 - DnaCalc-Research `evidence/round18/r16-published-score/observations.jsonl`, line 177, id r16-besseli-021 at `2df115b951` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-09 at `28f36d40e4` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `28f36d40e4` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-09 at `dec750f162` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `dec750f162` (readings)
 
 ### FN-BESSELI-004: BESSELI gives #NUM! just above 709.7, where the function is still finite
 
@@ -367,9 +367,9 @@ Inferred, not measured: That the same cut-off applies at every other order is in
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/f1_engineering.rs`, line 108 at `f2e72693a5` — the boundary in the product
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `28f36d40e4` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-02 at `28f36d40e4` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-06 at `28f36d40e4` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `dec750f162` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-02 at `dec750f162` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-06 at `dec750f162` (readings)
 
 <!-- efh:notes end -->
 

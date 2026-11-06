@@ -240,8 +240,8 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUND.jsonl.gz`, line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz`, line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUND.jsonl.gz`, line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz`, line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-ROUND-003: Near DBL_MAX, ROUND returns NaN bit patterns that Excel treats as numbers
 
@@ -318,10 +318,10 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00041 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00043 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00033 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-trunc.json.gz`, w111roundcount-TRUNC-00041 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00041 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00043 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00033 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-trunc.json.gz`, w111roundcount-TRUNC-00041 at `4d5320dfdc` (readings)
 
 ### FN-ROUNDUP-002: ROUNDUP adds its unit in binary64, one bit from the decimal answer
 
@@ -349,8 +349,8 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1863, key ROUNDUP|0xbff2000000000000|0x4000000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1809, key ROUNDUP|0x400c47ae147ae148|0x4000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1863, key ROUNDUP|0xbff2000000000000|0x4000000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1809, key ROUNDUP|0x400c47ae147ae148|0x4000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-ROUNDUP-003: At tiny magnitudes ROUNDUP may add no unit, and the two signs differ
 
@@ -412,8 +412,8 @@ Basis (measured): Recorded rows of the broad capture; counts from the rounding w
 Evidence:
 
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00026 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00027 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00026 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00027 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

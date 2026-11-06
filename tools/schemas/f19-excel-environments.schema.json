@@ -7,7 +7,7 @@
     "family": "F19",
     "organ": "content",
     "path_glob": "content/evidence/environments/*.json",
-    "writer": "Handbook curation (seed: dc-dfl.1 harvest of OxFunc and OxFunc-Evidence); later: ingest of the DnaCalc witness judge's environment conflicts (data/README.md, 'Excel environment differences')",
+    "writer": "Handbook curation (seed: dc-dfl.1 harvest of OxFunc and CalcFunc-Evidence); later: ingest of the DnaCalc witness judge's environment conflicts (data/README.md, 'Excel environment differences')",
     "spec": "Handbook extension (DnaCalc dc-dfl.1, 2026-10-30); not specified by FOUNDATION.md. Rendered by `efh environments render` into content/evidence/EXCEL-ENVIRONMENTS.md and a generated section of each affected content/functions page.",
     "propertyOrderBasis": "declared-by-this-schema",
     "keyOrderContract": "Emit keys in propertyOrder exactly. environments[] sorted by env_id; readings[] in environments[] order; comparisons[], differences[] and sensitivities[] sorted by their ids."
@@ -84,7 +84,7 @@
       "properties": {
         "repository": {
           "type": "string",
-          "enum": ["OxFunc", "OxFunc-Evidence", "ExcelFunctionsHandbook", "DnaCalc"],
+          "enum": ["OxFunc", "CalcFunc-Evidence", "ExcelFunctionsHandbook", "DnaCalc"],
           "description": "R. The repository holding the evidence (github.com/DnaCalc/<repository>)."
         },
         "commit": {
@@ -100,7 +100,7 @@
         "sha256": {
           "type": ["string", "null"],
           "pattern": "^[0-9a-f]{64}$",
-          "description": "R, may be null. SHA-256 of the raw file (for OxFunc-Evidence: the manifest's raw SHA-256 of the archived file, whose blob is <path>.gz)."
+          "description": "R, may be null. SHA-256 of the raw file (for CalcFunc-Evidence: the manifest's raw SHA-256 of the archived file, whose blob is <path>.gz)."
         },
         "note": { "type": ["string", "null"] }
       }

@@ -263,9 +263,9 @@ Evidence:
 
 - DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00181 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00183 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00003 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00181 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00183 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00003 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

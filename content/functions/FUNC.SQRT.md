@@ -248,9 +248,9 @@ subnormal row is 1 row, and no read-back of its input is recorded.
 Evidence:
 
 - DnaCalc `crates/calc-func/src/ported/sqrt_fn.rs`, excel_sqrt_staged at `b5ce0759bc` — the kernel in the product
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00016 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00025 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00002 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00016 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00025 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00002 at `4d5320dfdc` (readings)
 
 ### FN-VALUE-001: Text to number reads Arabic, Persian, Devanagari and Thai digits, but not fullwidth digits
 

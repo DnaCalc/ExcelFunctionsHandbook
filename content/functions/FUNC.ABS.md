@@ -233,11 +233,11 @@ Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_zero_percentage_exponents_are_validated at `344c166787` — recorded readings pinned
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt097 to qt168 at `2d0eddcac8` — 72 recorded VALUE readings
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00008-abs-boundary-2-0 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00012-abs-boundary-3-0 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00017-abs-boundary-4-1 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00028-abs-boundary-7-0 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00108-abs-boundary-27-0 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00008-abs-boundary-2-0 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00012-abs-boundary-3-0 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00017-abs-boundary-4-1 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00028-abs-boundary-7-0 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00108-abs-boundary-27-0 at `4d5320dfdc` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt099, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt100, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt107, row 20, column 10 at `2d0eddcac8` (readings)

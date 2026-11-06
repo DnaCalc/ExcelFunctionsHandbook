@@ -211,9 +211,9 @@ Evidence:
 - [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md) — earlier round: the structure, the refutation of Cody, the edge bisection
 - [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first write-up; its Cody attribution is withdrawn
 - DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs`, erf_approx, ERF_N, ERF_D at `36a7f3d7aa` — the rational in the product; the commit message carries the row counts
-- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 1219, key ERF.PRECISE|0x3fdcf55555555555 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 1219, key ERF.PRECISE|0x3fdcf55555555555 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

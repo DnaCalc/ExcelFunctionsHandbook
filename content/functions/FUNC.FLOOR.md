@@ -251,9 +251,9 @@ Basis (measured): 12 recorded readings.
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_floor_zero_identity_precedes_its_multiple_error at `1474b041c8` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00002 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00005 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00062 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00002 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00005 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00062 at `4d5320dfdc` (readings)
 
 ### FN-FLOOR-002: FLOOR rounds its quotient to 15 digits first, so the result can pass the number
 
@@ -286,9 +286,9 @@ fit. Whether FLOOR.MATH and FLOOR.PRECISE take the same step has not been read.
 
 Evidence:
 
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz` at `e26b7bddb8` — the 1,335 readings
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00083 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00109 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz` at `4d5320dfdc` — the 1,335 readings
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00083 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00109 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

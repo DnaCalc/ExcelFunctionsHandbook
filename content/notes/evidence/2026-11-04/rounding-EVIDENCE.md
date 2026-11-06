@@ -2,7 +2,7 @@
 
 Bead: dc-j9k.18. Downstream behaviour of Excel's NaN bit patterns: dc-j9k.19.
 
-## Full-bank result (OxFunc-Evidence 4cb48d15, all 3,910,050 rows)
+## Full-bank result (CalcFunc-Evidence d224c5fb, all 3,910,050 rows)
 
 | Function | Before | After | Gains | Losses | Still failing |
 |---|---:|---:|---:|---:|---:|
@@ -16,7 +16,7 @@ Bead: dc-j9k.18. Downstream behaviour of Excel's NaN bit patterns: dc-j9k.19.
 
 The comparator reports every input, selection, answer, source and environment field unchanged.
 
-Commands (in a scratch clone, with OxFunc-Evidence beside it):
+Commands (in a scratch clone, with CalcFunc-Evidence beside it):
 ```
 harness-before witness judge --bank full --trace full-before.jsonl   # 3,267,249 (= published table)
 harness-tiny   witness judge --bank full --trace full-tiny.jsonl     # 3,304,836

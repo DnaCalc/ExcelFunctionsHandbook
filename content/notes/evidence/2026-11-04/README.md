@@ -1,7 +1,7 @@
 # Research evidence behind the notes of 2026-11-04
 
 Copies of write-ups and Excel readings that existed only in a working folder when the notes were
-written. Bank rows they cite are in OxFunc-Evidence. "The bank" in these files means the recorded
+written. Bank rows they cite are in CalcFunc-Evidence. "The bank" in these files means the recorded
 Excel answers held there. Scripts and traces they name by relative path were not archived.
 
 These are cleaned copies: machine paths, host names, process ids and one tool name were removed from

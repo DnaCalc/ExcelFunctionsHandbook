@@ -286,16 +286,16 @@ Evidence:
 - DnaCalc-Research `evidence/round24/coupon/coupon-calendar-summary.json` at `19d810d45a` — the 42 schedule variants compared on 965 basis 1 rows
 - DnaCalc-Research `evidence/round24/coupon/coupdays-registered-delta.json` at `19d810d45a` — 5,584 of 5,584 rows matched
 - DnaCalc `crates/calc-func/witness-status.tsv`, COUPDAYS at `2d0eddcac8` — matched rows per function
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-coupdays.json.gz` at `e26b7bddb8` — 1,512 recorded rows, inputs read again
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1748000000000|0x40e1910000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1cc8000000000|0x40e2036000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1f98000000000|0x40e7646000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e212e000000000|0x40e29f2000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e2938000000000|0x40e2c16000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e10be000000000|0x40e1320000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPPCD.jsonl.gz`, COUPPCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPNCD.jsonl.gz`, COUPNCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-coupdays.json.gz` at `4d5320dfdc` — 1,512 recorded rows, inputs read again
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1748000000000|0x40e1910000000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1cc8000000000|0x40e2036000000000|0x4010000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1f98000000000|0x40e7646000000000|0x4010000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e212e000000000|0x40e29f2000000000|0x4010000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e2938000000000|0x40e2c16000000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e10be000000000|0x40e1320000000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPPCD.jsonl.gz`, COUPPCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPNCD.jsonl.gz`, COUPNCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
 
 ### FN-COUPDAYSNC-001: On basis 0 COUPDAYSNC is not always COUPDAYS minus COUPDAYBS
 

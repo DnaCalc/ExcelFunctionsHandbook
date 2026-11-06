@@ -231,9 +231,9 @@ Basis (measured): All recorded rows match after the boundary change: GCD 7,966 o
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_gcd_lcm_admit_the_exact_operand_boundary at `9c23dde1df` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00190 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz`, w111boundary-LCM-00194 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00217 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00190 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz`, w111boundary-LCM-00194 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00217 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

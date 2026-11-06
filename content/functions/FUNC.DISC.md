@@ -251,9 +251,9 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - DnaCalc-Research `evidence/round23/security-1900-hard/summary.json`, counts at `f177408286` — stored-PC64 against other precisions
 - DnaCalc-Research `round23-result.json`, recorded_completed_groups at `f177408286` — 18,040 of 18,040 outcomes
-- OxFunc-Evidence `cache/oracle-20430/build-20430/DISC.jsonl.gz`, line 1458, key DISC|0x40e262e000000000|0x40e2aea000000000|0x4057b81582ea72c4|0x4059af174414e760|0x4008000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz`, line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/INTRATE.jsonl.gz`, line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/DISC.jsonl.gz`, line 1458, key DISC|0x40e262e000000000|0x40e2aea000000000|0x4057b81582ea72c4|0x4059af174414e760|0x4008000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz`, line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/INTRATE.jsonl.gz`, line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-YEARFRAC-001: On basis 1 the fictitious 1900-02-29 is not a leap day, and YEARFRAC takes serial 0 as a date
 

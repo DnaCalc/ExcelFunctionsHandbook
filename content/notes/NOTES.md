@@ -241,11 +241,11 @@ Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_zero_percentage_exponents_are_validated at `344c166787` — recorded readings pinned
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheets qt097 to qt168 at `2d0eddcac8` — 72 recorded VALUE readings
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00008-abs-boundary-2-0 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00012-abs-boundary-3-0 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00017-abs-boundary-4-1 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00028-abs-boundary-7-0 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00108-abs-boundary-27-0 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00008-abs-boundary-2-0 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00012-abs-boundary-3-0 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00017-abs-boundary-4-1 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00028-abs-boundary-7-0 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-numeric-text-percent-bounds-20260929/outcomes/excel.jsonl.gz`, w111textbounds-00108-abs-boundary-27-0 at `4d5320dfdc` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt099, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt100, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt107, row 20, column 10 at `2d0eddcac8` (readings)
@@ -299,15 +299,15 @@ Evidence:
 - DnaCalc `crates/calc-func/src/ported/asinh.rs`, asinh_kernel at `b28be66620` — the route as implemented
 - DnaCalc `crates/calc-func/tests/f1_math.rs`, asinh_stores_each_identity_operation_from_pc64 at `b28be66620` — the three inputs that need the stored steps
 - DnaCalc `crates/calc-func/witness-status.tsv`, ASINH at `2d0eddcac8` — matched rows per function
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz` at `e26b7bddb8` — 3,017 recorded rows
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-asinh.json.gz` at `e26b7bddb8` — 1,517 recorded rows, the same inputs read again
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbda6447d498e6f26 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbca579bb4790a498 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3c9e447b5a2fd072 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x0000000000000001 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3e734f4b587c834b at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5fe60a092f72d845 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5ffc73a8ae6c7c25 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz` at `4d5320dfdc` — 3,017 recorded rows
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-asinh.json.gz` at `4d5320dfdc` — 1,517 recorded rows, the same inputs read again
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbda6447d498e6f26 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0xbca579bb4790a498 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3c9e447b5a2fd072 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x0000000000000001 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x3e734f4b587c834b at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5fe60a092f72d845 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ASINH.jsonl.gz`, ASINH|0x5ffc73a8ae6c7c25 at `4d5320dfdc` (readings)
 
 ### FN-BAHTTEXT-001: A tiny negative amount keeps the word for minus before zero baht
 
@@ -327,9 +327,9 @@ Basis (measured): 8 recorded readings.
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_bahttext_retains_the_sign_of_a_negative_amount at `36ff603e69` — recorded readings pinned
-- OxFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1210, key BAHTTEXT|0xbf50624dd2f1a9fc at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1225, key BAHTTEXT|0x8000000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1212, key BAHTTEXT|0xbf747ae147ae147b at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1210, key BAHTTEXT|0xbf50624dd2f1a9fc at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1225, key BAHTTEXT|0x8000000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/BAHTTEXT.jsonl.gz`, line 1212, key BAHTTEXT|0xbf747ae147ae147b at `4d5320dfdc` (readings)
 
 ### FN-BESSELI-001: BESSELI is ITK's published polynomial and recurrence, on the x87 unit
 
@@ -357,9 +357,9 @@ Evidence:
 
 - DnaCalc `crates/calc-func/tests/f1_engineering.rs`, lines 354-468 at `d62b1283bb` — recorded answers pinned; the ITK body in the product
 - DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00440 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00674 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00440 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00674 at `4d5320dfdc` (readings)
 
 ### FN-BESSELI-002: BESSELI and BESSELK are low-order approximations, rarely correctly rounded
 
@@ -386,9 +386,9 @@ mpmath at 200 bits.
 Evidence:
 
 - DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00001 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besselk.json.gz`, w111extended-2026092903-BESSELK-00698 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00001 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besselk.json.gz`, w111extended-2026092903-BESSELK-00698 at `4d5320dfdc` (readings)
 
 ### FN-BESSELI-003: At large x the fixed recurrence start makes BESSELI badly wrong
 
@@ -418,8 +418,8 @@ Evidence:
 
 - DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
 - DnaCalc-Research `evidence/round18/r16-published-score/observations.jsonl`, line 177, id r16-besseli-021 at `2df115b951` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-09 at `28f36d40e4` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `28f36d40e4` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-09 at `dec750f162` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `dec750f162` (readings)
 
 ### FN-BESSELI-004: BESSELI gives #NUM! just above 709.7, where the function is still finite
 
@@ -442,9 +442,9 @@ Inferred, not measured: That the same cut-off applies at every other order is in
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/f1_engineering.rs`, line 108 at `f2e72693a5` — the boundary in the product
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `28f36d40e4` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-02 at `28f36d40e4` (readings)
-- OxFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-06 at `28f36d40e4` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-01 at `dec750f162` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-02 at `dec750f162` (readings)
+- CalcFunc-Evidence `readings/excel-20527/BESSELI.json`, r11-struct-besseli-06 at `dec750f162` (readings)
 
 ### FN-CHOOSE-001: An array index in CHOOSE turns selected blank cells into 0
 
@@ -541,16 +541,16 @@ Evidence:
 - DnaCalc-Research `evidence/round24/coupon/coupon-calendar-summary.json` at `19d810d45a` — the 42 schedule variants compared on 965 basis 1 rows
 - DnaCalc-Research `evidence/round24/coupon/coupdays-registered-delta.json` at `19d810d45a` — 5,584 of 5,584 rows matched
 - DnaCalc `crates/calc-func/witness-status.tsv`, COUPDAYS at `2d0eddcac8` — matched rows per function
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-coupdays.json.gz` at `e26b7bddb8` — 1,512 recorded rows, inputs read again
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1748000000000|0x40e1910000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1cc8000000000|0x40e2036000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1f98000000000|0x40e7646000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e212e000000000|0x40e29f2000000000|0x4010000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e2938000000000|0x40e2c16000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e10be000000000|0x40e1320000000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPPCD.jsonl.gz`, COUPPCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPNCD.jsonl.gz`, COUPNCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-coupdays.json.gz` at `4d5320dfdc` — 1,512 recorded rows, inputs read again
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1748000000000|0x40e1910000000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1cc8000000000|0x40e2036000000000|0x4010000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e1f98000000000|0x40e7646000000000|0x4010000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e212e000000000|0x40e29f2000000000|0x4010000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e2938000000000|0x40e2c16000000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e10be000000000|0x40e1320000000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPPCD.jsonl.gz`, COUPPCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPNCD.jsonl.gz`, COUPNCD|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/COUPDAYS.jsonl.gz`, COUPDAYS|0x40e5816000000000|0x4146924080000000|0x4000000000000000|0x3ff0000000000000 at `4d5320dfdc` (readings)
 
 ### FN-COUPDAYSNC-001: On basis 0 COUPDAYSNC is not always COUPDAYS minus COUPDAYBS
 
@@ -746,9 +746,9 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - DnaCalc-Research `evidence/round23/security-1900-hard/summary.json`, counts at `f177408286` — stored-PC64 against other precisions
 - DnaCalc-Research `round23-result.json`, recorded_completed_groups at `f177408286` — 18,040 of 18,040 outcomes
-- OxFunc-Evidence `cache/oracle-20430/build-20430/DISC.jsonl.gz`, line 1458, key DISC|0x40e262e000000000|0x40e2aea000000000|0x4057b81582ea72c4|0x4059af174414e760|0x4008000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz`, line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/INTRATE.jsonl.gz`, line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/DISC.jsonl.gz`, line 1458, key DISC|0x40e262e000000000|0x40e2aea000000000|0x4057b81582ea72c4|0x4059af174414e760|0x4008000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/TBILLYIELD.jsonl.gz`, line 413, key TBILLYIELD|0x40e74aa000000000|0x40e74ac000000000|0x40023cff95ff2def at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/INTRATE.jsonl.gz`, line 2326, key INTRATE|0x40ec968000000000|0x40ec9ce000000000|0x411a27d089707de5|0x401b39132211b6ad|0x0000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-DOLLAR-001: DOLLAR keeps the minus sign on an amount that rounds to zero; FIXED and TEXT drop it
 
@@ -830,9 +830,9 @@ Evidence:
 - [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round2.md) — earlier round: the structure, the refutation of Cody, the edge bisection
 - [`content/notes/evidence/2026-11-04/erf-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE.md) — first write-up; its Cody attribution is withdrawn
 - DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs`, erf_approx, ERF_N, ERF_D at `36a7f3d7aa` — the rational in the product; the commit message carries the row counts
-- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 1219, key ERF.PRECISE|0x3fdcf55555555555 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 1219, key ERF.PRECISE|0x3fdcf55555555555 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 2115, key ERF.PRECISE|0x3d70000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERF.PRECISE.jsonl.gz`, line 209, key ERF.PRECISE|0x3ddb7cdfd9d7bdb9 at `4d5320dfdc` (readings)
 
 ### FN-ERFC-001: Above 0.5, ERFC rounds x*x before the exponential, so the tail drifts by hundreds of units
 
@@ -873,9 +873,9 @@ Evidence:
 
 - [`content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md`](../../content/notes/evidence/2026-11-04/erf-EVIDENCE-round3.md), Round 4: ERFC above 0.5 — the residual table, what is known about F
 - DnaCalc `crates/calc-func/src/ported/normal_dist_common.rs`, erfc_upper at `d85e5e9b52` — the commit stores z and E and uses Cody's rational in place of F; its message carries the row counts
-- OxFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 363, key ERFC.PRECISE|0x403a8b020c49ba5f at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 340, key ERFC.PRECISE|0x4017b55555555555 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 64, key ERFC.PRECISE|0x4000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 363, key ERFC.PRECISE|0x403a8b020c49ba5f at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 340, key ERFC.PRECISE|0x4017b55555555555 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/ERFC.PRECISE.jsonl.gz`, line 64, key ERFC.PRECISE|0x4000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-ERROR.TYPE-001: ERROR.TYPE of #BUSY! is 0
 
@@ -921,9 +921,9 @@ Basis (measured): 12 recorded readings.
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_floor_zero_identity_precedes_its_multiple_error at `1474b041c8` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00002 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00005 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00062 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00002 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00005 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00062 at `4d5320dfdc` (readings)
 
 ### FN-FLOOR-002: FLOOR rounds its quotient to 15 digits first, so the result can pass the number
 
@@ -956,9 +956,9 @@ fit. Whether FLOOR.MATH and FLOOR.PRECISE take the same step has not been read.
 
 Evidence:
 
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz` at `e26b7bddb8` — the 1,335 readings
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00083 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00109 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz` at `4d5320dfdc` — the 1,335 readings
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00083 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-floor.json.gz`, w111broad-20260929-FLOOR-00109 at `4d5320dfdc` (readings)
 
 ### FN-GAMMA-001: Below 10, GAMMA is a stored product down to a seed on (1,2)
 
@@ -1117,8 +1117,8 @@ Evidence:
 - [`content/notes/evidence/2026-11-04/gamma-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/gamma-EVIDENCE.md) — research write-up: how the stored stages were read
 - DnaCalc `crates/calc-func/src/ported/excel_numeric/gammaln.rs` at `1c7a4ab86b` — the routes in the product, with stand-ins where the code says so; the commit message carries the row counts
 - DnaCalc `crates/calc-func/witness-status.tsv` at `af74247e1e` — rows matched per function
-- OxFunc-Evidence `cache/oracle/build-20131/GAMMALN.jsonl.gz`, line 273, key GAMMALN|0x4008000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/GAMMALN.PRECISE.jsonl.gz`, line 22, key GAMMALN.PRECISE|0x4008000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/GAMMALN.jsonl.gz`, line 273, key GAMMALN|0x4008000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/GAMMALN.PRECISE.jsonl.gz`, line 22, key GAMMALN.PRECISE|0x4008000000000000 at `4d5320dfdc` (readings)
 - [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMALN 4000296a5d874ad0 (readings)
 - [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMALN 401814b52ec3a568 (readings)
 
@@ -1146,9 +1146,9 @@ Basis (measured): All recorded rows match after the boundary change: GCD 7,966 o
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_gcd_lcm_admit_the_exact_operand_boundary at `9c23dde1df` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00190 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz`, w111boundary-LCM-00194 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00217 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00190 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-lcm.json.gz`, w111boundary-LCM-00194 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-integer-publication-20260929/answers/answers-gcd.json.gz`, w111boundary-GCD-00217 at `4d5320dfdc` (readings)
 
 ### FN-HSTACK-001: A direct error stops these array functions; the same error in an array or cell is an element
 
@@ -1440,8 +1440,8 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00960 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00959 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00960 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-mod-tiny-discriminator-20260929/answers-mod.json.gz`, w111mod-tiny-discriminator-00959 at `4d5320dfdc` (readings)
 
 ### FN-MODE-001: MODE ignores direct text and logicals instead of converting them or giving an error
 
@@ -1520,9 +1520,9 @@ Evidence:
 
 - DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `77873410e3` — ROUND family rules in the product; failed before the change
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00181 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00183 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00003 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00181 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00183 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00003 at `4d5320dfdc` (readings)
 
 ### FN-NETWORKDAYS.INTL-001: NETWORKDAYS.INTL checks weekend before the dates, WORKDAY.INTL after them
 
@@ -1720,7 +1720,7 @@ Evidence:
 
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - DnaCalc-Research `evidence/round23/pricemat-hard/summary.json`, counts at `f177408286` — day-count rule against precision
-- OxFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 2282, key PRICEMAT|0x40e2db8000000000|0x40e4f12000000000|0x40e2a30000000000|0x3fbf2eef494503b5|0x3f93d9838d1165c1|0x4000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 2282, key PRICEMAT|0x40e2db8000000000|0x40e4f12000000000|0x40e2a30000000000|0x3fbf2eef494503b5|0x3f93d9838d1165c1|0x4000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-PRICEMAT-002: PRICEMAT basis 0 applies the 31st rule before the February rule
 
@@ -1745,7 +1745,7 @@ Evidence:
 
 - DnaCalc-Research `evidence/round23/pricemat-hard/summary.json`, counts at `f177408286` — day-count rule against precision
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
-- OxFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-REGEXTEST-001: In REGEXTEST, \w takes combining marks, dot refuses CR, and case folding reaches into ranges
 
@@ -1818,8 +1818,8 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01694 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01682 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01694 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-round.json.gz`, w111roundcount-ROUND-01682 at `4d5320dfdc` (readings)
 
 ### FN-ROUND-002: The rounding functions read 15 digits first, so ROUNDDOWN can round up
 
@@ -1852,8 +1852,8 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUND.jsonl.gz`, line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz`, line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUND.jsonl.gz`, line 3758, key ROUND|0xc316a939806956e4|0x402c000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUNDDOWN.jsonl.gz`, line 753, key ROUNDDOWN|0x42f0168ea69971b8|0x0000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-ROUND-003: Near DBL_MAX, ROUND returns NaN bit patterns that Excel treats as numbers
 
@@ -1966,10 +1966,10 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00041 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00043 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00033 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-trunc.json.gz`, w111roundcount-TRUNC-00041 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00041 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00043 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-roundup.json.gz`, w111roundcount-ROUNDUP-00033 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-rounding-count-refinement-20260929/answers-trunc.json.gz`, w111roundcount-TRUNC-00041 at `4d5320dfdc` (readings)
 
 ### FN-ROUNDUP-002: ROUNDUP adds its unit in binary64, one bit from the decimal answer
 
@@ -1997,8 +1997,8 @@ Evidence:
 
 - DnaCalc `crates/calc-func/src/catalogue/rounding.rs` at `ab94fb91a5` — the rules in the product; the commit message carries the row counts
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1863, key ROUNDUP|0xbff2000000000000|0x4000000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1809, key ROUNDUP|0x400c47ae147ae148|0x4000000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1863, key ROUNDUP|0xbff2000000000000|0x4000000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle-20430/build-20430/ROUNDUP.jsonl.gz`, line 1809, key ROUNDUP|0x400c47ae147ae148|0x4000000000000000 at `4d5320dfdc` (readings)
 
 ### FN-ROUNDUP-003: At tiny magnitudes ROUNDUP may add no unit, and the two signs differ
 
@@ -2084,9 +2084,9 @@ subnormal row is 1 row, and no read-back of its input is recorded.
 Evidence:
 
 - DnaCalc `crates/calc-func/src/ported/sqrt_fn.rs`, excel_sqrt_staged at `b5ce0759bc` — the kernel in the product
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00016 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00025 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00002 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00016 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00025 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00002 at `4d5320dfdc` (readings)
 
 ### FN-TBILLEQ-001: For bills longer than 182 days TBILLEQ is a quadratic, not the documented formula
 
@@ -2120,8 +2120,8 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - DnaCalc-Research `evidence/round23/tbilleq-hard/summary.json`, counts at `f177408286` — staged square root against alternatives
 - DnaCalc `crates/calc-func/src/ported/discount_bill_yearfrac_family.rs`, lines 388-410 at `26bb1800d3` — the arithmetic in the product
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-01109 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-00179 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-01109 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-00179 at `4d5320dfdc` (readings)
 
 ### FN-TEXT-001: Locale-tagged month, weekday and era names in TEXT follow their own table
 
@@ -2208,9 +2208,9 @@ run.
 Evidence:
 
 - DnaCalc `crates/calc-func/tests/f2_text.rs`, empty_text_delimiter_errors_match_the_recorded_excel_values at `080a6f2f7b` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00274-textbefore-arg1-empty-text at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00266-textafter-arg1-empty-text at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00282-textsplit-arg1-empty-text at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00274-textbefore-arg1-empty-text at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00266-textafter-arg1-empty-text at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-typed-20260929-002/outcomes/excel.jsonl.gz`, w111typed-00282-textsplit-arg1-empty-text at `4d5320dfdc` (readings)
 
 ### FN-TEXTSPLIT-002: Over an array, TEXTSPLIT and REGEXEXTRACT keep only the first piece of each element
 
@@ -2265,8 +2265,8 @@ Basis (measured): Recorded rows of the broad capture; counts from the rounding w
 Evidence:
 
 - [`content/notes/evidence/2026-11-04/rounding-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/rounding-EVIDENCE.md) — research write-up: full-bank result, the rules, what stays open
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00026 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00027 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00026 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-broad-20260929/answers/answers-trunc.json.gz`, w111broad-20260929-TRUNC-00027 at `4d5320dfdc` (readings)
 
 ### FN-VALUE-001: Text to number reads Arabic, Persian, Devanagari and Thai digits, but not fullwidth digits
 
@@ -2487,9 +2487,9 @@ calls.
 Evidence:
 
 - DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, recorded_vdb_explicit_missing_factor_is_zero at `cfdc059510` — recorded readings pinned
-- OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00022-vdb-optional-5-22 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00025-vdb-optional-5-25 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00026-vdb-optional-5-26 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00022-vdb-optional-5-22 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00025-vdb-optional-5-25 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-depreciation-options-20260929/outcomes/excel.jsonl.gz`, w111dep-options-00026-vdb-optional-5-26 at `4d5320dfdc` (readings)
 
 ### FN-WEEKNUM-001: WEEKNUM with an invalid return_type can answer differently each time it is called
 
@@ -2527,10 +2527,10 @@ Evidence:
 
 - DnaCalc `crates/calc-func/witness-differences.tsv`, WEEKNUM at `9c23dde1df` — index of the conflicting readings
 - DnaCalc `.beads/issues.jsonl`, dc-zmk.2 at `2d0eddcac8` — the repeat comparison of 3,852 calls in build 20527
-- OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00188 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-01331 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00940 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-00133 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00188 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-01331 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00940 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-00133 at `4d5320dfdc` (readings)
 
 ### FN-WORKDAY-001: An empty cell as a first date is serial 0, but a logical in that cell is #VALUE!
 

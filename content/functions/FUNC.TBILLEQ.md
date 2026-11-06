@@ -270,8 +270,8 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - DnaCalc-Research `evidence/round23/tbilleq-hard/summary.json`, counts at `f177408286` — staged square root against alternatives
 - DnaCalc `crates/calc-func/src/ported/discount_bill_yearfrac_family.rs`, lines 388-410 at `26bb1800d3` — the arithmetic in the product
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-01109 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-00179 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-01109 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-5-20260924/answers/answers-w1115-tbilleq.json.gz`, w1115-TBILLEQ-00179 at `4d5320dfdc` (readings)
 
 ### FN-WORKDAY-001: An empty cell as a first date is serial 0, but a logical in that cell is #VALUE!
 

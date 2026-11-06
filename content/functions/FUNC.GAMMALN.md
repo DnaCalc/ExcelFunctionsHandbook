@@ -298,8 +298,8 @@ Evidence:
 - [`content/notes/evidence/2026-11-04/gamma-EVIDENCE.md`](../../content/notes/evidence/2026-11-04/gamma-EVIDENCE.md) — research write-up: how the stored stages were read
 - DnaCalc `crates/calc-func/src/ported/excel_numeric/gammaln.rs` at `1c7a4ab86b` — the routes in the product, with stand-ins where the code says so; the commit message carries the row counts
 - DnaCalc `crates/calc-func/witness-status.tsv` at `af74247e1e` — rows matched per function
-- OxFunc-Evidence `cache/oracle/build-20131/GAMMALN.jsonl.gz`, line 273, key GAMMALN|0x4008000000000000 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/oracle/build-20131/GAMMALN.PRECISE.jsonl.gz`, line 22, key GAMMALN.PRECISE|0x4008000000000000 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/GAMMALN.jsonl.gz`, line 273, key GAMMALN|0x4008000000000000 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/GAMMALN.PRECISE.jsonl.gz`, line 22, key GAMMALN.PRECISE|0x4008000000000000 at `4d5320dfdc` (readings)
 - [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMALN 4000296a5d874ad0 (readings)
 - [`content/notes/evidence/2026-11-04/gamma-readings.tsv`](../../content/notes/evidence/2026-11-04/gamma-readings.tsv), GAMMALN 401814b52ec3a568 (readings)
 

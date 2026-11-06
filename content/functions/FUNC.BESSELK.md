@@ -246,9 +246,9 @@ mpmath at 200 bits.
 Evidence:
 
 - DnaCalc-Research `round22-result.json`, product; bank.own_BESSELI_gains at `130ec21b3d` — research round 22 result
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00001 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besselk.json.gz`, w111extended-2026092903-BESSELK-00698 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00001 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besseli.json.gz`, w111extended-2026092903-BESSELI-00633 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-besselk.json.gz`, w111extended-2026092903-BESSELK-00698 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 

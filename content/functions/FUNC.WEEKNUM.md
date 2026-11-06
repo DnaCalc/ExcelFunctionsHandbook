@@ -209,10 +209,10 @@ Evidence:
 
 - DnaCalc `crates/calc-func/witness-differences.tsv`, WEEKNUM at `9c23dde1df` — index of the conflicting readings
 - DnaCalc `.beads/issues.jsonl`, dc-zmk.2 at `2d0eddcac8` — the repeat comparison of 3,852 calls in build 20527
-- OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00188 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-01331 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00940 at `e26b7bddb8` (readings)
-- OxFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-00133 at `e26b7bddb8` (readings)
+- CalcFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00188 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-01331 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-date-boundaries-20260929/answers/answers-weeknum.json.gz`, date-boundary-WEEKNUM-00940 at `4d5320dfdc` (readings)
+- CalcFunc-Evidence `runs/w111-date-conversion-20260929/answers/answers-weeknum.json.gz`, date-conversion-WEEKNUM-00133 at `4d5320dfdc` (readings)
 
 <!-- efh:notes end -->
 
