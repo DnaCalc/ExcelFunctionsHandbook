@@ -8,6 +8,10 @@ use std::{
 const CSS: &str = include_str!("style.css");
 const JS: &str = include_str!("site.js");
 const MARKER: &str = ".efh-site-output";
+/// The catalogue lives outside `functions/`: `functions/index.html` and the INDEX function's
+/// `functions/INDEX.html` are one file on a case-insensitive file system.
+pub(crate) const CATALOGUE: &str = "catalogue/index.html";
+pub(crate) const A_TO_Z: &str = "catalogue/a-z.html";
 
 fn page(path: &str, title: &str, body: &str, home: bool) -> String {
     let link = |to: &str| esc(&relative(path, to));
@@ -25,13 +29,14 @@ fn page(path: &str, title: &str, body: &str, home: bool) -> String {
     format!(
         r##"<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><title>{title} · The Handbook of Excel Functions</title><link rel="stylesheet" href="{css}"><script src="{js}" defer></script>{discovery}</head>
-<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{coverage}">Coverage</a></nav><div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
+<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{a_to_z}">A to Z</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{coverage}">Coverage</a></nav><form class="site-search" role="search" action="{index}" method="get"><label class="sr-only" for="site-search">Search functions</label><input id="site-search" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search functions, press /" data-instant-search><div class="search-results" id="site-search-results" hidden></div></form><div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
 <main id="main" tabindex="-1"{class}>{body}</main><footer><p>{reconciliation}.</p><p><a href="{licence}">Content: CC BY 4.0 · Code: MIT</a> · <a href="{rules}">Measurement limits</a> · <a href="{api}">Static JSON index</a> · No tracking.</p><p class="small">The Handbook of Excel Functions · DNA Kode. Independent of Microsoft.</p></footer></div></body></html>"##,
         title = esc(title),
         css = link("assets/style.css"),
         js = link("assets/site.js"),
         root = link("index.html"),
-        index = link("functions/index.html"),
+        index = link(CATALOGUE),
+        a_to_z = link(A_TO_Z),
         notes = link("notes/index.html"),
         lastbit = link("lastbit/index.html"),
         coverage = link("coverage/index.html"),
@@ -499,6 +504,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     }
     note_pages(out, input, &mut r)?;
     function_index(repo, out, input)?;
+    search_index(repo, out, input)?;
     homepage(out, input, &episodes)?;
     let mut series=String::from("<p class=\"eyebrow\">Research essays</p><h1>The Last Bit</h1><p>Investigating how Excel computes its answers, with the scope and limits of each measurement kept in view.</p><ul class=\"entries\">");
     for (_, dest, title, ready) in &episodes {
@@ -897,7 +903,7 @@ fn render_note(note: &Value, dest: &str, r: &mut Renderer) -> String {
 
 fn note_pages(out: &Path, input: &Inputs, r: &mut Renderer) -> Result<(), String> {
     let dest = "notes/index.html";
-    let mut h=String::from("<p class=\"eyebrow\">Function notes</p><h1>Where Excel's answer is wrong</h1><p>Recorded calls with the mathematical value beside Excel's answer. Each note states the capture build and machine, the input route, and the evidence; missing capture information stays explicit.</p>");
+    let mut h=String::from("<p class=\"eyebrow\">Function notes</p><h1>Where Excel's answer is inaccurate</h1><p>Recorded calls with the mathematical value beside Excel's answer. Each note states the capture build and machine, the input route, and the evidence; missing capture information stays explicit.</p>");
     h+=&format!("<p>{} notes, attached to {} distinct entries in the 541-entry catalogue. {RECONCILIATION}.</p>",input.notes.len(),input.notes.iter().flat_map(|n|n["functions"].as_array().unwrap().iter().map(s)).collect::<BTreeSet<_>>().len());
     h+="<div class=\"table-scroll\" role=\"region\" aria-label=\"Excel and mathematical answers\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Note / call</th><th scope=\"col\">Excel</th><th scope=\"col\">Correct value</th></tr></thead><tbody>";
     for n in input
@@ -964,7 +970,7 @@ fn note_pages(out: &Path, input: &Inputs, r: &mut Renderer) -> Result<(), String
         a(dest, "notes/howto.html", "How to add a note"),
         a(dest, "api/notes.json", "Note JSON")
     );
-    output(out, dest, "Where Excel's answer is wrong", &h)?;
+    output(out, dest, "Where Excel's answer is inaccurate", &h)?;
     for n in &input.notes {
         let dest = format!("notes/{}.html", s(&n["note_id"]));
         let body = format!(
@@ -985,7 +991,7 @@ fn note_pages(out: &Path, input: &Inputs, r: &mut Renderer) -> Result<(), String
 }
 
 fn function_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
-    let dest = "functions/index.html";
+    let dest = CATALOGUE;
     let mut categories = BTreeMap::<String, Vec<&Value>>::new();
     for f in &input.functions {
         categories
@@ -1043,7 +1049,86 @@ fn function_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String>
         h += "</ul></section>";
     }
     h+="</div><p id=\"no-results\" hidden>No matching entries. Try a function name or clear the filters.</p>";
-    output(out, dest, "Functions and operators", &h)
+    output(out, dest, "Functions and operators", &h)?;
+    a_to_z(repo, out, input)
+}
+
+/// The static index behind the header search: one row per entry, with its local names.
+fn search_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
+    let mut locales = BTreeSet::new();
+    let mut rows = Vec::new();
+    for f in &input.functions {
+        let id = s(&f["function_id"]);
+        let owned = reference::load(repo, f)?;
+        let label = owned["display_name"]
+            .as_str()
+            .unwrap_or(s(&f["surface_name"]));
+        let mut names = BTreeSet::new();
+        for n in f["localized_names"].as_array().into_iter().flatten() {
+            locales.insert(s(&n["locale"]).to_string());
+            if s(&n["name"]) != label {
+                names.insert(s(&n["name"]).replace('|', " "));
+            }
+        }
+        rows.push(json!([
+            label,
+            function_path(id),
+            f["category"],
+            f["descriptions"]["short"],
+            id,
+            names.into_iter().collect::<Vec<_>>().join("|")
+        ]));
+    }
+    let data = json!({"locales": locales, "rows": rows});
+    write(
+        out,
+        "assets/search-index.js",
+        &format!("window.EFH_SEARCH={data};\n"),
+    )
+}
+
+/// One alphabetical list of every entry, with a letter bar. Operators keep their own section.
+fn a_to_z(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
+    let dest = A_TO_Z;
+    let mut letters = BTreeMap::<String, Vec<(String, &Value)>>::new();
+    for f in &input.functions {
+        let owned = reference::load(repo, f)?;
+        let label = owned["display_name"]
+            .as_str()
+            .unwrap_or(s(&f["surface_name"]))
+            .to_string();
+        let first = label.chars().next().unwrap_or('#').to_ascii_uppercase();
+        let group = if f["entry_kind"] == "built_in_operator" {
+            "Operators".to_string()
+        } else if first.is_ascii_alphabetic() {
+            first.to_string()
+        } else {
+            "Other".to_string()
+        };
+        letters.entry(group).or_default().push((label, f));
+    }
+    let mut h = format!("<p class=\"eyebrow\">The catalogue</p><h1>Function index, A to Z</h1><p>Every entry in one alphabetical list. {RECONCILIATION}.</p><nav class=\"letter-nav\" aria-label=\"Jump to a letter\">");
+    for letter in letters.keys() {
+        h += &format!("<a href=\"#{}\">{}</a>", slug(letter), esc(letter));
+    }
+    h += "</nav>";
+    for (letter, entries) in letters.iter_mut() {
+        entries.sort_by(|a, b| a.0.cmp(&b.0));
+        h += &format!(
+            "<section><h2 id=\"{}\">{}</h2><ul class=\"az-list\">",
+            slug(letter),
+            esc(letter)
+        );
+        for (label, f) in entries.iter() {
+            h += &format!(
+                "<li>{}<span class=\"small\">{}</span></li>",
+                a(dest, &function_path(s(&f["function_id"])), label),
+                esc(s(&f["descriptions"]["short"]))
+            );
+        }
+        h += "</ul></section>";
+    }
+    output(out, dest, "Function index, A to Z", &h)
 }
 
 fn homepage(
@@ -1052,7 +1137,7 @@ fn homepage(
     episodes: &[(String, String, String, bool)],
 ) -> Result<(), String> {
     let dest = "index.html";
-    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p></div><form class=\"searchrow\" action=\"functions/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" placeholder=\"ROUND, XLOOKUP, payment…\"><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"functions/index.html\">Browse all 541 entries by category →</a></p>");
+    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p></div><form class=\"searchrow\" action=\"catalogue/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"ROUND, XLOOKUP, ARRONDI, payment…\" data-instant-search><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"catalogue/index.html\">Browse all 541 entries by category →</a> · <a href=\"catalogue/a-z.html\">A to Z index</a></p>");
     if let Some(n) = input.notes.iter().find(|n| n["note_id"] == "FN-ROUND-001") {
         let repro = &n["repros"][0];
         h+=&format!("<section class=\"card featured\" aria-labelledby=\"featured-note\"><p class=\"eyebrow\">From the measurement record</p><h2 id=\"featured-note\">{}</h2><div class=\"answer-comparison\"><div><span class=\"small\">Excel's recorded answer</span><strong>{}</strong></div><div><span class=\"small\">Mathematical value</span><strong>{}</strong></div></div><p><code>{}</code></p><p class=\"small\">{}</p><p>{} →</p></section>",esc(s(&n["title"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]),esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),a(dest,&format!("notes/{}.html",s(&n["note_id"])),"Read the inputs, evidence and limits"));
@@ -1072,7 +1157,7 @@ fn homepage(
             );
         }
     }
-    h+="</div><section class=\"card audience\"><h2>For engine builders, auditors, and the numerically curious</h2><p>Start with a function's call signature, read the recorded surprises, or follow the research behind an algorithm.</p><p><a href=\"notes/index.html\">Where Excel's answer is wrong</a> · <a href=\"lastbit/index.html\">The Last Bit</a></p>";
+    h+="</div><section class=\"card audience\"><h2>For engine builders, auditors, and the numerically curious</h2><p>Start with a function's call signature, read the recorded surprises, or follow the research behind an algorithm.</p><p><a href=\"notes/index.html\">Where Excel's answer is inaccurate</a> · <a href=\"lastbit/index.html\">The Last Bit</a></p>";
     if let Some((_, dest, title, ready)) = episodes.first() {
         h += &format!(
             "<p>{} <span class=\"small\">{}</span></p>",
@@ -1227,7 +1312,7 @@ mod tests {
         assert!(round.contains("FN-ROUND-001"));
         assert!(round.contains("0xc2d9945ca2620000"));
         let notes = read(&first.join("notes/index.html")).unwrap();
-        assert!(notes.contains("<h1>Where Excel's answer is wrong</h1>"));
+        assert!(notes.contains("<h1>Where Excel's answer is inaccurate</h1>"));
         let series = read(&first.join("lastbit/index.html")).unwrap();
         assert!(series.contains("Draft"));
         checks::check(&first, true, true).unwrap();

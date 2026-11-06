@@ -384,7 +384,7 @@ public static class FunctionNotes
             sb.Append($"- {KindLabel(kind)}: {notes.Count(n => n.Kind == kind)}.\n");
         sb.Append($"- Measured: {notes.Count(n => n.Status == "measured")}; inferred: {notes.Count(n => n.Status == "inferred")}.\n\n");
 
-        sb.Append("## Where Excel's answer is wrong\n\n");
+        sb.Append("## Where Excel's answer is inaccurate\n\n");
         sb.Append("Notes whose reproducing calls give the exact mathematically correct value beside Excel's answer.\n\n");
         var wrong = notes.SelectMany(n => n.Repros.Where(r => r.Correct is not null).Select(r => (n, r))).ToArray();
         if (wrong.Length == 0)

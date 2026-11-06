@@ -21,7 +21,7 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 - Documentation differs from behaviour: 6.
 - Measured: 69; inferred: 2.
 
-## Where Excel's answer is wrong
+## Where Excel's answer is inaccurate
 
 Notes whose reproducing calls give the exact mathematically correct value beside Excel's
 answer.

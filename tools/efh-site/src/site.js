@@ -44,6 +44,102 @@ if (filter) {
 }
 
 const assetBase = new URL(".", document.currentScript.src);
+const siteBase = new URL("..", assetBase);
+function storedLanguage() { try { return localStorage.getItem("efh-language") || ""; } catch { return ""; } }
+function storeLanguage(tag) { try { if (tag) localStorage.setItem("efh-language", tag); else localStorage.removeItem("efh-language"); } catch { /* the page works without storage */ } }
+
+// Instant search: loads a static script, so it also runs from file:// and needs no server.
+const fold = value => value.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+let searchIndex = null, searchLoading = null;
+function loadSearchIndex() {
+  if (searchIndex) return Promise.resolve(searchIndex);
+  searchLoading ??= new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = new URL("search-index.js", assetBase);
+    script.onload = () => {
+      searchIndex = window.EFH_SEARCH.rows.map(([name, path, category, summary, id, locals]) => {
+        const names = locals ? locals.split("|") : [];
+        return { name, path, category, summary, id, names, foldedName: fold(name), foldedLocals: names.map(fold), foldedText: fold(`${summary} ${category}`), foldedId: fold(id) };
+      });
+      resolve(searchIndex);
+    };
+    script.onerror = () => reject(new Error("search index unavailable"));
+    document.head.append(script);
+  });
+  return searchLoading;
+}
+function scoreEntry(entry, terms, query) {
+  let score = 0;
+  if (entry.foldedName === query || entry.foldedId === query) score = 1000;
+  else if (entry.foldedName.startsWith(query)) score = 800 - entry.name.length;
+  else if (entry.foldedName.includes(query)) score = 600 - entry.name.length;
+  const exact = entry.foldedLocals.findIndex(name => name === query);
+  const prefix = entry.foldedLocals.findIndex(name => name.startsWith(query));
+  const inner = entry.foldedLocals.findIndex(name => name.includes(query));
+  const hit = exact >= 0 ? exact : prefix >= 0 ? prefix : inner;
+  const localScore = exact >= 0 ? 900 : prefix >= 0 ? 700 : inner >= 0 ? 500 : 0;
+  if (localScore > score) score = localScore;
+  if (!score && terms.every(term => entry.foldedName.includes(term) || entry.foldedText.includes(term) || entry.foldedLocals.some(name => name.includes(term)))) score = 100;
+  return { score, local: hit >= 0 ? entry.names[hit] : "" };
+}
+function attachSearch(input) {
+  let panel = input.form.querySelector(".search-results");
+  if (!panel) { panel = document.createElement("div"); panel.className = "search-results"; panel.id = `${input.id}-results`; panel.hidden = true; input.form.append(panel); }
+  let results = [], active = -1;
+  input.setAttribute("role", "combobox");
+  input.setAttribute("aria-expanded", "false");
+  input.setAttribute("aria-autocomplete", "list");
+  input.setAttribute("aria-controls", panel.id);
+  panel.setAttribute("role", "listbox");
+  panel.setAttribute("aria-label", "Search results");
+  const close = () => { panel.hidden = true; active = -1; input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); };
+  const mark = () => {
+    [...panel.querySelectorAll("[role=option]")].forEach((option, index) => {
+      option.setAttribute("aria-selected", String(index === active));
+      if (index === active) { option.scrollIntoView({ block: "nearest" }); input.setAttribute("aria-activedescendant", option.id); }
+    });
+  };
+  async function run() {
+    const query = fold(input.value).trim();
+    if (!query) { close(); return; }
+    let rows;
+    try { rows = await loadSearchIndex(); } catch { close(); return; }
+    if (fold(input.value).trim() !== query) return;
+    const terms = query.split(/\s+/);
+    results = rows.map(entry => ({ entry, ...scoreEntry(entry, terms, query) })).filter(row => row.score > 0).sort((a, b) => b.score - a.score || a.entry.name.localeCompare(b.entry.name)).slice(0, 12);
+    panel.replaceChildren(...results.map(({ entry, local }, position) => {
+      const link = document.createElement("a");
+      link.className = "search-result"; link.id = `${panel.id}-${position}`; link.setAttribute("role", "option");
+      link.href = new URL(entry.path, siteBase);
+      const name = document.createElement("strong"); name.textContent = entry.name; link.append(name);
+      if (local && fold(local) !== entry.foldedName) { const tag = document.createElement("span"); tag.className = "local"; tag.textContent = local; link.append(tag); }
+      const detail = document.createElement("span"); detail.className = "small"; detail.textContent = [entry.summary, entry.category].filter(Boolean).join(" · "); link.append(detail);
+      return link;
+    }));
+    if (!results.length) { const empty = document.createElement("p"); empty.className = "search-empty"; empty.textContent = "No matching function."; panel.append(empty); }
+    active = results.length ? 0 : -1;
+    panel.hidden = false; input.setAttribute("aria-expanded", "true"); mark();
+  }
+  input.addEventListener("input", run);
+  input.addEventListener("focus", () => { loadSearchIndex().catch(() => {}); if (input.value.trim()) run(); });
+  input.addEventListener("keydown", event => {
+    if (event.key === "Escape") { close(); return; }
+    if (panel.hidden || !results.length) return;
+    if (event.key === "ArrowDown") { event.preventDefault(); active = (active + 1) % results.length; mark(); }
+    else if (event.key === "ArrowUp") { event.preventDefault(); active = (active - 1 + results.length) % results.length; mark(); }
+    else if (event.key === "Enter" && active >= 0) { event.preventDefault(); panel.querySelectorAll("[role=option]")[active].click(); }
+  });
+  document.addEventListener("click", event => { if (!input.form.contains(event.target)) close(); });
+}
+document.querySelectorAll("[data-instant-search]").forEach(attachSearch);
+addEventListener("keydown", event => {
+  if (event.key !== "/" || event.ctrlKey || event.metaKey || event.altKey) return;
+  const target = event.target;
+  if (target instanceof HTMLElement && (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))) return;
+  event.preventDefault();
+  const box = document.querySelector("#site-search");
+  box.focus(); box.select();
+});
 const calculator = document.querySelector("[data-evaluator]");
 if (calculator) {
   const formula = calculator.elements.formula;

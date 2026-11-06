@@ -123,6 +123,32 @@ pub fn check(root: &Path, links: bool, claims: bool) -> Result<(), String> {
     if pages.is_empty() {
         return Err(format!("{}: no HTML pages to check", root.display()));
     }
+    if links {
+        problems.extend(case_collisions(root, &all));
+        let anchors = Regex::new(r#"(?s)<a\b[^>]*\bhref="([^"]*)"[^>]*>(.*?)</a>"#).unwrap();
+        for (path, (html, _)) in &pages {
+            let page = path.strip_prefix(root).unwrap();
+            for c in anchors.captures_iter(html) {
+                if let Some(issue) = navigation_word_link(page, &decode(&c[1]), &text(&c[2])) {
+                    problems.push(format!("{}: {issue}", path.display()));
+                }
+            }
+            for chrome in [
+                between(html, "<header>", "</header>"),
+                between(html, "<footer>", "</footer>"),
+            ] {
+                for c in anchors.captures_iter(chrome) {
+                    if function_target(page, &decode(&c[1])).is_some() {
+                        problems.push(format!(
+                            "{}: page chrome links to a function page: {}",
+                            path.display(),
+                            &c[1]
+                        ));
+                    }
+                }
+            }
+        }
+    }
     for (path, (html, _)) in &pages {
         if claims {
             for issue in claim_issues(&text(html)) {
@@ -240,6 +266,66 @@ pub fn check(root: &Path, links: bool, claims: bool) -> Result<(), String> {
         ))
     }
 }
+fn between<'a>(html: &'a str, start: &str, end: &str) -> &'a str {
+    html.split_once(start)
+        .and_then(|(_, rest)| rest.split_once(end))
+        .map_or("", |(inner, _)| inner)
+}
+
+/// Two output paths differing only in letter case are one file on Windows and macOS: that is how
+/// the catalogue's `functions/index.html` became the INDEX function's page.
+fn case_collisions(root: &Path, all: &[std::path::PathBuf]) -> Vec<String> {
+    let mut seen = BTreeMap::<String, &std::path::PathBuf>::new();
+    let mut problems = Vec::new();
+    for path in all {
+        let key = path
+            .strip_prefix(root)
+            .unwrap()
+            .to_string_lossy()
+            .to_lowercase();
+        if let Some(other) = seen.insert(key, path) {
+            problems.push(format!(
+                "paths differ only by case: {} and {}",
+                other.display(),
+                path.display()
+            ));
+        }
+    }
+    problems
+}
+
+/// The function page a link resolves to, as its file stem.
+fn function_target(page: &Path, href: &str) -> Option<String> {
+    if href.contains("://") {
+        return None;
+    }
+    let link = href.split(['#', '?']).next().unwrap();
+    if link.is_empty() {
+        return None;
+    }
+    let target = normalize(&page.parent()?.join(percent_decode(link)))?;
+    let mut parts = target.iter();
+    if parts.next()? != "functions" {
+        return None;
+    }
+    let name = parts.next()?.to_str()?;
+    parts
+        .next()
+        .is_none()
+        .then(|| name.strip_suffix(".html").map(str::to_string))
+        .flatten()
+}
+
+/// A link whose words are an ordinary word that happens to spell a function, such as Index, Text
+/// or Date, must not reach that function's page. The function's own upper-case name may.
+fn navigation_word_link(page: &Path, href: &str, label: &str) -> Option<String> {
+    let name = function_target(page, href)?;
+    let label = label.trim();
+    (label != name && label.eq_ignore_ascii_case(&name)).then(|| {
+        format!("the word {label:?} links to the {name} function page; navigation words stay navigation")
+    })
+}
+
 fn percent_decode(s: &str) -> String {
     let mut out = Vec::new();
     let b = s.as_bytes();
@@ -345,5 +431,27 @@ mod tests {
         ] {
             assert!(claim_issues(prose).is_empty(), "{prose}");
         }
+    }
+    #[test]
+    fn a_navigation_word_never_reaches_the_function_of_that_name() {
+        let page = Path::new("notes/index.html");
+        assert!(navigation_word_link(page, "../functions/INDEX.html", "Index").is_some());
+        assert!(navigation_word_link(page, "../functions/INDEX.html", "INDEX").is_none());
+        assert!(navigation_word_link(page, "../functions/TEXT.html#quirks", " text ").is_some());
+        assert!(navigation_word_link(page, "../catalogue/index.html", "Index").is_none());
+        assert!(
+            navigation_word_link(page, "https://example.com/functions/INDEX.html", "Index")
+                .is_none()
+        );
+    }
+    #[test]
+    fn paths_that_differ_only_by_case_fail() {
+        let root = Path::new("out");
+        let same: Vec<_> = ["functions/INDEX.html", "functions/index.html"]
+            .iter()
+            .map(|p| root.join(p))
+            .collect();
+        assert_eq!(case_collisions(root, &same).len(), 1);
+        assert!(case_collisions(root, &same[..1]).is_empty());
     }
 }
