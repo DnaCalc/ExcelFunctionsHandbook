@@ -159,6 +159,12 @@ pub fn sections(source: &str) -> BTreeMap<String, String> {
         Regex::new(r"(?s)## Notes\s*<!-- efh:notes begin:.*?<!-- efh:notes end -->").unwrap()
     });
     let source = GENERATED.replace_all(source, "").into_owned();
+    // Authored reader guides already separate prose from metadata. The legacy
+    // paragraph filter would otherwise erase useful explanations containing
+    // ordinary words such as "admission" or "reduction".
+    let reader_guide = SECTIONS
+        .iter()
+        .all(|(_, title)| source.lines().any(|line| line == format!("## {title}")));
     let mut parts = BTreeMap::<String, String>::new();
     let mut key = "what-it-does";
     let mut blocks = Vec::new();
@@ -171,7 +177,8 @@ pub fn sections(source: &str) -> BTreeMap<String, String> {
             blocks.clear();
             return;
         }
-        let text = reader_prose(&blocks.join("\n"));
+        let joined = blocks.join("\n");
+        let text = if reader_guide { joined } else { reader_prose(&joined) };
         if !text.trim().is_empty() {
             let slot = parts.entry(key.into()).or_default();
             if !heading.is_empty() {
@@ -336,6 +343,19 @@ mod tests {
             .unwrap_err()
             .contains("sources"));
     }
+    #[test]
+    fn authored_reader_guides_retain_argument_admission_and_numeric_reduction_recipes() {
+        let guide = SECTIONS.iter().map(|(_, title)| {
+            format!("## {title}\n\nArgument admission precedes the numerical reduction.\n\n")
+        }).collect::<String>();
+        let parsed = sections(&guide);
+        assert!(parsed["how-to-implement"].contains("numerical reduction"));
+        assert!(parsed["quirks"].contains("Argument admission"));
+        // Legacy administrative paragraphs still use their existing filter.
+        assert!(!sections("## What it computes\n\nThe registry projection is old.")
+            .contains_key("what-it-does"));
+    }
+
     #[test]
     fn reader_order_ignores_administration_and_keeps_mathematical_details() {
         let p=sections("---\na: b\n---\n# ROUND\n\n## What it computes\n\nRound a number.\n\nThe projection is old.\n\n## Arguments\n\nTwo numeric slots.\n\n## Numerical notes\n\nUse decimal digits.\n\n## Page vocabulary\n\nInternal label.\n\n## Sources\n\nA book.");
