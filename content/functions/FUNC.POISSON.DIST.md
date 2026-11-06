@@ -64,7 +64,7 @@ Use [D, E and R](../model/09-staged-arithmetic.md#retain-an-extended-intermediat
 
 ### Exponential of two subtractions
 
-Start `a=t`. For each term in the ordered list `[mean,G]`, form the resident difference `e=E(a-term)`, store `a=D(e)`, store `lost=D(E(e-a))`, and keep `factor=R(1+lost)`. After both subtractions, obtain public EXP(a), then multiply successively by the two factors using R at each multiplication. A single call to EXP of an algebraically combined difference loses these stores and corrections. GAMMALN’s complete inner approximation remains a separate open leaf.
+Start `a=t`. For each term in the ordered list `[mean,G]`, form the resident difference `e=E(a-term)`, store `a=D(e)`, store `lost=D(E(e-a))`, and keep `factor=R(1+lost)`. After both subtractions, obtain public EXP(a), then multiply successively by the two factors using R at each multiplication. A single call to EXP of an algebraically combined difference loses these stores and corrections. GAMMALN’s inner approximation remains a separate open leaf.
 
 ### Stirling correction
 

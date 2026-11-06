@@ -46,7 +46,7 @@ The PRECISE spelling does not establish a correctly rounded mathematical result 
 
 For `number=-10.3,s=3`, the magnitude quotient is near `3.43333333333333`. Choosing four steps gives `-12`. Do not infer the significance sign from the input’s sign; this spelling discards it.
 
-This is a complete branch outline for the current scalar helper, with the quotient-reading primitive linked above. The exact modern-spelling edge transfer remains open in [FN-FLOOR-002](../notes/FN-FLOOR-002.json); a shared helper does not prove that Excel privately uses the same program for every spelling.
+This branch outline follows the current scalar helper, with the quotient-reading primitive linked above. The exact modern-spelling edge transfer remains open in [FN-FLOOR-002](../notes/FN-FLOOR-002.json); a shared helper does not prove that Excel privately uses the same program for every spelling.
 
 ## Version differences
 

@@ -1435,6 +1435,11 @@ mod tests {
         for f in &input.functions {
             let html = read(&first.join(function_path(s(&f["function_id"])))).unwrap();
             assert!(html.contains("Sources and evidence"));
+            assert!(
+                !html.contains("A source passage is withheld under Charter"),
+                "{}: edit claim wording so reader guidance stays visible",
+                s(&f["function_id"])
+            );
             let headings: Vec<_> = reference::SECTIONS
                 .iter()
                 .map(|(id, title)| format!("<h2 id=\"{id}\">{title}</h2>"))

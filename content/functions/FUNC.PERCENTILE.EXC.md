@@ -46,7 +46,7 @@ Referenced text, logical values and blanks are not additional numeric observatio
 
 With four observations and `k=0.25`, `h=1.25`, so the result is `10+0.25*(20-10)=12.5`. The inclusive convention uses `1+k*(n-1)=1.75` on the same data and consequently gives 17.5.
 
-This is the current helper’s complete rank construction, with ordinary binary64 interpolation. Exact floating-point endpoint edges and last-bit agreement for arbitrary Excel data sets are not established by these worked examples. A different percentile convention cannot be repaired merely by changing output formatting.
+This is the current helper’s rank construction, with ordinary binary64 interpolation. Exact floating-point endpoint edges and last-bit agreement for arbitrary Excel data sets are not established by these worked examples. A different percentile convention cannot be repaired merely by changing output formatting.
 
 ## Version differences
 
