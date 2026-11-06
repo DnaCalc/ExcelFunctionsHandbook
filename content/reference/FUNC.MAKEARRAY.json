@@ -4,7 +4,29 @@
   "try_it": {
     "formula": "=MAKEARRAY(2,3,LAMBDA(r,c,10*r+c))"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": null,
+      "behaviour": "MAKEARRAY(1,1,#REF!) returned #VALUE! on 25 October 2026, as retained in the implementation source comment. This corrects an earlier implementation result; it is not a comparison between Excel builds.",
+      "observations": [
+        {
+          "call": "=MAKEARRAY(1,1,#REF!)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "code": "#VALUE!",
+            "display": "#VALUE!"
+          },
+          "recorded_in": "Excel 16.0 build 20430; platform and CPU not specified by the cited source comment."
+        }
+      ],
+      "sources": [
+        "https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/lambda_helpers.rs"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }
