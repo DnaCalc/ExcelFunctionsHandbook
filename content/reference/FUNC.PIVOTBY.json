@@ -2,20 +2,20 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.PIVOTBY",
   "try_it": {
-    "formula": "=PIVOTBY(B2:B5,D2:D5,C2:C5,LAMBDA(x,SUM(x)))",
+    "formula": "=PIVOTBY(B2:B5,C2:C5,D2:D5,LAMBDA(v,SUM(v)),0,0,,0)",
     "inputs": {
-      "B2": 1,
-      "B3": 2,
-      "B4": 3,
-      "B5": 4,
-      "C2": 10,
-      "C3": 20,
-      "C4": 30,
-      "C5": 40,
-      "D2": 1,
-      "D3": 1,
-      "D4": 2,
-      "D5": 2
+      "B2": "east",
+      "B3": "east",
+      "B4": "west",
+      "B5": "west",
+      "C2": "Q1",
+      "C3": "Q2",
+      "C4": "Q1",
+      "C5": "Q2",
+      "D2": 3,
+      "D3": 7,
+      "D4": 5,
+      "D5": 11
     }
   },
   "versions": [],

@@ -49,7 +49,7 @@ The recorded environments below distinguish a reading from a same-input comparis
 |---|---|---:|
 | 19929 | Windows, bitness not recorded, CPU not recorded | 43 |
 | 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 935 |
-| 20430 | Windows, 64-bit-bit, CPU not recorded | 928 |
+| 20430 | Windows, 64-bit, CPU not recorded | 928 |
 
 - XC-ERFC.PRECISE-001: build 19929 versus build 20131; 1 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.
 

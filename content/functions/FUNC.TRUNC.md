@@ -66,7 +66,7 @@ The recorded environments below distinguish a reading from a same-input comparis
 | Excel 16.0 build | Platform and CPU | Captured inputs |
 |---|---|---:|
 | 19929 | Windows, bitness not recorded, CPU not recorded | 43 |
-| 20430 | Windows, 64-bit-bit, CPU not recorded | 51,317 |
+| 20430 | Windows, 64-bit, CPU not recorded | 51,317 |
 
 The record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.
 

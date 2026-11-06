@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-Put `4,11,7,13` in A1:A4 and `east,east,west,east` in B1:B4. `=COUNTIFS(A1:A4,">=10",B1:B4,"east")` returns `2`.
+Put `4,11,7,13` in B2:B5 and `east,east,west,east` in C2:C5. `=COUNTIFS(B2:B5,">=10",C2:C5,"east")` returns `2`.
 
 ## Quirks
 
@@ -37,7 +37,7 @@ All criteria ranges must have the same row and column dimensions. Conditions use
 
 Parse a leading comparison (`=`, `<>`, `<`, `<=`, `>`, `>=`) separately from its operand. Distinguish a numeric comparison from a text pattern. For text patterns support `?`, `*`, and tilde escaping, with Excel’s case-insensitive matching. Keep blank cells, empty strings and zero as distinct inputs until the criteria rule decides how each matches.
 
-Validate range shapes and build one predicate per pair. At each offset evaluate all predicates against the cells at that offset; increment only if all pass. A1/B1 fails the numeric test; A2/B2 passes both; A3/B3 fails; A4/B4 passes. Return two. Preserve the distinction between the criterion reference being empty and a blank cell being tested.
+Validate range shapes and build one predicate per pair. At each offset evaluate all predicates against the cells at that offset; increment only if all pass. B2/C2 fails the numeric test; B3/C3 passes both; B4/C4 fails; B5/C5 passes. Return two. Preserve the distinction between the criterion reference being empty and a blank cell being tested.
 
 ## Version differences
 

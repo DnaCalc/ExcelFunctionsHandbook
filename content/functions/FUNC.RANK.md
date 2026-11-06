@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=RANK(20,{30,20,20,10})` returns `2`. Both twenties have rank two and the ten has rank four: ties leave a gap.
+With `30,20,20,10` in B2:B5, `=RANK(20,B2:B5)` returns `2`. Both twenties have rank two and the ten has rank four: ties leave a gap.
 
 ## Quirks
 

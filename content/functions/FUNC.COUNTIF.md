@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-Put `4,11,7,13` in A1:A4. `=COUNTIF(A1:A4,">=10")` returns `2`. `=COUNTIF(A1:A4,">"&A3)` also returns `2`, comparing each cell with seven.
+Put `4,11,7,13` in B2:B5. `=COUNTIF(B2:B5,">=10")` returns `2`. `=COUNTIF(B2:B5,">"&B4)` also returns `2`, comparing each cell with seven.
 
 ## Quirks
 

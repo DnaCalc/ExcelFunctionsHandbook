@@ -35,7 +35,7 @@ A query outside the numeric data range gives `#N/A` in the current code. Signifi
 
 ## How to implement
 
-Sort the admitted numbers. For distinct observations give zero-based index i the fraction `(i+1)/(n+1)`. Locate x exactly or bracket it by neighbouring values, then interpolate between their fractions. Finally apply `trunc(rank*10^d)/10^d`, using the admitted precision d. For the example the endpoint fractions are `1/5` and `2/5`; their midpoint is `0.3`. The current exact-match branch uses a binary search; its duplicate selection is an implementation detail rather than a complete tie-policy identification.
+Sort the admitted numbers. For distinct observations give zero-based index i the fraction `(i+1)/(n+1)`. Locate x exactly or bracket it by neighbouring values, then interpolate between their fractions. Finally apply `trunc(rank*10^d)/10^d`, using the admitted precision d. For the example the endpoint fractions are `1/5` and `2/5`; their midpoint is `0.3`. The current exact-match branch uses a binary search; its duplicate selection is an implementation detail and its tie policy outside these controls remains open.
 
 ## Version differences
 

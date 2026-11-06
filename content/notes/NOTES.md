@@ -180,7 +180,7 @@ answer.
 | [`SWITCH`](../functions/FUNC.SWITCH.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
 | [`TAKE`](../functions/FUNC.TAKE.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`TBILLEQ`](../functions/FUNC.TBILLEQ.md) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
-| `TBILLPRICE` (no page yet) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`TBILLPRICE`](../functions/FUNC.TBILLPRICE.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`TBILLYIELD`](../functions/FUNC.TBILLYIELD.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`TEXT`](../functions/FUNC.TEXT.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it), [FN-TEXT-001](#fn-text-001-locale-tagged-month-weekday-and-era-names-in-text-follow-their-own-table), [FN-TEXT-002](#fn-text-002-in-text-an--applied-to-a-number-gives-the-general-display-not-the-full-number) |
 | [`TEXTAFTER`](../functions/FUNC.TEXTAFTER.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |

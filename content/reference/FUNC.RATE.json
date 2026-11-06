@@ -2,7 +2,7 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.RATE",
   "try_it": {
-    "formula": "=RATE(360,-1073.64,200000)"
+    "formula": "=RATE(1,-1250,1000)"
   },
   "versions": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "excel_build": "16.0 build 20228",
-      "platform": "Windows, 64-bit-bit, CPU not recorded",
+      "platform": "Windows, 64-bit, CPU not recorded",
       "behaviour": "256 captured inputs are indexed for this environment. Capture dates: 2026-08-09 to 2026-08-09. This is a reading count, not a comparison with another build.",
       "sources": [
         "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.RATE.json"
@@ -25,6 +25,6 @@
   "implementations": [],
   "variants": [],
   "sections": {
-    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 105 |\n| 20228 | Windows, 64-bit-bit, CPU not recorded | 256 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.RATE.json)."
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 105 |\n| 20228 | Windows, 64-bit, CPU not recorded | 256 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.RATE.json)."
   }
 }

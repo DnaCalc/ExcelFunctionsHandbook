@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-With amounts `4,11,7,13` in A1:A4 and regions `east,east,west,east` in B1:B4, `=SUMIFS(A1:A4,B1:B4,"east",A1:A4,">=10")` returns `24`: eleven plus thirteen.
+With amounts `4,11,7,13` in B2:B5 and regions `east,east,west,east` in C2:C5, `=SUMIFS(B2:B5,C2:C5,"east",B2:B5,">=10")` returns `24`: eleven plus thirteen.
 
 ## Quirks
 

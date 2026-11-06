@@ -2,7 +2,13 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.RANK",
   "try_it": {
-    "formula": "=RANK(20,{30,20,20,10})"
+    "formula": "=RANK(20,B2:B5)",
+    "inputs": {
+      "B2": 30,
+      "B3": 20,
+      "B4": 20,
+      "B5": 10
+    }
   },
   "versions": [],
   "implementations": [],

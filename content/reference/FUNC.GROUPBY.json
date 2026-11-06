@@ -2,16 +2,16 @@
   "schema": "efh.reference/v1",
   "function_id": "FUNC.GROUPBY",
   "try_it": {
-    "formula": "=GROUPBY(B2:B5,C2:C5,LAMBDA(x,SUM(x)))",
+    "formula": "=GROUPBY(B2:B5,C2:C5,LAMBDA(v,SUM(v)),0,0)",
     "inputs": {
-      "B2": 1,
-      "B3": 2,
-      "B4": 3,
-      "B5": 4,
-      "C2": 10,
-      "C3": 20,
-      "C4": 30,
-      "C5": 40
+      "B2": "east",
+      "B3": "west",
+      "B4": "east",
+      "B5": "west",
+      "C2": 3,
+      "C3": 5,
+      "C4": 7,
+      "C5": 11
     }
   },
   "versions": [],

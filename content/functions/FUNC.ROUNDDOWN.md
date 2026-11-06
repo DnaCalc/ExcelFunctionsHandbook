@@ -68,8 +68,8 @@ The recorded environments below distinguish a reading from a same-input comparis
 | Excel 16.0 build | Platform and CPU | Captured inputs |
 |---|---|---:|
 | 19929 | Windows, bitness not recorded, CPU not recorded | 112 |
-| 20430 | Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics | 3,454 |
-| 20430 | Windows, 64-bit-bit, CPU not recorded | 56,541 |
+| 20430 | Windows, 64-bit, AMD Ryzen 7 4800H with Radeon Graphics | 3,454 |
+| 20430 | Windows, 64-bit, CPU not recorded | 56,541 |
 
 - XC-ROUNDDOWN-001: build 19929 versus build 20430; 3 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.
 

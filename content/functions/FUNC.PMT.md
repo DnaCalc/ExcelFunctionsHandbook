@@ -75,7 +75,7 @@ The recorded environments below distinguish a reading from a same-input comparis
 |---|---|---:|
 | 19929 | Windows, bitness not recorded, CPU not recorded | 47 |
 | 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 289,642 |
-| 20228 | Windows, 64-bit-bit, CPU not recorded | 2,076 |
+| 20228 | Windows, 64-bit, CPU not recorded | 2,076 |
 
 The record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.
 
