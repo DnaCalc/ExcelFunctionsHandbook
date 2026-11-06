@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 68, over 102 functions (of the 541 entries = 518 functions + 23 operators).
+- Notes: 69, over 103 functions (of the 541 entries = 518 functions + 23 operators).
 - Excel differs from the mathematical answer: 22.
 - Detail for matching Excel's bits: 10.
 - Quirk: 32.
-- Documentation differs from behaviour: 4.
-- Measured: 66; inferred: 2.
+- Documentation differs from behaviour: 5.
+- Measured: 67; inferred: 2.
 
 ## Where Excel's answer is wrong
 
@@ -141,6 +141,7 @@ answer.
 | [`GCD`](../functions/FUNC.GCD.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
 | [`GESTEP`](../functions/FUNC.GESTEP.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
 | [`HSTACK`](../functions/FUNC.HSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`HYPGEOM.DIST`](../functions/FUNC.HYPGEOM.DIST.md) | [FN-HYPGEOM.DIST-001](#fn-hypgeomdist-001-recorded-hypergeometric-calls-admit-zero-counts-and-counts-above-the-support) |
 | [`IFS`](../functions/FUNC.IFS.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
 | [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
 | [`IPMT`](../functions/FUNC.IPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) |
@@ -1234,6 +1235,41 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q237, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q040, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q038, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-HYPGEOM.DIST-001: Recorded hypergeometric calls admit zero counts and counts above the support
+
+*Documentation differs from behaviour; measured; recorded 2026-11-06.*
+
+Four retained build 20430 controls return numeric values where the opened documentation
+specifies #NUM!: HYPGEOM.DIST(0,0,0,5,0) and its cumulative form both return 1;
+HYPGEOM.DIST(5,4,2,5,0) returns 0 and its cumulative form returns 1. These observations cover
+the listed inputs, not every out-of-support call.
+
+Documentation: The opened HYPGEOM.DIST remarks specify #NUM! for a sample size or population
+success count at or below zero, and for sample successes above min(sample size,population
+successes). (https://support.microsoft.com/en-us/excel/functions/hypgeom-dist-function)
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `HYPGEOM.DIST(0,0,0,5,0)` | sample_s `0` (`0x0000000000000000`); number_sample `0` (`0x0000000000000000`); population_s `0` (`0x0000000000000000`); number_pop `5` (`0x4014000000000000`); cumulative `0` (`0x0000000000000000`) (cells) | `1` (`0x3ff0000000000000`) | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+| `HYPGEOM.DIST(0,0,0,5,1)` | sample_s `0` (`0x0000000000000000`); number_sample `0` (`0x0000000000000000`); population_s `0` (`0x0000000000000000`); number_pop `5` (`0x4014000000000000`); cumulative `1` (`0x3ff0000000000000`) (cells) | `1` (`0x3ff0000000000000`) | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+| `HYPGEOM.DIST(5,4,2,5,0)` | sample_s `5` (`0x4014000000000000`); number_sample `4` (`0x4010000000000000`); population_s `2` (`0x4000000000000000`); number_pop `5` (`0x4014000000000000`); cumulative `0` (`0x0000000000000000`) (cells) | `0` (`0x0000000000000000`) | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+| `HYPGEOM.DIST(5,4,2,5,1)` | sample_s `5` (`0x4014000000000000`); number_sample `4` (`0x4010000000000000`); population_s `2` (`0x4000000000000000`); number_pop `5` (`0x4014000000000000`); cumulative `1` (`0x3ff0000000000000`) (cells) | `1` (`0x3ff0000000000000`) | Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026. |
+
+Basis (measured): Read directly from four rows of the landed W111 domain capture. Its
+provenance names Excel build 20430, Windows 64-bit, Compatibility Version 2, exact-double bulk
+cell input and no cache. This harvest made no new Excel calls and did not compare builds.
+
+- Open: Whether every out-of-support and zero-count combination follows the same rule in other builds.
+
+Evidence:
+
+- CalcFunc-Evidence `runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz`, hypgeom.dist-domain-01118-integer-support, hypgeom.dist-domain-01119-integer-support, hypgeom.dist-domain-01404-integer-support, hypgeom.dist-domain-01405-integer-support at `4287ba192d` — Recorded answers and capture provenance.
+- DnaCalc `crates/calc-func/src/ported/discrete_dist.rs`, hypergeom_mass and hypergeom_dist_kernel at `da3ecc4fb1` — Current support checks, degenerate masses and cumulative endpoint shortcut.
+- CalcFunc-Evidence `runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz`, hypgeom.dist-domain-01118-integer-support at `4287ba192d` — Original capture provenance records cell_value2_bulk input plumbing and no cache use. (readings)
+- CalcFunc-Evidence `runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz`, hypgeom.dist-domain-01119-integer-support at `4287ba192d` — Original capture provenance records cell_value2_bulk input plumbing and no cache use. (readings)
+- CalcFunc-Evidence `runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz`, hypgeom.dist-domain-01404-integer-support at `4287ba192d` — Original capture provenance records cell_value2_bulk input plumbing and no cache use. (readings)
+- CalcFunc-Evidence `runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz`, hypgeom.dist-domain-01405-integer-support at `4287ba192d` — Original capture provenance records cell_value2_bulk input plumbing and no cache use. (readings)
 
 ### FN-IFS-001: IFS and SWITCH pass on the selected value whole, and later arrays do not lift the call
 

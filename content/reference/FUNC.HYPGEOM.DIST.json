@@ -8,15 +8,226 @@
     {
       "excel_build": "16.0 build 20430",
       "platform": "Windows, 64-bit, CPU not recorded",
-      "behaviour": "3,653 captured inputs are indexed for this environment. Capture dates: 2026-09-29 to 2026-09-29. This is a reading count, not a comparison with another build.",
+      "behaviour": "Recorded zero-count calls returned 1, and the sampled above-support call returned mass 0 and CDF 1. Four exact controls are attached from build 20430; no cross-build comparison was made.",
       "sources": [
-        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.HYPGEOM.DIST.json"
+        "https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.HYPGEOM.DIST.json",
+        "https://github.com/DnaCalc/CalcFunc-Evidence/blob/4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2/runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz"
+      ],
+      "observations": [
+        {
+          "call": "HYPGEOM.DIST(0,0,0,5,0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "sample_s",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "number_sample",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "population_s",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "number_pop",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026."
+        },
+        {
+          "call": "HYPGEOM.DIST(0,0,0,5,1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "sample_s",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "number_sample",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "population_s",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "number_pop",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026."
+        },
+        {
+          "call": "HYPGEOM.DIST(5,4,2,5,0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "sample_s",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "number_sample",
+              "value": {
+                "kind": "number",
+                "display": "4",
+                "bits": "0x4010000000000000"
+              }
+            },
+            {
+              "name": "population_s",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "number_pop",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026."
+        },
+        {
+          "call": "HYPGEOM.DIST(5,4,2,5,1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "sample_s",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "number_sample",
+              "value": {
+                "kind": "number",
+                "display": "4",
+                "bits": "0x4010000000000000"
+              }
+            },
+            {
+              "name": "population_s",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "number_pop",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026."
+        }
       ]
     }
   ],
   "implementations": [],
   "variants": [],
   "sections": {
-    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 20430 | Windows, 64-bit, CPU not recorded | 3,653 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.HYPGEOM.DIST.json)."
+    "version-differences": "The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.\n\n| Excel 16.0 build | Platform and CPU | Captured inputs |\n|---|---|---:|\n| 20430 | Windows, 64-bit, CPU not recorded | 3,653 |\n\nThe record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.\n\nConcrete controls from the 29 September 2026 build 20430 capture:\n\n| Captured call | Excel result |\n|---|---:|\n| `HYPGEOM.DIST(0,0,0,5,0)` | 1 |\n| `HYPGEOM.DIST(0,0,0,5,1)` | 1 |\n| `HYPGEOM.DIST(5,4,2,5,0)` | 0 |\n| `HYPGEOM.DIST(5,4,2,5,1)` | 1 |\n\nInputs were written as exact doubles through bulk `Value2` cells. The capture records Windows 64-bit and Compatibility Version 2; it does not record CPU. These controls do not compare builds.\n\n[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.HYPGEOM.DIST.json)."
   }
 }

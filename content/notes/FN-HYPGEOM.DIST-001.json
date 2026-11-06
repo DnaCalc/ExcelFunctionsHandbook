@@ -1,0 +1,279 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-HYPGEOM.DIST-001",
+  "functions": [
+    "FUNC.HYPGEOM.DIST"
+  ],
+  "kind": "documentation-differs",
+  "title": "Recorded hypergeometric calls admit zero counts and counts above the support",
+  "statement": "Four retained build 20430 controls return numeric values where the opened documentation specifies #NUM!: HYPGEOM.DIST(0,0,0,5,0) and its cumulative form both return 1; HYPGEOM.DIST(5,4,2,5,0) returns 0 and its cumulative form returns 1. These observations cover the listed inputs, not every out-of-support call.",
+  "status": "measured",
+  "basis": "Read directly from four rows of the landed W111 domain capture. Its provenance names Excel build 20430, Windows 64-bit, Compatibility Version 2, exact-double bulk cell input and no cache. This harvest made no new Excel calls and did not compare builds.",
+  "inferred": null,
+  "documentation": {
+    "claim": "The opened HYPGEOM.DIST remarks specify #NUM! for a sample size or population success count at or below zero, and for sample successes above min(sample size,population successes).",
+    "source": "https://support.microsoft.com/en-us/excel/functions/hypgeom-dist-function"
+  },
+  "repros": [
+    {
+      "call": "HYPGEOM.DIST(0,0,0,5,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "sample_s",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number_sample",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "population_s",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number_pop",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026.",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+        "path": "runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz",
+        "locator": "hypgeom.dist-domain-01118-integer-support",
+        "note": "Original capture provenance records cell_value2_bulk input plumbing and no cache use."
+      }
+    },
+    {
+      "call": "HYPGEOM.DIST(0,0,0,5,1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "sample_s",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number_sample",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "population_s",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number_pop",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026.",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+        "path": "runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz",
+        "locator": "hypgeom.dist-domain-01119-integer-support",
+        "note": "Original capture provenance records cell_value2_bulk input plumbing and no cache use."
+      }
+    },
+    {
+      "call": "HYPGEOM.DIST(5,4,2,5,0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "sample_s",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "number_sample",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "population_s",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "number_pop",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026.",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+        "path": "runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz",
+        "locator": "hypgeom.dist-domain-01404-integer-support",
+        "note": "Original capture provenance records cell_value2_bulk input plumbing and no cache use."
+      }
+    },
+    {
+      "call": "HYPGEOM.DIST(5,4,2,5,1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "sample_s",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "number_sample",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "population_s",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "number_pop",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), Workbook Compatibility Version 2; CPU not recorded. Captured 29 September 2026.",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+        "path": "runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz",
+        "locator": "hypgeom.dist-domain-01405-integer-support",
+        "note": "Original capture provenance records cell_value2_bulk input plumbing and no cache use."
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4287ba192d2e3a7fd54671ea1cee1c34cb2e84e2",
+      "path": "runs/w111-distribution-domain-20260929/answers-hypgeom.dist.json.gz",
+      "locator": "hypgeom.dist-domain-01118-integer-support, hypgeom.dist-domain-01119-integer-support, hypgeom.dist-domain-01404-integer-support, hypgeom.dist-domain-01405-integer-support",
+      "note": "Recorded answers and capture provenance."
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "da3ecc4fb19a3a5529708c311d0e8f05688ac165",
+      "path": "crates/calc-func/src/ported/discrete_dist.rs",
+      "locator": "hypergeom_mass and hypergeom_dist_kernel",
+      "note": "Current support checks, degenerate masses and cumulative endpoint shortcut."
+    }
+  ],
+  "open": [
+    "Whether every out-of-support and zero-count combination follows the same rule in other builds."
+  ],
+  "recorded_on": "2026-11-06"
+}
