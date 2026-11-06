@@ -31,11 +31,24 @@ role_in_family: null
 
 ## Quirks
 
-Degree counts are truncated and must be positive within the function’s admitted limits. Nonnumeric arguments give `#VALUE!`; invalid counts, probabilities or negative forward x give `#NUM!`. Left and right probabilities are different arguments to an inverse. The density option in F.DIST is not an upper-tail probability.
+Degree counts are truncated. Microsoft documents `#VALUE!` for nonnumeric arguments and `#NUM!` for negative x or degree counts below one. The current shared helper also rejects a nonfinite x and a truncated degree count above `10^10`; that code cap is separate from the opened page’s lower-bound wording.
+
+The left CDF rises from zero and the right tail falls from one. The density option in F.DIST is a third quantity, rather than either of those probabilities. At x=0 the current density gives `#NUM!` for numerator degree one, one for degree two and zero for higher degrees. Those density cases do not change the endpoint probabilities.
+
+The current beta transformation forms the product of x and numerator degrees directly. Extreme products or beta/gamma approximations need their own numerical error and publication checks; a finite mathematical probability alone does not ensure this candidate evaluates it successfully.
 
 ## How to implement
 
-For the CDF, set `z=df1*x/(df1*x+df2)` and evaluate `I_z(df1/2,df2/2)`. The complementary beta tail supplies the right probability without near-one subtraction. Scale the transformation to avoid overflowing `df1*x`. A density uses the beta normalization and requires explicit x=0 limits. At df1=df2=2 and x=3, z=3/4, so the uniform beta CDF is 3/4. The numerical outline is an implementation route, not an identification of every Excel approximation or return-rounding stage. The current problem-functions report retains unresolved distribution mismatches.
+The current right-tail route evaluates a lower beta ratio after swapping the degree roles. Use ordinary binary64 stores D.
+
+1. Validate finite nonnegative x and the truncated positive degree counts d1 and d2.
+2. Calculate `num=D(d1*x)` and `den=D(d2+num)`.
+3. Independently store `z=D(d2/den)` and `w=D(num/den)`. Pass both to `bratio(d2/2,d1/2,z,w)` and return its first, lower-ratio result. The explicit complement w is part of the current argument construction.
+4. Apply worksheet number publication, preserving the host’s error/refusal distinction.
+
+With d1=d2=2 and x=3, num is six and den eight. The transformed beta shapes are one and one, a uniform distribution, so z=2/8 gives the right probability one quarter. The companion left route uses 6/8 instead.
+
+Do not obtain this tail by subtracting a rounded left CDF from one. A separately scaled ratio can avoid overflowing `d1*x` in a mathematical implementation, but changes the current computation tree. The paired-argument wrapper is more specific than a generic beta identity; the inner beta approximation and remaining recorded mismatches still prevent a whole-domain identification.
 
 ## Version differences
 
