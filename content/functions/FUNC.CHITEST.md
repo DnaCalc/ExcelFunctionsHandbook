@@ -31,11 +31,23 @@ role_in_family: null
 
 ## Quirks
 
-The two arrays need matching data-point shapes; differing counts give `#N/A`. A one-cell comparison is not admitted. Expected zero values make the statistic’s division undefined; the current implementation returns an error. The output is a tail probability, not the chi-square statistic itself.
+The arrays need matching shapes; a mismatch gives `#N/A` in the current wrapper. A one-cell comparison also gives `#N/A` because it supplies no positive degree count. The output is a tail probability, rather than the chi-square statistic itself.
+
+The current wrapper requires a numeric value at every paired position and returns `#VALUE!` for text, logical or blank cells; it does not compact those cells into a shorter sample. It propagates a direct argument error before comparing shapes, then checks cell errors during traversal. A nonpositive expected count gives `#NUM!` in this code.
+
+For an independence table, calculate expected counts from row total times column total divided by grand total before calling the function. The function takes those expected values as inputs. Its p-value is conditional on the chosen model and expected table.
 
 ## How to implement
 
-Validate the aligned arrays and accumulate `sum((actual-expected)^2/expected)`. For r rows and c columns use `(r-1)*(c-1)` degrees of freedom when both exceed one; for a single row use `c-1`, and for a single column `r-1`. Pass the statistic to the chi-square right-tail routine. The example contributes 0.4 from each category. Keep shape/admission rules separate from summation and tail evaluation; the numerical implementation still has recorded residuals.
+1. Resolve the two input grids and retain their row and column counts. Propagate a direct scalar argument error before a shape mismatch. Reject unequal shapes.
+2. Set degrees of freedom to `(rows-1)*(columns-1)` when both dimensions exceed one, `columns-1` for one row or `rows-1` for one column. Reject zero degrees.
+3. Traverse paired positions in row order. Propagate a cell error, require two numbers and reject a nonpositive expected value under the current rules.
+4. With ordinary binary64 stores, form `delta=actual-expected`, `square=delta*delta`, `contribution=square/expected` and `statistic=statistic+contribution` from an initial zero.
+5. Evaluate the chi-square right tail at that stored statistic and degree count.
+
+The starter example contributes `4/10=0.4` from each category, giving statistic 0.8 and one degree. For an independence layout `{12,8;8,12}`, both row totals and both column totals are twenty and the grand total forty, so every expected count is ten. Its four contributions total 1.6, still with one degree because `(2-1)*(2-1)=1`.
+
+Keep admission, statistic reduction and the numerical right-tail routine as separate stages. The loop describes current code; the forward distribution’s last bits and other recorded residuals remain unresolved.
 
 ## Version differences
 

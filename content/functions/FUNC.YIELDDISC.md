@@ -35,7 +35,14 @@ Basis defaults to zero: 0 US 30/360, 1 actual/actual, 2 actual/360, 3 actual/365
 
 ## How to implement
 
-Obtain the basis-specific days A from settlement to maturity and year denominator B. The mathematical expression is `((redemption-pr)/pr)*(B/A)`. The current kernel preserves a particular division/multiplication graph and day-count helper; use those stored steps when comparing its numerical output. In the example the return fraction is `4/96`, annualization is `360/30=12`, and their product is one half. Do not replace an actual/actual year denominator by 365 in every calendar interval.
+1. Truncate the dates and basis, validate the workbook dates, require positive price and redemption and settlement before maturity.
+2. Obtain the numerator day count `days` for the selected basis. Bases 0 and 4 use their respective 30/360 rules; bases 1, 2 and 3 use actual serial days.
+3. Obtain the year denominator B: 360 for bases 0, 2 and 4; 365 for basis 3; the source’s calendar-dependent `days_in_year_for_mat` for basis 1. The latter can use 365, 366 or a multi-year average. Do not silently substitute a fixed 365 or call a different YEARFRAC algorithm.
+4. Using ordinary binary64 stores D, form `gain=D(redemption-price)`, `relative_gain=D(gain/price)`, `year_scale=D(B/days)` and `yield=D(relative_gain*year_scale)`.
+
+For the example the gain is four, relative gain is about `0.041666666666666664`, and year scale is `360/30=12`. Their product is one half. The year ratio is computed separately: `((red-price)/price)*B/days` is another association with potentially different low bits.
+
+The retained source records 25 of 25 readings distinguishing this grouped year ratio; the left-to-right candidate matched 17. Its calendar scaffolding and initial formula include a credited, changed translation of the Apache-licensed ExcelFinancialFunctions project, alongside project-owned changes guided by recorded answers. This scope does not establish every date seam or whole-function numerical agreement.
 
 ## Version differences
 

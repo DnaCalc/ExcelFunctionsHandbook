@@ -32,11 +32,35 @@ role_in_family: null
 
 ## Quirks
 
-Basis defaults to zero: 0 US 30/360, 1 actual/actual, 2 actual/360, 3 actual/365, 4 European 30/360. Dates and selectors are truncated under their documented rules. Use DATE values rather than locale-dependent date text. Invalid dates give `#VALUE!`; negative interest rate, nonpositive price, invalid basis or settlement at/after maturity gives `#NUM!`. Accrued interest changes the invested amount; using clean price alone in the yield denominator is a different calculation.
+Basis defaults to zero: 0 US 30/360, 1 actual/actual, 2 actual/360, 3 actual/365, 4 European 30/360. Dates and selectors are truncated under their documented rules. Use DATE values rather than locale-dependent date text.
+
+Microsoft documents `#VALUE!` for invalid dates and `#NUM!` for a negative interest rate, nonpositive price, invalid basis or settlement at/after maturity. The current helper additionally requires issue strictly before settlement. Accrued interest changes the invested amount; using clean price alone in the denominator is a different calculation.
+
+The current remaining day count is the difference between its issue-to-maturity and issue-to-settlement day counts. Recomputing a fresh settlement-to-maturity 30/360 count can change calendar-boundary behaviour.
 
 ## How to implement
 
-Compute basis-specific issue-to-maturity fraction u, issue-to-settlement fraction a, and settlement-to-maturity fraction t using the kernel’s year denominator rules. Mathematically yield is `((100+100*rate*u)/(pr+100*rate*a)-1)/t`. For the example u=0.5, a=0.25 and t=0.25: `(103/101.5-1)*4` gives about 0.0591133005. The current code has a measured combination order; a single algebraic formula does not specify every stored last bit or calendar branch.
+The current recovered arithmetic keeps normalized price and interest terms separate. Use [R](../model/09-staged-arithmetic.md) at every named operation below.
+
+1. Validate dates in the order required by the host and require `issue<settlement<maturity`. Admit nonnegative rate and positive price.
+2. Compute `DIM=days(issue,maturity,basis)` and `A=days(issue,settlement,basis)` with the source’s day-count helper. Set `DSM=R(DIM-A)`. Obtain B from `days_in_year_for_mat(issue,settlement,basis)`, using that interval’s calendar rules.
+3. Calculate `interest=R(R(DIM/B)*rate)`, `accrued=R(R(A/B)*rate)` and `price_norm=R(price/100)`.
+4. Store `invested=R(price_norm+accrued)`. Reuse this stored value in `gain=R(R(1+interest)-invested)`.
+5. Return `R(R(gain/invested)*R(B/DSM))`. The gain division and year-ratio division are separate stores before multiplication.
+
+For the example, `DIM=180,A=90,DSM=90,B=360`. The reconstructed stored stages are:
+
+| Stage | Binary64 value |
+|---|---:|
+| Interest | 0.03 |
+| Accrued | 0.015 |
+| Invested | 1.015 |
+| Gain | 0.015000000000000124 |
+| Gain / invested | 0.014778325123152834 |
+| B / DSM | 4 |
+| Yield | 0.059113300492611334 |
+
+The mathematical expression can also be written `(103/101.5-1)*4`, but that expression does not preserve the identified subtraction and reuse of invested. The table evaluates the reconstruction; it is not a new Excel reading. The source records a 1,250-input control, including a held-out sweep, for its stored graph. Calendar helpers, publication and environment transfer retain their own scope.
 
 ## Version differences
 
