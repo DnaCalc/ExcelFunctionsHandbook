@@ -23,7 +23,7 @@ role_in_family: null
 
 ## What it does
 
-`CEILING.MATH(number, [significance], [mode])` chooses a multiple at or above the input under its sign and mode rules. `significance` is a step size, such as two or 0.05, rather than a count of decimal places. It defaults to one.
+`CEILING.MATH(number,[significance],[mode])` rounds to a multiple of the step’s absolute value, which defaults to one. By default, negative numbers move toward zero and positive numbers away from zero. A nonzero mode reverses the negative-input direction. Significance supplies a multiple, rather than a number of decimal places.
 
 ## Try it
 
@@ -31,11 +31,22 @@ role_in_family: null
 
 ## Quirks
 
-The significance sign is ignored; its magnitude supplies the step. Mode does not affect positive numbers. The current route returns zero for zero significance. Quotients close to an integer first pass through a fifteen-significant-digit reading, so a bare language ceil/floor of the unadjusted quotient can disagree.
+The significance sign is ignored. Mode affects only negative numbers, and the current helper tests zero versus any nonzero mode without truncating the flag. Its zero-significance route returns zero.
+
+The opened Microsoft page’s argument summary calls significance a count of digits, while its remarks and worked examples use a multiple. Use the multiple interpretation shown here. The current wrapper defaults significance to one when the call ends before it; an explicitly empty slot is read as zero instead.
+
+The shared current model rounds the quotient to fifteen significant decimal digits before choosing a count. Recorded scope for the legacy FLOOR rule does not by itself establish every modern variant’s quotient edge or last bit.
 
 ## How to implement
 
-Validate and coerce numeric arguments. Set `s=abs(significance)` after applying the default, and return zero if it is zero. The current helper forms a binary64 quotient and rounds its decimal representation to fifteen significant digits before choosing an integer multiple. For nonnegative input take the ceiling of the adjusted magnitude quotient. For negative input use its floor when mode is zero, ceiling when mode is nonzero, then restore the negative sign. In the negative 10.3 example with step three, the magnitude quotient is about 3.4333; choosing three versus four gives minus nine versus minus twelve. Retain decimal-reading and final-product rounding as separate steps. Extreme quotient and nonfinite publication policies still need the host’s explicit error/refusal handling.
+1. Apply omitted defaults: significance one and mode zero. Coerce numeric arguments, retain the distinction between an omitted tail and an explicitly empty slot, and set `s=abs(significance)`. Return zero if s is zero.
+2. For nonnegative input, obtain the current [fifteen-digit quotient reading](FUNC.CEILING.md#how-to-implement) of `number/s`, then take its ceiling.
+3. For negative input, read the positive quotient `abs(number)/s`. Take its floor when mode is zero, or its ceiling when mode is nonzero; restore the negative sign.
+4. The ported modern helper multiplies that count by s with ordinary binary64 arithmetic and normalizes zero. This is distinct from assuming every family spelling uses the native legacy wrapper’s final stored-x87 site. Apply the surrounding number publication rule.
+
+For `-10.3` and step three, the positive quotient reads near `3.43333333333333`. Default mode chooses three and returns `-9`; nonzero mode chooses four and returns `-12`. The current fractional mode `0.5` follows the nonzero branch too.
+
+The quotient helper and branch recipe describe the current implementation. [FN-FLOOR-002](../notes/FN-FLOOR-002.json) explicitly leaves transfer of the isolated legacy quotient rule to modern spellings open. Exact edge behaviour and a whole-domain modern-family identification are not established by the shared code alone.
 
 ## Version differences
 
@@ -51,10 +62,21 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[MROUND](FUNC.MROUND.md) chooses a nearest multiple; [ROUNDUP](FUNC.ROUNDUP.md) and [ROUNDDOWN](FUNC.ROUNDDOWN.md) address decimal positions. [FLOOR.MATH](FUNC.FLOOR.MATH.md) provides the other directional family.
+For the ordinary input `-10.3` on a grid of magnitude three:
+
+| Function/call | Result |
+|---|---:|
+| `CEILING(-10.3,3)` | -9 |
+| `CEILING(-10.3,-3)` | -12 |
+| `CEILING.PRECISE(-10.3,-3)` | -9 |
+| `CEILING.MATH(-10.3,3,1)` | -12 |
+| `FLOOR.PRECISE(-10.3,-3)` | -12 |
+
+[CEILING.PRECISE](FUNC.CEILING.PRECISE.md) and [ISO.CEILING](FUNC.ISO.CEILING.md) have the fixed upward convention. [FLOOR.MATH](FUNC.FLOOR.MATH.md) selects the other directional default. [MROUND](FUNC.MROUND.md) chooses a nearest multiple.
 
 ## Sources
 
 - [Microsoft: CEILING.MATH function](https://support.microsoft.com/en-us/excel/functions/ceiling-math-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/rounding.rs); implementation steps and the limits identified in the text.
 - [Quotient reading and sign helpers](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/ceiling_floor_family.rs).
+- [Modern wrapper defaults](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/rounding_more.rs).
