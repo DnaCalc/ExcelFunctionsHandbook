@@ -8,16 +8,14 @@ open_problems: []
 references: []
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Numerical notes
-  - What has not been checked
+  - What it does
+  - Try it
+  - Quirks
+  - How to implement
+  - Version differences
+  - Alternatives
   - Notes
   - Excel versions, platforms and CPUs
-  - Page vocabulary
   - Sources
 family: mround
 role_in_family: >-
@@ -26,199 +24,45 @@ role_in_family: >-
   for decimal multiples.
 ---
 
-## What it computes
+# MROUND
 
-`MROUND(number, multiple)` rounds *number* to the **nearest** multiple of *multiple*.
+## What it does
 
-Where [ISO.CEILING](FUNC.ISO.CEILING.md) always rounds up and `FLOOR.MATH` always rounds down,
-`MROUND` rounds to whichever multiple is closer, with ties broken **away from zero**. Microsoft
-states the tie rule as a condition on the remainder:
+`MROUND(number, multiple)` selects a nearest multiple, with mathematical halves away from zero. Both nonzero inputs must have the same sign.
 
-> "MROUND rounds up, away from zero, if the remainder of dividing number by multiple is greater
-> than or equal to half the value of multiple."
+## Try it
 
-So the mathematical definition is round-half-away-from-zero on the scaled variable:
+`=MROUND(14,4)` returns `16`. `=MROUND(-14,-4)` returns `-16`. For decimal multiples, Microsoft documents differing midpoint directions: `MROUND(6.05,0.1)` gives `6`, while `MROUND(7.05,0.1)` gives `7.1`.
 
-    MROUND(x, m) = sign(x) · ⌊ |x/m| + 1/2 ⌋ · |m|
+## Quirks
 
-Equivalently, with the remainder *r* = MOD(|x|, |m|): the result is the lower multiple when
-*r* < |m|/2 and the upper multiple when *r* ≥ |m|/2. The documented examples fit: 10 with a
-multiple of 3 gives 9 (the remainder 1 is below 1.5), and −10 with −3 gives −9 by symmetry. Excel
-departs from this definition just below each half: it counts a quotient within 5E-15 below a half
-up (FN-MROUND-001).
+Opposite signs give `#NUM!`; the current implementation returns zero for a zero multiple. A decimal multiple is already a binary64 approximation before rounding begins. The recorded decision admits a small tolerance below one half, rather than comparing exact decimal distances.
 
-**Domain.** Both arguments must share a sign — Microsoft states this as a hard requirement, not a
-convention: "The Number and Multiple arguments must have the same sign. If not, a #NUM error is
-returned", with `MROUND(5, -2)` documented as `#NUM!`. This is the property that most sharply
-separates `MROUND` from the modern `CEILING.MATH`/`FLOOR.MATH` pair, which take the absolute value
-of the significance and never reject a sign combination.
+## How to implement
 
-**Range.** The multiples of |*m*|. The function is a staircase: piecewise constant, with jumps of
-|*m*| at the midpoints between consecutive multiples, and it is *not* monotone-continuous — it is
-non-decreasing but has a jump at every half-multiple.
+After coercion and sign checks, compute `q=R(number/multiple)`, where `R` is the stored 64-bit-significand operation described for variance. Let `c=floor(q)` and `f=q-c`. Increment `c` when `0.5-f<=5e-15`. Return `R(c*multiple)`.
 
-**Idempotence.** `MROUND(MROUND(x, m), m) = MROUND(x, m)`. Rounding an already-rounded value
-changes nothing, provided the multiple is unchanged — a property that fails in practice exactly
-when the multiple is not exactly representable, which is the subject of "Numerical notes".
+Worked: `14/4=3.5`; `c=3`, `f=0.5`, so increment to four and multiply by four to obtain sixteen. The same positive quotient with two negative arguments produces a negative multiple. Preserve the division store and final product store, and use the binary64 constant `5e-15` rather than a decimal-string comparison. The adjacent-half probes distinguish the tolerance on the measured inputs. The cited bank contains 50,782 matching rows; no Handbook suite has been published.
 
-## Arguments
+## Version differences
 
-| Argument | Meaning | Required |
-|---|---|---|
-| `number` | "The value to round." | Yes |
-| `multiple` | "The multiple to which you want to round number." | Yes |
+The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.
 
-Both required; the declared arity is exactly two. Neither has a default — unlike
-[ISO.CEILING](FUNC.ISO.CEILING.md), whose significance defaults to 1, `MROUND` has no
-single-argument form.
+| Excel 16.0 build | Platform and CPU | Captured inputs |
+|---|---|---:|
+| 19929 | Windows, bitness not recorded, CPU not recorded | 108 |
+| 20430 | Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics | 1,999 |
+| 20430 | Windows, 64-bit-bit, CPU not recorded | 48,783 |
 
-Both slots are numeric and subject to ordinary to-number coercion
-([coercion and lifting](../model/02-coercion-and-lifting.md)). The declared coercion profile is
-the scalar-only unary numeric one.
+- XC-MROUND-001: build 19929 versus build 20430; 3 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.
 
-## Result and edge cases
+Agreement on these compared inputs does not establish agreement on unmeasured inputs.
 
-Returns `Number`.
+[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.MROUND.json).
 
-The reference engine's published battery is rendered beside this page. Qualitatively:
+## Alternatives
 
-- **Both arguments zero** returns zero. This is **not documented**: the rule as written requires
-  dividing by the multiple, which is undefined at zero, and the same-sign test is vacuous when
-  both are zero. Returning zero is a defensible reading — the only multiple of zero is zero — but
-  it is a choice, and Microsoft's page does not make it.
-- **Both arguments −1** returns −1: a value already on a multiple is unchanged, and the negative
-  branch is reached with matching signs as required.
-- **A logical argument** converts; **numeric text** converts and is rounded to a multiple of
-  itself, returning the value unchanged.
-- **The smallest positive subnormal against itself** returns itself — the staircase has steps
-  everywhere, including at the bottom of the range.
-- **An inline array** in both slots produces an array.
-- **An empty range** produces `#VALUE!`.
-
-The battery contains no row with **mismatched signs**, no row with a **decimal multiple**, and no
-row at a **midpoint** — which is to say, it does not exercise any of the three things that make
-this function interesting. That is worth knowing before drawing conclusions from it.
-
-## Errors
-
-| Error | Condition | Basis |
-|---|---|---|
-| `#NUM!` | *number* and *multiple* have different signs | **Documented**: "The Number and Multiple arguments must have the same sign. If not, a #NUM error is returned", with `MROUND(5,-2)` shown as `#NUM!` |
-| — | *multiple* is 0 | **Not documented.** The reference engine returns 0 when both arguments are 0; the mixed case (nonzero number, zero multiple) is unprobed |
-| `#VALUE!` | An argument does not convert to a number | Shared call model |
-| propagated | An error value in either argument | Shared call model |
-
-The zero-multiple row is a genuine gap. It is the only input for which the documented rule cannot
-be evaluated at all, and neither Microsoft's page nor the Handbook's record says what Excel
-returns for `MROUND(5, 0)`.
-
-## Relationships
-
-- **`ROUND`** — rounds to a number of decimal places rather than to a multiple. `ROUND(x, 2)` and
-  `MROUND(x, 0.01)` are the same idea expressed two ways, and they can disagree, because the first
-  scales by a power of ten and the second divides by an inexact binary constant. Which of the two
-  a reader should use is decided by that difference, not by taste.
-- **[ISO.CEILING](FUNC.ISO.CEILING.md)**, **`CEILING.MATH`**,
-  **[FLOOR.MATH](FUNC.FLOOR.MATH.md)** — the directed round-to-multiple family. `MROUND` is the
-  nearest-multiple member and the only one that can move a value in either direction.
-- **`CEILING`** — the legacy directed form, and `MROUND`'s closest relative in
-  temperament: both **reject** mismatched signs where the modern `.MATH` surfaces accept them.
-  The sign policy, not the rounding direction, is what dates a function in this neighbourhood.
-- **[MOD](FUNC.MOD.md)** — the primitive `MROUND`'s documented rule is phrased in terms of ("the
-  remainder of dividing number by multiple"). The two pages should be read together.
-- **[INT](FUNC.INT.md)** — the floor underneath the scaled formulation.
-- **`EVEN` and [ODD](FUNC.ODD.md)** — round to a multiple of 2 with a parity offset, always away
-  from zero. `MROUND(x, 2)` and `EVEN(x)` differ whenever *x* is not past the midpoint.
-
-## Numerical notes
-
-`MROUND` carries a hazard that its own documentation admits, which is rare enough to quote:
-
-> "MROUND(6.05,0.1) returns 6.0 while MROUND(7.05,0.1) returns 7.1."
-
-Two calls, the same multiple, the same apparent midpoint, opposite directions. Microsoft describes
-the rounding direction for midpoint values with decimal multiples as undefined. **This is not a
-bug and it is not fixable inside the function.** It is what happens when a round-to-nearest rule is
-evaluated on values that are not what they appear to be.
-
-**Why.** Neither 0.1 nor 6.05 nor 7.05 is representable in binary64, so neither quotient is the
-half it appears to be. Excel does not test a remainder: it forms q = n/m on the x87 unit, counts
-floor(q), adds 1 when 0.5 - frac(q) <= 5E-15, and returns count*m from the x87 unit (FN-MROUND-001).
-`MROUND(6.05, 0.1)` stays 6 because its quotient 60.49999999999999 lies 7.1E-15 below the half,
-outside that window. Which side of the window a quotient lands on is determined by the binary
-expansion, effectively at random with respect to the decimal the user typed. Every decimal step
-size (0.1, 0.05, 0.25 is fine, 0.2 is not, 0.01 is not) inherits this. The window also rounds up a
-number the representation does not excuse: `MROUND(0.499999999999995, 1)` is 1, though the number
-is nearer 0.
-
-**What a careful implementation does about it**, in rough order of increasing effort:
-
-1. **Scale to integers when the multiple is a decimal fraction.** If the multiple is *k*·10⁻ⁿ with
-   small *k* and *n*, multiply both arguments by 10ⁿ, round in a domain where the midpoint is
-   exact, and scale back. This is what `ROUND`-style functions do internally, and it changes the
-   answers at midpoints — which is precisely why `ROUND(x,2)` and `MROUND(x,0.01)` need not agree.
-2. **Compute the quotient with a correction term.** The quantity |x/m| must be compared against a
-   half-integer boundary; a fused multiply-add residual (x − q·m computed exactly) tells you which
-   side of the boundary the *exact* quotient lies on, even when the rounded quotient does not.
-   This is the same technique that makes correctly-rounded division-based predicates possible, and
-   it is discussed in Muller et al., *Handbook of Floating-Point Arithmetic*, in the chapters on
-   exact arithmetic operations and on rounding to a multiple.
-3. **Do nothing, and document it** — which is the route Microsoft's page takes, and which is
-   honest. An implementation that silently "fixes" the midpoints has made itself incompatible with
-   the documented behaviour of the function it claims to implement. Excel itself does not do
-   nothing: it has the 5E-15 window of FN-MROUND-001, which the page does not mention.
-
-**The multiplication at the end is also inexact.** After choosing the integer multiplier *n*, the
-returned value is *n*·|m|, which rounds. So the result of `MROUND` is not guaranteed to be an
-exact multiple of *m* — it is the nearest double to one. A downstream test of the form
-`MOD(MROUND(x, m), m) = 0` can therefore fail, and readers who chain rounding into a divisibility
-check should expect it to.
-
-**The sign policy costs nothing numerically and something practically.** Rejecting mismatched
-signs means a formula whose inputs can change sign — a variance, a delta, a balance — will
-intermittently produce `#NUM!` rather than a rounded value. `CEILING.MATH` and `FLOOR.MATH` exist
-partly to remove that failure mode. `MROUND` has no such escape, so the guard belongs in the
-formula: `SIGN(x)*MROUND(ABS(x), ABS(m))` is the usual reconstruction, and it is arithmetic, not a
-Handbook claim about Excel.
-
-## What has not been checked
-
-No Handbook vector suite exists for `MROUND`; `vectors/` publishes nothing for this function, and
-**no evidence record names `MROUND` among its subjects**.
-
-`MROUND` does appear inside the group membership of one structural array-lift record without being
-one of that record's subjects. Those group counts carry an explicit warning against per-surface
-attribution, so the honest statement for that record is: **the family was measured on an
-array-shape axis and this surface was not measured separately.** FN-MROUND-001 checks `MROUND`'s
-values against Excel: all 50,782 recorded rows match its rule.
-
-The implementing module carries three open upstream defect streams touching this function
-(`BUG-FUNC-017`, `BUG-FUNC-027`, `BUG-FUNC-039`), covering math scalar/array lifting, broad
-scalar-invocation findings, and a statistical-and-boundary edge batch. Array-shaped and
-boundary-valued arguments are therefore areas with recorded historical trouble in the reference
-engine, not settled ground.
-
-Everything above marked as documented comes from Microsoft's `MROUND` page: the syntax, both
-argument descriptions, the remainder-based tie rule, the same-sign requirement and its `#NUM!`,
-the four worked examples, and the admitted undefined midpoint direction for decimal multiples.
-
-Inputs I would probe first:
-
-1. **`MROUND(6.05, 0.1)` and `MROUND(7.05, 0.1)`.** Microsoft's own stated pair. The first is
-   answered: Excel gives 6 (FN-MROUND-001). Reading the second completes the cheapest check that
-   the documentation describes the shipping behaviour.
-2. **`MROUND(5, 0)` and `MROUND(0, 0)`.** The undocumented zero-multiple case, where the
-   reference engine has an answer for one input and nothing is known about the other.
-3. **A midpoint sweep at an exactly representable multiple** — `MROUND(x, 0.5)` and
-   `MROUND(x, 0.25)` at exact midpoints. Answered by the rule of FN-MROUND-001: an exact half
-   counts up, away from zero, and so does a quotient within 5E-15 below it.
-4. **`MROUND(x, 0.01)` against `ROUND(x, 2)`** across a few hundred values. Any disagreement
-   locates the scaling difference described above, and this is the comparison a reader is most
-   likely to care about in practice.
-5. **The four sign combinations**, including `MROUND(-5, 2)` and `MROUND(5, -2)`, to confirm the
-   documented `#NUM!` is symmetric.
-6. **`MOD(MROUND(x, m), m)` for a decimal *m***, testing whether the result is exactly a multiple.
-7. **Array arguments in each slot**, given the open lifting defect stream on this module.
+[ROUND](FUNC.ROUND.md) chooses decimal places; [CEILING.MATH](https://handbook.dnacalc.com/functions/CEILING.MATH.html) and [FLOOR.MATH](FUNC.FLOOR.MATH.md) choose a directional multiple.
 
 ## Notes
 
@@ -298,31 +142,8 @@ Evidence for every row: [`content/evidence/environments/FUNC.MROUND.json`](../..
 
 <!-- efh:environments end -->
 
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| round half away from zero | The documented tie rule: a remainder at or above half the multiple rounds outward |
-| multiple | The step size of the staircase; must share the sign of `number` |
-| midpoint | A value exactly halfway between two multiples, where the tie rule is invoked |
-| inexact multiple | A decimal step such as 0.1 that has no exact binary64 representation |
-| group figure | A count measured across several surfaces jointly; never a per-function rate |
-
 ## Sources
 
-- Microsoft, "MROUND function" —
-  <https://support.microsoft.com/en-us/office/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427>.
-  Retrieved for this page: the syntax, both argument descriptions, the remainder-based tie rule,
-  the same-sign requirement and its `#NUM!`, the four worked examples, and the documented
-  statement that the rounding direction for midpoint values with decimal multiples is undefined,
-  with its two-call illustration.
-- J.-M. Muller et al., *Handbook of Floating-Point Arithmetic*, 2nd edition — exact operations,
-  residual-based comparison against a boundary, and rounding to a multiple.
-- Handbook, [MOD](FUNC.MOD.md) — the remainder the tie rule is phrased in terms of;
-  [ISO.CEILING](FUNC.ISO.CEILING.md) — the directed sibling and the same inexact-significance
-  hazard; [coercion and lifting](../model/02-coercion-and-lifting.md) — to-number outcomes and
-  propagation.
-- `data/functions/FUNC.MROUND.json` and `data/presence/FUNC.MROUND.json` — identity, signature
-  `MROUND(number, multiple)`, arity 2–2, the scalar-only coercion profile, the implementing module
-  and its Lean companion, and the `BUG-FUNC-017`, `BUG-FUNC-027` and `BUG-FUNC-039` defect
-  streams, as projected at OxFunc `473efa3`.
+- [Microsoft: MROUND function](https://support.microsoft.com/en-us/excel/functions/mround-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/rounding.rs); implementation steps and the limits identified in the text.
+- [Rounding research](../notes/evidence/2026-11-04/rounding-EVIDENCE.md).

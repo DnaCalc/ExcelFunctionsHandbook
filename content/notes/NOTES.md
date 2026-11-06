@@ -125,8 +125,8 @@ answer.
 | [`DOLLAR`](../functions/FUNC.DOLLAR.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
 | [`ERF`](../functions/FUNC.ERF.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first), [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
 | [`ERF.PRECISE`](../functions/FUNC.ERF.PRECISE.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
-| `ERFC` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
-| `ERFC.PRECISE` (no page yet) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
+| [`ERFC`](../functions/FUNC.ERFC.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
+| [`ERFC.PRECISE`](../functions/FUNC.ERFC.PRECISE.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified), [FN-ERFC-001](#fn-erfc-001-above-05-erfc-rounds-xx-before-the-exponential-so-the-tail-drifts-by-hundreds-of-units) |
 | [`ERROR.TYPE`](../functions/FUNC.ERROR.TYPE.md) | [FN-ERROR.TYPE-001](#fn-errortype-001-errortype-of-busy-is-0) |
 | [`EXPAND`](../functions/FUNC.EXPAND.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`FIXED`](../functions/FUNC.FIXED.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |

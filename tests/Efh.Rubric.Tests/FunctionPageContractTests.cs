@@ -201,7 +201,7 @@ public sealed class FunctionPageContractTests
         }
 
         string[] readerSections = ["What it does", "Try it", "Quirks", "How to implement", "Version differences", "Alternatives", "Sources"];
-        var hasReaderSections = actualSections.Where(s => s != "Notes")
+        var hasReaderSections = actualSections.Where(s => s != "Notes" && s != ExcelEnvironments.SectionTitle)
             .SequenceEqual(readerSections, StringComparer.Ordinal);
         if (!hasReaderSections && (actualSections.Count < RequiredClosingSections.Length
             || !actualSections.TakeLast(RequiredClosingSections.Length)

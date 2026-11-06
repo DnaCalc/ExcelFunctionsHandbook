@@ -19,15 +19,13 @@ references:
     role: "definition (7.2), symmetry (7.4) and the relation to the incomplete gamma function (7.11)"
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Numerical notes
-  - What has not been checked
+  - What it does
+  - Try it
+  - Quirks
+  - How to implement
+  - Version differences
+  - Alternatives
   - Notes
-  - Page vocabulary
   - Sources
 family: special_dist_family
 role_in_family: >-
@@ -37,178 +35,56 @@ role_in_family: >-
 
 # ERF
 
-## What it computes
+## What it does
 
-`ERF(lower_limit, [upper_limit])` returns the **error function**, integrated either from 0 to one
-point or between two.
+`ERF(lower_limit, [upper_limit])` returns the normalised integral of `exp(-t*t)` between the limits. With one argument it integrates from zero to that argument; with two it subtracts the lower primitive from the upper.
 
-With one argument it is erf(x), the standard error function:
+## Try it
 
-    ERF(x)  =  erf(x)  =  (2/√π) ∫₀^x e^(−t²) dt
+`=ERF(0.25)` is about `0.276326390168237`. `=ERF(0.1,0.25)` computes the integral over just that interval; reversing the two bounds negates it.
 
-With two arguments it is the same integrand between the two limits:
+## Quirks
 
-    ERF(a, b)  =  (2/√π) ∫ₐ^b e^(−t²) dt  =  erf(b) − erf(a)
+Nonnumeric arguments give `#VALUE!`. The PRECISE name does not imply correctly rounded results on every input. The measured below-half stage and the unresolved upper stage need separate treatment. Subnormal inputs transferred to worksheet cells can be read back as zero, so the input route is part of a useful reproduction.
 
-The factor 2/√π is chosen so that erf(∞) = 1. The series and the behaviour at the ends are short
-to state:
+## How to implement
 
-    erf(x)  =  (2/√π) Σ_{k≥0}  (−1)^k x^(2k+1) / ( k! (2k+1) )
-    erf(x)  ≈  (2/√π) x                        for small x
-    erfc(x) =  1 − erf(x)  ≈  e^(−x²) / (x√π)  for large x
+For normal `abs(x)<0.5`, use `R(op)=RN53(RN64(op))`: round each operation to a 64-bit significand, then store to binary64. Decode the following hexadecimal strings as **binary64 bit patterns**, not integers converted to floating-point values.
 
-**Shape.** erf is odd, strictly increasing, and bounded by −1 and 1, which it approaches and never
-reaches. In binary64 it does reach them: erf(x) rounds to exactly 1 once x passes about 5.92. It
-has no poles and no branch cuts on the real line.
+| Power | Numerator coefficient | Denominator coefficient |
+|---:|---|---|
+| 0 | `3ff1df5e70c7956b` | `3fefada15778ece6` |
+| 1 | `3fc201d8627a7d2c` | `3fdd191aca8d2499` |
+| 2 | `3fa6f289d165b303` | `3fb79f85ba68803e` |
+| 3 | `3f5d93a5813e372c` | `3f856de5da86af12` |
+| 4 | `3f2932767df264b2` | `3f4609751b5b6488` |
+| 5 | — | `3ef4f20a473a5ab0` |
 
-**What it is for.** Up to a scaling of x it is the normal distribution: the probability that a
-normal variable lies within z standard deviations of its mean is erf(z/√2). Diffusion, heat
-conduction and signal detection use it in the same way.
+1. Store `t=R(x*x)`.
+2. Evaluate each polynomial by Horner, beginning with its highest-power coefficient. Every step is `v=R(R(v*t)+coefficient)`. Keep the multiplication store separate from the addition store; do not use FMA.
+3. Store `p=R(x*N)` and return `R(p/D)`.
 
-## Arguments
+Worked `x=0.25`: `t=0.0625`; the staged coefficient evaluation gives `N=1.126001525484713`, `D=1.018724202200851`, `p=0.2815003813711783`, and result `0.276326390168237` (`0x3fd1af54e232d60a`). These are outputs of the stated reconstruction, with all input coefficients retained above.
 
-| Argument | Meaning | Default |
-|---|---|---|
-| `lower_limit` | The lower bound for the integration. Required. | — |
-| `upper_limit` | The upper bound. Optional. | If omitted, the integral runs from 0 to `lower_limit` |
+The degrees and stores are supported by discriminating readings. The final bits of several higher-order coefficients remain open: the fixed c14 model matched 59,982 of a fresh 60,000-row holdout. Above or at the half boundary a different body is needed; do not extrapolate this polynomial ratio. The upper ERFC exponential stage is measured, but its remaining rational factor is a stand-in. No published Handbook suite establishes a whole-domain equality claim.
 
-One or two arguments; the projection declares an arity of 1 to 2.
+For the two-limit form the current kernel subtracts the two separately evaluated primitives in binary64. Nearly equal endpoints can lose relative accuracy; that wrapper is a separate obligation from the rational body.
 
-**The naming misleads in the one-argument form.** Microsoft's text is exact about what happens, but
-in `ERF(x)` the argument called `lower_limit` is mathematically the upper limit of an integral
-from 0. `ERF(0.745)` and `ERF(0, 0.745)` are the same integral. Two limits in either order are
-meaningful: `ERF(b, a)` should be the negative of `ERF(a, b)`, a point that has not been read.
+## Version differences
 
-**Argument handling is recorded, and it is stricter than the ordinary numeric slot.**
+The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.
 
-- **Numeric text is accepted.** `ERF("2")` gives the same value as `ERF(2)`, while `ERF("")` is
-  `#VALUE!` (Excel 16.0 build 20026).
-- **Logicals are rejected,** in either position, typed or held in a cell. `ERF(TRUE)`, `ERF(2,TRUE)`
-  and `ERF(TRUE,3)` are `#VALUE!`. The notes below record this for build 20527, alongside `DELTA`
-  and `GESTEP`. Many numeric slots convert TRUE to 1, and the gamma functions in the same implementing
-  module do.
-- **An empty cell reads as 0.** `ERF(B1, 3)` with `B1` empty gives erf(3).
-- **Arrays lift.** `ERF({2;3})` returns a 2-by-1 array of the two values (build 20026).
+| Excel 16.0 build | Platform and CPU | Captured inputs |
+|---|---|---:|
+| 19929 | Windows, bitness not recorded, CPU not recorded | 42 |
 
-## Result and edge cases
+The record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.
 
-Returns `Number`. The behaviour below is read from recorded Excel answers unless marked otherwise.
+[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.json).
 
-- **`ERF(0)`** is exactly 0.
-- **Negative limits are ordinary.** `ERF(-1.00001276867384825)` is about −0.8427, and small negative
-  arguments return small negative values (build 19929). Microsoft's page states no condition on the
-  sign of either limit.
-- **Saturation.** `ERF(6.49517072256603711)` and every larger argument read are exactly 1, and
-  the large negative arguments read are exactly −1 (build 19929). The answer `ERF.PRECISE(5.875)` is
-  still below 1, and `ERF.PRECISE(5.999999999999999)` is 1 (build 20131).
-- **The documented examples**, `ERF(0.745)` and `ERF(1)`, are printed by Microsoft to eight places
-  as `0.70792892` and `0.84270079`, and the true values agree.
-- **Tiny arguments** give about 1.128·x. `ERF(1.00000000000000003E-300)` is about 1.128E-300. The
-  last digit does not always land where a correctly rounded erf would put it; see *Numerical
-  notes*.
-- **Equal limits, reversed limits, and limits beyond saturation** have not been read. The last
-  case matters, and is taken up under *Numerical notes*.
+## Alternatives
 
-## Errors
-
-As documented on Microsoft's page:
-
-| Error | Condition |
-|---|---|
-| `#VALUE!` | `lower_limit` is nonnumeric |
-| `#VALUE!` | `upper_limit` is nonnumeric |
-
-As recorded, adding to that:
-
-| Input | Result | Recorded on |
-|---|---|---|
-| Empty text in the slot, `ERF("")` | `#VALUE!` | build 20026 |
-| An error value, `ERF(NA())` | that error | build 20026 |
-| A logical in either position | `#VALUE!` | builds 20026 and 20527 |
-| Two bad arguments | the left one decides: `ERF(TRUE,#REF!)` is `#VALUE!`, `ERF(#REF!,TRUE)` is `#REF!` | build 20527 |
-
-The last row is the opposite of `DELTA` and `GESTEP`, which read their second argument first, as
-the notes below record. No `#NUM!` is documented, and none appears in the recorded answers. The
-reference engine raises `#NUM!` for a non-finite argument, which a worksheet cell cannot supply.
-
-## Relationships
-
-- **[ERF.PRECISE](FUNC.ERF.PRECISE.md)** — the one-argument form under a later name. The name does
-  not mean more accurate. The notes below treat them as one body. ERF.PRECISE is the one with the
-  large recorded population, so most of what is known about this function was measured there.
-- **`ERFC` and `ERFC.PRECISE`** — the complement, 1 − erf(x). Excel uses that relation in both
-  directions, as *Numerical notes* describes. For anything in the tail use `ERFC`, because it
-  keeps digits that `ERF` has already lost to 1.
-- **[GAUSS](FUNC.GAUSS.md)** — GAUSS(z) = ½·erf(z/√2), and the notes below record that it uses the
-  same rational at small argument.
-- **[NORM.S.DIST](FUNC.NORM.S.DIST.md)** — the standard normal CDF, Φ(z) = ½(1 + erf(z/√2)).
-- **[GAMMA.DIST](FUNC.GAMMA.DIST.md)** — erf(x) = P(½, x²) for x ≥ 0, where P is the regularized
-  lower incomplete gamma function, so `GAMMA.DIST(x*x, 1/2, 1, TRUE)` is the same quantity.
-- **`DELTA` and `GESTEP`** — in the same Engineering category, with the same refusal of logicals
-  and the opposite order of reading arguments.
-- **Module siblings**: `ERF.PRECISE`, `ERFC`, `ERFC.PRECISE`, `GAMMA`, `GAMMALN`, `GAMMALN.PRECISE`,
-  `WEIBULL` and `WEIBULL.DIST` share the reference engine's implementing module. That is an
-  implementation fact and implies nothing about Excel's code.
-
-## Numerical notes
-
-**Below 0.5 it is a stored rational.** The notes below give the full reading: for |x| < 0.5 the
-answer is x·N(x²)/D(x²), with N of degree 4 and D of degree 5, and every step rounded on the x87
-unit and then stored to binary64. The coefficients were read off Excel's answers and are listed
-there. **Their source is not identified.** Cody's rational of 1969 is refuted by its linear terms,
-Cephes has the same shape with different ratios, and no published table has been matched.
-
-**So the last digits are not correctly rounded, and this is not a defect of precision.** The
-rational itself equals erf to about 9E-17. The rounding at each step is what moves the answer, by
-up to 3 units in [0.25, 0.5), and by 1 unit at very small x. A correctly rounded erf is therefore the
-wrong target for anyone matching Excel, and the reference engine, at the commit named under Sources,
-calls a general-purpose library `erf`. It differs from Excel by a unit on some small arguments.
-
-**From 0.5 up it is the complement.** On the 187 inputs from 0.5 to 6 at which both functions were
-read, `ERF.PRECISE(x)` equals 1 minus `ERFC.PRECISE(x)` computed in binary64, every time (build
-20131, AMD Ryzen 7 4800H). That was checked while writing this page; it is not yet a note. The ERFC
-side is in the [function notes](../notes/NOTES.md) under `ERFC`: its answers drift by many units in
-the far tail, and one factor in them is unidentified. Almost none of that reaches `ERF`, because
-subtracting a small number from 1 discards its last digits. Of 212 `ERF.PRECISE` rows in [0.5, 6],
-192 are correctly rounded and the other 20 are within 2 units.
-
-**The two-limit form has a cancellation problem by construction.** If the integral is computed as
-erf(b) − erf(a), as the formula invites and as the reference engine does, then both terms round
-to near 1 as the limits grow, and the difference loses everything. The true value of the integral
-from 6 to 7 is about 2.15E-17, and erf(6) and erf(7) are both 1 once rounded to binary64, so that
-route returns 0. `ERFC(a)-ERFC(b)` does not have this problem. Whether Excel subtracts, and how, is
-unread.
-
-## What has not been checked
-
-No Handbook vector suite exists for `ERF`; `vectors/` publishes nothing at this revision, so no
-suite-scoped claim exists for it.
-
-The evidence records on this page are narrow. `EV-DIST-0018` is one pinned point for this surface
-in a ten-surface re-sweep, not a corpus rate, and `EV-DIST-0024` concerns which argument types are
-accepted and says nothing about numeric results. Their figures render beside this page. The
-reader's guide to numeric behaviour is the notes below.
-
-What is still unmeasured:
-
-1. **Two numeric limits.** No recorded answer has two non-zero limits. The only two-argument number
-   on record is `ERF(B1, 3)` with an empty `B1`. So the formula erf(b) − erf(a) is Microsoft's
-   description and the mathematics, not an observation. The first probes are `ERF(0.2, 0.7)`,
-   `ERF(6, 7)`, `ERF(1, 0)` and `ERF(1, 1)`.
-2. **Whether this surface shares the ERF.PRECISE body.** The notes below mark that as inferred,
-   since their scored population is `ERF.PRECISE`, `ERFC`, `ERFC.PRECISE` and `GAUSS`. A spot check
-   while writing this page used the few dozen single-argument `ERF` answers that survive from build
-   19929. Nine are non-zero, below 0.5 and have their exact input on record, and all nine equal the
-   rational, including the four where it differs from a correctly rounded erf. That supports the
-   inference. It is a handful of rows on one older build, and no population has been scored.
-3. **The open items in the notes below**: the last bits of the coefficients of order 3 and above,
-   the source table, which branch owns x = 0.5, and subnormal arguments.
-4. **The complement above 0.5 on this surface.** The relation described under *Numerical notes* was
-   checked on `ERF.PRECISE`, not on `ERF`.
-5. **Ranges and arrays with two arguments.** Only a single array in the first slot has been read.
-   How `ERF({1;2},{3;4})` pairs its arguments, and how a multi-cell range behaves, is unread.
-6. **Other platforms.** The recorded answers are from Windows. No reading from a Mac, Excel for the
-   web, 32-bit Excel or an Intel CPU is on record for this surface.
+[ERFC](FUNC.ERFC.md) computes the complementary tail directly. [NORM.S.DIST](FUNC.NORM.S.DIST.md) provides a standard-normal CDF with a different argument transformation.
 
 ## Notes
 
@@ -322,37 +198,8 @@ Evidence:
 
 <!-- efh:notes end -->
 
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| erf | The mathematical error function; `ERF(x)` with one argument |
-| erfc | The complementary error function, 1 − erf(x) |
-| saturation | The point beyond which the result is exactly ±1 in binary64 |
-| cancellation | Loss of leading digits when two nearly equal numbers are subtracted |
-| unit | One unit in the last place of a binary64 result |
-| x87 unit | The floating-point unit of x86 processors, which computes in an 80-bit format |
-
 ## Sources
 
-- Microsoft, "ERF function" —
-  <https://support.microsoft.com/en-us/office/erf-function-c53c7e7b-5482-4b6c-883e-56df3c9af349>
-  (the description, syntax, argument meanings, the two `#VALUE!` remarks and the two examples).
-- Abramowitz & Stegun, *Handbook of Mathematical Functions*, §7.1; NIST Digital Library of
-  Mathematical Functions, §7.2, §7.4, §7.6, §7.11 and §7.12 — <https://dlmf.nist.gov/7.2>
-  (definition, symmetry, series, the incomplete-gamma relation and asymptotics).
-- The recorded Excel answers the notes below draw on, and those this page adds to them: argument
-  probes on Excel 16.0 build 20026 and build 20527; the single-argument `ERF` answers on build
-  19929; and the `ERF.PRECISE` and `ERFC.PRECISE` answers on build 20131, AMD Ryzen 7 4800H. The
-  statements on this page that go beyond the notes were read from those files and compared with
-  mpmath at 300 bits while this page was written; each is marked where it appears.
-- Handbook evidence records `EV-DIST-0018` (one pinned point in a ten-surface re-sweep) and
-  `EV-DIST-0024` (the rejection of logicals).
-- Handbook, [The value universe](../model/01-value-universe.md),
-  [Coercion and lifting](../model/02-coercion-and-lifting.md) and
-  [Claim language and honesty](../model/06-claim-language.md).
-- Handbook projections `data/functions/FUNC.ERF.json` and `data/presence/FUNC.ERF.json` (arity,
-  classification axes, implementing module and sibling set).
-- OxFunc `crates/oxfunc_core/src/functions/special_dist_family.rs` and
-  `crates/oxfunc_core/src/functions/normal_dist_common.rs` at commit `473efa3` (the reference
-  engine's `erf_kernel`, `erf_interval`, its logical-rejecting coercion, and `erf_approx`).
+- [Microsoft: ERF function](https://support.microsoft.com/en-us/excel/functions/erf-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/normal_dist_common.rs); implementation steps and the limits identified in the text.
+- [ERF research and holdout results](../notes/evidence/2026-11-04/erf-EVIDENCE-round3.md).

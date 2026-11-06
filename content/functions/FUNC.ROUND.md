@@ -23,14 +23,14 @@ references:
     role: "the standard's own rounding directions, against which Excel's tie rule is undocumented"
 episodes: []
 body_sections:
-  - "What it does"
-  - "Try it"
-  - "Quirks"
-  - "How to implement"
-  - "Version differences"
-  - "Alternatives"
-  - "Notes"
-  - "Sources"
+  - What it does
+  - Try it
+  - Quirks
+  - How to implement
+  - Version differences
+  - Alternatives
+  - Notes
+  - Sources
 family: round_fn
 role_in_family: "The nearest-value rounder; the middle member of the three-way ROUND / ROUNDDOWN / ROUNDUP split by direction."
 ---
@@ -39,82 +39,46 @@ role_in_family: "The nearest-value rounder; the middle member of the three-way R
 
 ## What it does
 
-`ROUND(number, num_digits)` rounds a number to the requested decimal place. Positive
-`num_digits` keeps places after the decimal point, zero rounds to an integer, and negative
-values round to tens, hundreds and larger places. Both arguments are required.
-
-The observed tie rule is away from zero: `ROUND(2.5,0)` is 3 and `ROUND(-2.5,0)` is -3 on the
-named build below. Excel chooses the digit from a 15-significant-digit reading of the input.
-That matters for familiar decimal examples: `ROUND(1.005,2)` is 1.01 and `ROUND(2.675,2)` is 2.68,
-even though their stored binary values lie just below the corresponding decimal halfway points.
-
-The result is a number, not formatted text. Changing a cell's displayed decimal places does
-not perform this calculation or change the number used by later formulas.
+`ROUND(number, num_digits)` rounds to the nearest decimal position, with final decimal halves away from zero. Positive digit counts address places after the decimal point, zero the integer position, and negative counts places to its left.
 
 ## Try it
 
-Start with `=ROUND(1.005,2)`. Compare `=ROUND(-2.5,0)`, `=ROUND(1234.5,-2)` and
-`=ROUND(2.675,2)`. The browser computes with OneCalc; the Excel readings below remain a separate
-comparison, with their own build and platform.
+`=ROUND(-7.25,1)` returns `-7.3`; `=ROUND(725,-1)` returns `730`. A final half goes away from zero, including for negative values.
 
 ## Quirks
 
-### The stored binary value is not the whole rounding rule
-
-Decimal inputs usually have no finite binary64 representation. Rounding the exact stored value
-to the nearest decimal step can therefore disagree with Excel's 15-digit reading. Replacing
-ROUND with a language's default `round` is unsafe: that routine may use ties to even, and it may
-choose the digit directly from the stored value.
-
-### Precision arguments can wrap
-
-On Excel 16.0 build 20430, `num_digits` is cut toward zero and limited to ±2147483647. A signed
-32-bit calculation of the retained significant-digit count can wrap. Consequently an enormous
-positive precision can return zero rather than leave the input alone. The boundary moves with
-the input's decimal exponent; the recorded examples below give the calls and bits.
-
-### Values near the largest finite number
-
-The recorded build 20527 can return all-ones-exponent binary64 patterns which ordinary IEEE
-arithmetic calls NaNs, while Excel's cell machinery treats them as numbers and displays a huge
-decimal. Saving the workbook writes these values as `#NUM!`; recalculating can restore the
-patterns. They must not be silently interpreted as ordinary finite results. The detailed
-examples below distinguish cell inspection, arithmetic and file round trips.
+The recorded functions first read fifteen significant decimal digits. Asking to retain more digits can therefore change an input that mathematically needs no rounding. For example, the recorded `ROUND(-1594628480062905,14)` returns `-1594628480062900`. Huge digit counts have recorded integer-conversion behaviour rather than a simple “keep everything” rule. Near the normal-range boundary and overflow, worksheet publication needs separate handling.
 
 ## How to implement
 
-For an ordinary mathematical decimal rounder, decompose the binary64 input into an exact
-integer significand and power of two. Apply the decimal scale as integer powers of 2 and 5,
-compare the remainder with halfway, choose a declared tie rule, then convert the resulting
-decimal rational back to binary64. This avoids overflow and spurious ties from a floating-point
-multiply followed by a divide. It intentionally does not reproduce Excel's preliminary reading.
+First construct the number’s fifteen-significant-digit **reading**. Extract the exact binary64 value and find its decimal exponent `e` by comparisons with exact powers of ten, so `10^e <= abs(x) < 10^(e+1)`. Put `s=14-e`. When `abs(s)<=27`, evaluate `abs(x)*10^s` (or `abs(x)/10^(-s)`) with a 64-bit significand and extended exponent range, rounding to nearest/even. **Do not store that scaled value to binary64 before the integer decision.** Round it to an integer: exact halves go down for ROUND’s reading, up for the directed functions’ readings. Retain the sign and the exact decimal value `integer*10^(-s)`.
 
-To target the measured Excel route, preserve its separate stages: normalize the magnitude to
-15 significant decimal digits using the observed x87 intermediate precision; apply that stage's
-tie rule; truncate and clamp the precision argument; form the significant-digit count with
-32-bit wrapping; then round at the requested digit away from zero and restore the sign.
-The preliminary half rule for ROUND differs from the one observed for ROUNDDOWN, ROUNDUP and
-TRUNC. One shared generic rounding instruction does not describe both stages.
+This reading step is a measured reconstruction with a known counterexample even inside the stated scale range. For `abs(s)>27`, Excel’s scaling is still open; the current code falls back to exact binary64-to-decimal rounding to fifteen digits. That fallback is a candidate, not an identified Excel stage.
 
-Probe every transition in decimal exponent, halfway inputs and their immediate binary64
-neighbours, large positive and negative precision, zero, and the upper finite boundary. A
-scale-and-round formula alone does not establish agreement on those regions. Matching the
-near-overflow cell encodings also requires their publication and file-serialization rules.
+1. Truncate `num_digits` toward zero, clamp to `[-2147483647,2147483647]`, and call the integer `D`.
+2. Compute `k=D+e+1` with signed 32-bit wrapping. A negative `k` returns zero; `k>=15` keeps the reading.
+3. Otherwise round the exact decimal reading at unit `10^(-D)`, choosing the larger magnitude at a half. Convert the resulting decimal to nearest binary64. Preserve the original input if its exact value equals the whole reading.
+4. A final subnormal result is flushed to zero. The overflow packing observed in the notes can produce nonfinite bit patterns; a host that cannot publish them must retain an explicit refusal.
+
+Worked: `x=-7.25` has `e=0`, `s=14`; its reading is exactly `-7.25`. For `D=1`, `k=2`. At unit `0.1` the magnitude is `72.5` units, so choose 73 and return the binary64 value for `-7.3`. For a count-overflow control, `ROUND(1.5,2147483647)` wraps `k` negative and returns zero on the recorded build.
 
 ## Version differences
 
-The observations below name builds 20430 and 20527, including a full 16.0.20527.20088 capture
-where available. They cover different experiments, so differences in the recorded examples
-must not be read as a demonstrated change between those builds. CPU information is included
-only where the capture records it. Other platforms and versions still need corresponding probes.
+The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.
+
+| Excel 16.0 build | Platform and CPU | Captured inputs |
+|---|---|---:|
+| 19929 | Windows, bitness not recorded, CPU not recorded | 135 |
+| 20430 | Windows, 64-bit-bit, AMD Ryzen 7 4800H with Radeon Graphics | 4,071 |
+| 20430 | Windows, 64-bit-bit, CPU not recorded | 32,874 |
+
+The record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.
+
+[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ROUND.json).
 
 ## Alternatives
 
-[ROUNDDOWN](FUNC.ROUNDDOWN.md) chooses toward zero; [ROUNDUP](FUNC.ROUNDUP.md) chooses away from
-zero. [TRUNC](FUNC.TRUNC.md) discards decimal places. [MROUND](FUNC.MROUND.md) rounds to a stated
-multiple; its halfway behaviour has its own numerical questions. A number format changes only
-presentation. For a new mathematical API, an explicitly specified decimal or rational rounding
-algorithm may be preferable to reproducing Excel's preliminary 15-digit reading.
+[ROUND](FUNC.ROUND.md) chooses a nearest decimal; [MROUND](FUNC.MROUND.md) chooses a multiple. [INT](FUNC.INT.md) floors negatives; [TRUNC](FUNC.TRUNC.md) removes their fraction toward zero.
 
 ## Notes
 
@@ -274,9 +238,6 @@ Evidence:
 
 ## Sources
 
-- [Microsoft: ROUND function](https://support.microsoft.com/en-us/excel/functions/round-function).
-- [Precision count](../notes/FN-ROUND-001.json), [15-digit reading](../notes/FN-ROUND-002.json),
-  [near-overflow encodings](../notes/FN-ROUND-003.json) and
-  [tie examples](../notes/FN-ROUND-004.json).
-- Gay, *Correctly rounded binary-decimal and decimal-binary conversions*, Numerical Analysis
-  Manuscript 90-10 (1990), for the mathematical conversion problem.
+- [Microsoft: ROUND function](https://support.microsoft.com/en-us/excel/functions/round-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/rounding.rs); implementation steps and the limits identified in the text.
+- [Rounding research](../notes/evidence/2026-11-04/rounding-EVIDENCE.md): measured reading, count rules, overflow and remaining failures.

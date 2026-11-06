@@ -424,14 +424,15 @@ public static class ExcelEnvironments
         }
         if (record is not null && record.HasPageSection)
         {
-            var pv = lines.FindIndex(bs, l => l == "  - Page vocabulary" || l == "  - \"Page vocabulary\"");
+            var anchor = lines.Contains("## Page vocabulary") ? "Page vocabulary" : "Sources";
+            var pv = lines.FindIndex(bs, l => l == "  - " + anchor || l == "  - \"" + anchor + "\"");
             if (pv < 0 || pv > fmEnd)
-                throw new InvalidDataException("body_sections lacks Page vocabulary");
+                throw new InvalidDataException($"body_sections lacks {anchor}");
             var quoted = lines[pv].Contains('"');
             lines.Insert(pv, quoted ? "  - \"" + SectionTitle + "\"" : "  - " + SectionTitle);
-            var h2 = lines.FindIndex(l => l == "## Page vocabulary");
+            var h2 = lines.FindIndex(l => l == "## " + anchor);
             if (h2 < 0)
-                throw new InvalidDataException("no '## Page vocabulary' heading");
+                throw new InvalidDataException($"no '## {anchor}' heading");
             var block = RenderSection(record).TrimEnd('\n').Split('\n');
             lines.InsertRange(h2, block.Append(""));
         }

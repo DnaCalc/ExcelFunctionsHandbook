@@ -16,16 +16,14 @@ references:
     role: "definition of the error function"
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Numerical notes
-  - What has not been checked
+  - What it does
+  - Try it
+  - Quirks
+  - How to implement
+  - Version differences
+  - Alternatives
   - Notes
   - Excel versions, platforms and CPUs
-  - Page vocabulary
   - Sources
 family: special_dist_family
 role_in_family: >-
@@ -35,117 +33,57 @@ role_in_family: >-
 
 # ERF.PRECISE
 
-## What it computes
+## What it does
 
-`ERF.PRECISE(x)` returns the **error function** integrated from 0 to x:
+`ERF.PRECISE(x)` returns the normalised integral of `exp(-t*t)` from zero to x. The normalisation factor is `2/sqrt(pi)`. It is odd: negating x negates the mathematical result.
 
-    ERF.PRECISE(x)  =  erf(x)  =  (2/√π) ∫₀^x e^(−t²) dt
+## Try it
 
-It is [ERF](FUNC.ERF.md) without the second limit. The mathematics, the shape of the function, and
-its uses are on that page and are not repeated here.
+`=ERF.PRECISE(0.25)` is about `0.276326390168237`. `=ERF.PRECISE(-0.25)` has the negative value.
 
-**The name does not promise more accuracy.** The rational described below was read from this
-function's rows, and the notes below treat `ERF` as sharing it, so the recorded evidence gives no
-sign of a more accurate routine behind the longer name.
+## Quirks
 
-## Arguments
+Nonnumeric arguments give `#VALUE!`. The PRECISE name does not imply correctly rounded results on every input. The measured below-half stage and the unresolved upper stage need separate treatment. Subnormal inputs transferred to worksheet cells can be read back as zero, so the input route is part of a useful reproduction.
 
-| Argument | Meaning | Default |
-|---|---|---|
-| `x` | The point the integral runs to from 0. Required. | — |
+## How to implement
 
-One argument; the projection declares an arity of exactly 1.
+For normal `abs(x)<0.5`, use `R(op)=RN53(RN64(op))`: round each operation to a 64-bit significand, then store to binary64. Decode the following hexadecimal strings as **binary64 bit patterns**, not integers converted to floating-point values.
 
-Microsoft's syntax section calls the argument `x` and describes it as the lower bound for the
-integration, and its one remark calls it `lower_limit`. Both are carried over from `ERF`. It is
-mathematically the upper limit of an integral starting at 0.
+| Power | Numerator coefficient | Denominator coefficient |
+|---:|---|---|
+| 0 | `3ff1df5e70c7956b` | `3fefada15778ece6` |
+| 1 | `3fc201d8627a7d2c` | `3fdd191aca8d2499` |
+| 2 | `3fa6f289d165b303` | `3fb79f85ba68803e` |
+| 3 | `3f5d93a5813e372c` | `3f856de5da86af12` |
+| 4 | `3f2932767df264b2` | `3f4609751b5b6488` |
+| 5 | — | `3ef4f20a473a5ab0` |
 
-Argument handling matches `ERF`. Numeric text is accepted, `ERF.PRECISE("2")` giving the same value
-as `ERF.PRECISE(2)`; a logical is `#VALUE!`, typed or held in a cell; an empty cell reads as 0; and
-an array lifts, `ERF.PRECISE({2;3})` returning a 2-by-1 array (builds 20026 and 20527).
+1. Store `t=R(x*x)`.
+2. Evaluate each polynomial by Horner, beginning with its highest-power coefficient. Every step is `v=R(R(v*t)+coefficient)`. Keep the multiplication store separate from the addition store; do not use FMA.
+3. Store `p=R(x*N)` and return `R(p/D)`.
 
-## Result and edge cases
+Worked `x=0.25`: `t=0.0625`; the staged coefficient evaluation gives `N=1.126001525484713`, `D=1.018724202200851`, `p=0.2815003813711783`, and result `0.276326390168237` (`0x3fd1af54e232d60a`). These are outputs of the stated reconstruction, with all input coefficients retained above.
 
-Returns `Number`.
+The degrees and stores are supported by discriminating readings. The final bits of several higher-order coefficients remain open: the fixed c14 model matched 59,982 of a fresh 60,000-row holdout. Above or at the half boundary a different body is needed; do not extrapolate this polynomial ratio. The upper ERFC exponential stage is measured, but its remaining rational factor is a stand-in. No published Handbook suite establishes a whole-domain equality claim.
 
-- **The documented examples** `ERF.PRECISE(0.745)` and `ERF.PRECISE(1)` are printed by Microsoft as
-  `0.70792892` and `0.84270079`, and the recorded `ERF.PRECISE(1)` agrees with the correctly rounded
-  value in every digit (build 20131).
-- **Saturation.** The result is below 1 at x = 5.875 and exactly 1 at 5.999999999999999 (build
-  20131). The true crossing, where erf rounds to 1 in binary64, is near 5.92.
-- **Tiny arguments** give about 1.128·x. One unit high is normal here, as the notes below show.
-- **Subnormal arguments** cannot be asked through a cell: Excel reads a subnormal written to a cell
-  back as 0.
+## Version differences
 
-## Errors
+The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.
 
-As documented on Microsoft's page:
+| Excel 16.0 build | Platform and CPU | Captured inputs |
+|---|---|---:|
+| 19929 | Windows, bitness not recorded, CPU not recorded | 42 |
+| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 409,213 |
 
-| Error | Condition |
-|---|---|
-| `#VALUE!` | the argument is nonnumeric |
+- XC-ERF.PRECISE-001: build 19929 versus build 20131; 1 same-input pairs, 0 differing answers. Compared axes: excel-build. Numeric answers were compared by their recorded binary64 bits; other answers by typed value.
 
-As recorded on build 20026, adding to that: `ERF.PRECISE("")` and `ERF.PRECISE(TRUE)` are `#VALUE!`,
-and `ERF.PRECISE(NA())` is `#N/A`. No `#NUM!` is documented, and none appears in the recorded rows.
+Agreement on these compared inputs does not establish agreement on unmeasured inputs.
 
-## Relationships
+[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.ERF.PRECISE.json).
 
-- **[ERF](FUNC.ERF.md)** — the same function, with an optional second limit. Use `ERF` for an
-  integral between two points.
-- **`ERFC.PRECISE`** — the complement. Below 0.5 the notes below record that it is 1 less this
-  value. From 0.5 up the relation runs the other way, as *Numerical notes* describes.
-- **[GAUSS](FUNC.GAUSS.md)** and **[NORM.S.DIST](FUNC.NORM.S.DIST.md)** — the normal distribution in
-  this function's terms.
-- **[GAMMA.DIST](FUNC.GAMMA.DIST.md)** — mathematically, erf(x) = P(½, x²) for x ≥ 0, where P is
-  the regularized lower incomplete gamma function. Evidence record `EV-DIST-0026` holds the
-  Excel-against-Excel comparison: `GAMMA.DIST(k²/1024, 1/2, 1, TRUE)` against `ERF.PRECISE(k/32)`.
-  That comparison does not identify this function's source; see *Numerical notes*.
+## Alternatives
 
-## Numerical notes
-
-**Below 0.5.** The notes below give the stored (4, 5) rational and its full staging. All 618,225
-recorded rows with |x| < 0.5 match it. Up to 3 units separate it from a correctly rounded erf, and
-400 of the 654 rows in [0.25, 0.5) on build 20131 differ from that value. The source table is not
-identified.
-
-**From 0.5 up.** The notes below do not cover this range for this function. On the 187 inputs from
-0.5 to 6 at which `ERF.PRECISE` and `ERFC.PRECISE` were both read, `ERF.PRECISE(x)` equals 1 minus
-`ERFC.PRECISE(x)` computed in binary64, every time (build 20131, AMD Ryzen 7 4800H). That was
-checked while writing this page. Of the 212 recorded rows in [0.5, 6], 192 are correctly rounded
-and the other 20 are within 2 units. See [ERF](FUNC.ERF.md) for why the complement hides the noise
-of `ERFC`.
-
-**`EV-DIST-0026` is out of date on this function's source.** The record predates the notes. It
-attributes `ERF.PRECISE` and `ERFC.PRECISE` to the a < 1 branches of the NSWC `GRATIO` routine and
-says no coefficient table exists. Below 0.5 FN-ERF.PRECISE-001 replaces that attribution: Excel
-uses a stored (4, 5) rational from a table not yet identified. From 0.5 up the notes name no source
-for this function, so nothing on this page supports the record's attribution there either. The
-record is kept unchanged as the upstream statement of its date. Its figures remain what its own
-warning says they are: comparisons of Excel with mathematical truth, Excel with Excel, and research
-models. None is a pass rate for any implementation.
-
-**Reference engine.** At the commit named under Sources it calls a general-purpose library `erf`,
-and does not implement the rational.
-
-## What has not been checked
-
-No Handbook vector suite exists for `ERF.PRECISE`; `vectors/` publishes nothing at this revision, so
-no suite-scoped claim exists for it.
-
-The rational below 0.5 is the best-measured result in this family. What is still open is what the
-notes below list: the last bits of the coefficients of order 3 and above, the source table (Hart's
-tables have not been checked), which branch owns x = 0.5, and subnormal arguments. Two fresh
-random sets on build 20527 show a small residue of unexplained rows, mostly in [0.25, 0.5).
-
-Beyond those:
-
-1. **The range from 0.5 up is thinly recorded.** Apart from the 2,000 consecutive doubles from 0.5
-   up that FN-ERF.PRECISE-001 reads to place the cut, only 212 rows on record lie there, stopping
-   at about 6, and the factor that the complement depends on is unidentified, as the notes on `ERFC` record.
-2. **Negative arguments above 0.5.** No such row is on record for this surface. The rational below
-   0.5 is odd by construction, and `ERF` has a few negative rows on build 19929.
-3. **Other platforms.** The recorded answers are from Windows, on builds 19929 to 20527. No reading
-   from a Mac, Excel for the web, 32-bit Excel or an Intel CPU is on record.
+[ERFC](FUNC.ERFC.md) computes the complementary tail directly. [NORM.S.DIST](FUNC.NORM.S.DIST.md) provides a standard-normal CDF with a different argument transformation.
 
 ## Notes
 
@@ -247,33 +185,8 @@ Evidence for every row: [`content/evidence/environments/FUNC.ERF.PRECISE.json`](
 
 <!-- efh:environments end -->
 
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| erf | The mathematical error function |
-| staging | The order of operations and the precision each result is held in |
-| unit | One unit in the last place of a binary64 result |
-
 ## Sources
 
-- Microsoft, "ERF.PRECISE function" —
-  <https://support.microsoft.com/en-us/office/erf-precise-function-9a349593-705c-4278-9a98-e4122831a8e0>
-  (the description, the argument, the single `#VALUE!` remark and the two examples).
-- NIST Digital Library of Mathematical Functions, §7.2 and §7.11 — <https://dlmf.nist.gov/7.2>
-  (definition and the incomplete-gamma relation).
-- The recorded Excel answers the notes below draw on, and those this page adds to them: argument
-  probes on Excel 16.0 build 20026 and build 20527, and the `ERF.PRECISE` and `ERFC.PRECISE` answers
-  on build 20131, AMD Ryzen 7 4800H. The statements on this page that go beyond the notes were read
-  from those files and compared with mpmath at 300 bits while this page was written; each is marked
-  where it appears.
-- Handbook evidence records `EV-DIST-0024` (the rejection of logicals) and `EV-DIST-0026` (what the
-  older figures for this surface are, and are not).
-- Handbook, [Coercion and lifting](../model/02-coercion-and-lifting.md) and
-  [Claim language and honesty](../model/06-claim-language.md).
-- Handbook projections `data/functions/FUNC.ERF.PRECISE.json` and
-  `data/presence/FUNC.ERF.PRECISE.json` (arity, classification axes, implementing module and sibling
-  set).
-- OxFunc `crates/oxfunc_core/src/functions/special_dist_family.rs` and
-  `crates/oxfunc_core/src/functions/normal_dist_common.rs` at commit `473efa3` (the reference
-  engine's `erf_precise_kernel` and `erf_approx`).
+- [Microsoft: ERF.PRECISE function](https://support.microsoft.com/en-us/excel/functions/erf-precise-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/normal_dist_common.rs); implementation steps and the limits identified in the text.
+- [ERF research and holdout results](../notes/evidence/2026-11-04/erf-EVIDENCE-round3.md).
