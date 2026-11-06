@@ -34,12 +34,30 @@ role_in_family: null
 
 The equation may have no acceptable root or more than one root; guess and search behaviour can affect the answer. Nonconvergence gives `#NUM!` under the documented policy. A returned monthly rate times twelve is a nominal annual calculation, not a change of the function’s period units.
 
-
 Microsoft describes convergence within `0.0000001` after at most twenty iterations. That is the public stopping description, not a specification of every step in the current alternative solver. Comparing the returned residual alone does not establish Excel's root-selection or stopping behavior.
 
 ## How to implement
 
-Form the annuity balance residual `pv*(1+r)^n+pmt*(1+r*type)*((1+r)^n-1)/r+fv`, with its zero-rate limit handled explicitly. Starting from guess, search a valid rate domain with guarded Newton/secant steps and a bracketed fallback. The current solver has its own iteration, bracketing and root-polishing policy; it is not identified simply by the PMT operation tree. Check the residual and retain the documented failure result rather than returning a last iterate unconditionally. Remaining root-selection and numeric differences are recorded.
+The following is the current candidate’s algorithm, rather than an identified Excel iteration schedule. Its residual and stopping stages are distinct from PMT’s measured discount route.
+
+### Residual
+
+With ordinary binary64 arithmetic, at `abs(r)<1e-12` use `F(r)=fv+pv+pmt*n`. Otherwise obtain `g=POWER(1+r,n)` through the current growth helper, set `timing=1` for end payments or `1+r` for beginning payments, form `term=timing*(g-1)/r`, and evaluate `F(r)=fv+pv*g+pmt*term` in that association. Reject invalid growth or nonfinite results. This small-rate band belongs to the RATE residual; PMT’s exact-zero branch does not replace it.
+
+### Search
+
+1. Start with the pair `(0,F(0))` and `(guess,F(guess))`, defaulting guess to 0.1. The current domain bound is `-0.999999999`; calls at or below it need the source’s explicit boundary/error handling.
+2. Accept a search residual with magnitude at most `1e-7`. If two successive residuals have opposite signs, bisect that endpoint pair for at most 64 steps, accepting the same residual threshold. After those steps the helper also accepts a bracket width at most `1e-12`.
+3. Otherwise take a secant step `next=r-F(r)*(r-prev)/(F(r)-F(prev))`. If the residual difference’s magnitude is at most `1e-12`, use a finite-difference Newton slope instead: `h=max(abs(r),1)*1e-6`, sample at `max(r-h,domain_bound)` and `r+h`, and divide the residual difference by the actual sample separation. A slope of magnitude at most `1e-12` fails.
+4. Permit twenty search iterations. A nonfinite next rate or one at/below the domain bound leaves that loop. If no acceptable root was found, the source searches from zero: positive rates start at `max(abs(guess),0.1)` and double; negative probes move halfway from the current rate toward minus one. Each side has a limit of 64 probes, and a found sign change uses the bisection helper. Evaluation errors still propagate.
+
+### Refinement and remaining limits
+
+A successful seed then gets up to sixty central-difference Newton refinements. Here the sampling width is `h=max(abs(r),1e-4)*1e-6`, distinct from the fallback width above. Stop at a stored-rate fixpoint, invalid next rate, failed residual or noncontracting step. At the latter boundary the source keeps whichever candidate has the smaller absolute residual.
+
+For the one-period example, F(0) is minus 250 and F(0.1) minus 150. Their secant line reaches r=0.25, whose residual is zero. Longer or nearly flat problems need the remaining phases; a small currency residual alone does not guarantee a similarly small rate error.
+
+The source retains a counterexample at `RATE(360,-1073.64,200000)`: its polished result bits `0x3f71110b20485718` remain 55 representable steps below the recorded Excel target `0x3f71110b2048574f`. Root selection, the residual’s arithmetic and Excel’s full stopping rules remain open. These candidate steps provide something concrete to implement and compare without claiming whole-function agreement.
 
 ## Version differences
 
