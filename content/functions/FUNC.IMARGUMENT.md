@@ -27,15 +27,19 @@ role_in_family: null
 
 ## Try it
 
-`=IMARGUMENT("i")` returns approximately `1.5707963267949`. The input lies on the positive imaginary axis, a quarter turn from the positive real axis.
+`=IMARGUMENT("-1+i")` is about `2.356194490192345` radians, or three quarters of a half-turn. The negative real and positive imaginary components put the point in the second quadrant. `=IMARGUMENT("i")` is about `1.5707963267949`, a quarter turn.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. The output here is numeric. The current code returns `#DIV/0!` at zero and when a nonzero real component makes the ratio `b/a` overflow. It uses a reduced arctangent of that ratio plus quadrant correction; replacing it by atan2 changes those compatibility boundaries.
+Angles are in radians. Zero has no direction and the current kernel returns `#DIV/0!`. Its ratio-based route also gives `#DIV/0!` if `b/a` overflows for nonzero a, even though a mathematical principal angle exists. This differs from a general `atan2` implementation and from the fallback inside IMSQRT.
+
+Complex text uses lowercase `i` or `j`. Malformed text gives `#NUM!` in the parser; a logical argument gives `#VALUE!` in the wrapper. The result here is a number, not complex text.
 
 ## How to implement
 
-Parse `inumber` into `a`, `b` and an optional suffix, then compute `the principal angle of (a,b)`. The current code returns `#DIV/0!` at zero and when a nonzero real component makes the ratio `b/a` overflow. It uses a reduced arctangent of that ratio plus quadrant correction; replacing it by atan2 changes those compatibility boundaries. Apply the worksheet error policy before returning a number. Separate lexical validation from the numerical operation so inputs like a real number, a pure imaginary unit and a full pair can share the same calculation.
+Parse the pair `(a,b)` and normalize signed zeros. If `a=0`, reject `b=0`; otherwise return `sign(b)*pi/2`. For nonzero a, compute the binary64 ratio `q=b/a` and reject an infinite ratio. Evaluate the current reduced scalar arctangent at q. If `a<0`, subtract pi when `b<0`, or add pi otherwise. Flush a subnormal angle to zero before numeric publication.
+
+For `-1+i`, the ratio is minus one. Its reduced arctangent is near `-pi/4`; adding pi for the second quadrant gives `3*pi/4`. This is an explicit evaluation order from the current code. The arctangent approximation is a separate leaf; algebraically replacing the route with `atan2(b,a)` changes the recorded overflow boundary.
 
 ## Version differences
 

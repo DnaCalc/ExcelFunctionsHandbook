@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[SYD](https://handbook.dnacalc.com/functions/SYD.html) front-loads the allowance; [DB](FUNC.DB.md) and [DDB](FUNC.DDB.md) use declining-balance methods.
+[SYD](FUNC.SYD.md) front-loads the allowance; [DB](FUNC.DB.md) and [DDB](FUNC.DDB.md) use declining-balance methods.
 
 ## Sources
 

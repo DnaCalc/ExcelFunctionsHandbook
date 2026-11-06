@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign conventions. [OCT2DEC](https://handbook.dnacalc.com/functions/OCT2DEC.html) is the reverse direction.
+[BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign conventions. [OCT2DEC](FUNC.OCT2DEC.md) is the reverse direction.
 
 ## Sources
 

@@ -55,7 +55,7 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 ## Alternatives
 
-[CHISQ.INV.RT](https://handbook.dnacalc.com/functions/CHISQ.INV.RT.html) inverts the corresponding probability. [CHISQ.TEST](https://handbook.dnacalc.com/functions/CHISQ.TEST.html) computes a test probability from observed and expected counts.
+[CHISQ.INV.RT](FUNC.CHISQ.INV.RT.md) inverts the corresponding probability. [CHISQ.TEST](FUNC.CHISQ.TEST.md) computes a test probability from observed and expected counts.
 
 ## Excel versions, platforms and CPUs
 

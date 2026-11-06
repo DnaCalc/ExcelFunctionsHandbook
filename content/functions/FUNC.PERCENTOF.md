@@ -43,7 +43,7 @@ The current implementation comments retain COM readings from Excel 16.0 build 20
 
 ## Alternatives
 
-`SUM(subset)/SUM(all)` expresses the documented arithmetic relationship. [GROUPBY](https://handbook.dnacalc.com/functions/GROUPBY.html) and [PIVOTBY](https://handbook.dnacalc.com/functions/PIVOTBY.html) supply grouping context.
+`SUM(subset)/SUM(all)` expresses the documented arithmetic relationship. [GROUPBY](FUNC.GROUPBY.md) and [PIVOTBY](FUNC.PIVOTBY.md) supply grouping context.
 
 ## Sources
 

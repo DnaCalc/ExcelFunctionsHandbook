@@ -27,15 +27,17 @@ role_in_family: null
 
 ## Try it
 
-`=IMAGINARY("2-3i")` returns `-3`. The coefficient retains its sign; the other component does not affect this extraction.
+`=IMAGINARY("2-3i")` returns `-3`; `=IMAGINARY("-j")` returns `-1`. A real-only input such as `=IMAGINARY(7)` returns zero. The answer is the signed coefficient, without its suffix.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. The output here is numeric. The result is the signed coefficient, without the imaginary unit; a real-only input has imaginary coefficient zero.
+A pure imaginary unit has an implicit coefficient of one; `-i` and `-j` have coefficient minus one. A real-only input has coefficient zero. The current parser rejects malformed text with `#NUM!` and the wrapper rejects logical values with `#VALUE!`. Fifteen-leading-digit text conversion is separate from the numeric result, so long coefficient strings need their own parsing tests.
 
 ## How to implement
 
-Parse `inumber` into `a`, `b` and an optional suffix, then compute `b`. The result is the signed coefficient, without the imaginary unit; a real-only input has imaginary coefficient zero. Apply the worksheet error policy before returning a number. Separate lexical validation from the numerical operation so inputs like a real number, a pure imaginary unit and a full pair can share the same calculation.
+Admit a numeric scalar as `(value,0)`. For text, recognize lowercase `i` or `j`, locate the component separator without splitting an exponent sign, and parse the two decimal coefficients. An absent real part means zero; a suffix with no magnitude means one, with its written sign.
+
+Return the imaginary coefficient as a numeric value. For `2-3i`, the parsed pair is `(2,-3)` and the output is minus three. For `-j`, the pair is `(0,-1)`. No multiplication, modulus or complex-text formatting is needed after parsing. Use the source parser's fifteen-leading-digit conversion when reproducing its text route, rather than silently admitting the full precision of a different language parser.
 
 ## Version differences
 
@@ -51,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[COMPLEX](FUNC.COMPLEX.md) constructs text from coordinates. [IMARGUMENT](https://handbook.dnacalc.com/functions/IMARGUMENT.html) returns the phase angle.
+[IMREAL](FUNC.IMREAL.md) extracts the real coefficient. [COMPLEX](FUNC.COMPLEX.md) assembles a pair, while [IMCONJUGATE](FUNC.IMCONJUGATE.md) changes the imaginary sign and returns complex text.
 
 ## Sources
 

@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[CHISQ.INV](https://handbook.dnacalc.com/functions/CHISQ.INV.html) inverts the corresponding probability. [CHISQ.TEST](https://handbook.dnacalc.com/functions/CHISQ.TEST.html) computes a test probability from observed and expected counts.
+[CHISQ.INV](FUNC.CHISQ.INV.md) inverts the corresponding probability. [CHISQ.TEST](FUNC.CHISQ.TEST.md) computes a test probability from observed and expected counts.
 
 ## Sources
 

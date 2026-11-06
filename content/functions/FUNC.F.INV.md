@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[F.DIST](FUNC.F.DIST.md) gives a forward probability; [F.INV](https://handbook.dnacalc.com/functions/F.INV.html) gives a critical value; [F.TEST](https://handbook.dnacalc.com/functions/F.TEST.html) starts from samples.
+[F.DIST](FUNC.F.DIST.md) gives a forward probability; [F.INV](FUNC.F.INV.md) gives a critical value; [F.TEST](FUNC.F.TEST.md) starts from samples.
 
 ## Sources
 

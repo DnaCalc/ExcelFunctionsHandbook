@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[CHISQ.DIST.RT](FUNC.CHISQ.DIST.RT.md) evaluates a supplied statistic; [CHISQ.INV.RT](FUNC.CHISQ.INV.RT.md) finds a critical value. [F.TEST](https://handbook.dnacalc.com/functions/F.TEST.html) compares sample variances.
+[CHISQ.DIST.RT](FUNC.CHISQ.DIST.RT.md) evaluates a supplied statistic; [CHISQ.INV.RT](FUNC.CHISQ.INV.RT.md) finds a critical value. [F.TEST](FUNC.F.TEST.md) compares sample variances.
 
 ## Sources
 

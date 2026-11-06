@@ -54,7 +54,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[PMT](FUNC.PMT.md) solves the payment; [RATE](https://handbook.dnacalc.com/functions/RATE.html) solves the rate; [PDURATION](https://handbook.dnacalc.com/functions/PDURATION.html) describes growth without intervening payments.
+[PMT](FUNC.PMT.md) solves the payment; [RATE](FUNC.RATE.md) solves the rate; [PDURATION](FUNC.PDURATION.md) describes growth without intervening payments.
 
 ## Sources
 

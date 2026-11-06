@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[XIRR](https://handbook.dnacalc.com/functions/XIRR.html) is the paired dated calculation; [NPV](FUNC.NPV.md) and [IRR](FUNC.IRR.md) use equally spaced periods.
+[XIRR](FUNC.XIRR.md) is the paired dated calculation; [NPV](FUNC.NPV.md) and [IRR](FUNC.IRR.md) use equally spaced periods.
 
 ## Sources
 

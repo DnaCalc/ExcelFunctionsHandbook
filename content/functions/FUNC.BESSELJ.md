@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BESSELI](FUNC.BESSELI.md) and [BESSELK](FUNC.BESSELK.md) are modified Bessel functions. [BESSELY](https://handbook.dnacalc.com/functions/BESSELY.html) supplies the other ordinary kind.
+[BESSELI](FUNC.BESSELI.md) and [BESSELK](FUNC.BESSELK.md) are modified Bessel functions. [BESSELY](FUNC.BESSELY.md) supplies the other ordinary kind.
 
 ## Sources
 

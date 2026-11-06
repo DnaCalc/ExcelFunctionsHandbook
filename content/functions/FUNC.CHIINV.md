@@ -55,7 +55,7 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 ## Alternatives
 
-[CHISQ.DIST.RT](FUNC.CHISQ.DIST.RT.md) supplies the forward probability; [CHISQ.TEST](https://handbook.dnacalc.com/functions/CHISQ.TEST.html) returns a test p-value directly.
+[CHISQ.DIST.RT](FUNC.CHISQ.DIST.RT.md) supplies the forward probability; [CHISQ.TEST](FUNC.CHISQ.TEST.md) returns a test p-value directly.
 
 ## Excel versions, platforms and CPUs
 

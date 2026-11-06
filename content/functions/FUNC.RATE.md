@@ -53,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IRR](FUNC.IRR.md) accepts varying periodic flows; [XIRR](https://handbook.dnacalc.com/functions/XIRR.html) uses dates; [PMT](FUNC.PMT.md) computes a payment for a supplied rate.
+[IRR](FUNC.IRR.md) accepts varying periodic flows; [XIRR](FUNC.XIRR.md) uses dates; [PMT](FUNC.PMT.md) computes a payment for a supplied rate.
 
 ## Excel versions, platforms and CPUs
 

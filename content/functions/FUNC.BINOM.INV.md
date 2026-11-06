@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BINOM.DIST](FUNC.BINOM.DIST.md) maps a count to a probability; [CRITBINOM](https://handbook.dnacalc.com/functions/CRITBINOM.html) supplies the other spelling.
+[BINOM.DIST](FUNC.BINOM.DIST.md) maps a count to a probability; [CRITBINOM](FUNC.CRITBINOM.md) supplies the other spelling.
 
 ## Sources
 

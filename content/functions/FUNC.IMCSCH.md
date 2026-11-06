@@ -23,11 +23,11 @@ role_in_family: null
 
 ## What it does
 
-`IMCSCH(inumber)` returns the complex hyperbolic cosecant, mathematically the reciprocal of IMSINH. It returns complex text even if the imaginary component is zero.
+`IMCSCH(inumber)` returns the complex hyperbolic cosecant, mathematically the reciprocal of IMSINH. It returns complex text, including when the answer has only a real component.
 
 ## Try it
 
-`=IMCSCH("1")` returns approximately `"0.850918128239322"`. The reciprocal reverses a pure imaginary value’s imaginary sign; it is not a component-by-component reciprocal.
+`=IMCSCH("1")` gives real text about `"0.850918128239322"`, the reciprocal of `sinh(1)`. At zero the denominator is zero and the current reciprocal helper returns `#NUM!`.
 
 ## Quirks
 

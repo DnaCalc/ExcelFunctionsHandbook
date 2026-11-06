@@ -27,11 +27,13 @@ role_in_family: null
 
 ## Try it
 
-`=IMCOSH("0")` returns `"1"`. A pure imaginary input has the real cosine as its mathematical result.
+`=IMCOSH("i")` gives real text about `"0.54030230586814"`, since the mathematical value is `cos(1)`. `=IMCOSH("0")` returns `"1"`. The pure imaginary example distinguishes hyperbolic cosine from IMCOS.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. A complex result is text, so ordinary worksheet arithmetic does not automatically treat it as a pair of numeric components. Large hyperbolic factors can overflow before final cancellation. Denominator zeros and real-axis special cases need explicit handling.
+The result is text, including for a real-only answer. Malformed complex text gives `#NUM!` in the current parser and a logical argument gives `#VALUE!` in the wrapper.
+
+On the real axis the current direct function applies the public EXP overflow domain to `abs(real)`, then calls the runtime hyperbolic primitive. It explicitly keeps the imaginary coordinate zero. IMSECH, its reciprocal companion, retains a wider runtime route, so computing the reciprocal of a separately formatted IMCOSH result need not reproduce it at the domain edge.
 
 ## How to implement
 
@@ -53,7 +55,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMEXP](FUNC.IMEXP.md) expresses the exponential relation; [IMSIN](FUNC.IMSIN.md) is a related circular function; [COMPLEX](FUNC.COMPLEX.md) constructs the input.
+[IMSECH](FUNC.IMSECH.md) is the reciprocal hyperbolic function. [IMCOS](FUNC.IMCOS.md) and [IMSIN](FUNC.IMSIN.md) are the circular companions. [COMPLEX](FUNC.COMPLEX.md) constructs an input from two numeric coefficients.
 
 ## Sources
 

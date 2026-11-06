@@ -27,11 +27,13 @@ role_in_family: null
 
 ## Try it
 
-`=IMSINH("0")` returns `"0"`. A real-only input has a real-only result; an imaginary input relates to ordinary sine.
+`=IMSINH("i")` gives about `"0.841470984807897i"`. For a pure imaginary input the real component vanishes and the imaginary component is ordinary sine. `=IMSINH("0")` returns text zero.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. A complex result is text, so ordinary worksheet arithmetic does not automatically treat it as a pair of numeric components. Large hyperbolic factors can overflow before final cancellation. Denominator zeros and real-axis special cases need explicit handling.
+Complex text uses lowercase `i` or `j`; the result is text. The current parser gives `#NUM!` for malformed text and the wrapper gives `#VALUE!` for a logical input.
+
+On the real axis the direct function checks EXP's overflow domain and keeps the imaginary component zero without evaluating an infinity-times-zero product. Its reciprocal companion IMCSCH has a wider runtime computation. Large real-axis inputs need a separate comparison from ordinary non-real pairs.
 
 ## How to implement
 
@@ -53,7 +55,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMEXP](FUNC.IMEXP.md) expresses the exponential relation; [IMSIN](FUNC.IMSIN.md) is a related circular function; [COMPLEX](FUNC.COMPLEX.md) constructs the input.
+[IMCSCH](FUNC.IMCSCH.md) is the reciprocal hyperbolic function. [IMCOS](FUNC.IMCOS.md) and [IMSIN](FUNC.IMSIN.md) are the circular companions. [COMPLEX](FUNC.COMPLEX.md) constructs an input from two numeric coefficients.
 
 ## Sources
 

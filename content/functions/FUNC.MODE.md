@@ -44,7 +44,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[MODE.SNGL](FUNC.MODE.SNGL.md) returns a single mode; [MODE.MULT](https://handbook.dnacalc.com/functions/MODE.MULT.html) returns tied modes; [MEDIAN](FUNC.MEDIAN.md) measures a different kind of centre.
+[MODE.SNGL](FUNC.MODE.SNGL.md) returns a single mode; [MODE.MULT](FUNC.MODE.MULT.md) returns tied modes; [MEDIAN](FUNC.MEDIAN.md) measures a different kind of centre.
 
 ## Notes
 

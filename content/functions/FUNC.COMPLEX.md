@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMREAL](https://handbook.dnacalc.com/functions/IMREAL.html) and [IMAGINARY](https://handbook.dnacalc.com/functions/IMAGINARY.html) recover the coefficients; [IMSUM](https://handbook.dnacalc.com/functions/IMSUM.html) and [IMPRODUCT](https://handbook.dnacalc.com/functions/IMPRODUCT.html) perform complex arithmetic.
+[IMREAL](FUNC.IMREAL.md) and [IMAGINARY](FUNC.IMAGINARY.md) recover the coefficients; [IMSUM](FUNC.IMSUM.md) and [IMPRODUCT](FUNC.IMPRODUCT.md) perform complex arithmetic.
 
 ## Sources
 

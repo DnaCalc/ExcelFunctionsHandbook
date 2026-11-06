@@ -52,7 +52,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[PRICE](FUNC.PRICE.md) performs the inverse calculation; [ODDFPRICE](https://handbook.dnacalc.com/functions/ODDFPRICE.html) and [ODDLPRICE](https://handbook.dnacalc.com/functions/ODDLPRICE.html) handle irregular coupons.
+[PRICE](FUNC.PRICE.md) performs the inverse calculation; [ODDFPRICE](FUNC.ODDFPRICE.md) and [ODDLPRICE](FUNC.ODDLPRICE.md) handle irregular coupons.
 
 ## Excel versions, platforms and CPUs
 

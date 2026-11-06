@@ -27,11 +27,13 @@ role_in_family: null
 
 ## Try it
 
-`=IMCOT("i")` returns approximately `"-1.31303528549933i"`. The denominator vanishes at zero; the current function gives `#NUM!` there.
+`=IMCOT("i")` gives about `"-1.31303528549933i"`. On this axis it is mathematically `-i*coth(1)`. `=IMCOT("0")` has a zero denominator and the current function returns `#NUM!`.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. A complex result is text, so ordinary worksheet arithmetic does not automatically treat it as a pair of numeric components. Large hyperbolic factors can overflow before final cancellation. Denominator zeros and real-axis special cases need explicit handling.
+The result is complex text and lowercase `i` or `j` is supported. Malformed complex text gives `#NUM!` in the current parser; a logical argument gives `#VALUE!` in the wrapper. Zero is a pole.
+
+For exactly real input the current helper takes a stored reciprocal of scalar tangent. It returns text zero at the finite circular-domain boundary where IMTAN gives `#NUM!`. For non-real inputs it uses a doubled-angle formula, whose denominator can vanish or overflow. These are separate compatibility branches.
 
 ## How to implement
 
@@ -53,7 +55,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMEXP](FUNC.IMEXP.md) expresses the exponential relation; [IMSIN](FUNC.IMSIN.md) is a related circular function; [COMPLEX](FUNC.COMPLEX.md) constructs the input.
+[IMTAN](FUNC.IMTAN.md) returns tangent. [IMDIV](FUNC.IMDIV.md) handles general complex division, while [COT](FUNC.COT.md) accepts a real angle.
 
 ## Sources
 

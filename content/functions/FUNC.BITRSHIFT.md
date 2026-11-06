@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=BITRSHIFT(13,2)` returns `3`. Binary `1101` becomes `11` after dropping the two low bits. A count of `-2` shifts left.
+`=BITRSHIFT(29,2)` returns `7`. Binary `11101` becomes `111` after dropping the two low bits. `=BITRSHIFT(7,-2)` returns `28`, because a negative count reverses the direction.
 
 ## Quirks
 

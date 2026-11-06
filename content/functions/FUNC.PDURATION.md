@@ -52,7 +52,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[NPER](FUNC.NPER.md) includes periodic payments; [RRI](https://handbook.dnacalc.com/functions/RRI.html) solves a growth rate from a period count; [FV](FUNC.FV.md) solves the resulting balance.
+[NPER](FUNC.NPER.md) includes periodic payments; [RRI](FUNC.RRI.md) solves a growth rate from a period count; [FV](FUNC.FV.md) solves the resulting balance.
 
 ## Excel versions, platforms and CPUs
 

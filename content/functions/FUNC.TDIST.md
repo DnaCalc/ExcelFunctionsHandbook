@@ -52,7 +52,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[T.DIST.RT](FUNC.T.DIST.RT.md) and [T.DIST.2T](FUNC.T.DIST.2T.md) make the tail explicit; [T.DIST](FUNC.T.DIST.md) provides a signed CDF/density; [TINV](https://handbook.dnacalc.com/functions/TINV.html) finds a two-tail critical value.
+[T.DIST.RT](FUNC.T.DIST.RT.md) and [T.DIST.2T](FUNC.T.DIST.2T.md) make the tail explicit; [T.DIST](FUNC.T.DIST.md) provides a signed CDF/density; [TINV](FUNC.TINV.md) finds a two-tail critical value.
 
 ## Sources
 

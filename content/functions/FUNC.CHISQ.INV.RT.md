@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[CHISQ.DIST.RT](FUNC.CHISQ.DIST.RT.md) supplies the forward probability; [CHISQ.TEST](https://handbook.dnacalc.com/functions/CHISQ.TEST.html) returns a test p-value directly.
+[CHISQ.DIST.RT](FUNC.CHISQ.DIST.RT.md) supplies the forward probability; [CHISQ.TEST](FUNC.CHISQ.TEST.md) returns a test p-value directly.
 
 ## Sources
 

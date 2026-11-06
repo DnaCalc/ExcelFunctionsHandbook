@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=IMSEC("0")` returns `"1"`. The reciprocal reverses a pure imaginary value’s imaginary sign; it is not a component-by-component reciprocal.
+`=IMSEC("i")` gives real text about `"0.648054273663885"`, the reciprocal of the mathematical `cosh(1)`. This is less than one, although a real secant away from its poles has magnitude at least one.
 
 ## Quirks
 

@@ -83,7 +83,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IPMT](FUNC.IPMT.md) and [PPMT](FUNC.PPMT.md) split interest and principal; [PV](https://handbook.dnacalc.com/functions/PV.html) and [FV](FUNC.FV.md) solve for a balance; [RATE](https://handbook.dnacalc.com/functions/RATE.html) solves for the periodic rate.
+[IPMT](FUNC.IPMT.md) and [PPMT](FUNC.PPMT.md) split interest and principal; [PV](FUNC.PV.md) and [FV](FUNC.FV.md) solve for a balance; [RATE](FUNC.RATE.md) solves for the periodic rate.
 
 ## Notes
 

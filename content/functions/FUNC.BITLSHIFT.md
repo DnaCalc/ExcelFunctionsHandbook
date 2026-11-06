@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BITRSHIFT](https://handbook.dnacalc.com/functions/BITRSHIFT.html) changes the default direction. [BITAND](FUNC.BITAND.md) extracts a bit field after shifting.
+[BITRSHIFT](FUNC.BITRSHIFT.md) changes the default direction. [BITAND](FUNC.BITAND.md) extracts a bit field after shifting.
 
 ## Sources
 

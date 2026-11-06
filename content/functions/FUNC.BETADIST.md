@@ -52,7 +52,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BETA.DIST](FUNC.BETA.DIST.md) is the current spelling. [BETAINV](https://handbook.dnacalc.com/functions/BETAINV.html) reverses the value/probability direction.
+[BETA.DIST](FUNC.BETA.DIST.md) is the current spelling. [BETAINV](FUNC.BETAINV.md) reverses the value/probability direction.
 
 ## Sources
 

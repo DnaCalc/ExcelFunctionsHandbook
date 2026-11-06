@@ -55,7 +55,7 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 ## Alternatives
 
-[YIELD](https://handbook.dnacalc.com/functions/YIELD.html) performs the inverse calculation; [ODDFPRICE](https://handbook.dnacalc.com/functions/ODDFPRICE.html) and [ODDLPRICE](https://handbook.dnacalc.com/functions/ODDLPRICE.html) handle irregular coupons.
+[YIELD](FUNC.YIELD.md) performs the inverse calculation; [ODDFPRICE](FUNC.ODDFPRICE.md) and [ODDLPRICE](FUNC.ODDLPRICE.md) handle irregular coupons.
 
 ## Excel versions, platforms and CPUs
 

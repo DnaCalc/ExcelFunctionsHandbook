@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign conventions. [DEC2BIN](https://handbook.dnacalc.com/functions/DEC2BIN.html) is the reverse direction.
+[BASE](FUNC.BASE.md) and [DECIMAL](FUNC.DECIMAL.md) provide general radix conversion with different sign conventions. [DEC2BIN](FUNC.DEC2BIN.md) is the reverse direction.
 
 ## Sources
 

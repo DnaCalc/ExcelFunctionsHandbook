@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=IMLN("1")` returns `"0"`. For a non-real example, `a+bi` with modulus one has natural-log real component zero; its phase supplies the imaginary component.
+`=IMLN("i")` gives about `"1.5707963267949i"`. The modulus is one, so the real logarithm component is zero; the positive imaginary axis supplies phase `pi/2`. `=IMLN("1")` returns text zero.
 
 ## Quirks
 
@@ -53,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMEXP](https://handbook.dnacalc.com/functions/IMEXP.html) is the exponential companion; [IMABS](FUNC.IMABS.md) and [IMARGUMENT](FUNC.IMARGUMENT.md) expose the polar ingredients.
+[IMEXP](FUNC.IMEXP.md) is the exponential companion; [IMABS](FUNC.IMABS.md) and [IMARGUMENT](FUNC.IMARGUMENT.md) expose the polar ingredients.
 
 ## Sources
 

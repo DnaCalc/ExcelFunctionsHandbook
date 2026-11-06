@@ -53,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[NPV](https://handbook.dnacalc.com/functions/NPV.html) accepts varying equally spaced amounts; [XNPV](https://handbook.dnacalc.com/functions/XNPV.html) uses dates; [PMT](FUNC.PMT.md) and [FV](FUNC.FV.md) solve other annuity variables.
+[NPV](FUNC.NPV.md) accepts varying equally spaced amounts; [XNPV](FUNC.XNPV.md) uses dates; [PMT](FUNC.PMT.md) and [FV](FUNC.FV.md) solve other annuity variables.
 
 ## Excel versions, platforms and CPUs
 

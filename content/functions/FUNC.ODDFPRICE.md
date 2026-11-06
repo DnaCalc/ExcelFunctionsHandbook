@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[ODDFPRICE](https://handbook.dnacalc.com/functions/ODDFPRICE.html) and [ODDFYIELD](https://handbook.dnacalc.com/functions/ODDFYIELD.html) form the corresponding price/yield pair. [PRICE](FUNC.PRICE.md) and [YIELD](FUNC.YIELD.md) handle regular coupons.
+[ODDFPRICE](FUNC.ODDFPRICE.md) and [ODDFYIELD](FUNC.ODDFYIELD.md) form the corresponding price/yield pair. [PRICE](FUNC.PRICE.md) and [YIELD](FUNC.YIELD.md) handle regular coupons.
 
 ## Sources
 

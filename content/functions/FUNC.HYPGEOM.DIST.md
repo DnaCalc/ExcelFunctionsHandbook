@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BINOM.DIST](FUNC.BINOM.DIST.md) models independent trials with replacement; [COMBIN](FUNC.COMBIN.md) counts combinations; [HYPGEOM.DIST](https://handbook.dnacalc.com/functions/HYPGEOM.DIST.html) exposes the cumulative switch.
+[BINOM.DIST](FUNC.BINOM.DIST.md) models independent trials with replacement; [COMBIN](FUNC.COMBIN.md) counts combinations; [HYPGEOM.DIST](FUNC.HYPGEOM.DIST.md) exposes the cumulative switch.
 
 ## Sources
 

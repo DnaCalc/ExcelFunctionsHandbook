@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[F.DIST.RT](https://handbook.dnacalc.com/functions/F.DIST.RT.html) gives a forward probability; [F.INV.RT](https://handbook.dnacalc.com/functions/F.INV.RT.html) gives a critical value; [F.TEST](https://handbook.dnacalc.com/functions/F.TEST.html) starts from samples.
+[F.DIST.RT](FUNC.F.DIST.RT.md) gives a forward probability; [F.INV.RT](FUNC.F.INV.RT.md) gives a critical value; [F.TEST](FUNC.F.TEST.md) starts from samples.
 
 ## Sources
 

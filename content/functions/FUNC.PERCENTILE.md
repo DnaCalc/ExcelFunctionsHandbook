@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[PERCENTILE.INC](FUNC.PERCENTILE.INC.md) names the inclusive convention explicitly; [PERCENTILE.EXC](https://handbook.dnacalc.com/functions/PERCENTILE.EXC.html) uses the exclusive one. [QUARTILE](https://handbook.dnacalc.com/functions/QUARTILE.html) selects a multiple of one quarter.
+[PERCENTILE.INC](FUNC.PERCENTILE.INC.md) names the inclusive convention explicitly; [PERCENTILE.EXC](FUNC.PERCENTILE.EXC.md) uses the exclusive one. [QUARTILE](FUNC.QUARTILE.md) selects a multiple of one quarter.
 
 ## Sources
 

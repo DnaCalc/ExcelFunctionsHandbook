@@ -27,15 +27,19 @@ role_in_family: null
 
 ## Try it
 
-`=IMABS("5+12i")` returns `13`. The real and imaginary coordinates form a right triangle with lengths five, twelve and thirteen.
+`=IMABS("8+15i")` returns `17`, since `8^2+15^2=289` and its square root is seventeen. `=IMABS("-4i")` returns `4`: changing direction does not change distance from zero.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. The output here is numeric. A scaled hypotenuse avoids overflow from squaring large finite components. DnaCalc uses the runtime hypotenuse primitive, rather than an unscaled sum of squares.
+The result is numeric and nonnegative. Real-only and pure-imaginary inputs are valid; a negative coefficient does not make a negative modulus. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`.
+
+Squaring each component naively can overflow even when the modulus is representable. The current implementation uses a runtime hypotenuse primitive. This differs from IMSQRT's separately observed sum-of-squares graph.
 
 ## How to implement
 
-Parse `inumber` into `a`, `b` and an optional suffix, then compute `sqrt(a*a+b*b)`. A scaled hypotenuse avoids overflow from squaring large finite components. DnaCalc uses the runtime hypotenuse primitive, rather than an unscaled sum of squares. Apply the worksheet error policy before returning a number. Separate lexical validation from the numerical operation so inputs like a real number, a pure imaginary unit and a full pair can share the same calculation.
+Parse the input as the pair `(a,b)`. A numeric scalar becomes `(a,0)`; complex text may use lowercase `i` or `j`. Return the runtime `hypot(a,b)` under the worksheet number-publication policy.
+
+For a mathematical scaled implementation, take `m=max(abs(a),abs(b))` and `t=min(abs(a),abs(b))/m`. Return zero if `m=0`; otherwise compute `m*sqrt(1+t*t)`. This bounds the squared ratio by one. It avoids intermediate square overflow, although its rounding is not a substitute for every runtime hypot result. For `8+15i`, the scaled expression is `15*sqrt(1+(8/15)^2)`, about seventeen. The lexical parser and numerical primitive are separate parts of the implementation.
 
 ## Version differences
 
@@ -51,7 +55,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[COMPLEX](FUNC.COMPLEX.md) constructs text from coordinates. [IMARGUMENT](https://handbook.dnacalc.com/functions/IMARGUMENT.html) returns the phase angle.
+[COMPLEX](FUNC.COMPLEX.md) constructs text from coordinates. [IMARGUMENT](FUNC.IMARGUMENT.md) returns the phase angle.
 
 ## Sources
 

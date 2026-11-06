@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=IMLOG10("100")` returns approximately `"2"`. For a non-real example, `a+bi` with modulus one has natural-log real component zero; its phase supplies the imaginary component.
+`=IMLOG10("i")` gives about `"0.682188176920921i"`. Its real component is zero because the modulus is one. The imaginary component is the principal phase `pi/2` divided by `ln(10)`. `=IMLOG10("100")` is approximately text two.
 
 ## Quirks
 
@@ -53,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMEXP](https://handbook.dnacalc.com/functions/IMEXP.html) is the exponential companion; [IMABS](FUNC.IMABS.md) and [IMARGUMENT](FUNC.IMARGUMENT.md) expose the polar ingredients.
+[IMEXP](FUNC.IMEXP.md) is the exponential companion; [IMABS](FUNC.IMABS.md) and [IMARGUMENT](FUNC.IMARGUMENT.md) expose the polar ingredients.
 
 ## Sources
 

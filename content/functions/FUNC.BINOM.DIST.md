@@ -65,7 +65,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BINOM.INV](https://handbook.dnacalc.com/functions/BINOM.INV.html) finds a success-count quantile; [BINOM.DIST.RANGE](FUNC.BINOM.DIST.RANGE.md) covers an interval of counts; [HYPGEOM.DIST](https://handbook.dnacalc.com/functions/HYPGEOM.DIST.html) models sampling without replacement.
+[BINOM.INV](FUNC.BINOM.INV.md) finds a success-count quantile; [BINOM.DIST.RANGE](FUNC.BINOM.DIST.RANGE.md) covers an interval of counts; [HYPGEOM.DIST](FUNC.HYPGEOM.DIST.md) models sampling without replacement.
 
 ## Sources
 

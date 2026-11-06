@@ -27,11 +27,13 @@ role_in_family: null
 
 ## Try it
 
-`=IMSIN("0")` returns `"0"`. For pure imaginary `bi`, the mathematical result is `i*sinh(b)`.
+`=IMSIN("i")` gives about `"1.1752011936438i"`. With zero real coordinate the real sine component vanishes, leaving `i*sinh(1)`. `=IMSIN("0")` returns text zero.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. A complex result is text, so ordinary worksheet arithmetic does not automatically treat it as a pair of numeric components. Large hyperbolic factors can overflow before final cancellation. Denominator zeros and real-axis special cases need explicit handling.
+The input may be numeric or complex text with lowercase `i` or `j`; the result is complex text. The current parser rejects malformed text with `#NUM!` and the wrapper rejects logical values with `#VALUE!`.
+
+The current circular helper has a real-coordinate magnitude boundary at `134217728`. The imaginary coordinate instead feeds an exponential and its reciprocal. Large coordinates can fail in either leaf; replacing the pair with independent native sine and hyperbolic calls changes the implementation's rounding history.
 
 ## How to implement
 
@@ -53,7 +55,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMEXP](FUNC.IMEXP.md) expresses the exponential relation; [IMCOS](https://handbook.dnacalc.com/functions/IMCOS.html) is a related circular function; [COMPLEX](FUNC.COMPLEX.md) constructs the input.
+[IMEXP](FUNC.IMEXP.md) expresses the exponential relation; [IMCOS](FUNC.IMCOS.md) is a related circular function; [COMPLEX](FUNC.COMPLEX.md) constructs the input.
 
 ## Sources
 

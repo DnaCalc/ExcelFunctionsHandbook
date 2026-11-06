@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=IMSECH("0")` returns `"1"`. The reciprocal reverses a pure imaginary value’s imaginary sign; it is not a component-by-component reciprocal.
+`=IMSECH("1")` gives real text about `"0.648054273663885"`, the reciprocal of `cosh(1)`. The all-real input keeps the answer real; the general function also accepts a nonzero imaginary coordinate.
 
 ## Quirks
 

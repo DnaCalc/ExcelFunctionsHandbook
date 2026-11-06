@@ -43,7 +43,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[ISFORMULA](FUNC.ISFORMULA.md) asks whether a formula is present; [FORMULATEXT](https://handbook.dnacalc.com/functions/FORMULATEXT.html) retrieves it; [TEXT](FUNC.TEXT.md) formats a calculated value.
+[ISFORMULA](FUNC.ISFORMULA.md) asks whether a formula is present; [FORMULATEXT](FUNC.FORMULATEXT.md) retrieves it; [TEXT](FUNC.TEXT.md) formats a calculated value.
 
 ## Sources
 

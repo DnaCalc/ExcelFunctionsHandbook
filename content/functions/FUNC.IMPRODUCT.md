@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=IMPRODUCT("2+i","2-i")` returns `"5"`. Work with coefficients to explain the value; the displayed result is assembled as complex text.
+`=IMPRODUCT("2+i","2-i")` returns `"5"`. The imaginary cross terms cancel, while the real term is `4-(-1)=5` because `i*i=-1`. The returned five is text, ready for another complex function.
 
 ## Quirks
 
@@ -53,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[COMPLEX](FUNC.COMPLEX.md) constructs each input; [IMDIV](https://handbook.dnacalc.com/functions/IMDIV.html) divides; [IMPOWER](https://handbook.dnacalc.com/functions/IMPOWER.html) raises one input to a real power.
+[COMPLEX](FUNC.COMPLEX.md) constructs each input; [IMDIV](FUNC.IMDIV.md) divides; [IMPOWER](FUNC.IMPOWER.md) raises one input to a real power.
 
 ## Sources
 

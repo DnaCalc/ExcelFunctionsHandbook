@@ -27,15 +27,17 @@ role_in_family: null
 
 ## Try it
 
-`=IMREAL("2-3i")` returns `2`. The coefficient retains its sign; the other component does not affect this extraction.
+`=IMREAL("2-3i")` returns `2`; `=IMREAL("-j")` returns `0`. A numeric argument such as `=IMREAL(-7)` returns that real number. The extracted value can feed ordinary arithmetic without complex-text formatting.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. The output here is numeric. The coefficient is a worksheet number, so it can feed ordinary numerical functions.
+The output is a worksheet number, even when the input is text. A missing real component means zero, not an error. Lowercase `i` and `j` identify the imaginary suffix; an uppercase or malformed spelling is rejected by the current parser. Logical values give `#VALUE!` in the wrapper. Text parsing keeps fifteen leading significant decimal digits, so extracting a long decimal coefficient need not preserve every typed digit.
 
 ## How to implement
 
-Parse `inumber` into `a`, `b` and an optional suffix, then compute `a`. The coefficient is a worksheet number, so it can feed ordinary numerical functions. Apply the worksheet error policy before returning a number. Separate lexical validation from the numerical operation so inputs like a real number, a pure imaginary unit and a full pair can share the same calculation.
+Admit a numeric input as `(value,0)`. For text, parse the optional real component and optional imaginary component. A plus or minus in an exponent, such as the sign in `2e-3`, does not divide the two components. An omitted coefficient before `i` or `j` means one, and a leading minus means minus one.
+
+Return the parsed real component directly as a number; do not round it through the complex output formatter. Thus `-j` parses as `(0,-1)` and returns zero, while `2-3i` parses as `(2,-3)` and returns two. The current decimal-text parser truncates after fifteen significant digits before converting to nearest binary64; a native language complex parser may use a different grammar or more digits.
 
 ## Version differences
 
@@ -51,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[COMPLEX](FUNC.COMPLEX.md) constructs text from coordinates. [IMARGUMENT](https://handbook.dnacalc.com/functions/IMARGUMENT.html) returns the phase angle.
+[IMAGINARY](FUNC.IMAGINARY.md) extracts the other coefficient. [COMPLEX](FUNC.COMPLEX.md) assembles coefficients into text, [IMABS](FUNC.IMABS.md) gives magnitude, and [IMARGUMENT](FUNC.IMARGUMENT.md) gives direction.
 
 ## Sources
 

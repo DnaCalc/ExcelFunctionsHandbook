@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[XNPV](https://handbook.dnacalc.com/functions/XNPV.html) uses actual dates; [PV](FUNC.PV.md) assumes constant payments; [IRR](FUNC.IRR.md) finds a periodic cash-flow root.
+[XNPV](FUNC.XNPV.md) uses actual dates; [PV](FUNC.PV.md) assumes constant payments; [IRR](FUNC.IRR.md) finds a periodic cash-flow root.
 
 ## Sources
 

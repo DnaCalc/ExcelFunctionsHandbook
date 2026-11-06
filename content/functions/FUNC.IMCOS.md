@@ -27,11 +27,13 @@ role_in_family: null
 
 ## Try it
 
-`=IMCOS("0")` returns `"1"`. For pure imaginary `bi`, the mathematical result is the real `cosh(b)`.
+`=IMCOS("i")` gives real complex text about `"1.54308063481524"`: its mathematical value is `cosh(1)`. By contrast, the cosine of the real input `1` is about `0.5403`. An imaginary coordinate changes circular cosine into hyperbolic growth.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. A complex result is text, so ordinary worksheet arithmetic does not automatically treat it as a pair of numeric components. Large hyperbolic factors can overflow before final cancellation. Denominator zeros and real-axis special cases need explicit handling.
+Complex inputs use lowercase `i` or `j`, and the output is text. The current parser gives `#NUM!` for malformed complex text and the wrapper gives `#VALUE!` for logical values.
+
+The current sine/cosine helper rejects a real coefficient with magnitude at least `134217728`, through its circular leaf. Its imaginary exponential can overflow before the half-sum is formed. Real-only input, a large imaginary component and an ordinary non-real pair therefore test different parts of the route.
 
 ## How to implement
 

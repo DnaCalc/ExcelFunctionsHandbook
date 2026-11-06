@@ -62,7 +62,7 @@ Agreement on these compared inputs does not establish agreement on unmeasured in
 
 ## Alternatives
 
-[ROUND](FUNC.ROUND.md) chooses decimal places; [CEILING.MATH](https://handbook.dnacalc.com/functions/CEILING.MATH.html) and [FLOOR.MATH](FUNC.FLOOR.MATH.md) choose a directional multiple.
+[ROUND](FUNC.ROUND.md) chooses decimal places; [CEILING.MATH](FUNC.CEILING.MATH.md) and [FLOOR.MATH](FUNC.FLOOR.MATH.md) choose a directional multiple.
 
 ## Notes
 

@@ -52,7 +52,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-`--(a=b)` expresses a worksheet equality indicator; [GESTEP](https://handbook.dnacalc.com/functions/GESTEP.html) tests an inclusive threshold; [COUNTIF](FUNC.COUNTIF.md) counts matches over a range.
+`--(a=b)` expresses a worksheet equality indicator; [GESTEP](FUNC.GESTEP.md) tests an inclusive threshold; [COUNTIF](FUNC.COUNTIF.md) counts matches over a range.
 
 ## Notes
 

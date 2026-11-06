@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[CHISQ.DIST](FUNC.CHISQ.DIST.md) supplies the forward probability; [CHISQ.TEST](https://handbook.dnacalc.com/functions/CHISQ.TEST.html) returns a test p-value directly.
+[CHISQ.DIST](FUNC.CHISQ.DIST.md) supplies the forward probability; [CHISQ.TEST](FUNC.CHISQ.TEST.md) returns a test p-value directly.
 
 ## Sources
 

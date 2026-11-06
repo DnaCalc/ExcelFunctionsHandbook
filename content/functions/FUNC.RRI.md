@@ -52,7 +52,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[PDURATION](FUNC.PDURATION.md) solves periods; [RATE](FUNC.RATE.md) includes constant payments; [XIRR](https://handbook.dnacalc.com/functions/XIRR.html) includes dated cash flows.
+[PDURATION](FUNC.PDURATION.md) solves periods; [RATE](FUNC.RATE.md) includes constant payments; [XIRR](FUNC.XIRR.md) includes dated cash flows.
 
 ## Excel versions, platforms and CPUs
 

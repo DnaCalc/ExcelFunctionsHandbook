@@ -45,7 +45,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[IMSQRT](https://handbook.dnacalc.com/functions/IMSQRT.html) is the square-root operation; [IMPRODUCT](FUNC.IMPRODUCT.md) is useful for explicit integer products; [POWER](FUNC.POWER.md) handles a real base.
+[IMSQRT](FUNC.IMSQRT.md) is the square-root operation; [IMPRODUCT](FUNC.IMPRODUCT.md) is useful for explicit integer products; [POWER](FUNC.POWER.md) handles a real base.
 
 ## Sources
 

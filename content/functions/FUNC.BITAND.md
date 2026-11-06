@@ -51,7 +51,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[BITAND](https://handbook.dnacalc.com/functions/BITAND.html) masks bits, [BITOR](https://handbook.dnacalc.com/functions/BITOR.html) sets selected bits and [BITXOR](https://handbook.dnacalc.com/functions/BITXOR.html) toggles them. [BITLSHIFT](https://handbook.dnacalc.com/functions/BITLSHIFT.html) moves bit positions.
+[BITAND](FUNC.BITAND.md) masks bits, [BITOR](FUNC.BITOR.md) sets selected bits and [BITXOR](FUNC.BITXOR.md) toggles them. [BITLSHIFT](FUNC.BITLSHIFT.md) moves bit positions.
 
 ## Sources
 

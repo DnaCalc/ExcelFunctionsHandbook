@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=CEILING.MATH(-8.1,2)` returns `-8`; `=CEILING.MATH(-8.1,2,1)` returns `-10`. The nonzero mode changes negative inputs to rounding away from zero.
+`=CEILING.MATH(-10.3,3)` returns `-9`; `=CEILING.MATH(-10.3,3,1)` returns `-12`. The nonzero mode changes negative inputs to rounding away from zero. Both answers are multiples of three.
 
 ## Quirks
 
@@ -35,7 +35,7 @@ The significance sign is ignored; its magnitude supplies the step. Mode does not
 
 ## How to implement
 
-Validate and coerce numeric arguments. Set `s=abs(significance)` after applying the default, and return zero if it is zero. The current helper forms a binary64 quotient and rounds its decimal representation to fifteen significant digits before choosing an integer multiple. For nonnegative input take the ceiling of the adjusted magnitude quotient. For negative input use its floor when mode is zero, ceiling when mode is nonzero, then restore the negative sign. In the negative 8.1 example with step two, the magnitude quotient is 4.05; choosing four versus five gives minus eight versus minus ten. Retain decimal-reading and final-product rounding as separate steps. Extreme quotient and nonfinite publication policies still need the host’s explicit error/refusal handling.
+Validate and coerce numeric arguments. Set `s=abs(significance)` after applying the default, and return zero if it is zero. The current helper forms a binary64 quotient and rounds its decimal representation to fifteen significant digits before choosing an integer multiple. For nonnegative input take the ceiling of the adjusted magnitude quotient. For negative input use its floor when mode is zero, ceiling when mode is nonzero, then restore the negative sign. In the negative 10.3 example with step three, the magnitude quotient is about 3.4333; choosing three versus four gives minus nine versus minus twelve. Retain decimal-reading and final-product rounding as separate steps. Extreme quotient and nonfinite publication policies still need the host’s explicit error/refusal handling.
 
 ## Version differences
 

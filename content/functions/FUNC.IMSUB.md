@@ -27,11 +27,11 @@ role_in_family: null
 
 ## Try it
 
-`=IMSUB("5+2i","1+5i")` returns `"4-3i"`. Work with coefficients to explain the value; the displayed result is assembled as complex text.
+`=IMSUB("5+2i","1+5i")` returns `"4-3i"`: subtract real coefficients and imaginary coefficients separately. Reversing the arguments returns `"-4+3i"`.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. A complex result is text, so ordinary worksheet arithmetic does not automatically treat it as a pair of numeric components. Floating-point reduction order can affect a long calculation even when the corresponding mathematical operation is associative.
+Operand order matters: subtraction is neither commutative nor associative. Both arguments are required. Complex text may use lowercase `i` or `j`, but two written suffixes must agree or the current wrapper gives `#VALUE!`. A malformed complex number gives `#NUM!`. The result is complex text; extracting its coordinates with IMREAL and IMAGINARY returns ordinary numbers.
 
 ## How to implement
 
@@ -53,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[COMPLEX](FUNC.COMPLEX.md) constructs each input; [IMDIV](https://handbook.dnacalc.com/functions/IMDIV.html) divides; [IMPOWER](https://handbook.dnacalc.com/functions/IMPOWER.html) raises one input to a real power.
+[COMPLEX](FUNC.COMPLEX.md) constructs each input; [IMDIV](FUNC.IMDIV.md) divides; [IMPOWER](FUNC.IMPOWER.md) raises one input to a real power.
 
 ## Sources
 

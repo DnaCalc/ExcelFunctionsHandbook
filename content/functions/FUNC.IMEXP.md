@@ -45,7 +45,7 @@ No same-input comparison between named Excel builds is recorded for this functio
 
 ## Alternatives
 
-[IMLN](FUNC.IMLN.md) is the principal logarithm; [IMPOWER](https://handbook.dnacalc.com/functions/IMPOWER.html) accepts a real exponent.
+[IMLN](FUNC.IMLN.md) is the principal logarithm; [IMPOWER](FUNC.IMPOWER.md) accepts a real exponent.
 
 ## Sources
 

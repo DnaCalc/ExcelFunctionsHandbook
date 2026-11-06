@@ -43,7 +43,7 @@ The current source retains Excel 16.0 build 20527 COM observations from 30 Octob
 
 ## Alternatives
 
-[PIVOTBY](https://handbook.dnacalc.com/functions/PIVOTBY.html) adds column groups; [SUMIFS](FUNC.SUMIFS.md) computes a chosen scalar group; [PERCENTOF](FUNC.PERCENTOF.md) uses the second callback argument.
+[PIVOTBY](FUNC.PIVOTBY.md) adds column groups; [SUMIFS](FUNC.SUMIFS.md) computes a chosen scalar group; [PERCENTOF](FUNC.PERCENTOF.md) uses the second callback argument.
 
 ## Sources
 

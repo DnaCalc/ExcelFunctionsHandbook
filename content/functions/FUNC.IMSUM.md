@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-`=IMSUM("2+3i","4-i")` returns `"6+2i"`. Work with coefficients to explain the value; the displayed result is assembled as complex text.
+`=IMSUM("2+3i","4-i")` returns `"6+2i"`. The real components add to six; three and minus one add to two in the imaginary component. Neither coordinate is a string concatenation.
 
 ## Quirks
 
@@ -53,7 +53,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[COMPLEX](FUNC.COMPLEX.md) constructs each input; [IMDIV](https://handbook.dnacalc.com/functions/IMDIV.html) divides; [IMPOWER](https://handbook.dnacalc.com/functions/IMPOWER.html) raises one input to a real power.
+[COMPLEX](FUNC.COMPLEX.md) constructs each input; [IMDIV](FUNC.IMDIV.md) divides; [IMPOWER](FUNC.IMPOWER.md) raises one input to a real power.
 
 ## Sources
 

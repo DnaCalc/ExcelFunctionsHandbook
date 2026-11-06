@@ -27,11 +27,13 @@ role_in_family: null
 
 ## Try it
 
-`=IMTAN("0")` returns `"0"`. The real-axis kernel has a separate circular-trigonometric domain check.
+`=IMTAN("i")` gives about `"0.761594155955765i"`. The doubled-angle formula reduces mathematically to `i*tanh(1)` on this axis. `=IMTAN("0")` returns text zero.
 
 ## Quirks
 
-Complex arguments may be real numbers or text such as `"2-3i"`. Use lowercase `i` or `j`; operands in one call must agree on the suffix. The current parser rejects malformed complex text with `#NUM!` and logical values with `#VALUE!`. A complex result is text, so ordinary worksheet arithmetic does not automatically treat it as a pair of numeric components. Large hyperbolic factors can overflow before final cancellation. Denominator zeros and real-axis special cases need explicit handling.
+The result is complex text. A malformed input gives `#NUM!` in the current parser; a logical input gives `#VALUE!` in the wrapper. The non-real formula has a denominator made from circular and hyperbolic terms, so overflow and a zero denominator need explicit handling.
+
+Exactly real input uses the scalar tangent and its circular-domain check. The real-axis IMCOT companion has a separate reciprocal and boundary rule; treating both as a generic quotient of formatted IMSIN and IMCOS loses that distinction.
 
 ## How to implement
 
@@ -53,7 +55,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-[IMEXP](FUNC.IMEXP.md) expresses the exponential relation; [IMSIN](FUNC.IMSIN.md) is a related circular function; [COMPLEX](FUNC.COMPLEX.md) constructs the input.
+[IMCOT](FUNC.IMCOT.md) is the cotangent companion. [IMSIN](FUNC.IMSIN.md) and [IMCOS](FUNC.IMCOS.md) expose the circular pair, and [TAN](FUNC.TAN.md) accepts a real angle.
 
 ## Sources
 
