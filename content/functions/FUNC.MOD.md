@@ -47,6 +47,10 @@ Use `R(op)` as defined in the [stored arithmetic recipe](FUNC.VAR.S.md#how-to-im
 
 Worked ordinary path: `fmod(-7,3)=-1`; the signs differ, so `-1+3=2`. Worked large-quotient refusal: `MOD(1125899999999,1)` is recorded as zero, while `MOD(1125900000000,1)` is `#NUM!`.
 
+To implement the truncating remainder without a host `fmod`, decode the positive magnitudes as `Mx*2^Ex` and `My*2^Ey`, with integer significands. Set `E=min(Ex,Ey)`, `A=Mx << (Ex-E)` and `B=My << (Ey-E)`. Take the integer remainder `U=A mod B`, then restore the dividend's sign to `U*2^E`. Arbitrary-size integers make the shifts and remainder exact. This is a separate calculation from the rounded quotient used by the rejection test; do not reuse that quotient to reconstruct the remainder.
+
+For `10` and binary64 `0.1`, choose the common unit `2^-56`. The integers are `A=720575940379279360` and `B=7205759403792794`. Integer division gives quotient 99 and remainder `7205759403792754`. Rescaling that remainder gives `0.09999999999999945`. Rounding the quotient to 100 before subtracting would erase the answer this function records.
+
 Worked tiny path: inputs `-1.223247290044572e-296` and `1.223247290044539e-296` have an opposite-sign subnormal remainder. The recorded special branch adds its magnitude and returns `1.223247290044572e-296`, larger than the divisor. The mathematically correct remainder is `1.2232472900445062e-296`. The note retains input and result bits.
 
 The rule matches the cited recorded bank and fresh probes. Interpreting the split as evidence of a Dekker product is an inference; the measured rule does not reveal Microsoft’s private implementation.
