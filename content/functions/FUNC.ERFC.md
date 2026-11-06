@@ -36,9 +36,21 @@ Nonnumeric input gives `#VALUE!`. Subtracting a value rounded to one from one ca
 
 ## How to implement
 
-For `0<x<0.5`, the current route subtracts the [stored ERF rational](FUNC.ERF.md#how-to-implement) from one using binary64 subtraction. For `x>0.5`, the identified outer stages are `z=R(x*x)`, `E=EXP(-z)` stored, and `result=R(E*F(x))`. `R` is the stored 64-bit-significand operation. Excel’s own rational factor `F` is **still open**; the code uses Cody coefficients as a stand-in, so copying that table is not a solved Excel tail recipe.
+Let D denote ordinary binary64 storage and [R](../model/09-staged-arithmetic.md) a 64-bit-significand operation followed by a binary64 store. The current finite-input branch table is:
 
-For negative arguments below `-0.5`, the current reconstruction uses `R(2-positive_tail(abs(x)))`. The exact half point and tiny nonpositive route retain their separate boundary body. Worked below-half case: the reconstructed ERF at `0.25` is `0.276326390168237`; subtracting from one gives approximately `0.723673609831763`. For the upper stage at `x=1`, `z=1` and `E` is about `0.36787944117144233`; the remaining factor must still be supplied. This identifies what can be implemented faithfully from the evidence and what remains a numerical substitute.
+| Input range | Current computation |
+|---|---|
+| `0<x<0.5` | `D(1-stored_ERF_rational(x))` |
+| `x=0.5` | `D(1-runtime_ERF(0.5))` |
+| `x>0.5` | Positive upper-tail candidate below |
+| `x<-0.5` | `R(2-positive_upper_tail(abs(x)))` |
+| `-0.5<=x<=0` | Runtime ERFC fallback |
+
+For the positive upper stage, store `z=R(x*x)`, obtain the stored public exponential `E=EXP(-z)`, and form `R(E*F(x))`. Excel’s rational factor F is **still open**. The current code uses published Cody coefficients with stored arithmetic as a stand-in; copying that table does not complete an identified Excel tail recipe.
+
+Worked below-half case: the stated ERF reconstruction at 0.25 is `0.276326390168237`, so subtracting it from one gives about `0.723673609831763`. In the upper stage at x=1, z is one and E is about `0.36787944117144233`; the still unresolved F must supply the remaining factor.
+
+Apply the current final subnormal-to-zero rule after the chosen branch. In particular, the negative half interval is not routed through the positive small-rational complement by this implementation. The exact half-point ownership in private Excel code is unseparated by the retained equal-answer control. Keep the reconstructed outer stages, current numerical substitutes and unmeasured transfer cases distinct.
 
 ## Version differences
 
