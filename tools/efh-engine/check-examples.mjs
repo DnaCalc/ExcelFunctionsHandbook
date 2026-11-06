@@ -23,4 +23,4 @@ const counts=Object.fromEntries(Object.entries(Object.groupBy(records,row=>row.s
 const report={entries:records.length,counts,failures,records};
 if(process.argv[2]) await writeFile(process.argv[2],JSON.stringify(report,null,2)+"\n");
 console.log(JSON.stringify({entries:report.entries,counts,failures},null,2));
-if(records.length!==541||failures.length)process.exitCode=1;
+if(records.length!==index.rows.length||failures.length)process.exitCode=1;
