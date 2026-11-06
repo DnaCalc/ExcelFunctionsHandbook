@@ -4,7 +4,38 @@
   "try_it": {
     "formula": "=GAMMALN.PRECISE(3)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20131",
+      "platform": null,
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "GAMMALN.PRECISE(3)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "3",
+                "bits": "0x4008000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.6931471805599454",
+            "bits": "0x3fe62e42fefa39f0"
+          },
+          "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-GAMMALN-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

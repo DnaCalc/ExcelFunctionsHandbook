@@ -4,7 +4,152 @@
   "try_it": {
     "formula": "=TEXT(1234.5,\"0.00\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=TEXT(-0.005,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(-0.005,\"0\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(DATE(2023,3,15),\"[$-407]mmm\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "Mrz",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(DATE(2023,1,15),\"[$-411]mmm\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(DATE(2019,5,1),\"[$-411]ggge\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "令和1",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(123456789012345,\"@\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1.23457E+14",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(123456789012345,\"General\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1.23457E+14",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(1234567890.5,\"@\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1234567891",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(123456789012345,\"\"\"@\"\"\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "@",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(-123456789012345,\"\"\"@\"\"\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "-@",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(123456789012345,\"0;0;0;@\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "123456789012345",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXT(-123456789012345,\"0;0;0;@\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "123456789012345",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-DOLLAR-001.html",
+        "https://handbook.dnacalc.com/notes/FN-TEXT-001.html",
+        "https://handbook.dnacalc.com/notes/FN-TEXT-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

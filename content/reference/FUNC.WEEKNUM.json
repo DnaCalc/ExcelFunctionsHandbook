@@ -4,7 +4,130 @@
   "try_it": {
     "formula": "=WEEKNUM(0)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "WEEKNUM(0, 23)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "23",
+                "bits": "0x4037000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "WEEKNUM(0, 23)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "23",
+                "bits": "0x4037000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "WEEKNUM(0, 33)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "33",
+                "bits": "0x4040800000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "WEEKNUM(0, 33)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "serial_number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "return_type",
+              "value": {
+                "kind": "number",
+                "display": "33",
+                "bits": "0x4040800000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-WEEKNUM-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

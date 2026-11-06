@@ -4,7 +4,58 @@
   "try_it": {
     "formula": "=PROPER(\"o'brien 2nd e-mail\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "PROPER(A1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "a𐐀b",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "A𐐀B",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "PROPER(A1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "aΣ́",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "Aσ́",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-LOWER-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

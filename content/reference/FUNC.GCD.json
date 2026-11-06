@@ -4,7 +4,74 @@
   "try_it": {
     "formula": "=GCD(2.5, 5)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "GCD(9007199254740992, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "9007199254740992",
+                "bits": "0x4340000000000000"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "GCD(9007199254740994, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "9007199254740994",
+                "bits": "0x4340000000000001"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-GCD-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

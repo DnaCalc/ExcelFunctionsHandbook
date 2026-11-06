@@ -4,7 +4,88 @@
   "try_it": {
     "formula": "=GAMMALN(1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20131",
+      "platform": null,
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "GAMMALN(3)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "3",
+                "bits": "0x4008000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.6931471805599454",
+            "bits": "0x3fe62e42fefa39f0"
+          },
+          "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-GAMMALN-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20527",
+      "platform": "Windows; bitness and CPU not recorded in this reading",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "GAMMALN(2.020222407046596)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "2.020222407046596",
+                "bits": "0x4000296a5d874ad0"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.008681034861562235",
+            "bits": "0x3f81c75cc69b54fc"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "GAMMALN(6.020222407046596)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "6.020222407046596",
+                "bits": "0x401814b52ec3a568"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "4.8220305792560145",
+            "bits": "0x401349c26258ddb7"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-GAMMALN-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

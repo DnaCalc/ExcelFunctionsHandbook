@@ -4,7 +4,159 @@
   "try_it": {
     "formula": "=FLOOR(2.3,0.5)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "FLOOR(0, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "FLOOR(-0, -2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-0",
+                "bits": "0x8000000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "-2",
+                "bits": "0xc000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "FLOOR(1, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "FLOOR(0.9999999999999999, 0.1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "0.9999999999999999",
+                "bits": "0x3fefffffffffffff"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "0.1",
+                "bits": "0x3fb999999999999a"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "FLOOR(4503599627370496, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "4503599627370496",
+                "bits": "0x4330000000000000"
+              }
+            },
+            {
+              "name": "significance",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "4503599627370500",
+            "bits": "0x4330000000000004"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-FLOOR-001.html",
+        "https://handbook.dnacalc.com/notes/FN-FLOOR-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

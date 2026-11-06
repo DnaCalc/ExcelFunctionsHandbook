@@ -4,7 +4,260 @@
   "try_it": {
     "formula": "=ROUND(1.005,2)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ROUND(-112500000000000, 2147483635)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-112500000000000",
+                "bits": "0xc2d9945ca2620000"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "2147483635",
+                "bits": "0x41dffffffcc00000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "ROUND(-112500000000000, 2147483617)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-112500000000000",
+                "bits": "0xc2d9945ca2620000"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "2147483617",
+                "bits": "0x41dffffff8400000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-112500000000000",
+            "bits": "0xc2d9945ca2620000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUND-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ROUND(-1594628480062905, 14)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-1594628480062905",
+                "bits": "0xc316a939806956e4"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "14",
+                "bits": "0x402c000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-1594628480062900",
+            "bits": "0xc316a939806956d0"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUND-002.html"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20527",
+      "platform": "Windows; bitness and CPU not recorded in this reading",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ROUND(1.7976931348623157E+308, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.7976931348623157e+308",
+                "bits": "0x7fefffffffffffff"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "nonfinite",
+            "display": "NaN bit pattern, shown as 1.8E+308",
+            "bits": "0x7ff000000000000a"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "ROUND(1.7976931348623157E+308, -307)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.7976931348623157e+308",
+                "bits": "0x7fefffffffffffff"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "-307",
+                "bits": "0xc073300000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "nonfinite",
+            "display": "NaN bit pattern, shown as 1.8E+308",
+            "bits": "0x7ff005419221015d"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "ROUND(1.7976931348623157E+308, -308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.7976931348623157e+308",
+                "bits": "0x7fefffffffffffff"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "-308",
+                "bits": "0xc073400000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "nonfinite",
+            "display": "NaN bit pattern, shown as 2E+308",
+            "bits": "0x7ff1ccf385ebc8a0"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUND-003.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=ROUND(2.5,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=ROUND(-2.5,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-3",
+            "bits": "0xc008000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=ROUND(2.675,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2.68",
+            "bits": "0x400570a3d70a3d71"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=ROUND(1.005,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.01",
+            "bits": "0x3ff028f5c28f5c29"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUND-004.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

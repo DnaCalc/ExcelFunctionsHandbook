@@ -4,7 +4,54 @@
   "try_it": {
     "formula": "=TBILLYIELD(47701, 47702, 2.279784366464575)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "TBILLYIELD(47701, 47702, 2.279784366464575)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "47701",
+                "bits": "0x40e74aa000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "47702",
+                "bits": "0x40e74ac000000000"
+              }
+            },
+            {
+              "name": "pr",
+              "value": {
+                "kind": "number",
+                "display": "2.279784366464575",
+                "bits": "0x40023cff95ff2def"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "15430.96713248709",
+            "bits": "0x40ce237bcaff517a"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-DISC-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

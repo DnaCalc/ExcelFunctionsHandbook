@@ -4,7 +4,158 @@
   "try_it": {
     "formula": "=ASINH(1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ASINH(-1.0126103340069186e-11)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-1.0126103340069186e-11",
+                "bits": "0xbda6447d498e6f26"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-1.0126122162949859e-11",
+            "bits": "0xbda6447fffff840a"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ASINH(-1.4901631254755754e-16)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-1.4901631254755754e-16",
+                "bits": "0xbca579bb4790a498"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-2.2204460492503128e-16",
+            "bits": "0xbcafffffffffffff"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ASINH(1.0501151062119094e-16)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.0501151062119094e-16",
+                "bits": "0x3c9e447b5a2fd072"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ASINH(5e-324)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "5e-324",
+                "bits": "0x0000000000000001"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ASINH(7.193439987815484e-08)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "7.193439987815484e-08",
+                "bits": "0x3e734f4b587c834b"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "7.19343998474134e-08",
+            "bits": "0x3e734f4b58591206"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ASINH(9.234293629925394e+153)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "9.234293629925394e+153",
+                "bits": "0x5fe60a092f72d845"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "355.2115905310072",
+            "bits": "0x40763362acc0ad1b"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ASINH(2.3842260672008416e+154)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "2.3842260672008416e+154",
+                "bits": "0x5ffc73a8ae6c7c25"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ASINH-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

@@ -4,7 +4,46 @@
   "try_it": {
     "formula": "=BESSELK(1.5, 1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "BESSELK(1.8447401994787955, 0.15119840195885237)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "1.8447401994787955",
+                "bits": "0x3ffd840e4ca60c0e"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "0.15119840195885237",
+                "bits": "0x3fc35a781fcf7430"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.1380029049573409",
+            "bits": "0x3fc1aa1445c5bb34"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-BESSELI-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

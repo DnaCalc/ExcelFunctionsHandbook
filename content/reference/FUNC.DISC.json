@@ -4,7 +4,184 @@
   "try_it": {
     "formula": "=DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "DISC(37655, 38261, 94.87631295104353, 102.73579504052532, 3)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "37655",
+                "bits": "0x40e262e000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "38261",
+                "bits": "0x40e2aea000000000"
+              }
+            },
+            {
+              "name": "pr",
+              "value": {
+                "kind": "number",
+                "display": "94.87631295104353",
+                "bits": "0x4057b81582ea72c4"
+              }
+            },
+            {
+              "name": "redemption",
+              "value": {
+                "kind": "number",
+                "display": "102.73579504052532",
+                "bits": "0x4059af174414e760"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "3",
+                "bits": "0x4008000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.046077868684136686",
+            "bits": "0x3fa79784b622b014"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-DISC-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows, bitness and CPU not recorded in this reading file",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "DISC(59, 60, 99, 100, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "59",
+                "bits": "0x404d800000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "60",
+                "bits": "0x404e000000000000"
+              }
+            },
+            {
+              "name": "pr",
+              "value": {
+                "kind": "number",
+                "display": "99",
+                "bits": "0x4058c00000000000"
+              }
+            },
+            {
+              "name": "redemption",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.650000000000003",
+            "bits": "0x400d33333333333a"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "DISC(1520, 1521, 99, 100, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "1520",
+                "bits": "0x4097c00000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "1521",
+                "bits": "0x4097c40000000000"
+              }
+            },
+            {
+              "name": "pr",
+              "value": {
+                "kind": "number",
+                "display": "99",
+                "bits": "0x4058c00000000000"
+              }
+            },
+            {
+              "name": "redemption",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.6600000000000033",
+            "bits": "0x400d47ae147ae14f"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-YEARFRAC-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

@@ -4,7 +4,29 @@
   "try_it": {
     "formula": "=PMT(0.05/12,360,200000)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=PMT(0.05/12,360,200000)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-1073.6432460242781",
+            "bits": "0xc090c692af15f63a"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-PMT-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

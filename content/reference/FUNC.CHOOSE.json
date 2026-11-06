@@ -4,7 +4,40 @@
   "try_it": {
     "formula": "=CHOOSE(2,\"a\",\"b\",\"c\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=ISBLANK(CHOOSE({1,2},Data!Z1,Data!Z2))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{FALSE,FALSE}",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=ISREF(CHOOSE(1,[ylr-source.xlsx]Sheet1!A1))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-CHOOSE-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

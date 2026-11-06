@@ -8,138 +8,67 @@ open_problems: []
 references: []
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Notes for implementers
-  - What has not been checked
-  - Page vocabulary
-  - Sources
+  - "What it does"
+  - "Try it"
+  - "Quirks"
+  - "How to implement"
+  - "Version differences"
+  - "Alternatives"
+  - "Sources"
 family: or_fn
 role_in_family: "The disjunction reducer: scans every argument for truth values and returns TRUE on the first truthy one."
 ---
 
 # OR
 
-## What it computes
+## What it does
 
-`OR` is the dual of `AND`, and shares its whole machinery: a **variadic reduction over a truth
-scan**, not a two-operand boolean connective.
+`OR(logical1, [logical2], …)` returns TRUE if at least one considered value is true, otherwise
+FALSE. It accepts up to 255 arguments. Numeric zero is false; other numeric values are true.
 
-The scan walks the argument list left to right, expanding each argument (a direct scalar
-contributes itself; a reference or array contributes every designated cell, row-major) and
-classifying each expanded item:
+`=OR(FALSE,2>1)` returns TRUE. An array or range is scanned as a collection of values and the
+result is one logical value, rather than a separate result for every position.
 
-| Item | Classification |
-|---|---|
-| `Logical` | its own truth value |
-| `Number` | false if exactly 0, true otherwise |
-| Text or empty inside an array or reference argument | **skipped** |
-| `Error` | the scan stops and that error is the result |
+## Try it
 
-The result is:
+Try `=OR(FALSE,2>1)`, `=OR(0,0)` and `=OR({0;1;0})`. A range example needs actual input cells:
+enter B2 and B3 in the input-cell editor, then calculate `=OR(B2:B3)`.
 
-1. **TRUE** if any item classified true;
-2. **FALSE** if at least one item classified and none classified true;
-3. **`#VALUE!`** if no item classified at all.
+## Quirks
 
-Rule 3 again matters more than it looks. `OR` is not the fold of disjunction over an empty list —
-an empty scan does not return the identity FALSE, it returns an error. `OR` and `AND` agree
-exactly on which inputs are error-shaped and disagree only on the reduction.
+Microsoft documents that text and empty cells in a referenced range or array are ignored. If
+there is no logical or numeric value to consider, OR returns `#VALUE!`. An all-ignored scan is
+different from considering one or more false values.
 
-## Arguments
+Do not assume OR is a programming-language short-circuit operator. A true value does not by
+itself establish that an error or an expensive expression elsewhere in the call is skipped.
+Text supplied directly as an argument also needs its own coercion checks; the rule about text
+in a range is not a universal rule about text.
 
-`OR(logical1, [logical2], ...)`
+## How to implement
 
-- `logical1` is required; the registry records an accepted arity of 1 to 255 arguments.
-- Each argument is a condition or a container of conditions.
-- An omitted slot between commas delivers `Missing`, which the reference engine treats as
-  contributing nothing.
+Track both an accumulated truth value and whether any eligible item has been seen. Classify
+direct arguments and referenced or array-contained values according to their distinct coercion
+rules. Fold eligible values into the accumulator, preserving the required error behaviour.
+After a successful scan, return `#VALUE!` if none were eligible, otherwise return the logical
+accumulator.
 
-The misunderstood position is the same as for `AND`: readers expect uniform coercion and get a
-provenance-sensitive rule instead. See
-[Coercion and lifting](../model/02-coercion-and-lifting.md).
+Share the item classifier with AND and XOR so that blank, text and error policies cannot drift.
+A fast exit on TRUE is valid only if it preserves argument evaluation and error ordering for the
+target Excel build. Test that separately from the truth table.
 
-## Result and edge cases
+## Version differences
 
-Returns a `Logical`, or an `Error`.
+Microsoft documents OR for Microsoft 365 and Excel 2016 through 2024. No comparison of error
+ordering or direct-text coercion between particular builds is recorded here.
 
-- **Zero versus nonzero.** Any nonzero number is true; only exact zero is false.
-- **Text.** Skipped when reached through a range (documented ignore rule for the `AND`/`OR`
-  family). Text supplied *directly* is a `#VALUE!` coercion failure in the reference engine.
-- **Empty cells.** Skipped.
-- **All items skipped.** `#VALUE!`.
-- **Arrays.** Consumed whole by scanning, not lifted elementwise; `OR({FALSE,TRUE})` is a single
-  `TRUE`.
+## Alternatives
 
-## Errors
-
-| Error | Condition |
-|---|---|
-| `#VALUE!` | Nothing in the argument list classified as a truth value. |
-| `#VALUE!` | Text supplied directly as an argument (reference-engine coercion outcome). |
-| any incoming error | Propagates unchanged. |
-
-The no-logical-values rule is documented by Microsoft for this family. The direct-text rule is
-reported here as a reference-engine behaviour, not as a verified statement about Excel.
-
-## Relationships
-
-- `AND` is the dual, with an identical scan and skip policy.
-- `XOR` shares the scan but reduces by **parity**, so it agrees with `OR` only when at most one
-  item is true.
-- `NOT` complements a single value; De Morgan (`NOT(OR(a,b)) = AND(NOT(a),NOT(b))`) holds for the
-  classified cases but says nothing about the `#VALUE!`-on-empty-scan case, which has no boolean
-  algebra counterpart.
-- The `+` idiom (`(a>1)+(b>2)`) is the common substitute and behaves differently: it returns a
-  number, it counts rather than tests, and it has no skip rule.
-
-## Notes for implementers
-
-1. `OR` and `AND` should share one scan and one item classifier; they differ only in the fold and
-   in the early-exit predicate. Implementing them separately is how the empty-scan rule ends up
-   inconsistent between the two.
-2. The "saw at least one classified item" flag is a required piece of state, distinct from the
-   accumulator. Without it, an all-skipped scan is indistinguishable from an all-false scan.
-3. Early exit on the first true item is only safe once error ordering is decided; an error later
-   in the scan would never be reached.
-
-## What has not been checked
-
-There is no Handbook vector suite for `OR`; `vectors/` publishes nothing at this revision. No
-Excel-comparison evidence record names `OR`.
-
-Probes that would settle the open questions:
-
-1. `=OR("TRUE")` and `=OR("false")` — direct logical-looking text: accepted or `#VALUE!`?
-2. `=OR(A1)` with `A1` holding the text `FALSE` — the range-scan counterpart; the documented
-   ignore rule predicts `#VALUE!`.
-3. `=OR(1,,0)` — is the omitted slot skipped, or does it read as an empty cell?
-4. An error and a TRUE in the same scanned range, in each order — does the error always win, or
-   can an earlier TRUE short-circuit past it? This is the sharpest test of whether Excel's scan
-   really exits early.
-5. Argument-count behaviour at 255 and 256 arguments — an admission-boundary question.
-
-## Page vocabulary
-
-| Term | Meaning |
-|---|---|
-| truth scan | The left-to-right walk over expanded arguments that classifies each item |
-| skipped item | An expanded item contributing to neither bucket |
-| empty scan | A call in which every item was skipped; the `#VALUE!` case |
+[AND](FUNC.AND.md) requires every considered value to be true. [XOR](FUNC.XOR.md) tests whether
+an odd number are true. Use [IF](FUNC.IF.md) to select between calculations. For elementwise
+logic in an array, ordinary comparisons or MAP may express the intended shape more directly.
 
 ## Sources
 
-- Microsoft, OR function —
-  <https://support.microsoft.com/en-us/office/or-function-7d17ad14-8700-4281-b308-00b131e22af0>
-  (the governing document for the argument and ignore rules; not re-fetched at this revision —
-  the sibling `AND` page was, and states the family rules in the same words).
-- Handbook call-model chapters
-  [01 The value universe](../model/01-value-universe.md),
-  [02 Coercion and lifting](../model/02-coercion-and-lifting.md),
-  [03 The call pipeline](../model/03-call-pipeline.md).
-- `data/functions/FUNC.OR.json`, `data/presence/FUNC.OR.json`.
-- OxFunc `crates/oxfunc_core/src/functions/or_fn.rs` and `aggregate_common.rs` at commit 473efa3 —
-  the shared classifier and the empty-scan `#VALUE!`, read as implementation facts.
+- [Microsoft: OR function](https://support.microsoft.com/en-us/excel/functions/or-function).
+- [Coercion and lifting](../model/02-coercion-and-lifting.md).

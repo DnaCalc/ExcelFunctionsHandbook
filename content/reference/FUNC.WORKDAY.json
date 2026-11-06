@@ -4,7 +4,58 @@
   "try_it": {
     "formula": "=WORKDAY(1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=WORKDAY(B1,2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "B1",
+              "value": {
+                "kind": "blank",
+                "display": "(empty cell)",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=WORKDAY(B1,2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "B1",
+              "value": {
+                "kind": "logical",
+                "display": "TRUE",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-WORKDAY-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

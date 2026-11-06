@@ -4,7 +4,270 @@
   "try_it": {
     "formula": "=REGEXTEST(0, 0)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "REGEXTEST(A1, A2, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "É",
+                "bits": null
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "kind": "text",
+                "display": "[é-é]",
+                "bits": null
+              }
+            },
+            {
+              "name": "case_sensitivity",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "REGEXTEST(A1, A2, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "Σ",
+                "bits": null
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "kind": "text",
+                "display": "[α-ω]",
+                "bits": null
+              }
+            },
+            {
+              "name": "case_sensitivity",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "REGEXTEST(A1, A2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "́",
+                "bits": null
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "kind": "text",
+                "display": "\\w",
+                "bits": null
+              }
+            },
+            {
+              "name": "case_sensitivity",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "REGEXTEST(A1, A2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "‿",
+                "bits": null
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "kind": "text",
+                "display": "\\w",
+                "bits": null
+              }
+            },
+            {
+              "name": "case_sensitivity",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "REGEXTEST(A1, A2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "a, CR (U+000D), b",
+                "bits": null
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "kind": "text",
+                "display": "a.b",
+                "bits": null
+              }
+            },
+            {
+              "name": "case_sensitivity",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "REGEXTEST(A1, A2, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "K",
+                "bits": null
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "kind": "text",
+                "display": "k",
+                "bits": null
+              }
+            },
+            {
+              "name": "case_sensitivity",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "REGEXTEST(A1, A2, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "ſ",
+                "bits": null
+              }
+            },
+            {
+              "name": "pattern",
+              "value": {
+                "kind": "text",
+                "display": "s",
+                "bits": null
+              }
+            },
+            {
+              "name": "case_sensitivity",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-REGEXTEST-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

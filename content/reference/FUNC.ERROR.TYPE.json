@@ -4,7 +4,38 @@
   "try_it": {
     "formula": "=ERROR.TYPE(5)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=ERROR.TYPE(B1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "B1",
+              "value": {
+                "kind": "error",
+                "display": "#BUSY!",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ERROR.TYPE-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

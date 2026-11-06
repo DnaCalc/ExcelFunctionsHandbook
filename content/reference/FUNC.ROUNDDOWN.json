@@ -4,7 +4,46 @@
   "try_it": {
     "formula": "=ROUNDDOWN(-1.29,1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ROUNDDOWN(283025097725723.5, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "283025097725723.5",
+                "bits": "0x42f0168ea69971b8"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "283025097725724",
+            "bits": "0x42f0168ea69971c0"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUND-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

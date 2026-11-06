@@ -4,7 +4,338 @@
   "try_it": {
     "formula": "=BESSELI(-1, 0.9)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "BESSELI(12.514410892637624, 3.987394155038235)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "12.514410892637624",
+                "bits": "0x40290760dd512b66"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "3.987394155038235",
+                "bits": "0x400fe62ee82134c8"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "21360.000787344507",
+            "bits": "0x40d4dc000ce65cba"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "BESSELI(1.8661547234119729, 7.047660373731416)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "1.8661547234119729",
+                "bits": "0x3ffddbc50e25491c"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "7.047660373731416",
+                "bits": "0x401c30cde189f75e"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.0001361367103021099",
+            "bits": "0x3f21d7fd6fe380e0"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "BESSELI(13.469754413420809, 10.617422640816173)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "13.469754413420809",
+                "bits": "0x402af083a685968c"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "10.617422640816173",
+                "bits": "0x40253c1ed2043b18"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1957.477427686333",
+            "bits": "0x409e95e8e2cdac05"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "BESSELI(-1, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "-1",
+                "bits": "0xbff0000000000000"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.2660658480342601",
+            "bits": "0x3ff441ce433e3c05"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "BESSELI(12.514410892637624, 3.987394155038235)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "12.514410892637624",
+                "bits": "0x40290760dd512b66"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "3.987394155038235",
+                "bits": "0x400fe62ee82134c8"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "21360.000787344507",
+            "bits": "0x40d4dc000ce65cba"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-BESSELI-001.html",
+        "https://handbook.dnacalc.com/notes/FN-BESSELI-002.html"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20527",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "BESSELI(709.7, 3)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "709.7",
+                "bits": "0x40862d999999999a"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "3",
+                "bits": "0x4008000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.1560227990465618e+306",
+            "bits": "0x7f7a56f66ecd12a0"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "BESSELI(709.7, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "709.7",
+                "bits": "0x40862d999999999a"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2.4767103124440567e+306",
+            "bits": "0x7f8c3732e70ce6f9"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "BESSELI(709.7, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "709.7",
+                "bits": "0x40862d999999999a"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2.4788083687166675e+306",
+            "bits": "0x7f8c3d51558ee541"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "BESSELI(709.7, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "709.7",
+                "bits": "0x40862d999999999a"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2.4788083687166675e+306",
+            "bits": "0x7f8c3d51558ee541"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "BESSELI(709.7000000000002, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "709.7000000000002",
+                "bits": "0x40862d999999999b"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "BESSELI(709.7000000000002, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "709.7000000000002",
+                "bits": "0x40862d999999999b"
+              }
+            },
+            {
+              "name": "n",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-BESSELI-003.html",
+        "https://handbook.dnacalc.com/notes/FN-BESSELI-004.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

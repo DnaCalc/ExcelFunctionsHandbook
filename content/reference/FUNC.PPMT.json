@@ -4,7 +4,41 @@
   "try_it": {
     "formula": "=PPMT(10%/12, 1, 2*12, 2000)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=PPMT(0.05/12,12,360,200000)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-251.5564719376004",
+            "bits": "0xc06f71ce9e3ca456"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=PPMT(0.05/12,1,360,200000)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-240.30991269094474",
+            "bits": "0xc06e09eace050723"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-IPMT-001.html",
+        "https://handbook.dnacalc.com/notes/FN-PPMT-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

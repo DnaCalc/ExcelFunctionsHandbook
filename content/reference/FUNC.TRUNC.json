@@ -4,7 +4,103 @@
   "try_it": {
     "formula": "=TRUNC(-4.3)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "TRUNC(1.234567890123456e-200, 65536)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.234567890123456e-200",
+                "bits": "0x166e3d71f622be8f"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "65536",
+                "bits": "0x40f0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "TRUNC(2.2250738585072014e-308, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "2.2250738585072014e-308",
+                "bits": "0x0010000000000000"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2.2250738585071984e-308",
+            "bits": "0x000ffffffffffffa"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "TRUNC(2.2250738585072014e-308, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "2.2250738585072014e-308",
+                "bits": "0x0010000000000000"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2.2250738585071984e-308",
+            "bits": "0x000ffffffffffffa"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUNDUP-001.html",
+        "https://handbook.dnacalc.com/notes/FN-TRUNC-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

@@ -4,7 +4,191 @@
   "try_it": {
     "formula": "=COUPNUM(34,400,2,0)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows, bitness and CPU not recorded in this reading file",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "COUPNUM(33, 400, 2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "33",
+                "bits": "0x4040800000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "400",
+                "bits": "0x4079000000000000"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "COUPNUM(34, 400, 2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "34",
+                "bits": "0x4041000000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "400",
+                "bits": "0x4079000000000000"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "COUPNUM(0, 367, 2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "367",
+                "bits": "0x4076f00000000000"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-COUPNUM-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=COUPNUM(0,182,2,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=COUPNUM(A1,400,2,0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "A1",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-COUPNUM-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

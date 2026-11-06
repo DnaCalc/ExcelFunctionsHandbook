@@ -6,5 +6,39 @@
   },
   "versions": [],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "signature": {
+    "display": "LET(name1, value1, [name2, value2], …, calculation)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "name1",
+        "optional": false,
+        "repeats": false,
+        "description": "First local name."
+      },
+      {
+        "name": "value1",
+        "optional": false,
+        "repeats": false,
+        "description": "Expression bound to name1."
+      },
+      {
+        "name": "calculation",
+        "optional": false,
+        "repeats": false,
+        "description": "Final expression; optional name/value pairs may precede it."
+      }
+    ],
+    "min_arguments": 3,
+    "max_arguments": 253,
+    "repeating_group": {
+      "before": "calculation",
+      "parameters": [
+        "name",
+        "value"
+      ],
+      "max_groups": 126
+    }
+  }
 }

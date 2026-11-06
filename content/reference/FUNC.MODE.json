@@ -4,7 +4,108 @@
   "try_it": {
     "formula": "=MODE(1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=MODE(\"2\",2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=MODE(TRUE,1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=MODE(\"x\",2,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=MODE(\"x\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-MODE-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows, bitness and CPU not recorded in this reading file",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "MODE(2, 2, A3)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "number3",
+              "value": {
+                "kind": "error",
+                "display": "#DIV/0!",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-MODE-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

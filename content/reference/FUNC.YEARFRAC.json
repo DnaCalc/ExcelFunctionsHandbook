@@ -4,7 +4,192 @@
   "try_it": {
     "formula": "=YEARFRAC(,5)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=YEARFRAC(B1,5,0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "B1",
+              "value": {
+                "kind": "blank",
+                "display": "(empty cell)",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.013888888888888888",
+            "bits": "0x3f8c71c71c71c71c"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-WORKDAY-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows, bitness and CPU not recorded in this reading file",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "YEARFRAC(59, 60, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "number",
+                "display": "59",
+                "bits": "0x404d800000000000"
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "60",
+                "bits": "0x404e000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.0027397260273972603",
+            "bits": "0x3f66719f3601671a"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "YEARFRAC(1520, 1521, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "number",
+                "display": "1520",
+                "bits": "0x4097c00000000000"
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "1521",
+                "bits": "0x4097c40000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.00273224043715847",
+            "bits": "0x3f6661ec6a5122f9"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "YEARFRAC(0, 5, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.013888888888888888",
+            "bits": "0x3f8c71c71c71c71c"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "YEARFRAC(0, 60, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "60",
+                "bits": "0x404e000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.1643835616438356",
+            "bits": "0x3fc50a8542a150a8"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-YEARFRAC-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

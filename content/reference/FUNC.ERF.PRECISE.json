@@ -4,7 +4,78 @@
   "try_it": {
     "formula": "=ERF.PRECISE(\"2\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20131",
+      "platform": null,
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ERF.PRECISE(0.4524739583333333)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "0.4524739583333333",
+                "bits": "0x3fdcf55555555555"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.4777590107351978",
+            "bits": "0x3fde939a879e86f6"
+          },
+          "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ERF.PRECISE(9.094947017729282e-13)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "9.094947017729282e-13",
+                "bits": "0x3d70000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.0262548740643186e-12",
+            "bits": "0x3d720dd750429b6e"
+          },
+          "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ERF.PRECISE(9.999999999999998e-11)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "9.999999999999998e-11",
+                "bits": "0x3ddb7cdfd9d7bdb9"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.1283791670955125e-10",
+            "bits": "0x3ddf044332d68160"
+          },
+          "recorded_in": "Excel 16.0 build 20131, platform and bitness not recorded, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ERF.PRECISE-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

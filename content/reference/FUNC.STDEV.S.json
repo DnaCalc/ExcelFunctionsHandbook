@@ -4,7 +4,54 @@
   "try_it": {
     "formula": "=STDEV.S(1,2,\"3\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20527",
+      "platform": "Windows; bitness and CPU not recorded in this reading",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "STDEV.S(0, 1, 1.031052478719249)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "number3",
+              "value": {
+                "kind": "number",
+                "display": "1.031052478719249",
+                "bits": "0x3ff07f30e248f14c"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.5865198874587454",
+            "bits": "0x3fe2c4c55ae2d85e"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-VAR.S-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

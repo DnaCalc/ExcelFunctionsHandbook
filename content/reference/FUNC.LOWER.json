@@ -4,7 +4,98 @@
   "try_it": {
     "formula": "=LOWER(\"İ\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "LOWER(A1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "𐐀",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "𐐀",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "LOWER(A1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "A𐐀Σ",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "a𐐀ς",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "LOWER(A1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "ΑΣ̀",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "ασ̀",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        },
+        {
+          "call": "LOWER(A1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "ΑΣ.",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "ας.",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit, AMD Ryzen 7 4800H, workbook compatibility version 2"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-LOWER-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

@@ -12,7 +12,7 @@
     "spec": "FOUNDATION.md 2.8 lines 359-362 ('front matter as D1 2.6, with two additions'), resolving to D1-reference-structure.md 2.6 lines 305-340",
     "propertyOrderBasis": "foundation-table-plus-declared-append",
     "propertyOrderNote": "FOUNDATION 2.8 adds `family` and `role_in_family` and does NOT state where they insert. They are appended after body_sections and that placement is declared here rather than inferred from a source, because no source states it.",
-    "bodyContract": "Body is Markdown, hard-wrap ~95 columns, and MUST close with '## Page vocabulary' and '## Sources' or the build fails (FOUNDATION 2.8 line 362; T10 acceptance test (b) line 1190). Not expressible in JSON Schema; enforced by the site build.",
+    "bodyContract": "Body is Markdown. The site renders What it does, Try it, Quirks, How to implement, Version differences and Alternatives, with Sources in a compact footer. Older essay headings are mapped by subject; Page vocabulary is editorial metadata and is not rendered.",
     "keyOrderContract": "Emit front-matter keys in propertyOrder exactly."
   },
   "type": "object",

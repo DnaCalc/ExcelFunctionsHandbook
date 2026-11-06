@@ -4,7 +4,143 @@
   "try_it": {
     "formula": "=NETWORKDAYS.INTL(1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows, bitness and CPU not recorded in this reading file",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "NETWORKDAYS.INTL(A1, 5, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "error",
+                "display": "#REF!",
+                "bits": null
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "weekend",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "NETWORKDAYS.INTL(2, 5, A3)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "weekend",
+              "value": {
+                "kind": "error",
+                "display": "#REF!",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-NETWORKDAYS.INTL-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=NETWORKDAYS.INTL(2,5,TRUE)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=NETWORKDAYS.INTL(2,5,FALSE)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=NETWORKDAYS.INTL(B1,5,1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "B1",
+              "value": {
+                "kind": "blank",
+                "display": "(empty cell)",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-NETWORKDAYS.INTL-001.html",
+        "https://handbook.dnacalc.com/notes/FN-WORKDAY-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

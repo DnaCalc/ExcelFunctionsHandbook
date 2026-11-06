@@ -4,7 +4,70 @@
   "try_it": {
     "formula": "=INTRATE(58548, 58599, 428532.13421818457, 6.805737049418593, 0)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "INTRATE(58548, 58599, 428532.13421818457, 6.805737049418593, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "58548",
+                "bits": "0x40ec968000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "58599",
+                "bits": "0x40ec9ce000000000"
+              }
+            },
+            {
+              "name": "investment",
+              "value": {
+                "kind": "number",
+                "display": "428532.13421818457",
+                "bits": "0x411a27d089707de5"
+              }
+            },
+            {
+              "name": "redemption",
+              "value": {
+                "kind": "number",
+                "display": "6.805737049418593",
+                "bits": "0x401b39132211b6ad"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-7.199885653133469",
+            "bits": "0xc01cccaed31c9766"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-DISC-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

@@ -4,7 +4,167 @@
   "try_it": {
     "formula": "=VAR.S(1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20527",
+      "platform": "Windows; bitness and CPU not recorded in this reading",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "VAR.S(0.8769085090206681, 1, 1.123091490979332)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "0.8769085090206681",
+                "bits": "0x3fec0fa26efa7e14"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "number3",
+              "value": {
+                "kind": "number",
+                "display": "1.123091490979332",
+                "bits": "0x3ff1f82ec882c0f6"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.01515151515151495",
+            "bits": "0x3f8f07c1f07c1e94"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "VAR.S(0.8769085090206679, 1, 1.1230914909793321)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "0.8769085090206679",
+                "bits": "0x3fec0fa26efa7e12"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "number3",
+              "value": {
+                "kind": "number",
+                "display": "1.1230914909793321",
+                "bits": "0x3ff1f82ec882c0f7"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.015151515151515138",
+            "bits": "0x3f8f07c1f07c1f00"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "VAR.S(3.244042371786199e-10, 0.00034050419142641947)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "3.244042371786199e-10",
+                "bits": "0x3df64afacd3a935a"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "0.00034050419142641947",
+                "bits": "0x3f3650b65dc7a1d6"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "5.797144172853e-08",
+            "bits": "0x3e6f1f88c6bbc51a"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "VAR.S(1.2976169487144796e-09, 0.0013620167657056779)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "1.2976169487144796e-09",
+                "bits": "0x3e164afacd3a935a"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "0.0013620167657056779",
+                "bits": "0x3f5650b65dc7a1d6"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "9.275430676564799e-07",
+            "bits": "0x3eaf1f88c6bbc519"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-VAR.S-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=VAR.S({157,376.82,189.207,12.38,12.473,483,306.24,324.1852,482.235,78})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "31907.480453381795",
+            "bits": "0x40df28debfbf8a84"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-VAR.S-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

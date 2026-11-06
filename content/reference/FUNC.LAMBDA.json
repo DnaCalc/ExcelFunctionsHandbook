@@ -6,5 +6,25 @@
   },
   "versions": [],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "signature": {
+    "display": "LAMBDA([parameter1, …], calculation)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "parameter",
+        "optional": true,
+        "repeats": true,
+        "description": "Zero to 253 parameter names, before the final calculation."
+      },
+      {
+        "name": "calculation",
+        "optional": false,
+        "repeats": false,
+        "description": "The body expression, evaluated when called."
+      }
+    ],
+    "min_arguments": 1,
+    "max_arguments": 254
+  }
 }

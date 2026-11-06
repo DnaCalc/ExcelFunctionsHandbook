@@ -4,7 +4,109 @@
   "try_it": {
     "formula": "=IFS(2>1,\"yes\",TRUE,\"no\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=IFS(TRUE,1,{FALSE,TRUE},{2,3})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=ISBLANK(IFS(TRUE,Data!Z1))",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "Data!Z1",
+              "value": {
+                "kind": "blank",
+                "display": "(empty cell)",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=IFS(TRUE,LAMBDA(xx,xx))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#CALC!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=IFS(TRUE,HSTACK(LAMBDA(xx,xx),LAMBDA(xx,xx)))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{#CALC!,#CALC!}",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=IFS(\"2\",{\"hit\",\"hit\"})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{#VALUE!,#VALUE!}",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-IFS-001.html"
+      ]
+    }
+  ],
   "implementations": [],
-  "variants": []
+  "variants": [],
+  "signature": {
+    "display": "IFS(test1, value1, [test2, value2], …)",
+    "trailing_repeats": false,
+    "parameters": [
+      {
+        "name": "logical_test",
+        "optional": false,
+        "repeats": true,
+        "description": "One condition in each condition/value pair."
+      },
+      {
+        "name": "value_if_true",
+        "optional": false,
+        "repeats": true,
+        "description": "The value paired with that condition."
+      }
+    ],
+    "min_arguments": 2,
+    "max_arguments": 254,
+    "repeating_group": {
+      "parameters": [
+        "logical_test",
+        "value_if_true"
+      ],
+      "max_groups": 127
+    }
+  }
 }

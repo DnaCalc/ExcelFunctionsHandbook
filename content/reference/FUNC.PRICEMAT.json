@@ -4,7 +4,139 @@
   "try_it": {
     "formula": "=PRICEMAT(38620, 42889, 38168, 0.12180991686638161, 0.019384437069992936, 2)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "PRICEMAT(38620, 42889, 38168, 0.12180991686638161, 0.019384437069992936, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "38620",
+                "bits": "0x40e2db8000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "42889",
+                "bits": "0x40e4f12000000000"
+              }
+            },
+            {
+              "name": "issue",
+              "value": {
+                "kind": "number",
+                "display": "38168",
+                "bits": "0x40e2a30000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.12180991686638161",
+                "bits": "0x3fbf2eef494503b5"
+              }
+            },
+            {
+              "name": "yld",
+              "value": {
+                "kind": "number",
+                "display": "0.019384437069992936",
+                "bits": "0x3f93d9838d1165c1"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "195.89977581174702",
+            "bits": "0x40687ccaf6a4a5ee"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "PRICEMAT(46376, 52321, 45716, 0.04392789506562811, 0.03266239139487676, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "46376",
+                "bits": "0x40e6a50000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "52321",
+                "bits": "0x40e98c2000000000"
+              }
+            },
+            {
+              "name": "issue",
+              "value": {
+                "kind": "number",
+                "display": "45716",
+                "bits": "0x40e6528000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.04392789506562811",
+                "bits": "0x3fa67db79160c3a0"
+              }
+            },
+            {
+              "name": "yld",
+              "value": {
+                "kind": "number",
+                "display": "0.03266239139487676",
+                "bits": "0x3fa0b91ffdb34689"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "109.22025565957247",
+            "bits": "0x405b4e18ab31a7da"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-PRICEMAT-001.html",
+        "https://handbook.dnacalc.com/notes/FN-PRICEMAT-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

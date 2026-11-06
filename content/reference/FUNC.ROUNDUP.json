@@ -4,7 +4,253 @@
   "try_it": {
     "formula": "=ROUNDUP(-1.21,1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ROUNDUP(1.234567890123456e-200, 65536)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.234567890123456e-200",
+                "bits": "0x166e3d71f622be8f"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "65536",
+                "bits": "0x40f0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "ROUNDUP(1.234567890123456e-200, 65537)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.234567890123456e-200",
+                "bits": "0x166e3d71f622be8f"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "65537",
+                "bits": "0x40f0001000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.1",
+            "bits": "0x3fb999999999999a"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "ROUNDUP(1.234567890123456e-200, 32768)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.234567890123456e-200",
+                "bits": "0x166e3d71f622be8f"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "32768",
+                "bits": "0x40e0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "ROUNDUP(1.0001086461844975e-307, 307)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.0001086461844975e-307",
+                "bits": "0x0031fa982c40c60e"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "307",
+                "bits": "0x4073300000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1e-307",
+            "bits": "0x0031fa182c40c60d"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "ROUNDUP(-1.2225073858507202e-307, 308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-1.2225073858507202e-307",
+                "bits": "0x8035fa182c40c60e"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "308",
+                "bits": "0x4073400000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-1.2e-307",
+            "bits": "0x80359283684dba77"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "ROUNDUP(1.0000000022250739e-300, 307)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.0000000022250739e-300",
+                "bits": "0x01a56e1fc3c5c026"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "307",
+                "bits": "0x4073300000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.0000001000000001e-300",
+            "bits": "0x01a56e1fe6ed23b2"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUNDUP-001.html",
+        "https://handbook.dnacalc.com/notes/FN-ROUNDUP-003.html"
+      ]
+    },
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "ROUNDUP(-1.125, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-1.125",
+                "bits": "0xbff2000000000000"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-1.1300000000000001",
+            "bits": "0xbff2147ae147ae15"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "ROUNDUP(3.535, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "3.535",
+                "bits": "0x400c47ae147ae148"
+              }
+            },
+            {
+              "name": "num_digits",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.5399999999999996",
+            "bits": "0x400c51eb851eb851"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-ROUNDUP-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

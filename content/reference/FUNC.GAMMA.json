@@ -4,7 +4,119 @@
   "try_it": {
     "formula": "=GAMMA(1.6493607064491727)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20527",
+      "platform": "Windows; bitness and CPU not recorded in this reading",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "GAMMA(1.6493607064491727)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.6493607064491727",
+                "bits": "0x3ffa63c80d581b40"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.900020234972592",
+            "bits": "0x3fecccf73c5e41af"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "GAMMA(3.6493607064491727)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "3.6493607064491727",
+                "bits": "0x400d31e406ac0da0"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.9328647235856704",
+            "bits": "0x400f7681c7bb23e9"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "GAMMA(5.649360706449173)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "5.649360706449173",
+                "bits": "0x401698f2035606d0"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "66.72967981145608",
+            "bits": "0x4050aeb312f3b057"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "GAMMA(10.649360706449173)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "10.649360706449173",
+                "bits": "0x40254c7901ab0368"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1600316.6708269436",
+            "bits": "0x41386b3cabbb5088"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        },
+        {
+          "call": "GAMMA(160.48267465838674)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "160.48267465838674",
+                "bits": "0x40640f7212200c21"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.410909690032054e+283",
+            "bits": "0x7acd5c4d6f1f4edc"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows; bitness and CPU not recorded in this reading"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-GAMMA-001.html",
+        "https://handbook.dnacalc.com/notes/FN-GAMMA-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

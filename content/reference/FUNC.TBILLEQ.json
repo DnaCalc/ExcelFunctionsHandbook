@@ -4,7 +4,120 @@
   "try_it": {
     "formula": "=TBILLEQ(0,0,0.1)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, AMD Ryzen 7 4800H",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "TBILLEQ(40633.25, 40836.25, 0.21193100748125787)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "40633.25",
+                "bits": "0x40e3d72800000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "40836.25",
+                "bits": "0x40e3f08800000000"
+              }
+            },
+            {
+              "name": "discount",
+              "value": {
+                "kind": "number",
+                "display": "0.21193100748125787",
+                "bits": "0x3fcb208e2511f676"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.24110326418450792",
+            "bits": "0x3fcedc78c550cec1"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        },
+        {
+          "call": "TBILLEQ(53886, 54252, 0.4522540814812992)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "53886",
+                "bits": "0x40ea4fc000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "54252",
+                "bits": "0x40ea7d8000000000"
+              }
+            },
+            {
+              "name": "discount",
+              "value": {
+                "kind": "number",
+                "display": "0.4522540814812992",
+                "bits": "0x3fdcf1bb1a5c75f4"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.7211303677406913",
+            "bits": "0x3fe7137ffe3328bc"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, AMD Ryzen 7 4800H"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-TBILLEQ-001.html"
+      ]
+    },
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=TBILLEQ(B1,5,0.1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "B1",
+              "value": {
+                "kind": "blank",
+                "display": "(empty cell)",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.10152990264255911",
+            "bits": "0x3fb9fddd1b6a757f"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-WORKDAY-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

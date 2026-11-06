@@ -579,7 +579,10 @@ fn function_page(
             html += &format!(
                 r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit">Calculate</button><button type="button" data-reset>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
                 esc(s(&record["try_it"]["formula"])),
-                esc(&record["try_it"].get("inputs").unwrap_or(&json!({})).to_string())
+                esc(&record["try_it"]
+                    .get("inputs")
+                    .unwrap_or(&json!({}))
+                    .to_string())
             );
         } else {
             html += &r.render(&src, &dest, s(&record["sections"][key]), false);
@@ -589,14 +592,30 @@ fn function_page(
                 html += &reader_note(note, &dest);
             }
         }
+        if key == "try-it" {
+            if let Some(prose) = record["sections"][key].as_str() {
+                html += &r.render(&src, &dest, prose, false);
+            }
+        }
         if key == "version-differences" {
             for version in record["versions"].as_array().into_iter().flatten() {
-                html += &format!(
-                    "<article><h3>Excel {} · {}</h3><p>{}</p></article>",
-                    esc(s(&version["excel_build"])),
-                    esc(s(&version["platform"])),
-                    esc(s(&version["behaviour"]))
-                );
+                let platform = version["platform"]
+                    .as_str()
+                    .unwrap_or("platform not recorded");
+                html += &format!("<article class=\"version-record\"><h3>Excel {}</h3><p class=\"small\">{}</p><p>{}</p>",esc(version["excel_build"].as_str().unwrap_or("build not recorded")),esc(platform),esc(s(&version["behaviour"])));
+                if let Some(observations) = version["observations"].as_array() {
+                    html += "<details><summary>Observed formulas and results</summary><ul>";
+                    for observation in observations {
+                        html += &format!(
+                            "<li><code>{}</code> → {} <span class=\"small\">({})</span></li>",
+                            esc(s(&observation["call"])),
+                            cell_value(&observation["excel"]),
+                            esc(s(&observation["input_route"]))
+                        );
+                    }
+                    html += "</ul></details>";
+                }
+                html += "</article>";
             }
         }
         if key == "how-to-implement" {

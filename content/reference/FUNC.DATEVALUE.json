@@ -4,7 +4,41 @@
   "try_it": {
     "formula": "=DATEVALUE(\"2026-11-06\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows, bitness and CPU not recorded in this reading file",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=DATEVALUE(\"٢٠٢٤-٠١-٠٢\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "45293",
+            "bits": "0x40e61da000000000"
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        },
+        {
+          "call": "=DATEVALUE(\"2024-002-01\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088, Windows, bitness and CPU not recorded in this reading file"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-VALUE-001.html",
+        "https://handbook.dnacalc.com/notes/FN-VALUE-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

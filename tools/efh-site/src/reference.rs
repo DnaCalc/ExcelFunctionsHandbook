@@ -16,6 +16,11 @@ pub const SECTIONS: [(&str, &str); 6] = [
 pub fn load(repo: &Path, f: &Value) -> Result<Value, String> {
     let id = s(&f["function_id"]);
     let owned = json(&repo.join(format!("content/reference/{id}.json")))?;
+    validate(repo, id, &owned)?;
+    Ok(owned)
+}
+
+fn validate(repo: &Path, id: &str, owned: &Value) -> Result<(), String> {
     if owned["schema"] != "efh.reference/v1" || owned["function_id"] != id {
         return Err(format!("{id}: invalid handbook reference identity"));
     }
@@ -24,6 +29,21 @@ pub fn load(repo: &Path, f: &Value) -> Result<Value, String> {
         return Err(format!(
             "{id}: Try it needs a formula starting with =, at most 4096 bytes"
         ));
+    }
+    if let Some(inputs) = owned["try_it"].get("inputs") {
+        if inputs.as_object().is_none_or(|cells| cells.len() > 256) {
+            return Err(format!(
+                "{id}: Try it inputs must be an object with at most 256 cells"
+            ));
+        }
+    }
+    if let Some(signature) = owned.get("signature") {
+        if !signature.is_null()
+            && (signature["display"].as_str().is_none_or(str::is_empty)
+                || !signature["parameters"].is_array())
+        {
+            return Err(format!("{id}: signature needs a display and parameters"));
+        }
     }
     for (field, keys) in [
         (
@@ -46,14 +66,80 @@ pub fn load(repo: &Path, f: &Value) -> Result<Value, String> {
             if !record.is_object() || keys.iter().any(|k| record.get(k).is_none()) {
                 return Err(format!("{id}: {field} record needs {}", keys.join(", ")));
             }
-            if field == "implementations" && record["suite"].is_null() {
-                return Err(format!(
-                    "{id}: a listed implementation needs a published suite"
-                ));
+            let nonempty = |key: &str| record[key].as_str().is_some_and(|s| !s.trim().is_empty());
+            match field {
+                "versions" => {
+                    if !nonempty("behaviour")
+                        || ["excel_build", "platform"]
+                            .iter()
+                            .any(|k| !record[k].is_null() && !nonempty(k))
+                        || record["sources"].as_array().is_none_or(|sources| {
+                            sources.is_empty()
+                                || sources.iter().any(|s| s.as_str().is_none_or(str::is_empty))
+                        })
+                    {
+                        return Err(format!(
+                            "{id}: build observations need typed scope, behaviour and sources"
+                        ));
+                    }
+                }
+                "implementations" => {
+                    if ["language", "flavour", "source", "suite"]
+                        .iter()
+                        .any(|k| !nonempty(k))
+                    {
+                        return Err(format!("{id}: a listed implementation needs a language, source and published suite"));
+                    }
+                    let suite = s(&record["suite"]);
+                    let Some(path) = normalize(Path::new(suite)) else {
+                        return Err(format!("{id}: invalid suite path"));
+                    };
+                    if !path.starts_with(format!("vectors/{id}"))
+                        || !suite.ends_with("/MANIFEST.json")
+                        || !repo.join(path).is_file()
+                    {
+                        return Err(format!(
+                            "{id}: implementation suite manifest is not published: {suite}"
+                        ));
+                    }
+                }
+                "variants" => {
+                    if !nonempty("name") || !nonempty("difference") {
+                        return Err(format!("{id}: a variant needs a name and difference"));
+                    }
+                    if !record["error_bound"].is_null() {
+                        let bound = &record["error_bound"];
+                        if !bound.is_object()
+                            || ["metric", "domain", "basis"]
+                                .iter()
+                                .any(|k| bound[k].as_str().is_none_or(str::is_empty))
+                            || bound
+                                .get("bound")
+                                .is_none_or(|v| !(v.is_null() || v.is_number() || v.is_string()))
+                        {
+                            return Err(format!(
+                                "{id}: an error bound needs metric, bound, domain and basis"
+                            ));
+                        }
+                    }
+                    if !record["onecalc_udf"].is_null() {
+                        let hook = &record["onecalc_udf"];
+                        if !hook.is_object()
+                            || ["name", "language", "source"]
+                                .iter()
+                                .any(|k| hook[k].as_str().is_none_or(str::is_empty))
+                        {
+                            return Err(format!(
+                                "{id}: a UDF hook needs name, language and source"
+                            ));
+                        }
+                    }
+                }
+                _ => unreachable!(),
             }
         }
     }
-    Ok(owned)
+    Ok(())
 }
 
 /// Existing essays are divided by subject, never placed above the reader's explanation.
@@ -97,6 +183,7 @@ pub fn sections(source: &str) -> BTreeMap<String, String> {
             heading = h.into();
             key = match h {
                 "What it computes" | "What it does" | "Arguments" => "what-it-does",
+                "Try it" => "try-it",
                 "Numerical notes" | "Notes for implementers" | "How to implement" => {
                     "how-to-implement"
                 }
@@ -112,6 +199,8 @@ pub fn sections(source: &str) -> BTreeMap<String, String> {
                 h,
                 "What it computes"
                     | "What it does"
+                    | "Try it"
+                    | "Quirks"
                     | "Sources"
                     | "How to implement"
                     | "Alternatives"
@@ -147,7 +236,7 @@ pub fn record(repo: &Path, f: &Value, owned: &Value, notes: &[Value]) -> Result<
     };
     if let Some(overrides) = owned["sections"].as_object() {
         for (key, text) in overrides {
-            if !SECTIONS.iter().any(|(id, _)| id == key) || key == "try-it" || !text.is_string() {
+            if !SECTIONS.iter().any(|(id, _)| id == key) || !text.is_string() {
                 return Err(format!("{id}: unknown section {key:?} or non-string prose"));
             }
             sections.insert(key.clone(), s(text).into());
@@ -180,7 +269,7 @@ pub fn record(repo: &Path, f: &Value, owned: &Value, notes: &[Value]) -> Result<
         "category":f["category"], "entry_kind":f["entry_kind"],
         "url":format!("https://handbook.dnacalc.com/functions/{}.html",id.trim_start_matches("FUNC.")),
         "json_url":format!("https://handbook.dnacalc.com/api/functions/{id}.json"),
-        "signature":if f["signature_placeholder"] == true { Value::Null } else { f["signature"].clone() },
+        "signature":owned.get("signature").cloned().unwrap_or_else(|| if f["signature_placeholder"] == true { Value::Null } else { f["signature"].clone() }),
         "section_order":SECTIONS.iter().map(|(id,_)| *id).collect::<Vec<_>>(),
         "sections":sections, "try_it":owned["try_it"],
         "versions":owned["versions"], "implementations":owned["implementations"], "variants":owned["variants"],

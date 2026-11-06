@@ -4,7 +4,74 @@
   "try_it": {
     "formula": "=MOD(-3,2)"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0 build 20430",
+      "platform": "Windows 64-bit, CPU not recorded in this capture",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "MOD(-1.223247290044572e-296, 1.223247290044539e-296)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-1.223247290044572e-296",
+                "bits": "0x8280000000000079"
+              }
+            },
+            {
+              "name": "divisor",
+              "value": {
+                "kind": "number",
+                "display": "1.223247290044539e-296",
+                "bits": "0x0280000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.223247290044572e-296",
+            "bits": "0x0280000000000079"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        },
+        {
+          "call": "MOD(1.223247290044539e-296, -1.2232472900445716e-296)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.223247290044539e-296",
+                "bits": "0x0280000000000000"
+              }
+            },
+            {
+              "name": "divisor",
+              "value": {
+                "kind": "number",
+                "display": "-1.2232472900445716e-296",
+                "bits": "0x8280000000000078"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, CPU not recorded in this capture"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-MOD-001.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

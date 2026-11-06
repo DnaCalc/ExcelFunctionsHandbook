@@ -4,7 +4,62 @@
   "try_it": {
     "formula": "=TEXTSPLIT(\"a,b,c\",\",\")"
   },
-  "versions": [],
+  "versions": [
+    {
+      "excel_build": "16.0.20527.20088",
+      "platform": "Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "behaviour": "Recorded answers on this build; no claim about unmeasured inputs or other builds.",
+      "observations": [
+        {
+          "call": "=TEXTSPLIT({\"a,b,c\",\"d,e\"},\",\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{\"a\",\"d\"}",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=TEXTSPLIT({\"a,b\"},\",\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "a",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=MAP({\"a,b\",\"c,d\"},LAMBDA(txt,TEXTSPLIT(txt,\",\")))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#CALC!",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        },
+        {
+          "call": "=BYROW({\"a,b\";\"c,d\"},LAMBDA(txt,TEXTSPLIT(txt,\",\")))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{\"a\";\"c\"}",
+            "bits": null
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA"
+        }
+      ],
+      "sources": [
+        "https://handbook.dnacalc.com/notes/FN-TEXTSPLIT-002.html"
+      ]
+    }
+  ],
   "implementations": [],
   "variants": []
 }

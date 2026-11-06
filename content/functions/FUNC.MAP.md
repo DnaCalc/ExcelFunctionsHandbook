@@ -8,236 +8,79 @@ open_problems: []
 references: []
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Notes for implementers
-  - What has not been checked
-  - Notes
-  - Page vocabulary
-  - Sources
+  - "What it does"
+  - "Try it"
+  - "Quirks"
+  - "How to implement"
+  - "Version differences"
+  - "Alternatives"
+  - "Sources"
 family: callable_helpers
 role_in_family: "Elementwise application: invokes the callable once per cell position and returns an array of the results."
 ---
 
 # MAP
 
-## What it computes
+## What it does
 
-`MAP` applies a callable to every cell position of one or more arrays, in parallel across the
-arrays, and returns an array of the results.
+`MAP(array1, [array2, …], lambda)` applies a calculation to corresponding positions of one or
+more arrays and returns the resulting array. The lambda goes last and takes one parameter per
+input array.
 
-The rule:
+`=MAP({1;2;3},LAMBDA(x,x*x))` returns a column containing 1, 4 and 9.
+With two equally shaped arrays, `=MAP({1;2},{10;20},LAMBDA(x,y,x+y))` returns 11 and 22.
+Positions are paired; MAP does not form every possible pair of inputs.
 
-1. The **last** argument is the callable. Everything before it is an input array.
-2. Positions are enumerated in row-major order over the arrays' common extent.
-3. For each position, the callable is invoked with one argument per input array — the value at that
-   position in each.
-4. The results are assembled into an array whose shape is inferred from the inputs.
+## Try it
 
-`MAP` is the higher-order counterpart of the engine's built-in array lifting. The engine already
-lifts scalar kernels over arrays automatically ([chapter 02](../model/02-coercion-and-lifting.md),
-"Array lifting"); `MAP` lets a formula author do the same thing with an expression of their own
-instead of a built-in kernel. Everything `MAP` does could in principle be written as an array
-formula — the value of `MAP` is that the per-element computation can be arbitrarily complicated and
-still be written once.
+Square the example column, then change `x*x` to `IF(x>1,x*x,0)`. Use arrays with the same shape
+when adapting the two-input example. Mismatched shapes need their own compatibility checks.
 
-The callable's declared parameter count must match the number of input arrays. A one-array `MAP`
-takes a one-parameter lambda; a two-array `MAP` takes a two-parameter lambda. The reference engine
-checks this arity before each invocation and reports a mismatch rather than padding.
+## Quirks
 
-## Arguments
+Microsoft documents `#VALUE!` when the final argument is not a valid lambda or its parameter
+count is wrong. A result must fit one output position; a lambda that returns an array introduces
+a separate nested-array problem rather than automatically expanding the result.
 
-`MAP(array1, [array2, ...], lambda)`
+A direct error argument and an error inside an array are observably different. On the recorded
+Excel build, `MAP(NA(),LAMBDA(x,IFERROR(x,3)))` returns `#N/A` before invoking the lambda, while
+`MAP({#N/A},LAMBDA(x,3))` returns 3. The array element can reach the lambda even though the same
+error supplied directly stops the helper.
 
-- **`array1`** — required. The first input array. A scalar is treated as a one-cell array.
-- **`array2`, …** — optional additional input arrays, each contributing one argument to the
-  callable.
-- **`lambda`** — required, and always the **last** argument. The registry records an accepted arity
-  of 2 to 255 arguments.
+The result still needs space in the worksheet. A blocked spill can produce `#SPILL!`; it does
+not change the array calculation itself. Try it shows the array without placing it in a workbook.
 
-The commonly misunderstood position is the last one. The projected signature displays the callable
-in trailing position after a repeating group, which reads as though the lambda were optional; it is
-not. `MAP` with a single array and no callable has nothing to apply.
+## How to implement
 
-The second misunderstanding is shape: `MAP` pairs inputs **positionally**, not combinatorially.
-Two arrays do not produce a cross product; they produce one result per position. If you want a
-cross product, you want `MAKEARRAY` or a broadcast expression.
+Separate the last argument from the input arrays. Validate the callable and its parameter count
+without treating it as a displayed error. For a shared input shape, allocate that output shape
+and visit each coordinate. Read one value from each input at that coordinate, bind the lambda's
+parameters, evaluate its body and store the scalar result at the same coordinate.
 
-## Result and edge cases
+Keep direct argument errors distinct from errors held in an array or referenced cell. Passing an
+array element through the lambda is necessary for formulas that deliberately replace errors.
+Likewise, preserve any callable carried inside an array value.
 
-Returns an array.
+Test mismatched input dimensions, reference inputs, a lambda returning an array, and the order
+of calls to volatile expressions separately. A general array-broadcast rule is not sufficient
+evidence for MAP's shape rule. The recorded examples below settle the direct-error distinction;
+they do not settle every shape case.
 
-- **Result shape.** Inferred from the inputs. The reference engine sizes the enumeration by the
-  largest input extent and then validates that a well-formed output shape exists. What Excel does
-  when two inputs have *different* shapes — broadcast, `#N/A` padding, or `#VALUE!` — is not
-  settled here and is the first probe listed below.
-- **Scalar input.** Treated as a one-cell array, so `MAP(5, LAMBDA(x, x*2))` is a one-cell result
-  rather than a bare scalar.
-- **Non-scalar callable result.** A callable that returns an array for a single position has no
-  cell to occupy; the reference engine reports a non-scalar helper result rather than nesting.
-- **Errors inside the array.** An error value at a position is passed to the callable as an
-  ordinary argument. What the callable does with it decides the outcome for that cell — `MAP` does
-  not pre-filter errors. A direct error as an argument is different: it is the answer for the
-  whole call and the callable does not run, so `MAP(NA(),LAMBDA(xx,IFERROR(xx,3)))` is `#N/A`
-  (FN-HSTACK-001).
-- **Callables inside the input array.** Preserved: the reference engine deliberately carries a
-  callable stored in an array cell through to invocation instead of reconstructing it from its
-  `#CALC!` core projection, so `MAP(array_of_lambdas, LAMBDA(f, f(10)))` is meaningful.
-- **Spilling.** The result is an array value; whether it lands in the grid is a host-side
-  adaptation question ([chapter 03](../model/03-call-pipeline.md), "Host-side adaptation"), and a
-  blocked spill publishes `#SPILL!`.
+## Version differences
 
-## Errors
+Microsoft lists MAP for Microsoft 365 and Excel 2024 on Windows and Mac. The build-specific
+observations below concern error handling. They do not establish that older or later builds
+share every helper-function rule.
 
-| Error | Condition |
-|---|---|
-| `#VALUE!` | Callable arity mismatch, a missing callable in the last position, or a non-scalar result from one invocation, per the reference engine's error mapping. |
-| any error the callable returns | Placed in the corresponding result cell. |
-| `#SPILL!` | The result array could not spill into the grid — a host-side condition, not a `MAP` condition. |
+## Alternatives
 
-The classification records `ErrorCollapseProfile::ReductionFold` with
-`ErrorAlgebra::CanonicalExcelLegacy`. Microsoft's `MAP` page is the documented source for the
-syntax; it was not re-fetched at this revision.
-
-## Relationships
-
-- **`LAMBDA`** supplies the callable and is export-only; see its page for why.
-- **`BYROW` and `BYCOL`** apply a callable to whole rows or columns instead of to single cells, and
-  reduce each to one value. `MAP` preserves shape; they collapse one dimension.
-- **`REDUCE`** collapses the whole array to a single accumulated value; `SCAN` is `REDUCE` that
-  keeps every intermediate. `MAP` is the shape-preserving member of the set.
-- **`MAKEARRAY`** builds an array from row and column indices rather than from existing arrays —
-  the generator to `MAP`'s transformer.
-- **Implicit array lifting** is what `MAP` makes explicit; for a simple elementwise expression the
-  ordinary array formula is shorter and does the same thing.
-- Readers confuse `MAP` with `BYROW` when the intent is per-row aggregation, and with `REDUCE` when
-  the intent is a running total.
-
-## Notes for implementers
-
-1. **The callable is positional, at the end.** Splitting the argument list as "all but last are
-   inputs, last is the callable" is the entire parsing rule, and it must happen before argument
-   preparation decides anything else.
-2. **Check callable arity per call, not once.** The number of inputs fixes the expected parameter
-   count, but a callable value can in principle arrive from an array cell and differ per position.
-3. **Preserve callables carried in array cells.** Reconstructing an array cell from its core
-   projection turns a callable into `#CALC!` and silently breaks higher-order use. The reference
-   engine special-cases this, and the special case is load-bearing.
-4. **Decide the mismatched-shape policy explicitly.** Broadcasting, `#N/A` padding, and outright
-   refusal are all plausible, and the pipeline's general broadcast rule (`#N/A` where a coordinate
-   is missing) may or may not govern a higher-order helper.
-5. **Order of invocation is observable if the callable is impure.** Nothing in the worksheet model
-   makes lambdas pure in practice — a body referencing a volatile function or a cell can see
-   different values per call — so a documented enumeration order is worth committing to.
-
-## What has not been checked
-
-There is no Handbook vector suite for `MAP`; `vectors/` publishes nothing at this revision. No
-Excel-comparison evidence record names `MAP`.
-
-There is also **no reference-engine battery outcome** for `MAP`, and the reason is a real,
-publishable fact about the function rather than a gap in the harness's diligence: the battery drives
-functions with fixed scalar inputs, and `MAP` requires a *callable* argument that a value-driven
-harness cannot synthesise. Every battery row for `MAP` records exactly that. Higher-order functions
-need a higher-order harness, and none exists here yet.
-
-Probes worth running, in priority order:
-
-1. `=MAP({1,2;3,4}, {10,20}, LAMBDA(a,b,a+b))` — mismatched input shapes. Broadcast, `#N/A`
-   padding, or `#VALUE!`? The input-shape rule on this page is not settled until this is.
-2. `=MAP({1,2,3}, LAMBDA(x, {x,x}))` — a callable returning a non-scalar per position.
-3. `=MAP({1,2,3}, LAMBDA(a,b,a+b))` — arity mismatch between input count and parameter count, and
-   the reverse case with a two-parameter callable and one array.
-4. `=MAP(5, LAMBDA(x,x*2))` — does a scalar input give a one-cell array or a bare scalar?
-5. Errors in the input: an error in an array is an ordinary element, so
-   `=MAP({#N/A},LAMBDA(xx,3))` is 3, while a direct error stops the whole call (FN-HSTACK-001).
-6. A callable whose body references a volatile function, over a multi-cell array — establishes
-   whether invocation order and count are observable.
-7. Competing errors in later positions, which FN-HSTACK-001 leaves open.
-
-## Notes
-
-<!-- efh:notes begin: generated by `efh notes render` from content/notes/; edits here are overwritten -->
-
-Recorded behaviour of `MAP` that an implementer matching Excel, or a reader explaining an
-unexpected Excel result, needs to know. Each note gives exact binary64 inputs, Excel's answer
-and where it was recorded; "measured" means the statement is read off recorded Excel answers,
-"inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
-measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
-
-### FN-HSTACK-001: A direct error stops these array functions; the same error in an array or cell is an element
-
-*Quirk; measured; recorded 2026-11-04.* Applies to BYCOL, BYROW, EXPAND, HSTACK, MAP, TAKE, TOCOL, TOROW, VSTACK.
-
-An error written directly as an argument of these functions is the answer for the whole call.
-It is not placed in the result: HSTACK(1,#VALUE!) is #VALUE!, not a row holding 1 and an error,
-and TAKE(#N/A,0) is #N/A. With MAP the LAMBDA does not run at all:
-MAP(NA(),LAMBDA(xx,IFERROR(xx,3))) is #N/A. The same error inside an array, or in a referenced
-cell, is an ordinary element: MAP({#N/A},LAMBDA(xx,3)) is 3, and HSTACK(Data!C1,{1;2}) with
-#N/A in Data!C1 is a 2 by 2 array with #N/A in its first column. TOCOL and TOROW show the
-difference with ignore 2: TOCOL(#N/A,2) is #N/A, while TOCOL({#N/A},2) drops the error, has
-nothing left, and is #CALC!. EXPAND is an exception on the cell side: EXPAND(Data!C1,2,2,"pad")
-is #N/A for the whole call. BYROW and BYCOL check the direct error first too:
-BYROW(#N/A,#VALUE!) is #N/A, while BYROW({#N/A},2), where 2 is not a LAMBDA, is #VALUE!.
-
-| Call | Inputs (binary64) | Excel | Recorded in |
-|---|---|---|---|
-| `=HSTACK(1,#VALUE!)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=TAKE(#N/A,0)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=MAP(NA(),LAMBDA(xx,IFERROR(xx,3)))` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=MAP({#N/A},LAMBDA(xx,3))` | as typed | `3` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=HSTACK(Data!C1,{1;2})` | Data!C1 `#N/A` (cells) | `{#N/A,1;#N/A,2}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=TOCOL(#N/A,2)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=TOCOL({#N/A},2)` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=EXPAND(Data!C1,2,2,"pad")` | Data!C1 `#N/A` (cells) | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=BYROW(#N/A,#VALUE!)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-| `=BYROW({#N/A},2)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
-
-Basis (measured): 27 recorded readings in dynamic-array Excel, each with size observers.
-
-- Open: Competing errors in later positions have not been read in a published capture.
-
-Evidence:
-
-- DnaCalc `apps/dna-onecalc/tests/acceptance.rs`, scalar_errors_keep_their_array_argument_origins at `2d0eddcac8` — recorded readings pinned
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheets fn2_q001 to fn2_q007, fn2_q031 to fn2_q042, fn2_q232 to fn2_q239 at `2d0eddcac8` — recorded readings
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q004, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q232, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q031, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q032, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q238, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q233, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q234, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q237, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q040, row 20, column 10 at `2d0eddcac8` (readings)
-- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q038, row 20, column 10 at `2d0eddcac8` (readings)
-
-<!-- efh:notes end -->
-
-## Page vocabulary
-
-| Term | Meaning |
-|---|---|
-| higher-order helper | A function whose argument is itself a callable |
-| callable | A lambda value; its core projection is `#CALC!` |
-| positional pairing | Inputs combined index-by-index, not as a cross product |
-| `ErrorCollapseProfile::ReductionFold` | Family that folds many inputs into a result and collapses errors by precedence |
+Use an ordinary array expression for a simple elementwise calculation such as squaring. Use
+[BYROW](FUNC.BYROW.md) or [BYCOL](FUNC.BYCOL.md) for whole-row or whole-column calculations.
+[REDUCE](FUNC.REDUCE.md) carries one accumulator through the array; [SCAN](FUNC.SCAN.md) also
+returns the intermediate accumulators. [MAKEARRAY](FUNC.MAKEARRAY.md) generates values from
+row and column indices.
 
 ## Sources
 
-- Microsoft, MAP function —
-  <https://support.microsoft.com/en-us/office/map-function-48006093-f97c-47c1-bfcc-749263bb1f01>
-  (documented source for syntax; not re-fetched at this revision).
-- Handbook call-model chapters
-  [01 The value universe](../model/01-value-universe.md),
-  [02 Coercion and lifting](../model/02-coercion-and-lifting.md),
-  [03 The call pipeline](../model/03-call-pipeline.md).
-- `data/functions/FUNC.MAP.json`, `data/presence/FUNC.MAP.json`.
-- `data/battery/FUNC.MAP.json` — every row records that the function cannot be called by the
-  battery runner because it requires a callable argument.
-- OxFunc `crates/oxfunc_core/src/functions/callable_helpers.rs` at commit 473efa3 — the
-  last-argument-is-callable split, the output-shape inference, the per-invocation arity check, and
-  the deliberate preservation of callables carried in array cells.
+- [Microsoft: MAP function](https://support.microsoft.com/en-us/excel/functions/map-function).
+- [Recorded helper-function error examples](../notes/FN-HSTACK-001.json).
