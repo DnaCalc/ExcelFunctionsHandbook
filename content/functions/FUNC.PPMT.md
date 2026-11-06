@@ -19,236 +19,70 @@ references:
     role: "the type table and the unit example"
 episodes: []
 body_sections:
-  - What it computes
-  - Arguments
-  - Result and edge cases
-  - Errors
-  - Relationships
-  - Numerical notes
-  - What has not been checked
+  - What it does
+  - Try it
+  - Quirks
+  - How to implement
+  - Version differences
+  - Alternatives
   - Notes
   - Excel versions, platforms and CPUs
-  - Page vocabulary
   - Sources
 family: financial_time_value_family
-role_in_family: >-
-  The principal half of one scheduled payment: mathematically the payment less the interest, and in
-  Excel a product of PMT's quotient, a discount factor and the rate, not a subtraction.
+role_in_family: "The principal part; its end-timing route uses a stored quotient, discount exponential and rate instead of subtracting interest."
 ---
 
 # PPMT
 
-## What it computes
+## What it does
 
-`PPMT(rate, per, nper, pv, [fv], [type])` returns the **part of the payment in period `per` that
-repays principal**, for an annuity with constant periodic `rate` and constant payment.
+`PPMT(rate,per,nper,pv,[fv],[type])` returns the principal part of one payment in a fixed-rate, equal-payment annuity. Period per starts at one and precedes nper in the argument list. Omitted fv and type are zero; type one pays at the beginning.
 
-The definition is a split of the payment into two parts:
+## Try it
 
-    PPMT(per) = PMT − IPMT(per)
+`=PPMT(0.25,2,2,1000)` is about `-555.5555556`, the final principal repayment on a two-period loan. The first principal repayment is about `-444.4444444`, so the mathematical pair repays the original thousand.
 
-Interest is charged on the balance entering the period, and whatever is left of the payment reduces
-the balance. In exact arithmetic that identity holds for every period. In Excel's stored answers it
-does not hold in the last bits, which is the main thing to know about this function as a piece of
-arithmetic; see *Numerical notes*.
+`=PPMT(0,2,4,1000)` returns `-250`; at zero rate all four equal payments are principal.
 
-With end-of-period payments the definition has a simple closed form. Each period the interest falls
-by `rate` times the previous principal repayment, so the principal repayment grows by the factor
-`1 + rate`:
+## Quirks
 
-    PPMT(per) = (PMT + pv·rate) · (1 + rate)^(per − 1)              type = 0
+Use a periodic rate and a matching period count. Positive principal and negative repayments describe a loan. Per must lie between one and nper; the current helper checks it through IPMT after obtaining PMT.
 
-When `fv = 0` this collapses further, because the last repayment clears the balance:
+PPMT’s current first operation is a PMT call. It can therefore return a PMT domain error where IPMT’s beginning-first-period guard returns zero. At a valid beginning first period the whole payment is principal.
 
-    PPMT(per) = PMT · (1 + rate)^−(nper − per + 1)                  type = 0, fv = 0
+The mathematical identity `PPMT=PMT-IPMT` does not reproduce all recorded Excel bits. FN-PPMT-001 retains twelve loan periods where only two such binary64 subtractions equal the recorded principal. Summing principal over a schedule and reproducing CUMPRINC are separate numerical tasks.
 
-So the first repayment is the payment discounted over the whole term, and the last is the payment
-discounted by one period. That second form is close to what Excel evaluates.
+## How to implement
 
-Two checks follow, both exact in the mathematics:
+For the measured **zero-fv, end-timing** route, reuse L, total-period em_n and the stored q from the [IPMT recipe](FUNC.IPMT.md#how-to-implement). Let R denote its stored arithmetic operation.
 
-1. **The repayments add up.** The sum of `PPMT` over all periods is `−(pv + fv)`.
-2. **With `rate = 0`** interest vanishes and every period repays `−(pv + fv)/nper`.
+1. Obtain PMT and perform the IPMT guard path, including period validation. Exactly zero rate uses the linear principal result.
+2. For the eligible nonzero-rate helper, form the binary64 remaining count `m=(nper-per)+1` and argument `t=-(m*L)`, with each named operation stored.
+3. Obtain the stored public exponential `u=EXP(t)`. Do not replace it by `1+em_m`: the note’s 74 principal controls distinguish those values.
+4. At fv=0 return `R(R(q*u)*r)`. With a nonzero fv, the current candidate is `R(R(R(q-fv)*u)*r)`, but q’s nonzero-fv numerator retains the limitation described on IPMT.
 
-Worked examples from Microsoft's page, both reproduced by the first closed form:
+For the second-period example, the reconstruction has q `-2777.7777777777774`, u `0.8` and principal `-555.5555555555555`. Its PMT is `-694.4444444444443` and interest `-138.88888888888886`; ordinary binary64 subtraction of those two produces `-555.5555555555554` instead. These are worked reconstruction values, not a new Excel run.
 
-| Formula | Meaning | Result |
-|---|---|---|
-| `=PPMT(10%/12, 1, 2*12, 2000)` | Principal in month 1 of a two-year loan of 2,000 | `-75.62` |
-| `=PPMT(8%, 10, 10, 200000)` | Principal in year 10 of a ten-year loan of 200,000 | `-27598.05` |
+The source retains 138 of 138 zero-fv principal controls and 25 of 27 nonzero-fv controls for its end route. Beginning timing and helper-declined cases use a separate backward-discount candidate, rather than simply subtracting interest. Its current form discounts `payment-carried_future_interest` over the periods remaining, with a beginning-timing adjustment to that carried interest.
 
-### The `type = 1` schedule
+The logarithm’s exceptions, nonzero-fv numerator, beginning-timing body and other recorded residuals remain open. Reusing PMT’s newer balance fold without separately validating these period helpers would transfer a result outside its established scope. The separately pinned calculator can predate the cited source changes.
 
-With `type = 1` the first payment falls at time zero, before any interest has accrued, so all of it
-is principal:
+## Version differences
 
-    PPMT(1) = PMT(rate, nper, pv, fv, 1)        type = 1
+The recorded environments below distinguish a reading from a same-input comparison. Counts describe captured inputs in each environment; overlapping captures and comparisons are not totals of unique worksheet calls.
 
-Later periods follow the definition from a balance already reduced by that payment. Getting this
-shift wrong gives answers that are right in the middle of a schedule and wrong at its ends, and
-`EV-FIN-0017` records an open type-1 defect in this area; see *What has not been checked*.
+| Excel 16.0 build | Platform and CPU | Captured inputs |
+|---|---|---:|
+| 19929 | Windows, bitness not recorded, CPU not recorded | 396 |
+| 20131 | Windows, bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics | 7 |
 
-### The sign convention
+The record contains no same-input comparison between these environments. Reading different inputs on different builds does not establish either a version change or cross-build agreement.
 
-As for the rest of the family, money paid out is negative. For a loan entered as a positive `pv`,
-`PMT`, `IPMT` and `PPMT` are all negative. Repayments grow in magnitude through the life of a loan
-while interest shrinks.
+[Recorded environments and comparison details](https://github.com/DnaCalc/ExcelFunctionsHandbook/blob/5dc75391aa5125ccc5abdb095da85950980d6fd8/content/evidence/environments/FUNC.PPMT.json).
 
-## Arguments
+## Alternatives
 
-| Argument | Meaning | Default |
-|---|---|---|
-| `rate` | The interest rate **per period**. Required. | none |
-| `per` | The period wanted, in the range `1` to `nper`. Required. | none |
-| `nper` | The total number of payment periods. Required. | none |
-| `pv` | The present value: the total that the future payments are worth now. Required. | none |
-| `fv` | The balance wanted after the last payment. Optional. | 0 |
-| `type` | `0` for payments at the **end** of each period, `1` for the **beginning**. Optional. | 0 |
-
-- **`per` comes before `nper`.** `PMT` has no `per`, so a formula edited from `PMT` to `PPMT` by
-  inserting an argument in the wrong slot gives a plausible wrong answer, or `#NUM!`.
-- **`per` starts at 1.** Contrast [ISPMT](FUNC.ISPMT.md), which counts periods from 0.
-- **`rate` and `nper` must use the same period.** Monthly payments on a four-year loan at 12% a year
-  are `12%/12` and `4*12`.
-- The reference engine reads a blank or missing argument as `0`, truncates `type` and treats any
-  nonzero result as beginning-of-period. Microsoft documents only `0` and `1`.
-
-## Result and edge cases
-
-Returns `Number`, a principal amount carrying the family sign convention.
-
-The cases below are recorded answers from a sample of 396 `PPMT` readings on Excel 16.0 build 19929,
-Windows, bitness and CPU not recorded, classified for this page.
-
-- **`per` below 1** is `#NUM!`: 157 readings, all with `per = 0`, including rate zero and both
-  `type` values.
-- **`per` above `nper`** is `#NUM!`: 164 readings, 16 of them with `type = 1`. So the range in
-  Microsoft's argument description is enforced at both ends in everything read here.
-- **`rate = 0`** gives `−(pv + fv)/nper` where the answer is nonzero:
-  `PPMT(0, 1, 139, 337711.21596695744, -161658.71376712981, 0)` is `-1266.564764027537`.
-- **`pv = 0` and `fv = 0`** give `0` at every period read.
-- **A high rate over a long term** is the case to watch. `EV-FIN-0019` records two adjacent rows
-  where the reference engine returned `#NUM!` and Excel returned a tiny value or zero. The reference
-  engine reaches `PPMT` through a balance that grows like `(1 + rate)^per`, which can overflow. The
-  route in the notes multiplies by a discount factor that shrinks instead, so a tiny number or zero
-  is what it would give. That explanation is inferred; the two rows are what was measured.
-
-## Errors
-
-Microsoft's `PPMT` page publishes no table of error conditions; it states only the range of `per`.
-
-| Error | Condition | Source |
-|---|---|---|
-| `#NUM!` | `per < 1` or `per > nper` | Microsoft's range; 321 recorded readings |
-| `#NUM!` | `rate ≤ −1` | reference engine at `473efa3`, through its `PMT` guard |
-| `#VALUE!` | A numeric slot receives non-numeric text or an unsupported value kind | reference engine, under the shared call model |
-| propagated | An error value in any argument surfaces as that error | reference engine, under the shared call model |
-| `#VALUE!` | Fewer than four or more than six arguments | reference engine, under the shared call model |
-
-Only the first row comes from Excel readings. See
-[The value universe](../model/01-value-universe.md) and
-[Coercion and lifting](../model/02-coercion-and-lifting.md).
-
-## Relationships
-
-- **[PMT](FUNC.PMT.md)** is the payment being split. Excel's `PPMT` starts from `PMT`'s quotient, not
-  from `PMT`'s answer.
-- **[IPMT](FUNC.IPMT.md)** is the interest half. The IPMT page, which is older, says `IPMT + PPMT =
-  PMT` exactly, suggests testing that to the last bit, and says the two share every error because
-  one is computed from the other. That describes the reference engine at commit `473efa3`, which
-  does compute `PPMT` as `PMT − IPMT`. The notes below show it does not describe Excel, and they are
-  the later record.
-- **[CUMPRINC](FUNC.CUMPRINC.md)** sums principal over a range of periods. On the 30-year loan its
-  answer over periods 1 to 12 equals the left-to-right sum of Excel's own twelve `PPMT` answers, but
-  this does not generalise. Over recorded single-period calls with `type = 0`, `CUMPRINC` equals
-  `PPMT` on 56 of 135 rows, and its own route is open. See the
-  [function notes](../notes/NOTES.md).
-- **[CUMIPMT](FUNC.CUMIPMT.md)** is the matching sum of interest.
-- **`PV`, [FV](FUNC.FV.md), `NPER`, `RATE`** solve the annuity equation behind all of these.
-- **[ISPMT](FUNC.ISPMT.md)** is a different loan model, with level principal and a 0-based period.
-  Its principal part is constant, unlike `PPMT`'s.
-- **Confused with**: the principal on a lender's statement, which reflects rounding to cents and
-  day counts. `PPMT` is the idealized schedule.
-
-## Numerical notes
-
-The notes below give the formula with its counts. This section says what the formula means for
-someone using or reproducing the function.
-
-**`PPMT` is not a subtraction.** For `type = 0` Excel takes `PMT`'s quotient `q`, subtracts `fv`,
-multiplies by the stored exponential `u = exp(t)` with `t = −m·L` and `m = nper − per + 1`, and
-multiplies by `rate`. With `fv = 0` that is the closed form `PMT · (1 + rate)^−m`. So the two
-answers on a page, `PMT` and `PPMT`, come from different last steps, and `IPMT` takes a third path
-through `expm1` where `PPMT` takes the exponential it starts from.
-
-**So the identity fails in the last bits.** On the 30-year loan of 200,000 at 5%, over the first
-twelve periods, `PMT − IPMT` reproduces Excel's `PPMT` in only 2 periods and `PMT − PPMT` reproduces
-`IPMT` in 7, in binary64 from Excel's own answers. A check column that compares `PPMT` with
-`PMT − IPMT` for exact equality will fail on ordinary inputs, and that is not an error in the
-workbook. Compare with a tolerance. An implementation that derives one from the other will miss
-Excel's last bits, as the reference engine's source records for itself at commit `473efa3`, with an
-open one-unit gap on the first period of that loan.
-
-**Why `PPMT` is further from the exact value than `PMT`.** The notes record every answer on that
-loan 3 to 5 units from the correctly rounded principal, where `PMT` is 1 unit away. A likely part of
-the reason is arithmetic. The stored logarithm `L` is about 8.3e−19 below the true `ln(1 + rate)` at
-this rate, and the exponent multiplies that error by `m`. At `m = 360` the exponential is therefore
-about 3.0e−16 too large in relative terms, which is well over half of `PPMT`'s relative error of
-about 4.7e−16 in the first period. `PMT` feels the same error only through `u − 1`, where it is
-diluted because `u` is about 0.22. This paragraph is the Handbook's own arithmetic from the values in
-the notes, not a separate measurement.
-
-**No cancellation in the `fv = 0` route.** With `fv = 0` the only subtraction is the one inside
-`em`, which the `expm1` form protects, and everything after it is a product of stored values. So,
-unlike the balance recurrence described on the IPMT page, the route has no reason to lose digits
-near the end of a schedule, and the error carried in from `L` shrinks with `m`. That is what the
-arithmetic predicts; the notes count matches, and do not report a spread by period beyond the first
-twelve.
-
-**Small rates.** The whole family's discipline applies here: an exact `rate == 0` test in the
-reference engine, and a logarithm-based form that keeps tiny nonzero rates on the general path.
-
-## What has not been checked
-
-No Handbook vector suite exists for `PPMT`; `vectors/` publishes nothing at this revision, so no
-suite-scoped claim exists for it.
-
-The notes below describe `type = 0`, and match all recorded rows with `fv = 0`, in the rate range
-where `PMT`'s logarithm is identified. Still unmeasured or open after them:
-
-1. **`type = 1`.** The route is open, because `PMT`'s stored factor for that case is open. The same
-   gap reaches `PPMT`. `EV-FIN-0017` records an open type-1 defect in the reference engine, checked
-   on four witnesses at ten decimal places only, and it publishes no count on purpose.
-2. **Nonzero `fv`.** `PMT`'s numerator is open and carries through. The formula in the notes fits 25
-   of 27 such rows with `type = 0`, so the two others are unexplained.
-3. **Rates outside −1/3 to 1/2.** `PPMT` inherits `PMT`'s open logarithm there, and the note on
-   `PMT` records a one-unit miss inside that range too, at rate `0.419`.
-4. **`rate ≤ −1`, and negative or fractional `nper`.** None appears in the 396-row sample.
-5. **Fractional `per`.** Microsoft's text says only that `per` lies between 1 and `nper`. Every `per`
-   in the sample is a whole number. The reference engine accepts a fractional `per` and does not
-   truncate it. Whether Excel truncates, rounds or interpolates is unread here.
-6. **`type` other than `0` or `1`, and non-numeric arguments.** Unread here.
-7. **High rates over long terms.** Only the two rows behind `EV-FIN-0019` address this. Where the
-   tiny answers turn to zero has not been mapped.
-8. **Other environments.** No input has been read in two environments, so no difference between
-   builds, CPUs or platforms is known and none is ruled out. Nothing has been read on a Mac, in Excel
-   for the web, on 32-bit Excel or on an Intel CPU. A CPU dependence is expected and untested.
-
-Five evidence records name `PPMT`. They measure the **reference engine**, or a research model, and
-not the route in the notes. Their counts render beside this page with their reader warnings:
-
-- **`EV-FIN-0001`** is a replay over a **group** of annuity functions. Its total may not be
-  attributed to any one of them.
-- **`EV-FIN-0002`** is the Handbook's per-function split of that replay, arithmetic over a stored
-  file and not a live-Excel measurement.
-- **`EV-FIN-0005`** holds scores from a research model, which the source forbids reporting as
-  reference-engine pass rates.
-- **`EV-FIN-0017`** is the type-1 defect stream described above.
-- **`EV-FIN-0019`** holds two older joint samples whose counts are group totals and may not be
-  distributed to `PPMT`.
-
-Taken together, these records do not support a statement that the reference engine at commit
-`473efa3` agrees with Excel on `PPMT`, and the source of that engine says it does not.
+[IPMT](FUNC.IPMT.md) returns interest and [PMT](FUNC.PMT.md) the entire payment. [CUMPRINC](FUNC.CUMPRINC.md) totals principal over an interval, with a separately recorded route; [ISPMT](FUNC.ISPMT.md) belongs to a level-principal schedule.
 
 ## Notes
 
@@ -358,37 +192,8 @@ Evidence for every row: [`content/evidence/environments/FUNC.PPMT.json`](../../c
 
 <!-- efh:environments end -->
 
-## Page vocabulary
-
-| Term | Meaning on this page |
-|---|---|
-| principal repayment | The part of a payment that reduces the balance |
-| quotient `q` | `PMT`'s stored `pv / em`, with `fv` entering through an open numerator |
-| `m` | `nper − per + 1`, the number of periods left including this one |
-| `u` | The stored exponential `exp(−m·L)`, the discount factor over `m` periods |
-| `L` | The stored value of `ln(1 + rate)` that Excel uses |
-| one unit | One unit in the last place of a binary64 value |
-
 ## Sources
 
-- Microsoft Support, "PPMT function" —
-  <https://support.microsoft.com/en-us/office/ppmt-function-c370d9e3-7749-4ca4-beea-b06c6ac95e1b>
-  (syntax, argument meanings, the unit remark and the two examples). Read through a fetch that
-  returned a summary with quoted text, not the raw page.
-- Microsoft Learn, "WorksheetFunction.Ppmt method (Excel)" —
-  <https://learn.microsoft.com/en-us/office/vba/api/excel.worksheetfunction.ppmt> (the `type` table
-  and the unit example).
-- Handbook, [PMT](FUNC.PMT.md) and [FV](FUNC.FV.md) — the shared equation, and the logarithm and
-  quotient this function reuses.
-- Handbook, [Function notes](../notes/NOTES.md), and the research write-up they cite.
-- Handbook evidence records `EV-FIN-0001`, `EV-FIN-0002`, `EV-FIN-0005`, `EV-FIN-0017` and
-  `EV-FIN-0019`, each with its own reader warning and scope.
-- The 396 recorded `PPMT` readings on build 19929 listed in this page's Excel versions section,
-  classified for this page by the range of `per`, the rate and `type`.
-- Handbook, [The value universe](../model/01-value-universe.md) and
-  [Coercion and lifting](../model/02-coercion-and-lifting.md).
-- OxFunc `crates/oxfunc_core/src/functions/financial_time_value_family.rs` at commit `473efa3` — the
-  `ppmt` kernel, its reliance on `pmt` and `ipmt`, the `per` guard, and the test recording its gap on
-  the first period of the 30-year loan, read as implementation facts about that engine.
-- Handbook projections `data/functions/FUNC.PPMT.json` and `data/presence/FUNC.PPMT.json` (arity,
-  classification axes, implementing module and sibling set).
+- [Microsoft: PPMT function](https://support.microsoft.com/en-us/excel/functions/ppmt-function), opened 6 November 2026; syntax, documented argument rules and errors.
+- [R31 financial implementation](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/ported/financial_time_value_family.rs); `end_payment_quotient`, `end_payment_parts`, `ipmt` and `ppmt`, including distinct guard and fallback paths.
+- [Recorded stage controls](https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/tests/f3_financial.rs); payment-part and beginning-period controls. The notes below retain captured examples and their environments.
