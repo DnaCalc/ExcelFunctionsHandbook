@@ -334,7 +334,7 @@ pub fn local_names(f: &Value) -> String {
                 esc(s(&n["locale"])),
                 esc(&language(s(&n["locale"]))),
                 esc(s(&n["locale"])),
-                esc(s(&n["name"]))
+                esc(clean_name(s(&n["name"])))
             );
         }
     } else if !family.is_empty() {
@@ -377,6 +377,11 @@ pub fn local_names(f: &Value) -> String {
     format!(
         "<details class=\"local-names\" id=\"local-names\"><summary>{summary}</summary>{note}<div class=\"table-scroll\" role=\"region\" aria-label=\"Local names\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Language</th><th scope=\"col\">Name in Excel</th></tr></thead><tbody>{body}</tbody></table></div><p class=\"small\">Names from Microsoft's support site.</p></details>"
     )
+}
+
+/// Microsoft's lists mark some names with a footnote asterisk; it is no part of the name.
+pub fn clean_name(name: &str) -> &str {
+    name.trim_end_matches([' ', '*'])
 }
 
 pub fn language_picker() -> String {

@@ -1,10 +1,10 @@
-# Material: the first honest look (W111, 2026-09-24)
+# The first honest look
 
-Raw notes for the Last Bit series. Not edited for publication.
+Working notes kept during the work, lightly edited for public reading. They are not finished articles. Numbers are as recorded at the time, and later work may supersede them. Statements about how Excel's authors worked are hypotheses drawn from the evidence, which was recorded answers, published algorithms and instruction manuals.
 
 ## "We've hardly started"
 
-For months the working belief was: most functions match Excel bit for bit, a few holdouts
+For months the working belief was: most functions match Excel to the last bit, a few holdouts
 (ERFC, GAMMALN, PMT's expm1, IRR/RATE) are brutally hard. A stock take on 22 September pulled
 every claim into one table and the belief did not survive. Most "exact" functions had been
 checked on a handful of rows, or on the same rows their fix was fitted to, or only in a July
@@ -29,8 +29,8 @@ subnormals), and asked Excel about 33,000 questions through the Value2 plumbing.
 half minutes of Excel time.
 
 Five came back clean on every row. Nineteen did not, and several of those were not last-bit
-curiosities but plain rule differences: DOLLARDE(3.69, 10) is 3.69 in Excel and 9.9 in OxFunc;
-TBILLEQ switches formula for bills longer than half a year and OxFunc never did; BAHTTEXT
+curiosities but plain rule differences: DOLLARDE(3.69, 10) is 3.69 in Excel and 9.9 in our port;
+TBILLEQ switches formula for bills longer than half a year and our port never did; BAHTTEXT
 refuses negative numbers that Excel happily spells out with a leading "minus".
 
 ## COUPDAYSNC and the non-additive calendar

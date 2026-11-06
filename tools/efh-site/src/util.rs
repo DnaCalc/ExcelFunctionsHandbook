@@ -7,6 +7,20 @@ pub const FUNCTIONS: usize = 531;
 pub const PUBLISHED_ROWS_AND_ADDED: usize = 547;
 pub const SOURCE: &str = "https://github.com/DnaCalc/ExcelFunctionsHandbook";
 
+/// The retired project's name stays in source records; readers see what it was.
+pub fn reader_words(text: &str) -> String {
+    text.replace(
+        "crates/oxfunc_core/src/functions/",
+        "earlier-implementation/",
+    )
+    .replace("crates/oxfunc_core/", "earlier-implementation/")
+    .replace("oxfunc_core", "the earlier implementation")
+    .replace("the OxFunc project", "an earlier DNA Calc project")
+    .replace("OxFunc-Evidence", "CalcFunc-Evidence")
+    .replace("OxFunc's", "the earlier implementation's")
+    .replace("OxFunc", "the earlier implementation")
+}
+
 pub fn esc(s: &str) -> String {
     s.replace('&', "&amp;")
         .replace('<', "&lt;")

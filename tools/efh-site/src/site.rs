@@ -380,20 +380,21 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         write(
             out,
             &format!("api/functions/{id}.json"),
-            &serde_json::to_string_pretty(&reference::record(
-                repo,
-                f,
-                &reference::load(repo, f)?,
-                &input.notes,
-                &input.calc,
-            )?)
-            .unwrap(),
+            &reader_words(
+                &serde_json::to_string_pretty(&reference::record(
+                    repo,
+                    f,
+                    &reference::load(repo, f)?,
+                    &input.notes,
+                    &input.calc,
+                )?)
+                .unwrap(),
+            ),
         )?;
     }
     routes.insert("content/notes/NOTES.md".into(), "notes/index.html".into());
     routes.insert("site/api/notes.json".into(), "api/notes.json".into());
     routes.insert("data/index.json".into(), "api/index.json".into());
-    routes.insert("site/api/rubric.json".into(), "api/rubric.json".into());
     for path in files(&repo.join("content/model"))? {
         if path.extension().is_some_and(|x| x == "md") {
             let src = path
@@ -413,43 +414,30 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             docs.push((src, dest, title));
         }
     }
+    let series = json(&repo.join("content/lastbit/series.json"))?;
     let mut episodes = Vec::new();
-    for path in files(&repo.join("content/lastbit"))? {
-        let name = path
-            .file_name()
-            .unwrap()
-            .to_str()
-            .ok_or("non-UTF8 episode name")?;
-        if name.starts_with("MATERIAL_") || path.extension().is_none_or(|x| x != "md") {
-            continue;
-        }
-        let raw = read(&path)?.replace("\r\n", "\n");
-        let src = path
-            .strip_prefix(repo)
-            .unwrap()
-            .to_string_lossy()
-            .into_owned();
-        let title = crate::markdown::body(&raw)
-            .lines()
-            .find_map(|l| l.strip_prefix("# "))
-            .unwrap_or(name)
-            .to_string();
-        // Publication requires an explicit frontmatter declaration. Filename/date do not
-        // silently turn a draft into a finished article.
-        let ready = raw.starts_with("---\n")
-            && raw
-                .split("\n---\n")
-                .next()
-                .unwrap_or("")
-                .lines()
-                .any(|l| matches!(l, "status: ready" | "status: published"));
-        let dest = format!(
-            "lastbit/{}.html",
-            slug(path.file_stem().unwrap().to_str().unwrap())
-        );
+    for entry in series["entries"].as_array().ok_or("series.json: entries")? {
+        let (src, slug) = (s(&entry["source"]).to_string(), s(&entry["slug"]));
+        let dest = format!("lastbit/{slug}.html");
         routes.insert(src.clone(), dest.clone());
-        episodes.push((src, dest, title, ready));
+        let label = match s(&entry["kind"]) {
+            "article" => "Article",
+            "draft" => "Draft article",
+            "notes" => "Working notes",
+            other => return Err(format!("series.json: unknown kind {other}")),
+        };
+        episodes.push((src, dest, s(&entry["title"]).to_string(), label.to_string()));
     }
+    for path in files(&repo.join("content/lastbit/figures"))? {
+        let target = out.join("lastbit/figures").join(path.file_name().unwrap());
+        std::fs::create_dir_all(target.parent().unwrap()).map_err(|e| e.to_string())?;
+        std::fs::copy(&path, target).map_err(|e| e.to_string())?;
+    }
+    std::fs::copy(
+        repo.join("content/lastbit/the-last-bit-2026-07.pdf"),
+        out.join("lastbit/the-last-bit-2026-07.pdf"),
+    )
+    .map_err(|e| e.to_string())?;
     for (src, dest, title) in [
         (
             "content/notes/HOWTO.md",
@@ -513,14 +501,50 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         let body=format!("<p class=\"eyebrow\">Research record · source document</p><h1>{}</h1><p class=\"small\">{}</p><article>{rendered}</article>",esc(&title),a(&dest,"rules/index.html","Reading the scope and limits"));
         output(out, &dest, &title, &body)?;
     }
-    for (src, dest, title, ready) in &episodes {
+    let figure = Regex::new(r"<p>\[\[figure ([a-z0-9-]+\.png)\|([^\]]+)\]\]</p>").unwrap();
+    let entries = series["entries"].as_array().unwrap();
+    for (at, (src, dest, title, label)) in episodes.iter().enumerate() {
         let rendered = r.render(src, dest, &read(&repo.join(src))?, false);
-        let label = if *ready {
-            "Series article"
-        } else {
-            "Draft · research essay"
-        };
-        let body=format!("<p class=\"eyebrow\">The Last Bit</p><h1>{}</h1><p class=\"status\">{label}</p><article>{rendered}</article>",esc(title));
+        let rendered = figure.replace_all(
+            &rendered,
+            "<figure class=\"series-figure\"><img src=\"figures/$1\" alt=\"$2\" loading=\"lazy\"></figure>",
+        );
+        let entry = &entries[at];
+        let mut body = format!(
+            "<p class=\"eyebrow\">The Last Bit · part {} of {}</p><h1>{}</h1><p class=\"status\">{label} · {}</p>",
+            at + 1,
+            episodes.len(),
+            esc(title),
+            esc(s(&entry["date"]))
+        );
+        if let Some(pdf) = entry["pdf"].as_str() {
+            body += &format!("<p><a href=\"{}\">Read the original PDF</a></p>", esc(pdf));
+        }
+        if let Some(note) = entry["note"].as_str() {
+            body += &format!("<aside class=\"notice\"><p>{}</p></aside>", esc(note));
+        }
+        body += &format!(
+            "<article>{rendered}</article><nav class=\"series-nav\" aria-label=\"The Last Bit\">"
+        );
+        if at > 0 {
+            body += &format!(
+                "<a href=\"{}\">← {}</a>",
+                esc(&relative(dest, &episodes[at - 1].1)),
+                esc(&episodes[at - 1].2)
+            );
+        }
+        body += &format!(
+            "<a href=\"{}\">The series</a>",
+            esc(&relative(dest, "lastbit/index.html"))
+        );
+        if at + 1 < episodes.len() {
+            body += &format!(
+                "<a href=\"{}\">{} →</a>",
+                esc(&relative(dest, &episodes[at + 1].1)),
+                esc(&episodes[at + 1].2)
+            );
+        }
+        body += "</nav>";
         output(out, dest, title, &body)?;
     }
     for f in &input.functions {
@@ -539,16 +563,22 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         &implementation::summary_page(&input.calc, &input.functions, function_path),
     )?;
     homepage(out, input, &episodes)?;
-    let mut series=String::from("<p class=\"eyebrow\">Research essays</p><h1>The Last Bit</h1><p>Investigating how Excel computes its answers, with the scope and limits of each measurement kept in view.</p><ul class=\"entries\">");
-    for (_, dest, title, ready) in &episodes {
-        series += &format!(
-            "<li>{}<span class=\"small\">{}</span></li>",
+    let mut page=String::from("<p class=\"eyebrow\">Research series</p><h1>The Last Bit</h1><p>How we worked out what Excel computes, down to the last bit, in reading order. Articles are written to be read. Working notes were kept during the work and are marked as such; later notes correct earlier ones.</p><p>Measurement is one part of this project's method. The work also uses published algorithms, instruction manuals and licensed translations. Every figure applies to its recorded inputs, Excel builds and platforms.</p><ol class=\"series-list\">");
+    for (at, (_, dest, title, label)) in episodes.iter().enumerate() {
+        let entry = &entries[at];
+        page += &format!(
+            "<li>{}<span class=\"small\">{label} · {}</span><span>{}</span>{}</li>",
             a("lastbit/index.html", dest, title),
-            if *ready { "Series article" } else { "Draft" }
+            esc(s(&entry["date"])),
+            esc(s(&entry["summary"])),
+            entry["pdf"].as_str().map_or(String::new(), |pdf| format!(
+                " <a class=\"small\" href=\"{}\">PDF</a>",
+                esc(pdf)
+            ))
         );
     }
-    series += "</ul><p>Internal research materials are excluded from this site.</p>";
-    output(out, "lastbit/index.html", "The Last Bit", &series)?;
+    page += "</ol><h2>Research log</h2><p>The rounds after these notes are kept as a terse working log in the public repository <a href=\"https://github.com/DnaCalc/DnaCalc-Research\">DnaCalc/DnaCalc-Research</a>, with their evidence.</p>";
+    output(out, "lastbit/index.html", "The Last Bit", &page)?;
     let licences = format!(
         "<h1>Licences and attribution</h1><article>{}<h2>Code: MIT</h2>{}</article>",
         r.render(
@@ -583,17 +613,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         json!({"function_id":id,"surface_name":f["surface_name"],"entry_kind":f["entry_kind"],"category":f["category"],"implementation_state":input.calc.entry(id)["state"],"url":format!("https://handbook.dnacalc.com/{}",function_path(id)),"json_url":format!("https://handbook.dnacalc.com/api/functions/{id}.json")})
     }).collect();
     write(out,"api/index.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-index/v1","counts":{"entries":ENTRIES,"functions":FUNCTIONS,"operators":23,"published_rows":534,"split_byte_variant_rows":7,"added_functions":13},"reconciliation":RECONCILIATION,"rows":rows})).unwrap())?;
-    write(out,"api/notes.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-notes-api/v1","source":"content/notes/FN-*.json (efh.function-note/v1)","note_count":input.notes.len(),"notes":input.notes})).unwrap())?;
-    // Earlier research derivations remain downloadable.
-    for name in ["rubric.json", "rubric-hygiene.json"] {
-        if repo.join(format!("site/api/{name}")).is_file() {
-            write(
-                out,
-                &format!("api/{name}"),
-                &read(&repo.join(format!("site/api/{name}")))?,
-            )?;
-        }
-    }
+    write(out,"api/notes.json",&reader_words(&serde_json::to_string_pretty(&json!({"schema":"efh.function-notes-api/v1","source":"content/notes/FN-*.json (efh.function-note/v1)","note_count":input.notes.len(),"notes":input.notes})).unwrap()))?;
     write(out,"api/build.json",&serde_json::to_string_pretty(&json!({"schema":"efh.static-build/v1","source_revision":input.revision,"source_tree_state":input.tree_state,"entry_pages":ENTRIES,"curated_prose_files":input.curated.len(),"notes":input.notes.len(),"input_notes_api_matches_sources":input.note_api_matches,"withheld_passages":withheld,"unresolved_source_references":unresolved,"reconciliation":RECONCILIATION})).unwrap())?;
     Ok(())
 }
@@ -902,7 +922,11 @@ fn source_ref(source: &Value, dest: &str, r: &mut Renderer) -> String {
     } else {
         None
     };
-    let label = format!("{repo} · {path}");
+    let label = if repo.is_empty() {
+        path.to_string()
+    } else {
+        format!("{repo} · {path}")
+    };
     format!(
         "{} <span class=\"small\">{} · {} {}</span>",
         url.map(|u| format!("<a href=\"{}\">{}</a>", esc(&u), esc(&label)))
@@ -1147,7 +1171,7 @@ fn local_search_names(f: &Value) -> Vec<&str> {
         .as_array()
         .into_iter()
         .flatten()
-        .map(|n| s(&n["name"]))
+        .map(|n| implementation::clean_name(s(&n["name"])))
         .collect();
     for list in f["localized_family_names"].as_array().into_iter().flatten() {
         names.extend(list["names"].as_array().into_iter().flatten().map(s));
@@ -1173,7 +1197,10 @@ fn search_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
                     .iter()
                     .position(|(tag, _)| *tag == s(&n["locale"]))
                     .ok_or_else(|| format!("{id}: unknown locale {}", s(&n["locale"])))?;
-                names.push(format!("{at}={}", s(&n["name"]).replace('|', " ")));
+                names.push(format!(
+                    "{at}={}",
+                    implementation::clean_name(s(&n["name"])).replace('|', " ")
+                ));
             }
         }
         for name in f["localized_family_names"]
@@ -1255,7 +1282,7 @@ fn a_to_z(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
 fn homepage(
     out: &Path,
     input: &Inputs,
-    episodes: &[(String, String, String, bool)],
+    episodes: &[(String, String, String, String)],
 ) -> Result<(), String> {
     let dest = "index.html";
     let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p></div><form class=\"searchrow\" action=\"catalogue/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"ROUND, XLOOKUP, ARRONDI, payment…\" data-instant-search><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"catalogue/index.html\">Browse every entry by category →</a> · <a href=\"catalogue/a-z.html\">A to Z index</a></p>");
@@ -1279,11 +1306,10 @@ fn homepage(
         }
     }
     h+="</div><section class=\"card audience\"><h2>For engine builders, auditors, and the numerically curious</h2><p>Start with a function's call signature, read the recorded surprises, or follow the research behind an algorithm.</p><p><a href=\"notes/index.html\">Where Excel's answer is inaccurate</a> · <a href=\"lastbit/index.html\">The Last Bit</a></p>";
-    if let Some((_, dest, title, ready)) = episodes.first() {
+    if let Some((_, dest, title, label)) = episodes.first() {
         h += &format!(
-            "<p>{} <span class=\"small\">{}</span></p>",
-            a("index.html", dest, title),
-            if *ready { "Series article" } else { "Draft" }
+            "<p>{} <span class=\"small\">{label}</span></p>",
+            a("index.html", dest, title)
         );
     }
     h+=&format!("</section><p class=\"small coverage-line\">{} entries match every recorded Excel answer in our Rust implementation. <a href=\"implementation/index.html\">See every state →</a></p><p class=\"small coverage-line\">{} of {ENTRIES} entries have curated prose files; {} have projection-only pages. {RECONCILIATION}. <a href=\"coverage/index.html\">Read the coverage and limits →</a></p>",input.calc.state["counts"]["matches"],input.curated.len(),ENTRIES-input.curated.len());
@@ -1345,7 +1371,10 @@ fn coverage(
         )
     );
     h+="<h2>Sources</h2><p>Function explanations cite Microsoft documentation, numerical literature and measured Excel answers. Measured answers name their build and input route; missing build information stays explicit.</p>";
-    h+=&format!("<p><a href=\"../api/build.json\">Build inventory</a> · <a href=\"../api/rubric.json\">Research rubric JSON</a> · source <code>{}</code>.</p>",esc(&input.revision));
+    h += &format!(
+        "<p><a href=\"../api/build.json\">Build inventory</a> · source <code>{}</code>.</p>",
+        esc(&input.revision)
+    );
     if input.tree_state == "dirty" {
         h+="<p class=\"notice\">This build includes local changes. Its source revision alone cannot reproduce the folder; review and commit those changes before selecting an artifact for publication.</p>";
     }
@@ -1353,7 +1382,7 @@ fn coverage(
     if !unresolved.is_empty() {
         h+=&format!("<p>{} source links do not resolve to a known repository file. They link to the citing source page for inspection. These references require editorial review; no local dead link is substituted.</p>",unresolved.len());
     }
-    h+="<h2>Drafts and unpublished material</h2><p>Series essays without an explicit ready status are labelled Draft. Internal MATERIAL_ files and the unreviewed series PDF are excluded. There are no Atlas plates in this build; the homepage exhibit uses recorded note data.</p><h2>How this folder was checked</h2><p>Generation runs the local link and claim-language checks before replacing the output folder. Browser checks are a separate engineering step; this page does not claim a browser result for an unchecked future build.</p>";
+    h+="<h2>Drafts and working notes</h2><p>The Last Bit marks each part as an article, a draft or working notes. There are no Atlas plates in this build; the homepage exhibit uses recorded note data.</p><h2>How this folder was checked</h2><p>Generation runs the local link and claim-language checks before replacing the output folder. Browser checks are a separate engineering step; this page does not claim a browser result for an unchecked future build.</p>";
     output(out, "coverage/index.html", "Coverage and limits", &h)
 }
 
@@ -1448,7 +1477,6 @@ mod tests {
         }
         assert_eq!(inventory.len(), files(&second).unwrap().len());
         for path in inventory {
-            assert!(!path.to_string_lossy().contains("MATERIAL_"));
             let relative = path.strip_prefix(&first).unwrap();
             assert_eq!(
                 std::fs::read(&path).unwrap(),
@@ -1471,7 +1499,8 @@ mod tests {
         assert!(seriessum.contains("github.com/DnaCalc/DnaCalc/blob/"));
         assert!(seriessum.contains("Matches all"));
         let series = read(&first.join("lastbit/index.html")).unwrap();
-        assert!(series.contains("Draft"));
+        assert!(series.contains("Working notes") && series.contains("Draft article"));
+        assert!(first.join("lastbit/the-last-bit-2026-07.pdf").is_file());
         checks::check(&first, true, true).unwrap();
         std::fs::remove_dir_all(scratch).unwrap();
     }

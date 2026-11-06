@@ -38,9 +38,8 @@ examples, section overrides, Excel-build records, implementations by language an
 The stable `api/functions/FUNC.*.json` combines these with explanations and attached observations.
 `llms.txt` documents predictable page and JSON URLs.
 
-Series Markdown is labelled Draft unless its frontmatter explicitly says
-`status: ready` or `status: published`. `MATERIAL_*` files and the unreviewed PDF
-are not copied, linked, or rendered.
+`content/lastbit/series.json` lists The Last Bit in reading order and labels each part as an
+article, a draft or working notes.
 
 Claim-language checks examine HTML text (including text split across inline tags
 or encoded as character entities) and reader-visible attributes. They reject the

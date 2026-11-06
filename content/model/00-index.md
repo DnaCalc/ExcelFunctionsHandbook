@@ -17,6 +17,7 @@ axes instead of re-explaining the machinery. Behavior chips on function pages li
 | [07 — About implementation options](07-implementation-options.md) | The four flavours, how implementations are admitted, choosing between them |
 | [08 — Working and Explicit presentation lenses](08-presentation-lenses.md) | Compact truthful terminology, inline explanation, answer envelopes, and the Gneiss plumbing beneath both views |
 | [09 — Implementing stored numerical steps](09-staged-arithmetic.md) | Exact decoding, two-stage rounding, binary64 storage and staged square root, with worked arithmetic controls |
+| [10 — Holding several implementations](10-versioned-implementations.md) | One function, several variants keyed by Excel build and CPU, and what CalcFunc needs |
 
 Grounding: chapters 01–05 are grounded in the OxFunc reference implementation and its
 specification corpus (each chapter lists its exact sources); chapters 06–08 are Handbook

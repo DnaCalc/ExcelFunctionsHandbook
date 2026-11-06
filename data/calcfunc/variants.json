@@ -152,5 +152,245 @@
       "error_bound": null,
       "onecalc_udf": null
     }
+  ],
+  "FUNC.LEN": [
+    {
+      "name": "LEN at Compatibility Version 1",
+      "key": {
+        "excel_build_range": "Compatibility Version 1, all Excel versions",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as two characters.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L260-L268",
+      "error_bound": null,
+      "onecalc_udf": null
+    },
+    {
+      "name": "LEN at Compatibility Version 2",
+      "key": {
+        "excel_build_range": "Compatibility Version 2, Excel for Microsoft 365",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as one character. Characters combined from several code points still count separately.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L260-L268",
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ],
+  "FUNC.MID": [
+    {
+      "name": "MID at Compatibility Version 1",
+      "key": {
+        "excel_build_range": "Compatibility Version 1, all Excel versions",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as two characters.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L271-L271",
+      "error_bound": null,
+      "onecalc_udf": null
+    },
+    {
+      "name": "MID at Compatibility Version 2",
+      "key": {
+        "excel_build_range": "Compatibility Version 2, Excel for Microsoft 365",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as one character. Characters combined from several code points still count separately.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L271-L271",
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ],
+  "FUNC.FIND": [
+    {
+      "name": "FIND at Compatibility Version 1",
+      "key": {
+        "excel_build_range": "Compatibility Version 1, all Excel versions",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as two characters.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L301-L301",
+      "error_bound": null,
+      "onecalc_udf": null
+    },
+    {
+      "name": "FIND at Compatibility Version 2",
+      "key": {
+        "excel_build_range": "Compatibility Version 2, Excel for Microsoft 365",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as one character. Characters combined from several code points still count separately.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L301-L301",
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ],
+  "FUNC.SEARCH": [
+    {
+      "name": "SEARCH at Compatibility Version 1",
+      "key": {
+        "excel_build_range": "Compatibility Version 1, all Excel versions",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as two characters.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L303-L303",
+      "error_bound": null,
+      "onecalc_udf": null
+    },
+    {
+      "name": "SEARCH at Compatibility Version 2",
+      "key": {
+        "excel_build_range": "Compatibility Version 2, Excel for Microsoft 365",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as one character. Characters combined from several code points still count separately.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L303-L303",
+      "error_bound": null,
+      "onecalc_udf": null
+    }
+  ],
+  "FUNC.REPLACE": [
+    {
+      "name": "REPLACE at Compatibility Version 1",
+      "key": {
+        "excel_build_range": "Compatibility Version 1, all Excel versions",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as two characters.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L305-L307",
+      "error_bound": null,
+      "onecalc_udf": null
+    },
+    {
+      "name": "REPLACE at Compatibility Version 2",
+      "key": {
+        "excel_build_range": "Compatibility Version 2, Excel for Microsoft 365",
+        "cpu": "Any"
+      },
+      "difference": "A surrogate pair counts as one character. Characters combined from several code points still count separately.",
+      "state": "selected",
+      "state_summary": "Implemented; selected by the workbook's Compatibility Version.",
+      "evidence": [
+        {
+          "repository": "",
+          "commit": "",
+          "path": "https://support.microsoft.com/en-gb/excel/compatibility-versions",
+          "locator": "",
+          "note": ""
+        }
+      ],
+      "kind": "environment",
+      "code": "https://github.com/DnaCalc/DnaCalc/blob/481f4ab85d3bf5a95b6daf959bb75ccb2f8b40f8/crates/calc-func/src/catalogue/text_functions.rs#L305-L307",
+      "error_bound": null,
+      "onecalc_udf": null
+    }
   ]
 }

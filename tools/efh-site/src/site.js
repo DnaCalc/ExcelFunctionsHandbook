@@ -62,7 +62,7 @@ function loadSearchIndex() {
     script.onload = () => {
       const tags = window.EFH_SEARCH.locales;
       searchIndex = window.EFH_SEARCH.rows.map(([name, path, category, summary, id, locals]) => {
-        const pairs = locals ? locals.split("|").map(item => { const at = item.indexOf("="); return [tags[Number(item.slice(0, at))] || "", item.slice(at + 1)]; }) : [];
+        const pairs = locals ? locals.split("|").map(item => { const at = item.indexOf("="); return [at > 0 ? tags[Number(item.slice(0, at))] : "", item.slice(at + 1)]; }) : [];
         const names = [...new Set(pairs.map(pair => pair[1]))];
         return { name, path, category, summary, id, names, byLocale: Object.fromEntries(pairs.filter(pair => pair[0])), foldedName: fold(name), foldedLocals: names.map(fold), foldedText: fold(`${summary} ${category}`), foldedId: fold(id) };
       });

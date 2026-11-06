@@ -1,30 +1,12 @@
-# The Last Bit — raw material from the W109 primitive-recovery campaign
+# The primitive campaign
 
-Story-grade snippets captured during the 2026-07-16..18 sessions (G3-01/G3-02:
-Excel's statistical-distribution substrate). Sources of record: OxFunc
-docs/function-lane/W109_G3-01_GRATIO_IDENTIFICATION_20260716.md,
-W109_GAMMALN_IDENTIFICATION_20260711.md, W109_CAMPAIGN_RESUME_20260718.md,
-docs/notes/CHOPPED_EXP_IDENTIFICATION_STORY.md (full field diary), and the
-private session transcripts (OxFunc-History, session d8a86d9c). Numbers below
-are as banked; verify against the notes when drafting.
+Working notes kept during the work, lightly edited for public reading. They are not finished articles. Numbers are as recorded at the time, and later work may supersede them. Statements about how Excel's authors worked are hypotheses drawn from the evidence, which was recorded answers, published algorithms and instruction manuals.
 
 ## 1. The expm1 nobody shipped (candidate: "The Function That Wasn't There")
 
-> The expm1 lane is closed end-to-end and committed (278a416): identified,
-> landed, and verified at 99.978% (17,996/18,000) in production — with the
-> satisfying detail that the real hardware chain outscored the agent's
-> idealized model by exactly the rows the microcode hypothesis predicted it
-> would. EXPON.DIST's cdf, WEIBULL.DIST's cdf, and the GAMMA.DIST a=1 wrapper
-> all shed their refuted 1−exp stagings, and the 4 remaining rows across
-> 18,000 are the known idealization class plus one large-x edge.
->
-> The story behind it is a gem for the eventual write-up: Excel 2010's CRT
-> didn't have C99 expm1, so Microsoft's engineers hand-built one from the
-> primitives they did have — Kahan's classic cancellation-free correction —
-> and the identification recovered that decision from bit patterns alone,
-> including proving the arithmetic is double (the ~0.5-ULP profile is the
-> correction's double-rounding) and which of three algebraically-equivalent
-> orderings they typed.
+The expm1 work reached 17,996 of 18,000 rows through the application. The story behind it: the hypothesis is
+that Excel 2010's C runtime had no C99 expm1, so its engineers built one from Kahan's cancellation-free correction.
+The rounding profile pointed to double arithmetic, and to one of three algebraically equal orderings.
 
 Supporting beats: msvcr100/110 export no C99 expm1 (ctypes-confirmed; only
 msvcr120+ do). The formula: u = exp(t); t if u == 1; (u−1)·t/ln(u) for
@@ -51,10 +33,6 @@ publication rounding. floor(true exp) scored 38/45 in a twenty-line race,
 ten points clear of two sessions of library candidates. Lesson banked as a
 standing method rule: race directed roundings, not just nearest.
 
-Full narrative already written: docs/notes/CHOPPED_EXP_IDENTIFICATION_STORY.md
-(includes the dead ends: wrong-bitness DLL probes, the hand-converted
-constant table with exactly one wrong digit).
-
 ## 3. Full circle to the x87 (candidate: "Refuted, Then True")
 
 The campaign's early verdict: "the 2010 stats rewrite is plain SSE2 double —
@@ -64,7 +42,7 @@ hypothesis space: nobody had raced a truncating publication, because nobody
 knew publication mode was a free variable yet.
 
 The final identification: ONE x87 F2XM1 chain (2^(x·log2e), the naive
-y−round(y) reduction, fldl2e constant bit-for-bit) behind every internal
+y−round(y) reduction, fldl2e constant to the last bit) behind every internal
 exp — published round-to-nearest at wrapper sites, truncated at the series
 site, handed an 80-bit extended argument on the erf path. The decisive
 experiment: a 30,000-row POISSON corpus where POISSON(0,λ) publishes
@@ -140,16 +118,6 @@ constraints; the per-row residual is what the op-graph must reproduce.
   integer-a slices makes the internal log solvable and the exp readable —
   multi-view identities turn one oracle into many.
 
-## Candidate titles / angles
-
-- "The Last Bit: The Function That Wasn't There" (expm1/Kahan)
-- "The Last Bit: The 44% Clue" (chop discovery)
-- "The Last Bit: Refuted, Then True" (x87 full circle; on priors and
-  hypothesis spaces)
-- "The Last Bit: The Literal 0.7" (GAMMALN genealogy; code archaeology from
-  bits alone)
-- "The Last Bit: The Grid Looks Back" (aliasing; measurement discipline)
-
 ## 7. Reading the source line off the bits (candidate: "Division First")
 
 The WEIBULL.DIST pdf identification, four-lane sweep 2026-07-18. The naive
@@ -164,7 +132,7 @@ Microsoft's engineer typed it VERBATIM. The final race enumerated every
 association order × every spill pattern: the winner — division first,
 left-to-right, every op double-rounded through a spilled local — hit
 1,600/1,600. You can reconstruct the C expression, token by token, from
-rounding patterns alone. Held-out: 5,999/6,000.
+rounding patterns. Held-out: 5,999/6,000.
 
 ## 8. The window that couldn't see (candidate: "Route-Blind")
 
@@ -188,11 +156,11 @@ where it switches to a deviance form to protect accuracy. A 400-row capture
 at p < 0.1: Excel switches formulas at exactly that boundary, 383/400.
 You can identify an ALGORITHM'S AUTHOR from where its branches fall.
 Excel 2010's BINOM.DIST is Loader's dbinom — and POISSON k≥2 was already
-matching her dpois bit-for-bit through ±50-ULP saddle-point roundings.
+matching her dpois to the last bit through ±50-ULP saddle-point roundings.
 
 ## 10. Reverse-engineering ourselves (candidate: "The Shortcut")
 
-The lane-3 re-score found the enemy within: OxFunc's own pre-campaign
+The lane-3 re-score found the enemy within: our own pre-campaign
 integer-shape "fast path" for GAMMA.DIST — a tidy closed-form sum any
 numerics textbook would endorse — had been silently overriding the
 painstakingly identified GRATIO kernel for every integer shape parameter.
@@ -201,7 +169,7 @@ scores had measured the identified kernel directly and never noticed that
 production took a different road. The fix was deletion. Twin lesson from
 the beta side: a capture proved Excel has NO integer fast path at all —
 the 2010 rewrite trusts its continued fractions everywhere. Sometimes the
-bug is the optimization you were proud of.
+fault is the optimization you were proud of.
 
 ## 11. Passed the gate, lost the election (candidate: "Fresh Rows")
 
@@ -290,7 +258,7 @@ lf term: (0,0,0,−1,0,+1). Precisely one realization produces that vector.
 The identification broke a three-lane plateau by eleven points in one
 stroke, and closed windows that had scored 0/400 under ninety-six
 candidate op-graphs to 400/400. Same missing header, two engineers, two
-different repairs — both recovered from rounding patterns alone.
+different repairs — both recovered from rounding patterns.
 
 ## 16. The parenthesis (candidate: "Order of Operations")
 
@@ -337,7 +305,7 @@ subtraction. And Excel itself publishes the direct count through
 COUPDAYSNC while its own PRICE, in the same workbook, on the same
 arguments, uses the derived one. The oracle disagrees with itself —
 and both of its answers are deterministic, reproducible, and now,
-bit for bit, ours.
+to the last bit, ours.
 
 (One hypothesis, one witness, first try: the guess `180 − 81` landed
 within rounding of Excel's published 114.5887 before we had captured a
@@ -357,7 +325,7 @@ byte, the routine pricing bonds. Two code paths written years apart in
 Redmond, two reverse-engineering lanes months apart here, one shared
 library function at the bottom of both. When the identification is
 right, it stops being a per-function fact and starts being a fact about
-the binary — and every later lane gets cheaper: this one took an
+the program — and every later lane gets cheaper: this one took an
 afternoon because the hard primitive was already on the shelf.
 
 ## 20. The Vanishing Coupons (G6-02, ACCRINT — 2026-07-20)
@@ -424,7 +392,7 @@ the three functions just divide it out differently.
 
 Excel does not do that.
 
-FV and PV are bit-for-bit exact when you compute `(1+r)^n` the naivest possible way:
+FV and PV match to the last bit when you compute `(1+r)^n` the naivest possible way:
 `binexp` — square-and-multiply in plain double — then `(P−1)/r` for the annuity
 factor. 149 out of 149. 48 out of 48. No transcendentals, no cleverness. The forward
 factor is *pinned*: we can read Excel's exact internal `P` and `(1+r·type)·q` straight
@@ -506,7 +474,7 @@ want, and either one can hide a ULP.
 The key was to pick the rate. If `r` is a power of two — `2⁻⁵`, say — then the
 final `· r` is *exact*: multiplying a double by `2⁻⁵` only decrements its exponent,
 it cannot round. The two-rounding chain collapses to one. Now `pmt · 2⁵` recovers
-`RN(pv / em)` bit-for-bit, and by walking `pv` through 256 consecutive doubles and
+`RN(pv / em)` exactly, and by walking `pv` through 256 consecutive doubles and
 intersecting the constraints each one places on `em`, you pin Excel's private `em`
 to under a hundredth of a ULP — without ever seeing inside the function.
 
@@ -516,12 +484,14 @@ exact, and the chain springs open.** A power-of-two rate turned out to be a
 skeleton key to the whole annuity engine — it pinned `em`, and through `em` it
 pinned the last primitive, `log1p`, one rate at a time.
 
-## §25 — The Beautiful Dual That Wasn't, and the Bug at the Bottom
+## §25 — The Beautiful Dual That Wasn't
+
+*Superseded: §27 shows the verdict of this section was mistaken. It stays as a record of how the mistake was made.*
 
 By the end, PMT was solved down to a single unknown: Excel's internal `log1p`. And
-`log1p` turned out to be *wrong* — a faithful routine, good to about six-tenths of a
+`log1p` looked *inaccurate* — a faithful routine, good to about six-tenths of a
 ULP, but not correctly rounded. After a full day spent chasing our own arithmetic,
-the last thing standing between us and a bit-exact match was a rounding error inside
+the last thing standing between us and an exact match looked like a rounding error inside
 *Excel's* code that we now had to reproduce exactly. You do not get to fix it. The
 whole point is fidelity: if Excel is a half-ULP high, you must be a half-ULP high, in
 precisely the same places.
@@ -545,7 +515,7 @@ degenerates to a plain logarithm; those rates could never tell the two apart. On
 correctly rounded and the companion is not. A period law that matched, a provenance
 that fit, an algebraic elegance that begged to be true — and a control that killed it.
 The routine is still unnamed. It is faithful, non-correctly-rounded, matches nothing
-standard, and it is the one primitive left to fingerprint. The bug at the bottom of
+standard, and it is the one primitive left to fingerprint. The inaccuracy at the bottom of
 the payment function is Excel's, and it kept its shape.
 
 ## §26 — Where a Function Refuses to Answer
@@ -564,12 +534,12 @@ places. Forward-difference Newton in rate-space, the sibling of the method Excel
 miss. Two models can agree on every answer a function gives and still be told apart
 by the answers it *declines* to give. The shape of a function's silence is data.
 
-## §27 — The Bug That Wasn't There
+## §27 — The Inaccuracy That Wasn't There
 
 The section above this one ends with a confident verdict: the last unknown in the
 payment function is Excel's own `log1p`, a faithful-but-not-correctly-rounded routine,
 and the bug at the bottom is Excel's to keep. That verdict was wrong. There was no
-log1p bug. This is the story of how a phantom survived a full day of careful work, and
+log1p inaccuracy. This is the story of how a phantom survived a full day of careful work, and
 what finally exposed it.
 
 The mistake was structural, and it is worth naming because it is easy to make. We never
@@ -612,7 +582,7 @@ and ask it directly*. There is almost always an input that collapses the chain: 
 of two that makes a multiply exact, an integer that makes a rounding vanish, or — as
 here — an argument that makes two functions become one so you can query the one you can
 actually see. We had that key the whole time. It took a day of chasing our own tail to
-pick it up. The bug at the bottom of the payment function is still Excel's, and it still
+pick it up. The inaccuracy at the bottom of the payment function is still Excel's, and it still
 kept its shape — but it was never wearing the coat we'd hung on it.
 
 ## §28 — The Function That Keeps Its Own expm1
