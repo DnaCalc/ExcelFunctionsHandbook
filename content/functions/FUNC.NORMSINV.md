@@ -31,11 +31,24 @@ role_in_family: null
 
 ## Quirks
 
-The documented probability interval is strictly between zero and one. Endpoints and a nonpositive standard deviation give `#NUM!`; nonnumeric arguments give `#VALUE!`. A tiny p refers to the far **left** tail, not the upper-tail critical value.
+The probability must be strictly between zero and one; endpoints or out-of-range values give `#NUM!`. Nonnumeric arguments give `#VALUE!`. The mean and standard deviation are fixed at zero and one; there is no scale argument on this spelling.
+
+A small probability refers to the far **left** tail. For an upper-tail cutoff use the corresponding cumulative probability, while recognizing that `1-small_tail` can round to one for very small tails. The requested probability is a number, not a percentage-formatted string.
+
+Microsoft describes an iterative inverse search over the forward normal CDF, with `#N/A` if it has not converged after 100 iterations on this legacy page. That documented method and limit do not identify the current candidate’s rational coefficients or numerical stopping stages.
 
 ## How to implement
 
-Validate the probability and scale. The current standard inverse uses Acklam’s piecewise rational approximation, then one Newton correction based on a direct complementary-error tail and normal density. Use a lower-tail residual for negative candidates and an upper-tail residual for positive candidates to avoid cancellation at one. Return the refined z. At p=0.5 the symmetric candidate is zero. This is a published-method candidate: the generic inverse’s Excel coefficients and stopping/rounding stages are still open, even though the median control is exact.
+The current standard-normal inverse is a published-method candidate:
+
+1. Validate `0<p<1`. Choose its rational approximation branch at `p=0.02425` and `p=1-0.02425`.
+2. In the centre, set `q=p-0.5`, `r=q*q` and evaluate the coefficient polynomials in `r`, multiplying the numerator by `q`. In the lower tail use `q=sqrt(-2*crt_log(p))`; in the upper tail use `sqrt(-2*crt_log(1-p))` and reverse the sign. The cited source retains the coefficients and their Horner order.
+3. Refine the candidate `z` once. Form a small tail directly as `tail=0.5*erfc(abs(z)/sqrt(2))`, using the current library complementary error function. Set `err=tail-p` for negative `z`, or `err=(1-p)-tail` otherwise.
+4. If the normal density at `z` is nonzero, replace `z` by `z-err/density`. If it is zero, keep the rational candidate.
+
+Return that `z`. At `p=0.5`, the central numerator has `q=0`, and the symmetric answer is zero.
+
+This recipe can be coded from the source’s published-approximation coefficients, but it is not an identified Excel inverse. In particular, its Newton tail is a library `erfc` call; substituting the public worksheet ERFC introduces another numerical candidate. The unknown Excel approximation and stopping/rounding stages remain open.
 
 ## Version differences
 

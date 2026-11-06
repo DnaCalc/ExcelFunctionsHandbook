@@ -23,19 +23,32 @@ role_in_family: null
 
 ## What it does
 
-`LOGNORMDIST(x,mean,standard_dev)` returns the cumulative lognormal probability up to positive x. Mean and standard deviation describe **ln(X)**, not X. This is the compatibility form.
+`LOGNORMDIST(x,mean,standard_dev)` returns the probability that a positive lognormal variable is no greater than `x`. Its mean and standard deviation arguments describe **ln(X)**, not X. This legacy function always returns a cumulative probability; it has no density switch.
 
 ## Try it
 
-`=LOGNORMDIST(1,0,1)` returns `0.5`: ln(1) is the centre of the specified normal distribution.
+`=LOGNORMDIST(1,0,1)` returns `0.5`: ln(1) is the centre of the specified normal distribution. With the same positive spread, values below one have probabilities below one half and values above one have probabilities above one half.
+
+`=LOGNORMDIST(EXP(1),1,0.5)` is approximately `0.5`. Mathematically, the median is `exp(mean)`; in a worksheet composition, the stored EXP result and the later logarithm can introduce their own rounding.
 
 ## Quirks
 
-Nonpositive standard deviation gives `#NUM!`; nonnumeric inputs give `#VALUE!`. Nonpositive x gives `#NUM!`. This old form always returns a CDF and has no density switch.
+Nonpositive `x` or nonpositive standard deviation gives `#NUM!`; nonnumeric arguments give `#VALUE!`. A negative log-space mean is allowed. All three arguments are required, and adding a fourth cumulative flag does not turn this spelling into LOGNORM.DIST.
+
+The two tails are asymmetric in the original units even though ln(X) is normal. A CDF near one can round to one, so subtracting it from one may lose a small upper-tail probability. The standardization must use the log-space parameters, not statistics calculated directly from untransformed observations.
 
 ## How to implement
 
-Take the internal runtime logarithm of x, then standardize `z=(log(x)-mean)/sigma` and evaluate the standard-normal CDF. The current code distinguishes that internal log from the public worksheet LN on retained controls, even though many public compositions agree. At x=1 and mean zero, z=0 and the CDF is one half. Keep overflow, tail and text coercion tests separate from this mathematical transformation.
+The current shared kernel performs these steps:
+
+1. Validate positive finite `x` and positive finite `sigma`.
+2. Obtain the internal CRT logarithm `L=crt_log(x)`.
+3. Store the ordinary binary64 subtraction and division `z=(L-mean)/sigma`.
+4. Evaluate the shared standard-normal CDF at `z`.
+
+At `x=1,mean=0`, the logarithm and standardized value are zero and the CDF is one half. The standard-normal CDF has its own stored argument transformation and complementary-error dependency; its upper ERFC body remains open.
+
+The code retains a 45-control public-composition observation on the modern spelling, but a later larger bank distinguishes the internal CRT log from worksheet LN at a named control. Thus `NORM.DIST(LN(x),mean,sigma,TRUE)` is a useful mathematical composition, not permission to replace the internal log on every input. This wrapper is shared by the current legacy implementation; the modern observation alone does not measure every legacy call.
 
 ## Version differences
 

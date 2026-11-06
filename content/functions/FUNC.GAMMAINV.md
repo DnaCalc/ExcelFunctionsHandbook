@@ -31,11 +31,23 @@ role_in_family: null
 
 ## Quirks
 
-Nonpositive shapes/scales give `#NUM!`; nonnumeric numeric arguments give `#VALUE!`. Invalid probabilities and a finite inverse at the upper endpoint need explicit error policy; the current inverse rejects probability one.
+Alpha and beta must be positive; nonpositive shape or scale gives `#NUM!`, while text arguments are documented as `#VALUE!`. The opened legacy page rejects probabilities outside `[0,1]`. The current shared helper returns zero at `p=0` and rejects `p=1` with `#NUM!`, since no finite upper support endpoint is available.
+
+Microsoft describes this legacy inverse as an iterative search over GAMMADIST with a 100-iteration limit and `#N/A` on failure. Its current GAMMA.INV page describes 64 iterations and also `#N/A`. This is a difference in published descriptions of the two spellings; it does not establish a measured change between Excel builds or identify either internal search.
 
 ## How to implement
 
-Use the shared gamma inverse with shape alpha and scale beta, preserving its endpoint rules and bracket/stopping policy. A mathematical design can invert `P(alpha,z)=p` in a nonnegative bracket and multiply z by beta, but a different scale order may change last bits. The numerical outline is an implementation route, not an identification of every Excel approximation or return-rounding stage. The current problem-functions report retains unresolved distribution mismatches.
+The current helper searches the positive binary64 lattice rather than stopping at a decimal tolerance:
+
+1. Validate shape, scale and probability. Return zero at `p=0`; reject `p>=1` or `p<0`.
+2. Start the upper bound at `hi=beta*max(alpha+10*sqrt(alpha)+10,1)`. The code allows up to 200 doublings while the generic forward value `P(alpha,hi/beta)` is below `p`.
+3. With lower bound zero, encode the nonnegative bounds as unsigned binary64 bit integers. Their ordering agrees with numeric ordering.
+4. While the two encodings differ by more than one, bisect their integer encodings and decode the middle value `x`. If `P(alpha,x/beta)>=p`, move the upper encoding to it; otherwise move the lower encoding.
+5. Return the upper value once the encodings are adjacent. This chooses the first representable candidate meeting the current forward test under the maintained bracket.
+
+For shape one, scale two and probability one half, the mathematical equation is `1-exp(-x/2)=0.5`; its solution is `-2*ln(0.5)`, about `1.38629436111989`. That explains the scale and the example, not every last bit of the generic forward search.
+
+The inverse callback calls `regularized_gamma_p` directly. It does not use every special-case wrapper of public GAMMADIST. Its forward approximation, bracket failures and return policy remain separate compatibility obligations; the current problem report still lists distribution mismatches. This is the current implementable candidate, not a recovered Excel search program.
 
 ## Version differences
 
@@ -57,3 +69,5 @@ The record contains no same-input comparison between these environments. Reading
 
 - [Microsoft: GAMMAINV function](https://support.microsoft.com/en-us/excel/functions/gammainv-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/beta_gamma_stats_family.rs); implementation steps and the limits identified in the text.
+- [Binary64-lattice bisection](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/special_math_common.rs), `bisect_inverse`.
+- [Microsoft: GAMMA.INV](https://support.microsoft.com/en-us/excel/functions/gamma-inv-function), opened 6 November 2026; the modern page’s documented 64-iteration limit and error.
