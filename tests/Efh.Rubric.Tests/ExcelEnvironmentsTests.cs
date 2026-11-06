@@ -45,7 +45,7 @@ public sealed class ExcelEnvironmentsTests
         var env = (string id, string build, string cpu) => new ExcelEnvironments.Environment(
             id, "16.0", build, "windows", "Windows (64-bit) NT 10.00", "64-bit", cpu,
             cpu.StartsWith("AMD") ? "AMD" : "Intel", "not-recorded", "2", "not-recorded", "test");
-        var ev = new ExcelEnvironments.Evidence("OxFunc", new string('a', 40), "x.json", null, null, null);
+        var ev = new ExcelEnvironments.Evidence("CalcFunc-Evidence", new string('a', 40), "cache/x.json", null, null, null);
         var record = new ExcelEnvironments.Record(
             "content/evidence/environments/FUNC.EXP.json", "FUNC.EXP", "EXP", "Test record.",
             [env("win-x64-16.0.1-amd", "1", "AMD X"), env("win-x64-16.0.1-intel", "1", "Intel Y")],
@@ -67,6 +67,21 @@ public sealed class ExcelEnvironmentsTests
         Must.Contain(section, "AMD X", "the CPU of each observation is shown");
         Must.Contain(section, "Intel Y", "the CPU of each observation is shown");
         Must.Contain(section, "not-rechecked", "the recheck state is shown");
+        var index = ExcelEnvironments.RenderIndex(HandbookFixture.Root, [record with
+        {
+            Comparisons = [record.Comparisons[0] with
+            {
+                Evidence = [ev with { Path = "runs/capture/" },
+                    ev with { Path = "cache/x.json.gz" },
+                    ev with { Path = "readings/excel-20527/TEST.json" }]
+            }]
+        }]);
+        Assert.Contains("https://github.com/DnaCalc/CalcFunc-Evidence/blob/" + new string('a', 40)
+            + "/cache/x.json.gz", index);
+        Assert.Contains("/tree/" + new string('a', 40) + "/runs/capture)", index);
+        Assert.Contains("/cache/x.json.gz)", index);
+        Assert.DoesNotContain(".gz.gz", index);
+        Assert.Contains("/readings/excel-20527/TEST.json)", index);
     }
 
     [Fact]
