@@ -667,7 +667,7 @@ fn function_page(
             }
         }
         if key == "try-it" {
-            if let Some(note) = record["try_it"]["note"].as_str() {
+            if let Some(note) = record["try_it"]["note"].as_str().filter(|_| !deferred) {
                 html += &format!("<p class=\"small\">{}</p>", esc(note));
             }
             if let Some(prose) = record["sections"][key].as_str() {

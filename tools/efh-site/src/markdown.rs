@@ -206,7 +206,11 @@ impl Renderer<'_> {
                         }));
                     }
                     Event::Start(Tag::Image { .. }) | Event::End(TagEnd::Image) => (),
-                    Event::Text(text) if text.contains("OxFunc") || text.contains("oxfunc") => {
+                    Event::Text(text)
+                        if text.contains("OxFunc")
+                            || text.contains("oxfunc")
+                            || text.contains("eference engine") =>
+                    {
                         transformed.push(Event::Text(reader_words(&text).into()));
                     }
                     Event::Code(text) if text.contains("OxFunc") || text.contains("oxfunc") => {

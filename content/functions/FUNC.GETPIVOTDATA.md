@@ -10,7 +10,7 @@ episodes: []
 body_sections:
   - What it computes
   - Arguments
-  - Why this entry is deferred
+  - Why this entry does not calculate yet
   - Result and edge cases
   - Errors
   - Relationships
@@ -74,13 +74,13 @@ non-date items are quoted. Two points that catch people:
 - **The pairs are unordered**, which means there is no positional discipline to lean on and a
   misspelled field name is a runtime failure rather than a shifted argument.
 
-## Why this entry is deferred
+## Why this entry does not calculate yet
 
-The Handbook's reference engine does not implement `GETPIVOTDATA`, and its admission record
-states the reason plainly: *deferred until PivotTable structure and topology are in scope above
-OxFunc*.
+The catalogue has a row for `GETPIVOTDATA`, and the row declines every call. PivotTables are being
+implemented in full, and this function with them; the state at the top of this page comes from the
+pinned commit and changes when that code lands.
 
-That deferral is a statement about layering rather than about difficulty. Every other function
+The reason is layering rather than difficulty. Every other function
 in this Handbook's lookup-and-reference category can be described as a computation over values
 and addresses. `GETPIVOTDATA` cannot: its arguments are coordinates in a *PivotTable's* model —
 fields, items, hierarchies, filters, visibility — and that model is a workbook object with its
@@ -196,7 +196,6 @@ What a characterization would need, whenever it happens:
 |---|---|
 | data field | The PivotTable value field being read — the measure |
 | field/item pair | One named dimensional coordinate narrowing the query |
-| deferred | Admission state: the reference engine intentionally does not implement the entry, with a stated reason |
 | not dispatchable | Battery outcome: `cannot-call:not-in-reference-catalog` |
 | layout invariance | The property that the result does not depend on the report's arrangement |
 
@@ -209,9 +208,6 @@ What a characterization would need, whenever it happens:
   requirement that dates and times be serial numbers or `DATE`/`TIME` results, the three
   `#REF!` conditions, and the automatic-generation behaviour with its **PivotTable Analyze ▸
   Options ▸ Generate GetPivotData** toggle). Retrieved for this page.
-- Handbook `data/functions/FUNC.GETPIVOTDATA.json` — the admission record `deferred`, with the
-  stated reason "Deferred until PivotTable structure/topology is in scope above OxFunc", and
-  the absent signature and arity.
 - Handbook `data/battery/FUNC.GETPIVOTDATA.json` — every probe row
   `cannot-call:not-in-reference-catalog`.
 - Handbook `data/presence/FUNC.GETPIVOTDATA.json` — no implementing module, hence no family.
