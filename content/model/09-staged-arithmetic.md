@@ -123,6 +123,41 @@ instructions. The rational arithmetic procedure above implements their basic ari
 but does not supply `FYL2X` or `F2XM1`. See the [LN](../functions/FUNC.LN.md#how-to-implement)
 and [EXP](../functions/FUNC.EXP.md#how-to-implement) guides for that remaining dependency.
 
+## Decimal-family packing exceptions
+
+The ROUND family has measured output encodings that are separate from the ordinary binary64
+store above. Carry a tagged bit pattern if your value model must represent them; treating every
+such pattern as an ordinary host floating-point number loses Excel's worksheet behavior.
+
+For an exact decimal result whose nearest binary64 conversion overflows, the current ROUND,
+ROUNDDOWN and TRUNC model converts **half** the decimal to nearest binary64. If that half is
+finite, add `1<<52` to its unsigned 64-bit encoding. This advances the encoded exponent without
+a range check. The result can have an all-ones exponent field and a NaN fraction. If the half
+also overflows, return `#NUM!`. ROUNDUP returns `#NUM!` for the overflow result instead of
+publishing that tagged number.
+
+For example, the exact decimal `2e308` gives `0x7ff1ccf385ebc8a0` by this rule. The recorded
+rounding output is held as a worksheet number although an ordinary binary64 consumer calls
+those bits NaN. The note records its display, predicates, subsequent arithmetic errors and
+save/reopen behavior. This is an output model over recorded cases, not a claim to have seen an
+unchecked exponent write in Microsoft's code.
+
+The directed functions have an early underflow return. After forming the fifteen-digit reading,
+and **before** rounding at the requested decimal place, check a normal input with magnitude
+below twice the minimum normal value. If its changed reading converts to a subnormal, convert
+twice the exact reading instead. Subtract `1<<52` from that normal value's encoding and return
+the resulting bits immediately. No digit rounding follows that return. Other directed-path
+final subnormals still flush to zero; ROUND has its own zero-flush rule.
+
+At input `0x0010000000000000`, the fallback decimal reading is `2.22507385850720e-308`.
+The early packing gives `0x000ffffffffffffa`. FN-TRUNC-001 records that result for TRUNC,
+ROUNDDOWN and ROUNDUP at every sampled digit count, including zero. Converting the reading as
+an ordinary subnormal would give `0x000ffffffffffffd`, and rounding at zero places would give
+zero. Those are distinct operations.
+
+The reading's large-power scaling remains open, as the function guides explain. Reproducing
+these observed output encodings does not settle that earlier stage.
+
 ## Sources
 
 - [DnaCalc software x87 format, rounding and stores](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/soft87.rs), especially `ext_from_f64`, `round_shift`, `round_pack` and `ext_to_f64`.
@@ -130,3 +165,4 @@ and [EXP](../functions/FUNC.EXP.md#how-to-implement) guides for that remaining d
 - [Variance's assignment order and comparisons](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/variance_common.rs).
 - [Recorded variance and root controls](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/tests/f1_stats.rs), `variance_uses_raw_moments_and_stores_pc64_steps` and `stdev_stores_the_extended_square_root`.
 - [Rounding's preliminary reading and publication rules](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/catalogue/rounding.rs).
+- [FN-ROUND-003](../notes/FN-ROUND-003.json) and [FN-TRUNC-001](../notes/FN-TRUNC-001.json): recorded overflow and initial-reading encodings, with their worksheet scope.

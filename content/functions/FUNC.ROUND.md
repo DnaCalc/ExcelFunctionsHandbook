@@ -49,6 +49,9 @@ role_in_family: "The nearest-value rounder; the middle member of the three-way R
 
 The recorded functions first read fifteen significant decimal digits. Asking to retain more digits can therefore change an input that mathematically needs no rounding. For example, the recorded `ROUND(-1594628480062905,14)` returns `-1594628480062900`. Huge digit counts have recorded integer-conversion behaviour rather than a simple “keep everything” rule. Near the normal-range boundary and overflow, worksheet publication needs separate handling.
 
+
+Near the largest finite input, the recorded decimal output can carry NaN bits while Excel classifies the cell as a number. The overflow model and its save/reopen behavior are separate from ordinary IEEE infinity publication. See the [packing rules and worked encodings](../model/09-staged-arithmetic.md#decimal-family-packing-exceptions).
+
 ## How to implement
 
 The current worksheet wrapper reads numeric arguments in order and flushes subnormal numeric operands to zero. Return zero for a zero `number` before finding its decimal exponent. The following steps start with a finite, nonzero admitted input. The [stored-arithmetic chapter](../model/09-staged-arithmetic.md) explains exact binary decoding and significand rounding.
@@ -60,7 +63,7 @@ This reading step is a measured reconstruction with a known counterexample even 
 1. Truncate `num_digits` toward zero, clamp to `[-2147483647,2147483647]`, and call the integer `D`.
 2. Compute `k=D+e+1` with signed 32-bit wrapping. A negative `k` returns zero; `k>=15` keeps the reading.
 3. Otherwise round the exact decimal reading at unit `10^(-D)`, choosing the larger magnitude at a half. Convert the resulting decimal to nearest binary64. Preserve the original input if its exact value equals the whole reading.
-4. A final subnormal result is flushed to zero. The overflow packing observed in the notes can produce nonfinite bit patterns; a host that cannot publish them must retain an explicit refusal.
+4. A final subnormal result is flushed to zero. For decimal overflow, apply the [half-value and encoded-exponent rule](../model/09-staged-arithmetic.md#decimal-family-packing-exceptions). A host without the tagged worksheet-number representation must retain an explicit refusal.
 
 Worked: `x=-7.25` has `e=0`, `s=14`; its reading is exactly `-7.25`. For `D=1`, `k=2`. At unit `0.1` the magnitude is `72.5` units, so choose 73 and return the binary64 value for `-7.3`. For a count-overflow control, `ROUND(1.5,2147483647)` wraps `k` negative and returns zero on the recorded build.
 
