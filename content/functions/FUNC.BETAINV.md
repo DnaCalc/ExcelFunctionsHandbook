@@ -30,13 +30,28 @@ role_in_family: null
 
 `=BETAINV(0.25,1,1,2,6)` is about `3`. The shape-one beta is uniform on the interval two to six; one quarter of the interval reaches three.
 
+`=BETAINV(0.25,2,1,2,6)` is about `4`. Its standard CDF is `z^2`, so probability one quarter selects z one half, then `2+4*z=4`.
+
 ## Quirks
 
-Nonpositive shapes and invalid bounds give `#NUM!`; nonnumeric arguments give `#VALUE!`. The old public page excludes probability zero, while the current shared inverse kernel accepts the closed interval `[0,1]`. Keep that documented-versus-implemented endpoint difference explicit.
+Nonpositive shapes and invalid bounds give `#NUM!`; nonnumeric arguments give `#VALUE!`. Microsoft’s legacy page excludes probability zero and admits one.
+
+The current shared helper’s validation accepts `[0,1]`, but that is not a promise that probability zero publishes the lower bound in every interval. It has no explicit zero shortcut before its adjacent-value search. On the standard interval this can leave a subnormal result that the current publisher refuses; on two to six, the affine addition rounds the same tiny search value to two. A preview refusal describes the implementation’s limit, rather than a recorded Excel error.
+
+The inverse’s result is a value in the supplied interval, not another probability. A and B are value bounds, while p remains on the probability scale.
 
 ## How to implement
 
-Validate ordered bounds and positive shapes. Solve `I_z(alpha,beta)=p` for `z` in `[0,1]` using a bracketed inverse of a regularized incomplete-beta routine, then return `A+z*(B-A)`. A monotone bisection is a simple reproducible starting point; Newton steps need a bracket and density checks. With both shapes one, `z=p=0.25`, so `2+0.25*4=3`. The numerical outline is an implementation route, not an identification of every Excel approximation or return-rounding stage. The current problem-functions report retains unresolved distribution mismatches.
+1. Validate positive finite shapes, finite ordered bounds and the current helper’s probability range. Retain the documented legacy endpoint distinction above.
+2. Search z on `[0,1]` using the current regularized lower beta ratio `F(z)`. The source uses the [ordered-binary64 inverse search](FUNC.CHISQ.INV.RT.md#how-to-implement), with this increasing forward function and target p: bisect the endpoint encodings until adjacent and return the upper one.
+3. Keep the callback unchanged. Its interior call supplies `bratio(alpha,beta,z,D(1-z))`; an independently substituted beta routine changes the surface being inverted.
+4. Using ordinary binary64 stores, form `width=D(B-A)`, `scaled=D(z*width)` and `result=D(A+scaled)`. Apply worksheet publication. Do not contract the final multiplication and addition into an FMA.
+
+With both shapes one, p=0.25 gives z about one quarter, width four and result three. With shapes two and one, `F(z)=z^2`; z about one half gives result four on the same interval.
+
+For p=0, the current search’s usual strict lower-bracket invariant does not hold: its forward value at zero already equals the target. Without an endpoint shortcut the nonnegative encoding search can terminate at the smallest positive binary64 value. That explains the interval-dependent publication described above; it is a code-path analysis, not an Excel measurement.
+
+A mathematical implementation can handle p=0 explicitly or use a safeguarded Newton/bisection method. Those are different endpoint and stopping policies. Current beta forward errors, stored affine stages and remaining inverse mismatches still need their own comparisons before a whole-function claim.
 
 ## Version differences
 
@@ -90,3 +105,4 @@ Evidence for every row: [`content/evidence/environments/FUNC.BETAINV.json`](../.
 
 - [Microsoft: BETAINV function](https://support.microsoft.com/en-us/excel/functions/betainv-function), opened 6 November 2026; syntax, documented argument rules and errors.
 - [DnaCalc implementation](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/beta_gamma_stats_family.rs); implementation steps and the limits identified in the text.
+- [Beta ratio and ordered-value search](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/special_math_common.rs); `regularized_beta` and `bisect_inverse`.
