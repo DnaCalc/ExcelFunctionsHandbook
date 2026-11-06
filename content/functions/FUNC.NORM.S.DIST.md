@@ -17,7 +17,7 @@ episodes: []
 body_sections:
   - What it computes
   - Arguments
-  - A documentation defect worth naming
+  - Density wording in the documentation
   - Result and edge cases
   - Errors
   - Relationships
