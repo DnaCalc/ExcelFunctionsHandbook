@@ -27,7 +27,7 @@ role_in_family: null
 
 ## Try it
 
-Under the documented Japanese mapping, `=JIS("abc")` produces full-width `ａｂｃ`. A string containing only characters outside the half-width conversion set is retained. The preview’s refusal is an engine support limit, not a reading from Excel.
+Under the documented Japanese mapping, `=JIS("abc")` produces full-width `ａｂｃ`. A string containing only characters outside the half-width conversion set is retained. The preview returns `#NAME?` because its engine does not resolve this spelling; that support limit is not a reading from Excel.
 
 ## Quirks
 

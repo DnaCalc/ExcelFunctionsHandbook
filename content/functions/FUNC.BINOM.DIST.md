@@ -47,7 +47,7 @@ For the **all-success, noncumulative** route `k=n>0`, `0<p<1`:
 2. Compute `t=R(n*L)` with the [stored-arithmetic recipe](../model/09-staged-arithmetic.md), rounding once to a 64-bit significand and then storing to binary64.
 3. Pass the stored `t` to the measured public [EXP route](FUNC.EXP.md#how-to-implement) and publish its result under the function’s finite/subnormal policy.
 
-Worked `n=3,p=0.5`: `L` is about `-0.6931471805599453`, the stored product is about `-2.0794415416798357`, and the exponential is about `0.125`, the probability of three successes. A direct `pow(p,n)` has different intermediate stages and is not a substitute for this identified computation tree.
+Worked `n=3,p=0.5`: `L` is about `-0.6931471805599453`, the stored product is about `-2.0794415416798357`, and this reconstruction’s exponential is `0.12500000000000003`, near the mathematical probability `0.125`. The stored intermediate values explain why the computation need not return the exactly representable mathematical result. A direct `pow(p,n)` has different intermediate stages and is not a substitute for this identified computation tree.
 
 The stored product is distinguished by 300 numeric discriminants and 256 controls in the cited code. This does not solve interior masses, cumulative summation, or the separately recorded unresolved domain answers. The current interior implementation uses a saddle-point construction with Stirling/deviance components; its remaining mismatches are listed in the problem-functions report. A mathematically stable recurrence or incomplete-beta CDF is an alternative algorithm, not a claim about Excel’s internals.
 
