@@ -31,9 +31,8 @@ For each function it aims to provide:
    external implementations, natural-best algorithms).
 3. The Handbook may disagree with any source, including OxFunc. Disagreement is rendered as a
    contested claim with evidence on both sides — that is the system working as intended.
-4. The claims plane is a **Gneiss ledger** (`Gneiss.Cell`): append-only testimony, versioned
-   contexts, deterministic belief views, receipts. The published site is generated from the
-   ledger plus the content organs.
+4. The canonical reference is the function page and its stable JSON: behaviour, runnable examples,
+   quirks, implementation guidance, Excel-build differences and alternatives; sources sit below.
 
 ## 3. Doctrine
 
@@ -43,9 +42,8 @@ For each function it aims to provide:
 2. **Comprehensiveness.** All 541 catalogued entries are present from the first publication, each
    honestly labeled with its curation depth. 541 entries = 518 functions + 23 operators = 534
    published Excel rows + 7 split byte-variant rows.
-3. **Evidence.** Every load-bearing fact is a claim in the ledger with typed provenance, or
-   curated content that cites its sources. Bulk evidence lives in its organ (Git, suites,
-   external archives); the ledger records claims and precise references.
+3. **Evidence.** Load-bearing facts cite sources. Bulk evidence lives in Git, suites and external
+   archives; the reference explains the function and links to that evidence.
 4. **Independent checkability.** Test suites are versioned, hash-manifested, downloadable, and
    oracle-provenance-stamped, so any claim can be re-verified anywhere — including on platforms
    with no Excel available.
@@ -58,7 +56,7 @@ For each function it aims to provide:
 7. **Progressive explicitness.** The default reading surface uses compact working terminology
    that remains true without qualification-by-click. Every load-bearing qualified term has a
    versioned plain-language expansion available locally and through an Explicit reading lens.
-   Changing the presentation lens never changes the underlying Gneiss answer, context, or receipt.
+   Changing the presentation lens never changes the described behaviour or its scope.
 
 ## 4. Scope
 
@@ -81,12 +79,12 @@ For each function it aims to provide:
 
 ## 5. Organs and Ownership
 
-Three organs (detail in `OPERATIONS.md` section 2):
+Reference data and presentation:
 1. **Content/evidence organ** (Git): `data/` (mechanically synced projections), `content/`
    (curated prose: call-model chapters, function pages, "The Last Bit" series, exhibits),
    `implementations/`, `vectors/`.
-2. **Claims plane**: `ledger/` — the Gneiss ledger, its canonical JSONL export, and the declared
-   `efh.*` vocabulary.
+2. **Function reference**: `content/reference/` — examples, Excel builds, implementations by
+   language and named variants, including their error bounds and OneCalc UDF hooks.
 3. **Presentation**: `site/` — generated, dependency-free static HTML plus static JSON API and
    downloadable suites.
 
@@ -112,9 +110,8 @@ Three organs (detail in `OPERATIONS.md` section 2):
    divergence is stated with evidence.
 6. A compact label must be true on its own. Expansion may explain its boundary; it may not rescue
    an overclaiming label.
-7. Working and Explicit views render the same answer envelope. The Explicit view states scope and
-   exclusions in plain language; Why, Sources, As of, Rules, History, Limits, and Replay remain
-   available beneath it.
+7. Working and Explicit views describe the same behaviour. Sources and evidence remain in a
+   compact footer; build and platform limits accompany measured results.
 8. **The phrases "bit-exact" and "bit-for-bit" may not be used to state a Handbook claim, in
    Handbook-voice prose or in a rendered label, until `vectors/` publishes a suite.** Rule 2
    requires three axes — Excel build, platform, and suite version — and `vectors/` currently holds

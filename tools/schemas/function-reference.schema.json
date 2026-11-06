@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://handbook.dnacalc.com/api/function-reference.schema.json",
+  "title": "Handbook function reference",
+  "type": "object",
+  "required": ["schema", "function_id", "name", "url", "json_url", "section_order", "sections", "try_it", "versions", "implementations", "variants", "sources"],
+  "properties": {
+    "schema": {"const": "efh.function-reference/v1"},
+    "function_id": {"type": "string", "pattern": "^FUNC\\.[A-Z0-9_.]+$"},
+    "name": {"type": "string"},
+    "url": {"type": "string", "format": "uri"},
+    "json_url": {"type": "string", "format": "uri"},
+    "section_order": {"const": ["what-it-does", "try-it", "quirks", "how-to-implement", "version-differences", "alternatives"]},
+    "sections": {"type": "object", "required": ["what-it-does", "quirks", "how-to-implement", "version-differences", "alternatives"], "additionalProperties": {"type": "string"}},
+    "try_it": {"type": "object", "required": ["formula"], "properties": {"formula": {"type": "string", "pattern": "^=", "maxLength": 4096}}},
+    "versions": {"type": "array", "items": {"type": "object", "required": ["excel_build", "platform", "behaviour", "sources"], "properties": {"excel_build": {"type": ["string", "null"]}, "platform": {"type": ["string", "null"]}, "behaviour": {"type": "string"}, "sources": {"type": "array", "items": {"type": "string"}}}}},
+    "implementations": {"type": "array", "items": {"type": "object", "required": ["language", "flavour", "source", "suite"], "properties": {"language": {"type": "string"}, "flavour": {"type": "string"}, "source": {"type": "string"}, "suite": {"type": "string"}}}},
+    "variants": {"type": "array", "items": {"type": "object", "required": ["name", "difference", "error_bound", "onecalc_udf"], "properties": {"name": {"type": "string"}, "difference": {"type": "string"}, "error_bound": {"type": ["object", "null"], "properties": {"metric": {"type": "string"}, "bound": {"type": ["number", "string", "null"]}, "domain": {"type": "string"}, "basis": {"type": "string"}}}, "onecalc_udf": {"type": ["object", "null"], "properties": {"name": {"type": "string"}, "language": {"type": "string"}, "source": {"type": "string"}}}}}}
+  }
+}

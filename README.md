@@ -11,20 +11,12 @@ independently checkable test suites, curated references, residual-portrait plate
 Atlas), and the research record of how last-bit agreement with Excel was investigated ("The Last
 Bit").
 
-Built on the DNA Calc program's OxFunc lane (function semantics, last-bit Excel parity work)
-and on Gneiss (accountable-knowledge ledger: claims, contexts, receipts). The Handbook is its
-own knowledge system: OxFunc is its strongest evidence source, not its definition.
+The canonical reference is the function page and its stable JSON. Each entry explains what the
+function does, offers a runnable formula, describes quirks and implementation choices, compares
+Excel versions, and gives alternatives. Sources and measured evidence sit below the explanation.
 
-## Read in this order
-
-1. [CHARTER.md](CHARTER.md) — mission, doctrine, scope, claim-language rules, licenses.
-2. [OPERATIONS.md](OPERATIONS.md) — organs and ownership, sync doctrine, suite versioning,
-   ratchets, evidence intake, phase register.
-3. [ledger/VOCABULARY.md](ledger/VOCABULARY.md) — the `efh.*` claim vocabulary (draft).
-4. [GNEISS-PROFILE.md](GNEISS-PROFILE.md) — the declared boundary and experimental realization
-   profile for the Handbook as a Gneiss Knowledge System.
-5. [Current function-help completeness audit](docs/audits/FUNCTION_HELP_COMPLETENESS_20260824.md)
-   — measured coverage, localization limits, and the exact remaining page inventory.
+Read [CHARTER.md](CHARTER.md), [OPERATIONS.md](OPERATIONS.md) and the
+[site tool documentation](tools/efh-site/README.md) for scope, ownership and local builds.
 
 ## Layout
 
@@ -37,7 +29,7 @@ own knowledge system: OxFunc is its strongest evidence source, not its definitio
 - `implementations/` — per function × flavour × language; only suite-verified entries are
   published.
 - `vectors/` — versioned test suites (JSONL, bits-hex, hash-manifested).
-- `ledger/` — the Gneiss claims ledger and its canonical export.
+- `content/reference/` — handbook-owned examples, versions, implementations and variants.
 - `site/` — generated static site (plus `site/mockups/` — approved design mockups).
 - `tools/` — `efh-ingest` and `efh-site` (Rust), and `efh` (C#).
 - `tests/` — vector runners, ratchets, determinism drills.
@@ -53,24 +45,13 @@ cargo run --release --locked --manifest-path tools/efh-site/Cargo.toml -- build
 Writes the ignored folder `site/build/`, with all 541 entry pages, function notes, a category
 index and browser-local search, The Last Bit drafts, coverage and licences. The standalone Rust
 generator does not require C# or an OxFunc checkout and does not publish anything. See
-[its commands and checks](tools/efh-site/README.md). The output describes its pre-ledger status
-and the limits of the source material; this is a local preview pending owner review.
+[its commands and checks](tools/efh-site/README.md). Function JSON lives at
+`api/functions/FUNC.<NAME>.json`; `llms.txt` documents agent access. All 541 catalogue entries
+use the same six-section layout. Build and platform information travels with measured answers.
 
-## Status
-
-Phase H2 (design foundation) is complete. H3 (ledger bootstrap) and H4 (site v1) are `in progress`:
-the build specification is under execution, `ledger/` contains `VOCABULARY.md` only — no ledger
-database and no canonical export. A rubric-focused `efh` tool now exists and emits pre-ledger
-derivation artifacts under `site/api/`. The separate `efh-site` Rust generator now builds entry
-pages, notes, `/coverage`, relative navigation, Working/Explicit reading lenses and seven source
-doors in reduced pre-ledger form. No ledger receipt, answer identity or context hash is invented.
-Generated HTML stays outside git; publication and editorial review remain owner decisions.
-The 2026-08-24 completeness audit also identifies four Microsoft-listed `FORECAST.ETS*` functions
-outside the current OxFunc/Handbook spine; they are retained as an explicit upstream inventory gap,
-not hidden behind the 541-entry denominator.
-`vectors/` is empty, so no claim in the Handbook currently satisfies `CHARTER.md` rule 7.2 and the
-words "bit-exact" and "bit-for-bit" are not available to Handbook voice (rule 7.8). Nothing is
-published yet; the phase register in [OPERATIONS.md](OPERATIONS.md) is the living status surface.
+`vectors/` has no published suites. The restrictions on equality wording in Charter §7 remain.
+The catalogue still omits four Microsoft-listed `FORECAST.ETS*` functions; this is an inventory
+gap, not evidence that Excel lacks those functions. Local building never publishes the site.
 
 ## Licenses
 

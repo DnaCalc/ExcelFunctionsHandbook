@@ -1,5 +1,6 @@
 mod checks;
 mod markdown;
+mod reference;
 mod site;
 mod util;
 

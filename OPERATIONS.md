@@ -10,10 +10,6 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
 2. This repo must **not write** to sibling repos. Anything the Handbook learns that a sibling
    should absorb is routed as a handoff note in `docs/handoffs/` and delivered through that
    repo's own process.
-3. The Gneiss library is consumed read-only from `C:\Work\FireHorseCoding\Gneiss`
-   (ProjectReference or locally packed NuGet). Never write to the FireHorseCoding tree.
-4. A separately authorized Gneiss implementation session may act on a committed Handbook handoff.
-   The handoff remains the durable boundary record; ordinary Handbook work never writes across it.
 
 ## 2. Organs and Mutability
 
@@ -23,27 +19,17 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
 | `content/` | Handbook curation | Hand/agent-curated; never touched by sync |
 | `implementations/` | Handbook curation | Curated; admitted only via suite verification |
 | `vectors/` | Handbook curation | Versioned suites; append-mostly (section 5) |
-| `ledger/` (ledger database + canonical export) | Gneiss ledger (single writer: efh tool) | Append-only; export committed |
-| `ledger/*.md` (e.g. `VOCABULARY.md`) | Handbook curation | Hand/agent-curated documentation; not tool-written, not append-only |
-| `site/` | efh site generator | Regenerated from ledger + data + content |
+| `content/reference/` | Handbook curation | One JSON record per function, independent of imported metadata |
+| `site/` | efh site generator | Regenerated from data, reference records and prose |
 | `tools/`, `tests/` | Engineering | Ordinary code review |
-
-1. The `ledger/` organ holds two kinds of file under one directory name. The ledger database and
-   its canonical JSONL export are tool-written and append-only. The Markdown documents beside them
-   are ordinary curated content: `ledger/VOCABULARY.md` is hand-edited today, and the single-row
-   description of the organ as tool-owned and append-only was false about its own contents.
-   A Markdown file in `ledger/` is never appended to the ledger by virtue of living there.
 
 ## 3. Sync Doctrine (Handbook ↔ OxFunc)
 
 1. Sync triggers on an OxFunc snapshot-generation bump (or on demand).
 2. `efh-ingest --diff` rebuilds `data/` in a working state and reports the row-level diff.
-3. The diff is translated into **proposed claim updates**; nothing outside `data/` is modified
-   mechanically.
-4. The steward decides; accepted updates are appended to the ledger with provenance
-   (OxFunc snapshot generation + source commit).
-5. `CheckStale` runs over published receipts; affected pages carry a stale badge until their
-   claims are re-affirmed.
+3. The diff is reviewed before committing; nothing outside `data/` is modified mechanically.
+4. Accepted updates record their source snapshot and commit in the metadata JSON.
+5. Curators compare changed fields with the explanations and examples that rely on them.
 6. **`upstream_anchor` re-check.** Every sync re-reads the OxFunc text each evidence record cites
    and reports each record whose cited text has changed or disappeared. Affected pages render
    `upstream_changed` until a curator re-affirms the record. The reason: OxFunc **deletes** a
@@ -62,13 +48,8 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
    those rows are byte-stable per host, not universally. Host-scoped rows carry `host_scoped` as a
    published field; their non-portability is disclosed, not hidden. CI records the build inputs, or
    "byte-stable" stops being a checkable sentence.
-2. The canonical JSONL export is byte-stable and is the ledger's **reviewable twin**, verified by
-   byte-equality on every build. The ledger does **not** rebuild from it: `Gneiss.Cell` has no
-   import operation and `ExportLedgerJsonl()` has no inverse. The export is also not a complete
-   representation — it covers `tx`, `assrt`, `dec`, and `just`, and notes are excluded — so a
-   rebuild-from-export clause would have been unsatisfiable in two independent ways. The durable
-   artifact is the ledger database; the export exists to be read, diffed, and reviewed.
-3. Site generation is byte-stable given identical ledger, data, and content inputs.
+2. Function JSON and site output are stable for identical source inputs.
+3. The build inventory records the source revision and tree state.
 4. ULP Atlas plates regenerate byte-stably from the suite version that produced them.
 
 ### Mixed-vintage disclosure for `data/`
@@ -81,8 +62,8 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
 2. **Classification and signatures** come from the live `oxfunc_core` registry at the commit the
    ingest tool was built against — currently `473efa3` (2026-07-25, clean tree).
 3. Because the export's own provenance records a dirty tree, **nobody — including us — can
-   regenerate those bytes from a commit.** This is a published limitation of `data/`, stated on
-   the pages that render export-sourced cells, not a footnote. The two bases carry different
+   regenerate those bytes from a commit.** This is a published limitation of `data/`, recorded in
+   the machine-readable metadata linked from the source footer. The two bases carry different
    dates (`2026-04-02` and `2026-07-25`) and an unknown working-tree delta.
 4. Re-cutting the export from a clean tree is an upstream fix; it is filed as
    `docs/handoffs/oxfunc/EFH-HO-001-export-snapshot-provenance.md`.
@@ -99,60 +80,31 @@ Scope: execution doctrine for The Handbook of Excel Functions. Subordinate to `C
 
 ## 6. Ratchets (CI)
 
-Monotonic counters, enforced by tests: curated pages, claim-backed rows, verified
+Monotonic counters, enforced by tests: curated pages, documented behaviours, suite-tested
 implementations, suite-covered functions. Placeholder/uncurated counts are monotonically
 non-increasing. A regression fails CI.
 
 ## 7. Evidence Intake
 
-1. Public affordance: "Submit evidence" produces a structured, machine-parseable submission
-   (issue template with typed fields: function id, challenged claim key, evidence kind,
-   reproduction).
-2. `efh feedback ingest` converts triaged submissions into `proposed` ledger claims.
-3. Steward decisions accept or reject; accepted evidence lands as appended claims and the
-   contributor is credited on the affected page.
-4. Nothing is ever auto-admitted as fact.
+1. The contribution form collects function, contribution kind, Excel build, reproduction details
+   and optional contact information into the Handbook's private store.
+2. Submissions are reviewed before their content enters a function record or source document.
+3. Accepted contributions are credited with the contributor's permission.
+4. Nothing is automatically admitted as fact.
 
 ## 8. Tooling Map
 
 | Tool | Language | Role |
 |---|---|---|
 | `tools/efh-ingest` | Rust (path-dep on `oxfunc_core`) | Build `data/` projections + sync diffs |
-| `tools/efh-site` | Rust (standalone) | Static pre-ledger preview from data + content; local link/claim checks; no publication step |
-| `tools/efh` | C# (Gneiss.Cell) | Ledger append/ask/why/stale · site generate · suite packaging · feedback ingest · atlas |
+| `tools/efh-site` | Rust (standalone) | Reference HTML and JSON; local link/claim checks; no publication step |
+| `tools/efh-engine` | Rust + build script | OneCalc browser wasm and the shared evaluation bridge |
 | `tests/` | per language | Vector runners, ratchets, determinism drills |
 
-## 9. Gneiss Realization Boundary
+## 9. Current work
 
-1. Gneiss governs the Handbook's published load-bearing answers and their accountability
-   envelopes. It does not store every paragraph, projected field, source file, or vector.
-2. The Handbook owns Excel-domain predicates, observation contexts, suite warrant types,
-   terminology, pedagogy, and presentation. Gneiss owns assertion/decision/context semantics,
-   receipts, staleness, contest, typed missingness, and the generic answer-envelope contract.
-3. `Working` and `Explicit` are presentation lenses over one evaluated answer. They are not Gneiss
-   evaluation contexts and must carry the same answer identity, context hash, and receipt.
-4. A published build pins the Gneiss implementation/package, evaluator, Public Surface profile,
-   and Handbook explanation-registry versions it consumed.
-5. Candidate general lessons are first exercised locally, backed by a real page and drill, then
-   recorded in `docs/handoffs/gneiss/`. Gneiss may adopt, generalize, defer, or reject them through
-   its own process. No handoff silently changes either system's contract.
-6. The current realization claim is declared in `GNEISS-PROFILE.md`. Until the listed drills run,
-   it says "designed as" rather than claiming earned Gneiss conformance.
-
-## 10. Phase Register (sequence-only)
-
-| Phase | Content | State |
-|---|---|---|
-| H0 | Repo bootstrap: charter, operations, skeleton, vocabulary draft, mockups, public repo | `complete` (2026-07-18, github.com/DnaCalc/ExcelFunctionsHandbook) |
-| H1 | Evaluation-context review → `content/model/` chapters | `complete` (2026-07-18, chapters 00–07 draft; 36 findings handed off) |
-| H2 | `efh-ingest` + the entry list in `data/` | `complete` (2026-07-18, 541 entries from 534 published rows; byte-stable under section 4 clause 1) |
-| H3 | Gneiss ledger bootstrap: vocabulary + public-current context declared, baseline claims appended, experimental profile emitted | `in progress` — a rubric-focused `efh` tool exists, but `ledger/` holds `VOCABULARY.md` only: no ledger database or canonical export. Nothing appended. |
-| H4 | Site v1: all pages honest-labeled, Working/Explicit lenses, seven doors, exhibits homepage, series scaffold, /coverage, /api | `in progress` — standalone Rust `efh-site` generates all 541 entry pages, notes, a category/search index, homepage exhibits, draft series, coverage and licences into ignored `site/build/`. Reading lenses and seven doors state the pre-ledger boundary. Ledger-backed answer envelopes await H3; editorial review and owner publication approval remain outstanding. |
-| H5 | Depth tranche (~12 fns): curated pages, suites, claims, plates, references, first episodes; ABS+EXP full spread | `planned` — `vectors/` and `implementations/` hold `.gitkeep` only: 0 suites, 0 admitted implementations, 0 plates |
-| H6 | Evidence feedback loop v1 | `planned` |
-| H7+ | Roadmap: tranche expansion, implementation forge, atlas index, locale surfaces, per-build contexts, OneCalc embed, conformance kit | `planned` |
-
-`in progress` means work is under way with unfinished deliverables. Each row names what exists
-and what is missing; it is not a partial completeness claim. A phase moves to `complete` only
-when every deliverable named in its row exists in the repository. The plan of record for these phases is the approved scoped plan
-(session-archived); this register is the living truth once phases start moving.
+All 541 entries use the same reference structure and stable JSON URLs. Further work prioritizes
+thin explanations, measured version comparisons, implementation guidance and published suites.
+Browser calculation uses OneCalc; the local server runs the same wasm module for `/api/eval`.
+Local checks and the private contribution store are described in the tooling documentation.
+Build and test locally; hosting and deployment are separate operations.

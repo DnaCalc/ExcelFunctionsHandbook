@@ -30,6 +30,23 @@ pub fn body(source: &str) -> &str {
 
 impl Renderer<'_> {
     pub fn url(&mut self, source: &str, page: &str, url: &str) -> Option<String> {
+        let mapped;
+        let url = if source.starts_with("content/functions/") && url.contains('#') {
+            let (path, fragment) = url.split_once('#').unwrap();
+            let fragment = match fragment {
+                "what-it-computes" | "arguments" => "what-it-does",
+                "numerical-notes" | "notes-for-implementers" => "how-to-implement",
+                "relationships" => "alternatives",
+                "result-and-edge-cases" | "errors" | "notes" => "quirks",
+                "excel-versions-platforms-and-cpus" => "version-differences",
+                "page-vocabulary" | "what-has-not-been-checked" => "sources",
+                other => other,
+            };
+            mapped = format!("{path}#{fragment}");
+            mapped.as_str()
+        } else {
+            url
+        };
         if url.starts_with("https://")
             || url.starts_with("http://")
             || url.starts_with("mailto:")

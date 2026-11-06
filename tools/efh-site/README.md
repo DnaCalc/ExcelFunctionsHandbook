@@ -29,21 +29,13 @@ ownership at replacement time. Keep output paths outside
 source directories. Serve the folder with any ordinary static file server, at
 the root or under a URL prefix. Internal links include filenames and are relative.
 
-The 541-entry spine is read from `data/index.json`. Each entry renders its
-projection, curated `content/functions/FUNC.*.md` when present, and applicable
-notes from `content/notes/FN-*.json`. Generated note sections in Markdown are
-removed **in memory only**: the source files are never changed. The resulting
-notes API is built from those same JSON inputs; `/coverage` discloses any drift
-from the checked-in notes API. Older prose is identified as older when notes
-provide a later observation record. Projected localization is explicitly
-unreviewed, and Microsoft text retains its licence exclusion.
-
-The approved mockup supplies the palette, typography, reading lenses, featured
-exhibit and editorial layout. Its fictional plot, counters, warrants and receipt
-are replaced with recorded note values and explicit missingness. Seven source
-doors expose the current pre-ledger boundary. No ledger receipt or implementation
-warrant is synthesized. New suites or implementations cause a build error until
-admission is integrated; they cannot silently inherit the current absence text.
+The 541-entry spine is read from `data/index.json`. Each page uses the same order:
+What it does, Try it, Quirks, How to implement, Version differences, Alternatives.
+Sources and evidence appear in a compact footer. Existing essays are divided by subject;
+editorial metadata stays in the source files and JSON. `content/reference/FUNC.*.json` owns
+examples, section overrides, Excel-build records, implementations by language and named variants.
+The stable `api/functions/FUNC.*.json` combines these with explanations and attached observations.
+`llms.txt` documents predictable page and JSON URLs.
 
 Series Markdown is labelled Draft unless its frontmatter explicitly says
 `status: ready` or `status: published`. `MATERIAL_*` files and the unreviewed PDF
@@ -61,12 +53,9 @@ fails the build for editorial correction. Coverage lists outstanding references.
 Link checks cover local targets, fragments, duplicate ids and label/control ids;
 they do not contact external servers.
 
-The existing source-schema validator is a separate check:
-`cargo run --locked --manifest-path tools/efh-validate/Cargo.toml -- check-organ`.
-On 2026-11-04 it reports 4,291 findings in existing evidence records, the axis
-vocabulary and presence scan limits; the 541 function projections and 36 note
-records pass their schemas. This site work does not change those source organs
-or relax their schemas. The .NET tests require a different host.
+The source-schema validator (`tools/efh-validate`) is an independent research-data diagnostic.
+Its existing findings do not fail site builds. Site builds validate the reference records,
+catalogue identity, local links and rendered equality wording.
 
 Output ordering is stable and there are no wall-clock timestamps. The source
 revision and working-tree state in `api/build.json` are build inputs, as are the tool
@@ -98,5 +87,4 @@ from the generated catalogue. The report identifies the selection. Inspect the s
 as well as the machine report. These are headless Chrome checks, without a
 claim about real iOS devices or other browser engines.
 
-Publishing remains a separate owner decision. This command never deploys or
-changes hosting configuration.
+This command never deploys or changes hosting configuration.

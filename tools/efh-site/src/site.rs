@@ -1,4 +1,4 @@
-use crate::{checks, markdown::Renderer, util::*};
+use crate::{checks, markdown::Renderer, reference, util::*};
 use serde_json::{json, Value};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -187,23 +187,6 @@ impl Inputs {
             .clone();
         api_notes.sort_by_key(|n| s(&n["note_id"]).to_string());
         let note_api_matches = api_notes == notes;
-        if files(&repo.join("ledger"))?.iter().any(|p| {
-            p.extension().is_none_or(|ext| ext != "md")
-                && p.file_name().is_some_and(|name| name != ".gitkeep")
-        }) {
-            return Err("ledger artifacts are now present: integrate their answer envelopes before using the pre-ledger renderer".into());
-        }
-        // Suite admission belongs to the existing pipeline; do not invent warrants if new
-        // suites or implementations arrive without integration into this renderer.
-        if files(&repo.join("vectors"))?
-            .iter()
-            .any(|p| p.file_name().is_some_and(|n| n == "MANIFEST.json"))
-            || files(&repo.join("implementations"))?
-                .iter()
-                .any(|p| p.file_name().is_some_and(|n| n != ".gitkeep"))
-        {
-            return Err("new suites/implementations need an admission review before this site renderer can list them".into());
-        }
         let git = std::process::Command::new("git")
             .arg("-C")
             .arg(repo)
@@ -349,7 +332,13 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         write(
             out,
             &format!("api/functions/{id}.json"),
-            &read(&repo.join(format!("data/functions/{id}.json")))?,
+            &serde_json::to_string_pretty(&reference::record(
+                repo,
+                f,
+                &reference::load(repo, f)?,
+                &input.notes,
+            )?)
+            .unwrap(),
         )?;
     }
     routes.insert("content/notes/NOTES.md".into(), "notes/index.html".into());
@@ -451,6 +440,18 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             std::fs::copy(&path, target).map_err(|e| e.to_string())?;
         }
     }
+    write(out, "llms.txt", "# The Handbook of Excel Functions\n\nCanonical open reference for Excel functions and operators.\n\n- Catalogue: https://handbook.dnacalc.com/api/index.json\n- Function page: https://handbook.dnacalc.com/functions/ROUND.html\n- Stable function JSON: https://handbook.dnacalc.com/api/functions/FUNC.ROUND.json\n- Schema: https://handbook.dnacalc.com/api/function-reference.schema.json\n- Evaluation: POST https://handbook.dnacalc.com/api/eval with {\"formula\":\"=ROUND(1.005,2)\"}\n- Contributions: POST https://handbook.dnacalc.com/api/contributions\n\nReplace ROUND with the case-sensitive function name, including dots; use operator IDs such as OP_ADD. All 541 catalogue IDs resolve. JSON contains section_order, sections (Markdown), try_it, versions (Excel build and platform), implementations (language and suite), variants (difference, error_bound, onecalc_udf) and sources. Empty lists mean no records, not proof of identical behaviour. OneCalc results are not Excel measurements. API errors and engine refusals must be preserved.\n")?;
+    write(
+        out,
+        "api/function-reference.schema.json",
+        &read(&repo.join("tools/schemas/function-reference.schema.json"))?,
+    )?;
+    output(
+        out,
+        "contribute/index.html",
+        "Contribute to the Handbook",
+        r#"<h1>Contribute to the Handbook</h1><p>Share a correction, Excel observation, implementation or variant. Submissions are stored privately by DNA Kode for review. Your contact details will not be published.</p><form id="contribution-form"><label for="contribution-function">Function</label><input id="contribution-function" name="function_id" placeholder="FUNC.ROUND" required maxlength="100"><label for="contribution-kind">Contribution</label><select id="contribution-kind" name="kind"><option value="correction">Correction</option><option value="observation">Excel observation</option><option value="implementation">Implementation</option><option value="variant">Variant</option></select><label for="contribution-build">Excel build and platform (if relevant)</label><input id="contribution-build" name="excel_build" maxlength="200"><label for="contribution-details">Details, formula, observed answer and sources</label><textarea id="contribution-details" name="details" required maxlength="20000" rows="8"></textarea><label for="contribution-contact">Contact (optional)</label><input id="contribution-contact" name="contact" maxlength="320"><button type="submit">Send contribution</button><output id="contribution-status" role="status" aria-live="polite"></output><noscript><p>Enable JavaScript to submit this form.</p></noscript></form>"#,
+    )?;
     let mut r = Renderer {
         repo,
         routes: &routes,
@@ -524,7 +525,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
         &serde_json::to_string_pretty(&input.index).unwrap(),
     )?;
     write(out,"api/notes.json",&serde_json::to_string_pretty(&json!({"schema":"efh.function-notes-api/v1","source":"content/notes/FN-*.json (efh.function-note/v1)","note_count":input.notes.len(),"notes":input.notes})).unwrap())?;
-    // Derivations are downloadable source records, not current ledger warrants.
+    // Earlier research derivations remain downloadable.
     for name in ["rubric.json", "rubric-hygiene.json"] {
         if repo.join(format!("site/api/{name}")).is_file() {
             write(
@@ -534,7 +535,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
             )?;
         }
     }
-    write(out,"api/build.json",&serde_json::to_string_pretty(&json!({"schema":"efh.static-build/v1","source_revision":input.revision,"source_tree_state":input.tree_state,"basis_mode":"pre-ledger","entry_pages":541,"curated_prose_files":input.curated.len(),"notes":input.notes.len(),"input_notes_api_matches_sources":input.note_api_matches,"withheld_passages":withheld,"unresolved_source_references":unresolved,"reconciliation":RECONCILIATION})).unwrap())?;
+    write(out,"api/build.json",&serde_json::to_string_pretty(&json!({"schema":"efh.static-build/v1","source_revision":input.revision,"source_tree_state":input.tree_state,"entry_pages":541,"curated_prose_files":input.curated.len(),"notes":input.notes.len(),"input_notes_api_matches_sources":input.note_api_matches,"withheld_passages":withheld,"unresolved_source_references":unresolved,"reconciliation":RECONCILIATION})).unwrap())?;
     Ok(())
 }
 
@@ -548,125 +549,127 @@ fn function_page(
     let id = s(&f["function_id"]);
     let name = s(&f["surface_name"]);
     let dest = function_path(id);
-    let curated = input.curated.contains(id);
-    let depth = if curated {
-        "Curated prose present"
-    } else {
-        "Projection only · no curated prose"
-    };
-    let admission = s(&f["admission"]["label"]);
-    let mut html=format!("<p class=\"eyebrow\">{} · <code>{}</code></p><h1 class=\"function-name\">{}</h1><p>{}</p><div class=\"statusline\"><span class=\"status\">{depth}</span><span class=\"status\">OxFunc admission: {}</span></div>",esc(s(&f["category"])),esc(id),esc(name),esc(s(&f["descriptions"]["short"])),esc(admission));
-    if let Some(reason) = f["admission"]["reason"].as_str() {
-        html += &format!("<p class=\"notice\">{}</p>", esc(reason));
+    let owned = reference::load(repo, f)?;
+    let record = reference::record(repo, f, &owned, &input.notes)?;
+    let mut html = format!("<p class=\"eyebrow\">{}</p><h1 class=\"function-name\">{}</h1><nav class=\"section-nav\" aria-label=\"On this page\">",esc(s(&f["category"])),esc(name));
+    for (key, title) in reference::SECTIONS {
+        html += &format!("<a href=\"#{key}\">{title}</a>");
     }
-    html+="<p class=\"explain\">Curation describes prose in this checkout. Admission describes the reference engine in the projection. Neither is a test-suite warrant or a statement that Excel behaves identically.</p>";
-    if let Some(signature) = f["signature"]["display"].as_str() {
-        html+=&format!("<section class=\"card signature\" aria-label=\"Projected signature\"><code>{}</code><p class=\"small\">{}</p></section>",esc(signature),if f["signature_placeholder"]==true {"Placeholder signature in the projection; argument names are not curated."} else {"Signature from the OxFunc projection; see source limits below."});
-    } else {
-        html += "<p class=\"notice\">No signature is recorded in this projection.</p>";
+    html += "</nav>";
+    let src = format!("content/functions/{id}.md");
+    for (key, title) in reference::SECTIONS {
+        html += &format!("<section class=\"function-section\" aria-labelledby=\"{key}\"><h2 id=\"{key}\">{title}</h2>");
+        if key == "what-it-does" {
+            if let Some(signature) = record["signature"]["display"].as_str() {
+                html += &format!("<p class=\"signature\"><code>{}</code></p>", esc(signature));
+            }
+        }
+        if key == "try-it" {
+            html += &format!(
+                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><button type="submit">Calculate</button><button type="button" data-reset>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
+                esc(s(&record["try_it"]["formula"]))
+            );
+        } else {
+            html += &r.render(&src, &dest, s(&record["sections"][key]), false);
+        }
+        if key == "quirks" {
+            for note in record["notes"].as_array().into_iter().flatten() {
+                html += &reader_note(note, &dest);
+            }
+        }
+        if key == "version-differences" {
+            for version in record["versions"].as_array().into_iter().flatten() {
+                html += &format!(
+                    "<article><h3>Excel {} · {}</h3><p>{}</p></article>",
+                    esc(s(&version["excel_build"])),
+                    esc(s(&version["platform"])),
+                    esc(s(&version["behaviour"]))
+                );
+            }
+        }
+        if key == "how-to-implement" {
+            for implementation in record["implementations"].as_array().into_iter().flatten() {
+                html += &format!(
+                    "<p>{}: <code>{}</code> · suite {}</p>",
+                    esc(s(&implementation["language"])),
+                    esc(s(&implementation["source"])),
+                    esc(s(&implementation["suite"]))
+                );
+            }
+            if record["implementations"]
+                .as_array()
+                .is_some_and(|v| v.is_empty())
+            {
+                html += "<p class=\"small\">No implementation has been published with a Handbook test suite for this function.</p>";
+            }
+        }
+        if key == "alternatives" {
+            for variant in record["variants"].as_array().into_iter().flatten() {
+                html += &format!("<article><h3>{}</h3><p>{}</p><p>Error bound: {}. OneCalc UDF: <code>{}</code>.</p></article>",esc(s(&variant["name"])),esc(s(&variant["difference"])),esc(&variant["error_bound"].to_string()),esc(&variant["onecalc_udf"].to_string()));
+            }
+        }
+        html += "</section>";
     }
+    html += &format!("<aside class=\"source-footer\" id=\"sources\"><details><summary>Sources and evidence</summary><p>{} · {}</p>",a(&dest,&format!("api/functions/{id}.json"),"Function JSON"),a(&dest,"rules/index.html","Measurement and suite limits"));
     if let Some(url) = f["docs"]["microsoft_url"].as_str() {
         html += &format!(
             "<p><a href=\"{}\">Microsoft documentation</a></p>",
             esc(url)
         );
     }
-    html += &provenance(input, f);
-    let notes: Vec<_> = input
-        .notes
-        .iter()
-        .filter(|n| {
-            n["functions"]
-                .as_array()
-                .unwrap()
-                .iter()
-                .any(|x| s(x) == id)
-        })
-        .collect();
-    if !notes.is_empty() {
-        html+="<section aria-labelledby=\"function-notes\"><h2 id=\"function-notes\">Function notes</h2><p class=\"notice\">These notes are the later measurement record. Older prose below may describe behaviour that had not been measured when it was written. Build and machine limits travel with each recorded answer.</p>";
-        for note in notes {
-            html += &render_note(note, &dest, r);
-        }
-        html += "</section>";
+    if let Some(sources) = record["sections"]["sources"].as_str() {
+        html += &r.render(&src, &dest, sources, false);
     }
-    if curated {
-        let src = format!("content/functions/{id}.md");
+    for note in record["notes"].as_array().into_iter().flatten() {
         html += &format!(
-            "<hr><article aria-label=\"Curated function prose\">{}</article>",
-            r.render(&src, &dest, &read(&repo.join(&src))?, true)
+            "<p>{}</p>",
+            a(
+                &dest,
+                &format!("notes/{}.html", s(&note["note_id"])),
+                s(&note["title"])
+            )
         );
-    } else {
-        html+="<section><h2>About this entry</h2><p>This entry has projected metadata. No curated explanation, argument guide or examples are present in this checkout.</p></section>";
     }
-    html+="<section><h2>Implementations and test suites</h2><p>No Handbook test suite or admitted Handbook implementation is published for this entry. Reference-engine source locations are research references, without a Handbook suite warrant.</p></section>";
-    if let Some(classification) = f["classification"].as_object() {
-        html+="<details><summary>Reference-engine classification</summary><p>These fields describe the projected OxFunc implementation. Defaults can be unexamined; these are not Excel observations.</p><dl>";
-        for (key, value) in classification {
-            html += &format!(
-                "<dt>{}</dt><dd><code>{}</code> · {}</dd>",
-                esc(key),
-                esc(s(value)),
-                esc(s(&f["axis_provenance"][key]["provenance_class"]))
-            );
-        }
-        html += "</dl></details>";
-    }
-    if let Some(names) = f["localized_names"].as_array().filter(|x| !x.is_empty()) {
-        html+="<details><summary>Projected localized names</summary><p>Source spellings are preserved, including questionable translations. They have not been checked here against installed Excel; consult the official article. Microsoft source text is excluded from the content licence.</p><dl class=\"locales\">";
-        for n in names {
-            html += &format!(
-                "<dt>{}</dt><dd>{}</dd>",
-                esc(s(&n["locale"])),
-                esc(s(&n["name"]))
-            );
-        }
-        html += "</dl></details>";
-    }
-    html += &doors(input, f, &dest);
+    html += "<p class=\"small\">Recorded Excel answers apply to their named builds, platforms and input routes. No Handbook test suite is published for this entry. Microsoft source text is excluded from the content licence.</p></details></aside>";
+    html += &format!(
+        "<p class=\"small\">{} · {}</p>",
+        a(
+            &dest,
+            "contribute/index.html",
+            "Suggest a correction or contribute an implementation"
+        ),
+        a(&dest, "llms.txt", "For agents")
+    );
     output(out, &dest, name, &html)
 }
 
-fn provenance(input: &Inputs, f: &Value) -> String {
-    let p = &input.index["provenance"];
-    let date = if p["oxfunc_commit_at_ingest"] == "473efa3" {
-        " The registry checkout is dated 2026-07-25 in Operations §4; individual registry fields have no recorded as-of date."
-    } else {
-        " The registry basis has no recorded as-of date."
-    };
-    let presence = match f["registry_backed"].as_bool() {
-        Some(true) => "Live-registry entry: present. ",
-        Some(false) => "Live-registry entry: absent; export-only metadata. ",
-        None => "",
-    };
-    format!("<aside class=\"provenance\"><h2>Source limits</h2><p>Mixed-vintage projection: the export row spine is dated <strong>{}</strong>, commit <code>{}</code>, tree <strong>{}</strong>. Its unrecorded working-tree delta prevents regeneration from that commit. Registry metadata comes from <code>{}</code> (clean tree: {}).{date} Individual field bases are recorded in the entry JSON.</p><p class=\"small\">{presence}Currentness against today's Excel is not established.</p></aside>",esc(s(&p["export_snapshot_generation"])),esc(s(&p["export_source_commit"])),esc(s(&p["export_source_tree_state"])),esc(s(&p["oxfunc_commit_at_ingest"])),p["oxfunc_tree_clean"])
-}
-
-fn doors(input: &Inputs, f: &Value, dest: &str) -> String {
-    let id = s(&f["function_id"]);
-    let source = format!("data/functions/{id}.json");
-    let history_source = if input.curated.contains(id) {
-        format!("content/functions/{id}.md")
-    } else {
-        source.clone()
-    };
-    format!(
-        r#"<section class="doors" aria-labelledby="accountability"><h2 id="accountability">Why, sources and limits</h2><p>Pre-ledger view. No ledger receipt, answer identity or context hash has been issued. Working and Explicit expand the same source record.</p>
-<details><summary>Why</summary><p>Metadata is read from the committed projection; curated prose and note JSON are rendered when present. Curation labels describe file presence, without a claim of behavioural completeness.</p></details>
-<details><summary>Sources</summary><p>{raw} · <a href="{source}">Repository projection</a> · <a href="{notes}">Note records</a></p></details>
-<details><summary>As of</summary><p>Source checkout <code>{revision}</code>, working tree {tree_state}. The projection's export and registry bases differ; see Source limits above. Each note states its own capture context.</p></details>
-<details><summary>Rules</summary><p>{rules}. No suite-backed equality label is available while Handbook suites are absent.</p></details>
-<details><summary>History</summary><p><a href="{history}">Repository history for this entry</a>. No ledger decision history is available.</p></details>
-<details><summary>Limits</summary><p>No Handbook suite, admitted implementation or ledger warrant. Projected source facts can be stale; per-entry prose and notes state further limits. Mathematical arguments do not establish behaviour in Excel.</p></details>
-<details><summary>Replay</summary><p>No packaged Handbook suite is available to replay. Note reproductions state their input route, raw bits where recorded, and capture source. Those records are observations rather than a downloadable suite.</p></details></section>"#,
-        raw = a(dest, &format!("api/functions/{id}.json"), "Entry JSON"),
-        source = source_link(&input.revision, &source),
-        notes = esc(&relative(dest, "api/notes.json")),
-        revision = esc(&input.revision),
-        tree_state = esc(&input.tree_state),
-        rules = a(dest, "rules/index.html", "Claim-language rules"),
-        history = format_args!("{SOURCE}/commits/{}/{history_source}", input.revision)
-    )
+fn reader_note(note: &Value, dest: &str) -> String {
+    let id = s(&note["note_id"]);
+    let mut h = format!(
+        "<article class=\"note\" id=\"{}\"><h3>{}</h3><p>{}</p>",
+        esc(id),
+        esc(s(&note["title"])),
+        esc(s(&note["statement"]))
+    );
+    if let Some(inferred) = note["inferred"].as_str() {
+        h += &format!(
+            "<p><strong>Explanation (inferred):</strong> {}</p>",
+            esc(inferred)
+        );
+    }
+    h += "<div class=\"table-scroll\" role=\"region\" aria-label=\"Excel examples\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Formula</th><th scope=\"col\">Excel</th><th scope=\"col\">Mathematical value</th></tr></thead><tbody>";
+    for repro in note["repros"].as_array().into_iter().flatten() {
+        h += &format!("<tr><td><code>{}</code><br><span class=\"small\">{}</span></td><td>{}</td><td>{}</td></tr>",esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]));
+    }
+    h += &format!(
+        "</tbody></table></div><p class=\"small\">{}</p></article>",
+        a(
+            dest,
+            &format!("notes/{id}.html"),
+            "Inputs, build details and evidence"
+        )
+    );
+    h
 }
 
 fn cell_value(v: &Value) -> String {
@@ -913,9 +916,9 @@ fn function_index(out: &Path, input: &Inputs) -> Result<(), String> {
                 a(dest, &function_path(id), s(&f["surface_name"])),
                 esc(s(&f["descriptions"]["short"])),
                 if input.curated.contains(id) {
-                    "Curated prose"
+                    "Function guide"
                 } else {
-                    "Projection only"
+                    "Brief entry"
                 },
                 esc(s(&f["admission"]["label"]))
             );
@@ -932,7 +935,7 @@ fn homepage(
     episodes: &[(String, String, String, bool)],
 ) -> Result<(), String> {
     let dest = "index.html";
-    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">Every catalogued entry, described honestly — with its evidence and limits.</p><p class=\"explain\">This is a reference in progress. Projected metadata, curated explanations and recorded observations are labelled separately. No Handbook test suites or ledger receipts have been published.</p></div><form class=\"searchrow\" action=\"functions/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" placeholder=\"ROUND, XLOOKUP, payment…\"><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"functions/index.html\">Browse all 541 entries by category →</a></p>");
+    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p></div><form class=\"searchrow\" action=\"functions/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" placeholder=\"ROUND, XLOOKUP, payment…\"><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"functions/index.html\">Browse all 541 entries by category →</a></p>");
     if let Some(n) = input.notes.iter().find(|n| n["note_id"] == "FN-ROUND-001") {
         let repro = &n["repros"][0];
         h+=&format!("<section class=\"card featured\" aria-labelledby=\"featured-note\"><p class=\"eyebrow\">From the measurement record</p><h2 id=\"featured-note\">{}</h2><div class=\"answer-comparison\"><div><span class=\"small\">Excel's recorded answer</span><strong>{}</strong></div><div><span class=\"small\">Mathematical value</span><strong>{}</strong></div></div><p><code>{}</code></p><p class=\"small\">{}</p><p>{} →</p></section>",esc(s(&n["title"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]),esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),a(dest,&format!("notes/{}.html",s(&n["note_id"])),"Read the inputs, evidence and limits"));
@@ -990,9 +993,8 @@ fn coverage(
             "docs/audits/FUNCTION_HELP_COMPLETENESS_20260824.md"
         )
     );
-    h+="<h2>Evidence and provenance</h2><p>This is a pre-ledger presentation of committed projections, curated prose and observation notes. The repository has no ledger database or canonical claim export. No ledger claim counts, freshness checks or receipts are asserted here. The downloadable rubric is an earlier derivation snapshot; its counters are not this build's curation counters.</p>";
-    h += &provenance(input, &Value::Null);
-    h+=&format!("<p>Source revision: <code>{}</code>, working tree {}. <a href=\"../api/build.json\">Build inventory and editorial findings</a> · <a href=\"../api/rubric.json\">Earlier rubric derivation JSON</a>.</p>",esc(&input.revision),esc(&input.tree_state));
+    h+="<h2>Sources</h2><p>Function explanations cite Microsoft documentation, numerical literature and measured Excel answers. Measured answers name their build and input route; missing build information stays explicit.</p>";
+    h+=&format!("<p><a href=\"../api/build.json\">Build inventory</a> · <a href=\"../api/rubric.json\">Research rubric JSON</a> · source <code>{}</code>.</p>",esc(&input.revision));
     if input.tree_state == "dirty" {
         h+="<p class=\"notice\">This build includes local changes. Its source revision alone cannot reproduce the folder; review and commit those changes before selecting an artifact for publication.</p>";
     }
@@ -1004,7 +1006,7 @@ fn coverage(
     output(out, "coverage/index.html", "Coverage and limits", &h)
 }
 
-const RULES: &str = r#"<h1>How to read the claims</h1><p>This site follows Charter §7. Compact labels state their own limits; expanding a label cannot turn an overclaim into a true statement.</p><h2>Reading lenses</h2><p>Working keeps boundary explanations compact. Explicit expands them in place. Both show the same source record, measured answers, status and limitations. With JavaScript disabled, all explanations are visible.</p><h2>Scope travels with evidence</h2><p>Recorded agreement concerns the named rows, Excel build and machine. It does not establish behaviour on unmeasured inputs. Handbook equality badges require a published, versioned suite as well as a build and platform. No such suite is present here.</p><h2>Independent statuses</h2><p>Curated prose present means a function Markdown file is in the checkout. Projection only means that no such prose file is present. OxFunc admission is a separate projected reference-engine status. None of these labels awards a Handbook test-suite warrant.</p><h2>Seven doors</h2><p>Each function provides Why, Sources, As of, Rules, History, Limits and Replay. In this pre-ledger build those doors identify sources and missing evidence. No receipt, context hash or ledger answer is invented.</p><h2>Sources and disagreement</h2><p>Function notes give recorded Excel answers and their capture provenance. When documentation differs, both the documentation and the measurement are shown. Inference and missing build information remain explicit. Mathematical reference values explain the intended operation; they are separate from measured Excel behaviour.</p><h2>Implementations</h2><p>An implementation can be listed only after admission against its function's versioned Handbook suite. No implementations are listed in this build.</p>"#;
+const RULES: &str = r#"<h1>Measurements and test suites</h1><p>A measured Excel answer applies to the named input, Excel build and platform. Mathematical reference values and OneCalc results are labelled separately. Missing build information stays explicit.</p><p>No Handbook test suite is published yet. Equality claims require a published suite, an Excel build and a platform. Implementation listings must name the suite they pass.</p><p>Each function has the same six sections: What it does, Try it, Quirks, How to implement, Version differences and Alternatives. Sources and evidence appear below them. Brief entries mark guidance that is still being written.</p>"#;
 
 #[cfg(test)]
 mod tests {
@@ -1052,7 +1054,17 @@ mod tests {
         let inventory = files(&first).unwrap();
         for f in &input.functions {
             let html = read(&first.join(function_path(s(&f["function_id"])))).unwrap();
-            assert!(html.contains("Source limits"));
+            assert!(html.contains("Sources and evidence"));
+            let headings: Vec<_> = reference::SECTIONS
+                .iter()
+                .map(|(id, title)| format!("<h2 id=\"{id}\">{title}</h2>"))
+                .collect();
+            let mut last = 0;
+            for heading in headings {
+                let at = html.find(&heading).expect(&heading);
+                assert!(at > last);
+                last = at;
+            }
             assert!(html.contains(RECONCILIATION));
             assert_eq!(html.matches("<h1").count(), 1);
         }
