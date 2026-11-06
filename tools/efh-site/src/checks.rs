@@ -149,7 +149,10 @@ pub fn check(root: &Path, links: bool, claims: bool) -> Result<(), String> {
         }
         for c in attrs.captures_iter(html) {
             let value = decode(&c[2]);
-            if value.to_ascii_lowercase().contains("github.com/dnacalc/oxfunc-evidence") {
+            if value
+                .to_ascii_lowercase()
+                .contains("github.com/dnacalc/oxfunc-evidence")
+            {
                 problems.push(format!(
                     "{}: private evidence repository link; cite the mapped CalcFunc-Evidence commit: {value}",
                     path.display()

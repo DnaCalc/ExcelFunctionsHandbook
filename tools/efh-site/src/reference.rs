@@ -178,7 +178,11 @@ pub fn sections(source: &str) -> BTreeMap<String, String> {
             return;
         }
         let joined = blocks.join("\n");
-        let text = if reader_guide { joined } else { reader_prose(&joined) };
+        let text = if reader_guide {
+            joined
+        } else {
+            reader_prose(&joined)
+        };
         if !text.trim().is_empty() {
             let slot = parts.entry(key.into()).or_default();
             if !heading.is_empty() {
@@ -345,15 +349,20 @@ mod tests {
     }
     #[test]
     fn authored_reader_guides_retain_argument_admission_and_numeric_reduction_recipes() {
-        let guide = SECTIONS.iter().map(|(_, title)| {
-            format!("## {title}\n\nArgument admission precedes the numerical reduction.\n\n")
-        }).collect::<String>();
+        let guide = SECTIONS
+            .iter()
+            .map(|(_, title)| {
+                format!("## {title}\n\nArgument admission precedes the numerical reduction.\n\n")
+            })
+            .collect::<String>();
         let parsed = sections(&guide);
         assert!(parsed["how-to-implement"].contains("numerical reduction"));
         assert!(parsed["quirks"].contains("Argument admission"));
         // Legacy administrative paragraphs still use their existing filter.
-        assert!(!sections("## What it computes\n\nThe registry projection is old.")
-            .contains_key("what-it-does"));
+        assert!(
+            !sections("## What it computes\n\nThe registry projection is old.")
+                .contains_key("what-it-does")
+        );
     }
 
     #[test]
