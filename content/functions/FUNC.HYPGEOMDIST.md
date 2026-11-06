@@ -31,11 +31,17 @@ role_in_family: null
 
 ## Quirks
 
-Count arguments are truncated. Impossible success counts and invalid sample/population sizes give `#NUM!`; nonnumeric arguments give `#VALUE!`. The feasible success interval is `max(0,n-(N-K))..min(n,K)`, not merely zero through the sample size.
+The four arguments are counts and are truncated toward zero, with the current code rejecting original negative signs before truncation. The feasible success interval is `max(0,n-(N-K))..min(n,K)`, where `n` is sample size, `K` population successes and `N` population size.
+
+Microsoft’s documented guard gives `#NUM!` for invalid sizes and success counts; nonnumeric arguments give `#VALUE!`. The current shared mass helper instead supplies zero for an unsupported success count and handles an empty sample as a degenerate mass. The modern HYPGEOM.DIST has retained build 20430 controls for such departures, but those calls do not measure this legacy spelling. Keep that remaining scope explicit.
 
 ## How to implement
 
-Validate all four truncated counts and compute the support bounds. Mathematically a mass is `choose(K,k)*choose(N-K,n-k)/choose(N,n)`; a stable implementation evaluates ratios or log terms instead of separately overflowing combinations. A cumulative form sums supported masses through k with an explicit tail choice. The current mass routine uses a ratio of binomial-mass constructions, so it inherits their numerical leaves and remaining differences. The six-out-of-ten example explains the probability without identifying that whole floating-point program.
+The mathematical probability is `choose(K,k)*choose(N-K,n-k)/choose(N,n)`. For one success in a sample of two from five objects with three successes, the numerator is `3*2=6` and the denominator ten, giving `0.6`.
+
+The current wrapper calls the same mass helper as [HYPGEOM.DIST with cumulative FALSE](FUNC.HYPGEOM.DIST.md#how-to-implement). It rejects original negative signs, truncates the counts, checks `n<=N` and `K<=N`, then applies the mass support and degenerate-sample rules. For nondegenerate supported counts it forms `p=n/N` and `q=(N-n)/N`, obtains three binomial masses, and returns their product/ratio in the stated order. There is no cumulative switch or cumulative endpoint shortcut on this spelling.
+
+Ratios of integer combinations or a recurrence give alternative mathematical algorithms. They avoid separately overflowing factorials, but do not identify Excel’s numerical leaves or error order. The generated fingerprint report still has no adopted complete hypergeometric algorithm; legacy-spelling boundaries and remaining numerical differences stay open.
 
 ## Version differences
 

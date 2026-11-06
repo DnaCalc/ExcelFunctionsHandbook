@@ -31,11 +31,22 @@ role_in_family: null
 
 ## Quirks
 
-The trial count is truncated toward zero. Negative trials, or success probability and alpha outside their documented open interval zero to one, give `#NUM!`. Nonnumeric arguments give `#VALUE!`. At an exact CDF boundary, the “at least” comparison matters.
+The trial count is truncated toward zero. The current helper then requires `n>=0`, `0<p<1` and `0<alpha<1`; probabilities at either endpoint are rejected with `#NUM!`. Nonnumeric arguments give `#VALUE!`. Unlike BINOM.DIST, this inverse does not admit degenerate endpoint probabilities.
+
+At an exact cumulative boundary, “at least” means `>=`, not `>`. A count can change because the accumulated floating-point CDF falls on a different side of `alpha`, even when two mass formulas agree to many decimal places. The returned result is an integer count, not an interpolated fraction of a trial.
 
 ## How to implement
 
-Validate arguments, then accumulate binomial masses from k=0 upward until the cumulative value is `>=alpha`. Return that k; return n if no earlier count qualifies. For the four-trial example the masses are `1,4,6,4,1` divided by sixteen. A faster large-n route can bracket or search counts using a stable CDF, but needs integer endpoint and rounding controls. The current sequential routine still has recorded inverse mismatches; this is not a solved whole-domain quantile recipe.
+The current candidate is a sequential search:
+
+1. Truncate and validate the trial count and the two open-interval probabilities.
+2. Form the stored binary64 complement `q=1-p`; start `sum=0` and `k=0`.
+3. While `k<n`, obtain the current shared binomial mass at `k`, add it to `sum`, and return `k` if `sum>=alpha`.
+4. Otherwise increment `k`. If no earlier count reaches the criterion, return `n`. For admitted `n=0`, this final branch returns zero.
+
+For four trials with `p=0.5`, the mathematical masses are `1,4,6,4,1` divided by sixteen. The cumulative values at counts zero, one and two are `1/16`, `5/16` and `11/16`; `alpha=0.6` first qualifies at two. At criterion `5/16`, the inclusive mathematical comparison first qualifies at one.
+
+A large-`n` implementation can bracket a count and binary-search a stable CDF, but that is a different algorithm. It needs checks around adjacent counts and exact CDF boundaries; stopping when the numerical probability is merely close to `alpha` can return the wrong integer. The current sequential routine retains recorded mismatches, so neither this search outline nor a generic inverse library is a solved whole-domain Excel quantile recipe.
 
 ## Version differences
 
