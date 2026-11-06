@@ -12,7 +12,7 @@ at that same commit, and refreshes data/calcfunc/corpus-tally.json; without it t
 is used and must name the pin. Nothing here is edited by hand: state, signatures, arity, admission
 and the code excerpts all come from the commit.
 """
-import argparse, csv, hashlib, io, json, re, subprocess, sys, tempfile
+import argparse, csv, hashlib, io, json, re, subprocess, sys, tempfile, textwrap
 from collections import Counter
 from pathlib import Path
 
@@ -182,7 +182,7 @@ def extract_code(index, dump, formula_index, formula_roots):
         if key not in fragments:
             fragments[key] = dict(file=prefix + item.file, start_line=item.start_line, end_line=item.end_line,
                                   name=(f"{item.owner}::{item.name}" if item.owner else item.name),
-                                  module=item.module, users=users.get(key, 0), text=item.text.rstrip() + "\n")
+                                  module=item.module, users=users.get(key, 0), text=textwrap.dedent(item.text).rstrip() + "\n")
         return key
 
     for name, (item, items, plumbing) in sorted(reached.items()):
