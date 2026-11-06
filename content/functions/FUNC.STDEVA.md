@@ -67,7 +67,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-Use [VAR.P](FUNC.VAR.P.md) for the other variance divisor. [STDEV.S](FUNC.STDEV.S.md) expresses spread in the original units. Use the corresponding non-A function to ignore logical values and referenced text.
+Use [STDEVPA](FUNC.STDEVPA.md) for the population version with the same broad collection policy. [STDEV.S](FUNC.STDEV.S.md) skips referenced logical values and text. [VARA](FUNC.VARA.md) returns the corresponding sample variance.
 
 ## Notes
 

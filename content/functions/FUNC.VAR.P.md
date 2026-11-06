@@ -56,7 +56,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-Use [VAR.S](FUNC.VAR.S.md) for the other variance divisor. [STDEV.P](FUNC.STDEV.P.md) expresses spread in the original units. Use VARA or VARPA only when logical values and referenced text belong in the data set.
+Use [VAR.S](FUNC.VAR.S.md) when the observations are a sample. [STDEV.P](FUNC.STDEV.P.md) reports population spread in the original units. [VARPA](FUNC.VARPA.md) includes logical values and referenced text.
 
 ## Notes
 

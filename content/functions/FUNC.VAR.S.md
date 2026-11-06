@@ -36,7 +36,7 @@ Numbers in references and arrays count, including zero; referenced text, logical
 
 ## How to implement
 
-Use the recorded staged algorithm when Excel compatibility is the goal. Here `R(op)` means: evaluate **one** operation with a 64-bit significand and extended exponent range, round to nearest with ties to even, then store to binary64 (53 significant bits). It is two rounding steps, not the language's ordinary double operation. An arbitrary-precision binary implementation can perform these steps explicitly; the product uses an x87 model. Disable contraction into a fused multiply-add.
+Use the recorded staged algorithm when Excel compatibility is the goal. Here `R(op)` means: evaluate **one** operation with a 64-bit significand and extended exponent range, round to nearest with ties to even, then store to binary64 (53 significant bits). It is two rounding steps, not the language's ordinary double operation. The [portable stored-arithmetic recipe](../model/09-staged-arithmetic.md) implements both rounding steps with integer quotients and remainders, including binary64 subnormals and a staged square root. The product uses an x87 model. Disable contraction into a fused multiply-add.
 
 1. Collect the admitted values in their traversal order. Set `n` to the count, `S=0`, `Q=0`. Reject an empty collection, and reject `n<2` for a sample.
 2. For each `x`, assign `S=R(S+x)` and `Q=R(Q+R(x*x))`. Then set `T=R(S*S)` and `m=R(S/n)`.
@@ -65,7 +65,7 @@ The record contains no same-input comparison between these environments. Reading
 
 ## Alternatives
 
-Use [VAR.P](FUNC.VAR.P.md) for the other variance divisor. [STDEV.S](FUNC.STDEV.S.md) expresses spread in the original units. Use VARA or VARPA only when logical values and referenced text belong in the data set.
+Use [VAR.P](FUNC.VAR.P.md) when these observations are the whole population. [STDEV.S](FUNC.STDEV.S.md) reports sample spread in the original units. [VARA](FUNC.VARA.md) includes logical values and referenced text under its broader collection rules.
 
 ## Notes
 

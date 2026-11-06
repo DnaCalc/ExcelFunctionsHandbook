@@ -16,8 +16,10 @@ axes instead of re-explaining the machinery. Behavior chips on function pages li
 | [06 — Claim language and honesty](06-claim-language.md) | What a claim is, its statuses, scoping rules, and how to challenge one |
 | [07 — About implementation options](07-implementation-options.md) | The four flavours, how implementations are admitted, choosing between them |
 | [08 — Working and Explicit presentation lenses](08-presentation-lenses.md) | Compact truthful terminology, inline explanation, answer envelopes, and the Gneiss plumbing beneath both views |
+| [09 — Implementing stored numerical steps](09-staged-arithmetic.md) | Exact decoding, two-stage rounding, binary64 storage and staged square root, with worked arithmetic controls |
 
 Grounding: chapters 01–05 are grounded in the OxFunc reference implementation and its
 specification corpus (each chapter lists its exact sources); chapters 06–08 are Handbook
-doctrine. All chapters are drafts from the phase H1 review; ambiguities found during that
-review are filed in `docs/handoffs/`.
+doctrine. Chapter 09 translates arithmetic primitives from the current calculation source.
+Chapters 01–08 are drafts from the phase H1 review; ambiguities found during that review are
+filed in `docs/handoffs/`.

@@ -47,6 +47,8 @@ The recorded functions first read fifteen significant decimal digits. Asking to 
 
 ## How to implement
 
+The current worksheet wrapper reads numeric arguments in order and flushes subnormal numeric operands to zero. Return zero for a zero `number` before finding its decimal exponent. The following steps start with a finite, nonzero admitted input. The [stored-arithmetic chapter](../model/09-staged-arithmetic.md) explains exact binary decoding and significand rounding.
+
 First construct the number’s fifteen-significant-digit **reading**. Extract the exact binary64 value and find its decimal exponent `e` by comparisons with exact powers of ten, so `10^e <= abs(x) < 10^(e+1)`. Put `s=14-e`. When `abs(s)<=27`, evaluate `abs(x)*10^s` (or `abs(x)/10^(-s)`) with a 64-bit significand and extended exponent range, rounding to nearest/even. **Do not store that scaled value to binary64 before the integer decision.** Round it to an integer: exact halves go down for ROUND’s reading, up for the directed functions’ readings. Retain the sign and the exact decimal value `integer*10^(-s)`.
 
 This reading step is a measured reconstruction with a known counterexample even inside the stated scale range. For `abs(s)>27`, Excel’s scaling is still open; the current code falls back to exact binary64-to-decimal rounding to fifteen digits. That fallback is a candidate, not an identified Excel stage.
