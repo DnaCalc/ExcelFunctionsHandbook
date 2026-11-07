@@ -5,13 +5,13 @@ use serde_json::{json, Value};
 use std::{collections::BTreeMap, path::Path};
 
 pub const STATES: [(&str, &str, &str); 7] = [
-    ("matches", "Matches every recorded answer", "Every recorded Excel answer for the entry is reproduced exactly, in the answer bank and in the workbook corpus."),
-    ("close", "Close: last-bit deviations", "Only last-bit deviations remain: finite numbers within 16 ULP of Excel's answer. The worst distance is stated."),
-    ("differs", "Known larger differences", "At least one recorded answer differs by more than 16 ULP, differs in kind or value, or is refused."),
-    ("refuses", "Refuses or not yet implemented", "The entry declines every recorded call, or has no implementation yet."),
-    ("deferred", "Deferred: needs an outside service", "Deferred by policy. The answer comes from a service outside the workbook, so DNA Calc does not run the function yet. The function still has a full entry."),
-    ("host", "Needs a host", "The answer depends on a capability of the host application, such as loading a library, reading a file or starting a data server."),
-    ("unmeasured", "Implemented, no attributed answers", "The entry is implemented, but no recorded answer is attributed to it alone. These are mostly reference operators, seen only inside whole formulas."),
+    ("matches", "Same results as Excel", "In every case we compared, DNA Calc gives exactly the result Excel gives."),
+    ("close", "Very close to Excel", "Every case we compared either matches Excel or differs only in the last few binary digits (at most 16 units in the last place), usually too small to show in the 15 digits Excel displays."),
+    ("differs", "Differs from Excel in some cases", "At least one case we compared gives a different result, or no result. Unfinished functions are here too: they decline some inputs rather than guess."),
+    ("refuses", "Not implemented yet", "DNA Calc does not compute these functions yet."),
+    ("deferred", "Needs an online service", "Excel gets the answer from an online service, so DNA Calc does not run these functions."),
+    ("host", "Depends on the spreadsheet program", "The answer depends on the program around the formula, such as loading a library, reading a file or starting a data server."),
+    ("unmeasured", "Implemented, not yet compared on its own", "DNA Calc has code for these, but no comparison with Excel is credited to them alone yet. They mostly appear inside larger formulas."),
 ];
 
 pub const LANGUAGES: [(&str, &str); 40] = [
@@ -297,15 +297,89 @@ pub fn code_section(calc: &CalcFunc, id: &str, page: &str) -> String {
     )
 }
 
-pub fn state_block(calc: &CalcFunc, id: &str, page: &str) -> String {
+fn count_word(n: u64, one: &str, many: &str) -> String {
+    format!("{} {}", fmt_count(&json!(n)), if n == 1 { one } else { many })
+}
+
+/// One entry's state in plain words: a short label for the top of its page, and a paragraph
+/// for its "DNA Calc's implementation" section. Written for a reader who has never heard of
+/// DNA Calc and arrives from a search for the function's name.
+pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
     let row = calc.entry(id);
-    let state = s(&row["state"]);
+    let n = |v: &Value| v.as_u64().unwrap_or(0);
+    let bank = &row["bank"];
+    let corpus = &row["corpus"];
+    let total = n(&bank["rows"]) + n(&corpus["cells"]);
+    let matched = n(&bank["matched"]) + n(&corpus["matched"]);
+    let refused = n(&bank["refused"]);
+    let last = n(&bank["last_bit"]);
+    let worst = n(&bank["worst_ulp"]);
+    let other = total.saturating_sub(matched + refused + last);
+    let cases = count_word(total, "case", "cases");
+    let what = "formulas we ran in Excel, recorded, then ran through DNA Calc";
+    match s(&row["state"]) {
+        "matches" => (
+            "same results as Excel in every case we compared".into(),
+            format!("DNA Calc gives exactly the result Excel gives in all {cases} we compared ({what}). Within those inputs, its code below can serve as a reference for this function."),
+        ),
+        "close" => (
+            "very close to Excel".into(),
+            format!("DNA Calc gives exactly Excel's result in {} of the {cases} we compared ({what}). In the other {}, the result differs only in the last few binary digits, at most {} in the last place: usually too small to show in the 15 digits Excel displays.", fmt_count(&json!(total.saturating_sub(last))), fmt_count(&json!(last)), count_word(worst, "unit", "units")),
+        ),
+        "differs" if other == 0 && last == 0 && refused > 0 => (
+            "not finished, declines some inputs".into(),
+            format!("DNA Calc is not finished here. Of the {cases} we compared ({what}), it declines {}: it gives no answer rather than a guess. Every case it does answer matches Excel.", fmt_count(&json!(refused))),
+        ),
+        "differs" => {
+            let mut parts = vec![format!("{} {} a different result", fmt_count(&json!(other)), if other == 1 { "gives" } else { "give" })];
+            if last > 0 {
+                parts.push(format!("{} {} only in the last few binary digits", fmt_count(&json!(last)), if last == 1 { "differs" } else { "differ" }));
+            }
+            if refused > 0 {
+                parts.push(format!("{} {} declined", fmt_count(&json!(refused)), if refused == 1 { "is" } else { "are" }));
+            }
+            (
+                "differs from Excel in some cases".into(),
+                format!("Of the {cases} we compared ({what}), DNA Calc gives exactly Excel's result in {}. Of the rest, {}. Treat its code for this function as work in progress.", fmt_count(&json!(matched)), parts.join("; ")),
+            )
+        }
+        "refuses" => ("not implemented yet".into(), "DNA Calc does not compute this function yet.".into()),
+        "deferred" => ("not available, needs an online service".into(), "Excel gets this function's answer from an online service, so DNA Calc does not run it.".into()),
+        "host" => ("depends on the spreadsheet program".into(), "This function's answer depends on what the spreadsheet program around the formula can do, such as loading a library or reading a file, so DNA Calc does not compute it here.".into()),
+        _ => ("implemented, not yet compared on its own".into(), "DNA Calc has code for this, but none of our comparisons with Excel is credited to it alone yet. It mostly appears inside larger formulas.".into()),
+    }
+}
+
+/// What a function's line on the summary page adds to its group heading.
+fn list_note(calc: &CalcFunc, id: &str) -> String {
+    let row = calc.entry(id);
+    let n = |v: &Value| v.as_u64().unwrap_or(0);
+    let total = n(&row["bank"]["rows"]) + n(&row["corpus"]["cells"]);
+    let label = plain(calc, id).0;
+    let cases = if total > 0 { count_word(total, "case compared", "cases compared") } else { String::new() };
+    if row["state"] == "differs" && label.starts_with("not finished") {
+        format!("{label}; {cases}")
+    } else {
+        cases
+    }
+}
+
+/// The one line under a function's name.
+pub fn status_line(calc: &CalcFunc, id: &str) -> String {
+    let state = s(&calc.entry(id)["state"]);
+    let (label, _) = plain(calc, id);
+    format!("<p class=\"impl-line state-{state}\"><span class=\"state-dot\" aria-hidden=\"true\"></span>DNA Calc's implementation: {} · <a href=\"#dna-calc\">details</a></p>", esc(&label))
+}
+
+/// The "DNA Calc's implementation" part of a function's How to implement section.
+pub fn plain_section(calc: &CalcFunc, id: &str, page: &str) -> String {
+    let state = s(&calc.entry(id)["state"]);
+    let (label, paragraph) = plain(calc, id);
+    let mut chars = label.chars();
+    let title = chars.next().map(|c| c.to_uppercase().collect::<String>() + chars.as_str()).unwrap_or_default();
     format!(
-        "<section class=\"impl-state state-{state}\" aria-label=\"State of our implementation\"><p class=\"state-line\"><span class=\"state-dot\" aria-hidden=\"true\"></span><strong>{}</strong></p><p class=\"small\">{} <a href=\"{}\">How we measure this</a>{}</p></section>",
-        esc(s(&row["summary"])),
-        esc(s(&row["detail"])),
-        esc(&relative(page, "implementation/index.html")),
-        if row["code"].is_string() { " · <a href=\"#rust-code\">See the Rust code</a>" } else { "" }
+        "<h3 id=\"dna-calc\">DNA Calc's implementation</h3><section class=\"impl-state state-{state}\" aria-label=\"State of DNA Calc's implementation\"><p class=\"state-line\"><span class=\"state-dot\" aria-hidden=\"true\"></span><strong>{}</strong></p><p>{}</p><p class=\"small\">DNA Calc is an open-source spreadsheet engine; CalcFunc is its library of Excel functions, written in Rust. <a href=\"{}\">How we compare with Excel</a></p></section>",
+        esc(&title), esc(&paragraph), esc(&relative(page, "implementation/index.html"))
     )
 }
 
@@ -422,7 +496,7 @@ pub fn code_pages(
                 .push(fragment);
         }
     }
-    let mut index = format!("<p class=\"eyebrow\">Our implementation</p><h1>Shared Rust kernels</h1><p>CalcFunc has no repository of its own. It is the crate <code>calc-func</code> in the public repository <a href=\"{0}\">DnaCalc/DnaCalc</a>; catalogue rows are in <code>catalogue/</code> and the numeric kernels in <code>ported/</code>. These pages quote commit <code>{1}</code>. Code used by one function is on that function's page. Code used by several is here, once.</p><ul class=\"entries\">", esc(s(&calc.pin["repository"])), calc.short());
+    let mut index = format!("<p class=\"eyebrow\">DNA Calc's implementation</p><h1>Shared Rust kernels</h1><p>CalcFunc has no repository of its own. It is the crate <code>calc-func</code> in the public repository <a href=\"{0}\">DnaCalc/DnaCalc</a>; catalogue rows are in <code>catalogue/</code> and the numeric kernels in <code>ported/</code>. These pages quote commit <code>{1}</code>. Code used by one function is on that function's page. Code used by several is here, once.</p><ul class=\"entries\">", esc(s(&calc.pin["repository"])), calc.short());
     for (module, items) in modules.iter_mut() {
         items.sort_by_key(|f| f["start_line"].as_u64());
         let dest = code_page(module);
@@ -452,7 +526,7 @@ pub fn summary_page(
     let bank = &calc.pin["answer_bank"];
     let corpus = &calc.pin["corpus"];
     let mut h = format!(
-        "<p class=\"eyebrow\">Our implementation</p><h1>How close our Rust is to Excel</h1><p>This page states what we conclude about our own implementation of each entry, CalcFunc, from recorded Excel answers. It is regenerated from DnaCalc commit <a href=\"{0}/commit/{1}\"><code>{2}</code></a>; nothing on it is typed by hand. CalcFunc has no repository of its own: it is the crate <code>calc-func</code> in <a href=\"{0}\">DnaCalc/DnaCalc</a>.</p><p>{RECONCILIATION}.</p><div class=\"table-scroll\" role=\"region\" aria-label=\"Entries in each state\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">State</th><th scope=\"col\">Entries</th><th scope=\"col\">What it means</th></tr></thead><tbody>",
+        "<p class=\"eyebrow\">DNA Calc's implementation</p><h1>How DNA Calc compares with Excel</h1><p>DNA Calc is an open-source spreadsheet engine written in Rust; CalcFunc is its library of Excel functions. To see how close it is, we run formulas in Excel, record the answers, and run the same formulas through DNA Calc. This page lists what those comparisons show for each function. They cover the inputs and Excel versions we recorded, not every possible input.</p><p class=\"small\">Generated from DnaCalc commit <a href=\"{0}/commit/{1}\"><code>{2}</code></a>, crate <code>calc-func</code> in <a href=\"{0}\">DnaCalc/DnaCalc</a>.</p><div class=\"table-scroll\" role=\"region\" aria-label=\"Entries in each state\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Result</th><th scope=\"col\">Functions</th><th scope=\"col\">What it means</th></tr></thead><tbody>",
         esc(s(&calc.pin["repository"])), calc.commit(), calc.short()
     );
     for (state, title, meaning) in STATES {
@@ -464,7 +538,7 @@ pub fn summary_page(
     }
     h += "</tbody></table></div>";
     h += &format!(
-        "<h2>What was compared</h2><p>Two sources of recorded Excel answers. The answer bank holds {} rows, of which {} match; the workbook corpus holds {} formula cells, of which {} match. Every mismatch, refusal and pending cell stays a failure in those totals. A row or cell belongs to one function, the outermost call of its formula, and an operator is credited with formulas whose first operator it is, so a difference counted there can come from elsewhere in the formula. The two sources may overlap, so a function's count is the number of recorded answers compared, not the number of distinct calls.</p><p>A number matches only when all 64 bits of its binary64 value agree. The answer-bank counts were measured at revision <code>{}</code> and committed in DnaCalc; {} The corpus was run again at <code>{}</code> for this page and gives the same totals. These statements cover the recorded inputs, Excel builds and platforms and nothing else. No Handbook test suite is published yet.</p><p class=\"small\">{}</p>",
+        "<details class=\"method\"><summary>How the comparison works, in detail</summary><p>{RECONCILIATION}.</p><p>Two sources of recorded Excel answers. The answer bank holds {} rows, of which {} match; the workbook corpus holds {} formula cells, of which {} match. Every mismatch, refusal and pending cell stays a failure in those totals. A row or cell belongs to one function, the outermost call of its formula, and an operator is credited with formulas whose first operator it is, so a difference counted there can come from elsewhere in the formula. The two sources may overlap, so a function's count is the number of recorded answers compared, not the number of distinct calls.</p><p>A number matches only when all 64 bits of its binary64 value agree. The answer-bank counts were measured at revision <code>{}</code> and committed in DnaCalc; {} The corpus was run again at <code>{}</code> for this page and gives the same totals. These statements cover the recorded inputs, Excel builds and platforms and nothing else. No Handbook test suite is published yet.</p><p class=\"small\">{}</p></details>",
         fmt_count(&bank["rows"]),
         fmt_count(&bank["matched"]),
         fmt_count(&corpus["formula_cells"]),
@@ -491,7 +565,7 @@ pub fn summary_page(
                 "<li><a href=\"{}\">{}</a><span class=\"small\">{}</span></li>",
                 esc(&relative(dest, &function_path(id))),
                 esc(s(&f["surface_name"])),
-                esc(s(&calc.entry(id)["summary"]))
+                esc(&list_note(calc, id))
             );
         }
         h += "</ul></section>";

@@ -32,7 +32,7 @@ fn page(path: &str, title: &str, body: &str, home: bool) -> String {
     format!(
         r##"<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="referrer" content="no-referrer"><title>{title} · The Handbook of Excel Functions</title><link rel="stylesheet" href="{css}"><script src="{js}" defer></script>{discovery}</head>
-<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{a_to_z}">A to Z</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{implementation}">Our implementation</a><a href="{coverage}">Coverage</a></nav><form class="site-search" role="search" action="{index}" method="get"><label class="sr-only" for="site-search">Search functions</label><input id="site-search" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search functions, press /" data-instant-search><div class="search-results" id="site-search-results" hidden></div></form>{picker}<div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
+<body><a class="skip" href="#main">Skip to content</a><div class="wrap"><header><nav class="mainnav" aria-label="Main"><a class="brand" href="{root}">DNA CALC <span>Handbook</span></a><a href="{index}">Functions</a><a href="{a_to_z}">A to Z</a><a href="{notes}">Notes</a><a href="{lastbit}">The Last Bit</a><a href="{implementation}">DNA Calc vs Excel</a><a href="{coverage}">Coverage</a></nav><form class="site-search" role="search" action="{index}" method="get"><label class="sr-only" for="site-search">Search functions</label><input id="site-search" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Search functions, press /" data-instant-search><div class="search-results" id="site-search-results" hidden></div></form>{picker}<div class="lensbar" role="group" aria-label="Reading lens" hidden><span>Reading</span><button type="button" data-lens="working" aria-pressed="true">Working</button><button type="button" data-lens="explicit" aria-pressed="false">Explicit</button></div></header>
 <main id="main" tabindex="-1"{class}>{body}</main><footer><p>{reconciliation}.</p><p><a href="{licence}">Content: CC BY 4.0 · Code: MIT</a> · <a href="{rules}">Measurement limits</a> · <a href="{api}">Static JSON index</a> · No tracking.</p><p class="small">The Handbook of Excel Functions · DNA Kode. Independent of Microsoft.</p></footer></div></body></html>"##,
         title = esc(title),
         css = link("assets/style.css"),
@@ -559,7 +559,7 @@ fn generate(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String> {
     output(
         out,
         "implementation/index.html",
-        "How close our Rust is to Excel",
+        "How DNA Calc compares with Excel",
         &implementation::summary_page(&input.calc, &input.functions, function_path),
     )?;
     homepage(out, input, &episodes)?;
@@ -630,7 +630,11 @@ fn function_page(
     let owned = reference::load(repo, f)?;
     let record = reference::record(repo, f, &owned, &input.notes, &input.calc)?;
     let name = s(&record["display_name"]);
-    let mut html = format!("<p class=\"eyebrow\">{}</p><h1 class=\"function-name\">{}</h1><p class=\"local-name\" id=\"local-name\" hidden></p>{}{}<nav class=\"section-nav\" aria-label=\"On this page\">",esc(s(&f["category"])),esc(name),implementation::state_block(&input.calc, id, &dest),implementation::local_names(f));
+    let category = match s(&f["category"]) {
+        "Our 10 featured functions" => "Featured in Microsoft's function list",
+        other => other,
+    };
+    let mut html = format!("<p class=\"eyebrow\">{}</p><h1 class=\"function-name\">{}</h1><p class=\"local-name\" id=\"local-name\" hidden></p>{}<nav class=\"section-nav\" aria-label=\"On this page\">",esc(category),esc(name),implementation::status_line(&input.calc, id));
     for (key, title) in reference::SECTIONS {
         html += &format!("<a href=\"#{key}\">{title}</a>");
     }
@@ -643,6 +647,9 @@ fn function_page(
                 html += &format!("<p class=\"signature\"><code>{}</code></p>", esc(signature));
             }
         }
+        if key == "version-differences" {
+            html += "<details class=\"versions\"><summary>Show the Excel builds and answers we recorded</summary>";
+        }
         let deferred = input.calc.entry(id)["state"] == "deferred";
         if key == "try-it" && deferred {
             html += &format!(
@@ -651,7 +658,7 @@ fn function_page(
             );
         } else if key == "try-it" {
             html += &format!(
-                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" maxlength="20000" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit" disabled>Calculate</button><button type="button" data-reset disabled>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs locally in your browser with OneCalc. Its answer may differ from Excel. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
+                r#"<form class="try-it" data-evaluator><label for="formula">Formula</label><textarea id="formula" name="formula" rows="2" maxlength="4096" spellcheck="false">{}</textarea><details><summary>Input cells (optional)</summary><label for="eval-inputs">Cell addresses and values as JSON</label><textarea id="eval-inputs" name="inputs" rows="2" maxlength="20000" spellcheck="false">{}</textarea><p class="small">Example: {{&quot;B2&quot;: 3, &quot;B3&quot;: 4}}. A1 holds the formula. Other cells need values before a formula can read them.</p></details><button type="submit" disabled>Calculate</button><button type="button" data-reset disabled>Reset example</button><output id="eval-result" role="status" aria-live="polite">Enter a formula, then calculate.</output><p class="small">Runs in your browser on DNA Calc's formula engine, not on Excel, so its answer can differ from Excel's. Use English function names and commas between arguments.</p><noscript><p>Enable JavaScript to calculate. The reference below is readable without it.</p></noscript></form>"#,
                 esc(s(&record["try_it"]["formula"])),
                 esc(&record["try_it"]
                     .get("inputs")
@@ -710,6 +717,7 @@ fn function_page(
                     esc(s(&implementation["suite"]))
                 );
             }
+            html += &implementation::plain_section(&input.calc, id, &dest);
             html += &implementation::code_section(&input.calc, id, &dest);
             if suites.is_empty() {
                 html += "<p class=\"small\">No implementation has been published with a Handbook test suite for this function.</p>";
@@ -717,6 +725,7 @@ fn function_page(
         }
         if key == "version-differences" {
             html += &environment_variants(&record, &dest, r);
+            html += "</details>";
         }
         if key == "alternatives" {
             html += "<h3>Named variants</h3>";
@@ -763,6 +772,7 @@ fn function_page(
         }
         html += "</section>";
     }
+    html += &implementation::local_names(f);
     html += &format!("<aside class=\"source-footer\" id=\"sources\"><details><summary>Sources and evidence</summary><p>{} · {}</p>",a(&dest,&format!("api/functions/{id}.json"),"Function JSON"),a(&dest,"rules/index.html","Measurement and suite limits"));
     if let Some(url) = f["docs"]["microsoft_url"].as_str() {
         html += &format!(
@@ -866,7 +876,7 @@ fn reader_note(note: &Value, dest: &str) -> String {
             esc(inferred)
         );
     }
-    h += "<div class=\"table-scroll\" role=\"region\" aria-label=\"Excel examples\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Formula</th><th scope=\"col\">Excel</th><th scope=\"col\">Mathematical value</th></tr></thead><tbody>";
+    h += "<details class=\"recorded\"><summary>Excel's recorded answers</summary><div class=\"table-scroll\" role=\"region\" aria-label=\"Excel examples\" tabindex=\"0\"><table><thead><tr><th scope=\"col\">Formula</th><th scope=\"col\">Excel</th><th scope=\"col\">Mathematical value</th></tr></thead><tbody>";
     for repro in note["repros"].as_array().into_iter().flatten() {
         let route = if repro["input_route"] == "cell-value2" {
             "Number supplied through a cell"
@@ -889,11 +899,11 @@ fn reader_note(note: &Value, dest: &str) -> String {
         h += &format!("<tr><td><code>{}</code><br><span class=\"small\">{}</span>{details}</td><td>{}</td><td>{}</td></tr>",esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]));
     }
     h += &format!(
-        "</tbody></table></div><p class=\"small\">{}</p></article>",
+        "</tbody></table></div></details><p class=\"small\">{}</p></article>",
         a(
             dest,
             &format!("notes/{id}.html"),
-            "Inputs, build details and evidence"
+            "Full evidence for this quirk"
         )
     );
     h
@@ -1111,11 +1121,11 @@ fn function_index(repo: &Path, out: &Path, input: &Inputs) -> Result<(), String>
             .or_default()
             .push(f);
     }
-    let mut h=format!("<p class=\"eyebrow\">The catalogue</p><h1>Functions and operators</h1><p>Browse all {ENTRIES} entries by category, or filter by name, description, localized name, function id or the state of our implementation. {RECONCILIATION}.</p><div class=\"filter-controls\" hidden><label for=\"function-filter\">Filter entries</label><input id=\"function-filter\" type=\"search\" autocomplete=\"off\" placeholder=\"ROUND, payment, ARRONDI…\"><label for=\"category-filter\">Category</label><select id=\"category-filter\"><option value=\"\">All categories</option>");
+    let mut h=format!("<p class=\"eyebrow\">The catalogue</p><h1>Functions and operators</h1><p>Browse all {ENTRIES} entries by category, or filter by name, description, localized name, function id or the state of DNA Calc's implementation. {RECONCILIATION}.</p><div class=\"filter-controls\" hidden><label for=\"function-filter\">Filter entries</label><input id=\"function-filter\" type=\"search\" autocomplete=\"off\" placeholder=\"ROUND, payment, ARRONDI…\"><label for=\"category-filter\">Category</label><select id=\"category-filter\"><option value=\"\">All categories</option>");
     for category in categories.keys() {
         h += &format!("<option>{}</option>", esc(category));
     }
-    h += "</select><label for=\"state-filter\">Our implementation</label><select id=\"state-filter\"><option value=\"\">Any state</option>";
+    h += "</select><label for=\"state-filter\">DNA Calc's implementation</label><select id=\"state-filter\"><option value=\"\">Any state</option>";
     for (state, title, _) in implementation::STATES {
         h += &format!(
             "<option value=\"{state}\">{} ({})</option>",
@@ -1285,7 +1295,7 @@ fn homepage(
     episodes: &[(String, String, String, String)],
 ) -> Result<(), String> {
     let dest = "index.html";
-    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p></div><form class=\"searchrow\" action=\"catalogue/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"ROUND, XLOOKUP, ARRONDI, payment…\" data-instant-search><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"catalogue/index.html\">Browse every entry by category →</a> · <a href=\"catalogue/a-z.html\">A to Z index</a></p>");
+    let mut h=String::from("<div class=\"hero\"><p class=\"eyebrow\">DNA CALC</p><h1>The Handbook of Excel Functions</h1><p class=\"subtitle\">What Excel functions do. How they work. Where they surprise you.</p><p class=\"explain\">A practical reference for using and implementing Excel functions, with runnable formulas, numerical quirks and differences between versions.</p><p class=\"about\">The Handbook is written by the <a href=\"https://dnacalc.com/\">DNA Calc</a> project, which is building an open-source spreadsheet engine in Rust that aims to give the same answers as Excel. Where these pages say <em>we</em> or <em>our implementation</em>, they mean DNA Calc and its function library, CalcFunc. Each function page says how CalcFunc's answers compare with answers recorded from Excel, and its calculator runs DNA Calc's formula engine in your browser.</p><p class=\"small about-marks\">Microsoft, Excel and related marks are trademarks of Microsoft Corporation. This project is not affiliated with or endorsed by Microsoft.</p></div><form class=\"searchrow\" action=\"catalogue/index.html\" method=\"get\"><label class=\"sr-only\" for=\"home-search\">Find a function</label><input id=\"home-search\" name=\"q\" type=\"search\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"ROUND, XLOOKUP, ARRONDI, payment…\" data-instant-search><button type=\"submit\">Find a function</button></form><p class=\"browse\"><a href=\"catalogue/index.html\">Browse every entry by category →</a> · <a href=\"catalogue/a-z.html\">A to Z index</a></p>");
     if let Some(n) = input.notes.iter().find(|n| n["note_id"] == "FN-ROUND-001") {
         let repro = &n["repros"][0];
         h+=&format!("<section class=\"card featured\" aria-labelledby=\"featured-note\"><p class=\"eyebrow\">From the measurement record</p><h2 id=\"featured-note\">{}</h2><div class=\"answer-comparison\"><div><span class=\"small\">Excel's recorded answer</span><strong>{}</strong></div><div><span class=\"small\">Mathematical value</span><strong>{}</strong></div></div><p><code>{}</code></p><p class=\"small\">{}</p><p>{} →</p></section>",esc(s(&n["title"])),cell_value(&repro["excel"]),cell_value(&repro["correct"]),esc(s(&repro["call"])),esc(s(&repro["recorded_in"])),a(dest,&format!("notes/{}.html",s(&n["note_id"])),"Read the inputs, evidence and limits"));
@@ -1312,7 +1322,7 @@ fn homepage(
             a("index.html", dest, title)
         );
     }
-    h+=&format!("</section><p class=\"small coverage-line\">{} entries match every recorded Excel answer in our Rust implementation. <a href=\"implementation/index.html\">See every state →</a></p><p class=\"small coverage-line\">{} of {ENTRIES} entries have curated prose files; {} have projection-only pages. {RECONCILIATION}. <a href=\"coverage/index.html\">Read the coverage and limits →</a></p>",input.calc.state["counts"]["matches"],input.curated.len(),ENTRIES-input.curated.len());
+    h+="</section><p class=\"small coverage-line\"><a href=\"implementation/index.html\">How DNA Calc compares with Excel, function by function →</a></p><p class=\"small coverage-line\"><a href=\"coverage/index.html\">What this Handbook covers, and its limits →</a></p>";
     output(out, dest, "The Handbook of Excel Functions", &h)
 }
 
@@ -1512,7 +1522,8 @@ mod tests {
         assert!(seriessum.contains("SERIESSUM(x, n, m, coefficients)"));
         assert!(seriessum.contains("<details class=\"rust-code\">"));
         assert!(seriessum.contains("github.com/DnaCalc/DnaCalc/blob/"));
-        assert!(seriessum.contains("Matches all"));
+        assert!(seriessum.contains("DNA Calc's implementation: same results as Excel in every case we compared"));
+        assert!(seriessum.contains("<h3 id=\"dna-calc\">DNA Calc's implementation</h3>"));
         let series = read(&first.join("lastbit/index.html")).unwrap();
         assert!(series.contains("Working notes") && series.contains("Draft article"));
         assert!(first.join("lastbit/the-last-bit-2026-07.pdf").is_file());
