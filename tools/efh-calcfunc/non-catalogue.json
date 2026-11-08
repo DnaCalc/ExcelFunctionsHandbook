@@ -22,12 +22,6 @@
     "GETPIVOTDATA": {
       "reason": "The catalogue row declines every call until pivot tables land; they are being implemented in full, and this function with them."
     },
-    "WEBSERVICE": {
-      "kind": "absent",
-      "summary": "Not yet implemented",
-      "signature": "WEBSERVICE(url)",
-      "reason": "No catalogue row at this commit. WEBSERVICE fetches from the URL in the workbook, not from a Microsoft back end, and is being implemented as an ordinary function."
-    },
     "STOCKHISTORY": {
       "kind": "deferred",
       "summary": "Deferred: needs an outside service",
@@ -52,19 +46,6 @@
       "signature": "COPILOT(prompt_part1, [context1], [prompt_part2], [context2], ...)",
       "reason": "Deferred by policy: the answer needs Microsoft's Copilot service. DNA Calc does not run this function yet. Microsoft's page says the function left Excel on 14 September 2026.",
       "max_arity": 255
-    },
-    "IMAGE": {
-      "kind": "absent",
-      "summary": "Not yet implemented",
-      "signature": "IMAGE(source, [alt_text], [sizing], [height], [width])",
-      "reason": "No catalogue row at this commit. IMAGE fetches from the URL in the workbook, not from a Microsoft back end, and is being implemented as an ordinary function."
-    },
-    "RTD": {
-      "kind": "host",
-      "summary": "Needs a real-time data server",
-      "signature": "RTD(ProgID, server, topic1, [topic2], ...)",
-      "max_arity": 255,
-      "reason": "The answer comes from a COM server the host starts. DNA Calc recognises the name and calculates no answer."
     },
     "CALL": {
       "kind": "host",
@@ -121,12 +102,6 @@
       "summary": "Not yet implemented",
       "signature": "CUBESETCOUNT(set)",
       "reason": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them."
-    },
-    "EUROCONVERT": {
-      "kind": "absent",
-      "summary": "Not yet implemented",
-      "signature": "EUROCONVERT(number, source, target, [full_precision], [triangulation_precision])",
-      "reason": "No catalogue row at this commit. In Excel it comes with the Euro Currency Tools add-in; build 20527 on Windows gives #NAME? without it."
     },
     "JIS": {
       "kind": "absent",

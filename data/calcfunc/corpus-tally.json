@@ -1,13 +1,5 @@
 {
   "functions": {
-    "<": {
-      "cells": 8,
-      "refused": 8
-    },
-    "=": {
-      "cells": 6,
-      "refused": 6
-    },
     "ABS": {
       "cells": 156,
       "matched": 156
@@ -181,14 +173,16 @@
     },
     "BINOM.DIST": {
       "cells": 307,
-      "matched": 223,
-      "last_bit": 69,
-      "worst_ulp": 10,
-      "larger_numeric": 15
+      "matched": 256,
+      "last_bit": 24,
+      "worst_ulp": 16,
+      "larger_numeric": 27
     },
     "BINOM.DIST.RANGE": {
       "cells": 47,
-      "matched": 47
+      "matched": 46,
+      "last_bit": 1,
+      "worst_ulp": 2
     },
     "BINOM.INV": {
       "cells": 10,
@@ -271,7 +265,7 @@
       "cells": 4,
       "matched": 3,
       "last_bit": 1,
-      "worst_ulp": 7
+      "worst_ulp": 15
     },
     "CHISQ.INV.RT": {
       "cells": 4,
@@ -313,9 +307,7 @@
     },
     "COLUMNS": {
       "cells": 933,
-      "matched": 910,
-      "other_mismatch": 6,
-      "refused": 16,
+      "matched": 932,
       "pending": 1
     },
     "COMBIN": {
@@ -469,9 +461,7 @@
     },
     "Cell reference (unresolved)": {
       "cells": 16,
-      "matched": 1,
-      "other_mismatch": 6,
-      "refused": 1,
+      "matched": 8,
       "pending": 8
     },
     "DATE": {
@@ -630,27 +620,19 @@
     },
     "ERF": {
       "cells": 4,
-      "matched": 2,
-      "last_bit": 2,
-      "worst_ulp": 1
+      "matched": 4
     },
     "ERF.PRECISE": {
       "cells": 3,
-      "matched": 2,
-      "last_bit": 1,
-      "worst_ulp": 1
+      "matched": 3
     },
     "ERFC": {
       "cells": 3,
-      "matched": 1,
-      "last_bit": 2,
-      "worst_ulp": 1
+      "matched": 3
     },
     "ERFC.PRECISE": {
       "cells": 3,
-      "matched": 2,
-      "last_bit": 1,
-      "worst_ulp": 1
+      "matched": 3
     },
     "ERROR.TYPE": {
       "cells": 41,
@@ -823,27 +805,25 @@
     },
     "GAMMA.DIST": {
       "cells": 96,
-      "matched": 81,
-      "last_bit": 15,
-      "worst_ulp": 14
+      "matched": 95,
+      "last_bit": 1,
+      "worst_ulp": 5
     },
     "GAMMA.INV": {
       "cells": 5,
       "matched": 4,
       "last_bit": 1,
-      "worst_ulp": 2
+      "worst_ulp": 1
     },
     "GAMMADIST": {
       "cells": 6,
-      "matched": 4,
-      "last_bit": 2,
-      "worst_ulp": 13
+      "matched": 6
     },
     "GAMMAINV": {
       "cells": 5,
       "matched": 3,
       "last_bit": 2,
-      "worst_ulp": 2
+      "worst_ulp": 1
     },
     "GAMMALN": {
       "cells": 3,
@@ -871,7 +851,7 @@
     },
     "GETPIVOTDATA": {
       "cells": 2,
-      "refused": 2
+      "matched": 2
     },
     "GROUPBY": {
       "cells": 428,
@@ -917,16 +897,14 @@
     },
     "HYPGEOM.DIST": {
       "cells": 98,
-      "matched": 68,
-      "last_bit": 28,
+      "matched": 94,
+      "last_bit": 2,
       "worst_ulp": 9,
       "larger_numeric": 2
     },
     "HYPGEOMDIST": {
       "cells": 6,
-      "matched": 4,
-      "last_bit": 2,
-      "worst_ulp": 1
+      "matched": 6
     },
     "IF": {
       "cells": 64,
@@ -1046,9 +1024,8 @@
     },
     "INDEX": {
       "cells": 12440,
-      "matched": 12173,
+      "matched": 12413,
       "other_mismatch": 24,
-      "refused": 240,
       "pending": 3
     },
     "INDIRECT": {
@@ -1074,17 +1051,12 @@
     },
     "IPMT": {
       "cells": 204,
-      "matched": 137,
-      "last_bit": 54,
-      "worst_ulp": 4,
-      "larger_numeric": 11,
-      "other_mismatch": 2
+      "matched": 204
     },
     "IRR": {
       "cells": 31,
-      "matched": 18,
-      "larger_numeric": 9,
-      "last_bit": 1,
+      "matched": 25,
+      "last_bit": 3,
       "worst_ulp": 16,
       "other_mismatch": 3
     },
@@ -1190,8 +1162,8 @@
       "pending": 1
     },
     "Infix <": {
-      "cells": 1610,
-      "matched": 1610
+      "cells": 1618,
+      "matched": 1618
     },
     "Infix <=": {
       "cells": 6,
@@ -1202,8 +1174,8 @@
       "matched": 5
     },
     "Infix =": {
-      "cells": 725,
-      "matched": 725
+      "cells": 731,
+      "matched": 731
     },
     "Infix >": {
       "cells": 19,
@@ -1264,11 +1236,10 @@
     },
     "LINEST": {
       "cells": 3345,
-      "matched": 3092,
-      "larger_numeric": 208,
+      "matched": 3319,
       "last_bit": 19,
       "worst_ulp": 14,
-      "other_mismatch": 26
+      "larger_numeric": 7
     },
     "LN": {
       "cells": 171,
@@ -1284,11 +1255,10 @@
     },
     "LOGEST": {
       "cells": 2057,
-      "matched": 1814,
-      "other_mismatch": 81,
-      "larger_numeric": 150,
+      "matched": 2038,
       "last_bit": 12,
-      "worst_ulp": 7
+      "worst_ulp": 7,
+      "larger_numeric": 7
     },
     "LOGINV": {
       "cells": 5,
@@ -1298,9 +1268,7 @@
     },
     "LOGNORM.DIST": {
       "cells": 6,
-      "matched": 5,
-      "last_bit": 1,
-      "worst_ulp": 1
+      "matched": 6
     },
     "LOGNORM.INV": {
       "cells": 5,
@@ -1310,9 +1278,7 @@
     },
     "LOGNORMDIST": {
       "cells": 5,
-      "matched": 3,
-      "last_bit": 2,
-      "worst_ulp": 1
+      "matched": 5
     },
     "LOOKUP": {
       "cells": 38,
@@ -1440,15 +1406,14 @@
     },
     "NEGBINOM.DIST": {
       "cells": 97,
-      "matched": 80,
-      "last_bit": 17,
-      "worst_ulp": 10
+      "matched": 95,
+      "larger_numeric": 1,
+      "last_bit": 1,
+      "worst_ulp": 1
     },
     "NEGBINOMDIST": {
       "cells": 41,
-      "matched": 23,
-      "last_bit": 18,
-      "worst_ulp": 10
+      "matched": 41
     },
     "NETWORKDAYS": {
       "cells": 16,
@@ -1472,9 +1437,7 @@
     },
     "NORM.S.DIST": {
       "cells": 6,
-      "matched": 5,
-      "last_bit": 1,
-      "worst_ulp": 3
+      "matched": 6
     },
     "NORM.S.INV": {
       "cells": 3,
@@ -1538,9 +1501,8 @@
     },
     "ODDFYIELD": {
       "cells": 92,
-      "matched": 48,
-      "larger_numeric": 30,
-      "other_mismatch": 14
+      "matched": 62,
+      "larger_numeric": 30
     },
     "ODDLPRICE": {
       "cells": 6,
@@ -1629,10 +1591,10 @@
     },
     "POISSON.DIST": {
       "cells": 215,
-      "matched": 184,
-      "last_bit": 26,
+      "matched": 194,
+      "last_bit": 17,
       "worst_ulp": 16,
-      "larger_numeric": 5
+      "larger_numeric": 4
     },
     "POWER": {
       "cells": 146,
@@ -1640,10 +1602,7 @@
     },
     "PPMT": {
       "cells": 204,
-      "matched": 153,
-      "larger_numeric": 18,
-      "last_bit": 33,
-      "worst_ulp": 10
+      "matched": 204
     },
     "PRICE": {
       "cells": 7,
@@ -1719,9 +1678,7 @@
     },
     "RATE": {
       "cells": 93,
-      "matched": 49,
-      "larger_numeric": 35,
-      "other_mismatch": 9
+      "matched": 93
     },
     "RECEIVED": {
       "cells": 46,
@@ -1786,9 +1743,7 @@
     },
     "ROWS": {
       "cells": 979,
-      "matched": 953,
-      "other_mismatch": 6,
-      "refused": 16,
+      "matched": 975,
       "pending": 4
     },
     "RRI": {
@@ -1873,9 +1828,8 @@
     },
     "SORT": {
       "cells": 93,
-      "matched": 73,
-      "other_mismatch": 4,
-      "refused": 16
+      "matched": 89,
+      "other_mismatch": 4
     },
     "SORTBY": {
       "cells": 14,
@@ -1999,7 +1953,9 @@
     },
     "T.INV": {
       "cells": 4,
-      "matched": 4
+      "matched": 3,
+      "last_bit": 1,
+      "worst_ulp": 1
     },
     "T.INV.2T": {
       "cells": 4,
@@ -2264,9 +2220,8 @@
     },
     "YIELD": {
       "cells": 92,
-      "matched": 50,
+      "matched": 56,
       "larger_numeric": 31,
-      "other_mismatch": 6,
       "last_bit": 5,
       "worst_ulp": 4
     },
@@ -2280,15 +2235,61 @@
     },
     "Z.TEST": {
       "cells": 7,
-      "last_bit": 3,
-      "worst_ulp": 3,
-      "matched": 4
+      "matched": 7
     },
     "ZTEST": {
       "cells": 7,
-      "last_bit": 4,
-      "worst_ulp": 3,
+      "matched": 7
+    }
+  },
+  "operators": {
+    "OP_IMPLICIT_INTERSECTION": {
+      "cells": 3874,
+      "matched": 3872,
+      "pending": 2
+    },
+    "OP_INTERSECTION_REF": {
+      "cells": 1,
+      "matched": 1
+    },
+    "OP_NEGATE": {
+      "cells": 2656,
+      "matched": 2655,
+      "other_mismatch": 1
+    },
+    "OP_PERCENT": {
+      "cells": 9,
+      "matched": 9
+    },
+    "OP_RANGE_REF": {
+      "cells": 5762,
+      "matched": 5724,
+      "pending": 38
+    },
+    "OP_SPILL_REF": {
+      "cells": 11272,
+      "matched": 11272
+    },
+    "OP_TRIM_REF_BOTH": {
+      "cells": 3,
       "matched": 3
+    },
+    "OP_TRIM_REF_LEADING": {
+      "cells": 1,
+      "matched": 1
+    },
+    "OP_TRIM_REF_TRAILING": {
+      "cells": 2,
+      "matched": 2
+    },
+    "OP_UNARY_PLUS": {
+      "cells": 178,
+      "matched": 178
+    },
+    "OP_UNION_REF": {
+      "cells": 44,
+      "matched": 42,
+      "pending": 2
     }
   },
   "nested_matched": {
@@ -2298,7 +2299,7 @@
     "BYCOL": 1,
     "BYROW": 1,
     "CHAR": 12,
-    "CHOOSE": 492,
+    "CHOOSE": 762,
     "CHOOSECOLS": 1,
     "CHOOSEROWS": 1,
     "COLUMN": 1,
@@ -2326,7 +2327,7 @@
     "IFERROR": 26,
     "IFNA": 9,
     "IFS": 5,
-    "INDEX": 7088,
+    "INDEX": 7539,
     "INDIRECT": 37,
     "ISNUMBER": 2,
     "ISOMITTED": 2,
@@ -2362,7 +2363,7 @@
     "SORT": 19,
     "SORTBY": 4,
     "SPLIT": 1,
-    "SQRT": 1,
+    "SQRT": 2,
     "SUBSTITUTE": 1,
     "SUBTOTAL": 3,
     "SUM": 32,
@@ -2388,19 +2389,20 @@
   },
   "wholly_pending_cells": 100,
   "totals": {
+    "agreed_rejections": 8,
     "awaiting_capture": 100,
     "circular_rule": 14,
     "external_links": 73,
-    "fail": 1806,
-    "failed_or_missing": 7,
+    "fail": 700,
+    "failed_or_missing": 1,
     "failed_or_missing_by_verdict": {
-      "not_run": 7
+      "not_run": 1
     },
     "formula_cells": 54794,
-    "mismatched": 1305,
-    "pass": 52988,
-    "pass_rate": 0.9670401868817754,
-    "refused": 307,
+    "mismatched": 512,
+    "pass": 54094,
+    "pass_rate": 0.987224878636347,
+    "refused": 0,
     "saved_excel_oracle": {},
     "source_cache_classes": {
       "array-cache-shape-unclassified": 3,
@@ -2410,5 +2412,5 @@
       "source-cache-missing": 52369
     }
   },
-  "commit": "9e1884369a678158dd82d3d74188daf986995e87"
+  "commit": "f0be6d1471725bc6d989ea5884c376411b45f50d"
 }

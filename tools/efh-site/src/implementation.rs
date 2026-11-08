@@ -9,7 +9,7 @@ pub const STATES: [(&str, &str, &str); 7] = [
     ("close", "Very close to Excel", "Every case we compared either matches Excel or differs only in the last few binary digits (at most 16 units in the last place), usually too small to show in the 15 digits Excel displays."),
     ("differs", "Differs from Excel in some cases", "At least one case we compared gives a different result, or no result. Unfinished functions are here too: they decline some inputs rather than guess."),
     ("refuses", "Not implemented yet", "DNA Calc does not compute these functions yet."),
-    ("deferred", "Needs an online service", "Excel gets the answer from an online service, so DNA Calc does not run these functions."),
+    ("deferred", "Deferred", "Either Excel gets the answer from an online service, or the function waits on a larger piece of work (such as lists in cells), so DNA Calc does not run these functions yet."),
     ("host", "Depends on the spreadsheet program", "The answer depends on the program around the formula, such as loading a library, reading a file or starting a data server."),
     ("unmeasured", "Implemented, not yet compared on its own", "DNA Calc has code for these, but no comparison with Excel is credited to them alone yet. They mostly appear inside larger formulas."),
 ];
@@ -344,7 +344,7 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
             )
         }
         "refuses" => ("not implemented yet".into(), "DNA Calc does not compute this function yet.".into()),
-        "deferred" => ("not available, needs an online service".into(), "Excel gets this function's answer from an online service, so DNA Calc does not run it.".into()),
+        "deferred" => ("deferred, not available yet".into(), "Either Excel gets this function's answer from an online service, or the function waits on a larger piece of work (such as lists in cells), so DNA Calc does not run it yet.".into()),
         "host" => ("depends on the spreadsheet program".into(), "This function's answer depends on what the spreadsheet program around the formula can do, such as loading a library or reading a file, so DNA Calc does not compute it here.".into()),
         _ => ("implemented, not yet compared on its own".into(), "DNA Calc has code for this, but none of our comparisons with Excel is credited to it alone yet. It mostly appears inside larger formulas.".into()),
     }

@@ -3,8 +3,9 @@
 
 use calc_func::value::{CalcValue, CoreRef, NumericMode};
 use calc_func::{
-    catalogue, help, invoke, ArgumentDemand, EvalServices, FunctionCallScratch, Notation,
-    ParameterClass, PreparedArguments,
+    catalogue, help, invoke, ArgumentDemand, Availability, BindingForm, Deferral, EntryKind,
+    EvalServices, FunctionCallScratch, HostRouteKind, Implementation, Notation, ParameterClass,
+    PreparedArguments,
 };
 use std::io::BufRead;
 
@@ -72,7 +73,9 @@ fn main() {
         return evaluate();
     }
     let mut rows = Vec::new();
-    for target in catalogue().targets() {
+    // Every entry the catalogue declares, held or not: its own kind, implementation and
+    // availability say what it is, so nothing here guesses from a name.
+    for target in catalogue().entries() {
         let signature = target.signature_help();
         let parameters: Vec<String> = signature
             .parameters
@@ -105,9 +108,56 @@ fn main() {
             ArgumentDemand::BranchOnCondition => "branch_on_condition",
             ArgumentDemand::FallbackOnError => "fallback_on_error",
         };
+        let kind = match target.kind() {
+            EntryKind::Worksheet => "{\"type\":\"worksheet\"}".to_string(),
+            EntryKind::Operator { file_spelling } => format!(
+                "{{\"type\":\"operator\",\"file_spelling\":{}}}",
+                file_spelling.map_or("null".to_string(), quoted)
+            ),
+            EntryKind::Binding(form) => format!(
+                "{{\"type\":\"binding\",\"form\":{}}}",
+                quoted(match form {
+                    BindingForm::Let => "let",
+                    BindingForm::Lambda => "lambda",
+                })
+            ),
+            EntryKind::AddIn { library, export } => format!(
+                "{{\"type\":\"addin\",\"library\":{},\"export\":{}}}",
+                quoted(library),
+                quoted(export)
+            ),
+            EntryKind::HostRoute { provider, route } => format!(
+                "{{\"type\":\"host_route\",\"provider\":{},\"route\":{}}}",
+                quoted(provider),
+                quoted(&match route {
+                    HostRouteKind::Fetch(kind) => format!("fetch {kind:?}"),
+                    HostRouteKind::Rtd => "rtd".to_string(),
+                })
+            ),
+        };
+        let implementation = match target.implementation() {
+            Implementation::Held => "{\"state\":\"held\"}".to_string(),
+            Implementation::Binding => "{\"state\":\"binding\"}".to_string(),
+            Implementation::NotHeld { owner } => {
+                format!("{{\"state\":\"not_held\",\"owner\":{}}}", quoted(owner))
+            }
+            Implementation::Deferred { class } => format!(
+                "{{\"state\":\"deferred\",\"class\":{},\"owner\":{}}}",
+                quoted(match class {
+                    Deferral::ExternalService => "external_service",
+                    Deferral::Python => "python",
+                    Deferral::ListsInCells => "lists_in_cells",
+                }),
+                quoted(class.owner())
+            ),
+        };
+        let availability = match target.availability() {
+            Availability::Unspecified => "unspecified",
+            Availability::ListsInCellsBeta => "lists_in_cells_beta",
+        };
         let own = help::help_of(target.spelling()).map(|h| h.own);
         rows.push(format!(
-            "{{\"id\":{},\"spelling\":{},\"notation\":{},\"min\":{},\"max\":{},\"display\":{},\"parameters\":[{}],\"demand\":{},\"resumable\":{},\"own_description\":{}}}",
+            "{{\"id\":{},\"spelling\":{},\"notation\":{},\"min\":{},\"max\":{},\"display\":{},\"parameters\":[{}],\"demand\":{},\"resumable\":{},\"own_description\":{},\"kind\":{},\"implementation\":{},\"availability\":{}}}",
             target.id().raw(),
             quoted(target.spelling()),
             quoted(notation),
@@ -118,6 +168,9 @@ fn main() {
             quoted(demand),
             target.is_resumable(),
             own.map_or("null".to_string(), quoted),
+            kind,
+            implementation,
+            quoted(availability),
         ));
     }
     println!("[\n{}\n]", rows.join(",\n"));

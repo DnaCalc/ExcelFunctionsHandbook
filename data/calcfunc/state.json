@@ -1,13 +1,13 @@
 {
-  "commit": "9e1884369a678158dd82d3d74188daf986995e87",
+  "commit": "f0be6d1471725bc6d989ea5884c376411b45f50d",
   "counts": {
-    "close": 52,
-    "deferred": 5,
-    "differs": 87,
-    "host": 5,
-    "matches": 374,
-    "refuses": 20,
-    "unmeasured": 11
+    "close": 47,
+    "deferred": 9,
+    "differs": 75,
+    "host": 7,
+    "matches": 404,
+    "refuses": 5,
+    "unmeasured": 7
   },
   "functions": {
     "FUNC.ABS": {
@@ -709,11 +709,11 @@
     "FUNC.BETA.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 1,938 of 2,828 recorded answers",
-      "detail": "Of 2,828 recorded answers (2,822 in the answer bank and 6 workbook cells), 1,938 do not match: 574 differ by more than 16 ULP, 1,364 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 1,852 of 2,828 recorded answers",
+      "detail": "Of 2,828 recorded answers (2,822 in the answer bank and 6 workbook cells), 1,852 do not match: 574 differ by more than 16 ULP, 1,278 differ by at most 16 ULP.",
       "bank": {
         "rows": 2822,
-        "matched": 885,
+        "matched": 971,
         "worst_ulp": 170,
         "excel_builds": [
           "20131",
@@ -721,7 +721,7 @@
           "?"
         ],
         "larger_numeric": 574,
-        "last_bit": 1363,
+        "last_bit": 1277,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -884,54 +884,56 @@
     "FUNC.BINOM.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 303 of 70,656 recorded answers",
-      "detail": "Of 70,656 recorded answers (70,349 in the answer bank and 307 workbook cells), 303 do not match: 73 differ by more than 16 ULP, 230 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 80 of 70,656 recorded answers",
+      "detail": "Of 70,656 recorded answers (70,349 in the answer bank and 307 workbook cells), 80 do not match: 35 differ by more than 16 ULP, 45 differ by at most 16 ULP.",
       "bank": {
         "rows": 70349,
-        "matched": 70130,
-        "worst_ulp": 761,
+        "matched": 70320,
+        "worst_ulp": 651,
         "excel_builds": [
           "20131",
           "20527",
           "?"
         ],
-        "larger_numeric": 58,
-        "last_bit": 161,
+        "larger_numeric": 8,
+        "last_bit": 21,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 307,
-        "matched": 223,
-        "last_bit": 69,
-        "worst_ulp": 10,
-        "larger_numeric": 15
+        "matched": 256,
+        "last_bit": 24,
+        "worst_ulp": 16,
+        "larger_numeric": 27
       },
       "in_catalogue": true,
       "code": "BINOM.DIST"
     },
     "FUNC.BINOM.DIST.RANGE": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 16 of 1,271 recorded answers",
-      "detail": "Of 1,271 recorded answers (1,224 in the answer bank and 47 workbook cells), 16 do not match: 1 differ by more than 16 ULP, 15 differ by at most 16 ULP.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 1 of 1,271 recorded answers differ in the last bits, worst 2 ULP",
+      "detail": "Everything else matches (1,224 in the answer bank and 47 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 1224,
-        "matched": 1208,
-        "worst_ulp": 19,
+        "matched": 1224,
+        "worst_ulp": 0,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 1,
-        "last_bit": 15,
+        "larger_numeric": 0,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 47,
-        "matched": 47
+        "matched": 46,
+        "last_bit": 1,
+        "worst_ulp": 2
       },
       "in_catalogue": true,
       "code": "BINOM.DIST.RANGE"
@@ -1132,7 +1134,7 @@
       "detail": "It calls a procedure in a loaded library, which is the host's to do. DNA Calc recognises the name and calculates no answer.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.CEILING": {
@@ -1240,18 +1242,18 @@
     "FUNC.CHIDIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 140 of 392 recorded answers",
-      "detail": "Of 392 recorded answers (388 in the answer bank and 4 workbook cells), 140 do not match: 1 differ by more than 16 ULP, 139 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 19 of 392 recorded answers",
+      "detail": "Of 392 recorded answers (388 in the answer bank and 4 workbook cells), 19 do not match: 1 differ by more than 16 ULP, 18 differ by at most 16 ULP.",
       "bank": {
         "rows": 388,
-        "matched": 250,
+        "matched": 371,
         "worst_ulp": 24,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 1,
-        "last_bit": 137,
+        "last_bit": 16,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1268,18 +1270,18 @@
     "FUNC.CHIINV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 69 of 104 recorded answers",
-      "detail": "Of 104 recorded answers (100 in the answer bank and 4 workbook cells), 69 do not match: 3 differ by more than 16 ULP, 66 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 70 of 104 recorded answers",
+      "detail": "Of 104 recorded answers (100 in the answer bank and 4 workbook cells), 70 do not match: 3 differ by more than 16 ULP, 67 differ by at most 16 ULP.",
       "bank": {
         "rows": 100,
-        "matched": 31,
+        "matched": 30,
         "worst_ulp": 91,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 3,
-        "last_bit": 66,
+        "last_bit": 67,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1335,18 +1337,18 @@
     "FUNC.CHISQ.INV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 29 of 44 recorded answers",
-      "detail": "Of 44 recorded answers (40 in the answer bank and 4 workbook cells), 29 do not match: 1 differ by more than 16 ULP, 28 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 28 of 44 recorded answers",
+      "detail": "Of 44 recorded answers (40 in the answer bank and 4 workbook cells), 28 do not match: 1 differ by more than 16 ULP, 27 differ by at most 16 ULP.",
       "bank": {
         "rows": 40,
-        "matched": 12,
+        "matched": 13,
         "worst_ulp": 20,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 1,
-        "last_bit": 27,
+        "last_bit": 26,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1355,7 +1357,7 @@
         "cells": 4,
         "matched": 3,
         "last_bit": 1,
-        "worst_ulp": 7
+        "worst_ulp": 15
       },
       "in_catalogue": true,
       "code": "CHISQ.INV"
@@ -1376,17 +1378,17 @@
     "FUNC.CHISQ.TEST": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 2 of 18 recorded answers differ in the last bits, worst 3 ULP",
+      "summary": "Close: 1 of 18 recorded answers differ in the last bits, worst 1 ULP",
       "detail": "Everything else matches (5 in the answer bank and 13 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 5,
-        "matched": 3,
-        "worst_ulp": 3,
+        "matched": 4,
+        "worst_ulp": 1,
         "excel_builds": [
           "20131"
         ],
         "larger_numeric": 0,
-        "last_bit": 2,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1492,16 +1494,14 @@
       "code": "COLUMN"
     },
     "FUNC.COLUMNS": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 22 of 932 recorded answers",
-      "detail": "Of 932 recorded answers (932 workbook cells), 22 do not match: 6 differ in kind or value, 16 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 932 recorded answers",
+      "detail": "Recorded: 932 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 933,
-        "matched": 910,
-        "other_mismatch": 6,
-        "refused": 16,
+        "matched": 932,
         "pending": 1
       },
       "in_catalogue": true,
@@ -1708,12 +1708,12 @@
     },
     "FUNC.COPILOT": {
       "state": "deferred",
-      "state_label": "Deferred: needs an outside service",
+      "state_label": "Deferred: its owner has not built it yet",
       "summary": "Deferred: needs an outside service",
       "detail": "Deferred by policy: the answer needs Microsoft's Copilot service. DNA Calc does not run this function yet. Microsoft's page says the function left Excel on 14 September 2026.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.CORREL": {
@@ -1813,17 +1813,17 @@
     "FUNC.COTH": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 56 of 40,244 recorded answers differ in the last bits, worst 2 ULP",
+      "summary": "Close: 3 of 40,244 recorded answers differ in the last bits, worst 2 ULP",
       "detail": "Everything else matches (40,241 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 40241,
-        "matched": 40185,
+        "matched": 40238,
         "worst_ulp": 2,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 56,
+        "last_bit": 3,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -2185,17 +2185,17 @@
     "FUNC.CSCH": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 6 of 33,309 recorded answers differ in the last bits, worst 2 ULP",
+      "summary": "Close: 1 of 33,309 recorded answers differ in the last bits, worst 1 ULP",
       "detail": "Everything else matches (33,306 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 33306,
-        "matched": 33300,
-        "worst_ulp": 2,
+        "matched": 33305,
+        "worst_ulp": 1,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 6,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -2208,74 +2208,74 @@
       "code": "CSCH"
     },
     "FUNC.CUBEKPIMEMBER": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
+      "state": "unmeasured",
+      "state_label": "Implemented, no recorded answers attributed to it",
+      "summary": "Implemented; no recorded answers are attributed to this entry",
       "detail": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "CUBEKPIMEMBER"
     },
     "FUNC.CUBEMEMBER": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
+      "state": "unmeasured",
+      "state_label": "Implemented, no recorded answers attributed to it",
+      "summary": "Implemented; no recorded answers are attributed to this entry",
       "detail": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "CUBEMEMBER"
     },
     "FUNC.CUBEMEMBERPROPERTY": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
+      "state": "unmeasured",
+      "state_label": "Implemented, no recorded answers attributed to it",
+      "summary": "Implemented; no recorded answers are attributed to this entry",
       "detail": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "CUBEMEMBERPROPERTY"
     },
     "FUNC.CUBERANKEDMEMBER": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
+      "state": "unmeasured",
+      "state_label": "Implemented, no recorded answers attributed to it",
+      "summary": "Implemented; no recorded answers are attributed to this entry",
       "detail": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "CUBERANKEDMEMBER"
     },
     "FUNC.CUBESET": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
+      "state": "unmeasured",
+      "state_label": "Implemented, no recorded answers attributed to it",
+      "summary": "Implemented; no recorded answers are attributed to this entry",
       "detail": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "CUBESET"
     },
     "FUNC.CUBESETCOUNT": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
+      "state": "unmeasured",
+      "state_label": "Implemented, no recorded answers attributed to it",
+      "summary": "Implemented; no recorded answers are attributed to this entry",
       "detail": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "CUBESETCOUNT"
     },
     "FUNC.CUBEVALUE": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
+      "state": "unmeasured",
+      "state_label": "Implemented, no recorded answers attributed to it",
+      "summary": "Implemented; no recorded answers are attributed to this entry",
       "detail": "No catalogue row at this commit. Pivot tables are being implemented in full, and this function with them.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "CUBEVALUE"
     },
     "FUNC.CUMIPMT": {
       "state": "differs",
@@ -2714,12 +2714,12 @@
     },
     "FUNC.DETECTLANGUAGE": {
       "state": "deferred",
-      "state_label": "Deferred: needs an outside service",
+      "state_label": "Deferred: its owner has not built it yet",
       "summary": "Deferred: needs an outside service",
       "detail": "Deferred by policy: the answer needs Microsoft's language service. DNA Calc does not run this function yet.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.DEVSQ": {
@@ -2943,11 +2943,11 @@
     "FUNC.DURATION": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 335 of 7,890 recorded answers differ in the last bits, worst 3 ULP",
+      "summary": "Close: 334 of 7,890 recorded answers differ in the last bits, worst 3 ULP",
       "detail": "Everything else matches (7,884 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 7884,
-        "matched": 7551,
+        "matched": 7552,
         "worst_ulp": 3,
         "excel_builds": [
           "20131",
@@ -2955,7 +2955,7 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 333,
+        "last_bit": 332,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3108,101 +3108,93 @@
       "code": "EOMONTH"
     },
     "FUNC.ERF": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 2 of 4 recorded answers differ in the last bits, worst 1 ULP",
-      "detail": "Everything else matches (4 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 4 recorded answers",
+      "detail": "Recorded: 4 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 4,
-        "matched": 2,
-        "last_bit": 2,
-        "worst_ulp": 1
+        "matched": 4
       },
       "in_catalogue": true,
       "code": "ERF"
     },
     "FUNC.ERF.PRECISE": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 20 of 618,440 recorded answers differ in the last bits, worst 2 ULP",
-      "detail": "Everything else matches (618,437 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 618,440 recorded answers",
+      "detail": "Recorded: 618,437 in the answer bank and 3 workbook cells.",
       "bank": {
         "rows": 618437,
-        "matched": 618418,
-        "worst_ulp": 2,
+        "matched": 618437,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "20527",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 19,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 3,
-        "matched": 2,
-        "last_bit": 1,
-        "worst_ulp": 1
+        "matched": 3
       },
       "in_catalogue": true,
       "code": "ERF.PRECISE"
     },
     "FUNC.ERFC": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 312 of 547 recorded answers differ in the last bits, worst 6 ULP",
-      "detail": "Everything else matches (544 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 547 recorded answers",
+      "detail": "Recorded: 544 in the answer bank and 3 workbook cells.",
       "bank": {
         "rows": 544,
-        "matched": 234,
-        "worst_ulp": 6,
+        "matched": 544,
+        "worst_ulp": 0,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 310,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 3,
-        "matched": 1,
-        "last_bit": 2,
-        "worst_ulp": 1
+        "matched": 3
       },
       "in_catalogue": true,
       "code": "ERFC"
     },
     "FUNC.ERFC.PRECISE": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 802 of 1,866 recorded answers differ in the last bits, worst 6 ULP",
-      "detail": "Everything else matches (1,863 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 1,866 recorded answers",
+      "detail": "Recorded: 1,863 in the answer bank and 3 workbook cells.",
       "bank": {
         "rows": 1863,
-        "matched": 1062,
-        "worst_ulp": 6,
+        "matched": 1863,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "20430",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 801,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 3,
-        "matched": 2,
-        "last_bit": 1,
-        "worst_ulp": 1
+        "matched": 3
       },
       "in_catalogue": true,
       "code": "ERFC.PRECISE"
@@ -3233,10 +3225,10 @@
       "code": "ERROR.TYPE"
     },
     "FUNC.EUROCONVERT": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
-      "detail": "No catalogue row at this commit. In Excel it comes with the Euro Currency Tools add-in; build 20527 on Windows gives #NAME? without it.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 13 of 141 recorded calls; the rest match",
+      "detail": "Of 141 recorded answers (13 in the answer bank and 128 workbook cells), 13 do not match: 13 are refused.",
       "bank": {
         "rows": 13,
         "matched": 0,
@@ -3254,7 +3246,7 @@
         "cells": 128,
         "matched": 128
       },
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.EVEN": {
@@ -3392,17 +3384,17 @@
     "FUNC.F.DIST": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 197 of 375 recorded answers differ in the last bits, worst 8 ULP",
+      "summary": "Close: 189 of 375 recorded answers differ in the last bits, worst 8 ULP",
       "detail": "Everything else matches (369 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 369,
-        "matched": 172,
+        "matched": 180,
         "worst_ulp": 8,
         "excel_builds": [
           "20228"
         ],
         "larger_numeric": 0,
-        "last_bit": 197,
+        "last_bit": 189,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3475,18 +3467,18 @@
     "FUNC.F.TEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 61 of 84 recorded answers",
-      "detail": "Of 84 recorded answers (78 in the answer bank and 6 workbook cells), 61 do not match: 13 differ by more than 16 ULP, 48 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 59 of 84 recorded answers",
+      "detail": "Of 84 recorded answers (78 in the answer bank and 6 workbook cells), 59 do not match: 13 differ by more than 16 ULP, 46 differ by at most 16 ULP.",
       "bank": {
         "rows": 78,
-        "matched": 17,
+        "matched": 19,
         "worst_ulp": 1767616520413419,
         "excel_builds": [
           "20131",
           "20228"
         ],
         "larger_numeric": 13,
-        "last_bit": 48,
+        "last_bit": 46,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3576,11 +3568,11 @@
     "FUNC.FDIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 3,760 of 4,404 recorded answers",
-      "detail": "Of 4,404 recorded answers (4,399 in the answer bank and 5 workbook cells), 3,760 do not match: 13 differ by more than 16 ULP, 3,747 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 3,748 of 4,404 recorded answers",
+      "detail": "Of 4,404 recorded answers (4,399 in the answer bank and 5 workbook cells), 3,748 do not match: 13 differ by more than 16 ULP, 3,735 differ by at most 16 ULP.",
       "bank": {
         "rows": 4399,
-        "matched": 641,
+        "matched": 653,
         "worst_ulp": 23,
         "excel_builds": [
           "20131",
@@ -3588,7 +3580,7 @@
           "?"
         ],
         "larger_numeric": 13,
-        "last_bit": 3745,
+        "last_bit": 3733,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3670,18 +3662,18 @@
     "FUNC.FINV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 32 of 37 recorded answers",
-      "detail": "Of 37 recorded answers (32 in the answer bank and 5 workbook cells), 32 do not match: 3 differ by more than 16 ULP, 29 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 31 of 37 recorded answers",
+      "detail": "Of 37 recorded answers (32 in the answer bank and 5 workbook cells), 31 do not match: 3 differ by more than 16 ULP, 28 differ by at most 16 ULP.",
       "bank": {
         "rows": 32,
-        "matched": 2,
+        "matched": 3,
         "worst_ulp": 41,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 3,
-        "last_bit": 27,
+        "last_bit": 26,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3759,13 +3751,13 @@
       "code": "FIXED"
     },
     "FUNC.FLATTEN": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
-      "detail": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "state": "deferred",
+      "state_label": "Deferred: its owner has not built it yet",
+      "summary": "Deferred: lists in cells",
+      "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.FLOOR": {
@@ -4004,21 +3996,21 @@
       "code": "FVSCHEDULE"
     },
     "FUNC.GAMMA": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 6,197 of 12,606 recorded answers",
-      "detail": "Of 12,606 recorded answers (12,603 in the answer bank and 3 workbook cells), 6,197 do not match: 26 differ by more than 16 ULP, 6,171 differ by at most 16 ULP.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 4,410 of 12,606 recorded answers differ in the last bits, worst 5 ULP",
+      "detail": "Everything else matches (12,603 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 12603,
-        "matched": 6406,
-        "worst_ulp": 49,
+        "matched": 8193,
+        "worst_ulp": 5,
         "excel_builds": [
           "20131",
           "20527",
           "?"
         ],
-        "larger_numeric": 26,
-        "last_bit": 6171,
+        "larger_numeric": 0,
+        "last_bit": 4410,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -4031,31 +4023,31 @@
       "code": "GAMMA"
     },
     "FUNC.GAMMA.DIST": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 29,887 of 78,071 recorded answers",
-      "detail": "Of 78,071 recorded answers (77,975 in the answer bank and 96 workbook cells), 29,887 do not match: 164 differ by more than 16 ULP, 29,723 differ by at most 16 ULP.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 172 of 78,071 recorded answers differ in the last bits, worst 8 ULP",
+      "detail": "Everything else matches (77,975 in the answer bank and 96 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 77975,
-        "matched": 48103,
-        "worst_ulp": 58,
+        "matched": 77804,
+        "worst_ulp": 8,
         "excel_builds": [
           "20131",
           "20430",
           "20527",
           "?"
         ],
-        "larger_numeric": 164,
-        "last_bit": 29708,
+        "larger_numeric": 0,
+        "last_bit": 171,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 96,
-        "matched": 81,
-        "last_bit": 15,
-        "worst_ulp": 14
+        "matched": 95,
+        "last_bit": 1,
+        "worst_ulp": 5
       },
       "in_catalogue": true,
       "code": "GAMMA.DIST"
@@ -4063,18 +4055,18 @@
     "FUNC.GAMMA.INV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 155 of 209 recorded answers",
-      "detail": "Of 209 recorded answers (204 in the answer bank and 5 workbook cells), 155 do not match: 7 differ by more than 16 ULP, 148 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 146 of 209 recorded answers",
+      "detail": "Of 209 recorded answers (204 in the answer bank and 5 workbook cells), 146 do not match: 7 differ by more than 16 ULP, 139 differ by at most 16 ULP.",
       "bank": {
         "rows": 204,
-        "matched": 50,
+        "matched": 59,
         "worst_ulp": 55,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 7,
-        "last_bit": 147,
+        "last_bit": 138,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -4083,35 +4075,33 @@
         "cells": 5,
         "matched": 4,
         "last_bit": 1,
-        "worst_ulp": 2
+        "worst_ulp": 1
       },
       "in_catalogue": true,
       "code": "GAMMA.INV"
     },
     "FUNC.GAMMADIST": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 4 of 12 recorded answers differ in the last bits, worst 13 ULP",
-      "detail": "Everything else matches (6 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 12 recorded answers",
+      "detail": "Recorded: 6 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 6,
-        "matched": 4,
-        "worst_ulp": 3,
+        "matched": 6,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 2,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 6,
-        "matched": 4,
-        "last_bit": 2,
-        "worst_ulp": 13
+        "matched": 6
       },
       "in_catalogue": true,
       "code": "GAMMADIST"
@@ -4119,14 +4109,14 @@
     "FUNC.GAMMAINV": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 2 of 5 recorded answers differ in the last bits, worst 2 ULP",
+      "summary": "Close: 2 of 5 recorded answers differ in the last bits, worst 1 ULP",
       "detail": "Everything else matches (5 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": null,
       "corpus": {
         "cells": 5,
         "matched": 3,
         "last_bit": 2,
-        "worst_ulp": 2
+        "worst_ulp": 1
       },
       "in_catalogue": true,
       "code": "GAMMAINV"
@@ -4161,11 +4151,11 @@
     "FUNC.GAMMALN.PRECISE": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 3,638 of 14,281 recorded answers differ in the last bits, worst 7 ULP",
+      "summary": "Close: 3,635 of 14,281 recorded answers differ in the last bits, worst 7 ULP",
       "detail": "Everything else matches (14,278 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 14278,
-        "matched": 10640,
+        "matched": 10643,
         "worst_ulp": 7,
         "excel_builds": [
           "20131",
@@ -4173,7 +4163,7 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 3638,
+        "last_bit": 3635,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -4186,20 +4176,20 @@
       "code": "GAMMALN.PRECISE"
     },
     "FUNC.GAUSS": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 357 of 9,731 recorded answers differ in the last bits, worst 3 ULP",
-      "detail": "Everything else matches (9,728 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 9,731 recorded answers",
+      "detail": "Recorded: 9,728 in the answer bank and 3 workbook cells.",
       "bank": {
         "rows": 9728,
-        "matched": 9371,
-        "worst_ulp": 3,
+        "matched": 9728,
+        "worst_ulp": 0,
         "excel_builds": [
           "20228",
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 357,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -4288,14 +4278,14 @@
       "code": "GESTEP"
     },
     "FUNC.GETPIVOTDATA": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Refuses all 2 recorded calls",
-      "detail": "The catalogue row declines every call until pivot tables land; they are being implemented in full, and this function with them.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2 recorded answers",
+      "detail": "Recorded: 2 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 2,
-        "refused": 2
+        "matched": 2
       },
       "in_catalogue": true,
       "code": "GETPIVOTDATA"
@@ -4364,33 +4354,33 @@
       "code": "HARMEAN"
     },
     "FUNC.HAS": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
-      "detail": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "state": "deferred",
+      "state_label": "Deferred: its owner has not built it yet",
+      "summary": "Deferred: lists in cells",
+      "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.HASALL": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
-      "detail": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "state": "deferred",
+      "state_label": "Deferred: its owner has not built it yet",
+      "summary": "Deferred: lists in cells",
+      "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.HASANY": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
-      "detail": "Listed by Microsoft for lists and arrays in cells; no catalogue row yet.",
+      "state": "deferred",
+      "state_label": "Deferred: its owner has not built it yet",
+      "summary": "Deferred: lists in cells",
+      "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.HEX2BIN": {
@@ -4537,26 +4527,26 @@
     "FUNC.HYPGEOM.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 208 of 3,759 recorded answers",
-      "detail": "Of 3,759 recorded answers (3,661 in the answer bank and 98 workbook cells), 208 do not match: 4 differ by more than 16 ULP, 204 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 98 of 3,759 recorded answers",
+      "detail": "Of 3,759 recorded answers (3,661 in the answer bank and 98 workbook cells), 98 do not match: 4 differ by more than 16 ULP, 94 differ by at most 16 ULP.",
       "bank": {
         "rows": 3661,
-        "matched": 3483,
-        "worst_ulp": 23,
+        "matched": 3567,
+        "worst_ulp": 22,
         "excel_builds": [
           "20430",
           "20527"
         ],
         "larger_numeric": 2,
-        "last_bit": 176,
+        "last_bit": 92,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 98,
-        "matched": 68,
-        "last_bit": 28,
+        "matched": 94,
+        "last_bit": 2,
         "worst_ulp": 9,
         "larger_numeric": 2
       },
@@ -4566,27 +4556,25 @@
     "FUNC.HYPGEOMDIST": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 5 of 9 recorded answers differ in the last bits, worst 2 ULP",
+      "summary": "Close: 1 of 9 recorded answers differ in the last bits, worst 3 ULP",
       "detail": "Everything else matches (3 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 3,
-        "matched": 0,
-        "worst_ulp": 2,
+        "matched": 2,
+        "worst_ulp": 3,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 3,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 6,
-        "matched": 4,
-        "last_bit": 2,
-        "worst_ulp": 1
+        "matched": 6
       },
       "in_catalogue": true,
       "code": "HYPGEOMDIST"
@@ -4681,14 +4669,14 @@
       "code": "IMABS"
     },
     "FUNC.IMAGE": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
-      "detail": "No catalogue row at this commit. IMAGE fetches from the URL in the workbook, not from a Microsoft back end, and is being implemented as an ordinary function.",
+      "state": "host",
+      "state_label": "Needs a host",
+      "summary": "Needs the host to fetch",
+      "detail": "The catalogue entry is a host route (fetch Picture): the answer is what the host's fetch provider returns for the URL, and the entry gives what Excel gives when the fetch fails.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "IMAGE"
     },
     "FUNC.IMAGINARY": {
       "state": "matches",
@@ -5277,14 +5265,13 @@
     "FUNC.INDEX": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 264 of 12,437 recorded answers",
-      "detail": "Of 12,437 recorded answers (12,437 workbook cells), 264 do not match: 24 differ in kind or value, 240 are refused.",
+      "summary": "Known larger differences on 24 of 12,437 recorded answers",
+      "detail": "Of 12,437 recorded answers (12,437 workbook cells), 24 do not match: 24 differ in kind or value.",
       "bank": null,
       "corpus": {
         "cells": 12440,
-        "matched": 12173,
+        "matched": 12413,
         "other_mismatch": 24,
-        "refused": 240,
         "pending": 3
       },
       "in_catalogue": true,
@@ -5393,32 +5380,28 @@
       "code": "INTRATE"
     },
     "FUNC.IPMT": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 74 of 261 recorded answers",
-      "detail": "Of 261 recorded answers (57 in the answer bank and 204 workbook cells), 74 do not match: 11 differ by more than 16 ULP, 61 differ by at most 16 ULP, 2 differ in kind or value.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 261 recorded answers",
+      "detail": "Recorded: 57 in the answer bank and 204 workbook cells.",
       "bank": {
         "rows": 57,
-        "matched": 50,
-        "worst_ulp": 2,
+        "matched": 57,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "20527",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 7,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 204,
-        "matched": 137,
-        "last_bit": 54,
-        "worst_ulp": 4,
-        "larger_numeric": 11,
-        "other_mismatch": 2
+        "matched": 204
       },
       "in_catalogue": true,
       "code": "IPMT"
@@ -5426,28 +5409,27 @@
     "FUNC.IRR": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 424 of 765 recorded answers",
-      "detail": "Of 765 recorded answers (734 in the answer bank and 31 workbook cells), 424 do not match: 308 differ by more than 16 ULP, 96 differ by at most 16 ULP, 20 differ in kind or value.",
+      "summary": "Known larger differences on 207 of 765 recorded answers",
+      "detail": "Of 765 recorded answers (734 in the answer bank and 31 workbook cells), 207 do not match: 28 differ by more than 16 ULP, 174 differ by at most 16 ULP, 5 differ in kind or value.",
       "bank": {
         "rows": 734,
-        "matched": 323,
-        "worst_ulp": 9195100997775460447,
+        "matched": 533,
+        "worst_ulp": 1024,
         "excel_builds": [
           "20131",
           "20228",
           "?"
         ],
-        "larger_numeric": 299,
-        "last_bit": 95,
-        "other_mismatch": 17,
+        "larger_numeric": 28,
+        "last_bit": 171,
+        "other_mismatch": 2,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 31,
-        "matched": 18,
-        "larger_numeric": 9,
-        "last_bit": 1,
+        "matched": 25,
+        "last_bit": 3,
         "worst_ulp": 16,
         "other_mismatch": 3
       },
@@ -5849,19 +5831,19 @@
       "code": null
     },
     "FUNC.KURT": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 1,299 of 4,514 recorded answers",
-      "detail": "Of 4,514 recorded answers (4,508 in the answer bank and 6 workbook cells), 1,299 do not match: 145 differ by more than 16 ULP, 1,154 differ by at most 16 ULP.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 4,514 recorded answers",
+      "detail": "Recorded: 4,508 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 4508,
-        "matched": 3209,
-        "worst_ulp": 32768,
+        "matched": 4508,
+        "worst_ulp": 0,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 145,
-        "last_bit": 1154,
+        "larger_numeric": 0,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -5993,16 +5975,15 @@
     "FUNC.LINEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 253 of 3,345 recorded answers",
-      "detail": "Of 3,345 recorded answers (3,345 workbook cells), 253 do not match: 208 differ by more than 16 ULP, 19 differ by at most 16 ULP, 26 differ in kind or value.",
+      "summary": "Known larger differences on 26 of 3,345 recorded answers",
+      "detail": "Of 3,345 recorded answers (3,345 workbook cells), 26 do not match: 7 differ by more than 16 ULP, 19 differ by at most 16 ULP.",
       "bank": null,
       "corpus": {
         "cells": 3345,
-        "matched": 3092,
-        "larger_numeric": 208,
+        "matched": 3319,
         "last_bit": 19,
         "worst_ulp": 14,
-        "other_mismatch": 26
+        "larger_numeric": 7
       },
       "in_catalogue": true,
       "code": "LINEST"
@@ -6089,8 +6070,8 @@
     "FUNC.LOGEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 243 of 2,417 recorded answers",
-      "detail": "Of 2,417 recorded answers (360 in the answer bank and 2,057 workbook cells), 243 do not match: 150 differ by more than 16 ULP, 12 differ by at most 16 ULP, 81 differ in kind or value.",
+      "summary": "Known larger differences on 19 of 2,417 recorded answers",
+      "detail": "Of 2,417 recorded answers (360 in the answer bank and 2,057 workbook cells), 19 do not match: 7 differ by more than 16 ULP, 12 differ by at most 16 ULP.",
       "bank": {
         "rows": 360,
         "matched": 360,
@@ -6106,11 +6087,10 @@
       },
       "corpus": {
         "cells": 2057,
-        "matched": 1814,
-        "other_mismatch": 81,
-        "larger_numeric": 150,
+        "matched": 2038,
         "last_bit": 12,
-        "worst_ulp": 7
+        "worst_ulp": 7,
+        "larger_numeric": 7
       },
       "in_catalogue": true,
       "code": "LOGEST"
@@ -6131,30 +6111,28 @@
       "code": "LOGINV"
     },
     "FUNC.LOGNORM.DIST": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 3,891 of 7,815 recorded answers",
-      "detail": "Of 7,815 recorded answers (7,809 in the answer bank and 6 workbook cells), 3,891 do not match: 559 differ by more than 16 ULP, 3,332 differ by at most 16 ULP.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 7,815 recorded answers",
+      "detail": "Recorded: 7,809 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 7809,
-        "matched": 3919,
-        "worst_ulp": 2216,
+        "matched": 7809,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "20430",
           "?"
         ],
-        "larger_numeric": 559,
-        "last_bit": 3331,
+        "larger_numeric": 0,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 6,
-        "matched": 5,
-        "last_bit": 1,
-        "worst_ulp": 1
+        "matched": 6
       },
       "in_catalogue": true,
       "code": "LOGNORM.DIST"
@@ -6175,29 +6153,27 @@
       "code": "LOGNORM.INV"
     },
     "FUNC.LOGNORMDIST": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 2,143 of 3,304 recorded answers differ in the last bits, worst 9 ULP",
-      "detail": "Everything else matches (3,299 in the answer bank and 5 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 3,304 recorded answers",
+      "detail": "Recorded: 3,299 in the answer bank and 5 workbook cells.",
       "bank": {
         "rows": 3299,
-        "matched": 1158,
-        "worst_ulp": 9,
+        "matched": 3299,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 2141,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 5,
-        "matched": 3,
-        "last_bit": 2,
-        "worst_ulp": 1
+        "matched": 5
       },
       "in_catalogue": true,
       "code": "LOGNORMDIST"
@@ -6781,54 +6757,53 @@
     "FUNC.NEGBINOM.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 169 of 607 recorded answers",
-      "detail": "Of 607 recorded answers (510 in the answer bank and 97 workbook cells), 169 do not match: 48 differ by more than 16 ULP, 121 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 68 of 607 recorded answers",
+      "detail": "Of 607 recorded answers (510 in the answer bank and 97 workbook cells), 68 do not match: 17 differ by more than 16 ULP, 51 differ by at most 16 ULP.",
       "bank": {
         "rows": 510,
-        "matched": 358,
-        "worst_ulp": 4503599627370626,
+        "matched": 444,
+        "worst_ulp": 554,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 48,
-        "last_bit": 104,
+        "larger_numeric": 16,
+        "last_bit": 50,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 97,
-        "matched": 80,
-        "last_bit": 17,
-        "worst_ulp": 10
+        "matched": 95,
+        "larger_numeric": 1,
+        "last_bit": 1,
+        "worst_ulp": 1
       },
       "in_catalogue": true,
       "code": "NEGBINOM.DIST"
     },
     "FUNC.NEGBINOMDIST": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 1,607 of 1,845 recorded answers",
-      "detail": "Of 1,845 recorded answers (1,804 in the answer bank and 41 workbook cells), 1,607 do not match: 335 differ by more than 16 ULP, 1,272 differ by at most 16 ULP.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 3 of 1,845 recorded answers differ in the last bits, worst 2 ULP",
+      "detail": "Everything else matches (1,804 in the answer bank and 41 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 1804,
-        "matched": 215,
-        "worst_ulp": 249,
+        "matched": 1801,
+        "worst_ulp": 2,
         "excel_builds": [
           "20131",
           "?"
         ],
-        "larger_numeric": 335,
-        "last_bit": 1254,
+        "larger_numeric": 0,
+        "last_bit": 3,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 41,
-        "matched": 23,
-        "last_bit": 18,
-        "worst_ulp": 10
+        "matched": 41
       },
       "in_catalogue": true,
       "code": "NEGBINOMDIST"
@@ -6910,19 +6885,19 @@
       "code": "NOMINAL"
     },
     "FUNC.NORM.DIST": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 244 of 24,252 recorded answers differ in the last bits, worst 6 ULP",
-      "detail": "Everything else matches (24,246 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 24,252 recorded answers",
+      "detail": "Recorded: 24,246 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 24246,
-        "matched": 24002,
-        "worst_ulp": 6,
+        "matched": 24246,
+        "worst_ulp": 0,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 244,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -6950,12 +6925,12 @@
     "FUNC.NORM.S.DIST": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 11,076 of 27,503 recorded answers differ in the last bits, worst 11 ULP",
+      "summary": "Close: 6 of 27,503 recorded answers differ in the last bits, worst 2 ULP",
       "detail": "Everything else matches (27,497 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 27497,
-        "matched": 16422,
-        "worst_ulp": 11,
+        "matched": 27491,
+        "worst_ulp": 2,
         "excel_builds": [
           "20131",
           "20430",
@@ -6963,16 +6938,14 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 11075,
+        "last_bit": 6,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 6,
-        "matched": 5,
-        "last_bit": 1,
-        "worst_ulp": 3
+        "matched": 6
       },
       "in_catalogue": true,
       "code": "NORM.S.DIST"
@@ -6991,19 +6964,19 @@
       "code": "NORM.S.INV"
     },
     "FUNC.NORMDIST": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 383 of 4,516 recorded answers differ in the last bits, worst 5 ULP",
-      "detail": "Everything else matches (4,510 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 4,516 recorded answers",
+      "detail": "Recorded: 4,510 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 4510,
-        "matched": 4127,
-        "worst_ulp": 5,
+        "matched": 4510,
+        "worst_ulp": 0,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 383,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -7275,14 +7248,13 @@
     "FUNC.ODDFYIELD": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 44 of 92 recorded answers",
-      "detail": "Of 92 recorded answers (92 workbook cells), 44 do not match: 30 differ by more than 16 ULP, 14 differ in kind or value.",
+      "summary": "Known larger differences on 30 of 92 recorded answers",
+      "detail": "Of 92 recorded answers (92 workbook cells), 30 do not match: 30 differ by more than 16 ULP.",
       "bank": null,
       "corpus": {
         "cells": 92,
-        "matched": 48,
-        "larger_numeric": 30,
-        "other_mismatch": 14
+        "matched": 62,
+        "larger_numeric": 30
       },
       "in_catalogue": true,
       "code": "ODDFYIELD"
@@ -7375,15 +7347,14 @@
       "code": "/ infix"
     },
     "FUNC.OP_EQUAL": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 6 of 731 recorded calls; the rest match",
-      "detail": "Of 731 recorded answers (731 workbook cells), 6 do not match: 6 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 731 recorded answers",
+      "detail": "Recorded: 731 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 731,
-        "matched": 725,
-        "refused": 6,
+        "matched": 731,
         "worst_ulp": 0
       },
       "in_catalogue": true,
@@ -7418,22 +7389,29 @@
       "code": "> infix"
     },
     "FUNC.OP_IMPLICIT_INTERSECTION": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 3,872 recorded answers",
+      "detail": "Recorded: 3,872 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 3874,
+        "matched": 3872,
+        "pending": 2
+      },
       "in_catalogue": false,
       "code": "OP_IMPLICIT_INTERSECTION"
     },
     "FUNC.OP_INTERSECTION_REF": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 1 recorded answers",
+      "detail": "Recorded: 1 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 1,
+        "matched": 1
+      },
       "in_catalogue": false,
       "code": "OP_INTERSECTION_REF"
     },
@@ -7452,15 +7430,14 @@
       "code": "<= infix"
     },
     "FUNC.OP_LESS_THAN": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 8 of 1,618 recorded calls; the rest match",
-      "detail": "Of 1,618 recorded answers (1,618 workbook cells), 8 do not match: 8 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 1,618 recorded answers",
+      "detail": "Recorded: 1,618 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 1618,
-        "matched": 1610,
-        "refused": 8,
+        "matched": 1618,
         "worst_ulp": 0
       },
       "in_catalogue": true,
@@ -7482,12 +7459,16 @@
       "code": "* infix"
     },
     "FUNC.OP_NEGATE": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Known larger differences on 1 of 2,656 recorded answers",
+      "detail": "Of 2,656 recorded answers (2,656 workbook cells), 1 do not match: 1 differ in kind or value.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 2656,
+        "matched": 2655,
+        "other_mismatch": 1
+      },
       "in_catalogue": true,
       "code": "- prefix"
     },
@@ -7506,12 +7487,15 @@
       "code": "<> infix"
     },
     "FUNC.OP_PERCENT": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 9 recorded answers",
+      "detail": "Recorded: 9 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 9,
+        "matched": 9
+      },
       "in_catalogue": true,
       "code": "% postfix"
     },
@@ -7530,22 +7514,29 @@
       "code": "^ infix"
     },
     "FUNC.OP_RANGE_REF": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 5,724 recorded answers",
+      "detail": "Recorded: 5,724 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 5762,
+        "matched": 5724,
+        "pending": 38
+      },
       "in_catalogue": false,
       "code": "OP_RANGE_REF"
     },
     "FUNC.OP_SPILL_REF": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 11,272 recorded answers",
+      "detail": "Recorded: 11,272 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 11272,
+        "matched": 11272
+      },
       "in_catalogue": false,
       "code": null
     },
@@ -7566,52 +7557,68 @@
       "code": "- infix"
     },
     "FUNC.OP_TRIM_REF_BOTH": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 3 recorded answers",
+      "detail": "Recorded: 3 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 3,
+        "matched": 3
+      },
       "in_catalogue": false,
       "code": null
     },
     "FUNC.OP_TRIM_REF_LEADING": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 1 recorded answers",
+      "detail": "Recorded: 1 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 1,
+        "matched": 1
+      },
       "in_catalogue": false,
       "code": null
     },
     "FUNC.OP_TRIM_REF_TRAILING": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2 recorded answers",
+      "detail": "Recorded: 2 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 2,
+        "matched": 2
+      },
       "in_catalogue": false,
       "code": null
     },
     "FUNC.OP_UNARY_PLUS": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 178 recorded answers",
+      "detail": "Recorded: 178 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 178,
+        "matched": 178
+      },
       "in_catalogue": true,
       "code": "+ prefix"
     },
     "FUNC.OP_UNION_REF": {
-      "state": "unmeasured",
-      "state_label": "Implemented, no recorded answers attributed to it",
-      "summary": "Implemented; no recorded answers are attributed to this entry",
-      "detail": "Handled by the formula layer, which owns references; answers are recorded through whole formulas, not attributed to the operator.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 42 recorded answers",
+      "detail": "Recorded: 42 workbook cells.",
       "bank": null,
-      "corpus": null,
+      "corpus": {
+        "cells": 44,
+        "matched": 42,
+        "pending": 2
+      },
       "in_catalogue": false,
       "code": "OP_UNION_REF"
     },
@@ -7902,12 +7909,12 @@
     "FUNC.PMT": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 151 of 291,987 recorded answers differ in the last bits, worst 4 ULP",
+      "summary": "Close: 1 of 291,987 recorded answers differ in the last bits, worst 1 ULP",
       "detail": "Everything else matches (291,978 in the answer bank and 9 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 291978,
-        "matched": 291827,
-        "worst_ulp": 4,
+        "matched": 291977,
+        "worst_ulp": 1,
         "excel_builds": [
           "20131",
           "20228",
@@ -7915,7 +7922,7 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 151,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -7943,30 +7950,30 @@
     "FUNC.POISSON.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 878 of 49,925 recorded answers",
-      "detail": "Of 49,925 recorded answers (49,710 in the answer bank and 215 workbook cells), 878 do not match: 788 differ by more than 16 ULP, 90 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 572 of 49,925 recorded answers",
+      "detail": "Of 49,925 recorded answers (49,710 in the answer bank and 215 workbook cells), 572 do not match: 4 differ by more than 16 ULP, 568 differ by at most 16 ULP.",
       "bank": {
         "rows": 49714,
-        "matched": 48863,
-        "worst_ulp": 18876141089959088,
+        "matched": 49159,
+        "worst_ulp": 7,
         "excel_builds": [
           "20131",
           "20430",
           "20527",
           "?"
         ],
-        "larger_numeric": 783,
-        "last_bit": 64,
+        "larger_numeric": 0,
+        "last_bit": 551,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 4
       },
       "corpus": {
         "cells": 215,
-        "matched": 184,
-        "last_bit": 26,
+        "matched": 194,
+        "last_bit": 17,
         "worst_ulp": 16,
-        "larger_numeric": 5
+        "larger_numeric": 4
       },
       "in_catalogue": true,
       "code": "POISSON.DIST"
@@ -8000,31 +8007,28 @@
       "code": "POWER"
     },
     "FUNC.PPMT": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 59 of 237 recorded answers",
-      "detail": "Of 237 recorded answers (33 in the answer bank and 204 workbook cells), 59 do not match: 18 differ by more than 16 ULP, 41 differ by at most 16 ULP.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 237 recorded answers",
+      "detail": "Recorded: 33 in the answer bank and 204 workbook cells.",
       "bank": {
         "rows": 33,
-        "matched": 25,
-        "worst_ulp": 3,
+        "matched": 33,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "20527",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 8,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 204,
-        "matched": 153,
-        "larger_numeric": 18,
-        "last_bit": 33,
-        "worst_ulp": 10
+        "matched": 204
       },
       "in_catalogue": true,
       "code": "PPMT"
@@ -8170,22 +8174,22 @@
       "code": "PROPER"
     },
     "FUNC.PV": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 162 of 1,314 recorded answers",
-      "detail": "Of 1,314 recorded answers (1,308 in the answer bank and 6 workbook cells), 162 do not match: 15 differ by more than 16 ULP, 147 differ by at most 16 ULP.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 2 of 1,314 recorded answers differ in the last bits, worst 3 ULP",
+      "detail": "Everything else matches (1,308 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 1308,
-        "matched": 1146,
-        "worst_ulp": 255707920,
+        "matched": 1306,
+        "worst_ulp": 3,
         "excel_builds": [
           "20131",
           "20430",
           "20527",
           "?"
         ],
-        "larger_numeric": 15,
-        "last_bit": 147,
+        "larger_numeric": 0,
+        "last_bit": 2,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -8199,12 +8203,12 @@
     },
     "FUNC.PY": {
       "state": "deferred",
-      "state_label": "Deferred: needs an outside service",
+      "state_label": "Deferred: its owner has not built it yet",
       "summary": "Deferred: needs an outside service",
       "detail": "Deferred by policy: the code runs in Microsoft's cloud runtime. DNA Calc does not run this function yet.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.QUARTILE": {
@@ -8377,29 +8381,27 @@
     "FUNC.RATE": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 416 of 470 recorded answers",
-      "detail": "Of 470 recorded answers (377 in the answer bank and 93 workbook cells), 416 do not match: 374 differ by more than 16 ULP, 20 differ by at most 16 ULP, 22 differ in kind or value.",
+      "summary": "Known larger differences on 1 of 470 recorded answers",
+      "detail": "Of 470 recorded answers (377 in the answer bank and 93 workbook cells), 1 do not match: 1 differ by more than 16 ULP.",
       "bank": {
         "rows": 377,
-        "matched": 5,
-        "worst_ulp": 8956533079650969310,
+        "matched": 376,
+        "worst_ulp": 1333068467558,
         "excel_builds": [
           "20131",
           "20228",
           "20527",
           "?"
         ],
-        "larger_numeric": 339,
-        "last_bit": 20,
-        "other_mismatch": 13,
+        "larger_numeric": 1,
+        "last_bit": 0,
+        "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 93,
-        "matched": 49,
-        "larger_numeric": 35,
-        "other_mismatch": 9
+        "matched": 93
       },
       "in_catalogue": true,
       "code": "RATE"
@@ -8500,7 +8502,7 @@
       "detail": "It registers a procedure in a library with the host. DNA Calc recognises the name and calculates no answer.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.REPLACE": {
@@ -8584,17 +8586,17 @@
     "FUNC.ROUND": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 124 of 37,138 recorded answers differ in the last bits, worst 16 ULP",
+      "summary": "Close: 24 of 37,138 recorded answers differ in the last bits, worst 14 ULP",
       "detail": "Everything else matches (36,945 in the answer bank and 193 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 36945,
-        "matched": 36821,
-        "worst_ulp": 16,
+        "matched": 36921,
+        "worst_ulp": 14,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 124,
+        "last_bit": 24,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -8609,17 +8611,17 @@
     "FUNC.ROUNDDOWN": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 557 of 60,138 recorded answers",
-      "detail": "Of 60,138 recorded answers (59,995 in the answer bank and 143 workbook cells), 557 do not match: 236 differ by more than 16 ULP, 321 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 446 of 60,138 recorded answers",
+      "detail": "Of 60,138 recorded answers (59,995 in the answer bank and 143 workbook cells), 446 do not match: 200 differ by more than 16 ULP, 246 differ by at most 16 ULP.",
       "bank": {
         "rows": 59995,
-        "matched": 59438,
+        "matched": 59549,
         "worst_ulp": 86,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 236,
-        "last_bit": 321,
+        "larger_numeric": 200,
+        "last_bit": 246,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -8634,17 +8636,17 @@
     "FUNC.ROUNDUP": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 563 of 52,985 recorded answers",
-      "detail": "Of 52,985 recorded answers (52,841 in the answer bank and 144 workbook cells), 563 do not match: 236 differ by more than 16 ULP, 327 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 446 of 52,985 recorded answers",
+      "detail": "Of 52,985 recorded answers (52,841 in the answer bank and 144 workbook cells), 446 do not match: 200 differ by more than 16 ULP, 246 differ by at most 16 ULP.",
       "bank": {
         "rows": 52841,
-        "matched": 52278,
+        "matched": 52395,
         "worst_ulp": 86,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 236,
-        "last_bit": 327,
+        "larger_numeric": 200,
+        "last_bit": 246,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -8671,16 +8673,14 @@
       "code": "ROW"
     },
     "FUNC.ROWS": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 22 of 975 recorded answers",
-      "detail": "Of 975 recorded answers (975 workbook cells), 22 do not match: 6 differ in kind or value, 16 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 975 recorded answers",
+      "detail": "Recorded: 975 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 979,
-        "matched": 953,
-        "other_mismatch": 6,
-        "refused": 16,
+        "matched": 975,
         "pending": 4
       },
       "in_catalogue": true,
@@ -8729,10 +8729,10 @@
       "state": "host",
       "state_label": "Needs a host",
       "summary": "Needs a real-time data server",
-      "detail": "The answer comes from a COM server the host starts. DNA Calc recognises the name and calculates no answer.",
+      "detail": "The formula layer evaluates RTD over the host's real-time connector (read_topic in calc-fml); the answer comes from a COM server the host starts. The catalogue entry is a host route and declares no kernel (owner dc-snz.23.4).",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.SCAN": {
@@ -8960,17 +8960,17 @@
     "FUNC.SINH": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 130 of 33,553 recorded answers differ in the last bits, worst 1 ULP",
+      "summary": "Close: 3 of 33,553 recorded answers differ in the last bits, worst 1 ULP",
       "detail": "Everything else matches (33,550 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 33550,
-        "matched": 33420,
+        "matched": 33547,
         "worst_ulp": 1,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 130,
+        "last_bit": 3,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -8983,19 +8983,19 @@
       "code": "SINH"
     },
     "FUNC.SKEW": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known larger differences on 7 of 4,514 recorded answers",
-      "detail": "Of 4,514 recorded answers (4,508 in the answer bank and 6 workbook cells), 7 do not match: 1 differ by more than 16 ULP, 6 differ by at most 16 ULP.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 4,514 recorded answers",
+      "detail": "Recorded: 4,508 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 4508,
-        "matched": 4501,
-        "worst_ulp": 170,
+        "matched": 4508,
+        "worst_ulp": 0,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 1,
-        "last_bit": 6,
+        "larger_numeric": 0,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -9086,14 +9086,13 @@
     "FUNC.SORT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 20 of 93 recorded answers",
-      "detail": "Of 93 recorded answers (93 workbook cells), 20 do not match: 4 differ in kind or value, 16 are refused.",
+      "summary": "Known larger differences on 4 of 93 recorded answers",
+      "detail": "Of 93 recorded answers (93 workbook cells), 4 do not match: 4 differ in kind or value.",
       "bank": null,
       "corpus": {
         "cells": 93,
-        "matched": 73,
-        "other_mismatch": 4,
-        "refused": 16
+        "matched": 89,
+        "other_mismatch": 4
       },
       "in_catalogue": true,
       "code": "SORT"
@@ -9353,12 +9352,12 @@
     },
     "FUNC.STOCKHISTORY": {
       "state": "deferred",
-      "state_label": "Deferred: needs an outside service",
+      "state_label": "Deferred: its owner has not built it yet",
       "summary": "Deferred: needs an outside service",
       "detail": "Deferred by policy: the answer needs Microsoft's market data service. DNA Calc does not run this function yet.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.SUBSTITUTE": {
@@ -9655,14 +9654,16 @@
       "code": "T.DIST.RT"
     },
     "FUNC.T.INV": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 4 recorded answers",
-      "detail": "Recorded: 4 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 1 of 4 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (4 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": null,
       "corpus": {
         "cells": 4,
-        "matched": 4
+        "matched": 3,
+        "last_bit": 1,
+        "worst_ulp": 1
       },
       "in_catalogue": true,
       "code": "T.INV"
@@ -9740,17 +9741,17 @@
     "FUNC.TANH": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 58 of 39,031 recorded answers differ in the last bits, worst 1 ULP",
+      "summary": "Close: 3 of 39,031 recorded answers differ in the last bits, worst 1 ULP",
       "detail": "Everything else matches (39,028 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 39028,
-        "matched": 38970,
+        "matched": 39025,
         "worst_ulp": 1,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 58,
+        "last_bit": 3,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -9840,18 +9841,18 @@
     "FUNC.TDIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 70 of 97 recorded answers",
-      "detail": "Of 97 recorded answers (92 in the answer bank and 5 workbook cells), 70 do not match: 2 differ by more than 16 ULP, 68 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 66 of 97 recorded answers",
+      "detail": "Of 97 recorded answers (92 in the answer bank and 5 workbook cells), 66 do not match: 2 differ by more than 16 ULP, 64 differ by at most 16 ULP.",
       "bank": {
         "rows": 92,
-        "matched": 24,
+        "matched": 28,
         "worst_ulp": 24,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 2,
-        "last_bit": 66,
+        "last_bit": 62,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -10085,12 +10086,12 @@
     },
     "FUNC.TRANSLATE": {
       "state": "deferred",
-      "state_label": "Deferred: needs an outside service",
+      "state_label": "Deferred: its owner has not built it yet",
       "summary": "Deferred: needs an outside service",
       "detail": "Deferred by policy: the answer needs Microsoft's translation service. DNA Calc does not run this function yet.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
+      "in_catalogue": true,
       "code": null
     },
     "FUNC.TRANSPOSE": {
@@ -10199,17 +10200,17 @@
     "FUNC.TRUNC": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 557 of 51,465 recorded answers",
-      "detail": "Of 51,465 recorded answers (51,317 in the answer bank and 148 workbook cells), 557 do not match: 236 differ by more than 16 ULP, 321 differ by at most 16 ULP.",
+      "summary": "Known larger differences on 444 of 51,465 recorded answers",
+      "detail": "Of 51,465 recorded answers (51,317 in the answer bank and 148 workbook cells), 444 do not match: 200 differ by more than 16 ULP, 244 differ by at most 16 ULP.",
       "bank": {
         "rows": 51317,
-        "matched": 50760,
+        "matched": 50873,
         "worst_ulp": 86,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 236,
-        "last_bit": 321,
+        "larger_numeric": 200,
+        "last_bit": 244,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -10558,14 +10559,14 @@
       "code": "VSTACK"
     },
     "FUNC.WEBSERVICE": {
-      "state": "refuses",
-      "state_label": "Refuses or not implemented",
-      "summary": "Not yet implemented",
-      "detail": "No catalogue row at this commit. WEBSERVICE fetches from the URL in the workbook, not from a Microsoft back end, and is being implemented as an ordinary function.",
+      "state": "host",
+      "state_label": "Needs a host",
+      "summary": "Needs the host to fetch",
+      "detail": "The catalogue entry is a host route (fetch Text): the answer is what the host's fetch provider returns for the URL, and the entry gives what Excel gives when the fetch fails.",
       "bank": null,
       "corpus": null,
-      "in_catalogue": false,
-      "code": null
+      "in_catalogue": true,
+      "code": "WEBSERVICE"
     },
     "FUNC.WEEKDAY": {
       "state": "matches",
@@ -10887,17 +10888,17 @@
     "FUNC.YIELD": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known larger differences on 561 of 625 recorded answers",
-      "detail": "Of 625 recorded answers (533 in the answer bank and 92 workbook cells), 561 do not match: 455 differ by more than 16 ULP, 100 differ by at most 16 ULP, 6 differ in kind or value.",
+      "summary": "Known larger differences on 553 of 625 recorded answers",
+      "detail": "Of 625 recorded answers (533 in the answer bank and 92 workbook cells), 553 do not match: 453 differ by more than 16 ULP, 100 differ by at most 16 ULP.",
       "bank": {
         "rows": 533,
-        "matched": 14,
+        "matched": 16,
         "worst_ulp": 4395513236313605,
         "excel_builds": [
           "20228",
           "20527"
         ],
-        "larger_numeric": 424,
+        "larger_numeric": 422,
         "last_bit": 95,
         "other_mismatch": 0,
         "refused": 0,
@@ -10905,9 +10906,8 @@
       },
       "corpus": {
         "cells": 92,
-        "matched": 50,
+        "matched": 56,
         "larger_numeric": 31,
-        "other_mismatch": 6,
         "last_bit": 5,
         "worst_ulp": 4
       },
@@ -10954,31 +10954,27 @@
       "code": "YIELDMAT"
     },
     "FUNC.Z.TEST": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 3 of 7 recorded answers differ in the last bits, worst 3 ULP",
-      "detail": "Everything else matches (7 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 7 recorded answers",
+      "detail": "Recorded: 7 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 7,
-        "last_bit": 3,
-        "worst_ulp": 3,
-        "matched": 4
+        "matched": 7
       },
       "in_catalogue": true,
       "code": "Z.TEST"
     },
     "FUNC.ZTEST": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 4 of 7 recorded answers differ in the last bits, worst 3 ULP",
-      "detail": "Everything else matches (7 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 7 recorded answers",
+      "detail": "Recorded: 7 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 7,
-        "last_bit": 4,
-        "worst_ulp": 3,
-        "matched": 3
+        "matched": 7
       },
       "in_catalogue": true,
       "code": "ZTEST"

@@ -31,7 +31,7 @@ STATE_LABELS = {
     "close": "Close: last-bit deviations remain",
     "differs": "Known larger differences",
     "refuses": "Refuses or not implemented",
-    "deferred": "Deferred: needs an outside service",
+    "deferred": "Deferred: its owner has not built it yet",
     "host": "Needs a host",
     "unmeasured": "Implemented, no recorded answers attributed to it",
 }
@@ -201,6 +201,39 @@ def read_bank(root, pin):
         if row["bank"] == "full":
             rows[row["function"]] = row
     return rows
+
+
+DEFERRAL_TEXT = {
+    "external_service": ("Deferred: needs an outside service", "Deferred by policy: the answer needs an outside service that DNA Calc does not run. The catalogue declares this entry deferred (owner {owner})."),
+    "python": ("Deferred: needs an outside service", "Deferred by policy: the answer needs Python run by an outside service. The catalogue declares this entry deferred (owner {owner})."),
+    "lists_in_cells": ("Deferred: lists in cells", "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by {owner}. DNA Calc does not run it until lists in cells land."),
+}
+
+
+def declared_group(row, spec):
+    """The group of a catalogue entry that holds no kernel or reaches its answer through a host,
+    read from the entry's own declaration; None for any other entry. The hand-held text in
+    non-catalogue.json is used only when it names the same kind."""
+    kind, implementation = row["kind"], row["implementation"]
+
+    def pick(group_kind, summary, reason):
+        same = spec.get("kind") == group_kind
+        return {"kind": group_kind, "summary": spec.get("summary") if same and spec.get("summary") else summary,
+                "reason": spec.get("reason") if same and spec.get("reason") else reason}
+    if implementation["state"] == "deferred":
+        summary, reason = DEFERRAL_TEXT[implementation["class"]]
+        return pick("deferred", summary, reason.format(owner=implementation["owner"]))
+    if kind["type"] == "host_route":
+        route = kind["route"]
+        if route == "rtd":
+            return pick("host", "Needs a real-time data server",
+                        "The formula layer evaluates RTD over the host's real-time connector (read_topic in calc-fml); the answer comes from a COM server the host starts. The catalogue entry is a host route and declares no kernel (owner " + implementation.get("owner", "none") + ").")
+        return pick("host", "Needs the host to fetch",
+                    "The catalogue entry is a host route (" + route + "): the answer is what the host's fetch provider returns for the URL, and the entry gives what Excel gives when the fetch fails.")
+    if implementation["state"] == "not_held":
+        return pick("host", "Needs a host that can load code",
+                    "The catalogue declares this entry not held (owner " + implementation["owner"] + "): the host that loads code does the work. DNA Calc recognises the name and calculates no answer.")
+    return None
 
 
 def state_of(name, group, bank, corpus, conflicts):
@@ -417,9 +450,15 @@ def main():
         raise SystemExit(f"{root} must be a clean checkout of the pin {pin}")
 
     dumper = Dumper(root)
-    dump = dumper.catalogue()
+    everything = dumper.catalogue()
+    # Entries that hold a kernel (the add-in's excepted) carry code; the rest are declarations.
+    dump = [t for t in everything if t["implementation"]["state"] == "held" and t["kind"]["type"] in ("worksheet", "operator", "host_route")]
+    declared = [t for t in everything if t not in dump]
     by_call = {t["spelling"]: t for t in dump if t["notation"] == "call"}
     by_operator = {(t["spelling"], t["notation"]): t for t in dump if t["notation"] != "call"}
+    # Declarations by the name a workbook uses: an add-in entry by its export name.
+    by_declared = {(t["kind"]["export"] if t["kind"]["type"] == "addin" else t["spelling"]): t
+                   for t in declared if t["notation"] == "call" and t["kind"]["type"] != "binding"}
     index = rustindex.Index(root / "crates/calc-func/src")
     formula_index = rustindex.Index(root / "crates/calc-fml/src", "crates/calc-fml/src/")
     formula_roots = {name: spec["code"] for name, spec in SERIES["entries"].items() if spec.get("code")}
@@ -478,7 +517,6 @@ def main():
 
     state = {}
     counts = Counter()
-    builtins = set(re.findall(r'^    "([A-Z0-9._]+)",$', show(root, pin, "crates/calc-fml/src/eval/builtins.rs"), re.M))
     for fid, f in sorted(functions.items()):
         name = f["surface_name"]
         spec = {**SERIES["entries"].get(name, {}), **SERIES["added"].get(name, {})}
@@ -493,6 +531,9 @@ def main():
                     merged.update(corpus_rows.get(label, {}))
                 worst = max((corpus_rows.get(l, {}).get("worst_ulp", 0) for l in (f"Infix {key[0]}", key[0])), default=0)
                 corpus = dict(merged, worst_ulp=worst) if merged else None
+            else:
+                # Prefix, postfix and reference operators: uses read from the parsed formulas.
+                corpus = counted.get("operators", {}).get(name)
             group = {"kind": "implemented"}
             code_key = f"{key[0]} {key[1]}" if key else None
             if not target:
@@ -500,12 +541,16 @@ def main():
                 code_key = name if name in code["entries"] else None
             measured = None
         else:
-            target = by_call.get(name)
+            target = by_call.get(name) or by_declared.get(name)
             corpus = corpus_rows.get(name)
             measured = measured_bank.get(name)
             code_key = name if name in code["entries"] else None
             # A catalogue row at the pin always wins, so a function that lands changes state alone.
-            if target:
+            # Its own declaration (deferred, not held, host route) decides those states.
+            group = declared_group(target, spec) if target else None
+            if group:
+                pass
+            elif target:
                 group = {"kind": "implemented", "reason": spec.get("reason")}
             elif spec.get("kind"):
                 group = {"kind": spec["kind"], "summary": spec.get("summary"), "reason": spec.get("reason")}
@@ -585,7 +630,7 @@ def main():
                            "crates/calc-func/witness-status.tsv", "crates/calc-func/witness-differences.tsv",
                            "crates/calc-fml/src/eval/builtins.rs")},
     ))
-    print(json.dumps(dict(counts=dict(counts), entries=len(rows), catalogue=len(dump), builtins=len(builtins),
+    print(json.dumps(dict(counts=dict(counts), entries=len(rows), catalogue=len(dump), declared=len(declared),
                           fragments=len(fragments), code_bytes=sum(len(v["text"]) for v in fragments.values())), indent=1))
 
 

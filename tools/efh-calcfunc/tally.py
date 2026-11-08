@@ -46,6 +46,68 @@ def formula_label(formula, formulas, cell):
     operator = re.search(r'<>|<=|>=|[<>=&+*/^%\-]', tokens)
     return 'Infix ' + operator.group() if operator else 'Formula without function'
 
+ERROR_LITERAL = re.compile(r'#(?:REF!|NAME\?|VALUE!|DIV/0!|N/A|NUM!|NULL!|SPILL!|CALC!|GETTING_DATA|FIELD!|BLOCKED!|CONNECT!|UNKNOWN!|BUSY!|PYTHON!)')
+OPERAND_END = re.compile(r'[A-Za-z0-9_$)\]!#%]')
+OPERAND_START = re.compile(r"[A-Za-z0-9_$(\[']")
+
+
+def operators_of(formula):
+    """The operator uses a formula contains, read from its text (strings, quoted sheet names,
+    structured references, array constants and error literals set aside): the prefix, postfix and
+    reference operators that the infix label of `formula_label` cannot see. Returns catalogue
+    names (OP_NEGATE ...)."""
+    text = formula.strip().removeprefix('=')
+    text = re.sub(r'"(?:[^"]|"")*"', '"s"', text)
+    text = re.sub(r"'(?:[^']|'')+'", "'n'", text)
+    text = re.sub(r'\{[^{}]*\}', '{a}', text)
+    text = ERROR_LITERAL.sub('#E', text)
+    while re.search(r'\[[^\[\]]*\]', text):
+        text = re.sub(r'\[[^\[\]]*\]', 'q', text)
+    found = set()
+    stack = []          # 'call' for a parenthesis that opens a function call, else 'group'
+    previous = ''       # the last significant character
+    i = 0
+    while i < len(text):
+        c = text[i]
+        if c.isspace():
+            j = i
+            while j < len(text) and text[j].isspace():
+                j += 1
+            if previous and OPERAND_END.match(previous) and j < len(text) and OPERAND_START.match(text[j]):
+                found.add('OP_INTERSECTION_REF')
+            i = j
+            continue
+        if c == '(':
+            stack.append('call' if previous and re.match(r'[A-Za-z0-9_.]', previous) else 'group')
+        elif c == ')':
+            if stack:
+                stack.pop()
+        elif c == ',':
+            if stack and stack[-1] == 'group':
+                found.add('OP_UNION_REF')
+        elif c == ':':
+            after = text[i + 1:i + 2] == '.'
+            if previous == '.' and after:
+                found.add('OP_TRIM_REF_BOTH')
+            elif previous == '.':
+                found.add('OP_TRIM_REF_LEADING')
+            elif after:
+                found.add('OP_TRIM_REF_TRAILING')
+            else:
+                found.add('OP_RANGE_REF')
+        elif c == '@':
+            found.add('OP_IMPLICIT_INTERSECTION')
+        elif c == '#':
+            if previous and OPERAND_END.match(previous):
+                found.add('OP_SPILL_REF')
+        elif c == '%':
+            found.add('OP_PERCENT')
+        elif c in '+-' and (previous == '' or previous in '(,=<>&+-*/^:@' ):
+            found.add('OP_NEGATE' if c == '-' else 'OP_UNARY_PLUS')
+        previous = c
+        i += 1
+    return found
+
 
 def ordered(bits):
     n = int(bits, 16)
@@ -56,12 +118,23 @@ def number(bits):
     return struct.unpack('>d', bytes.fromhex(bits))[0]
 
 
+def mismatch_kind(verdict, e, a):
+    """('last_bit', ulp), ('larger_numeric',) or ('other_mismatch',) for one mismatched cell."""
+    x = e.get('excel_raw') if e else None
+    y = a.get('returned', {}).get('value') if a else None
+    if verdict.get('class') != 'capture' and isinstance(x, dict) and isinstance(y, dict) and set(x) == set(y) == {'number'}             and math.isfinite(number(x['number'])) and math.isfinite(number(y['number'])):
+        distance = abs(ordered(x['number']) - ordered(y['number']))
+        return ('last_bit', distance) if distance <= 16 else ('larger_numeric',)
+    return ('other_mismatch',)
+
+
 def tally(corpus):
     corpus = Path(corpus)
     summary = json.loads((corpus / 'summary.json').read_text())
     version = summary.get('version', 1)
     key = lambda r: (r['sheet'], r['row'], r['column'])
     functions = {}
+    operator_rows = {}
     nested = Counter()
     pending = 0
     for workbook in summary['workbooks']:
@@ -103,22 +176,38 @@ def tally(corpus):
                 elif state in ('external_link', 'circular_rule', 'awaiting_capture'):
                     row['pending'] += 1
                 elif state == 'mismatched':
-                    e, a = expected.get(k), actual.get(k)
-                    x = e.get('excel_raw') if e else None
-                    y = a.get('returned', {}).get('value') if a else None
-                    if verdict.get('class') != 'capture' and isinstance(x, dict) and isinstance(y, dict) and set(x) == set(y) == {'number'} \
-                            and math.isfinite(number(x['number'])) and math.isfinite(number(y['number'])):
-                        distance = abs(ordered(x['number']) - ordered(y['number']))
-                        if distance <= 16:
-                            row['last_bit'] += 1
-                            row['worst_ulp'] = max(row['worst_ulp'], distance)
-                        else:
-                            row['larger_numeric'] += 1
-                    else:
-                        row['other_mismatch'] += 1
+                    kind = mismatch_kind(verdict, expected.get(k), actual.get(k))
+                    row[kind[0]] += 1
+                    if kind[0] == 'last_bit':
+                        row['worst_ulp'] = max(row['worst_ulp'], kind[1])
                 else:
                     row['refused'] += 1
+                # Operator uses, read from the parsed formula. A matched cell is evidence for every
+                # operator it uses. A cell that is not matched is charged to the operators only when
+                # the formula calls no function, so a failing function is never blamed on an operator
+                # beside it; cells held back (links, circular rules, awaiting capture) count as pending.
+                used = operators_of(formula) if formula else set()
+                if used:
+                    function_free = not CALL.search(re.sub(r'"(?:[^"]|"")*"', '', formula))
+                    for name in used:
+                        op = operator_rows.setdefault(name, Counter())
+                        if state == 'matched' and not ('external_links' in verdict or 'circular_rule' in verdict):
+                            op['cells'] += 1
+                            op['matched'] += 1
+                        elif state in ('external_link', 'circular_rule', 'awaiting_capture') or state == 'matched':
+                            op['cells'] += 1
+                            op['pending'] += 1
+                        elif function_free:
+                            op['cells'] += 1
+                            if state == 'mismatched':
+                                kind = mismatch_kind(verdict, expected.get(k), actual.get(k))
+                                op[kind[0]] += 1
+                                if kind[0] == 'last_bit':
+                                    op['worst_ulp'] = max(op['worst_ulp'], kind[1])
+                            else:
+                                op['refused'] += 1
     return {'functions': {k: dict(v) for k, v in sorted(functions.items())},
+            'operators': {k: dict(v) for k, v in sorted(operator_rows.items())},
             'nested_matched': dict(sorted(nested.items())),
             'wholly_pending_cells': pending,
             'totals': summary['totals']['counts']}

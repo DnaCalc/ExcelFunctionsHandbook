@@ -1,48 +1,47 @@
 {
   "repository": "https://github.com/DnaCalc/DnaCalc",
-  "commit": "9e1884369a678158dd82d3d74188daf986995e87",
-  "commit_date": "2026-11-07",
-  "measured_application_revision": "919dd43269b918b9ea5445eb14ffd30a80685639",
-  "report_commit": "492888e0c0b9ae1b6e1d0d31844c07710c5ad4ea",
+  "commit": "f0be6d1471725bc6d989ea5884c376411b45f50d",
+  "commit_date": "2026-11-08",
+  "measured_application_revision": "1c0f758f54f703c9a0ab36bd2c2b655e1f1f8782",
+  "report_commit": "ffaf950ee8d89cfb700c4e8ffa0eaf620ee92f65",
   "calc_func_unchanged_since_report": false,
   "answer_bank": {
     "rows": 3910007,
-    "matched": 3831336,
-    "failed": 78671,
+    "matched": 3887443,
+    "failed": 22564,
     "counts": {
-      "matched": 3831336,
+      "matched": 3887443,
       "refused": 994,
-      "last_bit": 72432,
-      "larger_numeric": 4577,
-      "other_mismatch": 552,
+      "last_bit": 19183,
+      "larger_numeric": 1747,
+      "other_mismatch": 524,
       "unread": 116
     },
-    "pass_rate": 0.9798795756631637,
-    "canonical_trace_sha256": "5f9458ce2ba4428aa9a960a68ff95d666e9e09eeeedd5b22a8f3f5240f0a5b12"
+    "pass_rate": 0.9942291663416459,
+    "canonical_trace_sha256": "5ed8af3a3f8e335f70a05c4dbf46d926c500ed304b0230baeac138c6db234da9"
   },
   "corpus": {
     "formula_cells": 54794,
-    "matched": 52988,
-    "inclusive_failed": 1806,
+    "matched": 54094,
+    "inclusive_failed": 700,
     "awaiting_capture": 100,
-    "pass_rate": 0.9670401868817754,
+    "pass_rate": 0.987224878636347,
     "other_failed_verdicts": {
-      "not_modeled": 307,
-      "not_run": 7
+      "not_run": 1
     },
-    "mismatches": 1305,
+    "mismatches": 512,
     "counts": {
-      "larger_numeric": 529,
-      "last_bit": 575,
-      "other_mismatch": 201
+      "larger_numeric": 124,
+      "last_bit": 343,
+      "other_mismatch": 45
     }
   },
-  "rule": "Last-bit: finite numeric mismatches <=16 ULP; larger numeric: >16 ULP. This split is triage, not a relaxed verdict. Every mismatch, refusal, unread, missing, pending, external and circular-policy cell remains an inclusive failure. Corpus labels follow exact single-cell aliases, infer calls from formula spelling and unwrap INDEX selections; unresolved references and infix operators remain explicit. Bank functions use canonical judge identities. Counts are observations per source; corpus and bank may overlap and must not be added as unique calls. Bank reference/locale context gaps remain failures, not proven numerical defects.",
+  "rule": "Last-bit: finite numeric mismatches <=16 ULP; larger numeric: >16 ULP. This split is triage, not a relaxed verdict. Every mismatch, refusal, unread, missing, pending, external and circular-policy cell remains an inclusive failure. Corpus labels follow exact single-cell aliases, infer calls from formula spelling and unwrap INDEX selections; unresolved references and infix operators remain explicit. Bank functions use canonical judge identities. Counts are observations per source; corpus and bank may overlap and must not be added as unique calls. Bank reference/locale context gaps remain failures, not proven numerical defects. Rows are ordered by corpus mismatch count, then corpus larger differences, then bank nonpasses.",
   "sources": {
-    "docs/generated/problem-functions.json": "166ef6ce4e1a411669884fb57cd06497fc41de7baff1e474b7175bfb77aeb86e",
+    "docs/generated/problem-functions.json": "a092166df2045bffbde23fa054a7dc7567542bebc98ca5beb76eb087f61b2ff5",
     "docs/generated/numeric-fingerprints.json": "3f5d16d289cd36f0539eab4c91e2fdacd650013290a3d7652ed2cade994d4fc6",
-    "crates/calc-func/witness-status.tsv": "ead0370451fece140ca4851c368a391fe46425ea649aa9c13c8755c4b1a42e1d",
+    "crates/calc-func/witness-status.tsv": "8daec82d201115d60b12af6fe125f6ce024c0ad438db9a3104fdbb25b511c560",
     "crates/calc-func/witness-differences.tsv": "ece00c7704cb7732324b464c44adbc495acae7485d924a0160ac91eb231fc412",
-    "crates/calc-fml/src/eval/builtins.rs": "bfe4b0f216ec361075e84cdcc5e3dfc61c7dad0464df1d226858dd32d25c228d"
+    "crates/calc-fml/src/eval/builtins.rs": "9ecbb9305316b30ac3132b534ecea9585a13afc8633c157943a7d97619870fd6"
   }
 }

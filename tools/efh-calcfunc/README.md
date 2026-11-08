@@ -17,11 +17,11 @@ at the pin, and stops if the corpus tally, the bank table and `problem-functions
 
 | Input at the pin | Gives |
 |---|---|
-| `crates/calc-func` catalogue, through `dump/` | signature, arity, parameter classes |
-| `crates/calc-fml/src/eval/builtins.rs` | names the formula layer knows |
+| `crates/calc-func` catalogue, through `dump/` | signature, arity, parameter classes, and each entry's kind, implementation (held, binding, not held, deferred, with owner) and availability: these decide the deferred and host states |
+| `crates/calc-fml/src/eval/builtins.rs` | its hash only: the names it lists are built from the catalogue |
 | `crates/calc-func/witness-status.tsv` | answer-bank rows, matches and worst ULP per function |
 | `docs/generated/problem-functions.json` | mismatch classes per function, and the rule |
-| corpus run (`tally.py`) | workbook cells per function, the denominator the report omits |
+| corpus run (`tally.py`) | workbook cells per function, the denominator the report omits; and per operator (`operators`), read from the parsed formula text, so prefix, postfix and reference operators get their own counts. A matched cell counts for every operator it uses; an unmatched cell is charged to the operators only when the formula calls no function |
 | `crates/calc-func/witness-differences.tsv` | conflicting Excel readings |
 | source text (`rustindex.py`) | quoted entry, its kernels, shared kernels |
 

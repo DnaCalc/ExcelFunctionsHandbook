@@ -10,7 +10,7 @@
     "registry_generation": 0,
     "registry_content_fingerprint": "1f4b1600bdfad07e",
     "tool": "efh-ingest 0.2.0",
-    "calcfunc_commit": "9e1884369a678158dd82d3d74188daf986995e87"
+    "calcfunc_commit": "f0be6d1471725bc6d989ea5884c376411b45f50d"
   },
   "vintage_states": {
     "absent:no-live-registry-entry-for-this-id": {
@@ -76,8 +76,8 @@
     "split_combined_rows": 7,
     "functions": 531,
     "operators": 23,
-    "registry_backed": 515,
-    "export_only": 39,
+    "registry_backed": 537,
+    "export_only": 17,
     "deferred": 0,
     "placeholder_signatures": 0,
     "with_docs_link": 518,
@@ -833,49 +833,49 @@
       "surface_name": "CUBEKPIMEMBER",
       "entry_kind": "built_in_function",
       "category": "Cubes",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.CUBEMEMBER",
       "surface_name": "CUBEMEMBER",
       "entry_kind": "built_in_function",
       "category": "Cubes",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.CUBEMEMBERPROPERTY",
       "surface_name": "CUBEMEMBERPROPERTY",
       "entry_kind": "built_in_function",
       "category": "Cubes",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.CUBERANKEDMEMBER",
       "surface_name": "CUBERANKEDMEMBER",
       "entry_kind": "built_in_function",
       "category": "Cubes",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.CUBESET",
       "surface_name": "CUBESET",
       "entry_kind": "built_in_function",
       "category": "Cubes",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.CUBESETCOUNT",
       "surface_name": "CUBESETCOUNT",
       "entry_kind": "built_in_function",
       "category": "Cubes",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.CUBEVALUE",
       "surface_name": "CUBEVALUE",
       "entry_kind": "built_in_function",
       "category": "Cubes",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.CUMIPMT",
@@ -1211,7 +1211,7 @@
       "surface_name": "EUROCONVERT",
       "entry_kind": "built_in_function",
       "category": "User defined functions that are installed with add-ins",
-      "admission": "not_implemented"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.EVEN",
@@ -1386,7 +1386,7 @@
       "surface_name": "FLATTEN",
       "entry_kind": "built_in_function",
       "category": "Lookup and reference functions",
-      "admission": "not_implemented"
+      "admission": "deferred"
     },
     {
       "function_id": "FUNC.FLOOR",
@@ -1568,7 +1568,7 @@
       "surface_name": "GETPIVOTDATA",
       "entry_kind": "built_in_function",
       "category": "Lookup and reference functions",
-      "admission": "not_modelled"
+      "admission": "implemented"
     },
     {
       "function_id": "FUNC.GROUPBY",
@@ -1596,21 +1596,21 @@
       "surface_name": "HAS",
       "entry_kind": "built_in_function",
       "category": "Lookup and reference functions",
-      "admission": "not_implemented"
+      "admission": "deferred"
     },
     {
       "function_id": "FUNC.HASALL",
       "surface_name": "HASALL",
       "entry_kind": "built_in_function",
       "category": "Lookup and reference functions",
-      "admission": "not_implemented"
+      "admission": "deferred"
     },
     {
       "function_id": "FUNC.HASANY",
       "surface_name": "HASANY",
       "entry_kind": "built_in_function",
       "category": "Lookup and reference functions",
-      "admission": "not_implemented"
+      "admission": "deferred"
     },
     {
       "function_id": "FUNC.HEX2BIN",
@@ -1715,7 +1715,7 @@
       "surface_name": "IMAGE",
       "entry_kind": "built_in_function",
       "category": "Lookup and reference functions",
-      "admission": "not_implemented"
+      "admission": "host"
     },
     {
       "function_id": "FUNC.IMAGINARY",
@@ -3843,7 +3843,7 @@
       "surface_name": "WEBSERVICE",
       "entry_kind": "built_in_function",
       "category": "Web functions",
-      "admission": "not_implemented"
+      "admission": "host"
     },
     {
       "function_id": "FUNC.WEEKDAY",
