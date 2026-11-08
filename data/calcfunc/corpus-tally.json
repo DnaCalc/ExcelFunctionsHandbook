@@ -445,6 +445,34 @@
       "cells": 3,
       "matched": 3
     },
+    "CUBEKPIMEMBER": {
+      "cells": 2,
+      "matched": 2
+    },
+    "CUBEMEMBER": {
+      "cells": 12,
+      "matched": 12
+    },
+    "CUBEMEMBERPROPERTY": {
+      "cells": 9,
+      "matched": 9
+    },
+    "CUBERANKEDMEMBER": {
+      "cells": 31,
+      "matched": 31
+    },
+    "CUBESET": {
+      "cells": 22,
+      "matched": 22
+    },
+    "CUBESETCOUNT": {
+      "cells": 11,
+      "matched": 11
+    },
+    "CUBEVALUE": {
+      "cells": 43,
+      "matched": 43
+    },
     "CUMIPMT": {
       "cells": 238,
       "matched": 186,
@@ -766,6 +794,18 @@
       "cells": 8,
       "matched": 8
     },
+    "FORECAST.ETS": {
+      "cells": 608,
+      "refused": 608
+    },
+    "FORECAST.ETS.CONFINT": {
+      "cells": 608,
+      "refused": 608
+    },
+    "FORECAST.ETS.SEASONALITY": {
+      "cells": 356,
+      "refused": 356
+    },
     "FORECAST.LINEAR": {
       "cells": 7,
       "matched": 7
@@ -848,8 +888,10 @@
       "matched": 4
     },
     "GETPIVOTDATA": {
-      "cells": 2,
-      "matched": 2
+      "cells": 124,
+      "matched": 58,
+      "refused": 61,
+      "other_mismatch": 5
     },
     "GROUPBY": {
       "cells": 428,
@@ -1132,9 +1174,9 @@
       "matched": 7
     },
     "Infix &": {
-      "cells": 478,
+      "cells": 479,
       "pending": 1,
-      "matched": 472,
+      "matched": 473,
       "other_mismatch": 5
     },
     "Infix *": {
@@ -1883,8 +1925,8 @@
       "pending": 1
     },
     "SUM": {
-      "cells": 162,
-      "matched": 153,
+      "cells": 163,
+      "matched": 154,
       "pending": 9
     },
     "SUMIF": {
@@ -2184,6 +2226,22 @@
       "cells": 7,
       "matched": 7
     },
+    "XLFN.FORECAST.ETS": {
+      "cells": 372,
+      "matched": 372
+    },
+    "XLFN.FORECAST.ETS.CONFINT": {
+      "cells": 372,
+      "matched": 372
+    },
+    "XLFN.FORECAST.ETS.SEASONALITY": {
+      "cells": 624,
+      "matched": 624
+    },
+    "XLFN.FORECAST.ETS.STAT": {
+      "cells": 980,
+      "matched": 980
+    },
     "XLOOKUP": {
       "cells": 75,
       "matched": 75
@@ -2251,8 +2309,8 @@
       "matched": 1
     },
     "OP_NEGATE": {
-      "cells": 2656,
-      "matched": 2655,
+      "cells": 2657,
+      "matched": 2656,
       "other_mismatch": 1
     },
     "OP_PERCENT": {
@@ -2260,8 +2318,8 @@
       "matched": 9
     },
     "OP_RANGE_REF": {
-      "cells": 5762,
-      "matched": 5724,
+      "cells": 5764,
+      "matched": 5726,
       "pending": 38
     },
     "OP_SPILL_REF": {
@@ -2307,7 +2365,10 @@
     "COUNTA": 2,
     "COUNTBLANK": 2,
     "COUNTIF": 1,
-    "DATE": 171,
+    "CUBEMEMBER": 1,
+    "CUBESET": 4,
+    "DATE": 173,
+    "DATEVALUE": 1,
     "DAY": 4,
     "DROP": 1,
     "ENCODEURL": 3,
@@ -2319,6 +2380,11 @@
     "FIXED": 3,
     "FN": 10,
     "FOO": 2,
+    "FORECAST.ETS": 372,
+    "FORECAST.ETS.CONFINT": 372,
+    "FORECAST.ETS.SEASONALITY": 624,
+    "FORECAST.ETS.STAT": 980,
+    "GETPIVOTDATA": 1,
     "GROUPBY": 110,
     "HSTACK": 223,
     "IF": 21,
@@ -2326,7 +2392,7 @@
     "IFNA": 9,
     "IFS": 5,
     "INDEX": 7539,
-    "INDIRECT": 37,
+    "INDIRECT": 38,
     "ISNUMBER": 2,
     "ISOMITTED": 2,
     "LAMBDA": 141,
@@ -2345,8 +2411,8 @@
     "MONTH": 4,
     "MROUND": 1,
     "N": 3,
-    "NA": 62,
-    "OFFSET": 24,
+    "NA": 64,
+    "OFFSET": 25,
     "PI": 24,
     "PIVOTBY": 67,
     "PRODUCT": 2,
@@ -2388,27 +2454,27 @@
   "wholly_pending_cells": 100,
   "totals": {
     "agreed_rejections": 8,
-    "awaiting_capture": 100,
+    "awaiting_capture": 108,
     "circular_rule": 14,
     "external_links": 73,
-    "fail": 698,
+    "fail": 2344,
     "failed_or_missing": 1,
     "failed_or_missing_by_verdict": {
       "not_run": 1
     },
-    "formula_cells": 54794,
-    "mismatched": 510,
-    "pass": 54096,
-    "pass_rate": 0.9872613789831003,
-    "refused": 0,
+    "formula_cells": 58976,
+    "mismatched": 515,
+    "pass": 56632,
+    "pass_rate": 0.9602550189907759,
+    "refused": 1633,
     "saved_excel_oracle": {},
     "source_cache_classes": {
       "array-cache-shape-unclassified": 3,
       "different": 667,
       "no-live-excel-observation": 9,
-      "same": 1646,
-      "source-cache-missing": 52369
+      "same": 1900,
+      "source-cache-missing": 56289
     }
   },
-  "commit": "562b6fbad38853afcab0d7387a763efa913c319a"
+  "commit": "b449f066d3ba9607fe9b26be84d737a2f15ad772"
 }

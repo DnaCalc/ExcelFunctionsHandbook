@@ -497,6 +497,13 @@ def main():
             # were re-recorded can still list failures for a function whose rows now all match.
             print(f"note: problem-functions.json lists bank failures for {name} but witness-status.tsv matches all {rows} rows; using the status table", file=sys.stderr)
             merged = dict.fromkeys(merged, 0)
+        short = rows - matched - sum(merged.values())
+        if short > 0 and any(merged.values()) or short > 0 and rows != matched:
+            # The problem list was generated before the rows were re-recorded and does not explain
+            # every mismatch the status table counts (or lists none). The status table is the count
+            # of record; the unexplained remainder is reported as a difference in kind or value.
+            print(f"note: witness-status.tsv counts {short} more mismatches for {name} than problem-functions.json lists; counted as other_mismatch", file=sys.stderr)
+            merged["other_mismatch"] += short
         if rows - matched != sum(merged.values()):
             raise SystemExit(f"bank counts do not reconcile for {name}")
         ulp = 0 if row["worst_ulp"] == "-" else int(row["worst_ulp"])

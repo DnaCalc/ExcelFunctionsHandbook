@@ -1,46 +1,48 @@
 {
   "repository": "https://github.com/DnaCalc/DnaCalc",
-  "commit": "562b6fbad38853afcab0d7387a763efa913c319a",
+  "commit": "b449f066d3ba9607fe9b26be84d737a2f15ad772",
   "commit_date": "2026-11-08",
-  "measured_application_revision": "cc9cff0cb216dc836020f68f42430faf2f1615ae",
-  "report_commit": "65716b44c0afa368210c958d8493aa4badbd269b",
+  "measured_application_revision": "b49c0b5ec43792a008570fefee40daa83f24fd7d",
+  "report_commit": "09c7107837a7fbf0e8bfe1418bff8f314901a736",
   "calc_func_unchanged_since_report": false,
   "answer_bank": {
     "rows": 3910007,
-    "matched": 3887612,
-    "failed": 22395,
+    "matched": 3887817,
+    "failed": 22190,
     "counts": {
-      "matched": 3887612,
-      "refused": 994,
+      "matched": 3887817,
       "last_bit": 19018,
       "larger_numeric": 1743,
-      "other_mismatch": 524,
+      "other_mismatch": 523,
+      "refused": 790,
       "unread": 116
     },
-    "pass_rate": 0.9942723887706595,
-    "canonical_trace_sha256": "5101605af60322ec670115436e49ea729f6388e0d21edaf102ac8e0ed99d5d5b"
+    "pass_rate": 0.994324818344315,
+    "canonical_trace_sha256": "e88c6d03df3dadf0fc4847356a13339061c52f01d1c2018fb93f6bbb693c3644"
   },
   "corpus": {
-    "formula_cells": 54794,
-    "matched": 54096,
-    "inclusive_failed": 698,
-    "awaiting_capture": 100,
-    "pass_rate": 0.9872613789831003,
+    "formula_cells": 58722,
+    "matched": 56444,
+    "inclusive_failed": 2278,
+    "awaiting_capture": 108,
+    "pass_rate": 0.9612070433568339,
     "other_failed_verdicts": {
-      "not_run": 1
+      "not_run": 1,
+      "not_modeled": 1572
     },
     "mismatches": 510,
     "counts": {
       "larger_numeric": 124,
       "last_bit": 341,
-      "other_mismatch": 45
+      "other_mismatch": 45,
+      "refused": 1572
     }
   },
-  "rule": "Last-bit: finite numeric mismatches <=16 ULP; larger numeric: >16 ULP. This split is triage, not a relaxed verdict. Every mismatch, refusal, unread, missing, pending, external and circular-policy cell remains an inclusive failure. Corpus labels follow exact single-cell aliases, infer calls from formula spelling and unwrap INDEX selections; unresolved references and infix operators remain explicit. Bank functions use canonical judge identities. Counts are observations per source; corpus and bank may overlap and must not be added as unique calls. Bank reference/locale context gaps remain failures, not proven numerical defects. Rows are ordered by corpus mismatch count, then corpus larger differences, then bank nonpasses.",
+  "rule": "Last-bit: finite numeric mismatches <=16 ULP; larger numeric: >16 ULP. This split is triage, not a relaxed verdict. Every mismatch, refusal, unread, missing, pending, external and circular-policy cell remains an inclusive failure. Corpus labels follow exact single-cell aliases, infer calls from formula spelling and unwrap INDEX selections; unresolved references and infix operators remain explicit. Bank functions use canonical judge identities. Counts are observations per source; corpus and bank may overlap and must not be added as unique calls. Bank reference/locale context gaps remain failures, not proven numerical defects. Rows are ordered by corpus mismatches plus refusals, then corpus larger differences, then bank nonpasses.",
   "sources": {
-    "docs/generated/problem-functions.json": "ce0a77d4f817f90628cb9ee1c05172c007a9591140f9da8eb504ff58ee60787b",
+    "docs/generated/problem-functions.json": "d7db31581928b8c1bb31078a9e5cedd09edca8774fcdc6f88d6848cd012728ff",
     "docs/generated/numeric-fingerprints.json": "3f5d16d289cd36f0539eab4c91e2fdacd650013290a3d7652ed2cade994d4fc6",
-    "crates/calc-func/witness-status.tsv": "b55ca2c2462ac24240265ce315984fed6b9fdea1d42d611424bfc76a1652711d",
+    "crates/calc-func/witness-status.tsv": "c3cf425e0955cfb18db800f26a7f3c7a3e2f10573321da3adc529f350161207e",
     "crates/calc-func/witness-differences.tsv": "ece00c7704cb7732324b464c44adbc495acae7485d924a0160ac91eb231fc412",
     "crates/calc-fml/src/eval/builtins.rs": "9ecbb9305316b30ac3132b534ecea9585a13afc8633c157943a7d97619870fd6"
   }
