@@ -38,6 +38,14 @@ Two points that trip up implementers:
    treat them differently. The full story is in "Missing versus Empty" below.
 2. **Errors are values.** `#DIV/0!` flows through arithmetic and function calls like any
    other scalar; nothing is "thrown". Propagation discipline is a coercion topic (chapter 02).
+3. **Subnormal numbers and `-0` depend on how they enter a cell.** Writing any signed subnormal
+   binary64 value (`0 < abs(x) < 2^-1022`) or `-0` to a cell via `Range.Value2` stores `+0`
+   (`0x0000000000000000`), and `*`, `/` and `^` flush subnormal results to `+0`, whereas `+`,
+   `-` and `EXP(-745)` (`0x0000000000000001`) can produce and preserve a true subnormal in a
+   formula cell (measured in Excel 16.0 build 20527 on 2026-11-08; see
+   [Staged arithmetic](09-staged-arithmetic.md#subnormal-cell-storage-and-arithmetic-flushing),
+   [sweep-questions-1-ANSWERS.md](../notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md),
+   `C:\Work\DnaCalc\codex-runs\sweep-questions-1\ANSWERS.md`, and `Q1-subnormal-inputs.json`).
 
 ### Reference shapes
 

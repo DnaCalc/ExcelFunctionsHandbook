@@ -123,6 +123,53 @@ instructions. The rational arithmetic procedure above implements their basic ari
 but does not supply `FYL2X` or `F2XM1`. See the [LN](../functions/FUNC.LN.md#how-to-implement)
 and [EXP](../functions/FUNC.EXP.md#how-to-implement) guides for that remaining dependency.
 
+## Subnormal cell storage and arithmetic flushing
+
+Subnormal binary64 numbers (`0 < abs(x) < 2^-1022`) behave differently depending on how they
+enter a worksheet and which operation touches them (measured in Excel 16.0 build 20527 on
+Windows 64-bit, AMD Ryzen 7 4800H, 2026-11-08; see
+[sweep-questions-1-ANSWERS.md](../notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md),
+`C:\Work\DnaCalc\codex-runs\sweep-questions-1\ANSWERS.md`, `Q1-subnormal-inputs.json`, and
+`C:\Work\DnaCalc\codex-runs\sweep-report-2.md`):
+
+1. **Cell storage flushes subnormals and `-0` to `+0`.** Writing any positive or negative
+   subnormal binary64 pattern (such as `±0x0000000000000001`, `±0x0008000000000000` or
+   `±0x000fffffffffffff`) or `-0` (`0x8000000000000000`) to a cell through `Range.Value2`
+   stores `+0` (`0x0000000000000000`). Normal extremes `2^-1022` (`0x0010000000000000`) and
+   `±DBL_MAX` (`±0x7fefffffffffffff`) read back intact. In the 430 recorded bank rows that
+   supplied subnormal or maximum-finite cell inputs across 24 functions, all 179 subnormal-input
+   rows read back as `+0` and gave the same answer as writing `+0` directly (`SQRT(-min) = 0`,
+   `SIGN(±min) = 0`, `ODD(±min) = 1`, `EVEN(±min) = 0`, `ISEVEN(±min) = TRUE`,
+   `ISODD(±min) = FALSE`, `GESTEP(±min) = 1`, `DELTA(±min) = 1`, and `#DIV/0!` or `0` when a
+   subnormal divisor or significance in `QUOTIENT`, `CEILING` or `FLOOR` flushes to `0`).
+   Formula literals below `2.2250738585072014E-308` are either refused at entry (`1E-310`,
+   `4.9406564584124654E-324`) or parsed to `0` (`=2.2250738585072014E-308` and
+   `=2.2250738585072009E-308` become `0`, while `=2.3E-308` is kept as `0x00108b2a2c280291`),
+   and `VALUE("1E-320")` returns `#VALUE!`.
+2. **Multiplication, division and power flush subnormal results; addition and subtraction keep
+   them.** A product `*`, quotient `/` or probed power `^` whose result falls in the subnormal
+   range flushes to `+0` (`2^-1074 * 3 = 0`, `2.3E-308 * 0.5 = 0`, `2^-1022 * 0.5 = 0`,
+   `2^-1023 = 0`). Addition `+` and subtraction `-` do not flush:
+   `2^-1022 * (1 + 2^-52) - 2^-1022` retains `2^-1074` (`0x0000000000000001`), whereas
+   `2^-1022 - 2^-1023` evaluates to `2^-1022` (`0x0010000000000000`) because `2^-1023` flushes
+   to `0` before the subtraction (`Q1-subnormal-inputs.json`).
+3. **True subnormals from `EXP` survive in formula cells.** `EXP(-745)` evaluates to
+   `0x0000000000000001` (`2^-1074`), `EXP(-730)` to `0x00000000001c7ea3`, and `EXP(-709)` to
+   `0x0008bfe58468888d`. Those formula results survive in their cell and pass through `+`, `-`,
+   `SUM`, `IF`, `MIN`, `MAX`, `ROUND`, `N` and `ABS` (`EXP(-745) * 2^1000 = 2^-74`,
+   `0x3b50000000000000`). Subtracting from zero (`0 - EXP(-x)`) preserves the negative sign on
+   every tested subnormal, whereas unary negation (`-EXP(-x)`) loses the negative sign and
+   returns `+EXP(-x)` for `EXP(-712)` (`0x00006f8498862828`) and smaller while keeping the
+   negative sign for `EXP(-710)` (`0x00033a961f2419c8`) and larger. Functions receiving a true
+   computed subnormal `x` act on the nonzero value (`ABS(±x) = x`, `SQRT(+x) = 2^-537`,
+   `SQRT(-x) = #NUM!`, `EVEN(±x) = ±2`, `ODD(±x) = ±1`, `ISEVEN(±x) = TRUE`,
+   `ISODD(±x) = FALSE`, `CEILING(+x, 1) = 1`, `FLOOR(-x, 1) = -1`, `QUOTIENT(±x, 1) = 0`,
+   `DELTA(x, 0) = 0`, `DELTA(x, x) = 1`, `GESTEP(+x, 0) = 1`, `GESTEP(-x, 0) = 0`), except
+   `SIGN(+x)` and `INT(-x)`, which transition inside the subnormal range (`SIGN(+x)` is `0` at
+   `0x1c7ea3` and `1` at `0x0008bfe58468888d`; `INT(-x)` is `0` at `0x1c7ea3` and `-1` at
+   `0x0008bfe58468888d`; see [DnaCalc `c0b94f88`](https://github.com/DnaCalc/DnaCalc/commit/c0b94f88ab4e3df5b518329d08ea03cf481abdbe)
+   and [`e042619e`](https://github.com/DnaCalc/DnaCalc/commit/e042619e35426ffac3d8cfaaa2dd2961abe3d02c)).
+
 ## Decimal-family packing exceptions
 
 The ROUND family has measured output encodings that are separate from the ordinary binary64
