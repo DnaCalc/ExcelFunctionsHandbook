@@ -81,12 +81,21 @@ non-monotonic sits in between.
 Returns `Number`.
 
 - **Zero.** `|0| = 0`. The interesting sub-case is negative zero: IEEE 754 distinguishes `-0`
-  from `+0`, and absolute value maps `-0` to `+0`. Whether a negative zero can reach an Excel
-  worksheet function at all, and what it displays as if it does, is not settled on this page.
-- **Subnormals.** Pass through with their magnitude unchanged; there is no underflow, because no
-  arithmetic happens.
-- **The largest finite double.** Passes through unchanged; there is no overflow, for the same
-  reason.
+  from `+0`, and absolute value maps `-0` to `+0`. Writing `-0` (`0x8000000000000000`) to a
+  worksheet cell via `Range.Value2` stores `+0` (`0x0000000000000000`) in Excel 16.0 build
+  20527 ([sweep-questions-1-ANSWERS.md](../notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md),
+  `C:\Work\DnaCalc\codex-runs\sweep-questions-1\Q1-subnormal-inputs.json`).
+- **Subnormals.** Writing any positive or negative subnormal binary64 value (`±5e-324` through
+  `±(2^-1022 - 5e-324)`) to a cell via `Range.Value2` flushes the stored cell value to `+0`,
+  and `*`, `/`, and probed `^` underflows in the subnormal range also flush to `+0`, whereas `+`,
+  `-`, and `EXP(-745)` (`0x0000000000000001`) keep true subnormals in formula cells
+  ([FN-ABS-002](../notes/FN-ABS-002.json), `Q1-subnormal-inputs.json`). When `ABS` receives a
+  true computed subnormal `±x` from `EXP(-745)` (`0x0000000000000001`), `EXP(-730)`
+  (`0x00000000001c7ea3`), or `EXP(-709)` (`0x0008bfe58468888d`) (with `0 - x` for the negative
+  input), it returns `x` unchanged.
+- **The largest finite double.** `±1.7976931348623157e+308` (`0x7fefffffffffffff` /
+  `0xffefffffffffffff`) reads back intact from cells and passes through `ABS` as
+  `0x7fefffffffffffff` (`Q1-subnormal-inputs.json`).
 - **Logicals.** Convert by the shared rule (`TRUE` to 1, `FALSE` to 0) before the kernel sees
   them.
 - **Text that reads as a number.** Converts as a direct argument under the shared to-number rule;
@@ -159,6 +168,13 @@ reason.
 argument admissible — `SQRT(ABS(x))`, `LN(ABS(x))`. This silently changes the function being
 computed. The Handbook notes it because it turns a `#NUM!` into a plausible wrong answer, which is
 the worse of the two failures.
+
+**Subnormal and cell-input boundary in DNA Calc.** In `crates/calc-func/src/catalogue/math.rs`
+(commit `e042619e35426ffac3d8cfaaa2dd2961abe3d02c`) and `crates/calc-func/src/witness_exec.rs`
+(commit `c0b94f88ab4e3df5b518329d08ea03cf481abdbe`), `ABS` clears the sign bit (`x.abs()`),
+preserving true computed subnormals such as `ABS(0 - EXP(-745)) = 5e-324` (`0x0000000000000001`),
+while cell-input replay flushes subnormal `Range.Value2` cell writes to `+0`. DNA Calc matches
+all 1,227 of 1,227 recorded `ABS` bank rows (`C:\Work\DnaCalc\codex-runs\sweep-report-2.md`).
 
 ## What has not been checked
 
@@ -245,6 +261,51 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt108, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-text-controls.capture.json`, sheet qt112, row 20, column 10 at `2d0eddcac8` (readings)
 
+### FN-ABS-002: Subnormal cell writes and *, /, ^ underflows flush to +0, while +, - and EXP(-745) keep subnormals
+
+*Quirk; measured; recorded 2026-11-08.* Applies to ABS, CEILING, CEILING.MATH, CEILING.PRECISE, DELTA, EVEN, EXP, FLOOR, FLOOR.MATH, FLOOR.PRECISE, GESTEP, INT, ISEVEN, ISO.CEILING, ISODD, ODD, QUOTIENT, SIGN, SQRT.
+
+Writing any positive or negative subnormal binary64 value or -0 to a cell via Range.Value2
+stores +0 (0x0000000000000000), while normal extremes 2^-1022 (0x0010000000000000) and ±DBL_MAX
+(0x7fefffffffffffff) read back intact. In the 430 recorded bank rows with subnormal or
+maximum-finite cell arguments, all 179 subnormal-input rows read back as +0 and match the +0
+control (SQRT(-5e-324) is 0, SIGN(±5e-324) is 0, ODD(±5e-324) is 1, EVEN(±5e-324) is 0,
+ISEVEN(±5e-324) is TRUE, ISODD(±5e-324) is FALSE, GESTEP(±5e-324) is 1, DELTA(±5e-324) is 1,
+and a subnormal divisor or significance in QUOTIENT, CEILING or FLOOR flushes to 0). Formula
+literals below 2.2250738585072014E-308 are refused at entry or parsed to 0. Products (*),
+quotients (/) and probed powers (^) that fall in the subnormal range flush to +0, whereas + and
+- retain subnormals and EXP(-745) holds 0x0000000000000001 in a formula cell. When fed a true
+computed subnormal x from EXP(-745), EXP(-730) or EXP(-709) (and 0-x for negative), ABS(±x) is
+x, SQRT(+x) is 2^-537, SQRT(-x) is #NUM!, EVEN(±x) is ±2, ODD(±x) is ±1, ISEVEN(±x) is TRUE,
+ISODD(±x) is FALSE, CEILING(+x,1) is 1, FLOOR(-x,1) is -1, QUOTIENT(±x,1) is 0, DELTA(x,0) is
+0, DELTA(x,x) is 1, GESTEP(+x,0) is 1 and GESTEP(-x,0) is 0, while SIGN(+x) and INT(-x)
+transition inside the subnormal range (0 at 0x00000000001c7ea3 and ±1 at 0x0008bfe58468888d).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `SQRT(-5e-324)` | number `-5e-324` (`0x8000000000000001`) (cells) | `0` (`0x0000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=EXP(-745)` | as typed | `5e-324` (`0x0000000000000001`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SQRT(EXP(-745))` | as typed | `2.2227587494850775e-162` (`0x1e60000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SQRT(0-EXP(-745))` | as typed | `#NUM!` | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=EVEN(EXP(-745))` | as typed | `2` (`0x4000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SIGN(EXP(-730))` | as typed | `0` (`0x0000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SIGN(EXP(-709))` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=INT(0-EXP(-730))` | as typed | `0` (`0x0000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=INT(0-EXP(-709))` | as typed | `-1` (`0xbff0000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 430 bank rows replayed with Value2 input read-back and +0 controls, 22
+subnormal bit-pattern cell-write probes, 16 literal-acceptance probes, 45 arithmetic underflow
+probes, and 180 true-subnormal function calls in Excel 16.0 build 20527 on 2026-11-08.
+
+- Open: The exact subnormal threshold between 0x00000000001c7ea3 (EXP(-730)) and 0x0008bfe58468888d (EXP(-709)) where SIGN(+x) changes from 0 to 1 and INT(-x) changes from 0 to -1 is not yet pinned.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md`](../../content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md), Q1: Subnormal and maximum-finite inputs — summary of the build 20527 subnormal and max-finite measurements
+- DnaCalc `crates/calc-func/src/witness_exec.rs`, flush_cell_value2_number at `c0b94f88ab` — cell Value2 input flushing in witness replay
+- DnaCalc `crates/calc-func/src/catalogue/math.rs` at `e042619e35` — true-subnormal handling across math, rounding and comparison functions
+- [`content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md`](../../content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md), Q1: Subnormal and maximum-finite inputs (readings)
+
 <!-- efh:notes end -->
 
 ## Excel versions, platforms and CPUs
@@ -301,3 +362,8 @@ Evidence for every row: [`content/evidence/environments/FUNC.ABS.json`](../../co
   `BUG-FUNC-022` array-lift defect stream).
 - Handbook [The value universe](../model/01-value-universe.md) and
   [Coercion and lifting](../model/02-coercion-and-lifting.md).
+- [sweep-questions-1-ANSWERS.md](../notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md)
+  (`C:\Work\DnaCalc\codex-runs\sweep-questions-1\ANSWERS.md`, `Q1-subnormal-inputs.json`) and
+  `C:\Work\DnaCalc\codex-runs\sweep-report-2.md` — Excel 16.0 build 20527 subnormal cell-write
+  flushing, true computed subnormal probes, and DNA Calc bank comparison (`c0b94f88ab`,
+  `e042619e35`).

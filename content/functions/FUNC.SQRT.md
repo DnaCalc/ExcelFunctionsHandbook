@@ -51,7 +51,7 @@ The retained build 20430 controls give `GEOMEAN(1,2)=1.414213562373095` and `SQR
 
 Recorded worksheet SQRT uses a root rounded to a 64-bit significand followed by a binary64 store. That can differ by a final bit from one correctly rounded binary64 square root. In the exact-cell control `0x3fefffffffffffff` (`0.9999999999999999`), Excel returns one; a single-rounding mathematical reference returns the preceding binary64 value.
 
-The smallest-subnormal reproduction returned zero, but its cell input was not read back. That observation does not establish a square-root underflow rule: input transfer may already have changed it to zero. A positive finite root itself fits the binary64 normal range even for the smallest positive binary64 input.
+Writing a positive or negative subnormal (`±5e-324` through `±(2^-1022 - 5e-324)`) or `-0` to a cell via `Range.Value2` flushes the stored cell value to `+0` (`0x0000000000000000`) on Excel 16.0 build 20527, which is why the recorded cell-input rows `SQRT(5e-324)` and `SQRT(-5e-324)` return `0` ([sweep-questions-1-ANSWERS.md](../notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md), `C:\Work\DnaCalc\codex-runs\sweep-questions-1\Q1-subnormal-inputs.json`). When a true subnormal reaches `SQRT` inside a formula (`EXP(-745) = 0x0000000000000001`, `EXP(-730) = 0x00000000001c7ea3`, `EXP(-709) = 0x0008bfe58468888d`), Excel computes the positive normal root (`SQRT(EXP(-745)) = 2^-537 = 2.2227587494850775e-162`, `0x1e60000000000000`) and rejects a negative computed subnormal (`SQRT(0 - EXP(-745)) = #NUM!`) ([FN-ABS-002](../notes/FN-ABS-002.json)).
 
 Compositions need their own operation order. Squaring two large components before SQRT can overflow when a scaled hypotenuse would be finite. A general POWER route or a logarithm/exponential composition also has different intermediate rounding.
 
@@ -65,7 +65,7 @@ For the finite nonnegative scalar route, reject negative inputs before the root 
 
 Worked boundary: `x=1-2^-53`. The midpoint between its two possible binary64 root results is `m=1-2^-54`. Since `m*m=x+2^-108`, the true root is slightly below m. Rounding it first to 64 significant bits gives m; the binary64 midpoint tie then selects one, whose low significand bit is even. A direct binary64 root instead selects `1-2^-53`.
 
-FN-SQRT-001 reports 41,897 matching distinct normal-positive recorded inputs, including all 164 controls where the staged and single-rounding roots differ. Its reproductions name Excel build 20430 on Windows 64-bit. These results support the stated staged route on that evidence, with no published Handbook suite or whole-domain equality claim. The input route and worksheet publication remain separate from the root primitive.
+FN-SQRT-001 reports 41,897 matching distinct normal-positive recorded inputs, including all 164 controls where the staged and single-rounding roots differ. Its reproductions name Excel build 20430 on Windows 64-bit. With cell `Range.Value2` subnormal flushing modelled at the witness boundary (`crates/calc-func/src/witness_exec.rs`, commit `c0b94f88ab4e3df5b518329d08ea03cf481abdbe`) and `SQRT` keeping true positive and negative subnormal handling in the kernel (`crates/calc-func/src/catalogue/math.rs`, commit `e042619e35426ffac3d8cfaaa2dd2961abe3d02c`), DNA Calc matches all 42,803 of 42,803 recorded `SQRT` bank rows (`C:\Work\DnaCalc\codex-runs\sweep-report-2.md`).
 
 ## Version differences
 
@@ -104,6 +104,51 @@ unexpected Excel result, needs to know. Each note gives exact binary64 inputs, E
 and where it was recorded; "measured" means the statement is read off recorded Excel answers,
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
+
+### FN-ABS-002: Subnormal cell writes and *, /, ^ underflows flush to +0, while +, - and EXP(-745) keep subnormals
+
+*Quirk; measured; recorded 2026-11-08.* Applies to ABS, CEILING, CEILING.MATH, CEILING.PRECISE, DELTA, EVEN, EXP, FLOOR, FLOOR.MATH, FLOOR.PRECISE, GESTEP, INT, ISEVEN, ISO.CEILING, ISODD, ODD, QUOTIENT, SIGN, SQRT.
+
+Writing any positive or negative subnormal binary64 value or -0 to a cell via Range.Value2
+stores +0 (0x0000000000000000), while normal extremes 2^-1022 (0x0010000000000000) and ±DBL_MAX
+(0x7fefffffffffffff) read back intact. In the 430 recorded bank rows with subnormal or
+maximum-finite cell arguments, all 179 subnormal-input rows read back as +0 and match the +0
+control (SQRT(-5e-324) is 0, SIGN(±5e-324) is 0, ODD(±5e-324) is 1, EVEN(±5e-324) is 0,
+ISEVEN(±5e-324) is TRUE, ISODD(±5e-324) is FALSE, GESTEP(±5e-324) is 1, DELTA(±5e-324) is 1,
+and a subnormal divisor or significance in QUOTIENT, CEILING or FLOOR flushes to 0). Formula
+literals below 2.2250738585072014E-308 are refused at entry or parsed to 0. Products (*),
+quotients (/) and probed powers (^) that fall in the subnormal range flush to +0, whereas + and
+- retain subnormals and EXP(-745) holds 0x0000000000000001 in a formula cell. When fed a true
+computed subnormal x from EXP(-745), EXP(-730) or EXP(-709) (and 0-x for negative), ABS(±x) is
+x, SQRT(+x) is 2^-537, SQRT(-x) is #NUM!, EVEN(±x) is ±2, ODD(±x) is ±1, ISEVEN(±x) is TRUE,
+ISODD(±x) is FALSE, CEILING(+x,1) is 1, FLOOR(-x,1) is -1, QUOTIENT(±x,1) is 0, DELTA(x,0) is
+0, DELTA(x,x) is 1, GESTEP(+x,0) is 1 and GESTEP(-x,0) is 0, while SIGN(+x) and INT(-x)
+transition inside the subnormal range (0 at 0x00000000001c7ea3 and ±1 at 0x0008bfe58468888d).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `SQRT(-5e-324)` | number `-5e-324` (`0x8000000000000001`) (cells) | `0` (`0x0000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=EXP(-745)` | as typed | `5e-324` (`0x0000000000000001`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SQRT(EXP(-745))` | as typed | `2.2227587494850775e-162` (`0x1e60000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SQRT(0-EXP(-745))` | as typed | `#NUM!` | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=EVEN(EXP(-745))` | as typed | `2` (`0x4000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SIGN(EXP(-730))` | as typed | `0` (`0x0000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=SIGN(EXP(-709))` | as typed | `1` (`0x3ff0000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=INT(0-EXP(-730))` | as typed | `0` (`0x0000000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=INT(0-EXP(-709))` | as typed | `-1` (`0xbff0000000000000`) | Excel 16.0.20527.20150, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 430 bank rows replayed with Value2 input read-back and +0 controls, 22
+subnormal bit-pattern cell-write probes, 16 literal-acceptance probes, 45 arithmetic underflow
+probes, and 180 true-subnormal function calls in Excel 16.0 build 20527 on 2026-11-08.
+
+- Open: The exact subnormal threshold between 0x00000000001c7ea3 (EXP(-730)) and 0x0008bfe58468888d (EXP(-709)) where SIGN(+x) changes from 0 to 1 and INT(-x) changes from 0 to -1 is not yet pinned.
+
+Evidence:
+
+- [`content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md`](../../content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md), Q1: Subnormal and maximum-finite inputs — summary of the build 20527 subnormal and max-finite measurements
+- DnaCalc `crates/calc-func/src/witness_exec.rs`, flush_cell_value2_number at `c0b94f88ab` — cell Value2 input flushing in witness replay
+- DnaCalc `crates/calc-func/src/catalogue/math.rs` at `e042619e35` — true-subnormal handling across math, rounding and comparison functions
+- [`content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md`](../../content/notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md), Q1: Subnormal and maximum-finite inputs (readings)
 
 ### FN-GEOMEAN-001: GEOMEAN(1,2) and SQRT(2) return adjacent values in retained build 20430 controls
 
@@ -255,3 +300,4 @@ Evidence for every row: [`content/evidence/environments/FUNC.SQRT.json`](../../c
 - [FN-SQRT-001](../notes/FN-SQRT-001.json): exact inputs, recorded results and the subnormal transfer limit.
 - [Software extended root and binary64 store](https://github.com/DnaCalc/DnaCalc/blob/da3ecc4fb19a3a5529708c311d0e8f05688ac165/crates/calc-func/src/ported/excel_numeric/soft87.rs).
 - [FN-GEOMEAN-001](../notes/FN-GEOMEAN-001.json): two retained build 20430 controls, with a rational check of the nearest square root.
+- [sweep-questions-1-ANSWERS.md](../notes/evidence/2026-11-08/sweep-questions-1-ANSWERS.md) (`C:\Work\DnaCalc\codex-runs\sweep-questions-1\ANSWERS.md`, `Q1-subnormal-inputs.json`) and `C:\Work\DnaCalc\codex-runs\sweep-report-2.md`: build 20527 subnormal cell-write flushing versus true computed subnormal `SQRT(EXP(-745))` / `SQRT(0-EXP(-745))`, and DNA Calc bank comparison (`c0b94f88ab`, `e042619e35`).
