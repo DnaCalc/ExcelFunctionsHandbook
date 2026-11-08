@@ -1364,11 +1364,12 @@ fn coverage(
         format!("{} of {ENTRIES}: {}", members.len(), members.join(", "))
     };
     h += &format!(
-        "<h2>Entries that do not calculate here</h2><dl class=\"counts wide\"><dt>Deferred by policy</dt><dd>{}</dd><dt>Not yet implemented</dt><dd>{}</dd><dt>Catalogue row that declines every call</dt><dd>{}</dd><dt>Needs a host</dt><dd>{}</dd></dl><p>Deferred by policy means the answer needs an outside service, so DNA Calc does not run the function yet; each still has a full entry. Not yet implemented means the work is still to land. These states come from the pinned commit and change when code lands.</p><p>The formula layer handles {} without a catalogue row; they calculate here.</p>",
+        "<h2>Entries that do not calculate here</h2><dl class=\"counts wide\"><dt>Deferred by policy</dt><dd>{}</dd><dt>Not yet implemented</dt><dd>{}</dd><dt>Catalogue row that declines every call</dt><dd>{}</dd><dt>Needs a host</dt><dd>{}</dd><dt>Not in Excel</dt><dd>{}</dd></dl><p>Deferred by policy means the answer needs an outside service, so DNA Calc does not run the function yet; each still has a full entry. Not yet implemented means the work is still to land. These states come from the pinned commit and change when code lands.</p><p>The formula layer handles {} without a catalogue row; they calculate here.</p>",
         group("deferred"),
         group("not_implemented"),
         group("not_modelled"),
         group("host"),
+        group("absent"),
         group("formula_layer"),
     );
     h+=&format!("<h2>Notes</h2><p>{} note records, rendered from <code>content/notes/FN-*.json</code>. {} The generated output includes its own <a href=\"../api/notes.json\">notes API</a> derived from those same records. <a href=\"../notes/index.html\">Read the notes</a>.</p>",input.notes.len(),if input.note_api_matches {"The checked-in notes API agrees with these inputs."}else{"The checked-in notes API differs from source JSON; this site uses the source records to avoid dropping later notes."});

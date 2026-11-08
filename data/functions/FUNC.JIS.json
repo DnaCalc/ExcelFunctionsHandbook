@@ -5,8 +5,8 @@
   "entry_kind": "built_in_function",
   "category": "Compatibility",
   "admission": {
-    "label": "not_implemented",
-    "reason": "Excel 16.0 build 20527 on Windows gives #NAME? for JIS, so the catalogue holds no row for it."
+    "label": "absent",
+    "reason": "The catalogue declares this entry absent on Windows: Excel 16.0 build 20527 gives #NAME? for it, the answer a missing name gets, and the kernel returns the same."
   },
   "metadata_status": "function_meta_curated",
   "xlcall": null,
@@ -301,10 +301,10 @@
   "version_marker": null,
   "special_interface_kind": "width_conversion_host_profile",
   "admission_interface_kind": "ordinary_call",
-  "registry_backed": false,
+  "registry_backed": true,
   "vintage": {
-    "admission": "calcfunc-catalogue:f0be6d147172",
-    "arity": "calcfunc-catalogue:f0be6d147172",
+    "admission": "calcfunc-catalogue:562b6fbad388",
+    "arity": "calcfunc-catalogue:562b6fbad388",
     "artifacts": "lane-csv:FUNCTION_SLICE_CORRELATION_LEDGER.csv@473efa3:clean:undated",
     "axes": "live-registry:473efa3:clean:undated",
     "axis_provenance": "live-registry:473efa3:clean:undated",
@@ -317,9 +317,9 @@
     "localization": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "localized_names": "lane-csv:W28_FUNCTION_NAME_LOCALIZATION_LIBRARY_SEED.csv@473efa3:clean:undated",
     "metadata_status": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02",
-    "registry_backed": "calcfunc-catalogue:f0be6d147172",
-    "signature": "calcfunc-catalogue:f0be6d147172",
-    "signature_placeholder": "calcfunc-catalogue:f0be6d147172",
+    "registry_backed": "calcfunc-catalogue:562b6fbad388",
+    "signature": "calcfunc-catalogue:562b6fbad388",
+    "signature_placeholder": "calcfunc-catalogue:562b6fbad388",
     "xlcall": "export-snapshot:oxfunc-libctx-v1@87ef585:dirty:2026-04-02"
   }
 }

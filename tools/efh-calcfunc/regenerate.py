@@ -33,6 +33,7 @@ STATE_LABELS = {
     "refuses": "Refuses or not implemented",
     "deferred": "Deferred: its owner has not built it yet",
     "host": "Needs a host",
+    "absent": "Not in Excel",
     "unmeasured": "Implemented, no recorded answers attributed to it",
 }
 OPERATORS = {
@@ -220,6 +221,9 @@ def declared_group(row, spec):
         same = spec.get("kind") == group_kind
         return {"kind": group_kind, "summary": spec.get("summary") if same and spec.get("summary") else summary,
                 "reason": spec.get("reason") if same and spec.get("reason") else reason}
+    if row["availability"] == "absent_on_windows":
+        return pick("not_in_excel", "Not in Excel: recorded Windows Excel does not have it",
+                    "The catalogue declares this entry absent on Windows: Excel 16.0 build 20527 gives #NAME? for it, the answer a missing name gets, and the kernel returns the same.")
     if implementation["state"] == "deferred":
         summary, reason = DEFERRAL_TEXT[implementation["class"]]
         return pick("deferred", summary, reason.format(owner=implementation["owner"]))
@@ -252,6 +256,8 @@ def state_of(name, group, bank, corpus, conflicts):
     sources = " and ".join(x for x in (f"{read:,} in the answer bank" if read else "", f"{cells:,} workbook cells" if cells else "") if x)
     if group["kind"] in ("deferred", "host"):
         return group["kind"], group["summary"], group["reason"]
+    if group["kind"] == "not_in_excel":
+        return "absent", group["summary"], group["reason"]
     if group["kind"] == "absent":
         return "refuses", group["summary"], group["reason"]
     if total == 0:
@@ -486,6 +492,11 @@ def main():
         detail = failing.get(name, {"bank": {}})["bank"]
         merged = {k: detail.get(k, 0) for k in ("larger_numeric", "last_bit", "other_mismatch", "refused", "unread")}
         rows, matched = int(row["rows"]), int(row["matched"])
+        if rows == matched and any(merged.values()):
+            # The status table is the count of record. A problem list generated before the rows
+            # were re-recorded can still list failures for a function whose rows now all match.
+            print(f"note: problem-functions.json lists bank failures for {name} but witness-status.tsv matches all {rows} rows; using the status table", file=sys.stderr)
+            merged = dict.fromkeys(merged, 0)
         if rows - matched != sum(merged.values()):
             raise SystemExit(f"bank counts do not reconcile for {name}")
         ulp = 0 if row["worst_ulp"] == "-" else int(row["worst_ulp"])
@@ -577,8 +588,10 @@ def main():
         f["admission"] = {
             "label": {"matches": "implemented", "close": "implemented", "differs": "implemented", "unmeasured": "implemented",
                       "refuses": "not_modelled" if target else "not_implemented"}.get(label, group["kind"]),
-            "reason": group.get("reason") if label in ("refuses", "deferred", "host") else None,
+            "reason": group.get("reason") if label in ("refuses", "deferred", "host", "absent") else None,
         }
+        if group["kind"] == "not_in_excel":
+            f["admission"]["label"] = "absent"
         if group["kind"] == "formula-layer":
             f["admission"]["label"] = "formula_layer"
         f.pop("oxfunc_tree_clean", None)

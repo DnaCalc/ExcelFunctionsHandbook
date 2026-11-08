@@ -12,13 +12,13 @@
   "xlcall": null,
   "arity": {
     "min": 1,
-    "max": 4
+    "max": 5
   },
   "classification": {},
   "axes": null,
   "axis_provenance": {},
   "signature": {
-    "display": "IMPORTCSV(path, [skip_rows], [take_rows], [locale])",
+    "display": "IMPORTCSV(path, [skip_rows], [take_rows], [text_only], [locale])",
     "trailing_repeats": false,
     "parameters": [
       {
@@ -35,6 +35,12 @@
       },
       {
         "name": "take_rows",
+        "optional": true,
+        "repeats": false,
+        "description": null
+      },
+      {
+        "name": "text_only",
         "optional": true,
         "repeats": false,
         "description": null
@@ -63,12 +69,12 @@
   "version_marker": null,
   "special_interface_kind": null,
   "admission_interface_kind": null,
-  "registry_backed": false,
+  "registry_backed": true,
   "vintage": {
-    "admission": "calcfunc-catalogue:f0be6d147172",
-    "arity": "calcfunc-catalogue:f0be6d147172",
-    "registry_backed": "calcfunc-catalogue:f0be6d147172",
-    "signature": "calcfunc-catalogue:f0be6d147172",
-    "signature_placeholder": "calcfunc-catalogue:f0be6d147172"
+    "admission": "calcfunc-catalogue:562b6fbad388",
+    "arity": "calcfunc-catalogue:562b6fbad388",
+    "registry_backed": "calcfunc-catalogue:562b6fbad388",
+    "signature": "calcfunc-catalogue:562b6fbad388",
+    "signature_placeholder": "calcfunc-catalogue:562b6fbad388"
   }
 }

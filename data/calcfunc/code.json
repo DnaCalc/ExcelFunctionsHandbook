@@ -1,5 +1,5 @@
 {
-  "commit": "f0be6d1471725bc6d989ea5884c376411b45f50d",
+  "commit": "562b6fbad38853afcab0d7387a763efa913c319a",
   "repository": "https://github.com/DnaCalc/DnaCalc",
   "entries": {
     "% postfix": {
@@ -14,6 +14,8 @@
         "catalogue/arithmetic::operands"
       ],
       "plumbing": [
+        "catalogue/kit::num_with_subnormal",
+        "catalogue/kit::out_with_subnormal",
         "catalogue::CatalogueEntry::operator"
       ]
     },
@@ -40,6 +42,8 @@
         "catalogue/arithmetic::operands"
       ],
       "plumbing": [
+        "catalogue/kit::num_with_subnormal",
+        "catalogue/kit::out_with_subnormal",
         "catalogue::CatalogueEntry::operator"
       ]
     },
@@ -53,6 +57,8 @@
         "catalogue/arithmetic::operands"
       ],
       "plumbing": [
+        "catalogue/kit::num_with_subnormal",
+        "catalogue/kit::out_with_subnormal",
         "catalogue::CatalogueEntry::operator"
       ]
     },
@@ -77,6 +83,8 @@
         "catalogue/arithmetic::operands"
       ],
       "plumbing": [
+        "catalogue/kit::num_with_subnormal",
+        "catalogue/kit::out_with_subnormal",
         "catalogue::CatalogueEntry::operator"
       ]
     },
@@ -101,6 +109,8 @@
         "catalogue/arithmetic::operands"
       ],
       "plumbing": [
+        "catalogue/kit::num_with_subnormal",
+        "catalogue/kit::out_with_subnormal",
         "catalogue::CatalogueEntry::operator"
       ]
     },
@@ -2163,7 +2173,7 @@
         "ported/ceiling_floor_family::ceiling_math_kernel"
       ],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::opt",
         "catalogue/kit::out"
       ]
@@ -2180,7 +2190,7 @@
         "ported/ceiling_floor_family::ceiling_math_kernel"
       ],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::opt",
         "catalogue/kit::out"
       ]
@@ -4717,11 +4727,9 @@
         "catalogue/math::entry::DEGREES",
         "ported/degrees::degrees_kernel"
       ],
-      "shared": [
-        "catalogue/math::raw"
-      ],
+      "shared": [],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::out"
       ]
     },
@@ -4733,8 +4741,9 @@
       "shared": [],
       "plumbing": [
         "catalogue/kit::given",
-        "catalogue/kit::num_without_logical",
-        "catalogue/kit::out"
+        "catalogue/kit::num_with_subnormal",
+        "catalogue/kit::out",
+        "catalogue/kit::reject_logical"
       ]
     },
     "DEVSQ": {
@@ -5669,9 +5678,11 @@
         "ported/bond_core_family::map_bond_core_error_to_ws",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::excel_pow_chain",
+        "ported/excel_numeric::excel_x87_add",
         "ported/excel_numeric::excel_x87_mul",
         "ported/excel_numeric::excel_x87_div",
         "ported/excel_numeric/x87::mul",
+        "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::div",
         "ported/excel_numeric/x87_chains::pow2_positive",
         "ported/excel_numeric/x87_chains::pow2",
@@ -7179,7 +7190,7 @@
         "ported/ceiling_floor_family::floor_math_kernel"
       ],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::opt",
         "catalogue/kit::out"
       ]
@@ -7196,7 +7207,7 @@
         "ported/ceiling_floor_family::floor_math_kernel"
       ],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::opt",
         "catalogue/kit::out"
       ]
@@ -7743,8 +7754,9 @@
       "shared": [],
       "plumbing": [
         "catalogue/kit::given",
-        "catalogue/kit::num_without_logical",
-        "catalogue/kit::out"
+        "catalogue/kit::num_with_subnormal",
+        "catalogue/kit::out",
+        "catalogue/kit::reject_logical"
       ]
     },
     "GETPIVOTDATA": {
@@ -8758,6 +8770,24 @@
         "catalogue/kit::text_value"
       ]
     },
+    "IMPORTCSV": {
+      "own": [
+        "catalogue/importing::entry::IMPORTCSV"
+      ],
+      "shared": [],
+      "plumbing": [
+        "catalogue/kit::fail"
+      ]
+    },
+    "IMPORTTEXT": {
+      "own": [
+        "catalogue/importing::entry::IMPORTTEXT"
+      ],
+      "shared": [],
+      "plumbing": [
+        "catalogue/kit::fail"
+      ]
+    },
     "IMPOWER": {
       "own": [
         "catalogue/engineering::entry::IMPOWER"
@@ -9557,7 +9587,7 @@
         "ported/ceiling_floor_family::ceiling_math_kernel"
       ],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::opt",
         "catalogue/kit::out"
       ]
@@ -9673,6 +9703,15 @@
       ],
       "plumbing": [
         "coerce::operand"
+      ]
+    },
+    "JIS": {
+      "own": [
+        "catalogue/text_format::entry::JIS"
+      ],
+      "shared": [],
+      "plumbing": [
+        "catalogue/kit::fail"
       ]
     },
     "KURT": {
@@ -10502,9 +10541,11 @@
         "ported/bond_core_family::map_bond_core_error_to_ws",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::excel_pow_chain",
+        "ported/excel_numeric::excel_x87_add",
         "ported/excel_numeric::excel_x87_mul",
         "ported/excel_numeric::excel_x87_div",
         "ported/excel_numeric/x87::mul",
+        "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::div",
         "ported/excel_numeric/x87_chains::pow2_positive",
         "ported/excel_numeric/x87_chains::pow2",
@@ -12824,13 +12865,12 @@
         "ported/radians::radians_kernel"
       ],
       "shared": [
-        "catalogue/math::raw",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::excel_x87_mul",
         "ported/excel_numeric/x87::mul"
       ],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::out"
       ]
     },
@@ -14439,11 +14479,10 @@
         "ported/sqrt_fn::sqrt_kernel"
       ],
       "shared": [
-        "catalogue/math::unary",
         "ported/excel_numeric::excel_sqrt_staged"
       ],
       "plumbing": [
-        "catalogue/kit::num",
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::out"
       ]
     },
@@ -18119,6 +18158,7 @@
         "catalogue/arithmetic::power"
       ],
       "shared": [
+        "catalogue/arithmetic::flushed",
         "catalogue/arithmetic::power_value",
         "catalogue/arithmetic::operands",
         "catalogue/arithmetic::raise",
@@ -18144,6 +18184,7 @@
         "ported/power_fn::power_kernel"
       ],
       "plumbing": [
+        "catalogue/kit::num_with_subnormal",
         "catalogue/kit::out_with_subnormal",
         "catalogue::CatalogueEntry::operator"
       ]

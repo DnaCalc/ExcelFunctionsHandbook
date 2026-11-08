@@ -17,7 +17,7 @@ at the pin, and stops if the corpus tally, the bank table and `problem-functions
 
 | Input at the pin | Gives |
 |---|---|
-| `crates/calc-func` catalogue, through `dump/` | signature, arity, parameter classes, and each entry's kind, implementation (held, binding, not held, deferred, with owner) and availability: these decide the deferred and host states |
+| `crates/calc-func` catalogue, through `dump/` | signature, arity, parameter classes, and each entry's kind, implementation (held, binding, not held, deferred, with owner) and availability: these decide the deferred, host and Not in Excel states (an entry whose availability is `AbsentOnWindows`, such as JIS, is counted on its own as `absent`, apart from the entries that refuse) |
 | `crates/calc-fml/src/eval/builtins.rs` | its hash only: the names it lists are built from the catalogue |
 | `crates/calc-func/witness-status.tsv` | answer-bank rows, matches and worst ULP per function |
 | `docs/generated/problem-functions.json` | mismatch classes per function, and the rule |
@@ -28,3 +28,5 @@ at the pin, and stops if the corpus tally, the bank table and `problem-functions
 `non-catalogue.json` is the one hand-held input: signatures read from named Microsoft pages for
 entries the catalogue does not describe, and the policy group of each. A catalogue row at the pin
 always overrides it, so a function that lands changes state without an edit.
+
+The eight implementation states are matches, close, differs, refuses, deferred, host, unmeasured and absent ("Not in Excel"). When `problem-functions.json` lists bank failures for a function whose `witness-status.tsv` row matches every row, the status table wins and the script prints a note.

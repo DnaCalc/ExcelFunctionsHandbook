@@ -131,6 +131,7 @@ fn main() {
                 quoted(provider),
                 quoted(&match route {
                     HostRouteKind::Fetch(kind) => format!("fetch {kind:?}"),
+                    HostRouteKind::Import(kind) => format!("import {kind:?}"),
                     HostRouteKind::Rtd => "rtd".to_string(),
                 })
             ),
@@ -154,6 +155,8 @@ fn main() {
         let availability = match target.availability() {
             Availability::Unspecified => "unspecified",
             Availability::ListsInCellsBeta => "lists_in_cells_beta",
+            Availability::AbsentOnWindows => "absent_on_windows",
+            Availability::MacroSheetOnly => "macro_sheet_only",
         };
         let own = help::help_of(target.spelling()).map(|h| h.own);
         rows.push(format!(

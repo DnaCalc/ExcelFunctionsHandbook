@@ -1,8 +1,8 @@
 {
   "catalogue/arithmetic::entry::% postfix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 45,
-    "end_line": 45,
+    "start_line": 46,
+    "end_line": 46,
     "name": "% postfix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -10,8 +10,8 @@
   },
   "catalogue/arithmetic::divide": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 70,
-    "end_line": 75,
+    "start_line": 71,
+    "end_line": 76,
     "name": "divide",
     "module": "catalogue/arithmetic",
     "users": 2,
@@ -19,44 +19,62 @@
   },
   "catalogue/arithmetic::flushed": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 77,
-    "end_line": 81,
+    "start_line": 78,
+    "end_line": 82,
     "name": "flushed",
     "module": "catalogue/arithmetic",
-    "users": 3,
+    "users": 4,
     "text": "/// A product or quotient as Excel publishes it: +0 below the normal range (see the module\n/// documentation).\nfn flushed(x: f64) -> f64 {\n    if x.is_subnormal() { 0.0 } else { x }\n}\n"
   },
   "catalogue/arithmetic::binary": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 97,
-    "end_line": 105,
+    "start_line": 104,
+    "end_line": 119,
     "name": "binary",
     "module": "catalogue/arithmetic",
     "users": 5,
-    "text": "fn binary<'m>(\n    id: FunctionId,\n    arguments: &[CalcValue],\n    services: &EvalServices<'m>,\n    operation: fn(&Site<'m>, f64, f64) -> Step<f64>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(id, services);\n    Site::finish(operands(&site, arguments).and_then(|(a, b)| site.number(operation(&site, a, b)?)))\n}\n"
+    "text": "fn binary<'m>(\n    id: FunctionId,\n    arguments: &[CalcValue],\n    services: &EvalServices<'m>,\n    operation: fn(&Site<'m>, f64, f64) -> Step<f64>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(id, services);\n    Site::finish(operands(&site, arguments).and_then(|(a, b)| {\n        let result = operation(&site, a, b)?;\n        if id == PLUS || id == MINUS {\n            super::kit::out_with_subnormal(&site, Ok(result))\n        } else {\n            site.number(result)\n        }\n    }))\n}\n"
   },
   "catalogue/arithmetic::operands": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 107,
-    "end_line": 112,
+    "start_line": 121,
+    "end_line": 126,
     "name": "operands",
     "module": "catalogue/arithmetic",
     "users": 6,
-    "text": "fn operands(site: &Site<'_>, arguments: &[CalcValue]) -> Step<(f64, f64)> {\n    site.scalar_operands(arguments)?;\n    let a = site.number_argument(0, &arguments[0])?;\n    let b = site.number_argument(1, &arguments[1])?;\n    Ok((a, b))\n}\n"
+    "text": "fn operands(site: &Site<'_>, arguments: &[CalcValue]) -> Step<(f64, f64)> {\n    site.scalar_operands(arguments)?;\n    let a = super::kit::num_with_subnormal(site, arguments, 0)?;\n    let b = super::kit::num_with_subnormal(site, arguments, 1)?;\n    Ok((a, b))\n}\n"
   },
   "catalogue/arithmetic::percent": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 199,
-    "end_line": 211,
+    "start_line": 213,
+    "end_line": 225,
     "name": "percent",
     "module": "catalogue/arithmetic",
     "users": 1,
     "text": "/// `x%` is `x / 100`.\nfn percent(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(PERCENT, services);\n    Site::finish(\n        site.scalar_operands(arguments)\n            .and_then(|()| site.number_argument(0, &arguments[0]))\n            .and_then(|x| site.divide(x, 100.0))\n            .and_then(|x| site.number(x)),\n    )\n}\n"
   },
+  "catalogue/kit::num_with_subnormal": {
+    "file": "crates/calc-func/src/catalogue/kit.rs",
+    "start_line": 197,
+    "end_line": 208,
+    "name": "num_with_subnormal",
+    "module": "catalogue/kit",
+    "users": 0,
+    "text": "/// Number coercion for a kernel that implements its own measured subnormal input policy.\n/// Keep the ordinary coercions and refusals for every other kind of value.\npub(super) fn num_with_subnormal(\n    site: &Site<'_>,\n    arguments: &[CalcValue],\n    index: usize,\n) -> Step<f64> {\n    match arguments[index].core_ref() {\n        CoreRef::Number(n) if n.is_subnormal() => Ok(n),\n        _ => num(site, arguments, index),\n    }\n}\n"
+  },
+  "catalogue/kit::out_with_subnormal": {
+    "file": "crates/calc-func/src/catalogue/kit.rs",
+    "start_line": 274,
+    "end_line": 284,
+    "name": "out_with_subnormal",
+    "module": "catalogue/kit",
+    "users": 0,
+    "text": "/// Publish a kernel's measured subnormal result as a number; other outcomes use `out`.\n/// The caller still runs the family's numeric-mode check before calculating.\npub(super) fn out_with_subnormal(\n    site: &Site<'_>,\n    result: Result<f64, WorksheetErrorCode>,\n) -> Step<CalcValue> {\n    match result {\n        Ok(n) if n.is_subnormal() => Ok(CalcValue::number(n)),\n        other => out(site, other),\n    }\n}\n"
+  },
   "catalogue::CatalogueEntry::operator": {
     "file": "crates/calc-func/src/catalogue.rs",
-    "start_line": 570,
-    "end_line": 592,
+    "start_line": 584,
+    "end_line": 606,
     "name": "CatalogueEntry::operator",
     "module": "catalogue",
     "users": 0,
@@ -100,8 +118,8 @@
   },
   "catalogue/arithmetic::entry::* infix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 40,
-    "end_line": 40,
+    "start_line": 41,
+    "end_line": 41,
     "name": "* infix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -109,8 +127,8 @@
   },
   "catalogue/arithmetic::times": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 63,
-    "end_line": 68,
+    "start_line": 64,
+    "end_line": 69,
     "name": "times",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -118,8 +136,8 @@
   },
   "catalogue/arithmetic::entry::+ infix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 38,
-    "end_line": 38,
+    "start_line": 39,
+    "end_line": 39,
     "name": "+ infix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -127,8 +145,8 @@
   },
   "catalogue/arithmetic::plus": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 49,
-    "end_line": 54,
+    "start_line": 50,
+    "end_line": 55,
     "name": "plus",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -136,8 +154,8 @@
   },
   "catalogue/arithmetic::entry::+ prefix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 44,
-    "end_line": 44,
+    "start_line": 45,
+    "end_line": 45,
     "name": "+ prefix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -145,12 +163,12 @@
   },
   "catalogue/arithmetic::unary_plus": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 176,
-    "end_line": 197,
+    "start_line": 190,
+    "end_line": 211,
     "name": "unary_plus",
     "module": "catalogue/arithmetic",
     "users": 1,
-    "text": "/// `+x`: Excel's unary plus leaves its operand's value as it is, so text and a logical are the\n/// result unchanged and an error is the result. A number is published by the number rule (a zero\n/// is +0), and a blank operand is 0.\nfn unary_plus(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(UNARY_PLUS, services);\n    Site::finish(site.scalar_operands(arguments).and_then(|()| {\n        let operand = &arguments[0];\n        if operand.is_excel_overflow() {\n            return Ok(operand.clone());\n        }\n        match operand.core_ref() {\n            CoreRef::Number(n) => site.number(site.argument(0, coerce::operand(n))?),\n            CoreRef::Empty | CoreRef::Missing => site.number(0.0),\n            CoreRef::Text(_) | CoreRef::Logical(_) => Ok(operand.clone()),\n            CoreRef::Error(code) => Err(Exit::Error(code)),\n            CoreRef::Array(_) | CoreRef::Reference(_) => Err(site.not_modelled(Some(0))),\n        }\n    }))\n}\n"
+    "text": "/// `+x`: Excel's unary plus leaves its operand's value as it is, including a computed subnormal;\n/// a zero is +0 and a blank operand is 0.\nfn unary_plus(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(UNARY_PLUS, services);\n    Site::finish(site.scalar_operands(arguments).and_then(|()| {\n        let operand = &arguments[0];\n        if operand.is_excel_overflow() {\n            return Ok(operand.clone());\n        }\n        match operand.core_ref() {\n            CoreRef::Number(n) if n.is_subnormal() => Ok(CalcValue::number(n)),\n            CoreRef::Number(n) => site.number(site.argument(0, coerce::operand(n))?),\n            CoreRef::Empty | CoreRef::Missing => site.number(0.0),\n            CoreRef::Text(_) | CoreRef::Logical(_) => Ok(operand.clone()),\n            CoreRef::Error(code) => Err(Exit::Error(code)),\n            CoreRef::Array(_) | CoreRef::Reference(_) => Err(site.not_modelled(Some(0))),\n        }\n    }))\n}\n"
   },
   "coerce::operand": {
     "file": "crates/calc-func/src/coerce.rs",
@@ -163,8 +181,8 @@
   },
   "catalogue/arithmetic::entry::- infix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 39,
-    "end_line": 39,
+    "start_line": 40,
+    "end_line": 40,
     "name": "- infix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -172,8 +190,8 @@
   },
   "catalogue/arithmetic::minus": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 56,
-    "end_line": 61,
+    "start_line": 57,
+    "end_line": 62,
     "name": "minus",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -181,8 +199,8 @@
   },
   "catalogue/arithmetic::entry::- prefix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 43,
-    "end_line": 43,
+    "start_line": 44,
+    "end_line": 44,
     "name": "- prefix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -190,8 +208,8 @@
   },
   "catalogue/arithmetic::negate": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 159,
-    "end_line": 174,
+    "start_line": 173,
+    "end_line": 188,
     "name": "negate",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -199,8 +217,8 @@
   },
   "catalogue/arithmetic::entry::/ infix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 41,
-    "end_line": 41,
+    "start_line": 42,
+    "end_line": 42,
     "name": "/ infix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -789,34 +807,25 @@
     "name": "numeric",
     "module": "catalogue/rounding",
     "users": 15,
-    "text": "/// Runs `compute` on the call's arguments, read as numbers in order, and publishes its number.\nfn numeric(\n    id: FunctionId,\n    arguments: &[CalcValue],\n    services: &EvalServices<'_>,\n    compute: fn(&Site<'_>, &[f64]) -> Step<f64>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(id, services);\n    let traits = super::catalogue().resolve(id).expect(\"declared rounding entry\").traits();\n    Site::finish(numbers(&site, arguments, traits).and_then(|read| {\n        let result = compute(&site, &read)?;\n        // Only `stored` makes a NaN here: Excel's own bit pattern for a result past DBL_MAX,\n        // which the worksheet holds as a number.\n        if result.is_nan() && traits.retain_overflow_number {\n            Ok(CalcValue::excel_overflow_number(result).expect(\"the stored rounding result\"))\n        } else if result.is_subnormal() && traits.retain_subnormal_output {\n            // Only the measured initial-reading return below can reach this publication.\n            super::kit::out_with_subnormal(&site, Ok(result))\n        } else {\n            site.number(result)\n        }\n    }))\n}\n"
+    "text": "/// Runs `compute` on the call's arguments, read as numbers in order, and publishes its number.\nfn numeric(\n    id: FunctionId,\n    arguments: &[CalcValue],\n    services: &EvalServices<'_>,\n    compute: fn(&Site<'_>, &[f64]) -> Step<f64>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(id, services);\n    let traits = super::catalogue().resolve(id).expect(\"declared rounding entry\").traits();\n    Site::finish(numbers(&site, arguments, traits, id).and_then(|read| {\n        let result = compute(&site, &read)?;\n        // Only `stored` makes a NaN here: Excel's own bit pattern for a result past DBL_MAX,\n        // which the worksheet holds as a number.\n        if result.is_nan() && traits.retain_overflow_number {\n            Ok(CalcValue::excel_overflow_number(result).expect(\"the stored rounding result\"))\n        } else if result.is_subnormal() && (traits.retain_subnormal_output || id == ABS) {\n            // ABS and the measured initial-reading returns retain subnormal results.\n            super::kit::out_with_subnormal(&site, Ok(result))\n        } else {\n            site.number(result)\n        }\n    }))\n}\n"
   },
   "catalogue/rounding::numbers": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
     "start_line": 153,
-    "end_line": 177,
+    "end_line": 180,
     "name": "numbers",
     "module": "catalogue/rounding",
     "users": 15,
-    "text": "/// The arguments as numbers: an array argument is refused first, then each argument is read in\n/// order, so the first one's error is the result.\nfn numbers(site: &Site<'_>, arguments: &[CalcValue], traits: super::EntryTraits) -> Step<Vec<f64>> {\n    site.scalar_operands(arguments)?;\n    arguments\n        .iter()\n        .enumerate()\n        .map(|(index, argument)| {\n            // W111 typed MROUND/QUOTIENT readings: logicals are #VALUE!, an explicit\n            // omission #N/A. A referenced blank remains Empty and coerces to zero.\n            if traits.strict_number_arguments {\n                match argument.core_ref() {\n                    CoreRef::Logical(_) => return Err(Exit::Error(WorksheetErrorCode::Value)),\n                    CoreRef::Missing => return Err(Exit::Error(WorksheetErrorCode::NA)),\n                    _ => {}\n                }\n            }\n            if traits.flush_subnormal_inputs && argument.as_number().is_some_and(f64::is_subnormal) {\n                Ok(0.0)\n            } else {\n                site.number_argument(index, argument)\n            }\n        })\n        .collect()\n}\n"
+    "text": "/// The arguments as numbers: an array argument is refused first, then each argument is read in\n/// order, so the first one's error is the result.\nfn numbers(site: &Site<'_>, arguments: &[CalcValue], traits: super::EntryTraits, id: FunctionId) -> Step<Vec<f64>> {\n    site.scalar_operands(arguments)?;\n    arguments\n        .iter()\n        .enumerate()\n        .map(|(index, argument)| {\n            // W111 typed MROUND/QUOTIENT readings: logicals are #VALUE!, an explicit\n            // omission #N/A. A referenced blank remains Empty and coerces to zero.\n            if traits.strict_number_arguments {\n                match argument.core_ref() {\n                    CoreRef::Logical(_) => return Err(Exit::Error(WorksheetErrorCode::Value)),\n                    CoreRef::Missing => return Err(Exit::Error(WorksheetErrorCode::NA)),\n                    _ => {}\n                }\n            }\n            if (matches!(id, ABS | EVEN | ODD) || index == 0 && matches!(id, CEILING | FLOOR | QUOTIENT))\n                && argument.as_number().is_some_and(f64::is_subnormal) {\n                Ok(argument.as_number().expect(\"number checked\"))\n            } else if traits.flush_subnormal_inputs && argument.as_number().is_some_and(f64::is_subnormal) {\n                Ok(0.0)\n            } else {\n                site.number_argument(index, argument)\n            }\n        })\n        .collect()\n}\n"
   },
   "catalogue/rounding::abs": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 179,
-    "end_line": 189,
+    "start_line": 182,
+    "end_line": 192,
     "name": "abs",
     "module": "catalogue/rounding",
     "users": 8,
     "text": "/// ABS: the number without its sign.\nfn abs(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    if arguments[0].is_excel_overflow() {\n        let magnitude = arguments[0].as_number().expect(\"qualified overflow number\").abs();\n        return Ok(CalcValue::excel_overflow_number(magnitude).expect(\"sign removal retains overflow encoding\"));\n    }\n    numeric(ABS, arguments, services, |_, n| Ok(n[0].abs()))\n}\n"
-  },
-  "catalogue/kit::out_with_subnormal": {
-    "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 270,
-    "end_line": 280,
-    "name": "out_with_subnormal",
-    "module": "catalogue/kit",
-    "users": 0,
-    "text": "/// Publish a kernel's measured subnormal result as a number; other outcomes use `out`.\n/// The caller still runs the family's numeric-mode check before calculating.\npub(super) fn out_with_subnormal(\n    site: &Site<'_>,\n    result: Result<f64, WorksheetErrorCode>,\n) -> Step<CalcValue> {\n    match result {\n        Ok(n) if n.is_subnormal() => Ok(CalcValue::number(n)),\n        other => out(site, other),\n    }\n}\n"
   },
   "catalogue/bonds::or": {
     "file": "crates/calc-func/src/catalogue/bonds.rs",
@@ -991,8 +1000,8 @@
   },
   "ported/bond_core_family::is_month_end": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 708,
-    "end_line": 712,
+    "start_line": 713,
+    "end_line": 717,
     "name": "is_month_end",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1000,8 +1009,8 @@
   },
   "ported/bond_core_family::last_day_of_feb": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 713,
-    "end_line": 717,
+    "start_line": 718,
+    "end_line": 722,
     "name": "last_day_of_feb",
     "module": "ported/bond_core_family",
     "users": 5,
@@ -1009,8 +1018,8 @@
   },
   "ported/bond_core_family::change_month_flag": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 718,
-    "end_line": 734,
+    "start_line": 723,
+    "end_line": 739,
     "name": "change_month_flag",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1018,8 +1027,8 @@
   },
   "ported/bond_core_family::diff360_us": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 735,
-    "end_line": 754,
+    "start_line": 740,
+    "end_line": 759,
     "name": "diff360_us",
     "module": "ported/bond_core_family",
     "users": 5,
@@ -1027,8 +1036,8 @@
   },
   "ported/bond_core_family::find_pcd_ncd_accr": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 755,
-    "end_line": 778,
+    "start_line": 760,
+    "end_line": 783,
     "name": "find_pcd_ncd_accr",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1036,8 +1045,8 @@
   },
   "ported/bond_core_family::days_between_num": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 779,
-    "end_line": 788,
+    "start_line": 784,
+    "end_line": 793,
     "name": "days_between_num",
     "module": "ported/bond_core_family",
     "users": 5,
@@ -1045,8 +1054,8 @@
   },
   "ported/bond_core_family::days_between_denum": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 789,
-    "end_line": 800,
+    "start_line": 794,
+    "end_line": 805,
     "name": "days_between_denum",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1054,8 +1063,8 @@
   },
   "ported/bond_core_family::actual_coup_days_accr": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 801,
-    "end_line": 813,
+    "start_line": 806,
+    "end_line": 818,
     "name": "actual_coup_days_accr",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1063,8 +1072,8 @@
   },
   "ported/bond_core_family::coup_days_accr": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 814,
-    "end_line": 830,
+    "start_line": 819,
+    "end_line": 835,
     "name": "coup_days_accr",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1072,8 +1081,8 @@
   },
   "ported/bond_core_family::issue_period_grid": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 832,
-    "end_line": 850,
+    "start_line": 837,
+    "end_line": 855,
     "name": "issue_period_grid",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1081,8 +1090,8 @@
   },
   "ported/bond_core_family::accrint_kernel": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 852,
-    "end_line": 994,
+    "start_line": 857,
+    "end_line": 999,
     "name": "accrint_kernel",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -1090,8 +1099,8 @@
   },
   "ported/bond_core_family::map_bond_core_error_to_ws": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 995,
-    "end_line": 1000,
+    "start_line": 1000,
+    "end_line": 1005,
     "name": "map_bond_core_error_to_ws",
     "module": "ported/bond_core_family",
     "users": 9,
@@ -1126,8 +1135,8 @@
   },
   "catalogue/kit::fail": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 292,
-    "end_line": 295,
+    "start_line": 296,
+    "end_line": 299,
     "name": "fail",
     "module": "catalogue/kit",
     "users": 0,
@@ -1135,8 +1144,8 @@
   },
   "catalogue/kit::given": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 221,
-    "end_line": 226,
+    "start_line": 225,
+    "end_line": 230,
     "name": "given",
     "module": "catalogue/kit",
     "users": 0,
@@ -1144,8 +1153,8 @@
   },
   "catalogue/kit::num": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 162,
-    "end_line": 165,
+    "start_line": 166,
+    "end_line": 169,
     "name": "num",
     "module": "catalogue/kit",
     "users": 0,
@@ -1238,7 +1247,7 @@
     "end_line": 29,
     "name": "unary",
     "module": "catalogue/math",
-    "users": 17,
+    "users": 16,
     "text": "/// A one-argument kernel that publishes its own result.\nfn unary(site: &Site<'_>, a: &[CalcValue], kernel: fn(f64) -> Result<f64, WorksheetErrorCode>) -> Step<CalcValue> {\n    let x = num(site, a, 0)?;\n    out(site, kernel(x))\n}\n"
   },
   "catalogue/math::entry::ACOS": {
@@ -1414,8 +1423,8 @@
   },
   "catalogue/kit::out": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 261,
-    "end_line": 268,
+    "start_line": 265,
+    "end_line": 272,
     "name": "out",
     "module": "catalogue/kit",
     "users": 0,
@@ -1508,7 +1517,7 @@
     "end_line": 501,
     "name": "excel_x87_add",
     "module": "ported/excel_numeric",
-    "users": 90,
+    "users": 92,
     "text": "/// `RN53(RN64(a + b))` — the x87 double-rounded sum of Excel's legacy\n/// x87-compiled function bodies (W109: XNPV's `1 + rate` and running-total\n/// accumulation; dc-6qki: the worksheet `+` and SUM's running total). Bit-exact to 64-bit Excel\n/// on `x86_64`; elsewhere the same operation in the software x87.\npub(crate) fn excel_x87_add(a: f64, b: f64) -> f64 {\n    #[cfg(all(target_arch = \"x86_64\", not(feature = \"soft-x87\")))]\n    {\n        x87::add(a, b)\n    }\n    #[cfg(not(all(target_arch = \"x86_64\", not(feature = \"soft-x87\"))))]\n    {\n        binary_with::<Soft>(Soft::add, a, b)\n    }\n}\n"
   },
   "ported/excel_numeric/x87::add": {
@@ -1517,7 +1526,7 @@
     "end_line": 137,
     "name": "add",
     "module": "ported/excel_numeric/x87",
-    "users": 90,
+    "users": 92,
     "text": "/// `RN53(RN64(a + b))` — one x87 `FADD` at PC=64 then a `binary64` store: the\n/// double-rounded sum. Excel's legacy x87-compiled function bodies produce\n/// this for every `t = a + b;` with `t` spilled to memory (W109: XNPV's\n/// `1 + rate` and its running `total += term` accumulate this way).\npub(super) fn add(a: f64, b: f64) -> f64 {\n    let mut result: f64 = 0.0;\n    let cw_core: u16 = CW_CORE;\n    let mut cw_save: u16 = 0;\n    // SAFETY: balanced x87 stack (one push; `fadd` folds in memory operand,\n    // `fstp` pops), pointer I/O only, control word saved and restored.\n    unsafe {\n        asm!(\n            \"fnstcw word ptr [{save}]\",\n            \"fldcw word ptr [{core}]\",\n            \"fld qword ptr [{a}]\",     // st0 = a\n            \"fadd qword ptr [{b}]\",    // st0 = RN64(a+b)\n            \"fstp qword ptr [{res}]\",  // RN53 store\n            \"fldcw word ptr [{save}]\",\n            a = in(reg) &a,\n            b = in(reg) &b,\n            res = in(reg) &mut result,\n            core = in(reg) &cw_core,\n            save = in(reg) &mut cw_save,\n        );\n    }\n    result\n}\n"
   },
   "catalogue/host_facts::address_fn": {
@@ -1657,8 +1666,8 @@
   },
   "catalogue/kit::text_arg": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 254,
-    "end_line": 259,
+    "start_line": 258,
+    "end_line": 263,
     "name": "text_arg",
     "module": "catalogue/kit",
     "users": 0,
@@ -2035,8 +2044,8 @@
   },
   "catalogue/math::entry::ARABIC": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 164,
-    "end_line": 167,
+    "start_line": 167,
+    "end_line": 170,
     "name": "ARABIC",
     "module": "catalogue/math",
     "users": 1,
@@ -2062,8 +2071,8 @@
   },
   "catalogue/kit::text": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 247,
-    "end_line": 252,
+    "start_line": 251,
+    "end_line": 256,
     "name": "text",
     "module": "catalogue/kit",
     "users": 0,
@@ -2098,8 +2107,8 @@
   },
   "catalogue::Parameter::value_or_reference": {
     "file": "crates/calc-func/src/catalogue.rs",
-    "start_line": 466,
-    "end_line": 468,
+    "start_line": 476,
+    "end_line": 478,
     "name": "Parameter::value_or_reference",
     "module": "catalogue",
     "users": 0,
@@ -2229,39 +2238,39 @@
     "name": "looks_like_datetime_format",
     "module": "format/datetime",
     "users": 18,
-    "text": "pub(crate) fn looks_like_datetime_format(section: &str) -> bool {\n    let parts = tokenize_datetime_format(section, None);\n    let has_datetime_token = parts.iter().any(|part| match part {\n        DateTimePart::Token { .. } => true,\n        DateTimePart::Literal(_) => false,\n    });\n    has_datetime_token\n        && !section.contains('#')\n        && !without_subseconds(section).contains('0')\n        && !section.contains('?')\n}\n"
+    "text": "pub(crate) fn looks_like_datetime_format(section: &str, decimal: char) -> bool {\n    let parts = tokenize_datetime_format(section, None);\n    let has_datetime_token = parts.iter().any(|part| match part {\n        DateTimePart::Token { .. } => true,\n        DateTimePart::Literal(_) => false,\n    });\n    has_datetime_token\n        && !section.contains('#')\n        && !without_subseconds(section, decimal).contains('0')\n        && !section.contains('?')\n}\n"
   },
   "format/datetime::without_subseconds": {
     "file": "crates/calc-func/src/format/datetime.rs",
     "start_line": 58,
-    "end_line": 78,
+    "end_line": 81,
     "name": "without_subseconds",
     "module": "format/datetime",
     "users": 18,
-    "text": "/// The section with the decimal places of a seconds token (`s.0`, `ss.00`, `[ss].000`) removed:\n/// the zeros left over belong to no date or time token.\npub(crate) fn without_subseconds(section: &str) -> String {\n    let chars: Vec<char> = section.chars().collect();\n    let mut out = String::new();\n    let mut index = 0;\n    while index < chars.len() {\n        out.push(chars[index]);\n        let after_second = matches!(chars[index], 's' | 'S' | ']')\n            && (chars[index] != ']' || out.to_ascii_lowercase().ends_with(\"s]\"));\n        if after_second && chars.get(index + 1) == Some(&'.') && chars.get(index + 2) == Some(&'0') {\n            index += 2;\n            while chars.get(index) == Some(&'0') {\n                index += 1;\n            }\n            continue;\n        }\n        index += 1;\n    }\n    out\n}\n"
+    "text": "/// The section with the decimal places of a seconds token (`s.0`, `ss.00`, `[ss].000`) removed:\n/// the zeros left over belong to no date or time token.\npub(crate) fn without_subseconds(section: &str, decimal: char) -> String {\n    let chars: Vec<char> = section.chars().collect();\n    let mut out = String::new();\n    let mut index = 0;\n    while index < chars.len() {\n        out.push(chars[index]);\n        let after_second = matches!(chars[index], 's' | 'S' | ']')\n            && (chars[index] != ']' || out.to_ascii_lowercase().ends_with(\"s]\"));\n        if after_second\n            && matches!(chars.get(index + 1), Some(&c) if c == '.' || c == decimal)\n            && chars.get(index + 2) == Some(&'0')\n        {\n            index += 2;\n            while chars.get(index) == Some(&'0') {\n                index += 1;\n            }\n            continue;\n        }\n        index += 1;\n    }\n    out\n}\n"
   },
   "format/datetime::render_with_datetime_tokens": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 80,
-    "end_line": 280,
+    "start_line": 83,
+    "end_line": 290,
     "name": "render_with_datetime_tokens",
     "module": "format/datetime",
     "users": 18,
-    "text": "pub(crate) fn render_with_datetime_tokens(\n    profile: &FormatProfile,\n    date_system: WorkbookDateSystem,\n    value: f64,\n    section: &str,\n    name_locale: Option<LocaleId>,\n    untagged_locale: bool,\n) -> Option<String> {\n    if !value.is_finite() {\n        return None;\n    }\n\n    let parts = classify_minute_tokens(tokenize_datetime_format(section, Some(profile)));\n    if !parts\n        .iter()\n        .any(|part| matches!(part, DateTimePart::Token { .. }))\n    {\n        return None;\n    }\n\n    let has_date_tokens = parts.iter().any(|part| {\n        matches!(\n            part,\n            DateTimePart::Token {\n                kind: DateTimeTokenKind::Year | DateTimeTokenKind::Month | DateTimeTokenKind::Day\n                    | DateTimeTokenKind::Era | DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent,\n                ..\n            }\n        )\n    });\n    let has_ampm = parts.iter().any(|part| {\n        matches!(\n            part,\n            DateTimePart::Token {\n                kind: DateTimeTokenKind::AmPmUpper | DateTimeTokenKind::AmPmLower,\n                ..\n            }\n        )\n    });\n    // The time is rounded to the places of a sub-second token, when the section has one (Excel\n    // 16.0.20430, dc-uar: TEXT(9000.79348,\"mm:ss.00\") is 02:36.67).\n    let places = parts\n        .iter()\n        .find_map(|part| match part {\n            DateTimePart::Token {\n                kind: DateTimeTokenKind::SubSecond,\n                width,\n            } => Some(*width),\n            _ => None,\n        })\n        .unwrap_or(0);\n    if places > 3 {\n        return None;\n    }\n    let time = TimeParts::from_serial(value, places as u32);\n    // The date is the day the rounded time falls in: a time that rounds up to midnight shows the\n    // next day (Excel 16.0.20430, dc-uar: TEXT(0.99999999,\"yyyy-mm-dd hh:mm:ss.00\") is\n    // 1900-01-01 00:00:00.00).\n    let date = if has_date_tokens {\n        Some(ymd_from_excel_serial(\n            date_system,\n            time.elapsed_seconds.div_euclid(86_400) as f64,\n        )?)\n    } else {\n        None\n    };\n    // TEXT follows the same serial calendar as WEEKDAY, including fictitious\n    // 1900-02-29. Use the day after the existing time rounding, not Gregorian y/m/d.\n    let weekday_index = date.and_then(|_| {\n        let serial = time.elapsed_seconds.div_euclid(86_400) as f64\n            + if date_system == WorkbookDateSystem::System1904 {\n                crate::ported::date_kernels::OFFSET_1904\n            } else {\n                0.0\n            };\n        crate::ported::date_kernels::weekday(serial, None)\n            .ok()\n            .map(|day| day as usize - 1)\n    });\n    // A locale tag selects names, while separators and other formatting fields remain those\n    // of the workbook profile. Fn1 measured German, French, Japanese and Russian names.\n    let names_profile = FormatProfile { id: name_locale.unwrap_or(profile.id), ..*profile };\n\n    let mut rendered = String::new();\n    for part in parts {\n        match part {\n            DateTimePart::Literal(text) => {\n                rendered.push_str(&render_datetime_literal(profile, &text))\n            }\n            DateTimePart::Token { kind, width } => {\n                let fragment = match kind {\n                    DateTimeTokenKind::Year => {\n                        let (year, _, _) = date?;\n                        if width <= 2 {\n                            format!(\"{:02}\", year.rem_euclid(100))\n                        } else {\n                            format!(\"{year:04}\")\n                        }\n                    }\n                    DateTimeTokenKind::Month => {\n                        let (_, month, _) = date?;\n                        match width {\n                            1 => month.to_string(),\n                            2 => format!(\"{month:02}\"),\n                            3 => month_name(&names_profile, month, true, name_locale.is_some()),\n                            _ => month_name(&names_profile, month, false, name_locale.is_some()),\n                        }\n                    }\n                    DateTimeTokenKind::Minute => {\n                        if width <= 1 {\n                            time.minute.to_string()\n                        } else {\n                            format!(\"{:02}\", time.minute)\n                        }\n                    }\n                    DateTimeTokenKind::Day => {\n                        let (_, _, day) = date?;\n                        match width {\n                            1 => day.to_string(),\n                            2 => format!(\"{day:02}\"),\n                            3 => weekday_name(&names_profile, weekday_index?, true, name_locale.is_some()),\n                            _ => weekday_name(&names_profile, weekday_index?, false, name_locale.is_some()),\n                        }\n                    }\n                    DateTimeTokenKind::Hour => {\n                        let hour = if has_ampm {\n                            let hour = time.hour % 12;\n                            if hour == 0 { 12 } else { hour }\n                        } else {\n                            time.hour\n                        };\n                        if width <= 1 {\n                            hour.to_string()\n                        } else {\n                            format!(\"{hour:02}\")\n                        }\n                    }\n                    DateTimeTokenKind::Second => {\n                        if width <= 1 {\n                            time.second.to_string()\n                        } else {\n                            format!(\"{:02}\", time.second)\n                        }\n                    }\n                    DateTimeTokenKind::ElapsedHour => {\n                        format_elapsed(value, time.elapsed_hours, width)\n                    }\n                    DateTimeTokenKind::ElapsedMinute => {\n                        format_elapsed(value, time.elapsed_minutes, width)\n                    }\n                    DateTimeTokenKind::ElapsedSecond => {\n                        format_elapsed(value, time.elapsed_seconds, width)\n                    }\n                    DateTimeTokenKind::SubSecond => {\n                        format!(\".{:0width$}\", time.subsecond)\n                    }\n                    DateTimeTokenKind::AmPmUpper => {\n                        super::designator(profile, time.hour < 12).to_string()\n                    }\n                    DateTimeTokenKind::AmPmLower => {\n                        super::designator(profile, time.hour < 12).to_string()\n                    }\n                    DateTimeTokenKind::Era | DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent => {\n                        let (year, month, day) = date?;\n                        // Fn5 zero section and fn8 width/era-boundary controls:\n                        // an untagged e is Gregorian; g contributes no era name.\n                        if untagged_locale && super::measured_host(profile) {\n                            match kind {\n                                DateTimeTokenKind::EraYear => { rendered.push_str(&year.to_string()); continue; }\n                                DateTimeTokenKind::Era => continue,\n                                _ => return None,\n                            }\n                        }\n                        // Fn3 measures g/gg/ggg and e/ee on both sides of the\n                        // Heisei/Reiwa transition. Calendar start dates are public facts:\n                        // https://www.npb.go.jp/en/products/gazette/books/kanpo_history.html\n                        if name_locale != Some(LocaleId::JaJp) { return None; }\n                        let (base_year, latin, short, long) = if (year, month, day) >= (2019, 5, 1) {\n                            (2018, \"R\", \"令\", \"令和\")\n                        } else if (year, month, day) >= (1989, 1, 8) {\n                            (1988, \"H\", \"平\", \"平成\")\n                        } else {\n                            return None;\n                        };\n                        match (kind, width) {\n                            (DateTimeTokenKind::Era, 1) => latin.to_owned(),\n                            (DateTimeTokenKind::Era, 2) => short.to_owned(),\n                            (DateTimeTokenKind::Era, 3) => long.to_owned(),\n                            (DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent, 1) => (year - base_year).to_string(),\n                            (DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent, 2) => format!(\"{:02}\", year - base_year),\n                            _ => return None,\n                        }\n                    }\n                };\n                rendered.push_str(&fragment);\n            }\n        }\n    }\n\n    Some(rendered)\n}\n"
+    "text": "pub(crate) fn render_with_datetime_tokens(\n    profile: &FormatProfile,\n    date_system: WorkbookDateSystem,\n    value: f64,\n    section: &str,\n    name_locale: Option<LocaleId>,\n    untagged_locale: bool,\n) -> Option<String> {\n    if !value.is_finite() {\n        return None;\n    }\n\n    let parts = classify_minute_tokens(tokenize_datetime_format(section, Some(profile)));\n    if !parts\n        .iter()\n        .any(|part| matches!(part, DateTimePart::Token { .. }))\n    {\n        return None;\n    }\n\n    let has_date_tokens = parts.iter().any(|part| {\n        matches!(\n            part,\n            DateTimePart::Token {\n                kind: DateTimeTokenKind::Year | DateTimeTokenKind::Month | DateTimeTokenKind::Day\n                    | DateTimeTokenKind::Era | DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent,\n                ..\n            }\n        )\n    });\n    let has_ampm = parts.iter().any(|part| {\n        matches!(\n            part,\n            DateTimePart::Token {\n                kind: DateTimeTokenKind::AmPmUpper | DateTimeTokenKind::AmPmLower,\n                ..\n            }\n        )\n    });\n    // The time is rounded to the places of a sub-second token, when the section has one (Excel\n    // 16.0.20430, dc-uar: TEXT(9000.79348,\"mm:ss.00\") is 02:36.67).\n    let places = parts\n        .iter()\n        .find_map(|part| match part {\n            DateTimePart::Token {\n                kind: DateTimeTokenKind::SubSecond,\n                width,\n            } => Some(*width),\n            _ => None,\n        })\n        .unwrap_or(0);\n    if places > 3 {\n        return None;\n    }\n    let time = TimeParts::from_serial(value, places as u32);\n    // The date is the day the rounded time falls in: a time that rounds up to midnight shows the\n    // next day (Excel 16.0.20430, dc-uar: TEXT(0.99999999,\"yyyy-mm-dd hh:mm:ss.00\") is\n    // 1900-01-01 00:00:00.00).\n    let date = if has_date_tokens {\n        Some(ymd_from_excel_serial(\n            date_system,\n            time.elapsed_seconds.div_euclid(86_400) as f64,\n        )?)\n    } else {\n        None\n    };\n    // TEXT follows the same serial calendar as WEEKDAY, including fictitious\n    // 1900-02-29. Use the day after the existing time rounding, not Gregorian y/m/d.\n    let weekday_index = date.and_then(|_| {\n        let serial = time.elapsed_seconds.div_euclid(86_400) as f64\n            + if date_system == WorkbookDateSystem::System1904 {\n                crate::ported::date_kernels::OFFSET_1904\n            } else {\n                0.0\n            };\n        crate::ported::date_kernels::weekday(serial, None)\n            .ok()\n            .map(|day| day as usize - 1)\n    });\n    // A locale tag selects names, while separators and other formatting fields remain those\n    // of the workbook profile. Fn1 measured German, French, Japanese and Russian names.\n    let names_profile = FormatProfile { id: name_locale.unwrap_or(profile.id), ..*profile };\n\n    let mut rendered = String::new();\n    for part in parts {\n        match part {\n            DateTimePart::Literal(text) => {\n                rendered.push_str(&render_datetime_literal(profile, &text))\n            }\n            DateTimePart::Token { kind, width } => {\n                let fragment = match kind {\n                    DateTimeTokenKind::Year => {\n                        let (year, _, _) = date?;\n                        if width <= 2 {\n                            format!(\"{:02}\", year.rem_euclid(100))\n                        } else {\n                            format!(\"{year:04}\")\n                        }\n                    }\n                    DateTimeTokenKind::Month => {\n                        let (_, month, _) = date?;\n                        match width {\n                            1 => month.to_string(),\n                            2 => format!(\"{month:02}\"),\n                            3 => month_name(&names_profile, month, true, name_locale.is_some()),\n                            // mmmmm is the month name's first letter (measured, Excel 16.0 build\n                            // 20527, dc-0f1k formats oracle).\n                            5 => month_name(&names_profile, month, false, name_locale.is_some())\n                                .chars()\n                                .next()\n                                .map(String::from)\n                                .unwrap_or_default(),\n                            _ => month_name(&names_profile, month, false, name_locale.is_some()),\n                        }\n                    }\n                    DateTimeTokenKind::Minute => {\n                        if width <= 1 {\n                            time.minute.to_string()\n                        } else {\n                            format!(\"{:02}\", time.minute)\n                        }\n                    }\n                    DateTimeTokenKind::Day => {\n                        let (_, _, day) = date?;\n                        match width {\n                            1 => day.to_string(),\n                            2 => format!(\"{day:02}\"),\n                            3 => weekday_name(&names_profile, weekday_index?, true, name_locale.is_some()),\n                            _ => weekday_name(&names_profile, weekday_index?, false, name_locale.is_some()),\n                        }\n                    }\n                    DateTimeTokenKind::Hour => {\n                        let hour = if has_ampm {\n                            let hour = time.hour % 12;\n                            if hour == 0 { 12 } else { hour }\n                        } else {\n                            time.hour\n                        };\n                        if width <= 1 {\n                            hour.to_string()\n                        } else {\n                            format!(\"{hour:02}\")\n                        }\n                    }\n                    DateTimeTokenKind::Second => {\n                        if width <= 1 {\n                            time.second.to_string()\n                        } else {\n                            format!(\"{:02}\", time.second)\n                        }\n                    }\n                    DateTimeTokenKind::ElapsedHour => {\n                        format_elapsed(value, time.elapsed_hours, width)\n                    }\n                    DateTimeTokenKind::ElapsedMinute => {\n                        format_elapsed(value, time.elapsed_minutes, width)\n                    }\n                    DateTimeTokenKind::ElapsedSecond => {\n                        format_elapsed(value, time.elapsed_seconds, width)\n                    }\n                    DateTimeTokenKind::SubSecond => {\n                        format!(\"{}{:0width$}\", profile.decimal_separator, time.subsecond)\n                    }\n                    DateTimeTokenKind::AmPmUpper => {\n                        super::designator(profile, time.hour < 12).to_string()\n                    }\n                    DateTimeTokenKind::AmPmLower => {\n                        super::designator(profile, time.hour < 12).to_string()\n                    }\n                    DateTimeTokenKind::Era | DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent => {\n                        let (year, month, day) = date?;\n                        // Fn5 zero section and fn8 width/era-boundary controls:\n                        // an untagged e is Gregorian; g contributes no era name.\n                        if untagged_locale && super::measured_host(profile) {\n                            match kind {\n                                DateTimeTokenKind::EraYear => { rendered.push_str(&year.to_string()); continue; }\n                                DateTimeTokenKind::Era => continue,\n                                _ => return None,\n                            }\n                        }\n                        // Fn3 measures g/gg/ggg and e/ee on both sides of the\n                        // Heisei/Reiwa transition. Calendar start dates are public facts:\n                        // https://www.npb.go.jp/en/products/gazette/books/kanpo_history.html\n                        if name_locale != Some(LocaleId::JaJp) { return None; }\n                        let (base_year, latin, short, long) = if (year, month, day) >= (2019, 5, 1) {\n                            (2018, \"R\", \"令\", \"令和\")\n                        } else if (year, month, day) >= (1989, 1, 8) {\n                            (1988, \"H\", \"平\", \"平成\")\n                        } else {\n                            return None;\n                        };\n                        match (kind, width) {\n                            (DateTimeTokenKind::Era, 1) => latin.to_owned(),\n                            (DateTimeTokenKind::Era, 2) => short.to_owned(),\n                            (DateTimeTokenKind::Era, 3) => long.to_owned(),\n                            (DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent, 1) => (year - base_year).to_string(),\n                            (DateTimeTokenKind::EraYear | DateTimeTokenKind::UpperExponent, 2) => format!(\"{:02}\", year - base_year),\n                            _ => return None,\n                        }\n                    }\n                };\n                rendered.push_str(&fragment);\n            }\n        }\n    }\n\n    Some(rendered)\n}\n"
   },
   "format/datetime::tokenize_datetime_format": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 282,
-    "end_line": 398,
+    "start_line": 292,
+    "end_line": 412,
     "name": "tokenize_datetime_format",
     "module": "format/datetime",
     "users": 18,
-    "text": "fn tokenize_datetime_format(section: &str, profile: Option<&FormatProfile>) -> Vec<DateTimePart> {\n    let chars: Vec<char> = section.chars().collect();\n    let mut parts = Vec::new();\n    let mut literal = String::new();\n    let mut index = 0;\n    let mut in_quotes = false;\n    let mut quoted_literal = String::new();\n    let mut quoted_escape = false;\n\n    while index < chars.len() {\n        let ch = chars[index];\n        if ch == '\"' {\n            if in_quotes {\n                literal.push_str(if quoted_escape { &quoted_literal } else {\n                    profile.map_or(quoted_literal.as_str(), |p| super::currency_literal(p, &quoted_literal))\n                });\n                quoted_escape = false;\n                quoted_literal.clear();\n            }\n            in_quotes = !in_quotes;\n            index += 1;\n            continue;\n        }\n        if ch == '\\\\' {\n            if let Some(next) = chars.get(index + 1) {\n                if in_quotes { quoted_literal.push(*next); quoted_escape = true; } else { literal.push(*next); }\n                index += 2;\n            } else {\n                index += 1;\n            }\n            continue;\n        }\n        if in_quotes {\n            quoted_literal.push(ch);\n            index += 1;\n            continue;\n        }\n\n        if let Some((kind, width, consumed)) = elapsed_token_at(&chars, index) {\n            push_literal(&mut parts, &mut literal);\n            parts.push(DateTimePart::Token { kind, width });\n            index += consumed;\n            continue;\n        }\n\n        if ch == '.'\n            && chars.get(index + 1) == Some(&'0')\n            && matches!(\n                parts.last(),\n                Some(DateTimePart::Token {\n                    kind: DateTimeTokenKind::Second | DateTimeTokenKind::ElapsedSecond,\n                    ..\n                })\n            )\n            && literal.is_empty()\n        {\n            let width = chars[index + 1..].iter().take_while(|c| **c == '0').count();\n            parts.push(DateTimePart::Token {\n                kind: DateTimeTokenKind::SubSecond,\n                width,\n            });\n            index += 1 + width;\n            continue;\n        }\n\n        let remaining: String = chars[index..].iter().take(5).collect();\n        if remaining.eq_ignore_ascii_case(\"am/pm\") {\n            push_literal(&mut parts, &mut literal);\n            let kind = if remaining == \"am/pm\" {\n                DateTimeTokenKind::AmPmLower\n            } else {\n                DateTimeTokenKind::AmPmUpper\n            };\n            parts.push(DateTimePart::Token { kind, width: 5 });\n            index += 5;\n            continue;\n        }\n\n        let lower = ch.to_ascii_lowercase();\n        let kind = match lower {\n            'y' => Some(DateTimeTokenKind::Year),\n            'm' => Some(DateTimeTokenKind::Month),\n            'd' => Some(DateTimeTokenKind::Day),\n            'h' => Some(DateTimeTokenKind::Hour),\n            's' => Some(DateTimeTokenKind::Second),\n            'g' => Some(DateTimeTokenKind::Era),\n            'e' if ch == 'E' && !matches!(chars.get(index + 1), Some('+' | '-')) => Some(DateTimeTokenKind::UpperExponent),\n            'e' => Some(DateTimeTokenKind::EraYear),\n            _ => None,\n        };\n\n        if let Some(kind) = kind {\n            let width = chars[index..]\n                .iter()\n                .take_while(|candidate| candidate.to_ascii_lowercase() == lower)\n                .count();\n            // Mixed e/E runs are invalid in untagged host formats too.\n            // Tagged Japanese rendering keeps its prior case-insensitive width.\n            let kind = if lower == 'e' && chars[index..index + width].contains(&'E')\n                && (width > 1 || !matches!(chars.get(index + width), Some('+' | '-'))) {\n                DateTimeTokenKind::UpperExponent\n            } else { kind };\n            push_literal(&mut parts, &mut literal);\n            parts.push(DateTimePart::Token { kind, width });\n            index += width;\n        } else {\n            let atom = ch.to_string();\n            literal.push_str(profile.map_or(atom.as_str(), |p| super::currency_literal(p, &atom)));\n            index += 1;\n        }\n    }\n\n    // Preserve the previous treatment of an unfinished quote.\n    literal.push_str(&quoted_literal);\n    push_literal(&mut parts, &mut literal);\n    parts\n}\n"
+    "text": "fn tokenize_datetime_format(section: &str, profile: Option<&FormatProfile>) -> Vec<DateTimePart> {\n    let chars: Vec<char> = section.chars().collect();\n    let mut parts = Vec::new();\n    let mut literal = String::new();\n    let mut index = 0;\n    let mut in_quotes = false;\n    let mut quoted_literal = String::new();\n    let mut quoted_escape = false;\n    // The character a code writes the decimal point as: `.`, or the host's in a localized code.\n    let decimal = profile\n        .and_then(|p| p.format_code_decimal_token.chars().next())\n        .unwrap_or('.');\n\n    while index < chars.len() {\n        let ch = chars[index];\n        if ch == '\"' {\n            if in_quotes {\n                literal.push_str(if quoted_escape { &quoted_literal } else {\n                    profile.map_or(quoted_literal.as_str(), |p| super::currency_literal(p, &quoted_literal))\n                });\n                quoted_escape = false;\n                quoted_literal.clear();\n            }\n            in_quotes = !in_quotes;\n            index += 1;\n            continue;\n        }\n        if ch == '\\\\' {\n            if let Some(next) = chars.get(index + 1) {\n                if in_quotes { quoted_literal.push(*next); quoted_escape = true; } else { literal.push(*next); }\n                index += 2;\n            } else {\n                index += 1;\n            }\n            continue;\n        }\n        if in_quotes {\n            quoted_literal.push(ch);\n            index += 1;\n            continue;\n        }\n\n        if let Some((kind, width, consumed)) = elapsed_token_at(&chars, index) {\n            push_literal(&mut parts, &mut literal);\n            parts.push(DateTimePart::Token { kind, width });\n            index += consumed;\n            continue;\n        }\n\n        if (ch == '.' || ch == decimal)\n            && chars.get(index + 1) == Some(&'0')\n            && matches!(\n                parts.last(),\n                Some(DateTimePart::Token {\n                    kind: DateTimeTokenKind::Second | DateTimeTokenKind::ElapsedSecond,\n                    ..\n                })\n            )\n            && literal.is_empty()\n        {\n            let width = chars[index + 1..].iter().take_while(|c| **c == '0').count();\n            parts.push(DateTimePart::Token {\n                kind: DateTimeTokenKind::SubSecond,\n                width,\n            });\n            index += 1 + width;\n            continue;\n        }\n\n        let remaining: String = chars[index..].iter().take(5).collect();\n        if remaining.eq_ignore_ascii_case(\"am/pm\") {\n            push_literal(&mut parts, &mut literal);\n            let kind = if remaining == \"am/pm\" {\n                DateTimeTokenKind::AmPmLower\n            } else {\n                DateTimeTokenKind::AmPmUpper\n            };\n            parts.push(DateTimePart::Token { kind, width: 5 });\n            index += 5;\n            continue;\n        }\n\n        let lower = ch.to_ascii_lowercase();\n        let kind = match lower {\n            'y' => Some(DateTimeTokenKind::Year),\n            'm' => Some(DateTimeTokenKind::Month),\n            'd' => Some(DateTimeTokenKind::Day),\n            'h' => Some(DateTimeTokenKind::Hour),\n            's' => Some(DateTimeTokenKind::Second),\n            'g' => Some(DateTimeTokenKind::Era),\n            'e' if ch == 'E' && !matches!(chars.get(index + 1), Some('+' | '-')) => Some(DateTimeTokenKind::UpperExponent),\n            'e' => Some(DateTimeTokenKind::EraYear),\n            _ => None,\n        };\n\n        if let Some(kind) = kind {\n            let width = chars[index..]\n                .iter()\n                .take_while(|candidate| candidate.to_ascii_lowercase() == lower)\n                .count();\n            // Mixed e/E runs are invalid in untagged host formats too.\n            // Tagged Japanese rendering keeps its prior case-insensitive width.\n            let kind = if lower == 'e' && chars[index..index + width].contains(&'E')\n                && (width > 1 || !matches!(chars.get(index + width), Some('+' | '-'))) {\n                DateTimeTokenKind::UpperExponent\n            } else { kind };\n            push_literal(&mut parts, &mut literal);\n            parts.push(DateTimePart::Token { kind, width });\n            index += width;\n        } else {\n            let atom = ch.to_string();\n            literal.push_str(profile.map_or(atom.as_str(), |p| super::currency_literal(p, &atom)));\n            index += 1;\n        }\n    }\n\n    // Preserve the previous treatment of an unfinished quote.\n    literal.push_str(&quoted_literal);\n    push_literal(&mut parts, &mut literal);\n    parts\n}\n"
   },
   "format/datetime::elapsed_token_at": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 400,
-    "end_line": 421,
+    "start_line": 414,
+    "end_line": 435,
     "name": "elapsed_token_at",
     "module": "format/datetime",
     "users": 18,
@@ -2269,8 +2278,8 @@
   },
   "format/datetime::classify_minute_tokens": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 423,
-    "end_line": 454,
+    "start_line": 437,
+    "end_line": 468,
     "name": "classify_minute_tokens",
     "module": "format/datetime",
     "users": 18,
@@ -2278,8 +2287,8 @@
   },
   "format/datetime::token_kind": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 456,
-    "end_line": 461,
+    "start_line": 470,
+    "end_line": 475,
     "name": "token_kind",
     "module": "format/datetime",
     "users": 18,
@@ -2287,8 +2296,8 @@
   },
   "format/datetime::is_time_neighbor": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 463,
-    "end_line": 473,
+    "start_line": 477,
+    "end_line": 487,
     "name": "is_time_neighbor",
     "module": "format/datetime",
     "users": 18,
@@ -2296,8 +2305,8 @@
   },
   "format/datetime::push_literal": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 475,
-    "end_line": 479,
+    "start_line": 489,
+    "end_line": 493,
     "name": "push_literal",
     "module": "format/datetime",
     "users": 18,
@@ -2305,8 +2314,8 @@
   },
   "format/datetime::render_datetime_literal": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 481,
-    "end_line": 484,
+    "start_line": 495,
+    "end_line": 498,
     "name": "render_datetime_literal",
     "module": "format/datetime",
     "users": 18,
@@ -2314,8 +2323,8 @@
   },
   "format/datetime::format_elapsed": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 486,
-    "end_line": 498,
+    "start_line": 500,
+    "end_line": 512,
     "name": "format_elapsed",
     "module": "format/datetime",
     "users": 18,
@@ -2323,8 +2332,8 @@
   },
   "format/datetime::TimeParts::from_serial": {
     "file": "crates/calc-func/src/format/datetime.rs",
-    "start_line": 513,
-    "end_line": 528,
+    "start_line": 527,
+    "end_line": 542,
     "name": "TimeParts::from_serial",
     "module": "format/datetime",
     "users": 18,
@@ -2522,16 +2531,16 @@
   "format::scientific": {
     "file": "crates/calc-func/src/format/mod.rs",
     "start_line": 857,
-    "end_line": 943,
+    "end_line": 946,
     "name": "scientific",
     "module": "format",
     "users": 18,
-    "text": "/// A scientific mantissa and exponent.\nfn scientific(\n    profile: &FormatProfile,\n    value: f64,\n    integer: &[&Item],\n    fraction: &[char],\n    items: &[Item],\n    exponent_at: usize,\n) -> Result<(String, bool), Failure> {\n    let Item::Exponent(plus) = items[exponent_at] else {\n        unreachable!()\n    };\n    let exponent_digits: Vec<char> = items[exponent_at + 1..]\n        .iter()\n        .take_while(|i| matches!(i, Item::Digit(_)))\n        .map(|i| match i {\n            Item::Digit(c) => *c,\n            _ => unreachable!(),\n        })\n        .collect();\n    if exponent_digits.is_empty() {\n        return Err(Failure::NotModelled);\n    }\n    let whole_places: Vec<char> = integer\n        .iter()\n        .filter_map(|i| match i {\n            Item::Digit(c) => Some(*c),\n            Item::Group => None,\n            _ => Some('!'),\n        })\n        .collect();\n    if whole_places.contains(&'!') || whole_places.is_empty() {\n        return Err(Failure::NotModelled);\n    }\n    let width = whole_places.len() as i64;\n    let engineering = width > 1 && whole_places[0] == '#';\n    if value == 0.0 {\n        let mantissa = format!(\n            \"0{}{}\",\n            if fraction.is_empty() { \"\" } else { profile.decimal_separator },\n            \"0\".repeat(fraction.len())\n        );\n        let exponent = format!(\"E{}{}\", if plus { \"+\" } else { \"\" }, \"0\".repeat(exponent_digits.len()));\n        return Ok((format!(\"{mantissa}{exponent}\"), false));\n    }\n    let first = fifteen(value);\n    let length = first.coefficient.digits().len() as i64;\n    let point = length + first.exponent as i64; // value = 0.d * 10^point\n    let leading = if engineering {\n        // The exponent is a multiple of the width.\n        let e = (point - 1).div_euclid(width) * width;\n        point - e\n    } else {\n        width.min(point.max(1)).max(1)\n    };\n    let mut exponent = point - leading;\n    let count = (leading + fraction.len() as i64) as usize;\n    let (mut mantissa_digits, carry) = significant(&first, count);\n    if carry == 1 {\n        exponent += 1;\n        if engineering && exponent.rem_euclid(width) != 0 {\n            // A carry past the width moves to the next multiple.\n            mantissa_digits.push('0');\n        }\n    }\n    let lead = leading as usize;\n    let (whole, frac) = mantissa_digits.split_at(lead.min(mantissa_digits.len()));\n    let frac = fraction_part(&frac[..fraction.len().min(frac.len())], fraction);\n    let mut out = whole.to_owned();\n    if !fraction.is_empty() {\n        out.push_str(profile.decimal_separator);\n        out.push_str(&frac);\n    }\n    let sign = if exponent < 0 {\n        \"-\"\n    } else if plus {\n        \"+\"\n    } else {\n        \"\"\n    };\n    out.push_str(&format!(\n        \"E{sign}{:0width$}\",\n        exponent.abs(),\n        width = exponent_digits.len()\n    ));\n    Ok((out, true))\n}\n"
+    "text": "/// A scientific mantissa and exponent.\nfn scientific(\n    profile: &FormatProfile,\n    value: f64,\n    integer: &[&Item],\n    fraction: &[char],\n    items: &[Item],\n    exponent_at: usize,\n) -> Result<(String, bool), Failure> {\n    let Item::Exponent(plus) = items[exponent_at] else {\n        unreachable!()\n    };\n    let exponent_digits: Vec<char> = items[exponent_at + 1..]\n        .iter()\n        .take_while(|i| matches!(i, Item::Digit(_)))\n        .map(|i| match i {\n            Item::Digit(c) => *c,\n            _ => unreachable!(),\n        })\n        .collect();\n    if exponent_digits.is_empty() {\n        return Err(Failure::NotModelled);\n    }\n    let whole_places: Vec<char> = integer\n        .iter()\n        .filter_map(|i| match i {\n            Item::Digit(c) => Some(*c),\n            Item::Group => None,\n            _ => Some('!'),\n        })\n        .collect();\n    if whole_places.contains(&'!') || whole_places.is_empty() {\n        return Err(Failure::NotModelled);\n    }\n    let width = whole_places.len() as i64;\n    let engineering = width > 1 && whole_places[0] == '#';\n    if value == 0.0 {\n        // Zero fills every whole-number placeholder: `##0.0E+0` gives `000.0E+0` (measured, Excel\n        // 16.0 build 20527, dc-0f1k formats oracle).\n        let mantissa = format!(\n            \"{}{}{}\",\n            \"0\".repeat(whole_places.len()),\n            if fraction.is_empty() { \"\" } else { profile.decimal_separator },\n            \"0\".repeat(fraction.len())\n        );\n        let exponent = format!(\"E{}{}\", if plus { \"+\" } else { \"\" }, \"0\".repeat(exponent_digits.len()));\n        return Ok((format!(\"{mantissa}{exponent}\"), false));\n    }\n    let first = fifteen(value);\n    let length = first.coefficient.digits().len() as i64;\n    let point = length + first.exponent as i64; // value = 0.d * 10^point\n    let leading = if engineering {\n        // The exponent is a multiple of the width.\n        let e = (point - 1).div_euclid(width) * width;\n        point - e\n    } else {\n        width.min(point.max(1)).max(1)\n    };\n    let mut exponent = point - leading;\n    let count = (leading + fraction.len() as i64) as usize;\n    let (mut mantissa_digits, carry) = significant(&first, count);\n    if carry == 1 {\n        exponent += 1;\n        if engineering && exponent.rem_euclid(width) != 0 {\n            // A carry past the width moves to the next multiple.\n            mantissa_digits.push('0');\n        }\n    }\n    let lead = leading as usize;\n    let (whole, frac) = mantissa_digits.split_at(lead.min(mantissa_digits.len()));\n    let frac = fraction_part(&frac[..fraction.len().min(frac.len())], fraction);\n    let mut out = whole.to_owned();\n    if !fraction.is_empty() {\n        out.push_str(profile.decimal_separator);\n        out.push_str(&frac);\n    }\n    let sign = if exponent < 0 {\n        \"-\"\n    } else if plus {\n        \"+\"\n    } else {\n        \"\"\n    };\n    out.push_str(&format!(\n        \"E{sign}{:0width$}\",\n        exponent.abs(),\n        width = exponent_digits.len()\n    ));\n    Ok((out, true))\n}\n"
   },
   "format::fraction_code": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 966,
-    "end_line": 995,
+    "start_line": 969,
+    "end_line": 998,
     "name": "fraction_code",
     "module": "format",
     "users": 18,
@@ -2539,8 +2548,8 @@
   },
   "format::FractionCode::render": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 998,
-    "end_line": 1047,
+    "start_line": 1001,
+    "end_line": 1050,
     "name": "FractionCode::render",
     "module": "format",
     "users": 18,
@@ -2548,8 +2557,8 @@
   },
   "format::mixed_fraction_under_space_grouping": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1050,
-    "end_line": 1066,
+    "start_line": 1053,
+    "end_line": 1069,
     "name": "mixed_fraction_under_space_grouping",
     "module": "format",
     "users": 18,
@@ -2557,8 +2566,8 @@
   },
   "format::convergent": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1068,
-    "end_line": 1089,
+    "start_line": 1071,
+    "end_line": 1092,
     "name": "convergent",
     "module": "format",
     "users": 18,
@@ -2566,8 +2575,8 @@
   },
   "format::text_declared_date_locale": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1254,
-    "end_line": 1270,
+    "start_line": 1257,
+    "end_line": 1273,
     "name": "text_declared_date_locale",
     "module": "format",
     "users": 18,
@@ -2575,8 +2584,8 @@
   },
   "format::text": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1272,
-    "end_line": 1275,
+    "start_line": 1275,
+    "end_line": 1278,
     "name": "text",
     "module": "format",
     "users": 18,
@@ -2584,8 +2593,8 @@
   },
   "format::localized_code_profile": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1279,
-    "end_line": 1283,
+    "start_line": 1282,
+    "end_line": 1286,
     "name": "localized_code_profile",
     "module": "format",
     "users": 18,
@@ -2593,17 +2602,17 @@
   },
   "format::render_text": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1285,
-    "end_line": 1359,
+    "start_line": 1288,
+    "end_line": 1363,
     "name": "render_text",
     "module": "format",
     "users": 18,
-    "text": "fn render_text(profile: &FormatProfile, system: DateSystem, value: f64, code: &str) -> Rendered {\n    if !value.is_finite() {\n        return Err(Failure::Value);\n    }\n    let sections = sections(code);\n    let (section, signed_section) = choose(&sections, value)?;\n    let (stripped, name_locale, locale_declared) = strip_tokens(&section)?;\n    if stripped.trim().eq_ignore_ascii_case(\"general\") {\n        let shown = general(profile, if signed_section { value.abs() } else { value });\n        return Ok(shown);\n    }\n    let magnitude_only = signed_section;\n    if !locale_declared && measured_host(profile) && datetime::has_invalid_exponent(&stripped) {\n        return Err(Failure::Value);\n    }\n    if datetime::looks_like_datetime_format(&stripped) {\n        if value < 0.0 {\n            return Err(Failure::Value);\n        }\n        if value >= 2_958_466.0 {\n            return Err(Failure::Value);\n        }\n        if datetime::without_subseconds(&stripped)\n            .chars()\n            .any(|c| matches!(c, 'b' | 'B' | '0') ||\n                (matches!(c, 'e' | 'g' | 'G') && name_locale != Some(crate::locale::LocaleId::JaJp)\n                    && !(!locale_declared && measured_host(profile))))\n        {\n            return Err(Failure::NotModelled);\n        }\n        return datetime::render_with_datetime_tokens(profile, system, value, &stripped, name_locale, !locale_declared)\n            .ok_or(Failure::NotModelled);\n    }\n    if let Some(fraction) = fraction_code(&stripped) {\n        return fraction.render(value, !magnitude_only);\n    }\n    if mixed_fraction_under_space_grouping(&stripped, profile) {\n        return Err(Failure::Value);\n    }\n    let mut items = items(&stripped, profile)?;\n    if !items.iter().any(|i| matches!(i, Item::Digit(_))) {\n        // Fn8 literal-only controls: a run of ordinary-space grouping tokens\n        // writes one space. Numeric grouping and trailing scaling stay below.\n        if measured_host(profile) && profile.format_code_group_token == \" \" {\n            items.dedup_by(|a, b| *a == Item::Group && *b == Item::Group);\n            for item in &mut items {\n                if *item == Item::Group { *item = Item::Literal(\" \".to_owned()); }\n            }\n        }\n        // A section of literals alone writes them (an empty one writes nothing).\n        if items.iter().any(|i| matches!(i, Item::Point | Item::Group | Item::Exponent(_))) {\n            return Err(Failure::NotModelled);\n        }\n        if items.iter().any(|i| matches!(i, Item::TextPlaceholder)) {\n            // Fn4 qt001..qt030: active @ and @! select General for numbers,\n            // including values whose full numeric text has different precision.\n            return Ok(general(profile, if signed_section { value.abs() } else { value }));\n        }\n        let literal = items\n            .iter()\n            .map(|i| literal_text(i, profile))\n            .collect::<Result<String, Failure>>()?;\n        // Keep the ordinary automatic sign when section selection has not\n        // suppressed it, even for quoted text (fn4 qt008). Empty stays empty.\n        return Ok(if value < 0.0 && !signed_section && !literal.is_empty() {\n            format!(\"-{literal}\")\n        } else {\n            literal\n        });\n    }\n    if items.iter().any(|i| matches!(i, Item::TextPlaceholder)) {\n        return Err(Failure::NotModelled);\n    }\n    numeric(profile, value, &items, !magnitude_only)\n}\n"
+    "text": "fn render_text(profile: &FormatProfile, system: DateSystem, value: f64, code: &str) -> Rendered {\n    if !value.is_finite() {\n        return Err(Failure::Value);\n    }\n    let sections = sections(code);\n    let (section, signed_section) = choose(&sections, value)?;\n    let (stripped, name_locale, locale_declared) = strip_tokens(&section)?;\n    if stripped.trim().eq_ignore_ascii_case(\"general\") {\n        let shown = general(profile, if signed_section { value.abs() } else { value });\n        return Ok(shown);\n    }\n    let magnitude_only = signed_section;\n    if !locale_declared && measured_host(profile) && datetime::has_invalid_exponent(&stripped) {\n        return Err(Failure::Value);\n    }\n    let code_decimal = profile.format_code_decimal_token.chars().next().unwrap_or('.');\n    if datetime::looks_like_datetime_format(&stripped, code_decimal) {\n        if value < 0.0 {\n            return Err(Failure::Value);\n        }\n        if value >= 2_958_466.0 {\n            return Err(Failure::Value);\n        }\n        if datetime::without_subseconds(&stripped, code_decimal)\n            .chars()\n            .any(|c| matches!(c, 'b' | 'B' | '0') ||\n                (matches!(c, 'e' | 'g' | 'G') && name_locale != Some(crate::locale::LocaleId::JaJp)\n                    && !(!locale_declared && measured_host(profile))))\n        {\n            return Err(Failure::NotModelled);\n        }\n        return datetime::render_with_datetime_tokens(profile, system, value, &stripped, name_locale, !locale_declared)\n            .ok_or(Failure::NotModelled);\n    }\n    if let Some(fraction) = fraction_code(&stripped) {\n        return fraction.render(value, !magnitude_only);\n    }\n    if mixed_fraction_under_space_grouping(&stripped, profile) {\n        return Err(Failure::Value);\n    }\n    let mut items = items(&stripped, profile)?;\n    if !items.iter().any(|i| matches!(i, Item::Digit(_))) {\n        // Fn8 literal-only controls: a run of ordinary-space grouping tokens\n        // writes one space. Numeric grouping and trailing scaling stay below.\n        if measured_host(profile) && profile.format_code_group_token == \" \" {\n            items.dedup_by(|a, b| *a == Item::Group && *b == Item::Group);\n            for item in &mut items {\n                if *item == Item::Group { *item = Item::Literal(\" \".to_owned()); }\n            }\n        }\n        // A section of literals alone writes them (an empty one writes nothing).\n        if items.iter().any(|i| matches!(i, Item::Point | Item::Group | Item::Exponent(_))) {\n            return Err(Failure::NotModelled);\n        }\n        if items.iter().any(|i| matches!(i, Item::TextPlaceholder)) {\n            // Fn4 qt001..qt030: active @ and @! select General for numbers,\n            // including values whose full numeric text has different precision.\n            return Ok(general(profile, if signed_section { value.abs() } else { value }));\n        }\n        let literal = items\n            .iter()\n            .map(|i| literal_text(i, profile))\n            .collect::<Result<String, Failure>>()?;\n        // Keep the ordinary automatic sign when section selection has not\n        // suppressed it, even for quoted text (fn4 qt008). Empty stays empty.\n        return Ok(if value < 0.0 && !signed_section && !literal.is_empty() {\n            format!(\"-{literal}\")\n        } else {\n            literal\n        });\n    }\n    if items.iter().any(|i| matches!(i, Item::TextPlaceholder)) {\n        return Err(Failure::NotModelled);\n    }\n    numeric(profile, value, &items, !magnitude_only)\n}\n"
   },
   "format::text_of_text": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1361,
-    "end_line": 1365,
+    "start_line": 1365,
+    "end_line": 1369,
     "name": "text_of_text",
     "module": "format",
     "users": 18,
@@ -2611,8 +2620,8 @@
   },
   "format::render_text_of_text": {
     "file": "crates/calc-func/src/format/mod.rs",
-    "start_line": 1366,
-    "end_line": 1385,
+    "start_line": 1370,
+    "end_line": 1389,
     "name": "render_text_of_text",
     "module": "format",
     "users": 18,
@@ -3088,8 +3097,8 @@
   },
   "catalogue/kit::grid": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 375,
-    "end_line": 429,
+    "start_line": 379,
+    "end_line": 433,
     "name": "grid",
     "module": "catalogue/kit",
     "users": 0,
@@ -3097,8 +3106,8 @@
   },
   "catalogue/kit::text_value": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 287,
-    "end_line": 290,
+    "start_line": 291,
+    "end_line": 294,
     "name": "text_value",
     "module": "catalogue/kit",
     "users": 0,
@@ -3158,22 +3167,13 @@
     "users": 1,
     "text": "pub fn asinh_kernel(n: f64) -> Result<f64, WorksheetErrorCode> {\n    // Excel computes `ln(x + sqrt(x² + 1))` and overflows when the `x²` intermediate\n    // overflows f64, publishing `#NUM!` rather than the (finite, representable) analytic\n    // value for such large |x|. Reproduce that boundary *bit-exactly* by forming the same\n    // `x*x` intermediate Excel forms and rejecting when it is non-finite: this flips to\n    // `#NUM!` at exactly the input Excel does (|x| > sqrt(f64::MAX) = 1.3407807929942596e154,\n    // verified live against Excel 16.0 build 20026 around 0x5fefffffffffffff↔0x5ff0000000000000).\n    // No guessed magic constant — identical f64 arithmetic yields Excel's exact threshold.\n    if !(n * n).is_finite() {\n        return Err(WorksheetErrorCode::Num);\n    }\n    // Inverse-problem identity, live Excel 16.0 b20228 Range.Value2:\n    // ASINH(x) == SIGN(x)*LN(ABS(x)+SQRT(x*x+1)) on 23/23 signed rows.\n    // The unsigned LN(x+SQRT(x*x+1)) misses negatives. Worksheet HYPOT\n    // is not the graph. When x*x+1 overflows (x*x == f64::MAX), SQRT\n    // cannot be formed; the published finite value is LN(2*|x|).\n    let a = n.abs();\n    // The recorded identity stores each operation from PC64, including SQRT.\n    // Retaining the entire expression in the registers loses recorded matches.\n    let sq = excel_x87_mul(a, a);\n    let radicand = excel_x87_add(sq, 1.0);\n    let inner = if !radicand.is_finite() {\n        excel_x87_add(a, a)\n    } else {\n        excel_x87_add(a, excel_sqrt_staged(radicand))\n    };\n    Ok(n.signum() * crate::ported::excel_numeric::excel_log(inner))\n}\n"
   },
-  "catalogue/kit::num_with_subnormal": {
-    "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 193,
-    "end_line": 204,
-    "name": "num_with_subnormal",
-    "module": "catalogue/kit",
-    "users": 0,
-    "text": "/// Number coercion for a kernel that implements its own measured subnormal input policy.\n/// Keep the ordinary coercions and refusals for every other kind of value.\npub(super) fn num_with_subnormal(\n    site: &Site<'_>,\n    arguments: &[CalcValue],\n    index: usize,\n) -> Step<f64> {\n    match arguments[index].core_ref() {\n        CoreRef::Number(n) if n.is_subnormal() => Ok(n),\n        _ => num(site, arguments, index),\n    }\n}\n"
-  },
   "catalogue/math::raw": {
     "file": "crates/calc-func/src/catalogue/math.rs",
     "start_line": 19,
     "end_line": 23,
     "name": "raw",
     "module": "catalogue/math",
-    "users": 9,
+    "users": 7,
     "text": "/// A one-argument kernel whose raw result Excel publishes under `policy`.\nfn raw(site: &Site<'_>, a: &[CalcValue], policy: ExcelRealPolicy, kernel: fn(f64) -> f64) -> Step<CalcValue> {\n    let x = num(site, a, 0)?;\n    out(site, policy.publish(x, kernel(x)))\n}\n"
   },
   "catalogue/math::entry::ATAN": {
@@ -3268,8 +3268,8 @@
   },
   "catalogue/kit::numbers": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 325,
-    "end_line": 342,
+    "start_line": 329,
+    "end_line": 346,
     "name": "numbers",
     "module": "catalogue/kit",
     "users": 0,
@@ -3709,8 +3709,8 @@
   },
   "catalogue/math::entry::BASE": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 183,
-    "end_line": 188,
+    "start_line": 186,
+    "end_line": 191,
     "name": "BASE",
     "module": "catalogue/math",
     "users": 1,
@@ -3736,8 +3736,8 @@
   },
   "catalogue/kit::out_text": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 282,
-    "end_line": 285,
+    "start_line": 286,
+    "end_line": 289,
     "name": "out_text",
     "module": "catalogue/kit",
     "users": 0,
@@ -4519,8 +4519,8 @@
   },
   "catalogue/kit::flag": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 228,
-    "end_line": 231,
+    "start_line": 232,
+    "end_line": 235,
     "name": "flag",
     "module": "catalogue/kit",
     "users": 0,
@@ -4744,8 +4744,8 @@
   },
   "ported/discrete_dist::stirling_error": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 63,
-    "end_line": 80,
+    "start_line": 62,
+    "end_line": 79,
     "name": "stirling_error",
     "module": "ported/discrete_dist",
     "users": 23,
@@ -4753,8 +4753,8 @@
   },
   "ported/discrete_dist::deviance": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 82,
-    "end_line": 90,
+    "start_line": 81,
+    "end_line": 89,
     "name": "deviance",
     "module": "ported/discrete_dist",
     "users": 23,
@@ -4762,8 +4762,8 @@
   },
   "ported/discrete_dist::binom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 92,
-    "end_line": 111,
+    "start_line": 91,
+    "end_line": 110,
     "name": "binom_mass",
     "module": "ported/discrete_dist",
     "users": 7,
@@ -4771,8 +4771,8 @@
   },
   "ported/discrete_dist::binom_exponent": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 113,
-    "end_line": 120,
+    "start_line": 112,
+    "end_line": 119,
     "name": "binom_exponent",
     "module": "ported/discrete_dist",
     "users": 9,
@@ -4780,8 +4780,8 @@
   },
   "ported/discrete_dist::binom_normalizer": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 122,
-    "end_line": 126,
+    "start_line": 121,
+    "end_line": 125,
     "name": "binom_normalizer",
     "module": "ported/discrete_dist",
     "users": 9,
@@ -4789,8 +4789,8 @@
   },
   "ported/discrete_dist::finite": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 155,
-    "end_line": 165,
+    "start_line": 154,
+    "end_line": 164,
     "name": "finite",
     "module": "ported/discrete_dist",
     "users": 14,
@@ -4798,8 +4798,8 @@
   },
   "ported/discrete_dist::binom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 183,
-    "end_line": 211,
+    "start_line": 182,
+    "end_line": 210,
     "name": "binom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -4807,8 +4807,8 @@
   },
   "ported/discrete_dist::binom_cumulative": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 213,
-    "end_line": 224,
+    "start_line": 212,
+    "end_line": 223,
     "name": "binom_cumulative",
     "module": "ported/discrete_dist",
     "users": 3,
@@ -4825,8 +4825,8 @@
   },
   "ported/discrete_dist::binom_dist_range_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 226,
-    "end_line": 255,
+    "start_line": 225,
+    "end_line": 254,
     "name": "binom_dist_range_kernel",
     "module": "ported/discrete_dist",
     "users": 1,
@@ -4843,12 +4843,12 @@
   },
   "ported/discrete_dist::binom_inv_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 257,
-    "end_line": 275,
+    "start_line": 256,
+    "end_line": 278,
     "name": "binom_inv_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
-    "text": "/// `BINOM.INV(trials, probability_s, alpha)`: the smallest count whose cumulative binomial\n/// probability is at least alpha.\npub fn binom_inv_kernel(trials: f64, p: f64, alpha: f64) -> R {\n    let n = trials.trunc();\n    if n < 0.0 || !(p > 0.0 && p < 1.0) || !(alpha > 0.0 && alpha < 1.0) {\n        return Err(NUM);\n    }\n    let q = 1.0 - p;\n    let mut sum = 0.0;\n    let mut k = 0.0;\n    while k < n {\n        sum += binom_mass(k, n, p, q);\n        if sum >= alpha {\n            return Ok(k);\n        }\n        k += 1.0;\n    }\n    Ok(n)\n}\n"
+    "text": "/// `BINOM.INV(trials, probability_s, alpha)`: the smallest count whose cumulative binomial\n/// probability exceeds alpha on the measured exact boundary cases.\npub fn binom_inv_kernel(trials: f64, p: f64, alpha: f64) -> R {\n    let n = trials.trunc();\n    if n < 0.0 || !(p > 0.0 && p < 1.0) || !(alpha > 0.0 && alpha < 1.0) {\n        return Err(NUM);\n    }\n    let q = 1.0 - p;\n    let mut sum = 0.0;\n    let mut k = 0.0;\n    // The forward recurrence starts at the larger-probability endpoint; use the existing\n    // mass calculation when that endpoint is the upper tail or its starting mass underflows.\n    let mut mass = if p <= q { crate::ported::excel_numeric::crt_pow(q, n) } else { 0.0 };\n    while k < n {\n        sum += if mass == 0.0 { binom_mass(k, n, p, q) } else { mass };\n        if sum > alpha {\n            return Ok(k);\n        }\n        k += 1.0;\n        mass *= (n - k + 1.0) / k * p / q;\n    }\n    Ok(n)\n}\n"
   },
   "catalogue/distributions::entry::BINOMDIST": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -5086,8 +5086,8 @@
   },
   "catalogue/kit::scalar_error": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 297,
-    "end_line": 304,
+    "start_line": 301,
+    "end_line": 308,
     "name": "scalar_error",
     "module": "catalogue/kit",
     "users": 0,
@@ -5122,8 +5122,8 @@
   },
   "catalogue/rounding::ceiling": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 560,
-    "end_line": 568,
+    "start_line": 569,
+    "end_line": 577,
     "name": "ceiling",
     "module": "catalogue/rounding",
     "users": 1,
@@ -5131,8 +5131,8 @@
   },
   "catalogue/rounding::ceiling_for": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 578,
-    "end_line": 593,
+    "start_line": 587,
+    "end_line": 602,
     "name": "ceiling_for",
     "module": "catalogue/rounding",
     "users": 2,
@@ -5140,17 +5140,17 @@
   },
   "catalogue/rounding::to_multiple": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 617,
-    "end_line": 639,
+    "start_line": 626,
+    "end_line": 649,
     "name": "to_multiple",
     "module": "catalogue/rounding",
     "users": 3,
-    "text": "/// The multiple of `significance` that `toward` chooses for `number`, both non-zero, in binary64:\n/// significance * ceil(number / significance) for CEILING and significance *\n/// floor(number / significance) for FLOOR, whatever the signs. The division and the product are\n/// arithmetic sites, each rounding once; the integer above or below a binary64 is exact. The\n/// quotient is first rounded to 15 significant digits, so one that rounds to just below or above\n/// an integer counts as that integer (0.3 / 0.1 is 2.9999999999999996, counted as 3), and a\n/// quotient beyond binary64's range gives an infinite product, which the number rule publishes\n/// as #NUM!.\nfn to_multiple(site: &Site<'_>, number: f64, significance: f64, toward: Toward) -> Step<f64> {\n    let quotient = site.divide(number, significance)?;\n    // Counted from the quotient rounded to 15 significant digits, as Excel counts (dc-j9k; see\n    // ceiling_floor_family::excel_quotient).\n    let quotient = if quotient.is_finite() && quotient != 0.0 {\n        crate::ported::ceiling_floor_family::excel_quotient(number, significance)\n    } else {\n        quotient\n    };\n    let count = match toward {\n        Toward::Up => decimal::ceil(quotient),\n        Toward::Down => decimal::floor(quotient),\n    };\n    site.multiply(significance, count)\n}\n"
+    "text": "/// The multiple of `significance` that `toward` chooses for `number`, both non-zero, in binary64:\n/// significance * ceil(number / significance) for CEILING and significance *\n/// floor(number / significance) for FLOOR, whatever the signs. The division and the product are\n/// arithmetic sites, each rounding once; the integer above or below a binary64 is exact. The\n/// quotient is first rounded to 15 significant digits, so one that rounds to just below or above\n/// an integer counts as that integer (0.3 / 0.1 is 2.9999999999999996, counted as 3), and a\n/// quotient beyond binary64's range gives an infinite product, which the number rule publishes\n/// as #NUM!.\nfn to_multiple(site: &Site<'_>, number: f64, significance: f64, toward: Toward) -> Step<f64> {\n    let quotient = site.divide(number, significance)?;\n    let quotient = if quotient.is_subnormal() { 0.0 } else { quotient };\n    // Counted from the quotient rounded to 15 significant digits, as Excel counts (dc-j9k; see\n    // ceiling_floor_family::excel_quotient).\n    let quotient = if quotient.is_finite() && quotient != 0.0 {\n        crate::ported::ceiling_floor_family::excel_quotient(number, significance)\n    } else {\n        quotient\n    };\n    let count = match toward {\n        Toward::Up => decimal::ceil(quotient),\n        Toward::Down => decimal::floor(quotient),\n    };\n    site.multiply(significance, count)\n}\n"
   },
   "catalogue/rounding::quotient": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 729,
-    "end_line": 748,
+    "start_line": 739,
+    "end_line": 758,
     "name": "quotient",
     "module": "catalogue/rounding",
     "users": 6,
@@ -5186,11 +5186,11 @@
   "ported/ceiling_floor_family::excel_quotient": {
     "file": "crates/calc-func/src/ported/ceiling_floor_family.rs",
     "start_line": 4,
-    "end_line": 15,
+    "end_line": 18,
     "name": "excel_quotient",
     "module": "ported/ceiling_floor_family",
     "users": 8,
-    "text": "/// The quotient number/significance as the CEILING and FLOOR family counts multiples from it:\n/// rounded to 15 significant digits first, so a quotient within that rounding of an integer is\n/// that integer (dc-j9k: 736 of 736 CEILING, FLOOR, .MATH and .PRECISE readings in the catalogue\n/// oracle's sheet dcj9k_math; CEILING(1*(1+2^-48),1) is 1 and CEILING(1*(1+2^-47),1) is 2,\n/// FLOOR(1*(1-2^-51),1) is 1 and FLOOR(1*(1-2^-50),1) is 0).\npub(crate) fn excel_quotient(number: f64, significance: f64) -> f64 {\n    let quotient = number / significance;\n    if !quotient.is_finite() || quotient == 0.0 {\n        return quotient;\n    }\n    format!(\"{quotient:.14e}\").parse().unwrap_or(quotient)\n}\n"
+    "text": "/// The quotient number/significance as the CEILING and FLOOR family counts multiples from it:\n/// rounded to 15 significant digits first, so a quotient within that rounding of an integer is\n/// that integer (dc-j9k: 736 of 736 CEILING, FLOOR, .MATH and .PRECISE readings in the catalogue\n/// oracle's sheet dcj9k_math; CEILING(1*(1+2^-48),1) is 1 and CEILING(1*(1+2^-47),1) is 2,\n/// FLOOR(1*(1-2^-51),1) is 1 and FLOOR(1*(1-2^-50),1) is 0).\npub(crate) fn excel_quotient(number: f64, significance: f64) -> f64 {\n    let quotient = number / significance;\n    if quotient.is_subnormal() {\n        return 0.0;\n    }\n    if !quotient.is_finite() || quotient == 0.0 {\n        return quotient;\n    }\n    format!(\"{quotient:.14e}\").parse().unwrap_or(quotient)\n}\n"
   },
   "catalogue/rounding_more::three": {
     "file": "crates/calc-func/src/catalogue/rounding_more.rs",
@@ -5199,7 +5199,7 @@
     "name": "three",
     "module": "catalogue/rounding_more",
     "users": 2,
-    "text": "fn three(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    kernel: fn(f64, f64, f64) -> Result<f64, WorksheetErrorCode>,\n) -> Step<CalcValue> {\n    let x = num(site, a, 0)?;\n    let significance = opt(site, a, 1, 1.0)?;\n    let mode = opt(site, a, 2, 0.0)?;\n    out(site, kernel(x, significance, mode))\n}\n"
+    "text": "fn three(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    kernel: fn(f64, f64, f64) -> Result<f64, WorksheetErrorCode>,\n) -> Step<CalcValue> {\n    let x = num_with_subnormal(site, a, 0)?;\n    let significance = opt(site, a, 1, 1.0)?;\n    let mode = opt(site, a, 2, 0.0)?;\n    out(site, kernel(x, significance, mode))\n}\n"
   },
   "catalogue/rounding_more::entry::CEILING.MATH": {
     "file": "crates/calc-func/src/catalogue/rounding_more.rs",
@@ -5212,8 +5212,8 @@
   },
   "ported/ceiling_floor_family::normalize_zero": {
     "file": "crates/calc-func/src/ported/ceiling_floor_family.rs",
-    "start_line": 17,
-    "end_line": 19,
+    "start_line": 20,
+    "end_line": 22,
     "name": "normalize_zero",
     "module": "ported/ceiling_floor_family",
     "users": 5,
@@ -5221,8 +5221,8 @@
   },
   "ported/ceiling_floor_family::ceiling_math_kernel": {
     "file": "crates/calc-func/src/ported/ceiling_floor_family.rs",
-    "start_line": 45,
-    "end_line": 62,
+    "start_line": 48,
+    "end_line": 65,
     "name": "ceiling_math_kernel",
     "module": "ported/ceiling_floor_family",
     "users": 3,
@@ -5230,8 +5230,8 @@
   },
   "catalogue/kit::opt": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 206,
-    "end_line": 219,
+    "start_line": 210,
+    "end_line": 223,
     "name": "opt",
     "module": "catalogue/kit",
     "users": 0,
@@ -5244,7 +5244,7 @@
     "name": "two",
     "module": "catalogue/rounding_more",
     "users": 3,
-    "text": "fn two(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    kernel: fn(f64, f64) -> Result<f64, WorksheetErrorCode>,\n) -> Step<CalcValue> {\n    let x = num(site, a, 0)?;\n    let significance = opt(site, a, 1, 1.0)?;\n    out(site, kernel(x, significance))\n}\n"
+    "text": "fn two(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    kernel: fn(f64, f64) -> Result<f64, WorksheetErrorCode>,\n) -> Step<CalcValue> {\n    let x = num_with_subnormal(site, a, 0)?;\n    let significance = opt(site, a, 1, 1.0)?;\n    out(site, kernel(x, significance))\n}\n"
   },
   "catalogue/rounding_more::entry::CEILING.PRECISE": {
     "file": "crates/calc-func/src/catalogue/rounding_more.rs",
@@ -5257,8 +5257,8 @@
   },
   "ported/ceiling_floor_family::ceiling_precise_kernel": {
     "file": "crates/calc-func/src/ported/ceiling_floor_family.rs",
-    "start_line": 83,
-    "end_line": 85,
+    "start_line": 86,
+    "end_line": 88,
     "name": "ceiling_precise_kernel",
     "module": "ported/ceiling_floor_family",
     "users": 1,
@@ -5473,8 +5473,8 @@
   },
   "ported/discrete_dist::poisson_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 128,
-    "end_line": 153,
+    "start_line": 127,
+    "end_line": 152,
     "name": "poisson_mass",
     "module": "ported/discrete_dist",
     "users": 14,
@@ -5824,8 +5824,8 @@
   },
   "ported/discrete_dist::expon_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 167,
-    "end_line": 181,
+    "start_line": 166,
+    "end_line": 180,
     "name": "expon_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 5,
@@ -6130,8 +6130,8 @@
   },
   "catalogue::Parameter::value": {
     "file": "crates/calc-func/src/catalogue.rs",
-    "start_line": 462,
-    "end_line": 464,
+    "start_line": 472,
+    "end_line": 474,
     "name": "Parameter::value",
     "module": "catalogue",
     "users": 0,
@@ -6382,8 +6382,8 @@
   },
   "catalogue/math::entry::COMBIN": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 123,
-    "end_line": 125,
+    "start_line": 126,
+    "end_line": 128,
     "name": "COMBIN",
     "module": "catalogue/math",
     "users": 1,
@@ -6409,8 +6409,8 @@
   },
   "catalogue/math::entry::COMBINA": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 126,
-    "end_line": 128,
+    "start_line": 129,
+    "end_line": 131,
     "name": "COMBINA",
     "module": "catalogue/math",
     "users": 1,
@@ -6679,8 +6679,8 @@
   },
   "catalogue/engineering::entry::CONVERT": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 276,
-    "end_line": 281,
+    "start_line": 278,
+    "end_line": 283,
     "name": "CONVERT",
     "module": "catalogue/engineering",
     "users": 1,
@@ -6769,8 +6769,8 @@
   },
   "catalogue/kit::pairs": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 457,
-    "end_line": 484,
+    "start_line": 461,
+    "end_line": 488,
     "name": "pairs",
     "module": "catalogue/kit",
     "users": 0,
@@ -7642,8 +7642,8 @@
   },
   "ported/cumulative_finance_family::validate_finite": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 20,
-    "end_line": 28,
+    "start_line": 18,
+    "end_line": 26,
     "name": "validate_finite",
     "module": "ported/cumulative_finance_family",
     "users": 2,
@@ -7651,8 +7651,8 @@
   },
   "ported/cumulative_finance_family::trunc_positive_period": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 30,
-    "end_line": 41,
+    "start_line": 28,
+    "end_line": 39,
     "name": "trunc_positive_period",
     "module": "ported/cumulative_finance_family",
     "users": 2,
@@ -7660,17 +7660,17 @@
   },
   "ported/cumulative_finance_family::payment_timing_arg": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 43,
-    "end_line": 52,
+    "start_line": 41,
+    "end_line": 51,
     "name": "payment_timing_arg",
     "module": "ported/cumulative_finance_family",
     "users": 2,
-    "text": "fn payment_timing_arg(value: f64) -> Result<PaymentTiming, CumulativeFinanceEvalError> {\n    validate_finite(&[value])?;\n    if (value - 0.0).abs() < EPSILON {\n        Ok(PaymentTiming::EndOfPeriod)\n    } else if (value - 1.0).abs() < EPSILON {\n        Ok(PaymentTiming::BeginningOfPeriod)\n    } else {\n        Err(CumulativeFinanceEvalError::Domain(WorksheetErrorCode::Num))\n    }\n}\n"
+    "text": "fn payment_timing_arg(value: f64) -> Result<PaymentTiming, CumulativeFinanceEvalError> {\n    validate_finite(&[value])?;\n    // Excel20527 rejects both neighbours of one and nonzero values near zero.\n    if value == 0.0 {\n        Ok(PaymentTiming::EndOfPeriod)\n    } else if value == 1.0 {\n        Ok(PaymentTiming::BeginningOfPeriod)\n    } else {\n        Err(CumulativeFinanceEvalError::Domain(WorksheetErrorCode::Num))\n    }\n}\n"
   },
   "ported/cumulative_finance_family::kernel_error": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 54,
-    "end_line": 60,
+    "start_line": 53,
+    "end_line": 59,
     "name": "kernel_error",
     "module": "ported/cumulative_finance_family",
     "users": 2,
@@ -7678,8 +7678,8 @@
   },
   "ported/cumulative_finance_family::principal_sum": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 62,
-    "end_line": 98,
+    "start_line": 61,
+    "end_line": 97,
     "name": "principal_sum",
     "module": "ported/cumulative_finance_family",
     "users": 2,
@@ -7687,8 +7687,8 @@
   },
   "ported/cumulative_finance_family::interest_finish": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 100,
-    "end_line": 107,
+    "start_line": 99,
+    "end_line": 106,
     "name": "interest_finish",
     "module": "ported/cumulative_finance_family",
     "users": 1,
@@ -7696,8 +7696,8 @@
   },
   "ported/cumulative_finance_family::validate_cumulative_inputs": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 109,
-    "end_line": 126,
+    "start_line": 108,
+    "end_line": 125,
     "name": "validate_cumulative_inputs",
     "module": "ported/cumulative_finance_family",
     "users": 2,
@@ -7705,8 +7705,8 @@
   },
   "ported/cumulative_finance_family::cumipmt_kernel": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 128,
-    "end_line": 165,
+    "start_line": 127,
+    "end_line": 164,
     "name": "cumipmt_kernel",
     "module": "ported/cumulative_finance_family",
     "users": 1,
@@ -7714,8 +7714,8 @@
   },
   "ported/cumulative_finance_family::map_cumulative_finance_error_to_ws": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 189,
-    "end_line": 196,
+    "start_line": 188,
+    "end_line": 195,
     "name": "map_cumulative_finance_error_to_ws",
     "module": "ported/cumulative_finance_family",
     "users": 2,
@@ -8047,8 +8047,8 @@
   },
   "catalogue/kit::reject_logical": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 167,
-    "end_line": 175,
+    "start_line": 171,
+    "end_line": 179,
     "name": "reject_logical",
     "module": "catalogue/kit",
     "users": 0,
@@ -8065,8 +8065,8 @@
   },
   "ported/cumulative_finance_family::cumprinc_kernel": {
     "file": "crates/calc-func/src/ported/cumulative_finance_family.rs",
-    "start_line": 167,
-    "end_line": 187,
+    "start_line": 166,
+    "end_line": 186,
     "name": "cumprinc_kernel",
     "module": "ported/cumulative_finance_family",
     "users": 1,
@@ -8533,8 +8533,8 @@
   },
   "catalogue/math::entry::DECIMAL": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 189,
-    "end_line": 193,
+    "start_line": 192,
+    "end_line": 196,
     "name": "DECIMAL",
     "module": "catalogue/math",
     "users": 1,
@@ -8561,11 +8561,11 @@
   "catalogue/math::entry::DEGREES": {
     "file": "crates/calc-func/src/catalogue/math.rs",
     "start_line": 85,
-    "end_line": 87,
+    "end_line": 89,
     "name": "DEGREES",
     "module": "catalogue/math",
     "users": 1,
-    "text": "22 degrees \"DEGREES\" (1, 1) [V \"angle\"] three_d (None, None, Some(&[])); |s, a, sv| {\n    raw(s, a, ExcelRealPolicy::FINITE, k::degrees::degrees_kernel)\n}\n"
+    "text": "22 degrees \"DEGREES\" (1, 1) [V \"angle\"] three_d (None, None, Some(&[])); |s, a, sv| {\n    let x = num_with_subnormal(s, a, 0)?;\n    let result = k::degrees::degrees_kernel(x);\n    out(s, ExcelRealPolicy::FINITE.publish(x, if result.is_subnormal() { 0.0 } else { result }))\n}\n"
   },
   "ported/degrees::degrees_kernel": {
     "file": "crates/calc-func/src/ported/degrees.rs",
@@ -8579,11 +8579,11 @@
   "catalogue/engineering::entry::DELTA": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
     "start_line": 265,
-    "end_line": 270,
+    "end_line": 271,
     "name": "DELTA",
     "module": "catalogue/engineering",
     "users": 1,
-    "text": "70 delta \"DELTA\" (1, 2) [V \"number1\", V \"number2\"] three_d (None, Some(&[]), None); |s, a, sv| {\n    // Excel reads the second scalar before the first, including conversion errors.\n    let y = if given(a, 1) { super::kit::num_without_logical(s, a, 1)? } else { 0.0 };\n    let x = super::kit::num_without_logical(s, a, 0)?;\n    out(s, k::delta_fn::delta_kernel(x, y))\n}\n"
+    "text": "70 delta \"DELTA\" (1, 2) [V \"number1\", V \"number2\"] three_d (None, Some(&[]), None); |s, a, sv| {\n    // Excel reads the second scalar before the first, including conversion errors.\n    let y = if given(a, 1) { super::kit::reject_logical(&a[1])?; super::kit::num_with_subnormal(s, a, 1)? } else { 0.0 };\n    super::kit::reject_logical(&a[0])?;\n    let x = super::kit::num_with_subnormal(s, a, 0)?;\n    out(s, k::delta_fn::delta_kernel(x, y))\n}\n"
   },
   "ported/delta_fn::delta_kernel": {
     "file": "crates/calc-func/src/ported/delta_fn.rs",
@@ -8593,15 +8593,6 @@
     "module": "ported/delta_fn",
     "users": 1,
     "text": "pub fn delta_kernel(lhs: f64, rhs: f64) -> Result<f64, WorksheetErrorCode> {\n    Ok(if lhs == rhs { 1.0 } else { 0.0 })\n}\n"
-  },
-  "catalogue/kit::num_without_logical": {
-    "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 177,
-    "end_line": 181,
-    "name": "num_without_logical",
-    "module": "catalogue/kit",
-    "users": 0,
-    "text": "/// Number coercion at a position whose measured admission excludes logicals.\npub(super) fn num_without_logical(site: &Site<'_>, arguments: &[CalcValue], index: usize) -> Step<f64> {\n    reject_logical(&arguments[index])?;\n    num(site, arguments, index)\n}\n"
   },
   "catalogue/statistics::direct_first": {
     "file": "crates/calc-func/src/catalogue/statistics.rs",
@@ -9002,11 +8993,11 @@
   "ported/bond_core_family::duration_kernel": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
     "start_line": 638,
-    "end_line": 695,
+    "end_line": 700,
     "name": "duration_kernel",
     "module": "ported/bond_core_family",
     "users": 2,
-    "text": "pub fn duration_kernel(\n    settlement: f64,\n    maturity: f64,\n    coupon: f64,\n    yld: f64,\n    frequency: f64,\n    basis_: Option<f64>,\n) -> Result<f64, BondCoreEvalError> {\n    let c = ctx(settlement, maturity, frequency, basis_)?;\n    let p = period(c)?;\n    let coupon = rate(coupon)?;\n    let yld = rate(yld)?;\n    let f = c.frequency as f64;\n    // W109 G6-03c identification (live Excel build 20131, b44 6,360 witnesses).\n    // The weighting exponent shares PRICE's schedule quantities: the internal\n    // settlement fraction is the DERIVED complement `dsc = E - A`, so `off =\n    // (E - A)/E` (NOT the direct settlement->next day-count span the docs-era\n    // kernel used — that made bases 2/3 off by cents, 0/1272 exact). The\n    // discount factor is Excel's C-runtime `pow` staging (`excel_bond_pow`:\n    // binary exponentiation on the on-coupon integer exponents, the legacy x87\n    // `exp(RN53(RN64(exp*ln)))` chain off-coupon) — the SAME substrate PRICE\n    // uses. Coupon terms and their running sums use binary64. Redemption is a\n    // separate term, with the numerator weight grouped\n    // `(diff*cash)/disc` (left-assoc), NOT `diff*(cash/disc)`; the final\n    // `num/den/f` association. R33 exact-dyadic nonzero coupons and zero-coupon\n    // controls identify stored-PC64 redemption quotients separately from the\n    // unresolved off-coupon producer. In this kernel,\n    // numerator and denominator discount the SAME cashflows with the SAME `off`.\n    let coup = 100.0 * coupon / f;\n    let e = dc(p.prev, p.next, c.basis, c.frequency)?;\n    // The accrued span A is `CoupDaysBS` (F# `IDayCount.DaysBetween`, numerator\n    // position): for US 30/360 this is `dateDiff360US ... ModifyStartDate`\n    // (`diff360_us(_, _, false)`), NOT the plain `us_30_360` (`dd`). The two\n    // diverge only on 31st/month-end settlements — e.g. a Feb-end previous coupon\n    // with a 31st settlement: plain `us_30_360` collapses the end 31->30 AFTER\n    // the Feb-end start adjustment (giving 30), while `ModifyStartDate` checks\n    // `end==31` BEFORE adjusting the start (giving 31, matching Excel). This is\n    // the W109 G6-03c b45 month-end break (the ~2.5e13-ULP FC-45747-b0 explosion).\n    let a = days_between_num(p.prev, c.settlement, c.basis)?;\n    let off = (e - a) / e;\n    if p.n == 1 {\n        return Ok((off / f).max(0.0));\n    }\n    let base = 1.0 + yld / f;\n    let mut num = 0.0;\n    let mut den = 0.0;\n    for k in 0..p.n {\n        let diff = off + k as f64;\n        let disc = excel_bond_pow(base, diff);\n        num += diff * coup / disc;\n        den += coup / disc;\n        if k + 1 == p.n {\n            num += excel_x87_div(diff * 100.0, disc);\n            den += excel_x87_div(100.0, disc);\n        }\n    }\n    Ok(num / den / f)\n}\n"
+    "text": "pub fn duration_kernel(\n    settlement: f64,\n    maturity: f64,\n    coupon: f64,\n    yld: f64,\n    frequency: f64,\n    basis_: Option<f64>,\n) -> Result<f64, BondCoreEvalError> {\n    let c = ctx(settlement, maturity, frequency, basis_)?;\n    let p = period(c)?;\n    let coupon = rate(coupon)?;\n    let yld = rate(yld)?;\n    let f = c.frequency as f64;\n    // W109 G6-03c identification (live Excel build 20131, b44 6,360 witnesses).\n    // The weighting exponent shares PRICE's schedule quantities: the internal\n    // settlement fraction is the DERIVED complement `dsc = E - A`, so `off =\n    // (E - A)/E` (NOT the direct settlement->next day-count span the docs-era\n    // kernel used — that made bases 2/3 off by cents, 0/1272 exact). The\n    // discount factor is Excel's C-runtime `pow` staging (`excel_bond_pow`:\n    // binary exponentiation on the on-coupon integer exponents, the legacy x87\n    // `exp(RN53(RN64(exp*ln)))` chain off-coupon) — the SAME substrate PRICE\n    // uses. R37's general-discount controls distinguish coupon PVs weighted\n    // after division from redemption weighted before division. Quotients and\n    // both forward running sums store from PC64, as does the final ratio.\n    // The fixed program agrees on 144 on-coupon discovery controls, 288\n    // holdout controls, 76 separating/adjacent controls, then 288 fresh\n    // controls per function (Excel20527; Research evidence/round37).\n    // The general fractional power producer remains unresolved. R33\n    // exact-dyadic nonzero coupons and zero-coupon\n    // controls identify stored-PC64 redemption quotients separately from the\n    // unresolved off-coupon producer. In this kernel,\n    // numerator and denominator discount the SAME cashflows with the SAME `off`.\n    let coup = 100.0 * coupon / f;\n    let e = dc(p.prev, p.next, c.basis, c.frequency)?;\n    // The accrued span A is `CoupDaysBS` (F# `IDayCount.DaysBetween`, numerator\n    // position): for US 30/360 this is `dateDiff360US ... ModifyStartDate`\n    // (`diff360_us(_, _, false)`), NOT the plain `us_30_360` (`dd`). The two\n    // diverge only on 31st/month-end settlements — e.g. a Feb-end previous coupon\n    // with a 31st settlement: plain `us_30_360` collapses the end 31->30 AFTER\n    // the Feb-end start adjustment (giving 30), while `ModifyStartDate` checks\n    // `end==31` BEFORE adjusting the start (giving 31, matching Excel). This is\n    // the W109 G6-03c b45 month-end break (the ~2.5e13-ULP FC-45747-b0 explosion).\n    let a = days_between_num(p.prev, c.settlement, c.basis)?;\n    let off = (e - a) / e;\n    if p.n == 1 {\n        return Ok((off / f).max(0.0));\n    }\n    let base = 1.0 + yld / f;\n    let mut num = 0.0;\n    let mut den = 0.0;\n    for k in 0..p.n {\n        let diff = off + k as f64;\n        let disc = excel_bond_pow(base, diff);\n        let coupon_pv = excel_x87_div(coup, disc);\n        num = excel_x87_add(num, diff * coupon_pv);\n        den = excel_x87_add(den, coupon_pv);\n        if k + 1 == p.n {\n            num = excel_x87_add(num, excel_x87_div(diff * 100.0, disc));\n            den = excel_x87_add(den, excel_x87_div(100.0, disc));\n        }\n    }\n    Ok(excel_x87_div(num, den) / f)\n}\n"
   },
   "catalogue/database::entry::DVAR": {
     "file": "crates/calc-func/src/catalogue/database.rs",
@@ -9037,8 +9028,8 @@
   },
   "catalogue/rounding::ecma_ceiling": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 570,
-    "end_line": 576,
+    "start_line": 579,
+    "end_line": 585,
     "name": "ecma_ceiling",
     "module": "catalogue/rounding",
     "users": 1,
@@ -9145,8 +9136,8 @@
   },
   "catalogue/text_format::entry::ENCODEURL": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 942,
-    "end_line": 942,
+    "start_line": 947,
+    "end_line": 947,
     "name": "ENCODEURL",
     "module": "catalogue/text_format",
     "users": 1,
@@ -9196,6 +9187,15 @@
     "module": "ported/special_dist_family",
     "users": 1,
     "text": "pub fn erf_kernel(lower: f64, upper: Option<f64>) -> Result<f64, WorksheetErrorCode> {\n    if !lower.is_finite() || upper.is_some_and(|v| !v.is_finite()) {\n        return Err(WorksheetErrorCode::Num);\n    }\n    Ok(match upper {\n        Some(upper) => erf_interval(lower, upper),\n        None => erf_approx(lower),\n    })\n}\n"
+  },
+  "catalogue/kit::num_without_logical": {
+    "file": "crates/calc-func/src/catalogue/kit.rs",
+    "start_line": 181,
+    "end_line": 185,
+    "name": "num_without_logical",
+    "module": "catalogue/kit",
+    "users": 0,
+    "text": "/// Number coercion at a position whose measured admission excludes logicals.\npub(super) fn num_without_logical(site: &Site<'_>, arguments: &[CalcValue], index: usize) -> Step<f64> {\n    reject_logical(&arguments[index])?;\n    num(site, arguments, index)\n}\n"
   },
   "catalogue/distributions::entry::ERF.PRECISE": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -9271,21 +9271,21 @@
   },
   "catalogue/information::n": {
     "file": "crates/calc-func/src/catalogue/information.rs",
-    "start_line": 440,
-    "end_line": 450,
+    "start_line": 441,
+    "end_line": 449,
     "name": "n",
     "module": "catalogue/information",
     "users": 15,
-    "text": "/// N: a number as it is, TRUE as 1 and FALSE as 0, an error as itself, and anything else, text\n/// and a blank cell among them, as 0 (Microsoft's page; a date is a number here). A reference is\n/// read at the first cell of its first area, of any size: Excel loads a range given to N without\n/// `@`, and reads its first cell in a legacy formula placed within the range's rows and in a\n/// dynamic-array formula alike. A number Excel's handling of which is not modelled (a subnormal)\n/// is refused, as the number rule refuses one, and so are #BLOCKED! and #CONNECT! (see\n/// [`known`]).\nfn n(arguments: &[CalcValue], services: &mut EvalServices<'_>) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(N, services);\n    Site::finish(each(&site, &arguments[0], services, n_of))\n}\n"
+    "text": "/// N: a number as it is, TRUE as 1 and FALSE as 0, an error as itself, and anything else, text\n/// and a blank cell among them, as 0 (Microsoft's page; a date is a number here). A reference is\n/// read at the first cell of its first area, of any size: Excel loads a range given to N without\n/// `@`, and reads its first cell in a legacy formula placed within the range's rows and in a\n/// dynamic-array formula alike. Computed subnormals retain their bits (dc-1943 Q1).\nfn n(arguments: &[CalcValue], services: &mut EvalServices<'_>) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(N, services);\n    Site::finish(each(&site, &arguments[0], services, n_of))\n}\n"
   },
   "catalogue/information::n_of": {
     "file": "crates/calc-func/src/catalogue/information.rs",
-    "start_line": 452,
+    "start_line": 451,
     "end_line": 477,
     "name": "n_of",
     "module": "catalogue/information",
     "users": 15,
-    "text": "/// N of one argument or array element.\nfn n_of(site: &Site<'_>, argument: &CalcValue, services: &mut EvalServices<'_>) -> Step<CalcValue> {\n    let value = match argument.core_ref() {\n        CoreRef::Reference(reference) => {\n            let first = GridArea::cell(reference.areas()[0].first());\n            referenced(site, first, services)?\n        }\n        _ => argument.clone(),\n    };\n    // A picture reads as #VALUE! here (crate::fetch).\n    if value.image_value().is_some() {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    }\n    known(site, &value).and_then(|core| match core {\n        CoreRef::Number(_) if value.is_excel_overflow() => Ok(value.clone()),\n        CoreRef::Number(x) => site\n            .argument(0, coerce::operand(x))\n            .and_then(|x| site.number(x)),\n        CoreRef::Logical(b) => Ok(CalcValue::number(if b { 1.0 } else { 0.0 })),\n        CoreRef::Error(code) => Err(Exit::Error(code)),\n        CoreRef::Text(_) | CoreRef::Empty => Ok(CalcValue::number(0.0)),\n        CoreRef::Missing | CoreRef::Array(_) | CoreRef::Reference(_) => {\n            Err(site.not_modelled(Some(0)))\n        }\n    })\n}\n"
+    "text": "/// N of one argument or array element.\nfn n_of(site: &Site<'_>, argument: &CalcValue, services: &mut EvalServices<'_>) -> Step<CalcValue> {\n    let value = match argument.core_ref() {\n        CoreRef::Reference(reference) => {\n            let first = GridArea::cell(reference.areas()[0].first());\n            referenced(site, first, services)?\n        }\n        _ => argument.clone(),\n    };\n    // A picture reads as #VALUE! here (crate::fetch).\n    if value.image_value().is_some() {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    }\n    known(site, &value).and_then(|core| match core {\n        CoreRef::Number(_) if value.is_excel_overflow() => Ok(value.clone()),\n        CoreRef::Number(x) if x.is_subnormal() => Ok(value.clone()),\n        CoreRef::Number(x) => site\n            .argument(0, coerce::operand(x))\n            .and_then(|x| site.number(x)),\n        CoreRef::Logical(b) => Ok(CalcValue::number(if b { 1.0 } else { 0.0 })),\n        CoreRef::Error(code) => Err(Exit::Error(code)),\n        CoreRef::Text(_) | CoreRef::Empty => Ok(CalcValue::number(0.0)),\n        CoreRef::Missing | CoreRef::Array(_) | CoreRef::Reference(_) => {\n            Err(site.not_modelled(Some(0)))\n        }\n    })\n}\n"
   },
   "catalogue/information::error_type": {
     "file": "crates/calc-func/src/catalogue/information.rs",
@@ -9316,8 +9316,8 @@
   },
   "catalogue/rounding::even": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 750,
-    "end_line": 758,
+    "start_line": 760,
+    "end_line": 768,
     "name": "even",
     "module": "catalogue/rounding",
     "users": 1,
@@ -9325,8 +9325,8 @@
   },
   "catalogue/rounding::odd": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 760,
-    "end_line": 768,
+    "start_line": 770,
+    "end_line": 778,
     "name": "odd",
     "module": "catalogue/rounding",
     "users": 2,
@@ -9334,8 +9334,8 @@
   },
   "catalogue/rounding::to_parity": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 770,
-    "end_line": 787,
+    "start_line": 780,
+    "end_line": 797,
     "name": "to_parity",
     "module": "catalogue/rounding",
     "users": 2,
@@ -9460,8 +9460,8 @@
   },
   "catalogue/math::entry::EXP": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 92,
-    "end_line": 95,
+    "start_line": 95,
+    "end_line": 98,
     "name": "EXP",
     "module": "catalogue/math",
     "users": 1,
@@ -9649,8 +9649,8 @@
   },
   "catalogue/math::entry::FACT": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 118,
-    "end_line": 118,
+    "start_line": 121,
+    "end_line": 121,
     "name": "FACT",
     "module": "catalogue/math",
     "users": 1,
@@ -9676,8 +9676,8 @@
   },
   "catalogue/math::entry::FACTDOUBLE": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 119,
-    "end_line": 122,
+    "start_line": 122,
+    "end_line": 125,
     "name": "FACTDOUBLE",
     "module": "catalogue/math",
     "users": 1,
@@ -9730,8 +9730,8 @@
   },
   "catalogue/logical::false_value": {
     "file": "crates/calc-func/src/catalogue/logical.rs",
-    "start_line": 317,
-    "end_line": 320,
+    "start_line": 320,
+    "end_line": 323,
     "name": "false_value",
     "module": "catalogue/logical",
     "users": 1,
@@ -9856,8 +9856,8 @@
   },
   "catalogue/text_format::entry::FILTERXML": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 943,
-    "end_line": 943,
+    "start_line": 948,
+    "end_line": 948,
     "name": "FILTERXML",
     "module": "catalogue/text_format",
     "users": 1,
@@ -10009,8 +10009,8 @@
   },
   "catalogue/rounding::floor": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 595,
-    "end_line": 615,
+    "start_line": 604,
+    "end_line": 624,
     "name": "floor",
     "module": "catalogue/rounding",
     "users": 1,
@@ -10027,8 +10027,8 @@
   },
   "ported/ceiling_floor_family::floor_math_kernel": {
     "file": "crates/calc-func/src/ported/ceiling_floor_family.rs",
-    "start_line": 64,
-    "end_line": 81,
+    "start_line": 67,
+    "end_line": 84,
     "name": "floor_math_kernel",
     "module": "ported/ceiling_floor_family",
     "users": 2,
@@ -10045,8 +10045,8 @@
   },
   "ported/ceiling_floor_family::floor_precise_kernel": {
     "file": "crates/calc-func/src/ported/ceiling_floor_family.rs",
-    "start_line": 91,
-    "end_line": 93,
+    "start_line": 94,
+    "end_line": 96,
     "name": "floor_precise_kernel",
     "module": "ported/ceiling_floor_family",
     "users": 1,
@@ -10126,8 +10126,8 @@
   },
   "catalogue/kit::out_matrix": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 306,
-    "end_line": 323,
+    "start_line": 310,
+    "end_line": 327,
     "name": "out_matrix",
     "module": "catalogue/kit",
     "users": 0,
@@ -10369,8 +10369,8 @@
   },
   "catalogue/math::entry::GCD": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 135,
-    "end_line": 138,
+    "start_line": 138,
+    "end_line": 141,
     "name": "GCD",
     "module": "catalogue/math",
     "users": 1,
@@ -10378,8 +10378,8 @@
   },
   "catalogue/math::integer_groups": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 252,
-    "end_line": 298,
+    "start_line": 255,
+    "end_line": 301,
     "name": "integer_groups",
     "module": "catalogue/math",
     "users": 2,
@@ -10414,12 +10414,12 @@
   },
   "catalogue/engineering::entry::GESTEP": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 271,
-    "end_line": 275,
+    "start_line": 272,
+    "end_line": 277,
     "name": "GESTEP",
     "module": "catalogue/engineering",
     "users": 1,
-    "text": "71 gestep \"GESTEP\" (1, 2) [V \"number\", V \"step\"] three_d (None, Some(&[]), None); |s, a, sv| {\n    let step = if given(a, 1) { super::kit::num_without_logical(s, a, 1)? } else { 0.0 };\n    let x = super::kit::num_without_logical(s, a, 0)?;\n    out(s, k::gestep_fn::gestep_kernel(x, step))\n}\n"
+    "text": "71 gestep \"GESTEP\" (1, 2) [V \"number\", V \"step\"] three_d (None, Some(&[]), None); |s, a, sv| {\n    let step = if given(a, 1) { super::kit::reject_logical(&a[1])?; super::kit::num_with_subnormal(s, a, 1)? } else { 0.0 };\n    super::kit::reject_logical(&a[0])?;\n    let x = super::kit::num_with_subnormal(s, a, 0)?;\n    out(s, k::gestep_fn::gestep_kernel(x, step))\n}\n"
   },
   "ported/gestep_fn::gestep_kernel": {
     "file": "crates/calc-func/src/ported/gestep_fn.rs",
@@ -10909,8 +10909,8 @@
   },
   "ported/regression_forecast_family::eval_growth_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1061,
-    "end_line": 1074,
+    "start_line": 1066,
+    "end_line": 1079,
     "name": "eval_growth_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -11179,8 +11179,8 @@
   },
   "catalogue/text_format::entry::HYPERLINK": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 944,
-    "end_line": 944,
+    "start_line": 949,
+    "end_line": 949,
     "name": "HYPERLINK",
     "module": "catalogue/text_format",
     "users": 1,
@@ -11197,8 +11197,8 @@
   },
   "ported/discrete_dist::hypergeom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 305,
-    "end_line": 320,
+    "start_line": 308,
+    "end_line": 323,
     "name": "hypergeom_mass",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -11206,8 +11206,8 @@
   },
   "ported/discrete_dist::hypergeom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 322,
-    "end_line": 346,
+    "start_line": 325,
+    "end_line": 349,
     "name": "hypergeom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -11627,6 +11627,24 @@
     "users": 1,
     "text": "44 imlog2 \"IMLOG2\" (1, 1) [V \"inumber\"] three_d (None, Some(&[]), None); |s, a, sv| {\n    unary_complex(s, a, |z| {\n        let ln = z.ln()?;\n        let re = if z.im == 0.0 {\n            // Fn11's exact coefficient-bin bounds uniquely determine this binary64\n            // LN multiplier; independent normal and signed controls retain it.\n            crate::ported::excel_numeric::excel_x87_mul(\n                crate::ported::excel_numeric::excel_log(z.re.abs()),\n                f64::from_bits(0x3ff7_1547_652b_82ff),\n            )\n        } else {\n            ln.re / crt_log(2.0)\n        };\n        Ok(ParsedComplex::new(re, ln.im / crt_log(2.0), None))\n    })\n}\n"
   },
+  "catalogue/importing::entry::IMPORTCSV": {
+    "file": "crates/calc-func/src/catalogue/importing.rs",
+    "start_line": 13,
+    "end_line": 14,
+    "name": "IMPORTCSV",
+    "module": "catalogue/importing",
+    "users": 1,
+    "text": "1 importcsv_fn \"IMPORTCSV\" (1, 5) [V \"path\", V \"skip_rows\", V \"take_rows\", V \"text_only\", V \"locale\"] import_route (crate::IMPORT_PROVIDER, crate::ImportKind::Csv);\n|s, a, sv| { fail(WorksheetErrorCode::Value) }\n"
+  },
+  "catalogue/importing::entry::IMPORTTEXT": {
+    "file": "crates/calc-func/src/catalogue/importing.rs",
+    "start_line": 15,
+    "end_line": 16,
+    "name": "IMPORTTEXT",
+    "module": "catalogue/importing",
+    "users": 1,
+    "text": "2 importtext_fn \"IMPORTTEXT\" (1, 7) [V \"path\", V \"delimiter\", V \"skip_rows\", V \"take_rows\", V \"encoding\", V \"text_only\", V \"locale\"] import_route (crate::IMPORT_PROVIDER, crate::ImportKind::Text);\n|s, a, sv| { fail(WorksheetErrorCode::Value) }\n"
+  },
   "catalogue/engineering::entry::IMPOWER": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
     "start_line": 241,
@@ -11656,8 +11674,8 @@
   },
   "catalogue/kit::values": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 344,
-    "end_line": 360,
+    "start_line": 348,
+    "end_line": 364,
     "name": "values",
     "module": "catalogue/kit",
     "users": 0,
@@ -11800,17 +11818,17 @@
   },
   "catalogue/rounding::int": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 207,
-    "end_line": 235,
+    "start_line": 213,
+    "end_line": 244,
     "name": "int",
     "module": "catalogue/rounding",
     "users": 1,
-    "text": "/// INT: the largest integer not above the number read to 15 significant digits\n/// ([`ExactDecimal::fifteen`]) when it is below 1E15 in magnitude, and not above its binary64\n/// otherwise (dc-bd5, Excel 16.0.20527 through COM on 2026-10-30, 109 readings:\n/// INT(2.9999999999999996) and INT(2.9999999999999982) are 3, INT(123456789012345.67) is\n/// 123456789012346, INT(-3.0000000000000004) is -3, INT(999999999999999.5) is 1E15, while\n/// INT(4503599627370495.5) is 4503599627370495).\nfn int(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    numeric(INT, arguments, services, |site, n| {\n        let x = n[0];\n        if x.abs() >= 1e15 {\n            return Ok(decimal::floor(x));\n        }\n        match ExactDecimal::fifteen(x) {\n            (reading, true) => match reading.round_at(0, Direction::TowardZero) {\n                Some(whole) => {\n                    let whole = site.nearest(&whole)?;\n                    let read = site.nearest(&reading)?;\n                    // Toward zero, one less for a negative reading with a fraction.\n                    Ok(if read < whole { whole - 1.0 } else { whole })\n                }\n                None => site.nearest(&reading),\n            },\n            (_, false) => Ok(decimal::floor(x)),\n        }\n    })\n}\n"
+    "text": "/// INT: the largest integer not above the number read to 15 significant digits\n/// ([`ExactDecimal::fifteen`]) when it is below 1E15 in magnitude, and not above its binary64\n/// otherwise (dc-bd5, Excel 16.0.20527 through COM on 2026-10-30, 109 readings:\n/// INT(2.9999999999999996) and INT(2.9999999999999982) are 3, INT(123456789012345.67) is\n/// 123456789012346, INT(-3.0000000000000004) is -3, INT(999999999999999.5) is 1E15, while\n/// INT(4503599627370495.5) is 4503599627370495).\nfn int(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    if let Some(n) = arguments[0].as_number() && n.is_subnormal() && n.is_sign_positive() {\n        return Ok(CalcValue::number(0.0));\n    }\n    numeric(INT, arguments, services, |site, n| {\n        let x = n[0];\n        if x.abs() >= 1e15 {\n            return Ok(decimal::floor(x));\n        }\n        match ExactDecimal::fifteen(x) {\n            (reading, true) => match reading.round_at(0, Direction::TowardZero) {\n                Some(whole) => {\n                    let whole = site.nearest(&whole)?;\n                    let read = site.nearest(&reading)?;\n                    // Toward zero, one less for a negative reading with a fraction.\n                    Ok(if read < whole { whole - 1.0 } else { whole })\n                }\n                None => site.nearest(&reading),\n            },\n            (_, false) => Ok(decimal::floor(x)),\n        }\n    })\n}\n"
   },
   "catalogue/rounding::reading": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 286,
-    "end_line": 291,
+    "start_line": 295,
+    "end_line": 300,
     "name": "reading",
     "module": "catalogue/rounding",
     "users": 5,
@@ -12233,11 +12251,11 @@
   "catalogue/information::odd": {
     "file": "crates/calc-func/src/catalogue/information.rs",
     "start_line": 364,
-    "end_line": 387,
+    "end_line": 388,
     "name": "odd",
     "module": "catalogue/information",
     "users": 2,
-    "text": "/// Whether the argument of ISEVEN or ISODD is odd. A reference to one cell is read as the cell's\n/// value; a reference of several areas is #VALUE!, and so is a range of several cells, in a legacy\n/// formula placed within the range's rows (no intersection) and in a dynamic-array formula (no\n/// lifting) alike.\n/// The value is read as a number through worksheet coercion, number text included (Excel reads\n/// text such as \"2\" and \"1e3\" both typed and in a cell), except that a logical is #VALUE!, typed\n/// or in a cell, as Microsoft's page says of a value that is not numeric; a blank cell is 0 and an\n/// error is the result. The magnitude plus [`PARITY_TOLERANCE`] is an arithmetic site, which\n/// rounds; its truncation toward zero and the remainder by 2 are exact. Every binary64 of 2^53 or\n/// more is an even integer.\nfn odd(site: &Site<'_>, argument: &CalcValue, services: &mut EvalServices<'_>) -> Step<bool> {\n    let value = match argument.core_ref() {\n        CoreRef::Reference(reference) => match one_cell(reference) {\n            Some(area) => referenced(site, area, services)?,\n            None => return Err(Exit::Error(WorksheetErrorCode::Value)),\n        },\n        _ => argument.clone(),\n    };\n    let number = match scalar(site, &value)? {\n        CoreRef::Logical(_) => return Err(Exit::Error(WorksheetErrorCode::Value)),\n        _ => site.number_argument(0, &value)?,\n    };\n    Ok(site.add(number.abs(), PARITY_TOLERANCE)?.trunc() % 2.0 != 0.0)\n}\n"
+    "text": "/// Whether the argument of ISEVEN or ISODD is odd. A reference to one cell is read as the cell's\n/// value; a reference of several areas is #VALUE!, and so is a range of several cells, in a legacy\n/// formula placed within the range's rows (no intersection) and in a dynamic-array formula (no\n/// lifting) alike.\n/// The value is read as a number through worksheet coercion, number text included (Excel reads\n/// text such as \"2\" and \"1e3\" both typed and in a cell), except that a logical is #VALUE!, typed\n/// or in a cell, as Microsoft's page says of a value that is not numeric; a blank cell is 0 and an\n/// error is the result. The magnitude plus [`PARITY_TOLERANCE`] is an arithmetic site, which\n/// rounds; its truncation toward zero and the remainder by 2 are exact. Every binary64 of 2^53 or\n/// more is an even integer.\nfn odd(site: &Site<'_>, argument: &CalcValue, services: &mut EvalServices<'_>) -> Step<bool> {\n    let value = match argument.core_ref() {\n        CoreRef::Reference(reference) => match one_cell(reference) {\n            Some(area) => referenced(site, area, services)?,\n            None => return Err(Exit::Error(WorksheetErrorCode::Value)),\n        },\n        _ => argument.clone(),\n    };\n    let number = match scalar(site, &value)? {\n        CoreRef::Logical(_) => return Err(Exit::Error(WorksheetErrorCode::Value)),\n        CoreRef::Number(n) if n.is_subnormal() => n,\n        _ => site.number_argument(0, &value)?,\n    };\n    Ok(site.add(number.abs(), PARITY_TOLERANCE)?.trunc() % 2.0 != 0.0)\n}\n"
   },
   "catalogue/information::one_cell": {
     "file": "crates/calc-func/src/catalogue/information.rs",
@@ -12349,8 +12367,8 @@
   },
   "ported/ceiling_floor_family::iso_ceiling_kernel": {
     "file": "crates/calc-func/src/ported/ceiling_floor_family.rs",
-    "start_line": 87,
-    "end_line": 89,
+    "start_line": 90,
+    "end_line": 92,
     "name": "iso_ceiling_kernel",
     "module": "ported/ceiling_floor_family",
     "users": 1,
@@ -12473,6 +12491,15 @@
     "users": 1,
     "text": "/// ISTEXT: TRUE for text, empty text included.\nfn istext(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    predicate(ISTEXT, arguments, services, scalar, |core| {\n        matches!(core, CoreRef::Text(_))\n    })\n}\n"
   },
+  "catalogue/text_format::entry::JIS": {
+    "file": "crates/calc-func/src/catalogue/text_format.rs",
+    "start_line": 936,
+    "end_line": 936,
+    "name": "JIS",
+    "module": "catalogue/text_format",
+    "users": 1,
+    "text": "100 jis_fn \"JIS\" (1, 1) [V \"text\"] availability AbsentOnWindows; |s, a, sv| { fail(WorksheetErrorCode::Name) }\n"
+  },
   "catalogue/statistics::entry::KURT": {
     "file": "crates/calc-func/src/catalogue/statistics.rs",
     "start_line": 393,
@@ -12570,7 +12597,7 @@
     "name": "without_prefix",
     "module": "eval/compile",
     "users": 2,
-    "text": "/// The rest of `text` when its first bytes are the ASCII `prefix` in any ASCII case. Bytes equal\n/// to ASCII bytes are ASCII themselves, so the rest starts on a character boundary.\npub(super) fn without_prefix<'t>(text: &'t str, prefix: &str) -> Option<&'t str> {\n    let n = prefix.len();\n    let starts = text.len() >= n && text.as_bytes()[..n].eq_ignore_ascii_case(prefix.as_bytes());\n    starts.then(|| &text[n..])\n}\n"
+    "text": "/// The rest of `text` when its first bytes are the ASCII `prefix` in any ASCII case. Bytes equal\n/// to ASCII bytes are ASCII themselves, so the rest starts on a character boundary.\npub(crate) fn without_prefix<'t>(text: &'t str, prefix: &str) -> Option<&'t str> {\n    let n = prefix.len();\n    let starts = text.len() >= n && text.as_bytes()[..n].eq_ignore_ascii_case(prefix.as_bytes());\n    starts.then(|| &text[n..])\n}\n"
   },
   "eval/compile::only_token": {
     "file": "crates/calc-fml/src/eval/compile.rs",
@@ -12628,8 +12655,8 @@
   },
   "catalogue/math::entry::LCM": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 139,
-    "end_line": 142,
+    "start_line": 142,
+    "end_line": 145,
     "name": "LCM",
     "module": "catalogue/math",
     "users": 1,
@@ -12728,16 +12755,16 @@
   "ported/regression_forecast_family::statistics_block": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
     "start_line": 861,
-    "end_line": 952,
+    "end_line": 957,
     "name": "statistics_block",
     "module": "ported/regression_forecast_family",
     "users": 2,
-    "text": "/// The statistics block of LINEST and LOGEST below the first row `first` (the coefficients in\n/// reverse predictor order, then the constant), from the fit's QR factors: the standard errors\n/// of the coefficients and of the constant (#N/A without one), R squared and the standard error\n/// of y, F and the degrees of freedom, and the regression and residual sums of squares. LOGEST's\n/// statistics are those of the fit to ln y.\nfn statistics_block(fit: &RegressionFit, use_const: bool, first: Vec<f64>) -> CalcValue {\n    if fit.order.is_empty() {\n        return one_observation_statistics(first);\n    }\n    let n = fit.observations;\n    let p = fit.order.len();\n    let predictors = p - usize::from(use_const);\n    let squares = |values: &[f64]| values.iter().fold(0.0, |sum, v| sum + v * v);\n    let ss_resid = squares(&fit.qty[p..]);\n    let ss_total = squares(&fit.y);\n    let ss_reg = ss_total - ss_resid;\n    let df = (n - p) as f64;\n    // With no degrees of freedom left Excel gives R squared 1, every standard error 0 and F\n    // #NUM! (an exact fit of as many columns as observations).\n    let exact = n == p;\n    let r2 = if exact { 1.0 } else { ss_reg / ss_total };\n    let se_y = if exact { 0.0 } else { (ss_resid / df).sqrt() };\n    let f = if exact { f64::NAN } else { (ss_reg / predictors as f64) / (ss_resid / df) };\n    // The inverse of the triangular factor over the columns with a nonzero diagonal (a column\n    // kept as zero comes last and has standard error 0), column by column.\n    let nz = (0..p).take_while(|j| fit.r[*j][*j] != 0.0).count();\n    let mut inverse = vec![vec![0.0; nz]; nz];\n    for j in 0..nz {\n        inverse[j][j] = 1.0 / fit.r[j][j];\n        for i in (0..j).rev() {\n            let sum = ((i + 1)..=j).fold(0.0, |sum, k| sum + fit.r[i][k] * inverse[k][j]);\n            inverse[i][j] = -sum / fit.r[i][i];\n        }\n    }\n    // (R'R)^-1 = R^-1 R^-T.\n    let covariance =\n        |a: usize, b: usize| (0..nz).fold(0.0, |sum, k| sum + inverse[a][k] * inverse[b][k]);\n    let mut se = vec![0.0; fit.model.coefficients.len()];\n    for (position, predictor) in fit.order.iter().enumerate().take(nz) {\n        if let Some(index) = predictor {\n            if !exact {\n                se[*index] = (ss_resid * covariance(position, position) / df).sqrt();\n            }\n        }\n    }\n    let n_a = || CalcValue::error(WorksheetErrorCode::NA);\n    let number = |v: f64| {\n        if v.is_finite() { CalcValue::number(v) } else { CalcValue::error(WorksheetErrorCode::Num) }\n    };\n    let cols = first.len();\n    let mut second: Vec<CalcValue> = se.iter().rev().map(|v| number(*v)).collect();\n    if use_const {\n        // The constant is my - sum(b_j m_j): its variance is w'(R'R)^-1 w with w = 1 at the\n        // ones column and -m_j at predictor j's column.\n        let w: Vec<f64> = fit\n            .order\n            .iter()\n            .take(nz)\n            .map(|predictor| match predictor {\n                None => 1.0,\n                Some(index) => -fit.means[*index],\n            })\n            .collect();\n        let mut variance = 0.0;\n        for a in 0..nz {\n            for b in 0..nz {\n                variance += w[a] * w[b] * covariance(a, b);\n            }\n        }\n        let se_b = if exact { 0.0 } else { (ss_resid / df * variance).sqrt() };\n        second.push(number(se_b));\n    } else {\n        second.push(n_a());\n    }\n    let pad = |head: Vec<CalcValue>| {\n        let mut row = head;\n        while row.len() < cols {\n            row.push(n_a());\n        }\n        row\n    };\n    CalcValue::array(\n        CalcArray::from_rows(vec![\n            first.into_iter().map(CalcValue::number).collect(),\n            second,\n            pad(vec![number(r2), number(se_y)]),\n            pad(vec![number(f), number(df)]),\n            pad(vec![number(ss_reg), number(ss_resid)]),\n        ])\n        .expect(\"five rows of one length\"),\n    )\n}\n"
+    "text": "/// The statistics block of LINEST and LOGEST below the first row `first` (the coefficients in\n/// reverse predictor order, then the constant), from the fit's QR factors: the standard errors\n/// of the coefficients and of the constant (#N/A without one), R squared and the standard error\n/// of y, F and the degrees of freedom, and the regression and residual sums of squares. LOGEST's\n/// statistics are those of the fit to ln y.\nfn statistics_block(fit: &RegressionFit, use_const: bool, first: Vec<f64>) -> CalcValue {\n    if fit.order.is_empty() {\n        return one_observation_statistics(first);\n    }\n    let n = fit.observations;\n    let p = fit.order.len();\n    let predictors = p - usize::from(use_const);\n    let squares = |values: &[f64]| values.iter().fold(0.0, |sum, v| sum + v * v);\n    let ss_resid = squares(&fit.qty[p..]);\n    let ss_total = squares(&fit.y);\n    let ss_reg = ss_total - ss_resid;\n    let df = (n - p) as f64;\n    // With no degrees of freedom left Excel gives R squared 1, every standard error 0 and F\n    // #NUM! (an exact fit of as many columns as observations).\n    let exact = n == p;\n    let r2 = if exact { 1.0 } else { ss_reg / ss_total };\n    let se_y = if exact { 0.0 } else { (ss_resid / df).sqrt() };\n    let f = if exact { f64::NAN } else { (ss_reg / predictors as f64) / (ss_resid / df) };\n    // The inverse of the triangular factor over the columns with a nonzero diagonal (a column\n    // kept as zero comes last and has standard error 0), column by column.\n    let nz = (0..p).take_while(|j| fit.r[*j][*j] != 0.0).count();\n    let mut inverse = vec![vec![0.0; nz]; nz];\n    for j in 0..nz {\n        inverse[j][j] = 1.0 / fit.r[j][j];\n        for i in (0..j).rev() {\n            let sum = ((i + 1)..=j).fold(0.0, |sum, k| sum + fit.r[i][k] * inverse[k][j]);\n            inverse[i][j] = -sum / fit.r[i][i];\n        }\n    }\n    // (R'R)^-1 = R^-1 R^-T.\n    let covariance =\n        |a: usize, b: usize| (0..nz).fold(0.0, |sum, k| sum + inverse[a][k] * inverse[b][k]);\n    let mut se = vec![0.0; fit.model.coefficients.len()];\n    for (position, predictor) in fit.order.iter().enumerate().take(nz) {\n        if let Some(index) = predictor {\n            if !exact {\n                se[*index] = (ss_resid * covariance(position, position) / df).sqrt();\n            }\n        }\n    }\n    let n_a = || CalcValue::error(WorksheetErrorCode::NA);\n    let number = |v: f64| {\n        if v.is_finite() { CalcValue::number(v) } else { CalcValue::error(WorksheetErrorCode::Num) }\n    };\n    let cols = first.len();\n    let mut second: Vec<CalcValue> = se.iter().rev().map(|v| number(*v)).collect();\n    if use_const {\n        // The constant is my - sum(b_j m_j): its variance is w'(R'R)^-1 w with w = 1 at the\n        // ones column and -m_j at predictor j's column.\n        let w: Vec<f64> = fit\n            .order\n            .iter()\n            .take(nz)\n            .map(|predictor| match predictor {\n                None => 1.0,\n                Some(index) => -fit.means[*index],\n            })\n            .collect();\n        let mut variance = 0.0;\n        for a in 0..nz {\n            for b in 0..nz {\n                variance += w[a] * w[b] * covariance(a, b);\n            }\n        }\n        // R37 zero-mean predictors isolate this consumer from translation:\n        // all 360 discovery and 288 fresh LINEST/LOGEST selections agree\n        // with residual * variance before /df, conditioned on their published\n        // residual sum and inverse ones-column norm. The private QR/residual\n        // producers remain incomplete; this changes only the final association.\n        let se_b = if exact { 0.0 } else { (ss_resid * variance / df).sqrt() };\n        second.push(number(se_b));\n    } else {\n        second.push(n_a());\n    }\n    let pad = |head: Vec<CalcValue>| {\n        let mut row = head;\n        while row.len() < cols {\n            row.push(n_a());\n        }\n        row\n    };\n    CalcValue::array(\n        CalcArray::from_rows(vec![\n            first.into_iter().map(CalcValue::number).collect(),\n            second,\n            pad(vec![number(r2), number(se_y)]),\n            pad(vec![number(f), number(df)]),\n            pad(vec![number(ss_reg), number(ss_resid)]),\n        ])\n        .expect(\"five rows of one length\"),\n    )\n}\n"
   },
   "ported/regression_forecast_family::linest_kernel": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 954,
-    "end_line": 968,
+    "start_line": 959,
+    "end_line": 973,
     "name": "linest_kernel",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -12745,8 +12772,8 @@
   },
   "ported/regression_forecast_family::eval_linest_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1094,
-    "end_line": 1102,
+    "start_line": 1099,
+    "end_line": 1107,
     "name": "eval_linest_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -12754,8 +12781,8 @@
   },
   "catalogue/math::entry::LN": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 96,
-    "end_line": 96,
+    "start_line": 99,
+    "end_line": 99,
     "name": "LN",
     "module": "catalogue/math",
     "users": 1,
@@ -12772,8 +12799,8 @@
   },
   "catalogue/math::entry::LOG": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 97,
-    "end_line": 106,
+    "start_line": 100,
+    "end_line": 109,
     "name": "LOG",
     "module": "catalogue/math",
     "users": 1,
@@ -12799,8 +12826,8 @@
   },
   "catalogue/math::entry::LOG10": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 107,
-    "end_line": 107,
+    "start_line": 110,
+    "end_line": 110,
     "name": "LOG10",
     "module": "catalogue/math",
     "users": 1,
@@ -12817,8 +12844,8 @@
   },
   "ported/regression_forecast_family::logest_kernel": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 970,
-    "end_line": 993,
+    "start_line": 975,
+    "end_line": 998,
     "name": "logest_kernel",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -12826,8 +12853,8 @@
   },
   "ported/regression_forecast_family::eval_logest_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1104,
-    "end_line": 1112,
+    "start_line": 1109,
+    "end_line": 1117,
     "name": "eval_logest_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -13132,8 +13159,8 @@
   },
   "catalogue/math::entry::MDETERM": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 219,
-    "end_line": 222,
+    "start_line": 222,
+    "end_line": 225,
     "name": "MDETERM",
     "module": "catalogue/math",
     "users": 1,
@@ -13141,8 +13168,8 @@
   },
   "catalogue/math::matrix": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 351,
-    "end_line": 373,
+    "start_line": 354,
+    "end_line": 376,
     "name": "matrix",
     "module": "catalogue/math",
     "users": 3,
@@ -13168,8 +13195,8 @@
   },
   "ported/bond_core_family::mduration_kernel": {
     "file": "crates/calc-func/src/ported/bond_core_family.rs",
-    "start_line": 696,
-    "end_line": 707,
+    "start_line": 701,
+    "end_line": 712,
     "name": "mduration_kernel",
     "module": "ported/bond_core_family",
     "users": 1,
@@ -13294,8 +13321,8 @@
   },
   "catalogue/math::entry::MINVERSE": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 224,
-    "end_line": 228,
+    "start_line": 227,
+    "end_line": 231,
     "name": "MINVERSE",
     "module": "catalogue/math",
     "users": 1,
@@ -13330,8 +13357,8 @@
   },
   "catalogue/math::entry::MMULT": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 229,
-    "end_line": 234,
+    "start_line": 232,
+    "end_line": 237,
     "name": "MMULT",
     "module": "catalogue/math",
     "users": 1,
@@ -13357,8 +13384,8 @@
   },
   "catalogue/rounding::modulo": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 641,
-    "end_line": 686,
+    "start_line": 651,
+    "end_line": 696,
     "name": "modulo",
     "module": "catalogue/rounding",
     "users": 1,
@@ -13366,8 +13393,8 @@
   },
   "catalogue/rounding::tiny_remainder": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 688,
-    "end_line": 713,
+    "start_line": 698,
+    "end_line": 723,
     "name": "tiny_remainder",
     "module": "catalogue/rounding",
     "users": 1,
@@ -13429,8 +13456,8 @@
   },
   "catalogue/rounding::mround": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 511,
-    "end_line": 527,
+    "start_line": 520,
+    "end_line": 536,
     "name": "mround",
     "module": "catalogue/rounding",
     "users": 1,
@@ -13438,8 +13465,8 @@
   },
   "catalogue/rounding::nearest_multiple": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 529,
-    "end_line": 552,
+    "start_line": 538,
+    "end_line": 561,
     "name": "nearest_multiple",
     "module": "catalogue/rounding",
     "users": 1,
@@ -13447,8 +13474,8 @@
   },
   "catalogue/math::entry::MULTINOMIAL": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 143,
-    "end_line": 163,
+    "start_line": 146,
+    "end_line": 166,
     "name": "MULTINOMIAL",
     "module": "catalogue/math",
     "users": 1,
@@ -13573,8 +13600,8 @@
   },
   "catalogue/math::entry::MUNIT": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 235,
-    "end_line": 249,
+    "start_line": 238,
+    "end_line": 252,
     "name": "MUNIT",
     "module": "catalogue/math",
     "users": 1,
@@ -13618,8 +13645,8 @@
   },
   "ported/discrete_dist::negbinom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 348,
-    "end_line": 377,
+    "start_line": 351,
+    "end_line": 380,
     "name": "negbinom_mass",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -13627,8 +13654,8 @@
   },
   "ported/discrete_dist::negbinom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 379,
-    "end_line": 396,
+    "start_line": 382,
+    "end_line": 399,
     "name": "negbinom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -13780,8 +13807,8 @@
   },
   "catalogue/kit::checked_date_serial": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 183,
-    "end_line": 191,
+    "start_line": 187,
+    "end_line": 195,
     "name": "checked_date_serial",
     "module": "catalogue/kit",
     "users": 0,
@@ -13943,11 +13970,11 @@
   "catalogue/logical::not": {
     "file": "crates/calc-func/src/catalogue/logical.rs",
     "start_line": 294,
-    "end_line": 310,
+    "end_line": 313,
     "name": "not",
     "module": "catalogue/logical",
     "users": 1,
-    "text": "/// NOT: its argument read as a logical (as IF reads its condition), reversed; the argument's\n/// error is the result. An array argument, over which NOT lifts, and a callable are refused as not\n/// modelled.\nfn not(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(NOT, services);\n    Site::finish(\n        site.scalar_operands(arguments)\n            .and_then(|()| not_callable(&site, 0, &arguments[0]))\n            .and_then(|()| {\n                let logical = site.argument(0, coerce::logical(&arguments[0]))?;\n                Ok(CalcValue::logical(!logical))\n            }),\n    )\n}\n"
+    "text": "/// NOT: its argument read as a logical (as IF reads its condition), reversed; the argument's\n/// error is the result. An array argument, over which NOT lifts, and a callable are refused as not\n/// modelled.\nfn not(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(NOT, services);\n    Site::finish(\n        site.scalar_operands(arguments)\n            .and_then(|()| not_callable(&site, 0, &arguments[0]))\n            .and_then(|()| {\n                if let Some(n) = arguments[0].as_number() && n.is_subnormal() && n.is_sign_negative() {\n                    return Ok(CalcValue::logical(false));\n                }\n                let logical = site.argument(0, coerce::logical(&arguments[0]))?;\n                Ok(CalcValue::logical(!logical))\n            }),\n    )\n}\n"
   },
   "catalogue/dates::now": {
     "file": "crates/calc-func/src/catalogue/dates.rs",
@@ -14509,8 +14536,8 @@
   },
   "catalogue::Parameter::reference": {
     "file": "crates/calc-func/src/catalogue.rs",
-    "start_line": 470,
-    "end_line": 472,
+    "start_line": 480,
+    "end_line": 482,
     "name": "Parameter::reference",
     "module": "catalogue",
     "users": 0,
@@ -14779,8 +14806,8 @@
   },
   "catalogue/math::entry::PERMUT": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 129,
-    "end_line": 131,
+    "start_line": 132,
+    "end_line": 134,
     "name": "PERMUT",
     "module": "catalogue/math",
     "users": 1,
@@ -14797,8 +14824,8 @@
   },
   "catalogue/math::entry::PERMUTATIONA": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 132,
-    "end_line": 134,
+    "start_line": 135,
+    "end_line": 137,
     "name": "PERMUTATIONA",
     "module": "catalogue/math",
     "users": 1,
@@ -14833,8 +14860,8 @@
   },
   "catalogue/text_format::entry::PHONETIC": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 935,
-    "end_line": 935,
+    "start_line": 940,
+    "end_line": 940,
     "name": "PHONETIC",
     "module": "catalogue/text_format",
     "users": 1,
@@ -14842,8 +14869,8 @@
   },
   "catalogue/math::entry::PI": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 91,
-    "end_line": 91,
+    "start_line": 94,
+    "end_line": 94,
     "name": "PI",
     "module": "catalogue/math",
     "users": 1,
@@ -14905,8 +14932,8 @@
   },
   "ported/discrete_dist::poisson_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 277,
-    "end_line": 303,
+    "start_line": 280,
+    "end_line": 306,
     "name": "poisson_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -14923,17 +14950,17 @@
   },
   "catalogue/arithmetic::power_value": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 91,
-    "end_line": 95,
+    "start_line": 98,
+    "end_line": 102,
     "name": "power_value",
     "module": "catalogue/arithmetic",
     "users": 2,
-    "text": "/// The kernel distinguishes flushed integer/reciprocal results from retained fractional\n/// subnormals. Both POWER and the operator publish that result through the same measured policy.\npub(super) fn power_value(site: &Site<'_>, x: f64, y: f64) -> Step<CalcValue> {\n    super::kit::out_with_subnormal(site, Ok(raise(site, x, y)?))\n}\n"
+    "text": "/// POWER's kernel distinguishes flushed integer/reciprocal results from retained fractional\n/// subnormals. The operator also retains the recorded fractional results from normal inputs.\npub(super) fn power_value(site: &Site<'_>, x: f64, y: f64) -> Step<CalcValue> {\n    super::kit::out_with_subnormal(site, Ok(raise(site, x, y)?))\n}\n"
   },
   "catalogue/arithmetic::raise": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 114,
-    "end_line": 151,
+    "start_line": 128,
+    "end_line": 165,
     "name": "raise",
     "module": "catalogue/arithmetic",
     "users": 2,
@@ -14941,8 +14968,8 @@
   },
   "catalogue/arithmetic::power_algorithm": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 153,
-    "end_line": 157,
+    "start_line": 167,
+    "end_line": 171,
     "name": "power_algorithm",
     "module": "catalogue/arithmetic",
     "users": 2,
@@ -14950,8 +14977,8 @@
   },
   "catalogue/math::entry::POWER": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 113,
-    "end_line": 117,
+    "start_line": 116,
+    "end_line": 120,
     "name": "POWER",
     "module": "catalogue/math",
     "users": 1,
@@ -15211,12 +15238,12 @@
   },
   "catalogue/math::entry::RADIANS": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 88,
-    "end_line": 90,
+    "start_line": 90,
+    "end_line": 93,
     "name": "RADIANS",
     "module": "catalogue/math",
     "users": 1,
-    "text": "23 radians \"RADIANS\" (1, 1) [V \"angle\"] three_d (None, None, Some(&[])); |s, a, sv| {\n    raw(s, a, ExcelRealPolicy::PASS, k::radians::radians_kernel)\n}\n"
+    "text": "23 radians \"RADIANS\" (1, 1) [V \"angle\"] three_d (None, None, Some(&[])); |s, a, sv| {\n    let x = num_with_subnormal(s, a, 0)?;\n    out(s, ExcelRealPolicy::PASS.publish(x, k::radians::radians_kernel(x)))\n}\n"
   },
   "ported/radians::radians_kernel": {
     "file": "crates/calc-func/src/ported/radians.rs",
@@ -15256,8 +15283,8 @@
   },
   "catalogue/kit::opt_flag": {
     "file": "crates/calc-func/src/catalogue/kit.rs",
-    "start_line": 233,
-    "end_line": 245,
+    "start_line": 237,
+    "end_line": 249,
     "name": "opt_flag",
     "module": "catalogue/kit",
     "users": 0,
@@ -15418,8 +15445,8 @@
   },
   "catalogue/text_format::entry::REGEXEXTRACT": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 940,
-    "end_line": 940,
+    "start_line": 945,
+    "end_line": 945,
     "name": "REGEXEXTRACT",
     "module": "catalogue/text_format",
     "users": 1,
@@ -15607,8 +15634,8 @@
   },
   "catalogue/text_format::entry::REGEXREPLACE": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 941,
-    "end_line": 941,
+    "start_line": 946,
+    "end_line": 946,
     "name": "REGEXREPLACE",
     "module": "catalogue/text_format",
     "users": 1,
@@ -15625,8 +15652,8 @@
   },
   "catalogue/text_format::entry::REGEXTEST": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 939,
-    "end_line": 939,
+    "start_line": 944,
+    "end_line": 944,
     "name": "REGEXTEST",
     "module": "catalogue/text_format",
     "users": 1,
@@ -15724,8 +15751,8 @@
   },
   "catalogue/math::entry::ROMAN": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 168,
-    "end_line": 182,
+    "start_line": 171,
+    "end_line": 185,
     "name": "ROMAN",
     "module": "catalogue/math",
     "users": 1,
@@ -15832,8 +15859,8 @@
   },
   "catalogue/rounding::round": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 252,
-    "end_line": 260,
+    "start_line": 261,
+    "end_line": 269,
     "name": "round",
     "module": "catalogue/rounding",
     "users": 1,
@@ -15841,8 +15868,8 @@
   },
   "catalogue/rounding::flush": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 293,
-    "end_line": 297,
+    "start_line": 302,
+    "end_line": 306,
     "name": "flush",
     "module": "catalogue/rounding",
     "users": 4,
@@ -15850,8 +15877,8 @@
   },
   "catalogue/rounding::nearest_digits": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 299,
-    "end_line": 309,
+    "start_line": 308,
+    "end_line": 318,
     "name": "nearest_digits",
     "module": "catalogue/rounding",
     "users": 1,
@@ -15859,8 +15886,8 @@
   },
   "catalogue/rounding::nearest_digits_with": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 318,
-    "end_line": 340,
+    "start_line": 327,
+    "end_line": 349,
     "name": "nearest_digits_with",
     "module": "catalogue/rounding",
     "users": 1,
@@ -15868,8 +15895,8 @@
   },
   "catalogue/rounding::whole_reading_with": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 348,
-    "end_line": 357,
+    "start_line": 357,
+    "end_line": 366,
     "name": "whole_reading_with",
     "module": "catalogue/rounding",
     "users": 4,
@@ -15877,8 +15904,8 @@
   },
   "catalogue/rounding::stored": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 359,
-    "end_line": 372,
+    "start_line": 368,
+    "end_line": 381,
     "name": "stored",
     "module": "catalogue/rounding",
     "users": 4,
@@ -15886,8 +15913,8 @@
   },
   "catalogue/rounding::stored_nearest": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 374,
-    "end_line": 392,
+    "start_line": 383,
+    "end_line": 401,
     "name": "stored_nearest",
     "module": "catalogue/rounding",
     "users": 4,
@@ -15904,8 +15931,8 @@
   },
   "catalogue/rounding::rounddown": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 272,
-    "end_line": 280,
+    "start_line": 281,
+    "end_line": 289,
     "name": "rounddown",
     "module": "catalogue/rounding",
     "users": 1,
@@ -15913,8 +15940,8 @@
   },
   "catalogue/rounding::whole_reading": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 342,
-    "end_line": 346,
+    "start_line": 351,
+    "end_line": 355,
     "name": "whole_reading",
     "module": "catalogue/rounding",
     "users": 3,
@@ -15922,8 +15949,8 @@
   },
   "catalogue/rounding::directed_places": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 394,
-    "end_line": 413,
+    "start_line": 403,
+    "end_line": 422,
     "name": "directed_places",
     "module": "catalogue/rounding",
     "users": 3,
@@ -15931,8 +15958,8 @@
   },
   "catalogue/rounding::directed": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 415,
-    "end_line": 474,
+    "start_line": 424,
+    "end_line": 483,
     "name": "directed",
     "module": "catalogue/rounding",
     "users": 3,
@@ -15940,8 +15967,8 @@
   },
   "catalogue/rounding::directed_initial_underflow": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 476,
-    "end_line": 500,
+    "start_line": 485,
+    "end_line": 509,
     "name": "directed_initial_underflow",
     "module": "catalogue/rounding",
     "users": 3,
@@ -15967,8 +15994,8 @@
   },
   "catalogue/rounding::roundup": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 262,
-    "end_line": 270,
+    "start_line": 271,
+    "end_line": 279,
     "name": "roundup",
     "module": "catalogue/rounding",
     "users": 1,
@@ -16219,8 +16246,8 @@
   },
   "catalogue/math::entry::SERIESSUM": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 194,
-    "end_line": 209,
+    "start_line": 197,
+    "end_line": 212,
     "name": "SERIESSUM",
     "module": "catalogue/math",
     "users": 1,
@@ -16264,12 +16291,12 @@
   },
   "catalogue/rounding::sign": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 191,
-    "end_line": 205,
+    "start_line": 194,
+    "end_line": 211,
     "name": "sign",
     "module": "catalogue/rounding",
     "users": 1,
-    "text": "/// SIGN: 1 for a positive number, -1 for a negative one, 0 for zero.\nfn sign(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    numeric(SIGN, arguments, services, |_, n| {\n        Ok(if n[0] > 0.0 {\n            1.0\n        } else if n[0] < 0.0 {\n            -1.0\n        } else {\n            0.0\n        })\n    })\n}\n"
+    "text": "/// SIGN: 1 for a positive number, -1 for a negative one, 0 for zero.\nfn sign(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    if let Some(n) = arguments[0].as_number() && n.is_subnormal() && n.is_sign_negative() {\n        return Ok(CalcValue::number(-1.0));\n    }\n    numeric(SIGN, arguments, services, |_, n| {\n        Ok(if n[0] > 0.0 {\n            1.0\n        } else if n[0] < 0.0 {\n            -1.0\n        } else {\n            0.0\n        })\n    })\n}\n"
   },
   "catalogue/math::entry::SIN": {
     "file": "crates/calc-func/src/catalogue/math.rs",
@@ -16480,12 +16507,12 @@
   },
   "catalogue/math::entry::SQRT": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 108,
-    "end_line": 108,
+    "start_line": 111,
+    "end_line": 111,
     "name": "SQRT",
     "module": "catalogue/math",
     "users": 1,
-    "text": "29 sqrt \"SQRT\" (1, 1) [V \"number\"] three_d (None, None, Some(&[])); |s, a, sv| { unary(s, a, k::sqrt_fn::sqrt_kernel) }\n"
+    "text": "29 sqrt \"SQRT\" (1, 1) [V \"number\"] three_d (None, None, Some(&[])); |s, a, sv| { out(s, k::sqrt_fn::sqrt_kernel(num_with_subnormal(s, a, 0)?)) }\n"
   },
   "ported/sqrt_fn::sqrt_kernel": {
     "file": "crates/calc-func/src/ported/sqrt_fn.rs",
@@ -16498,8 +16525,8 @@
   },
   "catalogue/math::entry::SQRTPI": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 109,
-    "end_line": 112,
+    "start_line": 112,
+    "end_line": 115,
     "name": "SQRTPI",
     "module": "catalogue/math",
     "users": 1,
@@ -16638,7 +16665,7 @@
     "name": "SUBTOTAL",
     "module": "catalogue/subtotal",
     "users": 1,
-    "text": "1 subtotal \"SUBTOTAL\" (2, 255) [V \"function_num\", F \"ref1\" @Reference ~ ArrayAlwaysLiftReferences, F \"ref2\" @Reference ~ ArrayAlwaysLiftReferencesRepeated] traits skip_nested_subtotals; three_d (None, Some(&[1, usize::MAX]), Some(&[0])); |s, a, sv| {\n    let number = num(s, a, 0)?.trunc() as i64;\n    let (function, hidden) = match number {\n        1..=11 => (number, false),\n        101..=111 => (number - 100, true),\n        _ => return fail(WorksheetErrorCode::Value),\n    };\n    let rule = Rule { nested: true, hidden, filtered: true, errors: false };\n    let values = held_values(s, a, 1, sv, rule)?;\n    compute(s, function, &values)\n}\n"
+    "text": "1 subtotal \"SUBTOTAL\" (2, 255) [V \"function_num\", F \"ref1\" @Reference ~ ArrayAlwaysLiftReferences, F \"ref2\" @Reference ~ ArrayAlwaysLiftReferencesRepeated] traits skip_nested_subtotals, lift_dynamic_references; three_d (None, Some(&[1, usize::MAX]), Some(&[0])); |s, a, sv| {\n    let number = num(s, a, 0)?.trunc() as i64;\n    let (function, hidden) = match number {\n        1..=11 => (number, false),\n        101..=111 => (number - 100, true),\n        _ => return fail(WorksheetErrorCode::Value),\n    };\n    let rule = Rule { nested: true, hidden, filtered: true, errors: false };\n    let values = held_values(s, a, 1, sv, rule)?;\n    compute(s, function, &values)\n}\n"
   },
   "catalogue/aggregate::entry::SUM": {
     "file": "crates/calc-func/src/catalogue/aggregate.rs",
@@ -16750,8 +16777,8 @@
   },
   "catalogue/math::entry::SUMX2MY2": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 210,
-    "end_line": 212,
+    "start_line": 213,
+    "end_line": 215,
     "name": "SUMX2MY2",
     "module": "catalogue/math",
     "users": 1,
@@ -16759,8 +16786,8 @@
   },
   "catalogue/math::sum_pairwise": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 300,
-    "end_line": 326,
+    "start_line": 303,
+    "end_line": 329,
     "name": "sum_pairwise",
     "module": "catalogue/math",
     "users": 3,
@@ -16768,8 +16795,8 @@
   },
   "catalogue/math::numeric_cells": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 331,
-    "end_line": 349,
+    "start_line": 334,
+    "end_line": 352,
     "name": "numeric_cells",
     "module": "catalogue/math",
     "users": 3,
@@ -16777,8 +16804,8 @@
   },
   "catalogue/math::entry::SUMX2PY2": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 213,
-    "end_line": 215,
+    "start_line": 216,
+    "end_line": 218,
     "name": "SUMX2PY2",
     "module": "catalogue/math",
     "users": 1,
@@ -16786,8 +16813,8 @@
   },
   "catalogue/math::entry::SUMXMY2": {
     "file": "crates/calc-func/src/catalogue/math.rs",
-    "start_line": 216,
-    "end_line": 218,
+    "start_line": 219,
+    "end_line": 221,
     "name": "SUMXMY2",
     "module": "catalogue/math",
     "users": 1,
@@ -17173,8 +17200,8 @@
   },
   "catalogue/text_format::entry::TEXTAFTER": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 937,
-    "end_line": 937,
+    "start_line": 942,
+    "end_line": 942,
     "name": "TEXTAFTER",
     "module": "catalogue/text_format",
     "users": 1,
@@ -17209,8 +17236,8 @@
   },
   "catalogue/text_format::entry::TEXTBEFORE": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 936,
-    "end_line": 936,
+    "start_line": 941,
+    "end_line": 941,
     "name": "TEXTBEFORE",
     "module": "catalogue/text_format",
     "users": 1,
@@ -17263,8 +17290,8 @@
   },
   "catalogue/text_format::entry::TEXTSPLIT": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
-    "start_line": 938,
-    "end_line": 938,
+    "start_line": 943,
+    "end_line": 943,
     "name": "TEXTSPLIT",
     "module": "catalogue/text_format",
     "users": 1,
@@ -17461,8 +17488,8 @@
   },
   "ported/regression_forecast_family::eval_trend_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1046,
-    "end_line": 1059,
+    "start_line": 1051,
+    "end_line": 1064,
     "name": "eval_trend_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -17542,8 +17569,8 @@
   },
   "catalogue/logical::true_value": {
     "file": "crates/calc-func/src/catalogue/logical.rs",
-    "start_line": 312,
-    "end_line": 315,
+    "start_line": 315,
+    "end_line": 318,
     "name": "true_value",
     "module": "catalogue/logical",
     "users": 1,
@@ -17560,8 +17587,8 @@
   },
   "catalogue/rounding::trunc": {
     "file": "crates/calc-func/src/catalogue/rounding.rs",
-    "start_line": 237,
-    "end_line": 250,
+    "start_line": 246,
+    "end_line": 259,
     "name": "trunc",
     "module": "catalogue/rounding",
     "users": 1,
@@ -17587,8 +17614,8 @@
   },
   "catalogue/information::type_of": {
     "file": "crates/calc-func/src/catalogue/information.rs",
-    "start_line": 389,
-    "end_line": 422,
+    "start_line": 390,
+    "end_line": 423,
     "name": "type_of",
     "module": "catalogue/information",
     "users": 1,
@@ -17596,8 +17623,8 @@
   },
   "catalogue/information::type_code": {
     "file": "crates/calc-func/src/catalogue/information.rs",
-    "start_line": 424,
-    "end_line": 438,
+    "start_line": 425,
+    "end_line": 439,
     "name": "type_code",
     "module": "catalogue/information",
     "users": 1,
@@ -18460,8 +18487,8 @@
   },
   "catalogue/arithmetic::entry::^ infix": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 42,
-    "end_line": 42,
+    "start_line": 43,
+    "end_line": 43,
     "name": "^ infix",
     "module": "catalogue/arithmetic",
     "users": 1,
@@ -18469,11 +18496,11 @@
   },
   "catalogue/arithmetic::power": {
     "file": "crates/calc-func/src/catalogue/arithmetic.rs",
-    "start_line": 83,
-    "end_line": 89,
+    "start_line": 84,
+    "end_line": 96,
     "name": "power",
     "module": "catalogue/arithmetic",
     "users": 1,
-    "text": "fn power(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(POWER, services);\n    Site::finish(operands(&site, arguments).and_then(|(x, y)| power_value(&site, x, y)))\n}\n"
+    "text": "fn power(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    let site = Site::new(POWER, services);\n    Site::finish(operands(&site, arguments).and_then(|(x, y)| {\n        if x.is_subnormal() {\n            site.number(flushed(raise(&site, x, y)?))\n        } else {\n            power_value(&site, x, y)\n        }\n    }))\n}\n"
   }
 }
