@@ -100,9 +100,9 @@ and it is the first thing this page would probe.
 
 ## Relationships
 
-- **`ASC` and `DBCS`** are the other locale-gated East-Asian text functions in Excel's surface,
+- **`ASC` and `DBCS`** are the other limited by locale East-Asian text functions in Excel's surface,
   converting between half-width and full-width forms. Unlike `PHONETIC`, they are pure functions
-  of their argument; they are gated by locale but not by stored metadata.
+  of their argument; they are limited by locale but not by stored metadata.
 - **`FINDB`, `LEFTB`, `LENB`, `MIDB`, `REPLACEB`, `RIGHTB`, `SEARCHB`** are the byte-variant text
   functions whose behaviour differs under DBCS locales — the other place in Excel where locale
   changes what a text function does. They are byte-counting variants, not metadata readers.
@@ -171,7 +171,7 @@ What a Japanese-locale harness would have to establish, in order:
 |---|---|
 | furigana | The phonetic reading stored alongside a cell's text; not part of its value |
 | stored metadata | State attached to a cell that no computation on its value can recover |
-| locale-gated | Requires a specific system region setting to function |
+| limited by locale | Requires a specific system region setting to function |
 | deferred | The reference engine intentionally does not implement this surface; the reason is published |
 
 ## Sources

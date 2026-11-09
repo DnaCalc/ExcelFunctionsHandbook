@@ -3,6 +3,12 @@
 version = 4
 
 [[package]]
+name = "adler2"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
+
+[[package]]
 name = "aho-corasick"
 version = "1.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -157,23 +163,60 @@ dependencies = [
 ]
 
 [[package]]
+name = "byteorder"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fd0f2584146f6f2ef48085050886acf353beff7305ebd1ae69500e27c67f64b"
+
+[[package]]
 name = "bytes"
 version = "1.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc652a48c352aef3ea3aed32080501cf3ef6ed5da78602a020c991775b0aff04"
 
 [[package]]
+name = "calc-catalogue"
+version = "0.1.0"
+dependencies = [
+ "calc-value",
+]
+
+[[package]]
+name = "calc-doc"
+version = "0.1.0"
+dependencies = [
+ "calc-catalogue",
+ "calc-doc-model",
+ "calc-fml",
+ "miniz_oxide",
+ "quick-xml",
+]
+
+[[package]]
+name = "calc-doc-model"
+version = "0.1.0"
+dependencies = [
+ "calc-syntax",
+ "calc-value",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "calc-fml"
 version = "0.1.0"
 dependencies = [
+ "calc-catalogue",
  "calc-func",
  "calc-syntax",
+ "serde",
 ]
 
 [[package]]
 name = "calc-func"
 version = "0.1.0"
 dependencies = [
+ "calc-catalogue",
  "calc-value",
  "libm",
  "sxd-document",
@@ -200,6 +243,7 @@ dependencies = [
  "calcvba-hal",
  "calcvba-host",
  "calcvba-host-api",
+ "calcvba-office",
  "calcvba-oxir",
  "calcvba-runtime",
  "calcvba-symbol",
@@ -211,7 +255,7 @@ dependencies = [
 [[package]]
 name = "calcvba-bind"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-com",
@@ -225,7 +269,7 @@ dependencies = [
 [[package]]
 name = "calcvba-bundle"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-com",
  "calcvba-runtime",
@@ -235,7 +279,7 @@ dependencies = [
 [[package]]
 name = "calcvba-com"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-diagnostics",
  "calcvba-host-api",
@@ -250,7 +294,7 @@ dependencies = [
 [[package]]
 name = "calcvba-diagnostics"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "serde",
  "serde_json",
@@ -259,7 +303,7 @@ dependencies = [
 [[package]]
 name = "calcvba-eval"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-runtime",
@@ -268,7 +312,7 @@ dependencies = [
 [[package]]
 name = "calcvba-hal"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-com",
  "calcvba-diagnostics",
@@ -282,7 +326,7 @@ dependencies = [
 [[package]]
 name = "calcvba-host"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bind",
  "calcvba-bundle",
@@ -305,7 +349,7 @@ dependencies = [
 [[package]]
 name = "calcvba-host-api"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-runtime",
  "thiserror 2.0.21",
@@ -314,7 +358,7 @@ dependencies = [
 [[package]]
 name = "calcvba-jit"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-com",
@@ -336,7 +380,7 @@ dependencies = [
 [[package]]
 name = "calcvba-lib"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-com",
@@ -345,9 +389,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "calcvba-office"
+version = "0.1.2"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
+dependencies = [
+ "calcvba-symbol",
+ "cfb",
+ "codepage",
+ "encoding_rs",
+ "thiserror 2.0.21",
+]
+
+[[package]]
 name = "calcvba-oxir"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-com",
@@ -358,7 +414,7 @@ dependencies = [
 [[package]]
 name = "calcvba-rt-abi"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-com",
@@ -374,7 +430,7 @@ dependencies = [
 [[package]]
 name = "calcvba-runtime"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "rkyv",
  "serde",
@@ -385,7 +441,7 @@ dependencies = [
 [[package]]
 name = "calcvba-symbol"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-com",
@@ -398,7 +454,7 @@ dependencies = [
 [[package]]
 name = "calcvba-syntax"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-diagnostics",
  "thiserror 2.0.21",
@@ -407,7 +463,7 @@ dependencies = [
 [[package]]
 name = "calcvba-vm3"
 version = "0.1.2"
-source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=37651ac8a64f82c2fee8178df06c3518daa5f65f#37651ac8a64f82c2fee8178df06c3518daa5f65f"
+source = "git+https://github.com/DnaCalc/CalcVBA.git?rev=18d061393d2376eb3e5c1b89c7012d8188318203#18d061393d2376eb3e5c1b89c7012d8188318203"
 dependencies = [
  "calcvba-bundle",
  "calcvba-com",
@@ -437,6 +493,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cfb"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d8a4f8e55be323b378facfcf1f06aa97f6ec17cf4ac84fb17325093aaf62da41"
+dependencies = [
+ "byteorder",
+ "fnv",
+ "uuid",
+]
+
+[[package]]
 name = "cfg-if"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -451,6 +518,15 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror 2.0.21",
+]
+
+[[package]]
+name = "codepage"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bdff162541cd8b79de82e2edcc7eff3a8c2a6dc3d75152636028f96d93de3b26"
+dependencies = [
+ "encoding_rs",
 ]
 
 [[package]]
@@ -531,6 +607,12 @@ checksum = "589c70f0faf8aa9d17787557d5eae854d7755cac50f5c3d12c81d3d57661cebb"
 dependencies = [
  "convert_case 0.11.0",
 ]
+
+[[package]]
+name = "core_detect"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f8f80099a98041a3d1622845c271458a2d73e688351bf3cb999266764b81d48"
 
 [[package]]
 name = "cpufeatures"
@@ -778,6 +860,7 @@ dependencies = [
 name = "dna-onecalc"
 version = "0.1.0"
 dependencies = [
+ "calc-doc",
  "calc-fml",
  "calc-func",
  "calc-vba",
@@ -820,6 +903,20 @@ checksum = "5060e0a4cbf26a87550792688ade88e6b8aec9208613631a7a363bda7bc2d4cd"
 dependencies = [
  "paste",
  "pin-project-lite",
+]
+
+[[package]]
+name = "encoding_rs"
+version = "0.8.44"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "89253175e704ab869b04f9db224d38630e0211a53841a79181deae0889e169f5"
+dependencies = [
+ "cfg-if",
+ "core_detect",
+ "multiversion_no_op",
+ "rustversion",
+ "scopeguard",
+ "simdutf8",
 ]
 
 [[package]]
@@ -1476,6 +1573,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "miniz_oxide"
+version = "0.8.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316"
+dependencies = [
+ "adler2",
+]
+
+[[package]]
+name = "multiversion_no_op"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "743fb55ba31b18fb1ecef6bdc9aa2743314978ac084044301a7eee33fb99a20d"
+
+[[package]]
 name = "munge"
 version = "0.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1655,6 +1767,15 @@ name = "quick-error"
 version = "1.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a1d01941d82fa2ab50be1e79e6714289dd7cde78eba4c074bc5a4374f650dfe0"
+
+[[package]]
+name = "quick-xml"
+version = "0.37.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "331e97a1af0bf59823e6eadffe373d7b27f485be8748f71471c662c1f269b7fb"
+dependencies = [
+ "memchr",
+]
 
 [[package]]
 name = "quote"
@@ -1898,6 +2019,12 @@ name = "scoped-tls-hkt"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e9603871ffe5df3ac39cb624790c296dbd47a400d202f56bf3e414045099524d"
+
+[[package]]
+name = "scopeguard"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
 
 [[package]]
 name = "self_cell"

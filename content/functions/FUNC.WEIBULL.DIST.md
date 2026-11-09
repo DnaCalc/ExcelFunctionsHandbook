@@ -22,7 +22,7 @@ body_sections:
 family: special_dist_family
 role_in_family: >-
   The reliability distribution of the special-function module, and the surface in this family
-  whose numerical substrate has been identified in detail and then gated on fresh held-out rows
+  whose numerical substrate has been identified in detail and then tested on fresh held-out rows
   against a live Excel oracle.
 ---
 
@@ -203,7 +203,7 @@ the identified substrate for this surface in the reference engine: a legacy x87
 per-operation double-rounded compilation unit, with the cumulative branch forming the reduced
 variable, raising it through a power chain, and publishing the negated `expm1` of the negated
 result — and the density evaluated left to right, division first, with every operation
-double-rounded through a spilled local. That record is a **substrate identification**, gated on
+double-rounded through a spilled local. That record is a **substrate identification**, tested on
 fresh held-out rows against a live Excel oracle; its counts belong to the evidence layer
 rendered beside this page and are not restated in this prose. The record also names its own
 limits: the build is not restated near its scored line, and its sole residual belongs to a named
@@ -215,14 +215,14 @@ mathematical formula. Two implementations of `1 − exp(−(x/β)^α)` that agre
 in the last bits purely through where the compiler spilled a double.
 
 Nothing in this section is a claim that Excel uses any particular algorithm. The identification
-record concerns the reference engine's kernel and the evidence it was gated on.
+record concerns the reference engine's kernel and the evidence it was tested on.
 
 ## What has not been checked
 
 Two Handbook evidence records list this surface among their subjects, and they say different
 kinds of thing, so the distinction matters:
 
-- `EV-DIST-0031` is a **substrate identification** with a fresh held-out gate against a live
+- `EV-DIST-0031` is a **substrate identification** with a fresh held-out test against a live
   Excel oracle, measured on the production kernel. This surface has therefore been compared
   against Excel — which is more than almost any other statistical page in this batch can say.
   Its figures, its residual class, and its stated build ambiguity are rendered mechanically
@@ -283,7 +283,7 @@ Inputs worth probing first:
   `alpha = 1` returns the exponential distribution, and the `#VALUE!` and three `#NUM!`
   conditions). Retrieved for this page.
 - Handbook evidence record `EV-DIST-0031` — substrate identification for this surface plus a
-  fresh held-out gate against a live Excel oracle on the production kernel, with its own stated
+  fresh held-out test against a live Excel oracle on the production kernel, with its own stated
   build ambiguity and residual class.
 - Handbook evidence record `EV-DIST-0033` — the alias-pairing record establishing that the
   legacy `WEIBULL` spelling carries no measurement of its own and may not inherit this surface's

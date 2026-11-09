@@ -10,7 +10,7 @@ pub const STATES: [(&str, &str, &str); 8] = [
     ("differs", "Differs from Excel in some cases", "At least one case we compared gives a different result, or no result. Unfinished functions are here too: they decline some inputs rather than guess."),
     ("refuses", "Not implemented yet", "DNA Calc does not compute these functions yet."),
     ("deferred", "Deferred", "Either Excel gets the answer from an online service, or the function waits on a larger piece of work (such as lists in cells), so DNA Calc does not run these functions yet."),
-    ("host", "Depends on the spreadsheet program", "The answer depends on the program around the formula, such as loading a library, reading a file or starting a data server."),
+    ("host", "Implemented; needs a host route", "The answer needs a host route, such as loading an add-in, reading a file or starting a data server."),
     ("unmeasured", "Implemented, not yet compared on its own", "DNA Calc has code for these, but no comparison with Excel is credited to them alone yet. They mostly appear inside larger formulas."),
     ("absent", "Not in Excel", "Excel itself does not have these functions on the platform we recorded (Excel on Windows answers #NAME?, the answer any unknown name gets). DNA Calc gives the same answer, so they are counted on their own, apart from the functions it has not built."),
 ];
@@ -299,7 +299,11 @@ pub fn code_section(calc: &CalcFunc, id: &str, page: &str) -> String {
 }
 
 fn count_word(n: u64, one: &str, many: &str) -> String {
-    format!("{} {}", fmt_count(&json!(n)), if n == 1 { one } else { many })
+    format!(
+        "{} {}",
+        fmt_count(&json!(n)),
+        if n == 1 { one } else { many }
+    )
 }
 
 /// One entry's state in plain words: a short label for the top of its page, and a paragraph
@@ -307,14 +311,21 @@ fn count_word(n: u64, one: &str, many: &str) -> String {
 /// DNA Calc and arrives from a search for the function's name.
 pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
     let row = calc.entry(id);
+    if row["host_evidence"].is_object() {
+        return (
+            s(&row["summary"]).to_string(),
+            s(&row["detail"]).to_string(),
+        );
+    }
     let n = |v: &Value| v.as_u64().unwrap_or(0);
     let bank = &row["bank"];
     let corpus = &row["corpus"];
-    let total = n(&bank["rows"]) + n(&corpus["cells"]);
+    let total = n(&bank["rows"]).saturating_sub(n(&bank["unread"]))
+        + n(&corpus["cells"]).saturating_sub(n(&corpus["pending"]));
     let matched = n(&bank["matched"]) + n(&corpus["matched"]);
-    let refused = n(&bank["refused"]);
-    let last = n(&bank["last_bit"]);
-    let worst = n(&bank["worst_ulp"]);
+    let refused = n(&bank["refused"]) + n(&corpus["refused"]);
+    let last = n(&bank["last_bit"]) + n(&corpus["last_bit"]);
+    let worst = n(&bank["worst_ulp"]).max(n(&corpus["worst_ulp"]));
     let other = total.saturating_sub(matched + refused + last);
     let cases = count_word(total, "case", "cases");
     let what = "formulas we ran in Excel, recorded, then ran through DNA Calc";
@@ -332,7 +343,10 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
             format!("DNA Calc is not finished here. Of the {cases} we compared ({what}), it declines {}: it gives no answer rather than a guess. Every case it does answer matches Excel.", fmt_count(&json!(refused))),
         ),
         "differs" => {
-            let mut parts = vec![format!("{} {} a different result", fmt_count(&json!(other)), if other == 1 { "gives" } else { "give" })];
+            let mut parts = Vec::new();
+            if other > 0 {
+                parts.push(format!("{} {} a different result", fmt_count(&json!(other)), if other == 1 { "gives" } else { "give" }));
+            }
             if last > 0 {
                 parts.push(format!("{} {} only in the last few binary digits", fmt_count(&json!(last)), if last == 1 { "differs" } else { "differ" }));
             }
@@ -346,7 +360,7 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
         }
         "refuses" => ("not implemented yet".into(), "DNA Calc does not compute this function yet.".into()),
         "deferred" => ("deferred, not available yet".into(), "Either Excel gets this function's answer from an online service, or the function waits on a larger piece of work (such as lists in cells), so DNA Calc does not run it yet.".into()),
-        "host" => ("depends on the spreadsheet program".into(), "This function's answer depends on what the spreadsheet program around the formula can do, such as loading a library or reading a file, so DNA Calc does not compute it here.".into()),
+        "host" => (s(&row["summary"]).to_string(), s(&row["detail"]).to_string()),
         "absent" => ("not in Excel".into(), "Excel on Windows does not have this function: it answers #NAME?, as for any unknown name. DNA Calc gives the same answer.".into()),
         _ => ("implemented, not yet compared on its own".into(), "DNA Calc has code for this, but none of our comparisons with Excel is credited to it alone yet. It mostly appears inside larger formulas.".into()),
     }
@@ -356,9 +370,17 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
 fn list_note(calc: &CalcFunc, id: &str) -> String {
     let row = calc.entry(id);
     let n = |v: &Value| v.as_u64().unwrap_or(0);
-    let total = n(&row["bank"]["rows"]) + n(&row["corpus"]["cells"]);
+    let total = n(&row["bank"]["rows"]).saturating_sub(n(&row["bank"]["unread"]))
+        + n(&row["corpus"]["cells"]).saturating_sub(n(&row["corpus"]["pending"]));
+    if row["host_evidence"].is_object() {
+        return s(&row["summary"]).to_string();
+    }
     let label = plain(calc, id).0;
-    let cases = if total > 0 { count_word(total, "case compared", "cases compared") } else { String::new() };
+    let cases = if total > 0 {
+        count_word(total, "case compared", "cases compared")
+    } else {
+        String::new()
+    };
     if row["state"] == "differs" && label.starts_with("not finished") {
         format!("{label}; {cases}")
     } else {
@@ -378,9 +400,23 @@ pub fn plain_section(calc: &CalcFunc, id: &str, page: &str) -> String {
     let state = s(&calc.entry(id)["state"]);
     let (label, paragraph) = plain(calc, id);
     let mut chars = label.chars();
-    let title = chars.next().map(|c| c.to_uppercase().collect::<String>() + chars.as_str()).unwrap_or_default();
+    let title = chars
+        .next()
+        .map(|c| c.to_uppercase().collect::<String>() + chars.as_str())
+        .unwrap_or_default();
+    let evidence = s(&calc.entry(id)["host_evidence"]["source"]);
+    let link = if evidence.is_empty() {
+        String::new()
+    } else {
+        format!(
+            " <a href=\"{}/blob/{}/{}\">Recorded comparison</a>.",
+            esc(s(&calc.pin["repository"])),
+            calc.commit(),
+            esc(evidence)
+        )
+    };
     format!(
-        "<h3 id=\"dna-calc\">DNA Calc's implementation</h3><section class=\"impl-state state-{state}\" aria-label=\"State of DNA Calc's implementation\"><p class=\"state-line\"><span class=\"state-dot\" aria-hidden=\"true\"></span><strong>{}</strong></p><p>{}</p><p class=\"small\">DNA Calc is an open-source spreadsheet engine; CalcFunc is its library of Excel functions, written in Rust. <a href=\"{}\">How we compare with Excel</a></p></section>",
+        "<h3 id=\"dna-calc\">DNA Calc's implementation</h3><section class=\"impl-state state-{state}\" aria-label=\"State of DNA Calc's implementation\"><p class=\"state-line\"><span class=\"state-dot\" aria-hidden=\"true\"></span><strong>{}</strong></p><p>{}{link}</p><p class=\"small\">DNA Calc is an open-source spreadsheet engine; CalcFunc is its library of Excel functions, written in Rust. <a href=\"{}\">How we compare with Excel</a></p></section>",
         esc(&title), esc(&paragraph), esc(&relative(page, "implementation/index.html"))
     )
 }
@@ -540,7 +576,7 @@ pub fn summary_page(
     }
     h += "</tbody></table></div>";
     h += &format!(
-        "<details class=\"method\"><summary>How the comparison works, in detail</summary><p>{RECONCILIATION}.</p><p>Two sources of recorded Excel answers. The answer bank holds {} rows, of which {} match; the workbook corpus holds {} formula cells, of which {} match. Every mismatch, refusal and pending cell stays a failure in those totals. A row or cell belongs to one function, the outermost call of its formula, and an operator is credited with formulas whose first operator it is, so a difference counted there can come from elsewhere in the formula. The two sources may overlap, so a function's count is the number of recorded answers compared, not the number of distinct calls.</p><p>A number matches only when all 64 bits of its binary64 value agree. The answer-bank counts were measured at revision <code>{}</code> and committed in DnaCalc; {} The corpus was run again at <code>{}</code> for this page and gives the same totals. These statements cover the recorded inputs, Excel builds and platforms and nothing else. No Handbook test suite is published yet.</p><p class=\"small\">{}</p></details>",
+        "<details class=\"method\"><summary>How the comparison works, in detail</summary><p>{RECONCILIATION}.</p><p>The answer bank and workbook corpus are the main sources of recorded Excel answers. Some host-dependent functions also cite separate tests or traces on their pages. The answer bank holds {} rows, of which {} match; the workbook corpus holds {} formula cells, of which {} match. Every mismatch, refusal and pending cell stays a failure in those totals. A row or cell belongs to one function, the outermost call of its formula, and an operator is credited with formulas whose first operator it is, so a difference counted there can come from elsewhere in the formula. The two sources may overlap, so a function's count is the number of recorded answers compared, not the number of distinct calls.</p><p>A number matches only when all 64 bits of its binary64 value agree. The answer-bank counts were measured at revision <code>{}</code> and committed in DnaCalc; {} The corpus was run again at <code>{}</code> for this page; per-function results use that run. These statements cover the recorded inputs, Excel builds and platforms and nothing else. No Handbook test suite is published yet.</p><p class=\"small\">{}</p></details>",
         fmt_count(&bank["rows"]),
         fmt_count(&bank["matched"]),
         fmt_count(&corpus["formula_cells"]),
@@ -585,4 +621,46 @@ pub fn fmt_count(v: &Value) -> String {
         out.push(c);
     }
     out
+}
+
+#[cfg(test)]
+mod evidence_tests {
+    use super::*;
+
+    #[test]
+    fn workbook_failures_are_reported_by_kind() {
+        let calc = CalcFunc {
+            pin: json!({}),
+            state: json!({"functions": {"FUNC.FORECAST.ETS.STAT": {
+                "state": "differs", "bank": null,
+                "corpus": {"cells": 1940, "matched": 1859, "last_bit": 9, "refused": 72}
+            }}}),
+            code: json!({}),
+            fragments: json!({}),
+            variants: json!({}),
+        };
+        let (_, text) = plain(&calc, "FUNC.FORECAST.ETS.STAT");
+        assert!(text.contains("1,859"));
+        assert!(text.contains("9 differ only"));
+        assert!(text.contains("72 are declined"));
+        assert!(!text.contains("0 give"));
+    }
+
+    #[test]
+    fn host_comparison_uses_its_own_scope() {
+        let calc = CalcFunc {
+            pin: json!({}),
+            state: json!({"functions": {"FUNC.IMPORTCSV": {
+                "state": "matches", "summary": "Matches 159 recorded Excel answers",
+                "detail": "The desktop host supplies the file route.",
+                "host_evidence": {"source": "fixture.json"}, "bank": null, "corpus": null
+            }}}),
+            code: json!({}),
+            fragments: json!({}),
+            variants: json!({}),
+        };
+        let (label, text) = plain(&calc, "FUNC.IMPORTCSV");
+        assert!(label.contains("159"));
+        assert!(text.contains("file route"));
+    }
 }

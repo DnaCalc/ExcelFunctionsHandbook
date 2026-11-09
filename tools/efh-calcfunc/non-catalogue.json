@@ -49,16 +49,16 @@
     },
     "CALL": {
       "kind": "host",
-      "summary": "Needs a host that can load code",
+      "summary": "Implemented; needs an add-in route",
       "signature": "CALL(register_id, [argument1], ...)",
       "max_arity": 255,
-      "reason": "It calls a procedure in a loaded library, which is the host's to do. DNA Calc recognises the name and calculates no answer."
+      "reason": "The C API supplies this call through a loaded add-in in the native host."
     },
     "REGISTER.ID": {
       "kind": "host",
-      "summary": "Needs a host that can load code",
+      "summary": "Implemented; needs an add-in route",
       "signature": "REGISTER.ID(module_text, procedure, [type_text])",
-      "reason": "It registers a procedure in a library with the host. DNA Calc recognises the name and calculates no answer."
+      "reason": "The C API supplies this call through a loaded add-in in the native host."
     },
     "CUBEVALUE": {
       "kind": "absent",
@@ -174,9 +174,9 @@
       "category": "External data functions",
       "short": "Loads a CSV file into a refreshable array",
       "kind": "host",
-      "summary": "Needs a host that can read files",
+      "summary": "Implemented; needs a file-read route",
       "signature": "IMPORTCSV(path, [skip_rows], [take_rows], [locale])",
-      "reason": "The answer is a file the host reads. Microsoft's page lists it for Insiders on Windows; DNA Calc does not know the name yet.",
+      "reason": "The answer needs a file-read route supplied by the desktop host.",
       "source": "https://support.microsoft.com/en-us/excel/functions/importcsv-function",
       "try_it": "=IMPORTCSV(\"data.csv\")"
     },
@@ -184,9 +184,9 @@
       "category": "External data functions",
       "short": "Loads a delimited or fixed-width text file into a refreshable array",
       "kind": "host",
-      "summary": "Needs a host that can read files",
+      "summary": "Implemented; needs a file-read route",
       "signature": "IMPORTTEXT(path, [delimiter], [skip_rows], [take_rows], [encoding], [locale])",
-      "reason": "The answer is a file the host reads. Microsoft's page lists it for Insiders on Windows; DNA Calc does not know the name yet.",
+      "reason": "The answer needs a file-read route supplied by the desktop host.",
       "source": "https://support.microsoft.com/en-us/excel/functions/importtext-function",
       "try_it": "=IMPORTTEXT(\"data.txt\")"
     },

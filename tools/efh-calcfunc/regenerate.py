@@ -12,7 +12,7 @@ at that same commit, and refreshes data/calcfunc/corpus-tally.json; without it t
 is used and must name the pin. Nothing here is edited by hand: state, signatures, arity, admission
 and the code excerpts all come from the commit.
 """
-import argparse, csv, hashlib, io, json, re, subprocess, sys, tempfile, textwrap
+import argparse, csv, hashlib, io, json, os, re, subprocess, sys, tempfile, textwrap
 from collections import Counter
 from pathlib import Path
 
@@ -32,7 +32,7 @@ STATE_LABELS = {
     "differs": "Known larger differences",
     "refuses": "Refuses or not implemented",
     "deferred": "Deferred: its owner has not built it yet",
-    "host": "Needs a host",
+    "host": "Implemented; needs a host route",
     "absent": "Not in Excel",
     "unmeasured": "Implemented, no recorded answers attributed to it",
 }
@@ -65,7 +65,7 @@ class Dumper:
         (scratch / "Cargo.lock").write_text((Path(root) / "Cargo.lock").read_text())
         (scratch / "rust-toolchain.toml").write_text((Path(root) / "rust-toolchain.toml").read_text())
         subprocess.run(["cargo", "build", "--release", "--quiet"], cwd=scratch, check=True)
-        self.binary = str(scratch / "target/release/efh-calcfunc-dump")
+        self.binary = str(Path(os.environ.get("CARGO_TARGET_DIR", scratch / "target")).resolve() / "release/efh-calcfunc-dump")
 
     def catalogue(self):
         return json.loads(subprocess.check_output([self.binary]))
@@ -98,9 +98,53 @@ def opener(code, position):
     return -1
 
 
-def entry_item(index, target):
+def shared_entry_item(index, root, target):
+    """Follow the shared catalogue family and member ID to its attached kernel."""
+    family, member = divmod(target["id"], 65536)
+    for relative, (text, code) in index.files.items():
+        if not relative.startswith("catalogue/"):
+            continue
+        imported = re.search(r"use\s+calc_catalogue::([\w:]+)::\{CODE,\s*ENTRIES\s+as\s+DECLARATIONS", code)
+        if not imported:
+            continue
+        parts = imported.group(1).split("::")
+        source = root / "crates/calc-catalogue/src" / (parts[0] + ".rs")
+        declaration = source.read_text(encoding="utf8")
+        if len(parts) > 1:
+            masked = rustindex.mask(declaration)
+            module = re.search(r"\bpub\s+mod\s+" + re.escape(parts[1]) + r"\s*\{", masked)
+            if not module:
+                raise SystemExit(f"shared catalogue module missing: {parts}")
+            declaration = declaration[module.end():rustindex.matching(masked, module.end() - 1)]
+        code_number = re.search(r"\bconst\s+CODE\s*:\s*u16\s*=\s*(\d+)", declaration)
+        if not code_number or int(code_number.group(1)) != family:
+            continue
+        modname = relative[:-3]
+        ported = re.search(r"(?m)^[ \t]*" + str(member) + r"\s+([a-z_]\w*)\s*(?:resume\s+\w+\s*=>\s*[\w:]+;\s*)?\|[^|]*\|\s*\{", code)
+        if ported:
+            brace = code.index("{", ported.start(), ported.end())
+            return row_item(index, relative, modname, target["spelling"], text, code, ported.start(), rustindex.matching(code, brace)), []
+        constant = re.search(r"\bconst\s+(\w+)\s*:\s*FunctionId\s*=\s*FunctionId::new\(CODE,\s*" + str(member) + r"\s*\)", declaration)
+        if constant:
+            ident = constant.group(1)
+            attach = re.search(r"(?m)^[ \t]*(?:" + re.escape(ident) + r"\s*=>\s*(?:\w+\()?|x\s+if\s+x\s*==\s*" + re.escape(ident) + r"\.raw\(\)\s*=>\s*Kernel::\w+\()(\w+)", code)
+            if attach:
+                kernel = attach.group(1)
+                roots = [item for item in index.by_name.get(kernel, []) if item.module == modname and not item.owner]
+                if not roots:
+                    raise SystemExit(f"missing kernel {kernel} for {target['spelling']}")
+                end = code.find("\n", attach.end())
+                return row_item(index, relative, modname, target["spelling"], text, code, attach.start(), end if end >= 0 else len(code)), roots
+        raise SystemExit(f"shared catalogue attachment not found for {target['spelling']} ({family}.{member})")
+    return None
+
+
+def entry_item(index, root, target):
     """The declaration of one catalogue entry and the kernels it names."""
     spelling, notation = target["spelling"], target["notation"]
+    shared = shared_entry_item(index, root, target)
+    if shared:
+        return shared
     for relative, (text, code) in index.files.items():
         if not relative.startswith("catalogue/"):
             continue
@@ -159,11 +203,11 @@ def literal_item(index, relative, module, name, text, code, position):
     return item, roots
 
 
-def extract_code(index, dump, formula_index, formula_roots):
+def extract_code(index, root, dump, formula_index, formula_roots):
     """Each entry's declaration, its own kernels and the kernels it shares."""
     reached = {}
     for target in dump:
-        found = entry_item(index, target)
+        found = entry_item(index, root, target)
         item, roots = found
         items, plumbing = index.closure([item] + roots)
         name = target["spelling"] if target["notation"] == "call" else f'{target["spelling"]} {target["notation"]}'
@@ -230,15 +274,75 @@ def declared_group(row, spec):
     if kind["type"] == "host_route":
         route = kind["route"]
         if route == "rtd":
-            return pick("host", "Needs a real-time data server",
+            return pick("host", "Implemented; needs a real-time data connector",
                         "The formula layer evaluates RTD over the host's real-time connector (read_topic in calc-fml); the answer comes from a COM server the host starts. The catalogue entry is a host route and declares no kernel (owner " + implementation.get("owner", "none") + ").")
-        return pick("host", "Needs the host to fetch",
+        return pick("host", "Implemented; needs a host fetch route",
                     "The catalogue entry is a host route (" + route + "): the answer is what the host's fetch provider returns for the URL, and the entry gives what Excel gives when the fetch fails.")
     if implementation["state"] == "not_held":
-        return pick("host", "Needs a host that can load code",
-                    "The catalogue declares this entry not held (owner " + implementation["owner"] + "): the host that loads code does the work. DNA Calc recognises the name and calculates no answer.")
+        return pick("host", "Implemented; needs a host add-in route",
+                    "The catalogue declares this entry not held (owner " + implementation["owner"] + "); the host that loads code provides the route.")
     return None
 
+
+def host_evidence(root, pin):
+    """Comparisons made through host routes, kept separate from bank and workbook totals."""
+    # These qualitative conclusions must be reviewed if their supporting tests or notes change.
+    evidence_hashes = {
+        "crates/calc-func/tests/import_excel.rs": "500a52eb3d2d4505b37db57493fb78425c6e4060bf869f374b54b5acbd2491f8",
+        "crates/calc-host/tests/fetch.rs": "ce588fce5d77bccbd8b7ead133955d35727c17f527f5acd3280537ff765ee421",
+        "crates/calc-func/src/fetch.rs": "afac04eca09c47e073ad7d405236f326e27cf510823e482e0243f4ca85484651",
+        "docs/architecture/ONECALC_ADDINS.md": "3720ea036d67bf61b018423ba5d0aabd0f64b4b5146179e85e630214dfdbb033",
+    }
+    for path, expected in evidence_hashes.items():
+        if hashlib.sha256(show(root, pin, path).encode("utf8")).hexdigest() != expected:
+            raise SystemExit(f"review the host comparison after {path} changed")
+    imports = json.loads(show(root, pin, "crates/calc-func/tests/fixtures/import/excel-answers.json"))
+    counts = Counter(case["function"] for case in imports["cases"])
+    trace = json.loads(show(root, pin, "crates/calc-xll-reference/traces/2026-11-08-x1-call/summary.json"))
+    if trace["formula_cases"] != trace["formula_matches_each_host"] or not trace["ordered_callback_sequence_matches"]:
+        raise SystemExit("the add-in comparison no longer matches")
+    callbacks = Counter()
+    for row in trace["callback_return_codes"]:
+        callbacks[row["function"]] += row["calls_each_host"]
+    file_route = "The answer needs the host's file-read route, provided by DNA Calc desktop; the browser worker has no file route."
+    network_route = "The answer needs the host's network route, provided by DNA Calc desktop and the browser worker (subject to browser cross-origin rules)."
+    addin_route = "The answer needs the add-in route through the C API of an .xll, provided by OneCalc and DNA Calc desktop on Windows; it is not a worksheet call."
+    source_import = "crates/calc-func/tests/fixtures/import/excel-answers.json"
+    source_xll = "crates/calc-xll-reference/traces/2026-11-08-x1-call/summary.json"
+    source_fetch = "crates/calc-host/tests/fetch.rs"
+    records = {}
+    for name in ("IMPORTCSV", "IMPORTTEXT"):
+        n = counts[name]
+        if not n:
+            raise SystemExit(f"no recorded import cases for {name}")
+        records[name] = dict(state="matches", summary=f"Matches {n} recorded Excel answers",
+            detail=f"The DnaCalc import test compares {n} calls with Excel 16.0.20527 on 64-bit Windows. {file_route}", source=source_import)
+    for name, number in (("CALL", 150), ("REGISTER.ID", 267)):
+        n = callbacks[number]
+        if not n:
+            raise SystemExit(f"no recorded add-in callbacks for {name}")
+        records[name] = dict(state="matches", summary=f"Matches the recorded add-in comparison ({n} callbacks)",
+            detail=f"The X1 comparison matched {trace['formula_cases']} formulas and {trace['c_api_calls_each_host']} callbacks overall, including {n} {name} callbacks, against Excel {trace['excel_file_version']} on Windows. {addin_route}", source=source_xll)
+    records["RTD"] = dict(state="matches", summary="Matches both recorded typed RTD values",
+        detail="In Excel 16.0.20527 on Windows, the typed RTD comparison matched both values and all 6 ordered client calls. Other measured add-in real-time cases had differing client call order. The answer needs the host's real-time connector, provided by OneCalc and DNA Calc desktop on Windows; browsers have no connector.", source="docs/architecture/ONECALC_ADDINS.md")
+    records["WEBSERVICE"] = dict(state="differs", summary="Some recorded binary responses differ from Excel",
+        detail=f"The local mock tests compare results with Excel 16.0.20527 on 64-bit Windows. Some binary bodies return an error in Excel but text in DNA Calc. {network_route}", source=source_fetch)
+    records["IMAGE"] = dict(state="matches", summary="Matches the recorded picture and error cases",
+        detail=f"The local mock tests compare picture values and 15 error cases with Excel 16.0.20527 on 64-bit Windows. Excel converts some picture formats when saving; DNA Calc retains the fetched bytes. {network_route}", source=source_fetch)
+    return records
+
+
+def corpus_for(name, rows):
+    # The upstream labeller also emits the spelling without the leading underscore.
+    keys = (name, "XLFN." + name)
+    selected = [rows[k] for k in keys if k in rows]
+    if not selected:
+        return None
+    merged = Counter()
+    for row in selected:
+        merged.update({k: v for k, v in row.items() if k != "worst_ulp"})
+    merged["worst_ulp"] = max(row.get("worst_ulp", 0) for row in selected)
+    return dict(merged)
 
 def state_of(name, group, bank, corpus, conflicts):
     """The plain conclusion for one entry, from its measured counts."""
@@ -280,7 +384,9 @@ def state_of(name, group, bank, corpus, conflicts):
             detail += f" Excel's own recorded readings disagree with each other on {conflicts:,} of these inputs."
         if refused == wrong:
             return "differs", f"Refuses {refused:,} of {total:,} recorded calls; the rest match", detail
-        return "differs", f"Known larger differences on {wrong:,} of {total:,} recorded answers", detail
+        if not larger and not other:
+            return "differs", f"{last:,} last-bit differences and {refused:,} refusals in {total:,} recorded answers", detail
+        return "differs", f"Known differences on {wrong:,} of {total:,} recorded answers", detail
     if last:
         return "close", f"Close: {last:,} of {total:,} recorded answers differ in the last bits, worst {worst} ULP", \
             f"Everything else matches ({sources}). Last-bit means a finite number within 16 ULP of Excel's."
@@ -468,7 +574,7 @@ def main():
     index = rustindex.Index(root / "crates/calc-func/src")
     formula_index = rustindex.Index(root / "crates/calc-fml/src", "crates/calc-fml/src/")
     formula_roots = {name: spec["code"] for name, spec in SERIES["entries"].items() if spec.get("code")}
-    code = extract_code(index, dump, formula_index, formula_roots)
+    code = extract_code(index, root, dump, formula_index, formula_roots)
 
     problems = json.loads(show(root, pin, "docs/generated/problem-functions.json"))
     bank = read_bank(root, pin)
@@ -482,6 +588,7 @@ def main():
         raise SystemExit("the corpus tally names another commit; run with --corpus-run")
     failing = {r["function"]: r for r in problems["functions"]}
     corpus_rows = counted["functions"]
+    host_records = host_evidence(root, pin)
     for name, row in failing.items():
         c = corpus_rows.get(name, {})
         if (row["corpus"]["larger_numeric"], row["corpus"]["last_bit"], row["corpus"]["other_mismatch"]) != \
@@ -534,7 +641,7 @@ def main():
     write_json(descriptions_path, descriptions)
 
     state = {}
-    counts = Counter()
+    counts = Counter({label: 0 for label in STATE_LABELS})
     for fid, f in sorted(functions.items()):
         name = f["surface_name"]
         spec = {**SERIES["entries"].get(name, {}), **SERIES["added"].get(name, {})}
@@ -560,7 +667,7 @@ def main():
             measured = None
         else:
             target = by_call.get(name) or by_declared.get(name)
-            corpus = corpus_rows.get(name)
+            corpus = corpus_for(name, corpus_rows)
             measured = measured_bank.get(name)
             code_key = name if name in code["entries"] else None
             # A catalogue row at the pin always wins, so a function that lands changes state alone.
@@ -574,12 +681,16 @@ def main():
                 group = {"kind": spec["kind"], "summary": spec.get("summary"), "reason": spec.get("reason")}
             else:
                 raise SystemExit(f"{name}: neither in the catalogue nor listed in non-catalogue.json")
-        label, summary, detail = state_of(name, group, measured, corpus, conflicts.get(name, 0))
+        evidence = host_records.get(name)
+        if evidence:
+            label, summary, detail = evidence["state"], evidence["summary"], evidence["detail"]
+        else:
+            label, summary, detail = state_of(name, group, measured, corpus, conflicts.get(name, 0))
         counts[label] += 1
         if spec.get("note"):
             detail = f"{detail} {spec['note']}".strip()
         state[fid] = dict(state=label, state_label=STATE_LABELS[label], summary=summary, detail=detail,
-                          bank=measured, corpus=corpus, in_catalogue=bool(target), code=code_key)
+                          bank=measured, corpus=corpus, host_evidence=evidence, in_catalogue=bool(target), code=code_key)
         # Signature, arity and admission come from the commit, never from an older registry.
         if target:
             f["signature"] = signature_of(target, f.get("signature"))

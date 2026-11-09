@@ -273,7 +273,7 @@ Inputs worth probing first:
   (quoted here only for the contradicting TRUE-evaluates-as-1 remark and the same-size-and-shape
   requirement).
 - OxFunc `crates/oxfunc_core/src/functions/criteria_family.rs` at commit `473efa3` — criteria
-  parsing, kind-aware matching, wildcard gating, the anchoring branch, and the
+  parsing, kind-aware matching, wildcard handling, the anchoring branch, and the
   `numeric_cell_for_aggregate` reduction that skips text and logicals.
 - OxFunc `docs/bugs/streams/BUG-FUNC-004_numeric_comparison_tolerance_family_split.md` — the
   tolerant numeric-comparison lane for this family, closed and signed off; and

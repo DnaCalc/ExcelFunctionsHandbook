@@ -338,7 +338,7 @@ pub fn record(
         "section_order":SECTIONS.iter().map(|(id,_)| *id).collect::<Vec<_>>(),
         "sections":sections, "try_it":owned["try_it"],
         "versions":owned["versions"], "implementations":implementations, "variants":variants,
-        "implementation_state":{"state":row["state"],"state_label":row["state_label"],"summary":row["summary"],"detail":row["detail"],"answer_bank":row["bank"],"workbook_corpus":row["corpus"],"in_catalogue":row["in_catalogue"],"dnacalc_commit":calc.commit()},
+        "implementation_state":{"state":row["state"],"state_label":row["state_label"],"summary":row["summary"],"detail":row["detail"],"answer_bank":row["bank"],"workbook_corpus":row["corpus"],"host_evidence":row["host_evidence"],"in_catalogue":row["in_catalogue"],"dnacalc_commit":calc.commit()},
         "notes":attached, "sources":{"microsoft":f["docs"]["microsoft_url"], "metadata":metadata},
         "eval_api":{"url":"https://handbook.dnacalc.com/api/eval","method":"POST"}
     }))

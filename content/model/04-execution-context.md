@@ -160,12 +160,12 @@ and determinism to decide what may be cached. A cell containing only `Determinis
 cannot.
 
 **Optimizers** use the whole set. The reference implementation exposes this as an explicit
-hoisting gate: an expression may be lifted out of per-cell evaluation (constant-folded,
+hoisting check: an expression may be lifted out of per-cell evaluation (constant-folded,
 computed once) only if every axis allows it under the stated policy. The strictest policy
 (`STRICT_CONTEXT_FREE`) admits only deterministic, non-volatile, no-host-interaction,
 no-context functions — `PI()` passes, `NOW()` fails. A relaxed policy
 (`FIXED_EXECUTION_CONTEXT`) may hoist `NOW()` too, *because* pinning the bundle's providers
-makes the call repeatable within the pinned scope. The gate reads determinism, volatility,
+makes the call repeatable within the pinned scope. The check reads determinism, volatility,
 host interaction, and both context-dependency profiles together; a function misdeclared on
 any one of them would be hoisted incorrectly and produce stale or wrong values.
 
@@ -218,7 +218,7 @@ Chips a function page may display for the axes in this chapter, with the exact m
 
 - `crates/oxfunc_core/src/function_call.rs` — `FunctionExecutionContextBundle` and every
   provider it carries; the `FunctionExecutionContext` trait; callable-argument declarations
-  and the derived requires-invoker rule; `InvocablePassthrough`; the hoisting gate
+  and the derived requires-invoker rule; `InvocablePassthrough`; the hoisting check
   (`ExpressionHoistPolicy`, `is_hoistable_under`). Implementation source; the
   invocable-passthrough declarations are checked by runtime dispatch tests.
 - `crates/oxfunc_core/src/resolver.rs` — `ReferenceSystemProvider` operations,

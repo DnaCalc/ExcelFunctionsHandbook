@@ -171,18 +171,18 @@ the beta side: a capture proved Excel has NO integer fast path at all —
 the 2010 rewrite trusts its continued fractions everywhere. Sometimes the
 fault is the optimization you were proud of.
 
-## 11. Passed the gate, lost the election (candidate: "Fresh Rows")
+## 11. Passed the test, lost the election (candidate: "Fresh Rows")
 
 GAMMALN band-2, lane 4. The search produced a coefficient candidate that
 passed every formal check: held-out total up (317>316), band score up,
 worst-case improved, zero regressions. Textbook promotion material. But its
 staging had been CHOSEN by peeking at those same held-out rows — so before
 landing, 1,600 never-probed arguments were captured from live Excel. The
-verdict: the gate-passing candidate scored WORSE than the incumbent
+verdict: the test-passing candidate scored WORSE than the incumbent
 (505 vs 518), while the held-blind pick — selected purely by which op-graph
 had the lowest residual noise floor, never by score — won at 549. The
 noise-floor principle beat the scoreboard. Bonus archaeology: the fresh
-gate also settled the op-graph — Excel's band 2 runs fully-continuous
+test also settled the op-graph — Excel's band 2 runs fully-continuous
 x87 extended, one final rounding, the same evaluation class as band 4;
 the code's two middle bands are siblings after all. (And the audit found
 the original fit had quietly included 400 held-out rows — the
@@ -375,7 +375,7 @@ error survived a 6,360-row identification corpus without appearing once
 on a held-out battery at twenty-five trillion ULPs, the largest
 residual this campaign has measured, all from a day count of 30 where
 Excel had 31. The fix was one line. The lesson wasn't the line; it was
-that we only met this bug because the gate battery was designed by
+that we only met this bug because the test battery was designed by
 asking "what date shapes has no corpus stressed yet?" — the same
 question, asked one battery earlier, would have found nothing, and
 asked one battery later, would have found it in production.

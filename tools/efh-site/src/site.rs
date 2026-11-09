@@ -1364,7 +1364,7 @@ fn coverage(
         format!("{} of {ENTRIES}: {}", members.len(), members.join(", "))
     };
     h += &format!(
-        "<h2>Entries that do not calculate here</h2><dl class=\"counts wide\"><dt>Deferred by policy</dt><dd>{}</dd><dt>Not yet implemented</dt><dd>{}</dd><dt>Catalogue row that declines every call</dt><dd>{}</dd><dt>Needs a host</dt><dd>{}</dd><dt>Not in Excel</dt><dd>{}</dd></dl><p>Deferred by policy means the answer needs an outside service, so DNA Calc does not run the function yet; each still has a full entry. Not yet implemented means the work is still to land. These states come from the pinned commit and change when code lands.</p><p>The formula layer handles {} without a catalogue row; they calculate here.</p>",
+        "<h2>Availability and host routes</h2><dl class=\"counts wide\"><dt>Deferred by policy</dt><dd>{}</dd><dt>Not yet implemented</dt><dd>{}</dd><dt>Catalogue row that declines every call</dt><dd>{}</dd><dt>Implemented; needs a host route</dt><dd>{}</dd><dt>Not in Excel</dt><dd>{}</dd></dl><p>Deferred by policy means the answer needs an outside service, so DNA Calc does not run the function yet; each still has a full entry. Not yet implemented means the work is still to land. These states come from the pinned commit and change when code lands.</p><p>The formula layer handles {} without a catalogue row; they calculate here.</p>",
         group("deferred"),
         group("not_implemented"),
         group("not_modelled"),
@@ -1389,7 +1389,7 @@ fn coverage(
     if input.tree_state == "dirty" {
         h+="<p class=\"notice\">This build includes local changes. Its source revision alone cannot reproduce the folder; review and commit those changes before selecting an artifact for publication.</p>";
     }
-    h+=&format!("<h2>Editorial limits</h2><p>{} source passages are visibly withheld because their wording fails the rendered claim-language gate. The sources remain unchanged. The build inventory records their source paths and excerpts for review. Automated checks detect forbidden phrases, common unscoped status wording and missing count reconciliation; editorial review is still required to assess the meaning and evidence of every claim.</p>",withheld.len());
+    h+=&format!("<h2>Editorial limits</h2><p>{} source passages are visibly withheld because their wording does not pass the published claim-language checks. The sources remain unchanged. The build inventory records their source paths and excerpts for review. Automated checks detect forbidden phrases, common unscoped status wording and missing count reconciliation; editorial review is still required to assess the meaning and evidence of every claim.</p>",withheld.len());
     if !unresolved.is_empty() {
         h+=&format!("<p>{} source links do not resolve to a known repository file. They link to the citing source page for inspection. These references require editorial review; no local dead link is substituted.</p>",unresolved.len());
     }
@@ -1511,6 +1511,34 @@ mod tests {
                 relative.display()
             );
         }
+        for name in [
+            "CALL",
+            "REGISTER.ID",
+            "RTD",
+            "IMAGE",
+            "IMPORTCSV",
+            "IMPORTTEXT",
+            "WEBSERVICE",
+        ] {
+            let html = read(&first.join(format!("functions/{name}.html"))).unwrap();
+            let record = json(&first.join(format!("api/functions/FUNC.{name}.json"))).unwrap();
+            assert!(
+                record["implementation_state"]["host_evidence"].is_object(),
+                "{name}"
+            );
+            assert!(html.contains("Recorded comparison"), "{name}");
+        }
+        let stat = json(&first.join("api/functions/FUNC.FORECAST.ETS.STAT.json")).unwrap();
+        assert!(
+            stat["implementation_state"]["workbook_corpus"]["cells"]
+                .as_u64()
+                .unwrap_or(0)
+                > 0
+        );
+        let coverage = read(&first.join("coverage/index.html"))
+            .unwrap()
+            .to_lowercase();
+        assert!(!coverage.contains(concat!("ga", "te")));
         let round = read(&first.join("functions/ROUND.html")).unwrap();
         assert!(round.contains("FN-ROUND-001"));
         assert!(round.contains("0xc2d9945ca2620000"));
@@ -1523,7 +1551,9 @@ mod tests {
         assert!(seriessum.contains("SERIESSUM(x, n, m, coefficients)"));
         assert!(seriessum.contains("<details class=\"rust-code\">"));
         assert!(seriessum.contains("github.com/DnaCalc/DnaCalc/blob/"));
-        assert!(seriessum.contains("DNA Calc's implementation: same results as Excel in every case we compared"));
+        assert!(seriessum.contains(
+            "DNA Calc's implementation: same results as Excel in every case we compared"
+        ));
         assert!(seriessum.contains("<h3 id=\"dna-calc\">DNA Calc's implementation</h3>"));
         let series = read(&first.join("lastbit/index.html")).unwrap();
         assert!(series.contains("Working notes") && series.contains("Draft article"));

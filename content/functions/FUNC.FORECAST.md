@@ -200,7 +200,7 @@ form is what upstream identifies.
 `EV-MISC-0007` names `FORECAST` as a subject, and it is the only evidence record in the
 Handbook's collection that does. Read what it actually supports before leaning on it: it
 publishes a per-surface count on a corpus that upstream describes as discovery plus adversarial
-inputs, not as a held-out gate, and the adversarial rows were designed *after* the kernel
+inputs, not as a held-out test, and the adversarial rows were designed *after* the kernel
 hypothesis existed. That makes it a divergence-design set — good for finding disagreement,
 weaker as evidence that none remains. The record also states plainly that the same figure is
 `FORECAST`'s and not `FORECAST.LINEAR`'s.
@@ -240,7 +240,7 @@ Inputs I would probe first, and why:
 | raw-sums form | Slope computed from Σx, Σy, Σx², Σxy without centering |
 | catastrophic cancellation | Loss of all significant digits when two nearly equal large quantities are subtracted |
 | fused loop | Accumulating covariance and variance in one pass, which fixes the rounding order |
-| divergence-design corpus | Inputs constructed after a hypothesis to try to break it; not a blind gate |
+| divergence-design corpus | Inputs constructed after a hypothesis to try to break it; not a blind test |
 
 ## Sources
 

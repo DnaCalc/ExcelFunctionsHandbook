@@ -8,7 +8,7 @@ Ask four careful engineers to implement GAMMALN and you can get four defensibly 
 functions. They will disagree in the last bits — and each can be the right choice, depending on
 what you need. The Handbook makes this explicit instead of pretending there is one true
 implementation. Every function page uses the same four-flavour framework, while showing only
-implementations that actually exist and have passed their stated admission gate:
+implementations that actually exist and have passed their stated admission checks:
 
 ### Excel compatibility (`excel-bitexact`)
 
