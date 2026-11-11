@@ -2,7 +2,37 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://handbook.dnacalc.com/api/function-reference.schema.json",
   "title": "Handbook function reference",
+  "efh": {
+    "family": "function-reference",
+    "organ": "site",
+    "path_glob": "api/functions/*.json",
+    "writer": "tools/efh-site, from content/reference/, data/ and content/functions/",
+    "spec": "Handbook extension; not specified by FOUNDATION.md. The published stable function JSON, site/build/api/functions/*.json.",
+    "propertyOrderBasis": "emitted-sorted",
+    "keyOrderContract": "Emit keys in propertyOrder exactly; propertyOrder is alphabetical, the order tools/efh-site writes (serde_json maps are sorted)."
+  },
   "type": "object",
+  "propertyOrder": [
+    "category",
+    "display_name",
+    "entry_kind",
+    "eval_api",
+    "function_id",
+    "implementation_state",
+    "implementations",
+    "json_url",
+    "name",
+    "notes",
+    "schema",
+    "section_order",
+    "sections",
+    "signature",
+    "sources",
+    "try_it",
+    "url",
+    "variants",
+    "versions"
+  ],
   "required": [
     "schema",
     "function_id",
@@ -61,6 +91,13 @@
     },
     "try_it": {
       "type": "object",
+      "propertyOrder": [
+        "formula",
+        "inputs",
+        "note",
+        "preview_reason",
+        "preview_status"
+      ],
       "required": [
         "formula"
       ],
@@ -83,6 +120,9 @@
             "worksheet-error",
             "refused"
           ]
+        },
+        "preview_reason": {
+          "type": "string"
         }
       }
     },
@@ -90,6 +130,14 @@
       "type": "array",
       "items": {
         "type": "object",
+        "propertyOrder": [
+          "behaviour",
+          "capture",
+          "excel_build",
+          "observations",
+          "platform",
+          "sources"
+        ],
         "required": [
           "excel_build",
           "platform",
@@ -122,6 +170,18 @@
             "type": "array",
             "items": {
               "type": "object",
+              "propertyOrder": [
+                "call",
+                "comparison",
+                "excel",
+                "input_route",
+                "inputs",
+                "recheck_status",
+                "recorded_in",
+                "source",
+                "source_locator",
+                "source_record"
+              ],
               "required": [
                 "call",
                 "input_route",
@@ -144,9 +204,27 @@
                 },
                 "recorded_in": {
                   "type": "string"
+                },
+                "comparison": {
+                  "type": "string"
+                },
+                "recheck_status": {
+                  "type": "string"
+                },
+                "source_locator": {
+                  "type": "object"
+                },
+                "source_record": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "object"
                 }
               }
             }
+          },
+          "capture": {
+            "type": "object"
           }
         }
       }
@@ -155,6 +233,19 @@
       "type": "array",
       "items": {
         "type": "object",
+        "propertyOrder": [
+          "commit",
+          "flavour",
+          "language",
+          "name",
+          "own_code",
+          "repository",
+          "shared_code",
+          "source",
+          "state",
+          "suite",
+          "summary"
+        ],
         "required": [
           "language",
           "flavour",
@@ -213,6 +304,19 @@
       "type": "array",
       "items": {
         "type": "object",
+        "propertyOrder": [
+          "code",
+          "difference",
+          "error_bound",
+          "evaluated_on",
+          "evidence",
+          "key",
+          "kind",
+          "name",
+          "onecalc_udf",
+          "state",
+          "state_summary"
+        ],
         "required": [
           "name",
           "difference",
@@ -230,6 +334,12 @@
             "type": [
               "object",
               "null"
+            ],
+            "propertyOrder": [
+              "basis",
+              "bound",
+              "domain",
+              "metric"
             ],
             "properties": {
               "metric": {
@@ -261,6 +371,11 @@
               "object",
               "null"
             ],
+            "propertyOrder": [
+              "language",
+              "name",
+              "source"
+            ],
             "properties": {
               "name": {
                 "type": "string"
@@ -286,6 +401,11 @@
           },
           "key": {
             "type": "object",
+            "propertyOrder": [
+              "cpu",
+              "env_id",
+              "excel_build_range"
+            ],
             "properties": {
               "excel_build_range": {
                 "type": "string"
@@ -324,6 +444,14 @@
         "object",
         "null"
       ],
+      "propertyOrder": [
+        "display",
+        "max_arguments",
+        "min_arguments",
+        "parameters",
+        "repeating_group",
+        "trailing_repeats"
+      ],
       "properties": {
         "display": {
           "type": "string"
@@ -338,6 +466,15 @@
         "max_arguments": {
           "type": "integer",
           "minimum": 0
+        },
+        "repeating_group": {
+          "type": "object"
+        },
+        "trailing_repeats": {
+          "type": [
+            "boolean",
+            "null"
+          ]
         }
       }
     },
@@ -347,6 +484,17 @@
     },
     "implementation_state": {
       "type": "object",
+      "propertyOrder": [
+        "answer_bank",
+        "detail",
+        "dnacalc_commit",
+        "host_evidence",
+        "in_catalogue",
+        "state",
+        "state_label",
+        "summary",
+        "workbook_corpus"
+      ],
       "required": [
         "state",
         "summary"
@@ -390,8 +538,29 @@
         },
         "dnacalc_commit": {
           "type": "string"
+        },
+        "host_evidence": {
+          "type": [
+            "null",
+            "object"
+          ]
         }
       }
+    },
+    "category": {
+      "type": "string"
+    },
+    "entry_kind": {
+      "type": "string"
+    },
+    "eval_api": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "array"
+    },
+    "sources": {
+      "type": "object"
     }
   }
 }

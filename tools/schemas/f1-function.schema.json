@@ -43,6 +43,7 @@
     "admission_interface_kind",
     "registry_backed",
     "text_integrity",
+    "oxfunc_tree_clean",
     "vintage"
   ],
   "required": [
@@ -345,7 +346,7 @@
     },
     "oxfunc_tree_clean": {
       "type": "boolean",
-      "description": "R (new, DELTA D-8, FOUNDATION 2.4 line 179). false blocks publication of this file. A3-S12."
+      "description": "O. Declared by FOUNDATION 2.4 line 179 (D-8, A3-S12): false blocks publication of this file. No longer required or emitted since the 2026-11-07 move to the pinned DnaCalc catalogue (tools/efh-calcfunc/regenerate.py drops it); the rubric reads it with default true (tools/efh/Efh.Rubric/Loader.cs)."
     },
     "vintage": {
       "type": "object",
