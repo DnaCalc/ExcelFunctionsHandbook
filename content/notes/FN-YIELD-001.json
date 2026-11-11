@@ -1,0 +1,281 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-YIELD-001",
+  "functions": [
+    "FUNC.YIELD"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "YIELD near par on a coupon date returns a closed-form seed with stored partial sums, not the solved root",
+  "statement": "On a coupon date, with redemption 100 and more than one coupon period left, YIELD at a price close to 100 does not return the root of the price equation. It returns the closed-form seed y = f * ((n*cp - d) / (d*(n+1)/2 + n*R)), with n the periods left, cp = 100*rate/f the coupon per period, R the redemption and d = price - R, whenever the Newton step (P(y) - price) / P'(y) taken at the seed is below 1e-10; otherwise the solver runs. On the recorded 20228 and 20527 rows Excel's switch lies between steps of 8.8e-11 and 1.17e-10. The association of the seed matters: DNA Calc forms the total coupon as S(S(S(n*rate)*100)/f) and the denominator as S(S(n*R + S(S(d*n)/2)) + S(d/2)), each partial result stored to binary64 before the next, and with that association 31 more full-bank rows matched (YIELD 66 to 97 of 533, none lost). The same seed is taken at a price of exactly 100: Excel does not return the coupon rate directly there, so DNA Calc's former shortcut for price 100 and redemption 100 was removed. Before the seed was introduced (commit d44aaf0a) YIELD matched 16 of 533 bank rows with a worst miss of 4.4e15 units in the last place; with the plain binary64 seed it matched 66 with a worst miss of 2,844 units. Offline, that plain binary64 order reproduced Excel's bits on 64 of the 97 small-step rows with redemption 100, against at most 58 for the x87-extended orders tried.",
+  "status": "measured",
+  "basis": "Three recorded rows are cited (Excel build 20228, near-seed discovery set); the unit test in DnaCalc holds five rows (three from 20228 and two price 100 + 1 ulp rows at a zero coupon from build 20527) and DNA Calc returns Excel's recorded bits on all five. The matched counts are quoted from the commit messages (full bank, per-row traces).",
+  "inferred": "That Excel's code forms this seed, with this association and this 1e-10 switch, is inferred; the seed form is read off the bank, and the switch only brackets between 8.8e-11 and 1.17e-10.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "YIELD(44013, 44562, 0.05, 100.00001525878906, 100, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "44013",
+            "bits": "0x40e57da000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "44562",
+            "bits": "0x40e5c24000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "100.00001525878906",
+            "bits": "0x4059000040000000"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.04999989318848743",
+        "bits": "0x3fa9999604189993"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+        "locator": "yield-near-seed-discovery-d-oncoupon-short-b0-f2-030",
+        "note": null
+      }
+    },
+    {
+      "call": "YIELD(44013, 46753, 0.05, 99.99999713897711, 100, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "44013",
+            "bits": "0x40e57da000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "46753",
+            "bits": "0x40e6d42000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "99.99999713897711",
+            "bits": "0x4058fffff4000004"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.050000004577636696",
+        "bits": "0x3fa99999c0ebedf7"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+        "locator": "yield-near-seed-discovery-d-oncoupon-long-b0-f2-039",
+        "note": null
+      }
+    },
+    {
+      "call": "YIELD(44013, 46753, 0.05, 100.000002861023, 100, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "44013",
+            "bits": "0x40e57da000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "46753",
+            "bits": "0x40e6d42000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "100.000002861023",
+            "bits": "0x405900000c000004"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "100",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.04999999542236326",
+        "bits": "0x3fa9999972474536"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+        "locator": "yield-near-seed-discovery-d-oncoupon-long-b0-f2-040",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "d44aaf0a035259050007c1774d43fd400e3d3b03",
+      "path": "crates/calc-func/src/ported/bond_core_family.rs",
+      "locator": "near_par_seed; yield_near_par_returns_the_closed_form_seed",
+      "note": "the seed as first introduced (plain binary64 order)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "530c7e4bc2d0833b521fee45ca86e20003c858d6",
+      "path": "crates/calc-func/src/ported/bond_core_family.rs",
+      "locator": "near_par_seed",
+      "note": "the Y2 association and the removed price-100 shortcut"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+      "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+      "locator": null,
+      "note": "20228 near-seed discovery answers"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.2",
+      "note": "item 2: YIELD 66 to 97 of 533, 31 won and 0 lost"
+    }
+  ],
+  "open": [
+    "Rows 024 and 026 of the bank (basis-dependent) stay unmatched.",
+    "Designs with redemption other than 100 (the oncoupon-b4-f1 rows: step below 1e-10 at the seed but Excel about 450 units from it) carry a seed that is not identified.",
+    "26 rows of the oncoupon-short design are one unit below Excel: the evaluation order of the seed is open there.",
+    "436 YIELD bank rows in all were still unmatched when the bead comment was written."
+  ],
+  "recorded_on": "2026-11-11"
+}

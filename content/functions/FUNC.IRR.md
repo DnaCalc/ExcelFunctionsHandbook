@@ -134,6 +134,46 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql036, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql038, row 20, column 10 at `2d0eddcac8` (readings)
 
+### FN-IRR-002: IRR with an exactly zero first NPV answers 1/v - 1 from the stored v = 1/(1+guess), not the guess
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-11.*
+
+In DNA Calc's secant iteration for IRR the first point is v = 1/(1+guess), stored to binary64.
+When the NPV at that point is exactly zero, the answer is 1/v - 1 computed from the stored v,
+not the raw guess, so two guesses that store the same v give the same answer. This took IRR
+from 533 to 549 matched of 734 full-bank rows, 16 won and none lost. Two other details were
+measured against the same rows. A residual taken from the raw guess, proposed in the research
+answer, was refuted: it netted -3 on the bank and -10 on 200 fresh two-flow problems and missed
+its own target row. The 200-step iteration cap was kept because a cap of 20 lost 3 matched
+rows. 185 IRR bank rows were unmatched when the bead comment was written.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `IRR({-1000;1210}, 0.21)` | values `{-1000;1210}`; guess `0.21` (`0x3fcae147ae147ae1`) (cells) | `0.20999999999999996` (`0x3fcae147ae147ae0`) | Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics |
+| `IRR({-1000;1210}, 0.21000000000000002)` | values `{-1000;1210}`; guess `0.21000000000000002` (`0x3fcae147ae147ae2`) (cells) | `0.20999999999999996` (`0x3fcae147ae147ae0`) | Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics |
+| `IRR({-1000;1210}, 0.20999999999999994)` | values `{-1000;1210}`; guess `0.20999999999999994` (`0x3fcae147ae147adf`) (cells) | `0.20999999999999996` (`0x3fcae147ae147ae0`) | Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Counts are quoted from the DnaCalc commit message and the bead comment (full
+bank, per-row trace). The three cited rows are build 20131 readings: five guesses within 4
+units in the last place of 0.21 for the same cash flows (three shown) all answer
+0.20999999999999996, not the guess; they show the answer follows the stored v and are not
+themselves a zero-NPV test.
+
+Inferred, not measured: That Excel returns the converted stored v at the zero exit is inferred
+from the 16 rows gained; no Excel code was read.
+
+- Open: The 185 IRR bank rows still unmatched.
+- Open: The cap of 200 steps is kept because 20 lost matched rows; Excel's own cap is not identified.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/cashflow_rate_family.rs`, irr_discount_secant at `7aa336f385` — the route as implemented
+- DnaCalc `crates/calc-func/witness-status.tsv`, IRR at `7aa336f385` — matched rows per function
+- DnaCalc `.beads/issues.jsonl`, dc-6332.2 at `b8738ae6a6` — item 3 and the rejected raw-guess residual
+- CalcFunc-Evidence `cache/oracle/build-20131/IRR.jsonl.gz`, IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147ae1|@1,1 at `b4818a6a23` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/IRR.jsonl.gz`, IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147ae2|@1,1 at `b4818a6a23` (readings)
+- CalcFunc-Evidence `cache/oracle/build-20131/IRR.jsonl.gz`, IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147adf|@1,1 at `b4818a6a23` (readings)
+
 <!-- efh:notes end -->
 
 ## Sources

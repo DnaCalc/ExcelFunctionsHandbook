@@ -1,0 +1,154 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GAMMA.DIST-003",
+  "functions": [
+    "FUNC.CHIDIST",
+    "FUNC.CHIINV",
+    "FUNC.CHISQ.INV",
+    "FUNC.CHISQ.TEST",
+    "FUNC.GAMMA.DIST",
+    "FUNC.GAMMA.INV",
+    "FUNC.POISSON.DIST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Incomplete gamma at integer shape 2 to 20 is a stored polynomial of reciprocal factorials times EXP(-x)",
+  "statement": "For an integer shape a from 2 to 20 and a < x <= 30, DNA Calc computes the upper tail as Q(a, x) = S(EXP(-x) * H), with H a Horner polynomial whose coefficients are 1/k! rounded once to binary64 (k = 0 to 19) and with every Horner multiply and add stored to binary64 before the next step; the result is EXP(-x) times the stored polynomial, and P = 1 - Q. The boundaries were located with adjacent-double probes: a == x and x > 30 do not take this route (they take the ordinary gamma-density route), and a divided Horner form, a forward term sum, and an extension to a >= 21 were each refuted. Over the full bank this matched 20 more rows net (3,889,422 to 3,889,442): CHIDIST +6, CHISQ.TEST +1, GAMMA.DIST +5, POISSON.DIST +3, GAMMA.INV +6 and -1, with four rows lost: CHIINV (0.001, 10), CHISQ.INV (0.6, 4) and (0.85, 4), GAMMA.INV (0.75, 5, 1); the first three are exact-inverse pins whose gains in the same functions offset them. On the oracle corpus the passed count went from 76,759 to 76,765. Measured and not taken: for large-mean POISSON, one stored product M*u*A gave +79 and -73, and M = RN64(V/D) resident into st(M*u) then st(T*A) gave +47 and -39 on the 542 large-mean POISSON misses, with gains and losses interleaved inside the same (k, mean) groups so no clean rule; a stored generic GAMMA seed fixes GAMMA(-0.5) and GAMMA(-1.5) but breaks GAMMA(-2.5), which matches today.",
+  "status": "inferred",
+  "basis": "Counts and boundaries are quoted from the DnaCalc commit message, code comments and bead comment (full-bank per-row traces); the two cited build 20131 rows are readings at integer shapes 2 and 3 inside the region, not a test of the polynomial's stores.",
+  "inferred": "That Excel evaluates this polynomial with these coefficient loads and stores is inferred from the match and from adjacent-double probes; the coefficient loads are described in the code as conditional on the other loads and on EXP.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "GAMMA.DIST(5, 3, 1, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.8753479805169189",
+        "bits": "0x3fec02d9c49e12f0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/GAMMA.DIST.jsonl.gz",
+        "locator": "GAMMA.DIST|0x4014000000000000|0x4008000000000000|0x3ff0000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "GAMMA.DIST(4, 2, 1, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "4",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.9084218055563291",
+        "bits": "0x3fed11ca9b3ace7a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/GAMMA.DIST.jsonl.gz",
+        "locator": "GAMMA.DIST|0x4010000000000000|0x4000000000000000|0x3ff0000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "a93fc3af7312b7f5ca97313a702aec82cee5b548",
+      "path": "crates/calc-func/src/ported/special_math_common.rs",
+      "locator": "GRATIO_RECIP_FACTORIAL; gratio_integer_sum",
+      "note": "the route as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "a93fc3af7312b7f5ca97313a702aec82cee5b548",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "integer-shape tests",
+      "note": "tests added with the commit"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.3",
+      "note": "landed items and the large-mean POISSON negative results"
+    }
+  ],
+  "open": [
+    "Nine x >= 10 rows (R6) and the large-mean POISSON misses remain unmatched.",
+    "GAMMALN near 2.5 and 2.75 cause 32 of 58 GAMMA.DIST cumulative misses (tracked as dc-6332.7)."
+  ],
+  "recorded_on": "2026-11-11"
+}

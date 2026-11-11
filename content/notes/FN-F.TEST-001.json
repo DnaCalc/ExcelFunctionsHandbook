@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-F.TEST-001",
+  "functions": [
+    "FUNC.F.TEST"
+  ],
+  "kind": "quirk",
+  "title": "F.TEST is twice the smaller tail of the larger-first ratio; swapping the arrays moves the last bit on ties",
+  "statement": "F.TEST returns 2 * min(P(F > f), P(F <= f)) for the variance ratio f taken larger variance first, not min(2 * P(F > f), 1). With unequal degrees of freedom the right tail of the larger-first ratio can pass 1/2 even at f = 1 (equal variances, sizes 5 and 3), where the clamped form returns 1; Excel build 20228 returns 0.888888888888889 there. DNA Calc computes both tails from the one incomplete-beta call that F.DIST.RT's staging uses, taking its own complement output rather than 1 - p: that held 13 gross full-bank rows (up to 1.8e15 units off before) and took F.TEST from 21 to 26 matched of 78 with the worst miss from 1,767,616,520,413,419 units to 11, gaining 5 and losing none; the other 8 former gross rows are now 1 to 8 units off. Not ordering the ratio larger-first (var1/var2 as given) lost 8 matched rows. Equal variances give the same value with either argument order up to the last bit: the recorded answers for the two orders of the same arrays are 0x3fec71c71c71c71e and 0x3fec71c71c71c71c. A rule that orients exact ties with var1 > var2 was measured and not taken (+4 and -3 of 78 rows, against an estimate of +6 and -3).",
+  "status": "measured",
+  "basis": "Two recorded Excel build 20228 rows (the same arrays in both argument orders) are cited; DNA Calc returns the second of them, and four further recorded rows are held in DNA Calc's unit test. Row counts are quoted from the commit messages (full bank, row-by-row trace).",
+  "inferred": "That Excel orients the ratio larger-first and takes both tails from one incomplete-beta call is inferred from the match counts; 'ties' here means equal sample variances, and Excel's rule for choosing the orientation on them is not identified.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "F.TEST({-1,0,1}, {-1,-1,0,1,1})",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array1",
+          "value": {
+            "kind": "array",
+            "display": "{-1,0,1}",
+            "bits": null
+          }
+        },
+        {
+          "name": "array2",
+          "value": {
+            "kind": "array",
+            "display": "{-1,-1,0,1,1}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.8888888888888891",
+        "bits": "0x3fec71c71c71c71e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "work/w109/G3-06-ftest-variance/answers-ftest-wrapper-heldout-v1.json.gz",
+        "locator": "ft-wrapper-ho-000-equal-forward",
+        "note": null
+      }
+    },
+    {
+      "call": "F.TEST({-1,-1,0,1,1}, {-1,0,1})",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array1",
+          "value": {
+            "kind": "array",
+            "display": "{-1,-1,0,1,1}",
+            "bits": null
+          }
+        },
+        {
+          "name": "array2",
+          "value": {
+            "kind": "array",
+            "display": "{-1,0,1}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.8888888888888888",
+        "bits": "0x3fec71c71c71c71c"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "work/w109/G3-06-ftest-variance/answers-ftest-wrapper-heldout-v1.json.gz",
+        "locator": "ft-wrapper-ho-001-equal-reverse",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2dfbcaf9df6b02071d3ae23842c5804a8890cef4",
+      "path": "crates/calc-func/src/ported/statistical_tests_family.rs",
+      "locator": "f_test_kernel; f_test_two_tailed_takes_the_smaller_tail",
+      "note": "the route as implemented and its test"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+      "path": "work/w109/G3-06-ftest-variance/answers-ftest-wrapper-heldout-v1.json.gz",
+      "locator": null,
+      "note": "recorded F.TEST answers (held-out wrapper set)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.4",
+      "note": "item 4: tie orientation not landed"
+    }
+  ],
+  "open": [
+    "The exact-tie orientation of the two arrays.",
+    "The 52 F.TEST bank rows still unmatched,."
+  ],
+  "recorded_on": "2026-11-11"
+}

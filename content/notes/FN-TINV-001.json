@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TINV-001",
+  "functions": [
+    "FUNC.T.INV.2T",
+    "FUNC.TINV"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "TINV for p up to 0.85 is SQRT(v*(1/z - 1)) on a binary64 beta coordinate z, so its last digits follow z",
+  "statement": "For df >= 2 and p <= 0.85, the recorded TINV answers lie in the image of the map t = SQRT(v * (1/z - 1)) over binary64 values z, with v the degrees of freedom and z the inverse of the regularized beta at (v/2, 1/2). Because z is a double, the t found this way can sit many units from the true root of the t distribution: TINV(0.85, 25) is 176 units in the last place from the root's t only through this map. DNA Calc takes, of the two adjacent doubles that bracket the beta root, the one whose forward value is nearer p. On the full bank this took TINV from 15 to 22 matched of 32 rows (+8 and -1: TINV(0.003, 25) was lost) and its worst miss from 173 to 17 units; the oracle corpus passed count went from 76,765 to 76,769 (CONFIDENCE.T, T.INV.2T and TINV rows fixed). For p near 1 Excel uses another route: at p = 0.97 three rows are still 10 to 17 units off the t-space bisection DNA Calc keeps there.",
+  "status": "measured",
+  "basis": "Two Excel build 20131 TINV rows are cited. The mechanism and the counts are quoted from the DnaCalc commit message and bead comment (harvest 10, R3); the 32-row bank was not re-read here.",
+  "inferred": "That Excel computes t through z is inferred from the recorded rows lying in the image of the map; that z is the nearer-to-p bracketing double is DNA Calc's rule, with 2 of the rows in that image still off because DNA Calc's beta forward value is not Excel's.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "TINV(0.85, 25)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "0.85",
+            "bits": "0x3feb333333333333"
+          }
+        },
+        {
+          "name": "deg_freedom",
+          "value": {
+            "kind": "number",
+            "display": "25",
+            "bits": "0x4039000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.1910880727923691",
+        "bits": "0x3fc87592efa6421e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/TINV.jsonl.gz",
+        "locator": "TINV|0x3feb333333333333|0x4039000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "TINV(0.003, 25)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "0.003",
+            "bits": "0x3f689374bc6a7efa"
+          }
+        },
+        {
+          "name": "deg_freedom",
+          "value": {
+            "kind": "number",
+            "display": "25",
+            "bits": "0x4039000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.2870045257248206",
+        "bits": "0x400a4bc9075e5636"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/TINV.jsonl.gz",
+        "locator": "TINV|0x3f689374bc6a7efa|0x4039000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "968557b72fd4ab0ec1429a9422b473fb0b594341",
+      "path": "crates/calc-func/src/ported/chi_f_t_family.rs",
+      "locator": "t_inv_2t_kernel",
+      "note": "the route as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "968557b72fd4ab0ec1429a9422b473fb0b594341",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TINV; BETA.DIST; BETADIST",
+      "note": "matched rows per function"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.4",
+      "note": "item 3"
+    }
+  ],
+  "open": [
+    "TINV(0.003, 25) was matched before the change and is lost after it.",
+    "The p = 0.97 route and the TINV p-to-1 behaviour (tracked as dc-6332.13)."
+  ],
+  "recorded_on": "2026-11-11"
+}

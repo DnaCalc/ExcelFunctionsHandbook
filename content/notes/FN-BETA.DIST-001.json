@@ -1,0 +1,97 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BETA.DIST-001",
+  "functions": [
+    "FUNC.BETA.DIST",
+    "FUNC.BETADIST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "The beta bgrat series stops at eps, not 15*eps, and its prefactor and ratio follow the gamma-family forms",
+  "statement": "In the incomplete beta (TOMS 708 route) the asymptotic series bgrat is positive and truncated. DNA Calc first ran it with the published tolerance 15*eps (1.5e-14), at which its values sat on average 5.3 units low against BETA.DIST bank rows (mostly a > 15, b <= 1, x > 0.5, where Excel is unbiased); running it at eps changed BETA.DIST from 982 to 1,003 matched of 2,822 (+29, -8) and BETADIST from 140 to 142 of 294, and the mean absolute distance to Excel from 8.08 to 3.86 units, the mean signed distance from -5.31 to +0.29, rows within one unit from 1,354 to 1,432; of tolerances tried, eps gave +23 net, 2^-52 gave +22 and 1e-17 gave +21. Three Excel 20131 rows of that block (BETA.DIST(0.9375, 20.45, 0.75), (0.96875, 61, 0.2) and (0.984375, 320, 0.05), all cumulative) were 31, 33 and 13 units low at 15*eps. A later change forms bgrat's prefactor r as z times the gamma density at b, and u/r as one exponential of (n - 1/2)*LOG1P(b/a) - b*LOG1P((b-1)/(2a)) - b + s(n) - s(a) with the measured real-shape Stirling errors s: BETA.DIST went from 1,003 to 1,043 matched (+75, -35) and BETADIST by +1, and the three rows above are now 3, 5 and 3 units off. Measured and not taken: the loader beta prefactor with a fractional-shape Stirling error (in the series arm BETA.DIST +33/-51 to +31/-57 and FDIST +76/-147 to +65/-149; in the bup arm BETA.DIST +51/-65 to +70/-68, FDIST +106/-63 to +96/-63, F.DIST net -3 to -5); bgrat's gamma-tail substitution alone (+28/-27, and +81/-43 with the other two); no FDIST or F.DIST row moves in bgrat. Of the FDIST misses, 2,950 of 3,444 rows lie in the recurrence arm bup_160 and 777 of 907 in the series arm bpser; the other arms hold fewer than 10 each.",
+  "status": "measured",
+  "basis": "Three recorded Excel build 20131 BETA.DIST rows are cited with DNA Calc's distance to them before and after. The counts are quoted from the commit messages and the bead comment (full bank, per-row traces).",
+  "inferred": "That Excel's bgrat runs at eps and forms the prefactor and ratio through the gamma-family expressions is inferred from the match counts and the bias of the residuals; Excel's code was not read.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BETA.DIST(0.9375, 20.45, 0.75, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.9375",
+            "bits": "0x3fee000000000000"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "20.45",
+            "bits": "0x4034733333333333"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "0.75",
+            "bits": "0x3fe8000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.18224313561231856",
+        "bits": "0x3fc753be39b00d25"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/BETA.DIST.jsonl.gz",
+        "locator": "BETA.DIST|0x3fee000000000000|0x4034733333333333|0x3fe8000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "59703fa564544db786b7ed015cd140f402bc827f",
+      "path": "crates/calc-func/src/ported/special_math_common.rs",
+      "locator": "bratio (bgrat eps); bgrat_runs_at_eps_on_the_large_a_small_b_arm",
+      "note": "tolerance change and test"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "968557b72fd4ab0ec1429a9422b473fb0b594341",
+      "path": "crates/calc-func/src/ported/special_math_common.rs",
+      "locator": "bratio_bgrat",
+      "note": "gamma-family prefactor and ratio"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.4",
+      "note": "items 1 to 3: counts of the forms not taken"
+    }
+  ],
+  "open": [
+    "The FDIST recurrence arm bup_160 (3,444 rows, 86% unmatched, 1 to 8 units off) holds most of the mass and no tried prefactor moved it in net.",
+    "BETA.DIST rows lost by the eps change: oc162 (0.75, 50, 0.2) +2 units, oc306 +1, oc1404 +12, oc279 +14, oc618 +1, and three with limits A, B."
+  ],
+  "recorded_on": "2026-11-11"
+}

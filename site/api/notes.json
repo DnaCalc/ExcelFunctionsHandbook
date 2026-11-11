@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 72,
+  "note_count": 82,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -1553,6 +1553,236 @@
         "The generic J/Y numerical bodies retain disagreements on other inputs; this control does not identify the full seed or recurrence program."
       ],
       "recorded_on": "2026-11-06"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-BETA.DIST-001",
+      "functions": [
+        "FUNC.BETA.DIST",
+        "FUNC.BETADIST"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "The beta bgrat series stops at eps, not 15*eps, and its prefactor and ratio follow the gamma-family forms",
+      "statement": "In the incomplete beta (TOMS 708 route) the asymptotic series bgrat is positive and truncated. DNA Calc first ran it with the published tolerance 15*eps (1.5e-14), at which its values sat on average 5.3 units low against BETA.DIST bank rows (mostly a > 15, b <= 1, x > 0.5, where Excel is unbiased); running it at eps changed BETA.DIST from 982 to 1,003 matched of 2,822 (+29, -8) and BETADIST from 140 to 142 of 294, and the mean absolute distance to Excel from 8.08 to 3.86 units, the mean signed distance from -5.31 to +0.29, rows within one unit from 1,354 to 1,432; of tolerances tried, eps gave +23 net, 2^-52 gave +22 and 1e-17 gave +21. Three Excel 20131 rows of that block (BETA.DIST(0.9375, 20.45, 0.75), (0.96875, 61, 0.2) and (0.984375, 320, 0.05), all cumulative) were 31, 33 and 13 units low at 15*eps. A later change forms bgrat's prefactor r as z times the gamma density at b, and u/r as one exponential of (n - 1/2)*LOG1P(b/a) - b*LOG1P((b-1)/(2a)) - b + s(n) - s(a) with the measured real-shape Stirling errors s: BETA.DIST went from 1,003 to 1,043 matched (+75, -35) and BETADIST by +1, and the three rows above are now 3, 5 and 3 units off. Measured and not taken: the loader beta prefactor with a fractional-shape Stirling error (in the series arm BETA.DIST +33/-51 to +31/-57 and FDIST +76/-147 to +65/-149; in the bup arm BETA.DIST +51/-65 to +70/-68, FDIST +106/-63 to +96/-63, F.DIST net -3 to -5); bgrat's gamma-tail substitution alone (+28/-27, and +81/-43 with the other two); no FDIST or F.DIST row moves in bgrat. Of the FDIST misses, 2,950 of 3,444 rows lie in the recurrence arm bup_160 and 777 of 907 in the series arm bpser; the other arms hold fewer than 10 each.",
+      "status": "measured",
+      "basis": "Three recorded Excel build 20131 BETA.DIST rows are cited with DNA Calc's distance to them before and after. The counts are quoted from the commit messages and the bead comment (full bank, per-row traces).",
+      "inferred": "That Excel's bgrat runs at eps and forms the prefactor and ratio through the gamma-family expressions is inferred from the match counts and the bias of the residuals; Excel's code was not read.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "BETA.DIST(0.9375, 20.45, 0.75, TRUE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "0.9375",
+                "bits": "0x3fee000000000000"
+              }
+            },
+            {
+              "name": "alpha",
+              "value": {
+                "kind": "number",
+                "display": "20.45",
+                "bits": "0x4034733333333333"
+              }
+            },
+            {
+              "name": "beta",
+              "value": {
+                "kind": "number",
+                "display": "0.75",
+                "bits": "0x3fe8000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.18224313561231856",
+            "bits": "0x3fc753be39b00d25"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/BETA.DIST.jsonl.gz",
+            "locator": "BETA.DIST|0x3fee000000000000|0x4034733333333333|0x3fe8000000000000|0x3ff0000000000000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "59703fa564544db786b7ed015cd140f402bc827f",
+          "path": "crates/calc-func/src/ported/special_math_common.rs",
+          "locator": "bratio (bgrat eps); bgrat_runs_at_eps_on_the_large_a_small_b_arm",
+          "note": "tolerance change and test"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "968557b72fd4ab0ec1429a9422b473fb0b594341",
+          "path": "crates/calc-func/src/ported/special_math_common.rs",
+          "locator": "bratio_bgrat",
+          "note": "gamma-family prefactor and ratio"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.4",
+          "note": "items 1 to 3: counts of the forms not taken"
+        }
+      ],
+      "open": [
+        "The FDIST recurrence arm bup_160 (3,444 rows, 86% unmatched, 1 to 8 units off) holds most of the mass and no tried prefactor moved it in net.",
+        "BETA.DIST rows lost by the eps change: oc162 (0.75, 50, 0.2) +2 units, oc306 +1, oc1404 +12, oc279 +14, oc618 +1, and three with limits A, B."
+      ],
+      "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-BINOM.INV-001",
+      "functions": [
+        "FUNC.BINOM.INV",
+        "FUNC.CRITBINOM"
+      ],
+      "kind": "quirk",
+      "title": "BINOM.INV and CRITBINOM test the public cumulative: strictly at zero successes, inclusively at later counts",
+      "statement": "On Excel 16.0.20527, 252 dyadic boundary designs were each asked at the exact lower tail of the binomial and at three binary64 neighbours either side. Of these, the 200 designs whose answer is a count above zero return k exactly when BINOM.DIST(k, n, p, TRUE) >= alpha, that is the smallest k whose public cumulative probability reaches alpha. The 52 designs whose answer is zero return 0 only when BINOM.DIST(0, n, p, TRUE) > alpha, so the mass at zero is compared strictly and every later cumulative inclusively. DNA Calc locates the count with a forward mass recurrence and settles it with these two public-tail comparisons; with that, BINOM.INV went from 2,290 to 2,302 of 2,308 and CRITBINOM from 1,402 to 1,414 of 1,420 full-bank rows matched, 13 won and 1 lost in each function. The lost row is (5, 0.5, 0.5).",
+      "status": "inferred",
+      "basis": "The 252-design reading and its two comparison rules are quoted from the doc comment of the DnaCalc kernel, which cites Excel 16.0.20527; the two cited rows (build 20430) show the zero-count answer at alpha 0.5 for one trial and do not test the inclusive rule above zero, which no cited row locates. Counts are from the commit message and bead comment.",
+      "inferred": "The rule is stated as a description of the 252 designs; that it holds for every n, p and alpha is not shown.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "BINOM.INV(1, 0.5, 0.1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "trials",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "probability_s",
+              "value": {
+                "kind": "number",
+                "display": "0.5",
+                "bits": "0x3fe0000000000000"
+              }
+            },
+            {
+              "name": "alpha",
+              "value": {
+                "kind": "number",
+                "display": "0.1",
+                "bits": "0x3fb999999999999a"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/w111-extended-regenerated-20260929/answers-binom.inv.json.gz",
+            "locator": "w111extended-2026092903-BINOM.INV-00025",
+            "note": null
+          }
+        },
+        {
+          "call": "BINOM.INV(1, 0.5, 0.5)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "trials",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "probability_s",
+              "value": {
+                "kind": "number",
+                "display": "0.5",
+                "bits": "0x3fe0000000000000"
+              }
+            },
+            {
+              "name": "alpha",
+              "value": {
+                "kind": "number",
+                "display": "0.5",
+                "bits": "0x3fe0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/w111-extended-regenerated-20260929/answers-binom.inv.json.gz",
+            "locator": "w111extended-2026092903-BINOM.INV-00026",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "9ed636d24ef1cf2c969b47b3567647a459e7207f",
+          "path": "crates/calc-func/src/ported/discrete_dist.rs",
+          "locator": "binom_inv_kernel",
+          "note": "doc comment and predicate as implemented"
+        },
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+          "path": "cache/w111-extended-regenerated-20260929/answers-binom.inv.json.gz",
+          "locator": null,
+          "note": "recorded BINOM.INV answers of the bank"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.2",
+          "note": "item 4: the research patch ported by hand"
+        }
+      ],
+      "open": [
+        "The row (5, 0.5, 0.5), matched before and lost after the change, in both functions.",
+        "The six BINOM.INV and six CRITBINOM bank rows still unmatched."
+      ],
+      "recorded_on": "2026-11-11"
     },
     {
       "schema": "efh.function-note/v1",
@@ -3565,6 +3795,187 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-DURATION-001",
+      "functions": [
+        "FUNC.DURATION",
+        "FUNC.MDURATION"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "DURATION and MDURATION time the redemption at S(S(off+n)-1); a one-coupon bond is not a special case",
+      "statement": "DNA Calc's DURATION and MDURATION give the redemption cash flow the time t = S(S(off + n) - 1), with off the fraction (E - A) / E of the first period still to run, n the number of coupons left and S the store of the x87 running sum to binary64: the sum off + n is stored, then 1 is subtracted. The earlier form, off + (n - 1), differs from it whenever the sum crosses a binade, and on the recorded rows every DURATION and MDURATION miss with n greater than 1 had the two values different while none of the 7,908 rows where they agree was a miss. A bond with one coupon left is no longer answered as off / frequency regardless of yield: it runs the same weighted ratio, so its answer depends on the yield (8 DURATION and 7 MDURATION recorded rows). Against the full bank of recorded rows this took DURATION from 7,707 to 7,859 matched of 7,884 and MDURATION from 1,113 to 1,238 matched of 1,260, with no row lost in either function. Variants that were measured and not taken: the stored time on the redemption only (7,851 and 1,231 matched); the redemption weight and the discount exponent both changed (7,710 and 1,113); every coupon weight changed (7,781 and 1,222); every weight and exponent (7,691 and 1,111); every weight with the one-coupon change (7,788 and 1,228). After the change 25 DURATION and 22 MDURATION bank rows are still unmatched.",
+      "status": "inferred",
+      "basis": "All counts are quoted from the DnaCalc commit message and its bead comment (full bank, per-row traces before and after); the recorded bank rows were not re-read for this note. The two cited rows are build 20131 readings of a one-coupon bond at two yields, whose answers differ in the last place.",
+      "inferred": "That Excel stores S(off + n) and then subtracts 1 is inferred from the match; the bank only shows that this form, with a general loop at one coupon left, reproduces more rows than each variant tried.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "DURATION(46356, 46446, 0.05, 0.005, 2, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "46356",
+                "bits": "0x40e6a28000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "46446",
+                "bits": "0x40e6adc000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.05",
+                "bits": "0x3fa999999999999a"
+              }
+            },
+            {
+              "name": "yld",
+              "value": {
+                "kind": "number",
+                "display": "0.005",
+                "bits": "0x3f747ae147ae147b"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.24722222222222223",
+            "bits": "0x3fcfa4fa4fa4fa50"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/DURATION.jsonl.gz",
+            "locator": "DURATION|0x40e6a28000000000|0x40e6adc000000000|0x3fa999999999999a|0x3f747ae147ae147b|0x4000000000000000|0x4000000000000000",
+            "note": null
+          }
+        },
+        {
+          "call": "DURATION(46356, 46446, 0.05, 0.02, 2, 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "46356",
+                "bits": "0x40e6a28000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "46446",
+                "bits": "0x40e6adc000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.05",
+                "bits": "0x3fa999999999999a"
+              }
+            },
+            {
+              "name": "yld",
+              "value": {
+                "kind": "number",
+                "display": "0.02",
+                "bits": "0x3f947ae147ae147b"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.2472222222222222",
+            "bits": "0x3fcfa4fa4fa4fa4f"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/DURATION.jsonl.gz",
+            "locator": "DURATION|0x40e6a28000000000|0x40e6adc000000000|0x3fa999999999999a|0x3f947ae147ae147b|0x4000000000000000|0x4000000000000000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "800df0b738aa56f7c0d16ffd1e65243cfed3b2b6",
+          "path": "crates/calc-func/src/ported/bond_core_family.rs",
+          "locator": "duration_kernel",
+          "note": "the route as implemented"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "800df0b738aa56f7c0d16ffd1e65243cfed3b2b6",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "DURATION; MDURATION",
+          "note": "matched rows per function after the change"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.2",
+          "note": "items 1 to 4 landed with the full-bank counts"
+        }
+      ],
+      "open": [
+        "The 25 DURATION and 22 MDURATION bank rows still unmatched.",
+        "Which Excel builds the bank rows come from is not restated here."
+      ],
+      "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-ERF.PRECISE-001",
       "functions": [
         "FUNC.ERF",
@@ -4004,6 +4415,122 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-F.TEST-001",
+      "functions": [
+        "FUNC.F.TEST"
+      ],
+      "kind": "quirk",
+      "title": "F.TEST is twice the smaller tail of the larger-first ratio; swapping the arrays moves the last bit on ties",
+      "statement": "F.TEST returns 2 * min(P(F > f), P(F <= f)) for the variance ratio f taken larger variance first, not min(2 * P(F > f), 1). With unequal degrees of freedom the right tail of the larger-first ratio can pass 1/2 even at f = 1 (equal variances, sizes 5 and 3), where the clamped form returns 1; Excel build 20228 returns 0.888888888888889 there. DNA Calc computes both tails from the one incomplete-beta call that F.DIST.RT's staging uses, taking its own complement output rather than 1 - p: that held 13 gross full-bank rows (up to 1.8e15 units off before) and took F.TEST from 21 to 26 matched of 78 with the worst miss from 1,767,616,520,413,419 units to 11, gaining 5 and losing none; the other 8 former gross rows are now 1 to 8 units off. Not ordering the ratio larger-first (var1/var2 as given) lost 8 matched rows. Equal variances give the same value with either argument order up to the last bit: the recorded answers for the two orders of the same arrays are 0x3fec71c71c71c71e and 0x3fec71c71c71c71c. A rule that orients exact ties with var1 > var2 was measured and not taken (+4 and -3 of 78 rows, against an estimate of +6 and -3).",
+      "status": "measured",
+      "basis": "Two recorded Excel build 20228 rows (the same arrays in both argument orders) are cited; DNA Calc returns the second of them, and four further recorded rows are held in DNA Calc's unit test. Row counts are quoted from the commit messages (full bank, row-by-row trace).",
+      "inferred": "That Excel orients the ratio larger-first and takes both tails from one incomplete-beta call is inferred from the match counts; 'ties' here means equal sample variances, and Excel's rule for choosing the orientation on them is not identified.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "F.TEST({-1,0,1}, {-1,-1,0,1,1})",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array1",
+              "value": {
+                "kind": "array",
+                "display": "{-1,0,1}",
+                "bits": null
+              }
+            },
+            {
+              "name": "array2",
+              "value": {
+                "kind": "array",
+                "display": "{-1,-1,0,1,1}",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.8888888888888891",
+            "bits": "0x3fec71c71c71c71e"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "work/w109/G3-06-ftest-variance/answers-ftest-wrapper-heldout-v1.json.gz",
+            "locator": "ft-wrapper-ho-000-equal-forward",
+            "note": null
+          }
+        },
+        {
+          "call": "F.TEST({-1,-1,0,1,1}, {-1,0,1})",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array1",
+              "value": {
+                "kind": "array",
+                "display": "{-1,-1,0,1,1}",
+                "bits": null
+              }
+            },
+            {
+              "name": "array2",
+              "value": {
+                "kind": "array",
+                "display": "{-1,0,1}",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.8888888888888888",
+            "bits": "0x3fec71c71c71c71c"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "work/w109/G3-06-ftest-variance/answers-ftest-wrapper-heldout-v1.json.gz",
+            "locator": "ft-wrapper-ho-001-equal-reverse",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "2dfbcaf9df6b02071d3ae23842c5804a8890cef4",
+          "path": "crates/calc-func/src/ported/statistical_tests_family.rs",
+          "locator": "f_test_kernel; f_test_two_tailed_takes_the_smaller_tail",
+          "note": "the route as implemented and its test"
+        },
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+          "path": "work/w109/G3-06-ftest-variance/answers-ftest-wrapper-heldout-v1.json.gz",
+          "locator": null,
+          "note": "recorded F.TEST answers (held-out wrapper set)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.4",
+          "note": "item 4: tie orientation not landed"
+        }
+      ],
+      "open": [
+        "The exact-tie orientation of the two arrays.",
+        "The 52 F.TEST bank rows still unmatched,."
+      ],
+      "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-FLOOR-001",
       "functions": [
         "FUNC.FLOOR"
@@ -4245,6 +4772,69 @@
       ],
       "open": [],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FORECAST.ETS-001",
+      "functions": [
+        "FUNC.FORECAST.ETS"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "FORECAST.ETS fits histories of four or fewer points nonseasonally and extends those under seven by regression",
+      "statement": "In DNA Calc's implementation of FORECAST.ETS, every prepared history of four or fewer points is fitted as a nonseasonal series, whether the seasonality argument is automatic (1), an explicit 2, or 0. For a history shorter than seven points the starting series is extended to seven points before the search: the trend is the least-squares slope of the points in order (computed in plain binary64), and the point at index j (from the history length up to 6) is y[j mod 2] + (j - j mod 2) * trend. DNA Calc computed these histories under this rule and matched Excel on 199 of the 204 recorded short-history cells; the other five differ from Excel by 1 to 3 units in the last place. One recorded Excel forecast, FORECAST.ETS(5, {2,7,-1,4}, {1,2,3,4}, 2) = 1.5926883521785709, is held as a unit test. Before this change the same histories were refused unless the slope and every product and sum were exact in binary64; on the oracle corpus the passed count went from 76,480 to 76,759 and the refused count from 956 to 672, with no previously matched row lost.",
+      "status": "inferred",
+      "basis": "The row counts (199 of 204 cells, +279 passed, +5 mismatched 1 to 3 units, refused 956 to 672) are quoted from the DnaCalc commit message and the code comment; the 204 cells themselves were not re-read for this note, and the one Excel reading cited is a located capture cell (the same history asked with seasonality 0; the unit test asks it with 2 and holds the same value).",
+      "inferred": "That Excel's own code builds the seven-point start series by this expression is inferred from the match; the five cells that differ by 1 to 3 units show the rounding of Excel's regression is not fully reproduced. Which Excel build the 204 cells came from is not stated in the commit.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "FORECAST.ETS(5, {2;7;-1;4}, {1;2;3;4}, 0, 0, 1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.5926883521785709",
+            "bits": "0x3ff97ba6c8153bc5"
+          },
+          "correct": null,
+          "recorded_in": "Excel, build not recorded in this capture file (DnaCalc round-38 ETS function questions)",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "09c7107837a7fbf0e8bfe1418bff8f314901a736",
+            "path": "crates/calc-func/tests/captures/dcj9k_r38_ets/sections/dcj9k_r38_ets.capture.json",
+            "locator": "sheet dcj9k_r38_ets row 449 column 4",
+            "note": "the formula and its recorded number"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "90ea26fd24e800719fb22bea7be993eee30a7d3a",
+          "path": "crates/calc-func/src/catalogue/statistics/ets.rs",
+          "locator": "nonseasonal; evaluate (short_history)",
+          "note": "the route as implemented"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "90ea26fd24e800719fb22bea7be993eee30a7d3a",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "ets_short_period_requests_use_the_nonseasonal_fit",
+          "note": "the recorded forecast 1.5926883521785709"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.5",
+          "note": "the bead for this change"
+        }
+      ],
+      "open": [
+        "The five cells that differ from Excel by 1 to 3 units in the last place.",
+        "The build and platform of the 204 recorded short-history cells."
+      ],
+      "recorded_on": "2026-11-11"
     },
     {
       "schema": "efh.function-note/v1",
@@ -4650,6 +5240,297 @@
         "Shapes outside 2 to 6, and the upper arm of the distribution."
       ],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-GAMMA.DIST-002",
+      "functions": [
+        "FUNC.CHIDIST",
+        "FUNC.CHIINV",
+        "FUNC.CHISQ.INV",
+        "FUNC.GAMMA.DIST",
+        "FUNC.GAMMA.INV"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "Incomplete gamma at half-integer shape starts from sqrt(pi) to binary64 and the public ERFC.PRECISE value",
+      "statement": "For a shape a = n + 1/2 with a < x, the incomplete gamma sums a finite series. The series begins with the term t = EXP(-x) / (sqrt(pi) * SQRT(x)) and the starting value Q(0.5, x) = erfc(SQRT(x)). With sqrt(pi) typed as the 15-digit 1.77245385090552 (about 20 units of 2^-53 below the true value) the cumulative answers sat low: on Excel 20131 rows CHIDIST(8, 5) was 12 units low, and GAMMA.DIST(3, 2.5, 1, TRUE) and GAMMA.DIST(4, 2.5, 1, TRUE) 6 and 4 units low. With the binary64 value 1.772453850905516 DNA Calc returns Excel's recorded bits on all three. Over the full bank (all functions) that constant and the F.TEST change landed with it moved 3,889,035 to 3,889,056 matched rows (CHIDIST 371 to 372, CHIINV 30 to 37, CHISQ.INV 13 to 14, GAMMA.DIST 77,804 to 77,808, GAMMA.INV 63 to 66, one CHIINV row lost). A later change takes the starting value Q(0.5, x) from the public ERFC.PRECISE function instead of the internal incomplete gamma at 0.5: CHIDIST 378 to 380, GAMMA.DIST 77,812 to 77,814, CHIINV 37 to 36 (one row, (0.1, 3), lost).",
+      "status": "measured",
+      "basis": "Three Excel build 20131 rows (CHIDIST oc65, GAMMA.DIST oc73 and oc75) are reproduced by the unit test with the binary64 constant. The ERFC.PRECISE start rests on net row counts only (+3 net over the full bank), not on a located row.",
+      "inferred": "That Excel's series starts from the public ERFC.PRECISE value is inferred from the +3 net; the cause of the 15-digit constant's error being absent in Excel is a reading of the match, not of Excel's code.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "CHIDIST(8, 5)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "8",
+                "bits": "0x4020000000000000"
+              }
+            },
+            {
+              "name": "deg_freedom",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.1562356275777223",
+            "bits": "0x3fc3ff876f754b0e"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/CHIDIST.jsonl.gz",
+            "locator": "CHIDIST|0x4020000000000000|0x4014000000000000",
+            "note": null
+          }
+        },
+        {
+          "call": "GAMMA.DIST(3, 2.5, 1, TRUE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "3",
+                "bits": "0x4008000000000000"
+              }
+            },
+            {
+              "name": "alpha",
+              "value": {
+                "kind": "number",
+                "display": "2.5",
+                "bits": "0x4004000000000000"
+              }
+            },
+            {
+              "name": "beta",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.6937810815867216",
+            "bits": "0x3fe6337461fff386"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/GAMMA.DIST.jsonl.gz",
+            "locator": "GAMMA.DIST|0x4008000000000000|0x4004000000000000|0x3ff0000000000000|0x3ff0000000000000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4cc4ba08f15c6cf37e61203e85f6365a1a98cc20",
+          "path": "crates/calc-func/src/ported/special_math_common.rs",
+          "locator": "GRATIO_RTPI_FULL; half_integer_finite_sum_uses_binary64_sqrt_pi",
+          "note": "constant and unit test"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "eac227d3b853e1de1538495ff42d569053913da0",
+          "path": "crates/calc-func/src/ported/special_math_common.rs",
+          "locator": "gratio (statement 220)",
+          "note": "start from erfc_precise_kernel"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "eac227d3b853e1de1538495ff42d569053913da0",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "CHIDIST; GAMMA.DIST; CHIINV",
+          "note": "matched rows per function"
+        }
+      ],
+      "open": [
+        "Row CHIINV oc3 (the inverse search lands one double above Excel's 0x403044280e2bdaad) and CHIINV oc21 (0.1, 3) were lost by these two changes.",
+        "Nine bank rows at x >= 10 (R6 of the harvest) are unmatched.",
+        "A fitted 6c constant scored +9 rows and was not taken because it is fitted."
+      ],
+      "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-GAMMA.DIST-003",
+      "functions": [
+        "FUNC.CHIDIST",
+        "FUNC.CHIINV",
+        "FUNC.CHISQ.INV",
+        "FUNC.CHISQ.TEST",
+        "FUNC.GAMMA.DIST",
+        "FUNC.GAMMA.INV",
+        "FUNC.POISSON.DIST"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "Incomplete gamma at integer shape 2 to 20 is a stored polynomial of reciprocal factorials times EXP(-x)",
+      "statement": "For an integer shape a from 2 to 20 and a < x <= 30, DNA Calc computes the upper tail as Q(a, x) = S(EXP(-x) * H), with H a Horner polynomial whose coefficients are 1/k! rounded once to binary64 (k = 0 to 19) and with every Horner multiply and add stored to binary64 before the next step; the result is EXP(-x) times the stored polynomial, and P = 1 - Q. The boundaries were located with adjacent-double probes: a == x and x > 30 do not take this route (they take the ordinary gamma-density route), and a divided Horner form, a forward term sum, and an extension to a >= 21 were each refuted. Over the full bank this matched 20 more rows net (3,889,422 to 3,889,442): CHIDIST +6, CHISQ.TEST +1, GAMMA.DIST +5, POISSON.DIST +3, GAMMA.INV +6 and -1, with four rows lost: CHIINV (0.001, 10), CHISQ.INV (0.6, 4) and (0.85, 4), GAMMA.INV (0.75, 5, 1); the first three are exact-inverse pins whose gains in the same functions offset them. On the oracle corpus the passed count went from 76,759 to 76,765. Measured and not taken: for large-mean POISSON, one stored product M*u*A gave +79 and -73, and M = RN64(V/D) resident into st(M*u) then st(T*A) gave +47 and -39 on the 542 large-mean POISSON misses, with gains and losses interleaved inside the same (k, mean) groups so no clean rule; a stored generic GAMMA seed fixes GAMMA(-0.5) and GAMMA(-1.5) but breaks GAMMA(-2.5), which matches today.",
+      "status": "inferred",
+      "basis": "Counts and boundaries are quoted from the DnaCalc commit message, code comments and bead comment (full-bank per-row traces); the two cited build 20131 rows are readings at integer shapes 2 and 3 inside the region, not a test of the polynomial's stores.",
+      "inferred": "That Excel evaluates this polynomial with these coefficient loads and stores is inferred from the match and from adjacent-double probes; the coefficient loads are described in the code as conditional on the other loads and on EXP.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "GAMMA.DIST(5, 3, 1, TRUE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "5",
+                "bits": "0x4014000000000000"
+              }
+            },
+            {
+              "name": "alpha",
+              "value": {
+                "kind": "number",
+                "display": "3",
+                "bits": "0x4008000000000000"
+              }
+            },
+            {
+              "name": "beta",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.8753479805169189",
+            "bits": "0x3fec02d9c49e12f0"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/GAMMA.DIST.jsonl.gz",
+            "locator": "GAMMA.DIST|0x4014000000000000|0x4008000000000000|0x3ff0000000000000|0x3ff0000000000000",
+            "note": null
+          }
+        },
+        {
+          "call": "GAMMA.DIST(4, 2, 1, TRUE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "4",
+                "bits": "0x4010000000000000"
+              }
+            },
+            {
+              "name": "alpha",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "beta",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "1",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.9084218055563291",
+            "bits": "0x3fed11ca9b3ace7a"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/GAMMA.DIST.jsonl.gz",
+            "locator": "GAMMA.DIST|0x4010000000000000|0x4000000000000000|0x3ff0000000000000|0x3ff0000000000000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "a93fc3af7312b7f5ca97313a702aec82cee5b548",
+          "path": "crates/calc-func/src/ported/special_math_common.rs",
+          "locator": "GRATIO_RECIP_FACTORIAL; gratio_integer_sum",
+          "note": "the route as implemented"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "a93fc3af7312b7f5ca97313a702aec82cee5b548",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "integer-shape tests",
+          "note": "tests added with the commit"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.3",
+          "note": "landed items and the large-mean POISSON negative results"
+        }
+      ],
+      "open": [
+        "Nine x >= 10 rows (R6) and the large-mean POISSON misses remain unmatched.",
+        "GAMMALN near 2.5 and 2.75 cause 32 of 58 GAMMA.DIST cumulative misses (tracked as dc-6332.7)."
+      ],
+      "recorded_on": "2026-11-11"
     },
     {
       "schema": "efh.function-note/v1",
@@ -6104,6 +6985,158 @@
         "A reference to one cell holding the same values answers differently. Those readings are not in a published capture, so this note covers direct values only."
       ],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IRR-002",
+      "functions": [
+        "FUNC.IRR"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IRR with an exactly zero first NPV answers 1/v - 1 from the stored v = 1/(1+guess), not the guess",
+      "statement": "In DNA Calc's secant iteration for IRR the first point is v = 1/(1+guess), stored to binary64. When the NPV at that point is exactly zero, the answer is 1/v - 1 computed from the stored v, not the raw guess, so two guesses that store the same v give the same answer. This took IRR from 533 to 549 matched of 734 full-bank rows, 16 won and none lost. Two other details were measured against the same rows. A residual taken from the raw guess, proposed in the research answer, was refuted: it netted -3 on the bank and -10 on 200 fresh two-flow problems and missed its own target row. The 200-step iteration cap was kept because a cap of 20 lost 3 matched rows. 185 IRR bank rows were unmatched when the bead comment was written.",
+      "status": "inferred",
+      "basis": "Counts are quoted from the DnaCalc commit message and the bead comment (full bank, per-row trace). The three cited rows are build 20131 readings: five guesses within 4 units in the last place of 0.21 for the same cash flows (three shown) all answer 0.20999999999999996, not the guess; they show the answer follows the stored v and are not themselves a zero-NPV test.",
+      "inferred": "That Excel returns the converted stored v at the zero exit is inferred from the 16 rows gained; no Excel code was read.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IRR({-1000;1210}, 0.21)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "values",
+              "value": {
+                "kind": "array",
+                "display": "{-1000;1210}",
+                "bits": null
+              }
+            },
+            {
+              "name": "guess",
+              "value": {
+                "kind": "number",
+                "display": "0.21",
+                "bits": "0x3fcae147ae147ae1"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.20999999999999996",
+            "bits": "0x3fcae147ae147ae0"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/IRR.jsonl.gz",
+            "locator": "IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147ae1|@1,1",
+            "note": null
+          }
+        },
+        {
+          "call": "IRR({-1000;1210}, 0.21000000000000002)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "values",
+              "value": {
+                "kind": "array",
+                "display": "{-1000;1210}",
+                "bits": null
+              }
+            },
+            {
+              "name": "guess",
+              "value": {
+                "kind": "number",
+                "display": "0.21000000000000002",
+                "bits": "0x3fcae147ae147ae2"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.20999999999999996",
+            "bits": "0x3fcae147ae147ae0"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/IRR.jsonl.gz",
+            "locator": "IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147ae2|@1,1",
+            "note": null
+          }
+        },
+        {
+          "call": "IRR({-1000;1210}, 0.20999999999999994)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "values",
+              "value": {
+                "kind": "array",
+                "display": "{-1000;1210}",
+                "bits": null
+              }
+            },
+            {
+              "name": "guess",
+              "value": {
+                "kind": "number",
+                "display": "0.20999999999999994",
+                "bits": "0x3fcae147ae147adf"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.20999999999999996",
+            "bits": "0x3fcae147ae147ae0"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/IRR.jsonl.gz",
+            "locator": "IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147adf|@1,1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "7aa336f385b00b5cdef3222fc24ee8e27534cd86",
+          "path": "crates/calc-func/src/ported/cashflow_rate_family.rs",
+          "locator": "irr_discount_secant",
+          "note": "the route as implemented"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "7aa336f385b00b5cdef3222fc24ee8e27534cd86",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IRR",
+          "note": "matched rows per function"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.2",
+          "note": "item 3 and the rejected raw-guess residual"
+        }
+      ],
+      "open": [
+        "The 185 IRR bank rows still unmatched.",
+        "The cap of 200 steps is kept because 20 lost matched rows; Excel's own cap is not identified."
+      ],
+      "recorded_on": "2026-11-11"
     },
     {
       "schema": "efh.function-note/v1",
@@ -10113,6 +11146,123 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-TINV-001",
+      "functions": [
+        "FUNC.T.INV.2T",
+        "FUNC.TINV"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "TINV for p up to 0.85 is SQRT(v*(1/z - 1)) on a binary64 beta coordinate z, so its last digits follow z",
+      "statement": "For df >= 2 and p <= 0.85, the recorded TINV answers lie in the image of the map t = SQRT(v * (1/z - 1)) over binary64 values z, with v the degrees of freedom and z the inverse of the regularized beta at (v/2, 1/2). Because z is a double, the t found this way can sit many units from the true root of the t distribution: TINV(0.85, 25) is 176 units in the last place from the root's t only through this map. DNA Calc takes, of the two adjacent doubles that bracket the beta root, the one whose forward value is nearer p. On the full bank this took TINV from 15 to 22 matched of 32 rows (+8 and -1: TINV(0.003, 25) was lost) and its worst miss from 173 to 17 units; the oracle corpus passed count went from 76,765 to 76,769 (CONFIDENCE.T, T.INV.2T and TINV rows fixed). For p near 1 Excel uses another route: at p = 0.97 three rows are still 10 to 17 units off the t-space bisection DNA Calc keeps there.",
+      "status": "measured",
+      "basis": "Two Excel build 20131 TINV rows are cited. The mechanism and the counts are quoted from the DnaCalc commit message and bead comment (harvest 10, R3); the 32-row bank was not re-read here.",
+      "inferred": "That Excel computes t through z is inferred from the recorded rows lying in the image of the map; that z is the nearer-to-p bracketing double is DNA Calc's rule, with 2 of the rows in that image still off because DNA Calc's beta forward value is not Excel's.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "TINV(0.85, 25)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "probability",
+              "value": {
+                "kind": "number",
+                "display": "0.85",
+                "bits": "0x3feb333333333333"
+              }
+            },
+            {
+              "name": "deg_freedom",
+              "value": {
+                "kind": "number",
+                "display": "25",
+                "bits": "0x4039000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.1910880727923691",
+            "bits": "0x3fc87592efa6421e"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/TINV.jsonl.gz",
+            "locator": "TINV|0x3feb333333333333|0x4039000000000000",
+            "note": null
+          }
+        },
+        {
+          "call": "TINV(0.003, 25)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "probability",
+              "value": {
+                "kind": "number",
+                "display": "0.003",
+                "bits": "0x3f689374bc6a7efa"
+              }
+            },
+            {
+              "name": "deg_freedom",
+              "value": {
+                "kind": "number",
+                "display": "25",
+                "bits": "0x4039000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.2870045257248206",
+            "bits": "0x400a4bc9075e5636"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "cache/oracle/build-20131/TINV.jsonl.gz",
+            "locator": "TINV|0x3f689374bc6a7efa|0x4039000000000000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "968557b72fd4ab0ec1429a9422b473fb0b594341",
+          "path": "crates/calc-func/src/ported/chi_f_t_family.rs",
+          "locator": "t_inv_2t_kernel",
+          "note": "the route as implemented"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "968557b72fd4ab0ec1429a9422b473fb0b594341",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "TINV; BETA.DIST; BETADIST",
+          "note": "matched rows per function"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.4",
+          "note": "item 3"
+        }
+      ],
+      "open": [
+        "TINV(0.003, 25) was matched before the change and is lost after it.",
+        "The p = 0.97 route and the TINV p-to-1 behaviour (tracked as dc-6332.13)."
+      ],
+      "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-TRUNC-001",
       "functions": [
         "FUNC.ROUNDDOWN",
@@ -12205,6 +13355,287 @@
         "An argument left empty in the call, as in YEARFRAC(,5), has not been read."
       ],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-YIELD-001",
+      "functions": [
+        "FUNC.YIELD"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "YIELD near par on a coupon date returns a closed-form seed with stored partial sums, not the solved root",
+      "statement": "On a coupon date, with redemption 100 and more than one coupon period left, YIELD at a price close to 100 does not return the root of the price equation. It returns the closed-form seed y = f * ((n*cp - d) / (d*(n+1)/2 + n*R)), with n the periods left, cp = 100*rate/f the coupon per period, R the redemption and d = price - R, whenever the Newton step (P(y) - price) / P'(y) taken at the seed is below 1e-10; otherwise the solver runs. On the recorded 20228 and 20527 rows Excel's switch lies between steps of 8.8e-11 and 1.17e-10. The association of the seed matters: DNA Calc forms the total coupon as S(S(S(n*rate)*100)/f) and the denominator as S(S(n*R + S(S(d*n)/2)) + S(d/2)), each partial result stored to binary64 before the next, and with that association 31 more full-bank rows matched (YIELD 66 to 97 of 533, none lost). The same seed is taken at a price of exactly 100: Excel does not return the coupon rate directly there, so DNA Calc's former shortcut for price 100 and redemption 100 was removed. Before the seed was introduced (commit d44aaf0a) YIELD matched 16 of 533 bank rows with a worst miss of 4.4e15 units in the last place; with the plain binary64 seed it matched 66 with a worst miss of 2,844 units. Offline, that plain binary64 order reproduced Excel's bits on 64 of the 97 small-step rows with redemption 100, against at most 58 for the x87-extended orders tried.",
+      "status": "measured",
+      "basis": "Three recorded rows are cited (Excel build 20228, near-seed discovery set); the unit test in DnaCalc holds five rows (three from 20228 and two price 100 + 1 ulp rows at a zero coupon from build 20527) and DNA Calc returns Excel's recorded bits on all five. The matched counts are quoted from the commit messages (full bank, per-row traces).",
+      "inferred": "That Excel's code forms this seed, with this association and this 1e-10 switch, is inferred; the seed form is read off the bank, and the switch only brackets between 8.8e-11 and 1.17e-10.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "YIELD(44013, 44562, 0.05, 100.00001525878906, 100, 2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "44013",
+                "bits": "0x40e57da000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "44562",
+                "bits": "0x40e5c24000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.05",
+                "bits": "0x3fa999999999999a"
+              }
+            },
+            {
+              "name": "pr",
+              "value": {
+                "kind": "number",
+                "display": "100.00001525878906",
+                "bits": "0x4059000040000000"
+              }
+            },
+            {
+              "name": "redemption",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.04999989318848743",
+            "bits": "0x3fa9999604189993"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+            "locator": "yield-near-seed-discovery-d-oncoupon-short-b0-f2-030",
+            "note": null
+          }
+        },
+        {
+          "call": "YIELD(44013, 46753, 0.05, 99.99999713897711, 100, 2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "44013",
+                "bits": "0x40e57da000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "46753",
+                "bits": "0x40e6d42000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.05",
+                "bits": "0x3fa999999999999a"
+              }
+            },
+            {
+              "name": "pr",
+              "value": {
+                "kind": "number",
+                "display": "99.99999713897711",
+                "bits": "0x4058fffff4000004"
+              }
+            },
+            {
+              "name": "redemption",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.050000004577636696",
+            "bits": "0x3fa99999c0ebedf7"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+            "locator": "yield-near-seed-discovery-d-oncoupon-long-b0-f2-039",
+            "note": null
+          }
+        },
+        {
+          "call": "YIELD(44013, 46753, 0.05, 100.000002861023, 100, 2, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "44013",
+                "bits": "0x40e57da000000000"
+              }
+            },
+            {
+              "name": "maturity",
+              "value": {
+                "kind": "number",
+                "display": "46753",
+                "bits": "0x40e6d42000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.05",
+                "bits": "0x3fa999999999999a"
+              }
+            },
+            {
+              "name": "pr",
+              "value": {
+                "kind": "number",
+                "display": "100.000002861023",
+                "bits": "0x405900000c000004"
+              }
+            },
+            {
+              "name": "redemption",
+              "value": {
+                "kind": "number",
+                "display": "100",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.04999999542236326",
+            "bits": "0x3fa9999972474536"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+            "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+            "locator": "yield-near-seed-discovery-d-oncoupon-long-b0-f2-040",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "d44aaf0a035259050007c1774d43fd400e3d3b03",
+          "path": "crates/calc-func/src/ported/bond_core_family.rs",
+          "locator": "near_par_seed; yield_near_par_returns_the_closed_form_seed",
+          "note": "the seed as first introduced (plain binary64 order)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "530c7e4bc2d0833b521fee45ca86e20003c858d6",
+          "path": "crates/calc-func/src/ported/bond_core_family.rs",
+          "locator": "near_par_seed",
+          "note": "the Y2 association and the removed price-100 shortcut"
+        },
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+          "path": "work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz",
+          "locator": null,
+          "note": "20228 near-seed discovery answers"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+          "path": ".beads/issues.jsonl",
+          "locator": "dc-6332.2",
+          "note": "item 2: YIELD 66 to 97 of 533, 31 won and 0 lost"
+        }
+      ],
+      "open": [
+        "Rows 024 and 026 of the bank (basis-dependent) stay unmatched.",
+        "Designs with redemption other than 100 (the oncoupon-b4-f1 rows: step below 1e-10 at the seed but Excel about 450 units from it) carry a seed that is not identified.",
+        "26 rows of the oncoupon-short design are one unit below Excel: the evaluation order of the seed is open there.",
+        "436 YIELD bank rows in all were still unmatched when the bead comment was written."
+      ],
+      "recorded_on": "2026-11-11"
     }
   ]
 }

@@ -1,0 +1,63 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FORECAST.ETS-001",
+  "functions": [
+    "FUNC.FORECAST.ETS"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "FORECAST.ETS fits histories of four or fewer points nonseasonally and extends those under seven by regression",
+  "statement": "In DNA Calc's implementation of FORECAST.ETS, every prepared history of four or fewer points is fitted as a nonseasonal series, whether the seasonality argument is automatic (1), an explicit 2, or 0. For a history shorter than seven points the starting series is extended to seven points before the search: the trend is the least-squares slope of the points in order (computed in plain binary64), and the point at index j (from the history length up to 6) is y[j mod 2] + (j - j mod 2) * trend. DNA Calc computed these histories under this rule and matched Excel on 199 of the 204 recorded short-history cells; the other five differ from Excel by 1 to 3 units in the last place. One recorded Excel forecast, FORECAST.ETS(5, {2,7,-1,4}, {1,2,3,4}, 2) = 1.5926883521785709, is held as a unit test. Before this change the same histories were refused unless the slope and every product and sum were exact in binary64; on the oracle corpus the passed count went from 76,480 to 76,759 and the refused count from 956 to 672, with no previously matched row lost.",
+  "status": "inferred",
+  "basis": "The row counts (199 of 204 cells, +279 passed, +5 mismatched 1 to 3 units, refused 956 to 672) are quoted from the DnaCalc commit message and the code comment; the 204 cells themselves were not re-read for this note, and the one Excel reading cited is a located capture cell (the same history asked with seasonality 0; the unit test asks it with 2 and holds the same value).",
+  "inferred": "That Excel's own code builds the seven-point start series by this expression is inferred from the match; the five cells that differ by 1 to 3 units show the rounding of Excel's regression is not fully reproduced. Which Excel build the 204 cells came from is not stated in the commit.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FORECAST.ETS(5, {2;7;-1;4}, {1;2;3;4}, 0, 0, 1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.5926883521785709",
+        "bits": "0x3ff97ba6c8153bc5"
+      },
+      "correct": null,
+      "recorded_in": "Excel, build not recorded in this capture file (DnaCalc round-38 ETS function questions)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "09c7107837a7fbf0e8bfe1418bff8f314901a736",
+        "path": "crates/calc-func/tests/captures/dcj9k_r38_ets/sections/dcj9k_r38_ets.capture.json",
+        "locator": "sheet dcj9k_r38_ets row 449 column 4",
+        "note": "the formula and its recorded number"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "90ea26fd24e800719fb22bea7be993eee30a7d3a",
+      "path": "crates/calc-func/src/catalogue/statistics/ets.rs",
+      "locator": "nonseasonal; evaluate (short_history)",
+      "note": "the route as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "90ea26fd24e800719fb22bea7be993eee30a7d3a",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "ets_short_period_requests_use_the_nonseasonal_fit",
+      "note": "the recorded forecast 1.5926883521785709"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.5",
+      "note": "the bead for this change"
+    }
+  ],
+  "open": [
+    "The five cells that differ from Excel by 1 to 3 units in the last place.",
+    "The build and platform of the 204 recorded short-history cells."
+  ],
+  "recorded_on": "2026-11-11"
+}

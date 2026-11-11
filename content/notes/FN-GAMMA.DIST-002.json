@@ -1,0 +1,137 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GAMMA.DIST-002",
+  "functions": [
+    "FUNC.CHIDIST",
+    "FUNC.CHIINV",
+    "FUNC.CHISQ.INV",
+    "FUNC.GAMMA.DIST",
+    "FUNC.GAMMA.INV"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Incomplete gamma at half-integer shape starts from sqrt(pi) to binary64 and the public ERFC.PRECISE value",
+  "statement": "For a shape a = n + 1/2 with a < x, the incomplete gamma sums a finite series. The series begins with the term t = EXP(-x) / (sqrt(pi) * SQRT(x)) and the starting value Q(0.5, x) = erfc(SQRT(x)). With sqrt(pi) typed as the 15-digit 1.77245385090552 (about 20 units of 2^-53 below the true value) the cumulative answers sat low: on Excel 20131 rows CHIDIST(8, 5) was 12 units low, and GAMMA.DIST(3, 2.5, 1, TRUE) and GAMMA.DIST(4, 2.5, 1, TRUE) 6 and 4 units low. With the binary64 value 1.772453850905516 DNA Calc returns Excel's recorded bits on all three. Over the full bank (all functions) that constant and the F.TEST change landed with it moved 3,889,035 to 3,889,056 matched rows (CHIDIST 371 to 372, CHIINV 30 to 37, CHISQ.INV 13 to 14, GAMMA.DIST 77,804 to 77,808, GAMMA.INV 63 to 66, one CHIINV row lost). A later change takes the starting value Q(0.5, x) from the public ERFC.PRECISE function instead of the internal incomplete gamma at 0.5: CHIDIST 378 to 380, GAMMA.DIST 77,812 to 77,814, CHIINV 37 to 36 (one row, (0.1, 3), lost).",
+  "status": "measured",
+  "basis": "Three Excel build 20131 rows (CHIDIST oc65, GAMMA.DIST oc73 and oc75) are reproduced by the unit test with the binary64 constant. The ERFC.PRECISE start rests on net row counts only (+3 net over the full bank), not on a located row.",
+  "inferred": "That Excel's series starts from the public ERFC.PRECISE value is inferred from the +3 net; the cause of the 15-digit constant's error being absent in Excel is a reading of the match, not of Excel's code.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "CHIDIST(8, 5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "8",
+            "bits": "0x4020000000000000"
+          }
+        },
+        {
+          "name": "deg_freedom",
+          "value": {
+            "kind": "number",
+            "display": "5",
+            "bits": "0x4014000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.1562356275777223",
+        "bits": "0x3fc3ff876f754b0e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/CHIDIST.jsonl.gz",
+        "locator": "CHIDIST|0x4020000000000000|0x4014000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "GAMMA.DIST(3, 2.5, 1, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "3",
+            "bits": "0x4008000000000000"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "2.5",
+            "bits": "0x4004000000000000"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.6937810815867216",
+        "bits": "0x3fe6337461fff386"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/GAMMA.DIST.jsonl.gz",
+        "locator": "GAMMA.DIST|0x4008000000000000|0x4004000000000000|0x3ff0000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4cc4ba08f15c6cf37e61203e85f6365a1a98cc20",
+      "path": "crates/calc-func/src/ported/special_math_common.rs",
+      "locator": "GRATIO_RTPI_FULL; half_integer_finite_sum_uses_binary64_sqrt_pi",
+      "note": "constant and unit test"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "eac227d3b853e1de1538495ff42d569053913da0",
+      "path": "crates/calc-func/src/ported/special_math_common.rs",
+      "locator": "gratio (statement 220)",
+      "note": "start from erfc_precise_kernel"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "eac227d3b853e1de1538495ff42d569053913da0",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CHIDIST; GAMMA.DIST; CHIINV",
+      "note": "matched rows per function"
+    }
+  ],
+  "open": [
+    "Row CHIINV oc3 (the inverse search lands one double above Excel's 0x403044280e2bdaad) and CHIINV oc21 (0.1, 3) were lost by these two changes.",
+    "Nine bank rows at x >= 10 (R6 of the harvest) are unmatched.",
+    "A fitted 6c constant scored +9 rows and was not taken because it is fitted."
+  ],
+  "recorded_on": "2026-11-11"
+}

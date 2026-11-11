@@ -1,0 +1,181 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DURATION-001",
+  "functions": [
+    "FUNC.DURATION",
+    "FUNC.MDURATION"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "DURATION and MDURATION time the redemption at S(S(off+n)-1); a one-coupon bond is not a special case",
+  "statement": "DNA Calc's DURATION and MDURATION give the redemption cash flow the time t = S(S(off + n) - 1), with off the fraction (E - A) / E of the first period still to run, n the number of coupons left and S the store of the x87 running sum to binary64: the sum off + n is stored, then 1 is subtracted. The earlier form, off + (n - 1), differs from it whenever the sum crosses a binade, and on the recorded rows every DURATION and MDURATION miss with n greater than 1 had the two values different while none of the 7,908 rows where they agree was a miss. A bond with one coupon left is no longer answered as off / frequency regardless of yield: it runs the same weighted ratio, so its answer depends on the yield (8 DURATION and 7 MDURATION recorded rows). Against the full bank of recorded rows this took DURATION from 7,707 to 7,859 matched of 7,884 and MDURATION from 1,113 to 1,238 matched of 1,260, with no row lost in either function. Variants that were measured and not taken: the stored time on the redemption only (7,851 and 1,231 matched); the redemption weight and the discount exponent both changed (7,710 and 1,113); every coupon weight changed (7,781 and 1,222); every weight and exponent (7,691 and 1,111); every weight with the one-coupon change (7,788 and 1,228). After the change 25 DURATION and 22 MDURATION bank rows are still unmatched.",
+  "status": "inferred",
+  "basis": "All counts are quoted from the DnaCalc commit message and its bead comment (full bank, per-row traces before and after); the recorded bank rows were not re-read for this note. The two cited rows are build 20131 readings of a one-coupon bond at two yields, whose answers differ in the last place.",
+  "inferred": "That Excel stores S(off + n) and then subtracts 1 is inferred from the match; the bank only shows that this form, with a general loop at one coupon left, reproduces more rows than each variant tried.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DURATION(46356, 46446, 0.05, 0.005, 2, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "46356",
+            "bits": "0x40e6a28000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "46446",
+            "bits": "0x40e6adc000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "yld",
+          "value": {
+            "kind": "number",
+            "display": "0.005",
+            "bits": "0x3f747ae147ae147b"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.24722222222222223",
+        "bits": "0x3fcfa4fa4fa4fa50"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/DURATION.jsonl.gz",
+        "locator": "DURATION|0x40e6a28000000000|0x40e6adc000000000|0x3fa999999999999a|0x3f747ae147ae147b|0x4000000000000000|0x4000000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "DURATION(46356, 46446, 0.05, 0.02, 2, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "46356",
+            "bits": "0x40e6a28000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "46446",
+            "bits": "0x40e6adc000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "yld",
+          "value": {
+            "kind": "number",
+            "display": "0.02",
+            "bits": "0x3f947ae147ae147b"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "2",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.2472222222222222",
+        "bits": "0x3fcfa4fa4fa4fa4f"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/DURATION.jsonl.gz",
+        "locator": "DURATION|0x40e6a28000000000|0x40e6adc000000000|0x3fa999999999999a|0x3f947ae147ae147b|0x4000000000000000|0x4000000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "800df0b738aa56f7c0d16ffd1e65243cfed3b2b6",
+      "path": "crates/calc-func/src/ported/bond_core_family.rs",
+      "locator": "duration_kernel",
+      "note": "the route as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "800df0b738aa56f7c0d16ffd1e65243cfed3b2b6",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DURATION; MDURATION",
+      "note": "matched rows per function after the change"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.2",
+      "note": "items 1 to 4 landed with the full-bank counts"
+    }
+  ],
+  "open": [
+    "The 25 DURATION and 22 MDURATION bank rows still unmatched.",
+    "Which Excel builds the bank rows come from is not restated here."
+  ],
+  "recorded_on": "2026-11-11"
+}

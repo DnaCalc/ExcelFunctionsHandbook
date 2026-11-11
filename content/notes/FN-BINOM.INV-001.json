@@ -1,0 +1,133 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BINOM.INV-001",
+  "functions": [
+    "FUNC.BINOM.INV",
+    "FUNC.CRITBINOM"
+  ],
+  "kind": "quirk",
+  "title": "BINOM.INV and CRITBINOM test the public cumulative: strictly at zero successes, inclusively at later counts",
+  "statement": "On Excel 16.0.20527, 252 dyadic boundary designs were each asked at the exact lower tail of the binomial and at three binary64 neighbours either side. Of these, the 200 designs whose answer is a count above zero return k exactly when BINOM.DIST(k, n, p, TRUE) >= alpha, that is the smallest k whose public cumulative probability reaches alpha. The 52 designs whose answer is zero return 0 only when BINOM.DIST(0, n, p, TRUE) > alpha, so the mass at zero is compared strictly and every later cumulative inclusively. DNA Calc locates the count with a forward mass recurrence and settles it with these two public-tail comparisons; with that, BINOM.INV went from 2,290 to 2,302 of 2,308 and CRITBINOM from 1,402 to 1,414 of 1,420 full-bank rows matched, 13 won and 1 lost in each function. The lost row is (5, 0.5, 0.5).",
+  "status": "inferred",
+  "basis": "The 252-design reading and its two comparison rules are quoted from the doc comment of the DnaCalc kernel, which cites Excel 16.0.20527; the two cited rows (build 20430) show the zero-count answer at alpha 0.5 for one trial and do not test the inclusive rule above zero, which no cited row locates. Counts are from the commit message and bead comment.",
+  "inferred": "The rule is stated as a description of the 252 designs; that it holds for every n, p and alpha is not shown.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BINOM.INV(1, 0.5, 0.1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "trials",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "probability_s",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "0.1",
+            "bits": "0x3fb999999999999a"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/w111-extended-regenerated-20260929/answers-binom.inv.json.gz",
+        "locator": "w111extended-2026092903-BINOM.INV-00025",
+        "note": null
+      }
+    },
+    {
+      "call": "BINOM.INV(1, 0.5, 0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "trials",
+          "value": {
+            "kind": "number",
+            "display": "1",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "probability_s",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/w111-extended-regenerated-20260929/answers-binom.inv.json.gz",
+        "locator": "w111extended-2026092903-BINOM.INV-00026",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "9ed636d24ef1cf2c969b47b3567647a459e7207f",
+      "path": "crates/calc-func/src/ported/discrete_dist.rs",
+      "locator": "binom_inv_kernel",
+      "note": "doc comment and predicate as implemented"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+      "path": "cache/w111-extended-regenerated-20260929/answers-binom.inv.json.gz",
+      "locator": null,
+      "note": "recorded BINOM.INV answers of the bank"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.2",
+      "note": "item 4: the research patch ported by hand"
+    }
+  ],
+  "open": [
+    "The row (5, 0.5, 0.5), matched before and lost after the change, in both functions.",
+    "The six BINOM.INV and six CRITBINOM bank rows still unmatched."
+  ],
+  "recorded_on": "2026-11-11"
+}

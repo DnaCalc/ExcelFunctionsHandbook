@@ -1,0 +1,152 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IRR-002",
+  "functions": [
+    "FUNC.IRR"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IRR with an exactly zero first NPV answers 1/v - 1 from the stored v = 1/(1+guess), not the guess",
+  "statement": "In DNA Calc's secant iteration for IRR the first point is v = 1/(1+guess), stored to binary64. When the NPV at that point is exactly zero, the answer is 1/v - 1 computed from the stored v, not the raw guess, so two guesses that store the same v give the same answer. This took IRR from 533 to 549 matched of 734 full-bank rows, 16 won and none lost. Two other details were measured against the same rows. A residual taken from the raw guess, proposed in the research answer, was refuted: it netted -3 on the bank and -10 on 200 fresh two-flow problems and missed its own target row. The 200-step iteration cap was kept because a cap of 20 lost 3 matched rows. 185 IRR bank rows were unmatched when the bead comment was written.",
+  "status": "inferred",
+  "basis": "Counts are quoted from the DnaCalc commit message and the bead comment (full bank, per-row trace). The three cited rows are build 20131 readings: five guesses within 4 units in the last place of 0.21 for the same cash flows (three shown) all answer 0.20999999999999996, not the guess; they show the answer follows the stored v and are not themselves a zero-NPV test.",
+  "inferred": "That Excel returns the converted stored v at the zero exit is inferred from the 16 rows gained; no Excel code was read.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IRR({-1000;1210}, 0.21)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "values",
+          "value": {
+            "kind": "array",
+            "display": "{-1000;1210}",
+            "bits": null
+          }
+        },
+        {
+          "name": "guess",
+          "value": {
+            "kind": "number",
+            "display": "0.21",
+            "bits": "0x3fcae147ae147ae1"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.20999999999999996",
+        "bits": "0x3fcae147ae147ae0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/IRR.jsonl.gz",
+        "locator": "IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147ae1|@1,1",
+        "note": null
+      }
+    },
+    {
+      "call": "IRR({-1000;1210}, 0.21000000000000002)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "values",
+          "value": {
+            "kind": "array",
+            "display": "{-1000;1210}",
+            "bits": null
+          }
+        },
+        {
+          "name": "guess",
+          "value": {
+            "kind": "number",
+            "display": "0.21000000000000002",
+            "bits": "0x3fcae147ae147ae2"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.20999999999999996",
+        "bits": "0x3fcae147ae147ae0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/IRR.jsonl.gz",
+        "locator": "IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147ae2|@1,1",
+        "note": null
+      }
+    },
+    {
+      "call": "IRR({-1000;1210}, 0.20999999999999994)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "values",
+          "value": {
+            "kind": "array",
+            "display": "{-1000;1210}",
+            "bits": null
+          }
+        },
+        {
+          "name": "guess",
+          "value": {
+            "kind": "number",
+            "display": "0.20999999999999994",
+            "bits": "0x3fcae147ae147adf"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.20999999999999996",
+        "bits": "0x3fcae147ae147ae0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; bitness not recorded, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "b4818a6a23947e34d11e169a7fe7c648381ee9e3",
+        "path": "cache/oracle/build-20131/IRR.jsonl.gz",
+        "locator": "IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147adf|@1,1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "7aa336f385b00b5cdef3222fc24ee8e27534cd86",
+      "path": "crates/calc-func/src/ported/cashflow_rate_family.rs",
+      "locator": "irr_discount_secant",
+      "note": "the route as implemented"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "7aa336f385b00b5cdef3222fc24ee8e27534cd86",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IRR",
+      "note": "matched rows per function"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+      "path": ".beads/issues.jsonl",
+      "locator": "dc-6332.2",
+      "note": "item 3 and the rejected raw-guess residual"
+    }
+  ],
+  "open": [
+    "The 185 IRR bank rows still unmatched.",
+    "The cap of 200 steps is kept because 20 lost matched rows; Excel's own cap is not identified."
+  ],
+  "recorded_on": "2026-11-11"
+}
