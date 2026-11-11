@@ -1,49 +1,49 @@
 {
   "repository": "https://github.com/DnaCalc/DnaCalc",
-  "commit": "070c6d9b39ee320a465529dd5a5a997542b4406f",
-  "commit_date": "2026-11-09",
-  "measured_application_revision": "779e136e9c4fbe4ad3f4e93fbb69a5fef0216922",
-  "report_commit": "bb2873d321106ed5d765e5e2c7754994d8fe0c90",
-  "calc_func_unchanged_since_report": true,
+  "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+  "commit_date": "2026-11-11",
+  "measured_application_revision": "9fd77961e531ff2836e5f205bedcb65daeb2ea7d",
+  "report_commit": "b25369b539237f6a25922ba00769f3e5fde28528",
+  "calc_func_unchanged_since_report": false,
   "answer_bank": {
     "rows": 3910773,
-    "matched": 3887881,
-    "failed": 22892,
+    "matched": 3887883,
+    "failed": 22890,
     "counts": {
-      "matched": 3887881,
+      "matched": 3887883,
       "last_bit": 18978,
-      "larger_numeric": 1766,
+      "larger_numeric": 1764,
       "other_mismatch": 80,
       "excluded": 2064,
       "unread": 4
     },
-    "pass_rate": 0.9941464257833426,
-    "canonical_trace_sha256": "13ef1744cba0a72a8f1afe99fb206376ac15e8e9ca51359da135327e6c4c2334"
+    "pass_rate": 0.9941469371911895,
+    "canonical_trace_sha256": "be6ee2bf056b7b119274f32da07070c229c5820b3dbcca15f162bb7ed0606e43"
   },
   "corpus": {
-    "formula_cells": 76957,
-    "matched": 75137,
-    "inclusive_failed": 1820,
+    "formula_cells": 77561,
+    "matched": 75788,
+    "inclusive_failed": 1773,
     "awaiting_capture": 108,
-    "pass_rate": 0.9763504294606079,
+    "pass_rate": 0.9771405732262348,
     "other_failed_verdicts": {
       "not_run": 1,
-      "not_modeled": 1024
+      "not_modeled": 963
     },
-    "mismatches": 600,
+    "mismatches": 614,
     "counts": {
-      "larger_numeric": 125,
-      "last_bit": 383,
-      "other_mismatch": 92,
-      "refused": 1024
+      "larger_numeric": 122,
+      "last_bit": 386,
+      "other_mismatch": 106,
+      "refused": 963
     }
   },
   "rule": "Last-bit: finite numeric mismatches <=16 ULP; larger numeric: >16 ULP. This split is triage, not a relaxed verdict. Every mismatch, refusal, unread, missing, pending, external and circular-policy cell remains an inclusive failure. Corpus labels follow exact single-cell aliases, infer calls from formula spelling and unwrap INDEX selections; unresolved references and infix operators remain explicit. Bank functions use canonical judge identities. Counts are observations per source; corpus and bank may overlap and must not be added as unique calls. Bank reference/locale context gaps remain failures, not proven numerical defects. Rows are ordered by corpus mismatches plus refusals, then corpus larger differences, then bank nonpasses.",
   "sources": {
-    "docs/generated/problem-functions.json": "6fe2ffd510628da874d396298d7316f330653dde9d3f0c170dd62fce244b7c9a",
+    "docs/generated/problem-functions.json": "1bec17a24ab5ecbd817f1bcc90ace9ea072f400546effe1cafe0284fc44ed976",
     "docs/generated/numeric-fingerprints.json": "3f5d16d289cd36f0539eab4c91e2fdacd650013290a3d7652ed2cade994d4fc6",
-    "crates/calc-func/witness-status.tsv": "a68a3d6ea2a06db3656aed0284fcc1afaeb88f9586dbd644912e6bf95b5f35fe",
+    "crates/calc-func/witness-status.tsv": "32a42955dba9ed466c527718fc376f32707b474c8e4273e5e461f769ae0156d9",
     "crates/calc-func/witness-differences.tsv": "54e787c7257ee112ff6e164f02c27640f3f32977c026e31a51d96bee72b35db2",
-    "crates/calc-fml/src/eval/builtins.rs": "9ecbb9305316b30ac3132b534ecea9585a13afc8633c157943a7d97619870fd6"
+    "crates/calc-fml/src/eval/builtins.rs": "93f2704bed4829a4f82e7fbe75c8854506f8209a27013e5947c5e96b6e69d55d"
   }
 }

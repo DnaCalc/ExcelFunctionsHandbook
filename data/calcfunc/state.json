@@ -1,12 +1,12 @@
 {
-  "commit": "070c6d9b39ee320a465529dd5a5a997542b4406f",
+  "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
   "counts": {
     "absent": 1,
-    "close": 41,
+    "close": 44,
     "deferred": 9,
-    "differs": 56,
+    "differs": 71,
     "host": 0,
-    "matches": 447,
+    "matches": 429,
     "refuses": 0,
     "unmeasured": 0
   },
@@ -14,8 +14,8 @@
     "FUNC.ABS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,455 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 228 workbook cells.",
+      "summary": "Matches all 1,456 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 229 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -30,8 +30,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 228,
-        "matched": 228,
+        "cells": 229,
+        "matched": 229,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -95,19 +95,19 @@
       "code": "ACCRINTM"
     },
     "FUNC.ACOS": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 14,214 recorded answers",
-      "detail": "Recorded: 13,962 in the answer bank and 252 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 1 of 14,214 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (13,962 in the answer bank and 252 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 13962,
-        "matched": 13962,
-        "worst_ulp": 0,
+        "matched": 13961,
+        "worst_ulp": 1,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 0,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -176,21 +176,21 @@
       "code": "ACOT"
     },
     "FUNC.ACOTH": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 269,999 recorded answers",
-      "detail": "Recorded: 269,996 in the answer bank and 3 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 2 of 269,999 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (269,996 in the answer bank and 3 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 269996,
-        "matched": 269996,
-        "worst_ulp": 0,
+        "matched": 269994,
+        "worst_ulp": 1,
         "excel_builds": [
           "20131",
           "20228",
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 0,
+        "last_bit": 2,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -207,8 +207,8 @@
     "FUNC.ADDRESS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,844 recorded answers",
-      "detail": "Recorded: 1,284 in the answer bank and 560 workbook cells.",
+      "summary": "Matches all 1,859 recorded answers",
+      "detail": "Recorded: 1,284 in the answer bank and 575 workbook cells.",
       "bank": {
         "rows": 1284,
         "matched": 1284,
@@ -223,8 +223,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 560,
-        "matched": 560,
+        "cells": 575,
+        "matched": 575,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -232,14 +232,15 @@
       "code": "ADDRESS"
     },
     "FUNC.AGGREGATE": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8 recorded answers",
-      "detail": "Recorded: 8 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 5 of 13 recorded calls; the rest match",
+      "detail": "Of 13 recorded answers (13 workbook cells), 5 do not match: 5 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 9,
+        "cells": 14,
         "matched": 8,
+        "refused": 5,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -280,8 +281,8 @@
     "FUNC.AND": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,264 recorded answers",
-      "detail": "Recorded: 1,210 in the answer bank and 54 workbook cells.",
+      "summary": "Matches all 1,285 recorded answers",
+      "detail": "Recorded: 1,210 in the answer bank and 75 workbook cells.",
       "bank": {
         "rows": 1210,
         "matched": 1210,
@@ -296,8 +297,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 54,
-        "matched": 54,
+        "cells": 75,
+        "matched": 75,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -322,12 +323,12 @@
     "FUNC.AREAS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 11 recorded answers",
-      "detail": "Recorded: 11 workbook cells.",
+      "summary": "Matches all 12 recorded answers",
+      "detail": "Recorded: 12 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 13,
-        "matched": 11,
+        "cells": 14,
+        "matched": 12,
         "pending": 2,
         "worst_ulp": 0
       },
@@ -338,12 +339,12 @@
     "FUNC.ARRAYTOTEXT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 13 recorded answers",
-      "detail": "Recorded: 13 workbook cells.",
+      "summary": "Matches all 16 recorded answers",
+      "detail": "Recorded: 16 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 13,
-        "matched": 13,
+        "cells": 16,
+        "matched": 16,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -353,12 +354,12 @@
     "FUNC.ASC": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 14 recorded answers",
-      "detail": "Recorded: 14 workbook cells.",
+      "summary": "Matches all 15 recorded answers",
+      "detail": "Recorded: 15 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 14,
-        "matched": 14,
+        "cells": 15,
+        "matched": 15,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -366,19 +367,19 @@
       "code": "ASC"
     },
     "FUNC.ASIN": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 21,867 recorded answers",
-      "detail": "Recorded: 21,610 in the answer bank and 257 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 1 of 21,867 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (21,610 in the answer bank and 257 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 21610,
-        "matched": 21610,
-        "worst_ulp": 0,
+        "matched": 21609,
+        "worst_ulp": 1,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 0,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -420,19 +421,19 @@
       "code": "ASINH"
     },
     "FUNC.ATAN": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 181,768 recorded answers",
-      "detail": "Recorded: 181,409 in the answer bank and 359 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 1 of 181,768 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (181,409 in the answer bank and 359 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 181409,
-        "matched": 181409,
-        "worst_ulp": 0,
+        "matched": 181408,
+        "worst_ulp": 1,
         "excel_builds": [
           "20430"
         ],
         "larger_numeric": 0,
-        "last_bit": 0,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -520,8 +521,8 @@
     "FUNC.AVERAGE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,288 recorded answers",
-      "detail": "Recorded: 1,222 in the answer bank and 66 workbook cells.",
+      "summary": "Matches all 1,295 recorded answers",
+      "detail": "Recorded: 1,222 in the answer bank and 73 workbook cells.",
       "bank": {
         "rows": 1222,
         "matched": 1222,
@@ -537,8 +538,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 67,
-        "matched": 66,
+        "cells": 74,
+        "matched": 73,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -549,8 +550,8 @@
     "FUNC.AVERAGEA": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,232 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 20 workbook cells.",
+      "summary": "Matches all 1,235 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 23 workbook cells.",
       "bank": {
         "rows": 1212,
         "matched": 1212,
@@ -565,8 +566,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 20,
-        "matched": 20,
+        "cells": 23,
+        "matched": 23,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -773,11 +774,11 @@
     "FUNC.BETA.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 1,841 of 2,828 recorded answers",
-      "detail": "Of 2,828 recorded answers (2,822 in the answer bank and 6 workbook cells), 1,841 do not match: 574 differ by more than 16 ULP, 1,267 differ by at most 16 ULP.",
+      "summary": "Known differences on 1,780 of 2,828 recorded answers",
+      "detail": "Of 2,828 recorded answers (2,822 in the answer bank and 6 workbook cells), 1,780 do not match: 574 differ by more than 16 ULP, 1,206 differ by at most 16 ULP.",
       "bank": {
         "rows": 2822,
-        "matched": 982,
+        "matched": 1043,
         "worst_ulp": 170,
         "excel_builds": [
           "20131",
@@ -785,7 +786,7 @@
           "?"
         ],
         "larger_numeric": 574,
-        "last_bit": 1266,
+        "last_bit": 1205,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -819,18 +820,18 @@
     "FUNC.BETADIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 166 of 336 recorded answers",
-      "detail": "Of 336 recorded answers (294 in the answer bank and 42 workbook cells), 166 do not match: 17 differ by more than 16 ULP, 149 differ by at most 16 ULP.",
+      "summary": "Known differences on 163 of 336 recorded answers",
+      "detail": "Of 336 recorded answers (294 in the answer bank and 42 workbook cells), 163 do not match: 17 differ by more than 16 ULP, 146 differ by at most 16 ULP.",
       "bank": {
         "rows": 294,
-        "matched": 140,
+        "matched": 143,
         "worst_ulp": 170,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 17,
-        "last_bit": 137,
+        "last_bit": 134,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1017,17 +1018,17 @@
     "FUNC.BINOM.INV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 18 of 2,323 recorded answers",
-      "detail": "Of 2,323 recorded answers (2,308 in the answer bank and 15 workbook cells), 18 do not match: 18 differ by more than 16 ULP.",
+      "summary": "Known differences on 6 of 2,323 recorded answers",
+      "detail": "Of 2,323 recorded answers (2,308 in the answer bank and 15 workbook cells), 6 do not match: 6 differ by more than 16 ULP.",
       "bank": {
         "rows": 2308,
-        "matched": 2290,
-        "worst_ulp": 4607182418800017408,
+        "matched": 2302,
+        "worst_ulp": 4503599627370496,
         "excel_builds": [
           "20430",
           "20527"
         ],
-        "larger_numeric": 18,
+        "larger_numeric": 6,
         "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
@@ -1060,8 +1061,8 @@
     "FUNC.BITAND": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 5,994 recorded answers",
-      "detail": "Recorded: 5,989 in the answer bank and 5 workbook cells.",
+      "summary": "Matches all 6,015 recorded answers",
+      "detail": "Recorded: 5,989 in the answer bank and 26 workbook cells.",
       "bank": {
         "rows": 5989,
         "matched": 5989,
@@ -1076,8 +1077,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 5,
-        "matched": 5,
+        "cells": 26,
+        "matched": 26,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1087,8 +1088,8 @@
     "FUNC.BITLSHIFT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8,135 recorded answers",
-      "detail": "Recorded: 8,131 in the answer bank and 4 workbook cells.",
+      "summary": "Matches all 8,159 recorded answers",
+      "detail": "Recorded: 8,131 in the answer bank and 28 workbook cells.",
       "bank": {
         "rows": 8131,
         "matched": 8131,
@@ -1103,8 +1104,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 4,
-        "matched": 4,
+        "cells": 28,
+        "matched": 28,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1114,8 +1115,8 @@
     "FUNC.BITOR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 5,993 recorded answers",
-      "detail": "Recorded: 5,989 in the answer bank and 4 workbook cells.",
+      "summary": "Matches all 6,014 recorded answers",
+      "detail": "Recorded: 5,989 in the answer bank and 25 workbook cells.",
       "bank": {
         "rows": 5989,
         "matched": 5989,
@@ -1130,8 +1131,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 4,
-        "matched": 4,
+        "cells": 25,
+        "matched": 25,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1141,8 +1142,8 @@
     "FUNC.BITRSHIFT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8,132 recorded answers",
-      "detail": "Recorded: 8,128 in the answer bank and 4 workbook cells.",
+      "summary": "Matches all 8,154 recorded answers",
+      "detail": "Recorded: 8,128 in the answer bank and 26 workbook cells.",
       "bank": {
         "rows": 8128,
         "matched": 8128,
@@ -1157,8 +1158,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 4,
-        "matched": 4,
+        "cells": 26,
+        "matched": 26,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1168,8 +1169,8 @@
     "FUNC.BITXOR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 5,994 recorded answers",
-      "detail": "Recorded: 5,989 in the answer bank and 5 workbook cells.",
+      "summary": "Matches all 6,015 recorded answers",
+      "detail": "Recorded: 5,989 in the answer bank and 26 workbook cells.",
       "bank": {
         "rows": 5989,
         "matched": 5989,
@@ -1184,8 +1185,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 5,
-        "matched": 5,
+        "cells": 26,
+        "matched": 26,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1195,12 +1196,12 @@
     "FUNC.BYCOL": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 32 recorded answers",
-      "detail": "Recorded: 32 workbook cells.",
+      "summary": "Matches all 33 recorded answers",
+      "detail": "Recorded: 33 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 32,
-        "matched": 32,
+        "cells": 33,
+        "matched": 33,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1210,12 +1211,12 @@
     "FUNC.BYROW": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 27 recorded answers",
-      "detail": "Recorded: 27 workbook cells.",
+      "summary": "Matches all 28 recorded answers",
+      "detail": "Recorded: 28 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 27,
-        "matched": 27,
+        "cells": 28,
+        "matched": 28,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1322,12 +1323,12 @@
     "FUNC.CELL": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 771 recorded answers",
-      "detail": "Recorded: 771 workbook cells.",
+      "summary": "Matches all 774 recorded answers",
+      "detail": "Recorded: 774 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 773,
-        "matched": 771,
+        "cells": 776,
+        "matched": 774,
         "pending": 2,
         "worst_ulp": 0
       },
@@ -1338,12 +1339,12 @@
     "FUNC.CHAR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 184 recorded answers",
-      "detail": "Recorded: 184 workbook cells.",
+      "summary": "Matches all 190 recorded answers",
+      "detail": "Recorded: 190 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 184,
-        "matched": 184,
+        "cells": 190,
+        "matched": 190,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1353,27 +1354,26 @@
     "FUNC.CHIDIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 19 of 392 recorded answers",
-      "detail": "Of 392 recorded answers (388 in the answer bank and 4 workbook cells), 19 do not match: 1 differ by more than 16 ULP, 18 differ by at most 16 ULP.",
+      "summary": "Known differences on 8 of 392 recorded answers",
+      "detail": "Of 392 recorded answers (388 in the answer bank and 4 workbook cells), 8 do not match: 1 differ by more than 16 ULP, 7 differ by at most 16 ULP.",
       "bank": {
         "rows": 388,
-        "matched": 371,
-        "worst_ulp": 24,
+        "matched": 380,
+        "worst_ulp": 6,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 1,
-        "last_bit": 16,
+        "last_bit": 7,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 4,
-        "matched": 2,
-        "last_bit": 2,
-        "worst_ulp": 2
+        "matched": 4,
+        "worst_ulp": 0
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -1382,18 +1382,18 @@
     "FUNC.CHIINV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 70 of 104 recorded answers",
-      "detail": "Of 104 recorded answers (100 in the answer bank and 4 workbook cells), 70 do not match: 3 differ by more than 16 ULP, 67 differ by at most 16 ULP.",
+      "summary": "Known differences on 64 of 104 recorded answers",
+      "detail": "Of 104 recorded answers (100 in the answer bank and 4 workbook cells), 64 do not match: 3 differ by more than 16 ULP, 61 differ by at most 16 ULP.",
       "bank": {
         "rows": 100,
-        "matched": 30,
+        "matched": 36,
         "worst_ulp": 91,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 3,
-        "last_bit": 67,
+        "last_bit": 61,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1423,10 +1423,10 @@
       "code": "CHISQ.DIST"
     },
     "FUNC.CHISQ.DIST.RT": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 1 of 10 recorded answers differ in the last bits, worst 2 ULP",
-      "detail": "Everything else matches (6 in the answer bank and 4 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 10 recorded answers",
+      "detail": "Recorded: 6 in the answer bank and 4 workbook cells.",
       "bank": {
         "rows": 6,
         "matched": 6,
@@ -1443,9 +1443,8 @@
       },
       "corpus": {
         "cells": 4,
-        "matched": 3,
-        "last_bit": 1,
-        "worst_ulp": 2
+        "matched": 4,
+        "worst_ulp": 0
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -1454,18 +1453,18 @@
     "FUNC.CHISQ.INV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 28 of 44 recorded answers",
-      "detail": "Of 44 recorded answers (40 in the answer bank and 4 workbook cells), 28 do not match: 1 differ by more than 16 ULP, 27 differ by at most 16 ULP.",
+      "summary": "Known differences on 27 of 44 recorded answers",
+      "detail": "Of 44 recorded answers (40 in the answer bank and 4 workbook cells), 27 do not match: 1 differ by more than 16 ULP, 26 differ by at most 16 ULP.",
       "bank": {
         "rows": 40,
-        "matched": 13,
+        "matched": 14,
         "worst_ulp": 20,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 1,
-        "last_bit": 26,
+        "last_bit": 25,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1496,19 +1495,19 @@
       "code": "CHISQ.INV.RT"
     },
     "FUNC.CHISQ.TEST": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 1 of 18 recorded answers differ in the last bits, worst 1 ULP",
-      "detail": "Everything else matches (5 in the answer bank and 13 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 18 recorded answers",
+      "detail": "Recorded: 5 in the answer bank and 13 workbook cells.",
       "bank": {
         "rows": 5,
-        "matched": 4,
-        "worst_ulp": 1,
+        "matched": 5,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131"
         ],
         "larger_numeric": 0,
-        "last_bit": 1,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -1540,12 +1539,12 @@
     "FUNC.CHOOSE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 40 recorded answers",
-      "detail": "Recorded: 40 workbook cells.",
+      "summary": "Matches all 56 recorded answers",
+      "detail": "Recorded: 56 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 41,
-        "matched": 40,
+        "cells": 57,
+        "matched": 56,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -1556,12 +1555,12 @@
     "FUNC.CHOOSECOLS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 17 recorded answers",
-      "detail": "Recorded: 17 workbook cells.",
+      "summary": "Matches all 21 recorded answers",
+      "detail": "Recorded: 21 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 17,
-        "matched": 17,
+        "cells": 21,
+        "matched": 21,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1571,12 +1570,12 @@
     "FUNC.CHOOSEROWS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 16 recorded answers",
-      "detail": "Recorded: 16 workbook cells.",
+      "summary": "Matches all 21 recorded answers",
+      "detail": "Recorded: 21 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 16,
-        "matched": 16,
+        "cells": 21,
+        "matched": 21,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1586,12 +1585,12 @@
     "FUNC.CLEAN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 10 recorded answers",
+      "detail": "Recorded: 10 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 10,
+        "matched": 10,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1601,12 +1600,12 @@
     "FUNC.CODE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8 recorded answers",
-      "detail": "Recorded: 8 workbook cells.",
+      "summary": "Matches all 12 recorded answers",
+      "detail": "Recorded: 12 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 8,
-        "matched": 8,
+        "cells": 12,
+        "matched": 12,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1614,14 +1613,15 @@
       "code": "CODE"
     },
     "FUNC.COLUMN": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 9 recorded answers",
-      "detail": "Recorded: 9 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Known differences on 1 of 10 recorded answers",
+      "detail": "Of 10 recorded answers (10 workbook cells), 1 do not match: 1 differ by more than 16 ULP.",
       "bank": null,
       "corpus": {
-        "cells": 10,
+        "cells": 11,
         "matched": 9,
+        "larger_numeric": 1,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -1632,12 +1632,12 @@
     "FUNC.COLUMNS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 932 recorded answers",
-      "detail": "Recorded: 932 workbook cells.",
+      "summary": "Matches all 942 recorded answers",
+      "detail": "Recorded: 942 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 933,
-        "matched": 932,
+        "cells": 943,
+        "matched": 942,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -1706,8 +1706,8 @@
     "FUNC.COMPLEX": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 40 of 10,700 recorded answers",
-      "detail": "Of 10,700 recorded answers (10,694 in the answer bank and 6 workbook cells), 40 do not match: 40 differ in kind or value.",
+      "summary": "Known differences on 40 of 10,740 recorded answers",
+      "detail": "Of 10,740 recorded answers (10,694 in the answer bank and 46 workbook cells), 40 do not match: 40 differ in kind or value.",
       "bank": {
         "rows": 10694,
         "matched": 10654,
@@ -1722,8 +1722,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 46,
+        "matched": 46,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1733,8 +1733,8 @@
     "FUNC.CONCAT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 5 of 68 recorded answers",
-      "detail": "Of 68 recorded answers (20 in the answer bank and 48 workbook cells), 5 do not match: 5 differ in kind or value.",
+      "summary": "Known differences on 5 of 74 recorded answers",
+      "detail": "Of 74 recorded answers (20 in the answer bank and 54 workbook cells), 5 do not match: 5 differ in kind or value.",
       "bank": {
         "rows": 20,
         "matched": 15,
@@ -1749,8 +1749,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 48,
-        "matched": 48,
+        "cells": 54,
+        "matched": 54,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1760,8 +1760,8 @@
     "FUNC.CONCATENATE": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 5 of 16 recorded answers",
-      "detail": "Of 16 recorded answers (10 in the answer bank and 6 workbook cells), 5 do not match: 5 differ in kind or value.",
+      "summary": "Known differences on 5 of 19 recorded answers",
+      "detail": "Of 19 recorded answers (10 in the answer bank and 9 workbook cells), 5 do not match: 5 differ in kind or value.",
       "bank": {
         "rows": 10,
         "matched": 5,
@@ -1776,8 +1776,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 9,
+        "matched": 9,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -1815,16 +1815,15 @@
       "code": "CONFIDENCE.NORM"
     },
     "FUNC.CONFIDENCE.T": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 1 of 5 recorded answers differ in the last bits, worst 2 ULP",
-      "detail": "Everything else matches (5 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 5 recorded answers",
+      "detail": "Recorded: 5 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 5,
-        "matched": 4,
-        "last_bit": 1,
-        "worst_ulp": 2
+        "matched": 5,
+        "worst_ulp": 0
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -1884,14 +1883,14 @@
       "code": "CORREL"
     },
     "FUNC.COS": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3,711 recorded answers",
-      "detail": "Recorded: 3,684 in the answer bank and 27 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 33 of 3,711 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (3,684 in the answer bank and 27 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 3684,
-        "matched": 3684,
-        "worst_ulp": 0,
+        "matched": 3651,
+        "worst_ulp": 1,
         "excel_builds": [
           "20131",
           "20228",
@@ -1900,7 +1899,7 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 0,
+        "last_bit": 33,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -2000,8 +1999,8 @@
     "FUNC.COUNT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,266 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 54 workbook cells.",
+      "summary": "Matches all 1,273 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 61 workbook cells.",
       "bank": {
         "rows": 1212,
         "matched": 1212,
@@ -2016,8 +2015,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 55,
-        "matched": 54,
+        "cells": 62,
+        "matched": 61,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -2028,8 +2027,8 @@
     "FUNC.COUNTA": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,263 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 51 workbook cells.",
+      "summary": "Matches all 1,270 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 58 workbook cells.",
       "bank": {
         "rows": 1212,
         "matched": 1212,
@@ -2044,8 +2043,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 52,
-        "matched": 51,
+        "cells": 59,
+        "matched": 58,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -2056,12 +2055,12 @@
     "FUNC.COUNTBLANK": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 66 recorded answers",
-      "detail": "Recorded: 66 workbook cells.",
+      "summary": "Matches all 69 recorded answers",
+      "detail": "Recorded: 69 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 67,
-        "matched": 66,
+        "cells": 70,
+        "matched": 69,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -2323,17 +2322,17 @@
     "FUNC.CRITBINOM": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 18 of 1,430 recorded answers",
-      "detail": "Of 1,430 recorded answers (1,420 in the answer bank and 10 workbook cells), 18 do not match: 18 differ by more than 16 ULP.",
+      "summary": "Known differences on 6 of 1,430 recorded answers",
+      "detail": "Of 1,430 recorded answers (1,420 in the answer bank and 10 workbook cells), 6 do not match: 6 differ by more than 16 ULP.",
       "bank": {
         "rows": 1420,
-        "matched": 1402,
-        "worst_ulp": 4607182418800017408,
+        "matched": 1414,
+        "worst_ulp": 4503599627370496,
         "excel_builds": [
           "20430",
           "20527"
         ],
-        "larger_numeric": 18,
+        "larger_numeric": 6,
         "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
@@ -2513,7 +2512,7 @@
       "state": "differs",
       "state_label": "Known larger differences",
       "summary": "Known differences on 77 of 276 recorded answers",
-      "detail": "Of 276 recorded answers (38 in the answer bank and 238 workbook cells), 77 do not match: 16 differ by more than 16 ULP, 61 differ by at most 16 ULP.",
+      "detail": "Of 276 recorded answers (38 in the answer bank and 238 workbook cells), 77 do not match: 15 differ by more than 16 ULP, 62 differ by at most 16 ULP.",
       "bank": {
         "rows": 38,
         "matched": 13,
@@ -2530,8 +2529,7 @@
       "corpus": {
         "cells": 238,
         "matched": 186,
-        "last_bit": 51,
-        "larger_numeric": 1,
+        "last_bit": 52,
         "worst_ulp": 16
       },
       "host_evidence": null,
@@ -2542,7 +2540,7 @@
       "state": "differs",
       "state_label": "Known larger differences",
       "summary": "Known differences on 524 of 834 recorded answers",
-      "detail": "Of 834 recorded answers (586 in the answer bank and 248 workbook cells), 524 do not match: 13 differ by more than 16 ULP, 511 differ by at most 16 ULP.",
+      "detail": "Of 834 recorded answers (586 in the answer bank and 248 workbook cells), 524 do not match: 11 differ by more than 16 ULP, 513 differ by at most 16 ULP.",
       "bank": {
         "rows": 586,
         "matched": 230,
@@ -2560,9 +2558,9 @@
       "corpus": {
         "cells": 248,
         "matched": 80,
-        "last_bit": 155,
-        "larger_numeric": 13,
-        "worst_ulp": 14
+        "last_bit": 157,
+        "larger_numeric": 11,
+        "worst_ulp": 15
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -2627,14 +2625,15 @@
       "code": "DATEVALUE"
     },
     "FUNC.DAVERAGE": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3 recorded answers",
-      "detail": "Recorded: 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 4 recorded calls; the rest match",
+      "detail": "Of 4 recorded answers (4 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 3,
+        "cells": 4,
         "matched": 3,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -2725,8 +2724,8 @@
     "FUNC.DB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,045 recorded answers",
-      "detail": "Recorded: 2,034 in the answer bank and 11 workbook cells.",
+      "summary": "Matches all 2,073 recorded answers",
+      "detail": "Recorded: 2,034 in the answer bank and 39 workbook cells.",
       "bank": {
         "rows": 2034,
         "matched": 2034,
@@ -2741,8 +2740,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 11,
-        "matched": 11,
+        "cells": 39,
+        "matched": 39,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -2765,14 +2764,15 @@
       "code": "DBCS"
     },
     "FUNC.DCOUNT": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3 recorded answers",
-      "detail": "Recorded: 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 4 recorded calls; the rest match",
+      "detail": "Of 4 recorded answers (4 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 3,
+        "cells": 4,
         "matched": 3,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -2797,8 +2797,8 @@
     "FUNC.DDB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,770 recorded answers",
-      "detail": "Recorded: 1,761 in the answer bank and 9 workbook cells.",
+      "summary": "Matches all 1,796 recorded answers",
+      "detail": "Recorded: 1,761 in the answer bank and 35 workbook cells.",
       "bank": {
         "rows": 1761,
         "matched": 1761,
@@ -2813,8 +2813,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 9,
-        "matched": 9,
+        "cells": 35,
+        "matched": 35,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -2997,8 +2997,8 @@
     "FUNC.DEVSQ": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 23,431 recorded answers",
-      "detail": "Recorded: 23,106 in the answer bank and 325 workbook cells.",
+      "summary": "Matches all 23,433 recorded answers",
+      "detail": "Recorded: 23,106 in the answer bank and 327 workbook cells.",
       "bank": {
         "rows": 23106,
         "matched": 23106,
@@ -3014,8 +3014,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 325,
-        "matched": 325,
+        "cells": 327,
+        "matched": 327,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3065,14 +3065,15 @@
       "code": "DISC"
     },
     "FUNC.DMAX": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3 recorded answers",
-      "detail": "Recorded: 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 4 recorded calls; the rest match",
+      "detail": "Of 4 recorded answers (4 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 3,
+        "cells": 4,
         "matched": 3,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3080,14 +3081,15 @@
       "code": "DMAX"
     },
     "FUNC.DMIN": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3 recorded answers",
-      "detail": "Recorded: 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 4 recorded calls; the rest match",
+      "detail": "Of 4 recorded answers (4 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 3,
+        "cells": 4,
         "matched": 3,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3097,12 +3099,12 @@
     "FUNC.DOLLAR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 12 recorded answers",
+      "detail": "Recorded: 12 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 12,
+        "matched": 12,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3112,8 +3114,8 @@
     "FUNC.DOLLARDE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 4,853 recorded answers",
-      "detail": "Recorded: 4,847 in the answer bank and 6 workbook cells.",
+      "summary": "Matches all 4,858 recorded answers",
+      "detail": "Recorded: 4,847 in the answer bank and 11 workbook cells.",
       "bank": {
         "rows": 4847,
         "matched": 4847,
@@ -3128,8 +3130,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 11,
+        "matched": 11,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3139,8 +3141,8 @@
     "FUNC.DOLLARFR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3,645 recorded answers",
-      "detail": "Recorded: 3,641 in the answer bank and 4 workbook cells.",
+      "summary": "Matches all 3,650 recorded answers",
+      "detail": "Recorded: 3,641 in the answer bank and 9 workbook cells.",
       "bank": {
         "rows": 3641,
         "matched": 3641,
@@ -3155,8 +3157,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 4,
-        "matched": 4,
+        "cells": 9,
+        "matched": 9,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3164,14 +3166,15 @@
       "code": "DOLLARFR"
     },
     "FUNC.DPRODUCT": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3 recorded answers",
-      "detail": "Recorded: 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 4 recorded calls; the rest match",
+      "detail": "Of 4 recorded answers (4 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 3,
+        "cells": 4,
         "matched": 3,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3181,12 +3184,12 @@
     "FUNC.DROP": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 17 recorded answers",
-      "detail": "Recorded: 17 workbook cells.",
+      "summary": "Matches all 23 recorded answers",
+      "detail": "Recorded: 23 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 17,
-        "matched": 17,
+        "cells": 23,
+        "matched": 23,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3224,14 +3227,15 @@
       "code": "DSTDEVP"
     },
     "FUNC.DSUM": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3 recorded answers",
-      "detail": "Recorded: 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 4 recorded calls; the rest match",
+      "detail": "Of 4 recorded answers (4 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 3,
+        "cells": 4,
         "matched": 3,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3241,19 +3245,19 @@
     "FUNC.DURATION": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 177 of 7,890 recorded answers differ in the last bits, worst 3 ULP",
+      "summary": "Close: 25 of 7,890 recorded answers differ in the last bits, worst 2 ULP",
       "detail": "Everything else matches (7,884 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 7884,
-        "matched": 7707,
-        "worst_ulp": 3,
+        "matched": 7859,
+        "worst_ulp": 2,
         "excel_builds": [
           "20131",
           "20228",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 177,
+        "last_bit": 25,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3379,12 +3383,12 @@
     "FUNC.ENCODEURL": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 130 recorded answers",
-      "detail": "Recorded: 130 workbook cells.",
+      "summary": "Matches all 133 recorded answers",
+      "detail": "Recorded: 133 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 130,
-        "matched": 130,
+        "cells": 133,
+        "matched": 133,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3521,8 +3525,8 @@
     "FUNC.ERROR.TYPE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,268 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 41 workbook cells.",
+      "summary": "Matches all 1,276 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 49 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -3537,8 +3541,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 41,
-        "matched": 41,
+        "cells": 49,
+        "matched": 49,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3602,12 +3606,12 @@
     "FUNC.EXACT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 49 recorded answers",
-      "detail": "Recorded: 49 workbook cells.",
+      "summary": "Matches all 62 recorded answers",
+      "detail": "Recorded: 62 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 49,
-        "matched": 49,
+        "cells": 62,
+        "matched": 62,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3615,14 +3619,14 @@
       "code": "EXACT"
     },
     "FUNC.EXP": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,717 recorded answers",
-      "detail": "Recorded: 2,456 in the answer bank and 261 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 1 of 2,717 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (2,456 in the answer bank and 261 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 2456,
-        "matched": 2456,
-        "worst_ulp": 0,
+        "matched": 2455,
+        "worst_ulp": 1,
         "excel_builds": [
           "20131",
           "20228",
@@ -3631,7 +3635,7 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 0,
+        "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3648,12 +3652,12 @@
     "FUNC.EXPAND": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 23 recorded answers",
-      "detail": "Recorded: 23 workbook cells.",
+      "summary": "Matches all 25 recorded answers",
+      "detail": "Recorded: 25 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 23,
-        "matched": 23,
+        "cells": 25,
+        "matched": 25,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3807,18 +3811,18 @@
     "FUNC.F.TEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 57 of 84 recorded answers",
-      "detail": "Of 84 recorded answers (78 in the answer bank and 6 workbook cells), 57 do not match: 13 differ by more than 16 ULP, 44 differ by at most 16 ULP.",
+      "summary": "Known differences on 52 of 84 recorded answers",
+      "detail": "Of 84 recorded answers (78 in the answer bank and 6 workbook cells), 52 do not match: 13 differ by more than 16 ULP, 39 differ by at most 16 ULP.",
       "bank": {
         "rows": 78,
-        "matched": 21,
-        "worst_ulp": 1767616520413419,
+        "matched": 26,
+        "worst_ulp": 11,
         "excel_builds": [
           "20131",
           "20228"
         ],
         "larger_numeric": 13,
-        "last_bit": 44,
+        "last_bit": 39,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -3976,12 +3980,12 @@
     "FUNC.FILTERXML": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 83 recorded answers",
-      "detail": "Recorded: 83 workbook cells.",
+      "summary": "Matches all 87 recorded answers",
+      "detail": "Recorded: 87 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 83,
-        "matched": 83,
+        "cells": 87,
+        "matched": 87,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -3991,12 +3995,12 @@
     "FUNC.FIND": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 49 recorded answers",
-      "detail": "Recorded: 49 workbook cells.",
+      "summary": "Matches all 56 recorded answers",
+      "detail": "Recorded: 56 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 49,
-        "matched": 49,
+        "cells": 56,
+        "matched": 56,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -4006,12 +4010,12 @@
     "FUNC.FINDB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 6 recorded answers",
-      "detail": "Recorded: 6 workbook cells.",
+      "summary": "Matches all 7 recorded answers",
+      "detail": "Recorded: 7 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 7,
+        "matched": 7,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -4092,8 +4096,8 @@
     "FUNC.FIXED": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,000 recorded answers",
-      "detail": "Recorded: 989 in the answer bank and 11 workbook cells.",
+      "summary": "Matches all 1,008 recorded answers",
+      "detail": "Recorded: 989 in the answer bank and 19 workbook cells.",
       "bank": {
         "rows": 989,
         "matched": 989,
@@ -4108,8 +4112,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 11,
-        "matched": 11,
+        "cells": 19,
+        "matched": 19,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -4238,15 +4242,15 @@
     "FUNC.FORECAST.ETS": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "10 last-bit differences and 292 refusals in 1,100 recorded answers",
-      "detail": "Of 1,100 recorded answers (1,100 workbook cells), 302 do not match: 10 differ by at most 16 ULP, 292 are refused.",
+      "summary": "11 last-bit differences and 150 refusals in 1,100 recorded answers",
+      "detail": "Of 1,100 recorded answers (1,100 workbook cells), 161 do not match: 11 differ by at most 16 ULP, 150 are refused.",
       "bank": null,
       "corpus": {
         "cells": 1100,
-        "refused": 292,
-        "matched": 798,
-        "last_bit": 10,
-        "worst_ulp": 1
+        "refused": 150,
+        "matched": 939,
+        "last_bit": 11,
+        "worst_ulp": 2
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -4255,14 +4259,14 @@
     "FUNC.FORECAST.ETS.CONFINT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "12 last-bit differences and 292 refusals in 1,100 recorded answers",
-      "detail": "Of 1,100 recorded answers (1,100 workbook cells), 304 do not match: 12 differ by at most 16 ULP, 292 are refused.",
+      "summary": "13 last-bit differences and 150 refusals in 1,100 recorded answers",
+      "detail": "Of 1,100 recorded answers (1,100 workbook cells), 163 do not match: 13 differ by at most 16 ULP, 150 are refused.",
       "bank": null,
       "corpus": {
         "cells": 1100,
-        "refused": 292,
-        "matched": 796,
-        "last_bit": 12,
+        "refused": 150,
+        "matched": 937,
+        "last_bit": 13,
         "worst_ulp": 4
       },
       "host_evidence": null,
@@ -4286,16 +4290,15 @@
       "code": "FORECAST.ETS.SEASONALITY"
     },
     "FUNC.FORECAST.ETS.STAT": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "9 last-bit differences and 72 refusals in 1,940 recorded answers",
-      "detail": "Of 1,940 recorded answers (1,940 workbook cells), 81 do not match: 9 differ by at most 16 ULP, 72 are refused.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 12 of 1,940 recorded answers differ in the last bits, worst 11 ULP",
+      "detail": "Everything else matches (1,940 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": null,
       "corpus": {
         "cells": 1940,
-        "refused": 72,
-        "matched": 1859,
-        "last_bit": 9,
+        "matched": 1928,
+        "last_bit": 12,
         "worst_ulp": 11
       },
       "host_evidence": null,
@@ -4366,11 +4369,11 @@
     "FUNC.FV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 2 of 2,567 recorded answers",
-      "detail": "Of 2,567 recorded answers (2,561 in the answer bank and 6 workbook cells), 2 do not match: 1 differ by more than 16 ULP, 1 differ by at most 16 ULP.",
+      "summary": "Known differences on 3 of 2,567 recorded answers",
+      "detail": "Of 2,567 recorded answers (2,561 in the answer bank and 6 workbook cells), 3 do not match: 2 differ by more than 16 ULP, 1 differ by at most 16 ULP.",
       "bank": {
         "rows": 2561,
-        "matched": 2559,
+        "matched": 2558,
         "worst_ulp": 100663296,
         "excel_builds": [
           "20131",
@@ -4379,7 +4382,7 @@
           "20527",
           "?"
         ],
-        "larger_numeric": 1,
+        "larger_numeric": 2,
         "last_bit": 1,
         "other_mismatch": 0,
         "refused": 0,
@@ -4441,11 +4444,11 @@
     "FUNC.GAMMA.DIST": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 172 of 78,071 recorded answers differ in the last bits, worst 8 ULP",
+      "summary": "Close: 162 of 78,071 recorded answers differ in the last bits, worst 8 ULP",
       "detail": "Everything else matches (77,975 in the answer bank and 96 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 77975,
-        "matched": 77804,
+        "matched": 77814,
         "worst_ulp": 8,
         "excel_builds": [
           "20131",
@@ -4454,7 +4457,7 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 171,
+        "last_bit": 161,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -4463,7 +4466,7 @@
         "cells": 96,
         "matched": 95,
         "last_bit": 1,
-        "worst_ulp": 5
+        "worst_ulp": 1
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -4472,18 +4475,18 @@
     "FUNC.GAMMA.INV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 146 of 209 recorded answers",
-      "detail": "Of 209 recorded answers (204 in the answer bank and 5 workbook cells), 146 do not match: 7 differ by more than 16 ULP, 139 differ by at most 16 ULP.",
+      "summary": "Known differences on 134 of 209 recorded answers",
+      "detail": "Of 209 recorded answers (204 in the answer bank and 5 workbook cells), 134 do not match: 7 differ by more than 16 ULP, 127 differ by at most 16 ULP.",
       "bank": {
         "rows": 204,
-        "matched": 59,
+        "matched": 71,
         "worst_ulp": 55,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 7,
-        "last_bit": 138,
+        "last_bit": 126,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -4770,8 +4773,8 @@
     "FUNC.HARMEAN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 19,478 recorded answers",
-      "detail": "Recorded: 19,214 in the answer bank and 264 workbook cells.",
+      "summary": "Matches all 19,480 recorded answers",
+      "detail": "Recorded: 19,214 in the answer bank and 266 workbook cells.",
       "bank": {
         "rows": 19214,
         "matched": 19214,
@@ -4786,8 +4789,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 264,
-        "matched": 264,
+        "cells": 266,
+        "matched": 266,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -4911,12 +4914,12 @@
     "FUNC.HLOOKUP": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 30 recorded answers",
-      "detail": "Recorded: 30 workbook cells.",
+      "summary": "Matches all 35 recorded answers",
+      "detail": "Recorded: 35 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 31,
-        "matched": 30,
+        "cells": 36,
+        "matched": 35,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -5043,12 +5046,12 @@
     "FUNC.IF": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 187 recorded answers",
-      "detail": "Recorded: 187 workbook cells.",
+      "summary": "Matches all 210 recorded answers",
+      "detail": "Recorded: 210 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 187,
-        "matched": 187,
+        "cells": 210,
+        "matched": 210,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5058,12 +5061,12 @@
     "FUNC.IFERROR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 156 recorded answers",
-      "detail": "Recorded: 156 workbook cells.",
+      "summary": "Matches all 161 recorded answers",
+      "detail": "Recorded: 161 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 156,
-        "matched": 156,
+        "cells": 161,
+        "matched": 161,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5073,12 +5076,12 @@
     "FUNC.IFNA": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 95 recorded answers",
-      "detail": "Recorded: 95 workbook cells.",
+      "summary": "Matches all 99 recorded answers",
+      "detail": "Recorded: 99 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 95,
-        "matched": 95,
+        "cells": 99,
+        "matched": 99,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5088,8 +5091,8 @@
     "FUNC.IFS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,254 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 42 workbook cells.",
+      "summary": "Matches all 1,268 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 56 workbook cells.",
       "bank": {
         "rows": 1212,
         "matched": 1212,
@@ -5104,8 +5107,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 42,
-        "matched": 42,
+        "cells": 56,
+        "matched": 56,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5115,8 +5118,8 @@
     "FUNC.IMABS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 1,213 recorded answers",
+      "detail": "Recorded: 1,209 in the answer bank and 4 workbook cells.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5131,8 +5134,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 4,
+        "matched": 4,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5158,8 +5161,8 @@
     "FUNC.IMAGINARY": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 1,233 recorded answers",
+      "detail": "Recorded: 1,209 in the answer bank and 24 workbook cells.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5174,8 +5177,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 24,
+        "matched": 24,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5185,8 +5188,8 @@
     "FUNC.IMARGUMENT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 1,233 recorded answers",
+      "detail": "Recorded: 1,209 in the answer bank and 24 workbook cells.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5201,8 +5204,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 24,
+        "matched": 24,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5212,8 +5215,8 @@
     "FUNC.IMCONJUGATE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3,248 recorded answers",
-      "detail": "Recorded: 3,245 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 3,271 recorded answers",
+      "detail": "Recorded: 3,245 in the answer bank and 26 workbook cells.",
       "bank": {
         "rows": 3245,
         "matched": 3245,
@@ -5228,8 +5231,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 26,
+        "matched": 26,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5239,8 +5242,8 @@
     "FUNC.IMCOS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 1,232 recorded answers",
+      "detail": "Recorded: 1,209 in the answer bank and 23 workbook cells.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5255,8 +5258,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 23,
+        "matched": 23,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5291,10 +5294,10 @@
       "code": "IMCOSH"
     },
     "FUNC.IMCOT": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Known differences on 8 of 1,233 recorded answers",
+      "detail": "Of 1,233 recorded answers (1,209 in the answer bank and 24 workbook cells), 8 do not match: 8 differ in kind or value.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5309,8 +5312,9 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 24,
+        "matched": 16,
+        "other_mismatch": 8,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5374,8 +5378,8 @@
     "FUNC.IMDIV": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,071 recorded answers",
-      "detail": "Recorded: 2,067 in the answer bank and 4 workbook cells.",
+      "summary": "Matches all 2,093 recorded answers",
+      "detail": "Recorded: 2,067 in the answer bank and 26 workbook cells.",
       "bank": {
         "rows": 2067,
         "matched": 2067,
@@ -5390,8 +5394,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 4,
-        "matched": 4,
+        "cells": 26,
+        "matched": 26,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5416,8 +5420,8 @@
     "FUNC.IMLN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 1,213 recorded answers",
+      "detail": "Recorded: 1,209 in the answer bank and 4 workbook cells.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5432,8 +5436,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 4,
+        "matched": 4,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5529,12 +5533,12 @@
     "FUNC.IMPOWER": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 4 recorded answers",
-      "detail": "Recorded: 4 workbook cells.",
+      "summary": "Matches all 6 recorded answers",
+      "detail": "Recorded: 6 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 4,
-        "matched": 4,
+        "cells": 6,
+        "matched": 6,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5544,8 +5548,8 @@
     "FUNC.IMPRODUCT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3,266 recorded answers",
-      "detail": "Recorded: 3,260 in the answer bank and 6 workbook cells.",
+      "summary": "Matches all 3,289 recorded answers",
+      "detail": "Recorded: 3,260 in the answer bank and 29 workbook cells.",
       "bank": {
         "rows": 3260,
         "matched": 3260,
@@ -5560,8 +5564,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 29,
+        "matched": 29,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5571,8 +5575,8 @@
     "FUNC.IMREAL": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,228 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 19 workbook cells.",
+      "summary": "Matches all 1,249 recorded answers",
+      "detail": "Recorded: 1,209 in the answer bank and 40 workbook cells.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5587,8 +5591,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 19,
-        "matched": 19,
+        "cells": 40,
+        "matched": 40,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5640,8 +5644,8 @@
     "FUNC.IMSIN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 1,232 recorded answers",
+      "detail": "Recorded: 1,209 in the answer bank and 23 workbook cells.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5656,8 +5660,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 23,
+        "matched": 23,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5694,8 +5698,8 @@
     "FUNC.IMSQRT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,032 recorded answers",
-      "detail": "Recorded: 2,029 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 2,072 recorded answers",
+      "detail": "Recorded: 2,029 in the answer bank and 43 workbook cells.",
       "bank": {
         "rows": 2029,
         "matched": 2029,
@@ -5710,8 +5714,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 43,
+        "matched": 43,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5748,8 +5752,8 @@
     "FUNC.IMSUM": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 3,266 recorded answers",
-      "detail": "Recorded: 3,260 in the answer bank and 6 workbook cells.",
+      "summary": "Matches all 3,289 recorded answers",
+      "detail": "Recorded: 3,260 in the answer bank and 29 workbook cells.",
       "bank": {
         "rows": 3260,
         "matched": 3260,
@@ -5764,8 +5768,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 29,
+        "matched": 29,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5773,10 +5777,10 @@
       "code": "IMSUM"
     },
     "FUNC.IMTAN": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,212 recorded answers",
-      "detail": "Recorded: 1,209 in the answer bank and 3 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Known differences on 2 of 1,233 recorded answers",
+      "detail": "Of 1,233 recorded answers (1,209 in the answer bank and 24 workbook cells), 2 do not match: 2 differ in kind or value.",
       "bank": {
         "rows": 1209,
         "matched": 1209,
@@ -5791,8 +5795,9 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 24,
+        "matched": 22,
+        "other_mismatch": 2,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -5802,12 +5807,12 @@
     "FUNC.INDEX": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 24 of 12,437 recorded answers",
-      "detail": "Of 12,437 recorded answers (12,437 workbook cells), 24 do not match: 24 differ in kind or value.",
+      "summary": "Known differences on 24 of 12,448 recorded answers",
+      "detail": "Of 12,448 recorded answers (12,448 workbook cells), 24 do not match: 24 differ in kind or value.",
       "bank": null,
       "corpus": {
-        "cells": 12440,
-        "matched": 12413,
+        "cells": 12451,
+        "matched": 12424,
         "other_mismatch": 24,
         "pending": 3,
         "worst_ulp": 0
@@ -5819,12 +5824,12 @@
     "FUNC.INDIRECT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 174 recorded answers",
-      "detail": "Recorded: 174 workbook cells.",
+      "summary": "Matches all 177 recorded answers",
+      "detail": "Recorded: 177 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 176,
-        "matched": 174,
+        "cells": 179,
+        "matched": 177,
         "pending": 2,
         "worst_ulp": 0
       },
@@ -5960,11 +5965,11 @@
     "FUNC.IRR": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 207 of 765 recorded answers",
-      "detail": "Of 765 recorded answers (734 in the answer bank and 31 workbook cells), 207 do not match: 28 differ by more than 16 ULP, 174 differ by at most 16 ULP, 5 differ in kind or value.",
+      "summary": "Known differences on 191 of 765 recorded answers",
+      "detail": "Of 765 recorded answers (734 in the answer bank and 31 workbook cells), 191 do not match: 28 differ by more than 16 ULP, 158 differ by at most 16 ULP, 5 differ in kind or value.",
       "bank": {
         "rows": 734,
-        "matched": 533,
+        "matched": 549,
         "worst_ulp": 1024,
         "excel_builds": [
           "20131",
@@ -5972,7 +5977,7 @@
           "?"
         ],
         "larger_numeric": 28,
-        "last_bit": 171,
+        "last_bit": 155,
         "other_mismatch": 2,
         "refused": 0,
         "unread": 0
@@ -5991,8 +5996,8 @@
     "FUNC.ISBLANK": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,585 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 358 workbook cells.",
+      "summary": "Matches all 1,591 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 364 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6007,8 +6012,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 359,
-        "matched": 358,
+        "cells": 365,
+        "matched": 364,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -6019,8 +6024,8 @@
     "FUNC.ISERR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,248 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 21 workbook cells.",
+      "summary": "Matches all 1,251 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 24 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6035,8 +6040,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 21,
-        "matched": 21,
+        "cells": 24,
+        "matched": 24,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6046,8 +6051,8 @@
     "FUNC.ISERROR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,249 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 22 workbook cells.",
+      "summary": "Matches all 1,253 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 26 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6062,8 +6067,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 23,
-        "matched": 22,
+        "cells": 27,
+        "matched": 26,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -6074,8 +6079,8 @@
     "FUNC.ISEVEN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 57,224 recorded answers",
-      "detail": "Recorded: 57,066 in the answer bank and 158 workbook cells.",
+      "summary": "Matches all 57,228 recorded answers",
+      "detail": "Recorded: 57,066 in the answer bank and 162 workbook cells.",
       "bank": {
         "rows": 57066,
         "matched": 57066,
@@ -6090,8 +6095,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 158,
-        "matched": 158,
+        "cells": 162,
+        "matched": 162,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6117,8 +6122,8 @@
     "FUNC.ISLOGICAL": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,238 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 11 workbook cells.",
+      "summary": "Matches all 1,242 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 15 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6133,8 +6138,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 11,
-        "matched": 11,
+        "cells": 15,
+        "matched": 15,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6144,8 +6149,8 @@
     "FUNC.ISNA": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,240 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 13 workbook cells.",
+      "summary": "Matches all 1,243 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 16 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6160,8 +6165,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 14,
-        "matched": 13,
+        "cells": 17,
+        "matched": 16,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -6172,8 +6177,8 @@
     "FUNC.ISNONTEXT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,237 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 10 workbook cells.",
+      "summary": "Matches all 1,242 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 15 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6188,8 +6193,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 10,
-        "matched": 10,
+        "cells": 15,
+        "matched": 15,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6199,8 +6204,8 @@
     "FUNC.ISNUMBER": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,256 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 29 workbook cells.",
+      "summary": "Matches all 1,263 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 36 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6215,8 +6220,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 29,
-        "matched": 29,
+        "cells": 36,
+        "matched": 36,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6253,8 +6258,8 @@
     "FUNC.ISODD": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 57,163 recorded answers",
-      "detail": "Recorded: 57,016 in the answer bank and 147 workbook cells.",
+      "summary": "Matches all 57,167 recorded answers",
+      "detail": "Recorded: 57,016 in the answer bank and 151 workbook cells.",
       "bank": {
         "rows": 57016,
         "matched": 57016,
@@ -6269,8 +6274,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 147,
-        "matched": 147,
+        "cells": 151,
+        "matched": 151,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6280,12 +6285,12 @@
     "FUNC.ISOMITTED": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 5 recorded answers",
-      "detail": "Recorded: 5 workbook cells.",
+      "summary": "Matches all 9 recorded answers",
+      "detail": "Recorded: 9 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 5,
-        "matched": 5,
+        "cells": 9,
+        "matched": 9,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6337,8 +6342,8 @@
     "FUNC.ISREF": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,252 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 25 workbook cells.",
+      "summary": "Matches all 1,255 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 28 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6353,8 +6358,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 31,
-        "matched": 25,
+        "cells": 34,
+        "matched": 28,
         "pending": 6,
         "worst_ulp": 0
       },
@@ -6365,8 +6370,8 @@
     "FUNC.ISTEXT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,240 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 13 workbook cells.",
+      "summary": "Matches all 1,244 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 17 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -6381,8 +6386,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 13,
-        "matched": 13,
+        "cells": 17,
+        "matched": 17,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6503,12 +6508,12 @@
     "FUNC.LEFT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 99 recorded answers",
-      "detail": "Recorded: 99 workbook cells.",
+      "summary": "Matches all 105 recorded answers",
+      "detail": "Recorded: 105 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 99,
-        "matched": 99,
+        "cells": 105,
+        "matched": 105,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6518,12 +6523,12 @@
     "FUNC.LEFTB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 35 recorded answers",
-      "detail": "Recorded: 35 workbook cells.",
+      "summary": "Matches all 36 recorded answers",
+      "detail": "Recorded: 36 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 35,
-        "matched": 35,
+        "cells": 36,
+        "matched": 36,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6533,12 +6538,12 @@
     "FUNC.LEN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 84 recorded answers",
-      "detail": "Recorded: 84 workbook cells.",
+      "summary": "Matches all 89 recorded answers",
+      "detail": "Recorded: 89 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 84,
-        "matched": 84,
+        "cells": 89,
+        "matched": 89,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6548,12 +6553,12 @@
     "FUNC.LENB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 28 recorded answers",
-      "detail": "Recorded: 28 workbook cells.",
+      "summary": "Matches all 29 recorded answers",
+      "detail": "Recorded: 29 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 28,
-        "matched": 28,
+        "cells": 29,
+        "matched": 29,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6594,14 +6599,14 @@
       "code": "LINEST"
     },
     "FUNC.LN": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,856 recorded answers",
-      "detail": "Recorded: 1,685 in the answer bank and 171 workbook cells.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 13 of 1,856 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (1,685 in the answer bank and 171 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 1685,
-        "matched": 1685,
-        "worst_ulp": 0,
+        "matched": 1672,
+        "worst_ulp": 1,
         "excel_builds": [
           "20131",
           "20228",
@@ -6610,7 +6615,7 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 0,
+        "last_bit": 13,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -6812,11 +6817,11 @@
     "FUNC.LOWER": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 13 recorded answers",
-      "detail": "Recorded: 6 in the answer bank and 7 workbook cells.",
+      "summary": "Matches all 21 recorded answers",
+      "detail": "Recorded: 12 in the answer bank and 9 workbook cells.",
       "bank": {
-        "rows": 6,
-        "matched": 6,
+        "rows": 12,
+        "matched": 12,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -6828,8 +6833,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 9,
+        "matched": 9,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6839,12 +6844,12 @@
     "FUNC.MAKEARRAY": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 11 recorded answers",
-      "detail": "Recorded: 11 workbook cells.",
+      "summary": "Matches all 14 recorded answers",
+      "detail": "Recorded: 14 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 11,
-        "matched": 11,
+        "cells": 14,
+        "matched": 14,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6854,12 +6859,12 @@
     "FUNC.MAP": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 35 recorded answers",
-      "detail": "Recorded: 35 workbook cells.",
+      "summary": "Matches all 36 recorded answers",
+      "detail": "Recorded: 36 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 35,
-        "matched": 35,
+        "cells": 36,
+        "matched": 36,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6869,8 +6874,8 @@
     "FUNC.MATCH": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 156 recorded answers",
-      "detail": "Recorded: 13 in the answer bank and 143 workbook cells.",
+      "summary": "Matches all 162 recorded answers",
+      "detail": "Recorded: 13 in the answer bank and 149 workbook cells.",
       "bank": {
         "rows": 13,
         "matched": 13,
@@ -6885,8 +6890,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 144,
-        "matched": 143,
+        "cells": 150,
+        "matched": 149,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -6897,8 +6902,8 @@
     "FUNC.MAX": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,236 recorded answers",
-      "detail": "Recorded: 1,211 in the answer bank and 25 workbook cells.",
+      "summary": "Matches all 1,242 recorded answers",
+      "detail": "Recorded: 1,211 in the answer bank and 31 workbook cells.",
       "bank": {
         "rows": 1211,
         "matched": 1211,
@@ -6913,8 +6918,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 25,
-        "matched": 25,
+        "cells": 31,
+        "matched": 31,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6924,8 +6929,8 @@
     "FUNC.MAXA": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,228 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 16 workbook cells.",
+      "summary": "Matches all 1,231 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 19 workbook cells.",
       "bank": {
         "rows": 1212,
         "matched": 1212,
@@ -6940,8 +6945,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 16,
-        "matched": 16,
+        "cells": 19,
+        "matched": 19,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -6981,18 +6986,18 @@
     "FUNC.MDURATION": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 147 of 1,266 recorded answers differ in the last bits, worst 3 ULP",
+      "summary": "Close: 22 of 1,266 recorded answers differ in the last bits, worst 2 ULP",
       "detail": "Everything else matches (1,260 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 1260,
-        "matched": 1113,
-        "worst_ulp": 3,
+        "matched": 1238,
+        "worst_ulp": 2,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 147,
+        "last_bit": 22,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -7036,12 +7041,12 @@
     "FUNC.MID": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 51 recorded answers",
-      "detail": "Recorded: 51 workbook cells.",
+      "summary": "Matches all 59 recorded answers",
+      "detail": "Recorded: 59 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 51,
-        "matched": 51,
+        "cells": 59,
+        "matched": 59,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -7051,12 +7056,12 @@
     "FUNC.MIDB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 46 recorded answers",
-      "detail": "Recorded: 46 workbook cells.",
+      "summary": "Matches all 47 recorded answers",
+      "detail": "Recorded: 47 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 46,
-        "matched": 46,
+        "cells": 47,
+        "matched": 47,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -7064,6 +7069,34 @@
       "code": "MIDB"
     },
     "FUNC.MIN": {
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 1,234 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 22 workbook cells.",
+      "bank": {
+        "rows": 1212,
+        "matched": 1212,
+        "worst_ulp": 0,
+        "excel_builds": [
+          "20430"
+        ],
+        "larger_numeric": 0,
+        "last_bit": 0,
+        "other_mismatch": 0,
+        "refused": 0,
+        "unread": 0
+      },
+      "corpus": {
+        "cells": 23,
+        "matched": 22,
+        "pending": 1,
+        "worst_ulp": 0
+      },
+      "host_evidence": null,
+      "in_catalogue": true,
+      "code": "MIN"
+    },
+    "FUNC.MINA": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
       "summary": "Matches all 1,230 recorded answers",
@@ -7082,36 +7115,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 19,
+        "cells": 18,
         "matched": 18,
-        "pending": 1,
-        "worst_ulp": 0
-      },
-      "host_evidence": null,
-      "in_catalogue": true,
-      "code": "MIN"
-    },
-    "FUNC.MINA": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,227 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 15 workbook cells.",
-      "bank": {
-        "rows": 1212,
-        "matched": 1212,
-        "worst_ulp": 0,
-        "excel_builds": [
-          "20430"
-        ],
-        "larger_numeric": 0,
-        "last_bit": 0,
-        "other_mismatch": 0,
-        "refused": 0,
-        "unread": 0
-      },
-      "corpus": {
-        "cells": 15,
-        "matched": 15,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -7378,8 +7383,8 @@
     "FUNC.N": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Refuses 1 of 1,385 recorded calls; the rest match",
-      "detail": "Of 1,385 recorded answers (1,227 in the answer bank and 158 workbook cells), 1 do not match: 1 are refused.",
+      "summary": "Refuses 1 of 1,396 recorded calls; the rest match",
+      "detail": "Of 1,396 recorded answers (1,227 in the answer bank and 169 workbook cells), 1 do not match: 1 are refused.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -7394,8 +7399,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 159,
-        "matched": 157,
+        "cells": 170,
+        "matched": 168,
         "refused": 1,
         "pending": 1,
         "worst_ulp": 0
@@ -7407,8 +7412,8 @@
     "FUNC.NA": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 4 recorded answers",
-      "detail": "Recorded: 1 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 5 recorded answers",
+      "detail": "Recorded: 1 in the answer bank and 4 workbook cells.",
       "bank": {
         "rows": 1,
         "matched": 1,
@@ -7423,8 +7428,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 3,
-        "matched": 3,
+        "cells": 4,
+        "matched": 4,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -7732,8 +7737,8 @@
     "FUNC.NOT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,589 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 362 workbook cells.",
+      "summary": "Matches all 1,599 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 372 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -7748,8 +7753,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 362,
-        "matched": 362,
+        "cells": 372,
+        "matched": 372,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -7802,20 +7807,20 @@
       "code": "NPER"
     },
     "FUNC.NPV": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 94 of 294 recorded answers differ in the last bits, worst 2 ULP",
-      "detail": "Everything else matches (284 in the answer bank and 10 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 294 recorded answers",
+      "detail": "Recorded: 284 in the answer bank and 10 workbook cells.",
       "bank": {
         "rows": 284,
-        "matched": 190,
-        "worst_ulp": 2,
+        "matched": 284,
+        "worst_ulp": 0,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 94,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -7832,12 +7837,12 @@
     "FUNC.NUMBERVALUE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8 recorded answers",
-      "detail": "Recorded: 8 workbook cells.",
+      "summary": "Matches all 15 recorded answers",
+      "detail": "Recorded: 15 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 8,
-        "matched": 8,
+        "cells": 15,
+        "matched": 15,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -8016,12 +8021,12 @@
     "FUNC.OFFSET": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 9 recorded answers",
+      "detail": "Recorded: 9 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 8,
-        "matched": 7,
+        "cells": 10,
+        "matched": 9,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -8202,12 +8207,12 @@
     "FUNC.OP_NEGATE": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 1 of 2,661 recorded answers",
-      "detail": "Of 2,661 recorded answers (2,661 workbook cells), 1 do not match: 1 differ in kind or value.",
+      "summary": "Known differences on 1 of 2,697 recorded answers",
+      "detail": "Of 2,697 recorded answers (2,697 workbook cells), 1 do not match: 1 differ in kind or value.",
       "bank": null,
       "corpus": {
-        "cells": 2661,
-        "matched": 2660,
+        "cells": 2697,
+        "matched": 2696,
         "other_mismatch": 1
       },
       "host_evidence": null,
@@ -8378,8 +8383,8 @@
     "FUNC.OR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,247 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 35 workbook cells.",
+      "summary": "Matches all 1,260 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 48 workbook cells.",
       "bank": {
         "rows": 1212,
         "matched": 1212,
@@ -8394,8 +8399,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 35,
-        "matched": 35,
+        "cells": 48,
+        "matched": 48,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -8739,11 +8744,11 @@
     "FUNC.POISSON.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 601 of 50,328 recorded answers",
-      "detail": "Of 50,328 recorded answers (49,710 in the answer bank and 618 workbook cells), 601 do not match: 4 differ by more than 16 ULP, 597 differ by at most 16 ULP.",
+      "summary": "Known differences on 595 of 50,328 recorded answers",
+      "detail": "Of 50,328 recorded answers (49,710 in the answer bank and 618 workbook cells), 595 do not match: 4 differ by more than 16 ULP, 591 differ by at most 16 ULP.",
       "bank": {
         "rows": 49714,
-        "matched": 49159,
+        "matched": 49162,
         "worst_ulp": 7,
         "excel_builds": [
           "20131",
@@ -8752,15 +8757,15 @@
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 551,
+        "last_bit": 548,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 4
       },
       "corpus": {
         "cells": 618,
-        "matched": 568,
-        "last_bit": 46,
+        "matched": 571,
+        "last_bit": 43,
         "larger_numeric": 4,
         "worst_ulp": 16
       },
@@ -8771,8 +8776,8 @@
     "FUNC.POWER": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 63,049 recorded answers",
-      "detail": "Recorded: 62,635 in the answer bank and 414 workbook cells.",
+      "summary": "Matches all 63,058 recorded answers",
+      "detail": "Recorded: 62,635 in the answer bank and 423 workbook cells.",
       "bank": {
         "rows": 62635,
         "matched": 62635,
@@ -8790,8 +8795,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 414,
-        "matched": 414,
+        "cells": 423,
+        "matched": 423,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -8928,8 +8933,8 @@
     "FUNC.PRODUCT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,245 recorded answers",
-      "detail": "Recorded: 1,211 in the answer bank and 34 workbook cells.",
+      "summary": "Matches all 1,252 recorded answers",
+      "detail": "Recorded: 1,211 in the answer bank and 41 workbook cells.",
       "bank": {
         "rows": 1211,
         "matched": 1211,
@@ -8944,8 +8949,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 34,
-        "matched": 34,
+        "cells": 41,
+        "matched": 41,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -8955,11 +8960,11 @@
     "FUNC.PROPER": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8 recorded answers",
-      "detail": "Recorded: 3 in the answer bank and 5 workbook cells.",
+      "summary": "Matches all 17 recorded answers",
+      "detail": "Recorded: 7 in the answer bank and 10 workbook cells.",
       "bank": {
-        "rows": 3,
-        "matched": 3,
+        "rows": 7,
+        "matched": 7,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -8971,8 +8976,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 5,
-        "matched": 5,
+        "cells": 10,
+        "matched": 10,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9269,12 +9274,12 @@
     "FUNC.REDUCE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 16 recorded answers",
-      "detail": "Recorded: 16 workbook cells.",
+      "summary": "Matches all 17 recorded answers",
+      "detail": "Recorded: 17 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 16,
-        "matched": 16,
+        "cells": 17,
+        "matched": 17,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9282,14 +9287,15 @@
       "code": "REDUCE"
     },
     "FUNC.REGEXEXTRACT": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 26 recorded answers",
-      "detail": "Recorded: 26 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 30 recorded calls; the rest match",
+      "detail": "Of 30 recorded answers (30 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 26,
-        "matched": 26,
+        "cells": 30,
+        "matched": 29,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9297,14 +9303,15 @@
       "code": "REGEXEXTRACT"
     },
     "FUNC.REGEXREPLACE": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8 recorded answers",
-      "detail": "Recorded: 8 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 12 recorded calls; the rest match",
+      "detail": "Of 12 recorded answers (12 workbook cells), 1 do not match: 1 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 8,
-        "matched": 8,
+        "cells": 12,
+        "matched": 11,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9312,13 +9319,13 @@
       "code": "REGEXREPLACE"
     },
     "FUNC.REGEXTEST": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 12 recorded answers",
-      "detail": "Recorded: 6 in the answer bank and 6 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 2 of 31 recorded calls; the rest match",
+      "detail": "Of 31 recorded answers (18 in the answer bank and 13 workbook cells), 2 do not match: 2 are refused.",
       "bank": {
-        "rows": 6,
-        "matched": 6,
+        "rows": 18,
+        "matched": 18,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -9330,8 +9337,9 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 13,
+        "matched": 11,
+        "refused": 2,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9357,12 +9365,12 @@
     "FUNC.REPLACE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 9 recorded answers",
-      "detail": "Recorded: 9 workbook cells.",
+      "summary": "Matches all 14 recorded answers",
+      "detail": "Recorded: 14 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 9,
-        "matched": 9,
+        "cells": 14,
+        "matched": 14,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9372,12 +9380,12 @@
     "FUNC.REPLACEB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 8 recorded answers",
+      "detail": "Recorded: 8 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 8,
+        "matched": 8,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9387,12 +9395,12 @@
     "FUNC.REPT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 15 recorded answers",
-      "detail": "Recorded: 15 workbook cells.",
+      "summary": "Matches all 20 recorded answers",
+      "detail": "Recorded: 20 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 15,
-        "matched": 15,
+        "cells": 20,
+        "matched": 20,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9402,12 +9410,12 @@
     "FUNC.RIGHT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 46 recorded answers",
-      "detail": "Recorded: 46 workbook cells.",
+      "summary": "Matches all 52 recorded answers",
+      "detail": "Recorded: 52 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 46,
-        "matched": 46,
+        "cells": 52,
+        "matched": 52,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9417,12 +9425,12 @@
     "FUNC.RIGHTB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 39 recorded answers",
-      "detail": "Recorded: 39 workbook cells.",
+      "summary": "Matches all 40 recorded answers",
+      "detail": "Recorded: 40 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 39,
-        "matched": 39,
+        "cells": 40,
+        "matched": 40,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9447,8 +9455,8 @@
     "FUNC.ROUND": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 26 of 37,518 recorded answers differ in the last bits, worst 16 ULP",
-      "detail": "Everything else matches (36,945 in the answer bank and 573 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "summary": "Close: 26 of 37,519 recorded answers differ in the last bits, worst 16 ULP",
+      "detail": "Everything else matches (36,945 in the answer bank and 574 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 36945,
         "matched": 36921,
@@ -9463,8 +9471,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 573,
-        "matched": 571,
+        "cells": 574,
+        "matched": 572,
         "last_bit": 2,
         "worst_ulp": 16
       },
@@ -9475,17 +9483,17 @@
     "FUNC.ROUNDDOWN": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 446 of 60,496 recorded answers",
-      "detail": "Of 60,496 recorded answers (59,995 in the answer bank and 501 workbook cells), 446 do not match: 200 differ by more than 16 ULP, 246 differ by at most 16 ULP.",
+      "summary": "Known differences on 102 of 60,496 recorded answers",
+      "detail": "Of 60,496 recorded answers (59,995 in the answer bank and 501 workbook cells), 102 do not match: 102 differ by more than 16 ULP.",
       "bank": {
         "rows": 59995,
-        "matched": 59549,
-        "worst_ulp": 86,
+        "matched": 59893,
+        "worst_ulp": 10,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 200,
-        "last_bit": 246,
+        "larger_numeric": 102,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -9502,17 +9510,17 @@
     "FUNC.ROUNDUP": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 446 of 53,348 recorded answers",
-      "detail": "Of 53,348 recorded answers (52,841 in the answer bank and 507 workbook cells), 446 do not match: 200 differ by more than 16 ULP, 246 differ by at most 16 ULP.",
+      "summary": "Known differences on 102 of 53,348 recorded answers",
+      "detail": "Of 53,348 recorded answers (52,841 in the answer bank and 507 workbook cells), 102 do not match: 102 differ by more than 16 ULP.",
       "bank": {
         "rows": 52841,
-        "matched": 52395,
-        "worst_ulp": 86,
+        "matched": 52739,
+        "worst_ulp": 10,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 200,
-        "last_bit": 246,
+        "larger_numeric": 102,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -9527,14 +9535,15 @@
       "code": "ROUNDUP"
     },
     "FUNC.ROW": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 11 recorded answers",
-      "detail": "Recorded: 11 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Known differences on 1 of 12 recorded answers",
+      "detail": "Of 12 recorded answers (12 workbook cells), 1 do not match: 1 differ by more than 16 ULP.",
       "bank": null,
       "corpus": {
-        "cells": 12,
+        "cells": 13,
         "matched": 11,
+        "larger_numeric": 1,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -9545,12 +9554,12 @@
     "FUNC.ROWS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 975 recorded answers",
-      "detail": "Recorded: 975 workbook cells.",
+      "summary": "Matches all 985 recorded answers",
+      "detail": "Recorded: 985 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 979,
-        "matched": 975,
+        "cells": 989,
+        "matched": 985,
         "pending": 4,
         "worst_ulp": 0
       },
@@ -9620,12 +9629,12 @@
     "FUNC.SCAN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 21 recorded answers",
-      "detail": "Recorded: 21 workbook cells.",
+      "summary": "Matches all 22 recorded answers",
+      "detail": "Recorded: 22 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 21,
-        "matched": 21,
+        "cells": 22,
+        "matched": 22,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9635,12 +9644,12 @@
     "FUNC.SEARCH": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 58 recorded answers",
-      "detail": "Recorded: 58 workbook cells.",
+      "summary": "Matches all 66 recorded answers",
+      "detail": "Recorded: 66 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 58,
-        "matched": 58,
+        "cells": 66,
+        "matched": 66,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9650,12 +9659,12 @@
     "FUNC.SEARCHB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 6 recorded answers",
-      "detail": "Recorded: 6 workbook cells.",
+      "summary": "Matches all 7 recorded answers",
+      "detail": "Recorded: 7 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 7,
+        "matched": 7,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9748,12 +9757,12 @@
     "FUNC.SEQUENCE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 52 recorded answers",
-      "detail": "Recorded: 52 workbook cells.",
+      "summary": "Matches all 60 recorded answers",
+      "detail": "Recorded: 60 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 52,
-        "matched": 52,
+        "cells": 60,
+        "matched": 60,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9763,12 +9772,12 @@
     "FUNC.SERIESSUM": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 8 recorded answers",
+      "detail": "Recorded: 8 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 8,
+        "matched": 8,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9808,8 +9817,8 @@
     "FUNC.SIGN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,365 recorded answers",
-      "detail": "Recorded: 1,226 in the answer bank and 139 workbook cells.",
+      "summary": "Matches all 1,368 recorded answers",
+      "detail": "Recorded: 1,226 in the answer bank and 142 workbook cells.",
       "bank": {
         "rows": 1226,
         "matched": 1226,
@@ -9824,8 +9833,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 139,
-        "matched": 139,
+        "cells": 142,
+        "matched": 142,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -9935,8 +9944,8 @@
     "FUNC.SLN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,211 recorded answers",
-      "detail": "Recorded: 1,205 in the answer bank and 6 workbook cells.",
+      "summary": "Matches all 1,236 recorded answers",
+      "detail": "Recorded: 1,205 in the answer bank and 31 workbook cells.",
       "bank": {
         "rows": 1205,
         "matched": 1205,
@@ -9951,8 +9960,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 6,
-        "matched": 6,
+        "cells": 31,
+        "matched": 31,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10143,8 +10152,8 @@
     "FUNC.STDEV.P": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,334 recorded answers",
-      "detail": "Recorded: 1,221 in the answer bank and 113 workbook cells.",
+      "summary": "Matches all 1,335 recorded answers",
+      "detail": "Recorded: 1,221 in the answer bank and 114 workbook cells.",
       "bank": {
         "rows": 1221,
         "matched": 1221,
@@ -10160,8 +10169,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 113,
-        "matched": 113,
+        "cells": 114,
+        "matched": 114,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10306,12 +10315,12 @@
     "FUNC.SUBSTITUTE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 11 recorded answers",
-      "detail": "Recorded: 11 workbook cells.",
+      "summary": "Matches all 21 recorded answers",
+      "detail": "Recorded: 21 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 11,
-        "matched": 11,
+        "cells": 21,
+        "matched": 21,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10319,14 +10328,15 @@
       "code": "SUBSTITUTE"
     },
     "FUNC.SUBTOTAL": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 8 recorded answers",
-      "detail": "Recorded: 8 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 6 of 14 recorded calls; the rest match",
+      "detail": "Of 14 recorded answers (14 workbook cells), 6 do not match: 6 are refused.",
       "bank": null,
       "corpus": {
-        "cells": 9,
+        "cells": 15,
         "matched": 8,
+        "refused": 6,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -10335,10 +10345,10 @@
       "code": "SUBTOTAL"
     },
     "FUNC.SUM": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,370 recorded answers",
-      "detail": "Recorded: 1,211 in the answer bank and 159 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Refuses 1 of 1,383 recorded calls; the rest match",
+      "detail": "Of 1,383 recorded answers (1,211 in the answer bank and 172 workbook cells), 1 do not match: 1 are refused.",
       "bank": {
         "rows": 1211,
         "matched": 1211,
@@ -10353,9 +10363,10 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 168,
-        "matched": 159,
+        "cells": 181,
+        "matched": 171,
         "pending": 9,
+        "refused": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10397,12 +10408,12 @@
     "FUNC.SUMPRODUCT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 66 recorded answers",
-      "detail": "Recorded: 66 workbook cells.",
+      "summary": "Matches all 73 recorded answers",
+      "detail": "Recorded: 73 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 68,
-        "matched": 66,
+        "cells": 75,
+        "matched": 73,
         "pending": 2,
         "worst_ulp": 0
       },
@@ -10413,8 +10424,8 @@
     "FUNC.SUMSQ": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,238 recorded answers",
-      "detail": "Recorded: 1,211 in the answer bank and 27 workbook cells.",
+      "summary": "Matches all 1,243 recorded answers",
+      "detail": "Recorded: 1,211 in the answer bank and 32 workbook cells.",
       "bank": {
         "rows": 1211,
         "matched": 1211,
@@ -10429,8 +10440,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 27,
-        "matched": 27,
+        "cells": 32,
+        "matched": 32,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10483,64 +10494,10 @@
       "code": "SUMXMY2"
     },
     "FUNC.SWITCH": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known differences on 2 of 1,395 recorded answers",
-      "detail": "Of 1,395 recorded answers (1,227 in the answer bank and 168 workbook cells), 2 do not match: 2 differ by more than 16 ULP.",
-      "bank": {
-        "rows": 1227,
-        "matched": 1225,
-        "worst_ulp": 7318349394477056,
-        "excel_builds": [
-          "20430"
-        ],
-        "larger_numeric": 2,
-        "last_bit": 0,
-        "other_mismatch": 0,
-        "refused": 0,
-        "unread": 0
-      },
-      "corpus": {
-        "cells": 168,
-        "matched": 168,
-        "worst_ulp": 0
-      },
-      "host_evidence": null,
-      "in_catalogue": true,
-      "code": "SWITCH"
-    },
-    "FUNC.SYD": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,213 recorded answers",
-      "detail": "Recorded: 1,207 in the answer bank and 6 workbook cells.",
-      "bank": {
-        "rows": 1207,
-        "matched": 1207,
-        "worst_ulp": 0,
-        "excel_builds": [
-          "20430"
-        ],
-        "larger_numeric": 0,
-        "last_bit": 0,
-        "other_mismatch": 0,
-        "refused": 0,
-        "unread": 0
-      },
-      "corpus": {
-        "cells": 6,
-        "matched": 6,
-        "worst_ulp": 0
-      },
-      "host_evidence": null,
-      "in_catalogue": true,
-      "code": "SYD"
-    },
-    "FUNC.T": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,233 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 6 workbook cells.",
+      "summary": "Matches all 1,411 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 184 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -10555,8 +10512,62 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 7,
-        "matched": 6,
+        "cells": 184,
+        "matched": 184,
+        "worst_ulp": 0
+      },
+      "host_evidence": null,
+      "in_catalogue": true,
+      "code": "SWITCH"
+    },
+    "FUNC.SYD": {
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 1,261 recorded answers",
+      "detail": "Recorded: 1,207 in the answer bank and 54 workbook cells.",
+      "bank": {
+        "rows": 1207,
+        "matched": 1207,
+        "worst_ulp": 0,
+        "excel_builds": [
+          "20430"
+        ],
+        "larger_numeric": 0,
+        "last_bit": 0,
+        "other_mismatch": 0,
+        "refused": 0,
+        "unread": 0
+      },
+      "corpus": {
+        "cells": 54,
+        "matched": 54,
+        "worst_ulp": 0
+      },
+      "host_evidence": null,
+      "in_catalogue": true,
+      "code": "SYD"
+    },
+    "FUNC.T": {
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 1,242 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 15 workbook cells.",
+      "bank": {
+        "rows": 1227,
+        "matched": 1227,
+        "worst_ulp": 0,
+        "excel_builds": [
+          "20430"
+        ],
+        "larger_numeric": 0,
+        "last_bit": 0,
+        "other_mismatch": 0,
+        "refused": 0,
+        "unread": 0
+      },
+      "corpus": {
+        "cells": 16,
+        "matched": 15,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -10642,16 +10653,15 @@
       "code": "T.INV"
     },
     "FUNC.T.INV.2T": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 1 of 4 recorded answers differ in the last bits, worst 1 ULP",
-      "detail": "Everything else matches (4 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 4 recorded answers",
+      "detail": "Recorded: 4 workbook cells.",
       "bank": null,
       "corpus": {
         "cells": 4,
-        "matched": 3,
-        "last_bit": 1,
-        "worst_ulp": 1
+        "matched": 4,
+        "worst_ulp": 0
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -10676,12 +10686,12 @@
     "FUNC.TAKE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 10 recorded answers",
-      "detail": "Recorded: 10 workbook cells.",
+      "summary": "Matches all 16 recorded answers",
+      "detail": "Recorded: 16 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 10,
-        "matched": 10,
+        "cells": 16,
+        "matched": 16,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10857,8 +10867,8 @@
     "FUNC.TEXT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,396 recorded answers",
-      "detail": "Recorded: 7 in the answer bank and 1,389 workbook cells.",
+      "summary": "Matches all 1,418 recorded answers",
+      "detail": "Recorded: 7 in the answer bank and 1,411 workbook cells.",
       "bank": {
         "rows": 7,
         "matched": 7,
@@ -10873,8 +10883,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 1389,
-        "matched": 1389,
+        "cells": 1411,
+        "matched": 1411,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10884,8 +10894,8 @@
     "FUNC.TEXTAFTER": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 22 recorded answers",
-      "detail": "Recorded: 11 in the answer bank and 11 workbook cells.",
+      "summary": "Matches all 30 recorded answers",
+      "detail": "Recorded: 11 in the answer bank and 19 workbook cells.",
       "bank": {
         "rows": 11,
         "matched": 11,
@@ -10900,8 +10910,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 11,
-        "matched": 11,
+        "cells": 19,
+        "matched": 19,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10911,8 +10921,8 @@
     "FUNC.TEXTBEFORE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 22 recorded answers",
-      "detail": "Recorded: 11 in the answer bank and 11 workbook cells.",
+      "summary": "Matches all 30 recorded answers",
+      "detail": "Recorded: 11 in the answer bank and 19 workbook cells.",
       "bank": {
         "rows": 11,
         "matched": 11,
@@ -10927,8 +10937,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 11,
-        "matched": 11,
+        "cells": 19,
+        "matched": 19,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10938,12 +10948,12 @@
     "FUNC.TEXTJOIN": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 37 recorded answers",
-      "detail": "Recorded: 37 workbook cells.",
+      "summary": "Matches all 44 recorded answers",
+      "detail": "Recorded: 44 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 37,
-        "matched": 37,
+        "cells": 44,
+        "matched": 44,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10953,8 +10963,8 @@
     "FUNC.TEXTSPLIT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 2 of 57 recorded answers",
-      "detail": "Of 57 recorded answers (11 in the answer bank and 46 workbook cells), 2 do not match: 2 differ in kind or value.",
+      "summary": "Known differences on 3 of 58 recorded answers",
+      "detail": "Of 58 recorded answers (11 in the answer bank and 47 workbook cells), 3 do not match: 3 differ in kind or value.",
       "bank": {
         "rows": 11,
         "matched": 9,
@@ -10969,8 +10979,9 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 46,
+        "cells": 47,
         "matched": 46,
+        "other_mismatch": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11022,27 +11033,26 @@
     "FUNC.TINV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 19 of 36 recorded answers",
-      "detail": "Of 36 recorded answers (32 in the answer bank and 4 workbook cells), 19 do not match: 4 differ by more than 16 ULP, 15 differ by at most 16 ULP.",
+      "summary": "Known differences on 10 of 36 recorded answers",
+      "detail": "Of 36 recorded answers (32 in the answer bank and 4 workbook cells), 10 do not match: 4 differ by more than 16 ULP, 6 differ by at most 16 ULP.",
       "bank": {
         "rows": 32,
-        "matched": 15,
-        "worst_ulp": 173,
+        "matched": 22,
+        "worst_ulp": 17,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 4,
-        "last_bit": 13,
+        "last_bit": 6,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
       },
       "corpus": {
         "cells": 4,
-        "matched": 2,
-        "last_bit": 2,
-        "worst_ulp": 1
+        "matched": 4,
+        "worst_ulp": 0
       },
       "host_evidence": null,
       "in_catalogue": true,
@@ -11051,12 +11061,12 @@
     "FUNC.TOCOL": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 9 recorded answers",
-      "detail": "Recorded: 9 workbook cells.",
+      "summary": "Matches all 10 recorded answers",
+      "detail": "Recorded: 10 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 9,
-        "matched": 9,
+        "cells": 10,
+        "matched": 10,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11081,12 +11091,12 @@
     "FUNC.TOROW": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 9 recorded answers",
-      "detail": "Recorded: 9 workbook cells.",
+      "summary": "Matches all 10 recorded answers",
+      "detail": "Recorded: 10 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 9,
-        "matched": 9,
+        "cells": 10,
+        "matched": 10,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11150,12 +11160,12 @@
     "FUNC.TRIM": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 10 recorded answers",
+      "detail": "Recorded: 10 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 10,
+        "matched": 10,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11222,17 +11232,17 @@
     "FUNC.TRUNC": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 444 of 51,853 recorded answers",
-      "detail": "Of 51,853 recorded answers (51,317 in the answer bank and 536 workbook cells), 444 do not match: 200 differ by more than 16 ULP, 244 differ by at most 16 ULP.",
+      "summary": "Known differences on 100 of 51,853 recorded answers",
+      "detail": "Of 51,853 recorded answers (51,317 in the answer bank and 536 workbook cells), 100 do not match: 100 differ by more than 16 ULP.",
       "bank": {
         "rows": 51317,
-        "matched": 50873,
-        "worst_ulp": 86,
+        "matched": 51217,
+        "worst_ulp": 10,
         "excel_builds": [
           "20430"
         ],
-        "larger_numeric": 200,
-        "last_bit": 244,
+        "larger_numeric": 100,
+        "last_bit": 0,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -11265,8 +11275,8 @@
     "FUNC.TYPE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,582 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 355 workbook cells.",
+      "summary": "Matches all 1,594 recorded answers",
+      "detail": "Recorded: 1,227 in the answer bank and 367 workbook cells.",
       "bank": {
         "rows": 1227,
         "matched": 1227,
@@ -11281,8 +11291,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 357,
-        "matched": 355,
+        "cells": 369,
+        "matched": 367,
         "pending": 2,
         "worst_ulp": 0
       },
@@ -11293,12 +11303,12 @@
     "FUNC.UNICHAR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 285 recorded answers",
-      "detail": "Recorded: 285 workbook cells.",
+      "summary": "Matches all 288 recorded answers",
+      "detail": "Recorded: 288 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 285,
-        "matched": 285,
+        "cells": 288,
+        "matched": 288,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11308,12 +11318,12 @@
     "FUNC.UNICODE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 10 recorded answers",
+      "detail": "Recorded: 10 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 10,
+        "matched": 10,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11338,8 +11348,8 @@
     "FUNC.UPPER": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 12 recorded answers",
-      "detail": "Recorded: 5 in the answer bank and 7 workbook cells.",
+      "summary": "Matches all 14 recorded answers",
+      "detail": "Recorded: 5 in the answer bank and 9 workbook cells.",
       "bank": {
         "rows": 5,
         "matched": 5,
@@ -11354,8 +11364,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 9,
+        "matched": 9,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11365,12 +11375,12 @@
     "FUNC.VALUE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 59 recorded answers",
-      "detail": "Recorded: 59 workbook cells.",
+      "summary": "Matches all 69 recorded answers",
+      "detail": "Recorded: 69 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 59,
-        "matched": 59,
+        "cells": 69,
+        "matched": 69,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11380,12 +11390,12 @@
     "FUNC.VALUETOTEXT": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 38 recorded answers",
-      "detail": "Recorded: 38 workbook cells.",
+      "summary": "Matches all 42 recorded answers",
+      "detail": "Recorded: 42 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 38,
-        "matched": 38,
+        "cells": 42,
+        "matched": 42,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11560,8 +11570,8 @@
     "FUNC.VDB": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,210 recorded answers",
-      "detail": "Recorded: 2,201 in the answer bank and 9 workbook cells.",
+      "summary": "Matches all 2,254 recorded answers",
+      "detail": "Recorded: 2,201 in the answer bank and 53 workbook cells.",
       "bank": {
         "rows": 2201,
         "matched": 2201,
@@ -11576,8 +11586,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 9,
-        "matched": 9,
+        "cells": 53,
+        "matched": 53,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11587,12 +11597,12 @@
     "FUNC.VLOOKUP": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 63 recorded answers",
-      "detail": "Recorded: 63 workbook cells.",
+      "summary": "Matches all 69 recorded answers",
+      "detail": "Recorded: 69 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 64,
-        "matched": 63,
+        "cells": 70,
+        "matched": 69,
         "pending": 1,
         "worst_ulp": 0
       },
@@ -11703,18 +11713,18 @@
     "FUNC.WEIBULL.DIST": {
       "state": "close",
       "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 2 of 31,489 recorded answers differ in the last bits, worst 2 ULP",
+      "summary": "Close: 3 of 31,489 recorded answers differ in the last bits, worst 3 ULP",
       "detail": "Everything else matches (31,483 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 31483,
-        "matched": 31481,
-        "worst_ulp": 2,
+        "matched": 31480,
+        "worst_ulp": 3,
         "excel_builds": [
           "20131",
           "?"
         ],
         "larger_numeric": 0,
-        "last_bit": 2,
+        "last_bit": 3,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
@@ -11785,12 +11795,12 @@
     "FUNC.WRAPCOLS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 15 recorded answers",
-      "detail": "Recorded: 15 workbook cells.",
+      "summary": "Matches all 16 recorded answers",
+      "detail": "Recorded: 16 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 15,
-        "matched": 15,
+        "cells": 16,
+        "matched": 16,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11800,12 +11810,12 @@
     "FUNC.WRAPROWS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 7 recorded answers",
-      "detail": "Recorded: 7 workbook cells.",
+      "summary": "Matches all 8 recorded answers",
+      "detail": "Recorded: 8 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 7,
-        "matched": 7,
+        "cells": 8,
+        "matched": 8,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11830,12 +11840,12 @@
     "FUNC.XLOOKUP": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 75 recorded answers",
-      "detail": "Recorded: 75 workbook cells.",
+      "summary": "Matches all 85 recorded answers",
+      "detail": "Recorded: 85 workbook cells.",
       "bank": null,
       "corpus": {
-        "cells": 75,
-        "matched": 75,
+        "cells": 85,
+        "matched": 85,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11843,10 +11853,10 @@
       "code": "XLOOKUP"
     },
     "FUNC.XMATCH": {
-      "state": "matches",
-      "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 251 recorded answers",
-      "detail": "Recorded: 13 in the answer bank and 238 workbook cells.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Known differences on 1 of 260 recorded answers",
+      "detail": "Of 260 recorded answers (13 in the answer bank and 247 workbook cells), 1 do not match: 1 differ in kind or value.",
       "bank": {
         "rows": 13,
         "matched": 13,
@@ -11861,8 +11871,9 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 238,
-        "matched": 238,
+        "cells": 247,
+        "matched": 246,
+        "other_mismatch": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11900,8 +11911,8 @@
     "FUNC.XOR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,237 recorded answers",
-      "detail": "Recorded: 1,212 in the answer bank and 25 workbook cells.",
+      "summary": "Matches all 1,245 recorded answers",
+      "detail": "Recorded: 1,212 in the answer bank and 33 workbook cells.",
       "bank": {
         "rows": 1212,
         "matched": 1212,
@@ -11916,8 +11927,8 @@
         "unread": 0
       },
       "corpus": {
-        "cells": 25,
-        "matched": 25,
+        "cells": 33,
+        "matched": 33,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -11981,18 +11992,18 @@
     "FUNC.YIELD": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 553 of 625 recorded answers",
-      "detail": "Of 625 recorded answers (533 in the answer bank and 92 workbook cells), 553 do not match: 453 differ by more than 16 ULP, 100 differ by at most 16 ULP.",
+      "summary": "Known differences on 472 of 625 recorded answers",
+      "detail": "Of 625 recorded answers (533 in the answer bank and 92 workbook cells), 472 do not match: 453 differ by more than 16 ULP, 19 differ by at most 16 ULP.",
       "bank": {
         "rows": 533,
-        "matched": 16,
-        "worst_ulp": 4395513236313605,
+        "matched": 97,
+        "worst_ulp": 2844,
         "excel_builds": [
           "20228",
           "20527"
         ],
         "larger_numeric": 422,
-        "last_bit": 95,
+        "last_bit": 14,
         "other_mismatch": 0,
         "refused": 0,
         "unread": 0
