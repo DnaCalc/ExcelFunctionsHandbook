@@ -11467,8 +11467,8 @@
   },
   "ported/regression_forecast_family::eval_growth_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1193,
-    "end_line": 1203,
+    "start_line": 1213,
+    "end_line": 1223,
     "name": "eval_growth_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -13366,8 +13366,8 @@
   },
   "ported/regression_forecast_family::eval_linest_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1221,
-    "end_line": 1226,
+    "start_line": 1241,
+    "end_line": 1246,
     "name": "eval_linest_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -13447,8 +13447,8 @@
   },
   "ported/regression_forecast_family::eval_logest_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1228,
-    "end_line": 1233,
+    "start_line": 1248,
+    "end_line": 1253,
     "name": "eval_logest_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -18056,20 +18056,20 @@
   "ported/regression_forecast_family::eval_trend_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
     "start_line": 1155,
-    "end_line": 1168,
+    "end_line": 1186,
     "name": "eval_trend_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
-    "text": "pub(crate) fn eval_trend_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    let (known_y, known_x) = match paired_trend_matrices(args) {\n        Some(pair) => pair,\n        None => shape_first_inputs(args)?,\n    };\n    let new_x_raw = args\n        .get(2)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(|arg| collect_numeric_matrix_arg(arg))\n        .transpose()?;\n    let new_x = prediction_input_from_optional(new_x_raw, &known_y, &known_x)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, true)?;\n    trend_kernel(&known_y, &known_x, &new_x, use_const)\n}\n"
+    "text": "pub(crate) fn eval_trend_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    // Excel 20527 reports VALUE for a nonnumeric scalar new_x with two numeric 2x2 histories,\n    // even when new_x or the optional constant argument contains a worksheet error.\n    let numeric_matrix = |index: usize| {\n        args.get(index).and_then(CalcValue::as_array).is_some_and(|a| {\n            let shape = a.shape();\n            shape.rows == 2 && shape.cols == 2 && a.iter_row_major().all(|v| v.as_number().is_some())\n        })\n    };\n    if numeric_matrix(1) && args.first().is_some_and(|v| {\n        matches!(v.core_ref(), CoreRef::Number(_) | CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_))\n    }) {\n        return Err(WorksheetErrorCode::Ref);\n    }\n    if numeric_matrix(0) && numeric_matrix(1) && args.get(2).is_some_and(|v| {\n        matches!(v.core_ref(), CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_))\n    }) {\n        return Err(WorksheetErrorCode::Value);\n    }\n    let (known_y, known_x) = match paired_trend_matrices(args) {\n        Some(pair) => pair,\n        None => shape_first_inputs(args)?,\n    };\n    let new_x_raw = args\n        .get(2)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(|arg| collect_numeric_matrix_arg(arg))\n        .transpose()?;\n    let new_x = prediction_input_from_optional(new_x_raw, &known_y, &known_x)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, true)?;\n    trend_kernel(&known_y, &known_x, &new_x, use_const)\n}\n"
   },
   "ported/regression_forecast_family::paired_trend_matrices": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1170,
-    "end_line": 1191,
+    "start_line": 1188,
+    "end_line": 1211,
     "name": "paired_trend_matrices",
     "module": "ported/regression_forecast_family",
     "users": 1,
-    "text": "/// Excel 20527 treats numeric 2x2 histories as four row-major paired observations when\n/// forecasting a 2x2 matrix. Independent controls agree with the equivalent column histories.\nfn paired_trend_matrices(args: &[CalcValue]) -> Option<(NumericVector, PreparedPredictorInput)> {\n    let matrix_values = |index: usize| {\n        let array = args.get(index)?.as_array()?;\n        let shape = array.shape();\n        if shape.rows != 2 || shape.cols != 2 {\n            return None;\n        }\n        array.iter_row_major().map(CalcValue::as_number).collect::<Option<Vec<_>>>()\n    };\n    let y = matrix_values(0)?;\n    let x = matrix_values(1)?;\n    matrix_values(2)?;\n    Some((\n        NumericVector { values: y, shape: VectorShape::Column(4) },\n        PreparedPredictorInput {\n            predictors: NumericMatrix { rows: 4, cols: 1, values: x },\n            output_shape: OutputShape::Column(4),\n        },\n    ))\n}\n"
+    "text": "/// Excel 20527 treats numeric 2x2 histories as four row-major paired observations when\n/// forecasting a 2x2 matrix or numeric scalar. Controls agree with equivalent column histories.\nfn paired_trend_matrices(args: &[CalcValue]) -> Option<(NumericVector, PreparedPredictorInput)> {\n    let matrix_values = |index: usize| {\n        let array = args.get(index)?.as_array()?;\n        let shape = array.shape();\n        if shape.rows != 2 || shape.cols != 2 {\n            return None;\n        }\n        array.iter_row_major().map(CalcValue::as_number).collect::<Option<Vec<_>>>()\n    };\n    let y = matrix_values(0)?;\n    let x = matrix_values(1)?;\n    if !args.get(2).is_some_and(|arg| matches!(arg.core_ref(), CoreRef::Number(_))) {\n        matrix_values(2)?;\n    }\n    Some((\n        NumericVector { values: y, shape: VectorShape::Column(4) },\n        PreparedPredictorInput {\n            predictors: NumericMatrix { rows: 4, cols: 1, values: x },\n            output_shape: OutputShape::Column(4),\n        },\n    ))\n}\n"
   },
   "catalogue/text_functions::entry::TRIM": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
