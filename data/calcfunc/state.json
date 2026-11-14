@@ -1,10 +1,10 @@
 {
-  "commit": "40beac4be75e99ccd62680e4870bca3845baba06",
+  "commit": "76dc82c263af3646bf4817372292f36aa731ac41",
   "counts": {
     "absent": 1,
-    "close": 38,
+    "close": 39,
     "deferred": 9,
-    "differs": 159,
+    "differs": 158,
     "host": 0,
     "matches": 347,
     "refuses": 0,
@@ -1224,18 +1224,18 @@
     "FUNC.BINOMDIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 78 of 2,945 recorded answers",
-      "detail": "Of 2,945 recorded answers (2,931 in the answer bank and 14 workbook cells), 78 do not match: 21 differ by more than 16 ULP, 21 differ by at most 16 ULP, 36 differ in kind or value.",
+      "summary": "Known differences on 42 of 2,945 recorded answers",
+      "detail": "Of 2,945 recorded answers (2,931 in the answer bank and 14 workbook cells), 42 do not match: 21 differ by more than 16 ULP, 21 differ by at most 16 ULP.",
       "bank": {
         "rows": 2931,
-        "matched": 2853,
+        "matched": 2889,
         "worst_ulp": 2038,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 21,
         "last_bit": 21,
-        "other_mismatch": 36,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -6900,18 +6900,18 @@
     "FUNC.IMPOWER": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 367 of 2,741 recorded answers",
-      "detail": "Of 2,741 recorded answers (2,735 in the answer bank and 6 workbook cells), 367 do not match: 367 differ in kind or value.",
+      "summary": "Known differences on 150 of 2,741 recorded answers",
+      "detail": "Of 2,741 recorded answers (2,735 in the answer bank and 6 workbook cells), 150 do not match: 150 differ in kind or value.",
       "bank": {
         "rows": 2735,
-        "matched": 2368,
+        "matched": 2585,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 367,
+        "other_mismatch": 150,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -9225,11 +9225,11 @@
     "FUNC.NEGBINOM.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 158 of 3,548 recorded answers",
-      "detail": "Of 3,548 recorded answers (3,448 in the answer bank and 100 workbook cells), 158 do not match: 64 differ by more than 16 ULP, 71 differ by at most 16 ULP, 23 differ in kind or value.",
+      "summary": "Known differences on 143 of 3,548 recorded answers",
+      "detail": "Of 3,548 recorded answers (3,448 in the answer bank and 100 workbook cells), 143 do not match: 64 differ by more than 16 ULP, 71 differ by at most 16 ULP, 8 differ in kind or value.",
       "bank": {
         "rows": 3448,
-        "matched": 3291,
+        "matched": 3306,
         "worst_ulp": 1955,
         "excel_builds": [
           "20430",
@@ -9237,7 +9237,7 @@
         ],
         "larger_numeric": 63,
         "last_bit": 71,
-        "other_mismatch": 23,
+        "other_mismatch": 8,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -14624,20 +14624,20 @@
       "code": "WEEKNUM"
     },
     "FUNC.WEIBULL": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known differences on 69 of 2,958 recorded answers",
-      "detail": "Of 2,958 recorded answers (2,952 in the answer bank and 6 workbook cells), 69 do not match: 1 differ by at most 16 ULP, 68 differ in kind or value.",
+      "state": "close",
+      "state_label": "Close: last-bit deviations remain",
+      "summary": "Close: 1 of 2,958 recorded answers differ in the last bits, worst 1 ULP",
+      "detail": "Everything else matches (2,952 in the answer bank and 6 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
       "bank": {
         "rows": 2952,
-        "matched": 2883,
+        "matched": 2951,
         "worst_ulp": 1,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 1,
-        "other_mismatch": 68,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -15140,7 +15140,7 @@
       "worst_ulp": "468382554779545343",
       "rows_open": "138",
       "bead": "dc-uef6",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "large-shape NUM boundary depends on both shapes; no shared overflow rule established"
     },
     {
       "function": "BETA.INV",
@@ -15292,16 +15292,16 @@
     {
       "function": "BINOMDIST",
       "worst_ulp": "2038",
-      "rows_open": "78",
+      "rows_open": "42",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted"
     },
     {
       "function": "NEGBINOM.DIST",
       "worst_ulp": "1955",
-      "rows_open": "157",
+      "rows_open": "142",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted"
     },
     {
       "function": "TDIST",
@@ -15343,7 +15343,7 @@
       "worst_ulp": "651",
       "rows_open": "23",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted"
     },
     {
       "function": "NORMSINV",
@@ -15357,7 +15357,7 @@
       "worst_ulp": "530",
       "rows_open": "633",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "large-df probe shows median scales with df and p correction with sqrt(df); alias 378/378; exact solver not fitted"
     },
     {
       "function": "CHISQ.DIST.RT",

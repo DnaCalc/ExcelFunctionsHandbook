@@ -5420,16 +5420,16 @@
   "ported/discrete_dist::binom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
     "start_line": 252,
-    "end_line": 280,
+    "end_line": 283,
     "name": "binom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
-    "text": "/// `BINOM.DIST(number_s, trials, probability_s, cumulative)`.\npub fn binom_dist_kernel(number_s: f64, trials: f64, p: f64, cumulative: bool) -> R {\n    let (k, n) = (number_s.trunc(), trials.trunc());\n    // R28: the adjacent count operands below/at signed32's positive sentinel\n    // distinguish admission before PMF/CDF and p=0/1 shortcuts. Fractional\n    // counts below the sentinel still truncate into the admitted range.\n    if n < 0.0 || n >= i32::MAX as f64 || k < 0.0 || k > n || !(0.0..=1.0).contains(&p) {\n        return Err(NUM);\n    }\n    if p == 0.0 {\n        return Ok(if cumulative || k == 0.0 { 1.0 } else { 0.0 });\n    }\n    if p == 1.0 {\n        return if k == n {\n            Ok(1.0)\n        } else if cumulative {\n            Ok(0.0)\n        } else if k == 0.0 {\n            Err(NUM)\n        } else {\n            Ok(0.0)\n        };\n    }\n    let q = 1.0 - p;\n    if !cumulative {\n        return finite(binom_mass(k, n, p, q));\n    }\n    finite(binom_cumulative(k, n, p, q))\n}\n"
+    "text": "/// `BINOM.DIST(number_s, trials, probability_s, cumulative)`.\npub fn binom_dist_kernel(number_s: f64, trials: f64, p: f64, cumulative: bool) -> R {\n    if number_s < 0.0 || trials < 0.0 {\n        return Err(NUM);\n    }\n    let (k, n) = (number_s.trunc(), trials.trunc());\n    // R28: the adjacent count operands below/at signed32's positive sentinel\n    // distinguish admission before PMF/CDF and p=0/1 shortcuts. Fractional\n    // counts below the sentinel still truncate into the admitted range.\n    if n < 0.0 || n >= i32::MAX as f64 || k < 0.0 || k > n || !(0.0..=1.0).contains(&p) {\n        return Err(NUM);\n    }\n    if p == 0.0 {\n        return Ok(if cumulative || k == 0.0 { 1.0 } else { 0.0 });\n    }\n    if p == 1.0 {\n        return if k == n {\n            Ok(1.0)\n        } else if cumulative {\n            Ok(0.0)\n        } else if k == 0.0 {\n            Err(NUM)\n        } else {\n            Ok(0.0)\n        };\n    }\n    let q = 1.0 - p;\n    if !cumulative {\n        return finite(binom_mass(k, n, p, q));\n    }\n    finite(binom_cumulative(k, n, p, q))\n}\n"
   },
   "ported/discrete_dist::binom_cumulative": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 282,
-    "end_line": 306,
+    "start_line": 285,
+    "end_line": 309,
     "name": "binom_cumulative",
     "module": "ported/discrete_dist",
     "users": 5,
@@ -5446,12 +5446,12 @@
   },
   "ported/discrete_dist::binom_dist_range_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 308,
-    "end_line": 345,
+    "start_line": 311,
+    "end_line": 351,
     "name": "binom_dist_range_kernel",
     "module": "ported/discrete_dist",
     "users": 1,
-    "text": "/// `BINOM.DIST.RANGE(trials, probability_s, number_s, [number_s2])`.\npub fn binom_dist_range_kernel(trials: f64, p: f64, number_s: f64, number_s2: Option<f64>) -> R {\n    let n = trials.trunc();\n    let s = number_s.trunc();\n    let s2 = number_s2.map_or(s, f64::trunc);\n    if n < 0.0 || !(0.0..=1.0).contains(&p) || s < 0.0 || s > n || s2 < s || s2 > n {\n        return Err(NUM);\n    }\n    let mass = |i: f64| {\n        if p == 0.0 {\n            if i == 0.0 { 1.0 } else { 0.0 }\n        } else if p == 1.0 {\n            if i == n { 1.0 } else { 0.0 }\n        } else {\n            binom_mass(i, n, p, 1.0 - p)\n        }\n    };\n    if s == s2 || p == 0.0 || p == 1.0 {\n        return finite(if s == s2 {\n            mass(s)\n        } else {\n            let (first, last) = if p == 0.0 { (0.0, 0.0) } else { (n, n) };\n            if s <= first && first <= s2 && last <= s2 {\n                1.0\n            } else {\n                0.0\n            }\n        });\n    }\n    // Live: the difference of the two tails on 383 of 421 rows, against 20 for the sum of masses.\n    let q = 1.0 - p;\n    let upper = binom_cumulative(s2, n, p, q);\n    finite(if s == 0.0 {\n        upper\n    } else {\n        excel_x87_sub(upper, binom_cumulative(s - 1.0, n, p, q))\n    })\n}\n"
+    "text": "/// `BINOM.DIST.RANGE(trials, probability_s, number_s, [number_s2])`.\npub fn binom_dist_range_kernel(trials: f64, p: f64, number_s: f64, number_s2: Option<f64>) -> R {\n    if trials < 0.0 || number_s < 0.0 || number_s2.is_some_and(|value| value < 0.0) {\n        return Err(NUM);\n    }\n    let n = trials.trunc();\n    let s = number_s.trunc();\n    let s2 = number_s2.map_or(s, f64::trunc);\n    if n < 0.0 || !(0.0..=1.0).contains(&p) || s < 0.0 || s > n || s2 < s || s2 > n {\n        return Err(NUM);\n    }\n    let mass = |i: f64| {\n        if p == 0.0 {\n            if i == 0.0 { 1.0 } else { 0.0 }\n        } else if p == 1.0 {\n            if i == n { 1.0 } else { 0.0 }\n        } else {\n            binom_mass(i, n, p, 1.0 - p)\n        }\n    };\n    if s == s2 || p == 0.0 || p == 1.0 {\n        return finite(if s == s2 {\n            mass(s)\n        } else {\n            let (first, last) = if p == 0.0 { (0.0, 0.0) } else { (n, n) };\n            if s <= first && first <= s2 && last <= s2 {\n                1.0\n            } else {\n                0.0\n            }\n        });\n    }\n    // Live: the difference of the two tails on 383 of 421 rows, against 20 for the sum of masses.\n    let q = 1.0 - p;\n    let upper = binom_cumulative(s2, n, p, q);\n    finite(if s == 0.0 {\n        upper\n    } else {\n        excel_x87_sub(upper, binom_cumulative(s - 1.0, n, p, q))\n    })\n}\n"
   },
   "catalogue/distributions::entry::BINOM.INV": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -5464,17 +5464,17 @@
   },
   "ported/discrete_dist::binom_inv_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 347,
-    "end_line": 375,
+    "start_line": 353,
+    "end_line": 384,
     "name": "binom_inv_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
-    "text": "/// `BINOM.INV(trials, probability_s, alpha)`: the smallest count whose public cumulative\n/// probability reaches alpha. Excel compares the mass at zero strictly and every later\n/// cumulative probability inclusively (dc-j9k, Excel 16.0.20527): on 252 dyadic boundary\n/// designs, each asked at the exact lower tail and three binary64 neighbours either side, the\n/// 200 with a count above zero meet alpha exactly when BINOM.DIST(k, n, p, TRUE) >= alpha, and\n/// all 52 at zero only when BINOM.DIST(0, n, p, TRUE) > alpha. A forward mass recurrence locates\n/// the count; the public tails then settle it.\npub fn binom_inv_kernel(trials: f64, p: f64, alpha: f64) -> R {\n    let n = trials.trunc();\n    if n < 0.0 || !(p > 0.0 && p < 1.0) || !(alpha > 0.0 && alpha < 1.0) {\n        return Err(NUM);\n    }\n    let q = 1.0 - p;\n    let reaches = |k: f64| {\n        if k == 0.0 {\n            binom_cumulative(0.0, n, p, q) > alpha\n        } else {\n            binom_cumulative(k, n, p, q) >= alpha\n        }\n    };\n    let mut k = binom_inv_estimate(n, p, q, alpha);\n    while k > 0.0 && reaches(k - 1.0) {\n        k -= 1.0;\n    }\n    while k < n && !reaches(k) {\n        k += 1.0;\n    }\n    Ok(k)\n}\n"
+    "text": "/// `BINOM.INV(trials, probability_s, alpha)`: the smallest count whose public cumulative\n/// probability reaches alpha. Excel compares the mass at zero strictly and every later\n/// cumulative probability inclusively (dc-j9k, Excel 16.0.20527): on 252 dyadic boundary\n/// designs, each asked at the exact lower tail and three binary64 neighbours either side, the\n/// 200 with a count above zero meet alpha exactly when BINOM.DIST(k, n, p, TRUE) >= alpha, and\n/// all 52 at zero only when BINOM.DIST(0, n, p, TRUE) > alpha. A forward mass recurrence locates\n/// the count; the public tails then settle it.\npub fn binom_inv_kernel(trials: f64, p: f64, alpha: f64) -> R {\n    if trials < 0.0 {\n        return Err(NUM);\n    }\n    let n = trials.trunc();\n    if n < 0.0 || !(p > 0.0 && p < 1.0) || !(alpha > 0.0 && alpha < 1.0) {\n        return Err(NUM);\n    }\n    let q = 1.0 - p;\n    let reaches = |k: f64| {\n        if k == 0.0 {\n            binom_cumulative(0.0, n, p, q) > alpha\n        } else {\n            binom_cumulative(k, n, p, q) >= alpha\n        }\n    };\n    let mut k = binom_inv_estimate(n, p, q, alpha);\n    while k > 0.0 && reaches(k - 1.0) {\n        k -= 1.0;\n    }\n    while k < n && !reaches(k) {\n        k += 1.0;\n    }\n    Ok(k)\n}\n"
   },
   "ported/discrete_dist::binom_inv_estimate": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 377,
-    "end_line": 401,
+    "start_line": 386,
+    "end_line": 410,
     "name": "binom_inv_estimate",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -6796,8 +6796,8 @@
   },
   "ported/complex_family::normalize_zero": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 360,
-    "end_line": 362,
+    "start_line": 379,
+    "end_line": 381,
     "name": "normalize_zero",
     "module": "ported/complex_family",
     "users": 26,
@@ -6805,8 +6805,8 @@
   },
   "ported/complex_family::number_to_excel_text": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 363,
-    "end_line": 425,
+    "start_line": 382,
+    "end_line": 444,
     "name": "number_to_excel_text",
     "module": "ported/complex_family",
     "users": 22,
@@ -6814,8 +6814,8 @@
   },
   "ported/complex_family::format_complex_text": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 426,
-    "end_line": 454,
+    "start_line": 445,
+    "end_line": 473,
     "name": "format_complex_text",
     "module": "ported/complex_family",
     "users": 22,
@@ -11755,8 +11755,8 @@
   },
   "ported/discrete_dist::hypergeom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 434,
-    "end_line": 453,
+    "start_line": 443,
+    "end_line": 462,
     "name": "hypergeom_mass",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -11764,8 +11764,8 @@
   },
   "ported/discrete_dist::hypergeom_cumulative_by_ratios": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 460,
-    "end_line": 496,
+    "start_line": 469,
+    "end_line": 505,
     "name": "hypergeom_cumulative_by_ratios",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -11773,8 +11773,8 @@
   },
   "ported/discrete_dist::hypergeom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 498,
-    "end_line": 540,
+    "start_line": 507,
+    "end_line": 549,
     "name": "hypergeom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -11944,8 +11944,8 @@
   },
   "ported/complex_family::parse_real_number": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 469,
-    "end_line": 489,
+    "start_line": 488,
+    "end_line": 508,
     "name": "parse_real_number",
     "module": "ported/complex_family",
     "users": 25,
@@ -11953,8 +11953,8 @@
   },
   "ported/complex_family::find_real_imag_split": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 490,
-    "end_line": 501,
+    "start_line": 509,
+    "end_line": 520,
     "name": "find_real_imag_split",
     "module": "ported/complex_family",
     "users": 25,
@@ -11962,8 +11962,8 @@
   },
   "ported/complex_family::parse_imag_coeff": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 502,
-    "end_line": 511,
+    "start_line": 521,
+    "end_line": 530,
     "name": "parse_imag_coeff",
     "module": "ported/complex_family",
     "users": 25,
@@ -11971,8 +11971,8 @@
   },
   "ported/complex_family::parse_complex_text": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 512,
-    "end_line": 531,
+    "start_line": 531,
+    "end_line": 550,
     "name": "parse_complex_text",
     "module": "ported/complex_family",
     "users": 25,
@@ -12088,8 +12088,8 @@
   },
   "ported/complex_family::suffix_from_operands": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 533,
-    "end_line": 545,
+    "start_line": 552,
+    "end_line": 564,
     "name": "suffix_from_operands",
     "module": "ported/complex_family",
     "users": 21,
@@ -14275,8 +14275,8 @@
   },
   "ported/discrete_dist::negbinom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 542,
-    "end_line": 571,
+    "start_line": 551,
+    "end_line": 580,
     "name": "negbinom_mass",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -14284,12 +14284,12 @@
   },
   "ported/discrete_dist::negbinom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 573,
-    "end_line": 594,
+    "start_line": 582,
+    "end_line": 606,
     "name": "negbinom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
-    "text": "/// `NEGBINOM.DIST(number_f, number_s, probability_s, cumulative)`.\npub fn negbinom_dist_kernel(number_f: f64, number_s: f64, p: f64, cumulative: bool) -> R {\n    let (f, s) = (number_f.trunc(), number_s.trunc());\n    if f < 0.0 || s < 1.0 || !(p > 0.0 && p < 1.0) {\n        return Err(NUM);\n    }\n    if !cumulative {\n        return finite(negbinom_mass(f, s, p));\n    }\n    if f == 0.0 {\n        return finite(negbinom_mass(0.0, s, p));\n    }\n    // Excel's cumulative is not the sum of its masses: at dyadic `p` it can sit on the exact dyadic\n    // sum (`fresh-negbinom.dist-00113`) where masses through EXP cannot, and at `p = 1/8` it stands\n    // 13 units off it. `I_p(s, f + 1)` holds the exact row and more of the 141 rows than the sum\n    // (73 against 70). The stages belong to the incomplete beta, still open.\n    finite(crate::ported::special_math_common::regularized_beta(\n        p,\n        s,\n        f + 1.0,\n    ))\n}\n"
+    "text": "/// `NEGBINOM.DIST(number_f, number_s, probability_s, cumulative)`.\npub fn negbinom_dist_kernel(number_f: f64, number_s: f64, p: f64, cumulative: bool) -> R {\n    if number_f < 0.0 {\n        return Err(NUM);\n    }\n    let (f, s) = (number_f.trunc(), number_s.trunc());\n    if f < 0.0 || s < 1.0 || !(p > 0.0 && p < 1.0) {\n        return Err(NUM);\n    }\n    if !cumulative {\n        return finite(negbinom_mass(f, s, p));\n    }\n    if f == 0.0 {\n        return finite(negbinom_mass(0.0, s, p));\n    }\n    // Excel's cumulative is not the sum of its masses: at dyadic `p` it can sit on the exact dyadic\n    // sum (`fresh-negbinom.dist-00113`) where masses through EXP cannot, and at `p = 1/8` it stands\n    // 13 units off it. `I_p(s, f + 1)` holds the exact row and more of the 141 rows than the sum\n    // (73 against 70). The stages belong to the incomplete beta, still open.\n    finite(crate::ported::special_math_common::regularized_beta(\n        p,\n        s,\n        f + 1.0,\n    ))\n}\n"
   },
   "catalogue/distributions::entry::NEGBINOMDIST": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -15535,8 +15535,8 @@
   },
   "ported/discrete_dist::poisson_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 403,
-    "end_line": 432,
+    "start_line": 412,
+    "end_line": 441,
     "name": "poisson_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -18542,16 +18542,16 @@
   "ported/special_dist_family::weibull_dist_kernel": {
     "file": "crates/calc-func/src/ported/special_dist_family.rs",
     "start_line": 177,
-    "end_line": 227,
+    "end_line": 245,
     "name": "weibull_dist_kernel",
     "module": "ported/special_dist_family",
     "users": 2,
-    "text": "pub fn weibull_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n) -> Result<f64, WorksheetErrorCode> {\n    if !x.is_finite()\n        || !alpha.is_finite()\n        || !beta.is_finite()\n        || x < 0.0\n        || alpha <= 0.0\n        || beta <= 0.0\n    {\n        return Err(WorksheetErrorCode::Num);\n    }\n\n    if x == 0.0 {\n        if cumulative {\n            return Ok(0.0);\n        }\n        return Ok(0.0);\n    }\n\n    // W109 lane-1 identification (b24 + b27/b27b, all blocks bit-exact): the\n    // WEIBULL body is a legacy x87 compilation unit — every op double-rounded\n    // through a spilled double local, every pow the raw chain (no shortcuts).\n    //   r   = RN53(RN64(x/β))                                   (b27b D2)\n    //   t   = exp(RN53(RN64(α·ln r)))                           (b27D 113/113)\n    //   cdf = −expm1(−t)                                        (Kahan expm1)\n    //   pdf = DR(DR(DR(α/β^α)·x^(α−1))·exp(−t))                 (b27 T3|SS,\n    //         division-first association: `alpha / pow(beta, alpha) *\n    //         pow(x, alpha-1) * exp(-pow(x/beta, alpha))` left-to-right)\n    use crate::ported::excel_numeric::{\n        excel_exp, excel_expm1_internal, excel_pow_chain, excel_x87_div, excel_x87_mul,\n    };\n    let ratio = excel_x87_div(x, beta);\n    let power = excel_pow_chain(ratio, alpha);\n    let value = if cumulative {\n        -excel_expm1_internal(-power)\n    } else {\n        let pba = excel_pow_chain(beta, alpha);\n        let px = excel_pow_chain(x, alpha - 1.0);\n        let e = excel_exp(-power);\n        excel_x87_mul(excel_x87_mul(excel_x87_div(alpha, pba), px), e)\n    };\n\n    if !value.is_finite() {\n        return Err(WorksheetErrorCode::Num);\n    }\n    Ok(value)\n}\n"
+    "text": "pub fn weibull_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n) -> Result<f64, WorksheetErrorCode> {\n    if !x.is_finite()\n        || !alpha.is_finite()\n        || !beta.is_finite()\n        || x < 0.0\n        || alpha <= 0.0\n        || beta <= 0.0\n    {\n        return Err(WorksheetErrorCode::Num);\n    }\n\n    if x == 0.0 {\n        if !cumulative {\n            let denominator = crate::ported::excel_numeric::excel_pow_chain(beta, alpha);\n            if !denominator.is_finite() {\n                return Err(WorksheetErrorCode::Num);\n            }\n            if denominator == 0.0 || denominator.is_subnormal() {\n                return Err(WorksheetErrorCode::Div0);\n            }\n            if !crate::ported::excel_numeric::excel_x87_div(alpha, denominator).is_finite() {\n                return Err(WorksheetErrorCode::Num);\n            }\n        }\n        return Ok(0.0);\n    }\n\n    // W109 lane-1 identification (b24 + b27/b27b, all blocks bit-exact): the\n    // WEIBULL body is a legacy x87 compilation unit — every op double-rounded\n    // through a spilled double local, every pow the raw chain (no shortcuts).\n    //   r   = RN53(RN64(x/β))                                   (b27b D2)\n    //   t   = exp(RN53(RN64(α·ln r)))                           (b27D 113/113)\n    //   cdf = −expm1(−t)                                        (Kahan expm1)\n    //   pdf = DR(DR(DR(α/β^α)·x^(α−1))·exp(−t))                 (b27 T3|SS,\n    //         division-first association: `alpha / pow(beta, alpha) *\n    //         pow(x, alpha-1) * exp(-pow(x/beta, alpha))` left-to-right)\n    use crate::ported::excel_numeric::{\n        excel_exp, excel_expm1_internal, excel_pow_chain, excel_x87_div, excel_x87_mul,\n    };\n    let ratio = excel_x87_div(x, beta);\n    let power = excel_pow_chain(ratio, alpha);\n    if !power.is_finite() {\n        return Err(WorksheetErrorCode::Num);\n    }\n    let value = if cumulative {\n        -excel_expm1_internal(-power)\n    } else {\n        let pba = excel_pow_chain(beta, alpha);\n        if !pba.is_finite() {\n            return Err(WorksheetErrorCode::Num);\n        }\n        if pba == 0.0 || pba.is_subnormal() {\n            return Err(WorksheetErrorCode::Div0);\n        }\n        let px = excel_pow_chain(x, alpha - 1.0);\n        let e = excel_exp(-power);\n        excel_x87_mul(excel_x87_mul(excel_x87_div(alpha, pba), px), e)\n    };\n\n    if !value.is_finite() {\n        return Err(WorksheetErrorCode::Num);\n    }\n    Ok(value)\n}\n"
   },
   "ported/special_dist_family::weibull_kernel": {
     "file": "crates/calc-func/src/ported/special_dist_family.rs",
-    "start_line": 229,
-    "end_line": 236,
+    "start_line": 247,
+    "end_line": 254,
     "name": "weibull_kernel",
     "module": "ported/special_dist_family",
     "users": 1,
