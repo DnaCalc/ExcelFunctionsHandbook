@@ -6796,8 +6796,8 @@
   },
   "ported/complex_family::normalize_zero": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 379,
-    "end_line": 381,
+    "start_line": 380,
+    "end_line": 382,
     "name": "normalize_zero",
     "module": "ported/complex_family",
     "users": 26,
@@ -6805,8 +6805,8 @@
   },
   "ported/complex_family::number_to_excel_text": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 382,
-    "end_line": 444,
+    "start_line": 383,
+    "end_line": 445,
     "name": "number_to_excel_text",
     "module": "ported/complex_family",
     "users": 22,
@@ -6814,8 +6814,8 @@
   },
   "ported/complex_family::format_complex_text": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 445,
-    "end_line": 473,
+    "start_line": 446,
+    "end_line": 474,
     "name": "format_complex_text",
     "module": "ported/complex_family",
     "users": 22,
@@ -6913,8 +6913,8 @@
   },
   "ported/chi_f_t_family::t_inv_2t_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 451,
-    "end_line": 495,
+    "start_line": 482,
+    "end_line": 526,
     "name": "t_inv_2t_kernel",
     "module": "ported/chi_f_t_family",
     "users": 4,
@@ -9839,16 +9839,16 @@
   "ported/chi_f_t_family::f_pdf_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
     "start_line": 200,
-    "end_line": 220,
+    "end_line": 245,
     "name": "f_pdf_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
-    "text": "pub fn f_pdf_kernel(x: f64, deg1: f64, deg2: f64) -> Result<f64, WorksheetErrorCode> {\n    let x = validate_nonnegative_x(x)?;\n    let d1 = truncate_positive_integer(deg1)?;\n    let d2 = truncate_positive_integer(deg2)?;\n    if x == 0.0 {\n        return if d1 < 2.0 {\n            // Density diverges to +inf; Excel returns #NUM!\n            Err(WorksheetErrorCode::Num)\n        } else if d1 == 2.0 {\n            Ok(1.0)\n        } else {\n            Ok(0.0)\n        };\n    }\n    let half_d1 = d1 / 2.0;\n    let half_d2 = d2 / 2.0;\n    let num = crt_pow(d1 / d2, half_d1) * crt_pow(x, half_d1 - 1.0);\n    let den = gamma(half_d1) * gamma(half_d2) / gamma(half_d1 + half_d2)\n        * crt_pow(1.0 + d1 * x / d2, (d1 + d2) / 2.0);\n    Ok(num / den)\n}\n"
+    "text": "pub fn f_pdf_kernel(x: f64, deg1: f64, deg2: f64) -> Result<f64, WorksheetErrorCode> {\n    let x = validate_nonnegative_x(x)?;\n    let d1 = truncate_positive_integer(deg1)?;\n    let d2 = truncate_positive_integer(deg2)?;\n    if !crate::ported::excel_numeric::excel_x87_mul(d1, x).is_finite() {\n        return Err(WorksheetErrorCode::Num);\n    }\n    if x == 0.0 {\n        return if d1 < 2.0 {\n            // Density diverges to +inf; Excel returns #NUM!\n            Err(WorksheetErrorCode::Num)\n        } else if d1 == 2.0 {\n            Ok(1.0)\n        } else {\n            Ok(0.0)\n        };\n    }\n    let half_d1 = d1 / 2.0;\n    let half_d2 = d2 / 2.0;\n    let num = crt_pow(d1 / d2, half_d1) * crt_pow(x, half_d1 - 1.0);\n    let den = gamma(half_d1) * gamma(half_d2) / gamma(half_d1 + half_d2)\n        * crt_pow(1.0 + d1 * x / d2, (d1 + d2) / 2.0);\n    let density = num / den;\n    if !density.is_finite() && d1 <= 1_048_576.0 && d2 <= 1_048_576.0 {\n        // The direct gamma products can overflow even when the density is far below\n        // Excel's normal-number range. Bound that case in the log domain; the square\n        // of MIN_POSITIVE leaves a wide margin for rounding in the logarithms.\n        use crate::ported::excel_numeric::{crt_exp, crt_log};\n        use crate::ported::special_math_common::ln_gamma;\n        let log_ratio = crt_log(d1 / d2);\n        let log_x = crt_log(x);\n        let t = log_ratio + log_x;\n        let log_one_plus = if t > 0.0 {\n            t + crt_log(1.0 + crt_exp(-t))\n        } else {\n            crt_log(1.0 + crt_exp(t))\n        };\n        let log_beta = ln_gamma(half_d1) + ln_gamma(half_d2) - ln_gamma(half_d1 + half_d2);\n        let log_density = half_d1 * log_ratio + (half_d1 - 1.0) * log_x\n            - log_beta - (half_d1 + half_d2) * log_one_plus;\n        if log_density < 2.0 * crt_log(f64::MIN_POSITIVE) {\n            return Ok(0.0);\n        }\n    }\n    Ok(density)\n}\n"
   },
   "ported/chi_f_t_family::f_tails": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 222,
-    "end_line": 256,
+    "start_line": 247,
+    "end_line": 281,
     "name": "f_tails",
     "module": "ported/chi_f_t_family",
     "users": 6,
@@ -9856,12 +9856,12 @@
   },
   "ported/chi_f_t_family::f_dist_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 258,
-    "end_line": 272,
+    "start_line": 283,
+    "end_line": 300,
     "name": "f_dist_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
-    "text": "pub fn f_dist_kernel(\n    x: f64,\n    deg1: f64,\n    deg2: f64,\n    cumulative: bool,\n) -> Result<f64, WorksheetErrorCode> {\n    let x = validate_nonnegative_x(x)?;\n    let d1 = truncate_positive_integer(deg1)?;\n    let d2 = truncate_positive_integer(deg2)?;\n    if cumulative {\n        Ok(f_tails(x, d1, d2).1)\n    } else {\n        f_pdf_kernel(x, d1, d2)\n    }\n}\n"
+    "text": "pub fn f_dist_kernel(\n    x: f64,\n    deg1: f64,\n    deg2: f64,\n    cumulative: bool,\n) -> Result<f64, WorksheetErrorCode> {\n    let x = validate_nonnegative_x(x)?;\n    let d1 = truncate_positive_integer(deg1)?;\n    let d2 = truncate_positive_integer(deg2)?;\n    if cumulative {\n        if !crate::ported::excel_numeric::excel_x87_mul(d1, x).is_finite() {\n            return Err(WorksheetErrorCode::Div0);\n        }\n        Ok(f_tails(x, d1, d2).1)\n    } else {\n        f_pdf_kernel(x, d1, d2)\n    }\n}\n"
   },
   "ported/special_math_common::gamma": {
     "file": "crates/calc-func/src/ported/special_math_common.rs",
@@ -9892,12 +9892,12 @@
   },
   "ported/chi_f_t_family::f_dist_rt_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 274,
-    "end_line": 279,
+    "start_line": 302,
+    "end_line": 310,
     "name": "f_dist_rt_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
-    "text": "pub fn f_dist_rt_kernel(x: f64, deg1: f64, deg2: f64) -> Result<f64, WorksheetErrorCode> {\n    let x = validate_nonnegative_x(x)?;\n    let d1 = truncate_positive_integer(deg1)?;\n    let d2 = truncate_positive_integer(deg2)?;\n    Ok(f_tails(x, d1, d2).0)\n}\n"
+    "text": "pub fn f_dist_rt_kernel(x: f64, deg1: f64, deg2: f64) -> Result<f64, WorksheetErrorCode> {\n    let x = validate_nonnegative_x(x)?;\n    let d1 = truncate_positive_integer(deg1)?;\n    let d2 = truncate_positive_integer(deg2)?;\n    if !crate::ported::excel_numeric::excel_x87_mul(d1, x).is_finite() {\n        return Err(WorksheetErrorCode::Div0);\n    }\n    Ok(f_tails(x, d1, d2).0)\n}\n"
   },
   "catalogue/distributions::entry::F.INV": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -9910,8 +9910,8 @@
   },
   "ported/chi_f_t_family::f_inv_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 281,
-    "end_line": 295,
+    "start_line": 312,
+    "end_line": 326,
     "name": "f_inv_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -9928,8 +9928,8 @@
   },
   "ported/chi_f_t_family::f_inv_rt_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 297,
-    "end_line": 315,
+    "start_line": 328,
+    "end_line": 346,
     "name": "f_inv_rt_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
@@ -11774,11 +11774,11 @@
   "ported/discrete_dist::hypergeom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
     "start_line": 507,
-    "end_line": 549,
+    "end_line": 552,
     "name": "hypergeom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
-    "text": "/// `HYPGEOM.DIST(sample_s, number_sample, population_s, number_pop, cumulative)`.\npub fn hypergeom_dist_kernel(\n    sample_s: f64,\n    number_sample: f64,\n    population_s: f64,\n    number_pop: f64,\n    cumulative: bool,\n) -> R {\n    // W111 fractional-support controls validate the original signs. Truncating\n    // first would turn a negative count between -1 and 0 into a valid zero.\n    if sample_s < 0.0 || number_sample < 0.0 || population_s < 0.0 || number_pop < 0.0 {\n        return Err(NUM);\n    }\n    let (s, n, k, big_n) = (\n        sample_s.trunc(),\n        number_sample.trunc(),\n        population_s.trunc(),\n        number_pop.trunc(),\n    );\n    if n > big_n || k > big_n {\n        return Err(NUM);\n    }\n    if !cumulative {\n        return finite(hypergeom_mass(s, n, k, big_n));\n    }\n    // From the largest possible count the cumulative is 1 without a sum, except when that count is\n    // 0: the cumulative is then its one mass, which Excel 16.0.20527 gives as 0.9999999999999999\n    // for (0,1,0,2) and (0,12,0,13), like the mass (and 1 for (0,5,0,10) and (0,7,0,13), whose\n    // mass is 1). Beyond that count it is 1 for every probe: (1,1,0,2), (5,1,0,2), (3,2,1,5).\n    if s > n.min(k) || (s == n.min(k) && s > 0.0) {\n        return Ok(1.0);\n    }\n    if s + 1.0 > HYPGEOM_SUM_LIMIT {\n        return finite(hypergeom_cumulative_by_ratios(s, n, k, big_n));\n    }\n    let mut sum = 0.0;\n    let mut i = 0.0;\n    while i <= s {\n        sum += hypergeom_mass(i, n, k, big_n);\n        i += 1.0;\n    }\n    finite(sum.min(1.0))\n}\n"
+    "text": "/// `HYPGEOM.DIST(sample_s, number_sample, population_s, number_pop, cumulative)`.\npub fn hypergeom_dist_kernel(\n    sample_s: f64,\n    number_sample: f64,\n    population_s: f64,\n    number_pop: f64,\n    cumulative: bool,\n) -> R {\n    // W111 fractional-support controls validate the original signs. Truncating\n    // first would turn a negative count between -1 and 0 into a valid zero.\n    if sample_s < 0.0 || number_sample < 0.0 || population_s < 0.0 || number_pop < 0.0 {\n        return Err(NUM);\n    }\n    let (s, n, k, big_n) = (\n        sample_s.trunc(),\n        number_sample.trunc(),\n        population_s.trunc(),\n        number_pop.trunc(),\n    );\n    if [s, n, k, big_n].into_iter().any(|v| v >= i32::MAX as f64) {\n        return Err(NUM);\n    }\n    if n > big_n || k > big_n {\n        return Err(NUM);\n    }\n    if !cumulative {\n        return finite(hypergeom_mass(s, n, k, big_n));\n    }\n    // From the largest possible count the cumulative is 1 without a sum, except when that count is\n    // 0: the cumulative is then its one mass, which Excel 16.0.20527 gives as 0.9999999999999999\n    // for (0,1,0,2) and (0,12,0,13), like the mass (and 1 for (0,5,0,10) and (0,7,0,13), whose\n    // mass is 1). Beyond that count it is 1 for every probe: (1,1,0,2), (5,1,0,2), (3,2,1,5).\n    if s > n.min(k) || (s == n.min(k) && s > 0.0) {\n        return Ok(1.0);\n    }\n    if s + 1.0 > HYPGEOM_SUM_LIMIT {\n        return finite(hypergeom_cumulative_by_ratios(s, n, k, big_n));\n    }\n    let mut sum = 0.0;\n    let mut i = 0.0;\n    while i <= s {\n        sum += hypergeom_mass(i, n, k, big_n);\n        i += 1.0;\n    }\n    finite(sum.min(1.0))\n}\n"
   },
   "catalogue/distributions::entry::HYPGEOMDIST": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -11944,8 +11944,8 @@
   },
   "ported/complex_family::parse_real_number": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 488,
-    "end_line": 508,
+    "start_line": 489,
+    "end_line": 509,
     "name": "parse_real_number",
     "module": "ported/complex_family",
     "users": 25,
@@ -11953,8 +11953,8 @@
   },
   "ported/complex_family::find_real_imag_split": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 509,
-    "end_line": 520,
+    "start_line": 510,
+    "end_line": 521,
     "name": "find_real_imag_split",
     "module": "ported/complex_family",
     "users": 25,
@@ -11962,8 +11962,8 @@
   },
   "ported/complex_family::parse_imag_coeff": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 521,
-    "end_line": 530,
+    "start_line": 522,
+    "end_line": 531,
     "name": "parse_imag_coeff",
     "module": "ported/complex_family",
     "users": 25,
@@ -11971,8 +11971,8 @@
   },
   "ported/complex_family::parse_complex_text": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 531,
-    "end_line": 550,
+    "start_line": 532,
+    "end_line": 551,
     "name": "parse_complex_text",
     "module": "ported/complex_family",
     "users": 25,
@@ -12088,8 +12088,8 @@
   },
   "ported/complex_family::suffix_from_operands": {
     "file": "crates/calc-func/src/ported/complex_family.rs",
-    "start_line": 552,
-    "end_line": 564,
+    "start_line": 553,
+    "end_line": 565,
     "name": "suffix_from_operands",
     "module": "ported/complex_family",
     "users": 21,
@@ -14275,8 +14275,8 @@
   },
   "ported/discrete_dist::negbinom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 551,
-    "end_line": 580,
+    "start_line": 554,
+    "end_line": 583,
     "name": "negbinom_mass",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -14284,8 +14284,8 @@
   },
   "ported/discrete_dist::negbinom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 582,
-    "end_line": 606,
+    "start_line": 585,
+    "end_line": 609,
     "name": "negbinom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -17443,8 +17443,8 @@
   },
   "ported/chi_f_t_family::t_pdf": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 317,
-    "end_line": 368,
+    "start_line": 348,
+    "end_line": 399,
     "name": "t_pdf",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17452,8 +17452,8 @@
   },
   "ported/chi_f_t_family::t_two_tail": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 370,
-    "end_line": 389,
+    "start_line": 401,
+    "end_line": 420,
     "name": "t_two_tail",
     "module": "ported/chi_f_t_family",
     "users": 4,
@@ -17461,8 +17461,8 @@
   },
   "ported/chi_f_t_family::t_cdf": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 391,
-    "end_line": 395,
+    "start_line": 422,
+    "end_line": 426,
     "name": "t_cdf",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17470,8 +17470,8 @@
   },
   "ported/chi_f_t_family::t_dist_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 397,
-    "end_line": 407,
+    "start_line": 428,
+    "end_line": 438,
     "name": "t_dist_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17488,8 +17488,8 @@
   },
   "ported/chi_f_t_family::t_dist_2t_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 415,
-    "end_line": 419,
+    "start_line": 446,
+    "end_line": 450,
     "name": "t_dist_2t_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
@@ -17506,8 +17506,8 @@
   },
   "ported/chi_f_t_family::t_dist_rt_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 409,
-    "end_line": 413,
+    "start_line": 440,
+    "end_line": 444,
     "name": "t_dist_rt_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
@@ -17524,8 +17524,8 @@
   },
   "ported/chi_f_t_family::t_inv_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 434,
-    "end_line": 449,
+    "start_line": 465,
+    "end_line": 480,
     "name": "t_inv_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17731,8 +17731,8 @@
   },
   "ported/chi_f_t_family::tdist_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 421,
-    "end_line": 432,
+    "start_line": 452,
+    "end_line": 463,
     "name": "tdist_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,

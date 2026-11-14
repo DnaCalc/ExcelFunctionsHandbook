@@ -1,12 +1,12 @@
 {
-  "commit": "76dc82c263af3646bf4817372292f36aa731ac41",
+  "commit": "9af9ae24a5afaa9259ae346efde774d3c33aced7",
   "counts": {
     "absent": 1,
     "close": 39,
     "deferred": 9,
-    "differs": 158,
+    "differs": 157,
     "host": 0,
-    "matches": 347,
+    "matches": 348,
     "refuses": 0,
     "unmeasured": 0
   },
@@ -4632,11 +4632,11 @@
     "FUNC.F.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 83 of 3,320 recorded answers",
-      "detail": "Of 3,320 recorded answers (3,314 in the answer bank and 6 workbook cells), 83 do not match: 15 differ by more than 16 ULP, 56 differ by at most 16 ULP, 12 differ in kind or value.",
+      "summary": "Known differences on 81 of 3,320 recorded answers",
+      "detail": "Of 3,320 recorded answers (3,314 in the answer bank and 6 workbook cells), 81 do not match: 15 differ by more than 16 ULP, 56 differ by at most 16 ULP, 10 differ in kind or value.",
       "bank": {
         "rows": 3314,
-        "matched": 3231,
+        "matched": 3233,
         "worst_ulp": 5036,
         "excel_builds": [
           "20228",
@@ -4644,7 +4644,7 @@
         ],
         "larger_numeric": 15,
         "last_bit": 56,
-        "other_mismatch": 12,
+        "other_mismatch": 10,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -6291,11 +6291,11 @@
     "FUNC.HYPGEOMDIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 19 of 2,967 recorded answers",
-      "detail": "Of 2,967 recorded answers (2,954 in the answer bank and 13 workbook cells), 19 do not match: 1 differ by more than 16 ULP, 3 differ by at most 16 ULP, 15 differ in kind or value.",
+      "summary": "Known differences on 4 of 2,967 recorded answers",
+      "detail": "Of 2,967 recorded answers (2,954 in the answer bank and 13 workbook cells), 4 do not match: 1 differ by more than 16 ULP, 3 differ by at most 16 ULP.",
       "bank": {
         "rows": 2954,
-        "matched": 2935,
+        "matched": 2950,
         "worst_ulp": 28,
         "excel_builds": [
           "20131",
@@ -6304,7 +6304,7 @@
         ],
         "larger_numeric": 1,
         "last_bit": 3,
-        "other_mismatch": 15,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -6898,20 +6898,20 @@
       "code": "IMPORTTEXT"
     },
     "FUNC.IMPOWER": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known differences on 150 of 2,741 recorded answers",
-      "detail": "Of 2,741 recorded answers (2,735 in the answer bank and 6 workbook cells), 150 do not match: 150 differ in kind or value.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2,741 recorded answers",
+      "detail": "Recorded: 2,735 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 2735,
-        "matched": 2585,
+        "matched": 2735,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 150,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -15139,8 +15139,8 @@
       "function": "BETADIST",
       "worst_ulp": "468382554779545343",
       "rows_open": "138",
-      "bead": "dc-uef6",
-      "what_was_tried": "large-shape NUM boundary depends on both shapes; no shared overflow rule established"
+      "bead": "dc-uef6.1",
+      "what_was_tried": "tiny-shape plateau lower edge is next float above 0.7 for alpha=2, upper ~0.950124; scales as x^alpha in one arm; arithmetic unidentified"
     },
     {
       "function": "BETA.INV",
@@ -15264,9 +15264,9 @@
     {
       "function": "F.DIST",
       "worst_ulp": "5036",
-      "rows_open": "83",
+      "rows_open": "81",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "deep-underflow bound fixed two errors; ten nonzero gamma-normalization errors and value differences remain"
     },
     {
       "function": "MULTINOMIAL",
@@ -15336,7 +15336,7 @@
       "worst_ulp": "745",
       "rows_open": "69",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "tail underflow is branch-dependent: df1=2, df2=20 publishes minimum subnormal; no blanket zero rule"
     },
     {
       "function": "BINOM.DIST",
@@ -15357,7 +15357,7 @@
       "worst_ulp": "530",
       "rows_open": "633",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "large-df probe shows median scales with df and p correction with sqrt(df); alias 378/378; exact solver not fitted"
+      "what_was_tried": "large-df central term scales with df; probability correction roughly 1.0001551 times normal quantile times sqrt(2df); exact graph unidentified"
     },
     {
       "function": "CHISQ.DIST.RT",
