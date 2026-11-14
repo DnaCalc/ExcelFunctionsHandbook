@@ -1,5 +1,5 @@
 {
-  "commit": "9af9ae24a5afaa9259ae346efde774d3c33aced7",
+  "commit": "258d10e19906abcc0e7e4972f2f087abf93b6e9c",
   "repository": "https://github.com/DnaCalc/DnaCalc",
   "entries": {
     "% postfix": {
@@ -2804,7 +2804,14 @@
         "catalogue/text_functions::entry::CHAR",
         "ported/text_kernels::char_from_number"
       ],
-      "shared": [],
+      "shared": [
+        "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper"
+      ],
       "plumbing": [
         "catalogue/kit::num",
         "catalogue/kit::out_text"
@@ -7557,7 +7564,8 @@
       ],
       "plumbing": [
         "catalogue/kit::num",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::out_with_subnormal"
       ]
     },
     "F.INV": {
@@ -8075,7 +8083,8 @@
       ],
       "plumbing": [
         "catalogue/kit::num",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::out_with_subnormal"
       ]
     },
     "FIELDVALUE": {
@@ -13739,6 +13748,7 @@
       "shared": [
         "catalogue/bonds::yield_date",
         "catalogue/bonds::odd_out",
+        "catalogue/bonds::odd_frequency",
         "catalogue/financial::required_number",
         "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
@@ -13792,6 +13802,7 @@
         "catalogue/bonds::basis",
         "catalogue/bonds::yield_date",
         "catalogue/bonds::odd_out",
+        "catalogue/bonds::odd_frequency",
         "catalogue/financial::required_number",
         "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
@@ -13854,6 +13865,7 @@
       "shared": [
         "catalogue/bonds::yield_date",
         "catalogue/bonds::odd_out",
+        "catalogue/bonds::odd_frequency",
         "catalogue/financial::required_number",
         "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
@@ -13895,6 +13907,7 @@
       "shared": [
         "catalogue/bonds::yield_date",
         "catalogue/bonds::odd_out",
+        "catalogue/bonds::odd_frequency",
         "catalogue/financial::required_number",
         "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
