@@ -1742,7 +1742,7 @@
     "end_line": 20,
     "name": "text_from_str",
     "module": "ported/text_kernels",
-    "users": 60,
+    "users": 62,
     "text": "pub(crate) fn text_from_str(s: &str) -> ExcelText {\n    ExcelText::from_utf16_code_units(s.encode_utf16().collect())\n}\n"
   },
   "ported/text_kernels::date_integer_floor": {
@@ -1751,7 +1751,7 @@
     "end_line": 36,
     "name": "date_integer_floor",
     "module": "ported/text_kernels",
-    "users": 34,
+    "users": 36,
     "text": "/// Observed date-argument conversion (OxFunc date_fn.rs): the inclusive boundary is a two-step\n/// binary rounding rule. LEFT and RIGHT share it.\npub(crate) fn date_integer_floor(number: f64) -> f64 {\n    let upper = number.ceil();\n    let threshold = if upper > 0.0 {\n        2.0_f64.powi(-22) + 2.0_f64.powi(-33)\n    } else {\n        2.0_f64.powi(-23) + 2.0_f64.powi(-34)\n    };\n    if upper - number <= threshold {\n        upper\n    } else {\n        number.floor()\n    }\n}\n"
   },
   "ported/text_kernels::push_singleton_or_original": {
@@ -1760,7 +1760,7 @@
     "end_line": 537,
     "name": "push_singleton_or_original",
     "module": "ported/text_kernels",
-    "users": 59,
+    "users": 61,
     "text": "fn push_singleton_or_original(\n    out: &mut String,\n    mapped: impl Iterator<Item = char>,\n    original: char,\n) {\n    let mut chars = mapped;\n    match (chars.next(), chars.next()) {\n        (Some(single), None) => out.push(single),\n        _ => out.push(original),\n    }\n}\n"
   },
   "ported/text_kernels::push_upper": {
@@ -1769,7 +1769,7 @@
     "end_line": 559,
     "name": "push_upper",
     "module": "ported/text_kernels",
-    "users": 36,
+    "users": 38,
     "text": "fn push_upper(out: &mut String, ch: char) {\n    // Excel maps individual BMP code units. A supplementary letter's surrogate pair stays\n    // unchanged (fn1 UPPER, U+10428), as do non-expanding ligatures and sharp s.\n    if ch as u32 > 0xFFFF {\n        out.push(ch);\n        return;\n    }\n    match ch {\n        'ß' => out.push('ß'),\n        'ά' => out.push('Α'),\n        'έ' => out.push('Ε'),\n        'ή' => out.push('Η'),\n        'ί' => out.push('Ι'),\n        'ό' => out.push('Ο'),\n        'ύ' => out.push('Υ'),\n        'ώ' => out.push('Ω'),\n        'ΐ' => out.push('Ϊ'),\n        'ΰ' => out.push('Ϋ'),\n        _ => push_singleton_or_original(out, ch.to_uppercase(), ch),\n    }\n}\n"
   },
   "ported/text_kernels::upper": {
@@ -1778,7 +1778,7 @@
     "end_line": 591,
     "name": "upper",
     "module": "ported/text_kernels",
-    "users": 35,
+    "users": 37,
     "text": "pub(crate) fn upper(text: &ExcelText) -> ExcelText {\n    let mut out = String::new();\n    for ch in text.to_string_lossy().chars() {\n        push_upper(&mut out, ch);\n    }\n    text_from_str(&out)\n}\n"
   },
   "ported/variance_common::variance_from_values": {
@@ -3907,8 +3907,8 @@
   },
   "catalogue/engineering::entry::BESSELI": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 286,
-    "end_line": 286,
+    "start_line": 293,
+    "end_line": 293,
     "name": "BESSELI",
     "module": "catalogue/engineering",
     "users": 1,
@@ -4024,8 +4024,8 @@
   },
   "catalogue/engineering::entry::BESSELJ": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 287,
-    "end_line": 287,
+    "start_line": 294,
+    "end_line": 294,
     "name": "BESSELJ",
     "module": "catalogue/engineering",
     "users": 1,
@@ -4195,8 +4195,8 @@
   },
   "catalogue/engineering::entry::BESSELK": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 288,
-    "end_line": 288,
+    "start_line": 295,
+    "end_line": 295,
     "name": "BESSELK",
     "module": "catalogue/engineering",
     "users": 1,
@@ -4249,8 +4249,8 @@
   },
   "catalogue/engineering::entry::BESSELY": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 289,
-    "end_line": 289,
+    "start_line": 296,
+    "end_line": 296,
     "name": "BESSELY",
     "module": "catalogue/engineering",
     "users": 1,
@@ -6040,8 +6040,8 @@
   },
   "catalogue/text_functions::entry::CHAR": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 290,
-    "end_line": 293,
+    "start_line": 294,
+    "end_line": 297,
     "name": "CHAR",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6625,8 +6625,8 @@
   },
   "catalogue/text_functions::entry::CLEAN": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 333,
-    "end_line": 336,
+    "start_line": 337,
+    "end_line": 340,
     "name": "CLEAN",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6643,8 +6643,8 @@
   },
   "catalogue/text_functions::entry::CODE": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 294,
-    "end_line": 297,
+    "start_line": 298,
+    "end_line": 301,
     "name": "CODE",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6823,8 +6823,8 @@
   },
   "catalogue/text_functions::cells": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 162,
-    "end_line": 171,
+    "start_line": 166,
+    "end_line": 175,
     "name": "cells",
     "module": "catalogue/text_functions",
     "users": 2,
@@ -6832,8 +6832,8 @@
   },
   "catalogue/text_functions::cell_text": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 173,
-    "end_line": 181,
+    "start_line": 177,
+    "end_line": 185,
     "name": "cell_text",
     "module": "catalogue/text_functions",
     "users": 3,
@@ -6841,8 +6841,8 @@
   },
   "catalogue/text_functions::concat": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 183,
-    "end_line": 200,
+    "start_line": 187,
+    "end_line": 204,
     "name": "concat",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6850,8 +6850,8 @@
   },
   "catalogue/text_functions::entry::CONCAT": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 385,
-    "end_line": 385,
+    "start_line": 389,
+    "end_line": 389,
     "name": "CONCAT",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6859,8 +6859,8 @@
   },
   "catalogue/text_functions::concatenate": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 202,
-    "end_line": 213,
+    "start_line": 206,
+    "end_line": 217,
     "name": "concatenate",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6868,8 +6868,8 @@
   },
   "catalogue/text_functions::entry::CONCATENATE": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 384,
-    "end_line": 384,
+    "start_line": 388,
+    "end_line": 388,
     "name": "CONCATENATE",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6958,8 +6958,8 @@
   },
   "catalogue/engineering::entry::CONVERT": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 303,
-    "end_line": 308,
+    "start_line": 310,
+    "end_line": 315,
     "name": "CONVERT",
     "module": "catalogue/engineering",
     "users": 1,
@@ -8884,8 +8884,8 @@
   },
   "catalogue/engineering::entry::DELTA": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 290,
-    "end_line": 296,
+    "start_line": 297,
+    "end_line": 303,
     "name": "DELTA",
     "module": "catalogue/engineering",
     "users": 1,
@@ -9676,8 +9676,8 @@
   },
   "catalogue/text_functions::entry::EXACT": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 342,
-    "end_line": 346,
+    "start_line": 346,
+    "end_line": 350,
     "name": "EXACT",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -10216,8 +10216,8 @@
   },
   "catalogue/text_functions::entry::FIND": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 347,
-    "end_line": 347,
+    "start_line": 351,
+    "end_line": 351,
     "name": "FIND",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -10252,8 +10252,8 @@
   },
   "catalogue/text_functions::entry::FINDB": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 348,
-    "end_line": 348,
+    "start_line": 352,
+    "end_line": 352,
     "name": "FINDB",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -10954,8 +10954,8 @@
   },
   "catalogue/engineering::entry::GESTEP": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 297,
-    "end_line": 302,
+    "start_line": 304,
+    "end_line": 309,
     "name": "GESTEP",
     "module": "catalogue/engineering",
     "users": 1,
@@ -12206,11 +12206,11 @@
   "catalogue/engineering::entry::IMPOWER": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
     "start_line": 266,
-    "end_line": 270,
+    "end_line": 277,
     "name": "IMPOWER",
     "module": "catalogue/engineering",
     "users": 1,
-    "text": "52 impower |s, a, sv| {\n    let z = complex_of(s, 0, &a[0])?;\n    let n = coefficient(s, a, 1)?;\n    complex_text(z.power(n), &[z])\n}\n"
+    "text": "52 impower |s, a, sv| {\n    // Excel 20527 rejects empty complex text before inspecting the exponent.\n    if matches!(a[0].core_ref(), CoreRef::Text(t) if t.utf16_code_units().is_empty()) {\n        return fail(WorksheetErrorCode::Num);\n    }\n    let z = complex_of(s, 0, &a[0])?;\n    let n = coefficient(s, a, 1)?;\n    if z.re == 0.0 && z.im == 0.0 && n == 0.0 {\n        return fail(WorksheetErrorCode::Num);\n    }\n    complex_text(z.power(n), &[z])\n}\n"
   },
   "catalogue/engineering::complexes": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
@@ -12223,8 +12223,8 @@
   },
   "catalogue/engineering::entry::IMPRODUCT": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 281,
-    "end_line": 285,
+    "start_line": 288,
+    "end_line": 292,
     "name": "IMPRODUCT",
     "module": "catalogue/engineering",
     "users": 1,
@@ -12286,8 +12286,8 @@
   },
   "catalogue/engineering::entry::IMSUB": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 271,
-    "end_line": 275,
+    "start_line": 278,
+    "end_line": 282,
     "name": "IMSUB",
     "module": "catalogue/engineering",
     "users": 1,
@@ -12295,8 +12295,8 @@
   },
   "catalogue/engineering::entry::IMSUM": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
-    "start_line": 276,
-    "end_line": 280,
+    "start_line": 283,
+    "end_line": 287,
     "name": "IMSUM",
     "module": "catalogue/engineering",
     "users": 1,
@@ -13285,8 +13285,8 @@
   },
   "catalogue/text_functions::entry::LEFT": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 315,
-    "end_line": 315,
+    "start_line": 319,
+    "end_line": 319,
     "name": "LEFT",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -13294,8 +13294,8 @@
   },
   "catalogue/text_functions::entry::LEFTB": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 323,
-    "end_line": 323,
+    "start_line": 327,
+    "end_line": 327,
     "name": "LEFTB",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -13303,8 +13303,8 @@
   },
   "catalogue/text_functions::entry::LEN": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 306,
-    "end_line": 314,
+    "start_line": 310,
+    "end_line": 318,
     "name": "LEN",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -13312,8 +13312,8 @@
   },
   "catalogue/text_functions::entry::LENB": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 318,
-    "end_line": 322,
+    "start_line": 322,
+    "end_line": 326,
     "name": "LENB",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -13582,8 +13582,8 @@
   },
   "catalogue/text_functions::entry::LOWER": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 327,
-    "end_line": 327,
+    "start_line": 331,
+    "end_line": 331,
     "name": "LOWER",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -13834,8 +13834,8 @@
   },
   "catalogue/text_functions::entry::MID": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 317,
-    "end_line": 317,
+    "start_line": 321,
+    "end_line": 321,
     "name": "MID",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -13861,8 +13861,8 @@
   },
   "catalogue/text_functions::entry::MIDB": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 325,
-    "end_line": 325,
+    "start_line": 329,
+    "end_line": 329,
     "name": "MIDB",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -15769,8 +15769,8 @@
   },
   "catalogue/text_functions::entry::PROPER": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 328,
-    "end_line": 328,
+    "start_line": 332,
+    "end_line": 332,
     "name": "PROPER",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -16247,16 +16247,16 @@
   "catalogue/text_functions::replace": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
     "start_line": 135,
-    "end_line": 152,
+    "end_line": 156,
     "name": "replace",
     "module": "catalogue/text_functions",
     "users": 2,
-    "text": "fn replace(site: &Site<'_>, a: &[CalcValue], bytes: bool) -> Step<CalcValue> {\n    let old = text_arg(site, a, 0)?;\n    let start = num(site, a, 1)?;\n    let start = k::positive(start).map_err(Exit::Error)?;\n    let count = num(site, a, 2)?;\n    let count = k::nonnegative(count).map_err(Exit::Error)?;\n    let new = text_arg(site, a, 3)?;\n    capped(\n        k::replace(\n            &old,\n            start,\n            count,\n            &new,\n            !bytes && count_surrogate_pairs(site)?,\n        ),\n        WorksheetErrorCode::Value,\n    )\n}\n"
+    "text": "fn replace(site: &Site<'_>, a: &[CalcValue], bytes: bool) -> Step<CalcValue> {\n    let old = text_arg(site, a, 0)?;\n    let start = num(site, a, 1)?;\n    let count = num(site, a, 2)?;\n    let new = text_arg(site, a, 3)?;\n    let start = k::positive(k::date_integer_floor(start)).map_err(Exit::Error)?;\n    let count = k::date_integer_floor(count);\n    if !count.is_finite() || !(0.0..32768.0).contains(&count) {\n        return fail(WorksheetErrorCode::Value);\n    }\n    let count = count as usize;\n    capped(\n        k::replace(\n            &old,\n            start,\n            count,\n            &new,\n            !bytes && count_surrogate_pairs(site)?,\n        ),\n        WorksheetErrorCode::Value,\n    )\n}\n"
   },
   "catalogue/text_functions::capped": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 154,
-    "end_line": 160,
+    "start_line": 158,
+    "end_line": 164,
     "name": "capped",
     "module": "catalogue/text_functions",
     "users": 3,
@@ -16264,21 +16264,12 @@
   },
   "catalogue/text_functions::entry::REPLACE": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 351,
-    "end_line": 353,
+    "start_line": 355,
+    "end_line": 357,
     "name": "REPLACE",
     "module": "catalogue/text_functions",
     "users": 1,
     "text": "24 replace_fn |s, a, sv| {\n    replace(s, a, false)\n}\n"
-  },
-  "ported/text_kernels::nonnegative": {
-    "file": "crates/calc-func/src/ported/text_kernels.rs",
-    "start_line": 181,
-    "end_line": 191,
-    "name": "nonnegative",
-    "module": "ported/text_kernels",
-    "users": 2,
-    "text": "/// A count of at least 0.\npub(crate) fn nonnegative(n: f64) -> Result<usize, WorksheetErrorCode> {\n    let t = truncated(n)?;\n    if t < 0.0 {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if t > usize::MAX as f64 {\n        return Ok(usize::MAX);\n    }\n    Ok(t as usize)\n}\n"
   },
   "ported/text_kernels::replace": {
     "file": "crates/calc-func/src/ported/text_kernels.rs",
@@ -16291,8 +16282,8 @@
   },
   "catalogue/text_functions::entry::REPLACEB": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 354,
-    "end_line": 357,
+    "start_line": 358,
+    "end_line": 361,
     "name": "REPLACEB",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -16300,8 +16291,8 @@
   },
   "catalogue/text_functions::entry::REPT": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 337,
-    "end_line": 341,
+    "start_line": 341,
+    "end_line": 345,
     "name": "REPT",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -16318,8 +16309,8 @@
   },
   "catalogue/text_functions::entry::RIGHT": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 316,
-    "end_line": 316,
+    "start_line": 320,
+    "end_line": 320,
     "name": "RIGHT",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -16327,8 +16318,8 @@
   },
   "catalogue/text_functions::entry::RIGHTB": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 324,
-    "end_line": 324,
+    "start_line": 328,
+    "end_line": 328,
     "name": "RIGHTB",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -16669,8 +16660,8 @@
   },
   "catalogue/text_functions::entry::SEARCH": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 349,
-    "end_line": 349,
+    "start_line": 353,
+    "end_line": 353,
     "name": "SEARCH",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -16705,8 +16696,8 @@
   },
   "catalogue/text_functions::entry::SEARCHB": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 350,
-    "end_line": 350,
+    "start_line": 354,
+    "end_line": 354,
     "name": "SEARCHB",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -16935,7 +16926,7 @@
     "name": "skew_p_kernel",
     "module": "ported/moment_stats_family",
     "users": 1,
-    "text": "pub(crate) fn skew_p_kernel(values: &[f64]) -> Result<f64, WorksheetErrorCode> {\n    if values.is_empty() {\n        return Err(WorksheetErrorCode::Div0);\n    }\n    let n = values.len();\n    let avg = mean(values);\n    let mut sumsq = 0.0;\n    let mut deltas = Vec::with_capacity(n);\n    for value in values {\n        let delta = *value - avg;\n        sumsq += delta * delta;\n        deltas.push(delta);\n    }\n    if sumsq == 0.0 {\n        return Err(WorksheetErrorCode::Div0);\n    }\n\n    let pop_std = (sumsq / n as f64).sqrt();\n    let standardized_sum = deltas\n        .iter()\n        .map(|delta| {\n            let z = *delta / pop_std;\n            z * z * z\n        })\n        .sum::<f64>();\n    Ok(standardized_sum / n as f64)\n}\n"
+    "text": "pub(crate) fn skew_p_kernel(values: &[f64]) -> Result<f64, WorksheetErrorCode> {\n    if values.len() < 3 {\n        return Err(WorksheetErrorCode::Div0);\n    }\n    let n = values.len();\n    let avg = mean(values);\n    let mut sumsq = 0.0;\n    let mut deltas = Vec::with_capacity(n);\n    for value in values {\n        let delta = *value - avg;\n        sumsq += delta * delta;\n        deltas.push(delta);\n    }\n    if sumsq == 0.0 {\n        return Err(WorksheetErrorCode::Div0);\n    }\n\n    let pop_std = (sumsq / n as f64).sqrt();\n    let standardized_sum = deltas\n        .iter()\n        .map(|delta| {\n            let z = *delta / pop_std;\n            z * z * z\n        })\n        .sum::<f64>();\n    Ok(standardized_sum / n as f64)\n}\n"
   },
   "catalogue/financial::entry::SLN": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
@@ -17209,8 +17200,8 @@
   },
   "catalogue/text_functions::entry::SUBSTITUTE": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 358,
-    "end_line": 371,
+    "start_line": 362,
+    "end_line": 375,
     "name": "SUBSTITUTE",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -17443,8 +17434,8 @@
   },
   "catalogue/text_functions::entry::T": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 372,
-    "end_line": 383,
+    "start_line": 376,
+    "end_line": 387,
     "name": "T",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -17830,8 +17821,8 @@
   },
   "catalogue/text_functions::delimiters": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 215,
-    "end_line": 246,
+    "start_line": 219,
+    "end_line": 250,
     "name": "delimiters",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -17839,8 +17830,8 @@
   },
   "catalogue/text_functions::textjoin": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 248,
-    "end_line": 284,
+    "start_line": 252,
+    "end_line": 288,
     "name": "textjoin",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -17848,8 +17839,8 @@
   },
   "catalogue/text_functions::entry::TEXTJOIN": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 386,
-    "end_line": 388,
+    "start_line": 390,
+    "end_line": 392,
     "name": "TEXTJOIN",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -18091,8 +18082,8 @@
   },
   "catalogue/text_functions::entry::TRIM": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 329,
-    "end_line": 332,
+    "start_line": 333,
+    "end_line": 336,
     "name": "TRIM",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -18226,8 +18217,8 @@
   },
   "catalogue/text_functions::entry::UNICHAR": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 298,
-    "end_line": 301,
+    "start_line": 302,
+    "end_line": 305,
     "name": "UNICHAR",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -18244,8 +18235,8 @@
   },
   "catalogue/text_functions::entry::UNICODE": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 302,
-    "end_line": 305,
+    "start_line": 306,
+    "end_line": 309,
     "name": "UNICODE",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -18325,8 +18316,8 @@
   },
   "catalogue/text_functions::entry::UPPER": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 326,
-    "end_line": 326,
+    "start_line": 330,
+    "end_line": 330,
     "name": "UPPER",
     "module": "catalogue/text_functions",
     "users": 1,
