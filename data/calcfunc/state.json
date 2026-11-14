@@ -1,12 +1,12 @@
 {
-  "commit": "31f8232bf9b6144d849dbfd96380440730b18317",
+  "commit": "40beac4be75e99ccd62680e4870bca3845baba06",
   "counts": {
     "absent": 1,
     "close": 38,
     "deferred": 9,
-    "differs": 160,
+    "differs": 159,
     "host": 0,
-    "matches": 346,
+    "matches": 347,
     "refuses": 0,
     "unmeasured": 0
   },
@@ -8139,18 +8139,18 @@
     "FUNC.LINEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 102 of 6,570 recorded answers",
-      "detail": "Of 6,570 recorded answers (3,225 in the answer bank and 3,345 workbook cells), 102 do not match: 7 differ by more than 16 ULP, 12 differ by at most 16 ULP, 83 differ in kind or value.",
+      "summary": "Known differences on 84 of 6,570 recorded answers",
+      "detail": "Of 6,570 recorded answers (3,225 in the answer bank and 3,345 workbook cells), 84 do not match: 7 differ by more than 16 ULP, 12 differ by at most 16 ULP, 65 differ in kind or value.",
       "bank": {
         "rows": 3225,
-        "matched": 3141,
+        "matched": 3159,
         "worst_ulp": 1,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 1,
-        "other_mismatch": 83,
+        "other_mismatch": 65,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -8257,11 +8257,11 @@
     "FUNC.LOGEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 98 of 5,642 recorded answers",
-      "detail": "Of 5,642 recorded answers (3,585 in the answer bank and 2,057 workbook cells), 98 do not match: 7 differ by more than 16 ULP, 8 differ by at most 16 ULP, 83 differ in kind or value.",
+      "summary": "Known differences on 80 of 5,642 recorded answers",
+      "detail": "Of 5,642 recorded answers (3,585 in the answer bank and 2,057 workbook cells), 80 do not match: 7 differ by more than 16 ULP, 8 differ by at most 16 ULP, 65 differ in kind or value.",
       "bank": {
         "rows": 3585,
-        "matched": 3500,
+        "matched": 3518,
         "worst_ulp": 1,
         "excel_builds": [
           "20228",
@@ -8269,7 +8269,7 @@
         ],
         "larger_numeric": 0,
         "last_bit": 2,
-        "other_mismatch": 83,
+        "other_mismatch": 65,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -13649,18 +13649,18 @@
     "FUNC.TEXTJOIN": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 88 of 2,993 recorded answers",
-      "detail": "Of 2,993 recorded answers (2,949 in the answer bank and 44 workbook cells), 88 do not match: 88 differ in kind or value.",
+      "summary": "Known differences on 2 of 2,993 recorded answers",
+      "detail": "Of 2,993 recorded answers (2,949 in the answer bank and 44 workbook cells), 2 do not match: 2 differ in kind or value.",
       "bank": {
         "rows": 2949,
-        "matched": 2861,
+        "matched": 2947,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 88,
+        "other_mismatch": 2,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -14268,20 +14268,20 @@
       "code": "VALUE"
     },
     "FUNC.VALUETOTEXT": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known differences on 82 of 2,517 recorded answers",
-      "detail": "Of 2,517 recorded answers (2,475 in the answer bank and 42 workbook cells), 82 do not match: 82 differ in kind or value.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2,517 recorded answers",
+      "detail": "Recorded: 2,475 in the answer bank and 42 workbook cells.",
       "bank": {
         "rows": 2475,
-        "matched": 2393,
+        "matched": 2475,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 82,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -15147,14 +15147,14 @@
       "worst_ulp": "1188129402768354",
       "rows_open": "321",
       "bead": "dc-iici",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "forward at Excel inverse equals p on 26/128 controls; solver not yet fitted; tiny-shape NUM boundary is nonmonotone; reflection agrees on 119/128 controls"
     },
     {
       "function": "BETAINV",
       "worst_ulp": "764307040971430",
       "rows_open": "311",
       "bead": "dc-b0p4",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "tiny-shape NUM boundary is nonmonotone across p and shape; no solver fitted"
     },
     {
       "function": "GAMMAINV",
@@ -15168,7 +15168,7 @@
       "worst_ulp": "1731866076314",
       "rows_open": "735",
       "bead": "dc-5pvg",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls"
     },
     {
       "function": "TINV",
@@ -15210,7 +15210,7 @@
       "worst_ulp": "563902",
       "rows_open": "149",
       "bead": "dc-hyod",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "forward at Excel inverse equals p on 18/128 controls; solver not yet fitted"
     },
     {
       "function": "CONFIDENCE.T",
@@ -15224,7 +15224,7 @@
       "worst_ulp": "22148",
       "rows_open": "274",
       "bead": "dc-88rm",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "forward at Excel inverse equals p on 10/128 controls; solver not yet fitted"
     },
     {
       "function": "T.DIST",
@@ -15315,7 +15315,7 @@
       "worst_ulp": "1033",
       "rows_open": "426",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "forward at Excel inverse equals p on 40/128 controls; solver not yet fitted"
     },
     {
       "function": "IRR",
