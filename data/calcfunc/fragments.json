@@ -1742,7 +1742,7 @@
     "end_line": 20,
     "name": "text_from_str",
     "module": "ported/text_kernels",
-    "users": 62,
+    "users": 63,
     "text": "pub(crate) fn text_from_str(s: &str) -> ExcelText {\n    ExcelText::from_utf16_code_units(s.encode_utf16().collect())\n}\n"
   },
   "ported/text_kernels::date_integer_floor": {
@@ -1751,7 +1751,7 @@
     "end_line": 36,
     "name": "date_integer_floor",
     "module": "ported/text_kernels",
-    "users": 36,
+    "users": 37,
     "text": "/// Observed date-argument conversion (OxFunc date_fn.rs): the inclusive boundary is a two-step\n/// binary rounding rule. LEFT and RIGHT share it.\npub(crate) fn date_integer_floor(number: f64) -> f64 {\n    let upper = number.ceil();\n    let threshold = if upper > 0.0 {\n        2.0_f64.powi(-22) + 2.0_f64.powi(-33)\n    } else {\n        2.0_f64.powi(-23) + 2.0_f64.powi(-34)\n    };\n    if upper - number <= threshold {\n        upper\n    } else {\n        number.floor()\n    }\n}\n"
   },
   "ported/text_kernels::push_singleton_or_original": {
@@ -1760,7 +1760,7 @@
     "end_line": 537,
     "name": "push_singleton_or_original",
     "module": "ported/text_kernels",
-    "users": 61,
+    "users": 62,
     "text": "fn push_singleton_or_original(\n    out: &mut String,\n    mapped: impl Iterator<Item = char>,\n    original: char,\n) {\n    let mut chars = mapped;\n    match (chars.next(), chars.next()) {\n        (Some(single), None) => out.push(single),\n        _ => out.push(original),\n    }\n}\n"
   },
   "ported/text_kernels::push_upper": {
@@ -1769,7 +1769,7 @@
     "end_line": 559,
     "name": "push_upper",
     "module": "ported/text_kernels",
-    "users": 38,
+    "users": 39,
     "text": "fn push_upper(out: &mut String, ch: char) {\n    // Excel maps individual BMP code units. A supplementary letter's surrogate pair stays\n    // unchanged (fn1 UPPER, U+10428), as do non-expanding ligatures and sharp s.\n    if ch as u32 > 0xFFFF {\n        out.push(ch);\n        return;\n    }\n    match ch {\n        'ß' => out.push('ß'),\n        'ά' => out.push('Α'),\n        'έ' => out.push('Ε'),\n        'ή' => out.push('Η'),\n        'ί' => out.push('Ι'),\n        'ό' => out.push('Ο'),\n        'ύ' => out.push('Υ'),\n        'ώ' => out.push('Ω'),\n        'ΐ' => out.push('Ϊ'),\n        'ΰ' => out.push('Ϋ'),\n        _ => push_singleton_or_original(out, ch.to_uppercase(), ch),\n    }\n}\n"
   },
   "ported/text_kernels::upper": {
@@ -1778,7 +1778,7 @@
     "end_line": 591,
     "name": "upper",
     "module": "ported/text_kernels",
-    "users": 37,
+    "users": 38,
     "text": "pub(crate) fn upper(text: &ExcelText) -> ExcelText {\n    let mut out = String::new();\n    for ch in text.to_string_lossy().chars() {\n        push_upper(&mut out, ch);\n    }\n    text_from_str(&out)\n}\n"
   },
   "ported/variance_common::variance_from_values": {
@@ -1837,8 +1837,8 @@
   },
   "catalogue/financial::entry::AMORDEGRC": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 395,
-    "end_line": 406,
+    "start_line": 396,
+    "end_line": 407,
     "name": "AMORDEGRC",
     "module": "catalogue/financial",
     "users": 1,
@@ -2008,8 +2008,8 @@
   },
   "catalogue/financial::entry::AMORLINC": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 391,
-    "end_line": 394,
+    "start_line": 392,
+    "end_line": 395,
     "name": "AMORLINC",
     "module": "catalogue/financial",
     "users": 1,
@@ -6850,8 +6850,8 @@
   },
   "catalogue/text_functions::entry::CONCAT": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 392,
-    "end_line": 392,
+    "start_line": 397,
+    "end_line": 397,
     "name": "CONCAT",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -6868,8 +6868,8 @@
   },
   "catalogue/text_functions::entry::CONCATENATE": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 391,
-    "end_line": 391,
+    "start_line": 396,
+    "end_line": 396,
     "name": "CONCATENATE",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -7921,8 +7921,8 @@
   },
   "catalogue/financial::entry::CUMIPMT": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 283,
-    "end_line": 285,
+    "start_line": 284,
+    "end_line": 286,
     "name": "CUMIPMT",
     "module": "catalogue/financial",
     "users": 1,
@@ -8353,8 +8353,8 @@
   },
   "catalogue/financial::entry::CUMPRINC": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 286,
-    "end_line": 288,
+    "start_line": 287,
+    "end_line": 289,
     "name": "CUMPRINC",
     "module": "catalogue/financial",
     "users": 1,
@@ -8641,8 +8641,8 @@
   },
   "catalogue/financial::entry::DB": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 365,
-    "end_line": 370,
+    "start_line": 366,
+    "end_line": 371,
     "name": "DB",
     "module": "catalogue/financial",
     "users": 1,
@@ -8731,8 +8731,8 @@
   },
   "catalogue/financial::entry::DDB": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 371,
-    "end_line": 375,
+    "start_line": 372,
+    "end_line": 376,
     "name": "DDB",
     "module": "catalogue/financial",
     "users": 1,
@@ -9118,8 +9118,8 @@
   },
   "catalogue/financial::entry::DOLLARDE": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 407,
-    "end_line": 412,
+    "start_line": 408,
+    "end_line": 413,
     "name": "DOLLARDE",
     "module": "catalogue/financial",
     "users": 1,
@@ -9154,8 +9154,8 @@
   },
   "catalogue/financial::entry::DOLLARFR": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 413,
-    "end_line": 418,
+    "start_line": 414,
+    "end_line": 419,
     "name": "DOLLARFR",
     "module": "catalogue/financial",
     "users": 1,
@@ -9433,8 +9433,8 @@
   },
   "catalogue/financial::entry::EFFECT": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 280,
-    "end_line": 282,
+    "start_line": 281,
+    "end_line": 283,
     "name": "EFFECT",
     "module": "catalogue/financial",
     "users": 1,
@@ -10577,16 +10577,16 @@
   "catalogue/statistics/ets::evaluate": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
     "start_line": 755,
-    "end_line": 919,
+    "end_line": 917,
     "name": "evaluate",
     "module": "catalogue/statistics/ets",
     "users": 4,
-    "text": "pub(super) fn evaluate(\n    site: &Site<'_>,\n    args: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n    output: Output,\n) -> Step<CalcValue> {\n    let offset = usize::from(matches!(output, Output::Forecast | Output::Confidence));\n    // Excel 20527 checks this unequal-length shape before reading the scalar history,\n    // even when that scalar holds an error. Optional scalar coercion can take priority,\n    // so admit only the default-argument forms covered by independent controls.\n    let default_options = match output {\n        Output::Seasonality => args.len() == 2,\n        Output::Statistic => args.len() == 3 && args[2].as_number().is_some_and(|n| {\n            n.is_finite() && n.fract() == 0.0 && (1.0..=8.0).contains(&n)\n        }),\n        Output::Forecast | Output::Confidence => args.len() == 3\n            && args[0].as_number().is_some_and(|n| n.is_finite() && !n.is_subnormal()),\n    };\n    let scalar_history = match args.get(offset).map(CalcValue::core_ref) {\n        Some(CoreRef::Number(n)) => n.is_finite() && !n.is_subnormal(),\n        Some(CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_)) => true,\n        _ => false,\n    };\n    if default_options && scalar_history\n        && let Some(timeline) = args.get(offset + 1).and_then(CalcValue::as_array)\n    {\n        let shape = timeline.shape();\n        if shape.cols == 1 && (2..=16).contains(&shape.rows)\n            && timeline.iter_row_major().all(|v| v.as_number().is_some_and(|n| n.is_finite() && !n.is_subnormal()))\n        {\n            return fail(WorksheetErrorCode::NA);\n        }\n    }\n    let y = vector(site, args, offset, sv)?;\n    let t = vector(site, args, offset + 1, sv)?;\n    // Excel checks paired vector lengths before the scalar option domains.\n    if y.len() != t.len() {\n        return fail(WorksheetErrorCode::NA);\n    }\n    let statistic = if output == Output::Statistic {\n        num(site, args, 2)?\n    } else {\n        8.0\n    };\n    let confidence = if output == Output::Confidence {\n        opt(site, args, 3, 0.95)?\n    } else {\n        0.0\n    };\n    let option_start = match output {\n        Output::Forecast | Output::Statistic => 3,\n        Output::Confidence => 4,\n        Output::Seasonality => 2,\n    };\n    let season = if output == Output::Seasonality {\n        1.0\n    } else {\n        opt(site, args, option_start, 1.0)?\n    };\n    let completion_at = option_start + usize::from(output != Output::Seasonality);\n    let completion = opt(site, args, completion_at, 1.0)?;\n    let aggregation = opt(site, args, completion_at + 1, 1.0)?;\n    if statistic.fract() != 0.0 || !(1.0..=8.0).contains(&statistic)\n        || !(0.0..1.0).contains(&confidence)\n        // Bisection locates the last admitted integer period at 8784; the\n        // error applies to step statistics and confidence zero as well.\n        || season < 0.0 || season > 8_784.0 || season.fract() != 0.0\n        || (completion != 0.0 && completion != 1.0)\n        || aggregation.fract() != 0.0 || !(1.0..=7.0).contains(&aggregation)\n    {\n        return fail(WorksheetErrorCode::Num);\n    }\n    let series = prepare(site, y, t, completion, aggregation)?;\n    let target = if offset == 1 {\n        num(site, args, 0)?\n    } else {\n        series.last\n    };\n    if target < series.first {\n        // A reversed input timeline can admit extrapolation before its minimum\n        // where an ascending one returns NUM. Its admission rule is still open.\n        return if series.ordered {\n            fail(WorksheetErrorCode::Num)\n        } else {\n            Err(unfinished(site))\n        };\n    }\n    if output == Output::Confidence && target <= series.last {\n        return fail(WorksheetErrorCode::Num);\n    }\n    let horizon = if offset == 1 {\n        // 2^31 times a finite positive binary64 step is exact when finite.\n        // A rounded subtraction strictly above that representable bound is\n        // also above it exactly, even when the subtraction cannot be stored\n        // without loss. Excel rejects this horizon before fitting the model.\n        let distance_bound = (i32::MAX as f64 + 1.0) * series.step;\n        let rounded_distance = target - series.last;\n        if distance_bound.is_finite()\n            && rounded_distance.is_finite()\n            && rounded_distance > distance_bound\n        {\n            return fail(WorksheetErrorCode::Num);\n        }\n        if output == Output::Confidence && rounded_distance.is_finite()\n            && rounded_distance < (i32::MAX as f64) * series.step\n        {\n            // Excel forms the normal probability from a stored x87 complement.\n            // When it rounds to one half, the confidence interval is zero.\n            let tail = crate::ported::excel_numeric::excel_x87_sub(1.0, confidence);\n            let probability = crate::ported::excel_numeric::excel_x87_sub(1.0, tail / 2.0);\n            if probability == 0.5 {\n                return site.number(0.0);\n            }\n        }\n        let distance = exact_sum(target, -series.last).ok_or_else(|| unfinished(site))?;\n        let h = distance / series.step;\n        if h * series.step != distance {\n            return Err(unfinished(site));\n        }\n        // Fractional forecasts use adjacent integer forecasts only when the\n        // timeline division is exact; other fractional outputs remain open.\n        if h.fract() != 0.0 && (output != Output::Forecast || h < 0.0\n            || h >= i32::MAX as f64 || h.mul_add(series.step, -distance) != 0.0)\n        {\n            return Err(unfinished(site));\n        }\n        // Both target functions share this signed-32-bit future-index limit,\n        // including the confidence-zero case (three translated/scaled timelines).\n        if h > i32::MAX as f64 {\n            return fail(WorksheetErrorCode::Num);\n        }\n        h\n    } else {\n        0.0\n    };\n    if output == Output::Statistic && statistic == 8.0 {\n        return site.number(series.step);\n    }\n    if output == Output::Confidence && confidence == 0.0 {\n        return site.number(0.0);\n    }\n    if output == Output::Forecast && horizon.fract() != 0.0 {\n        let lower_horizon = horizon.floor();\n        let fraction = horizon - lower_horizon;\n        // Excel snaps targets within 0.001 of a timeline point; otherwise it\n        // interpolates the two fitted forecasts with stored x87 operations.\n        if fraction <= 0.001 {\n            return evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon);\n        }\n        if 1.0 - fraction <= 0.001 {\n            return evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon + 1.0);\n        }\n        let lower = evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon)?;\n        let upper = evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon + 1.0)?;\n        let (lower, upper) = match (lower.core_ref(), upper.core_ref()) {\n            (CoreRef::Number(lower), CoreRef::Number(upper)) => (lower, upper),\n            _ => return Err(unfinished(site)),\n        };\n        use crate::ported::excel_numeric::{excel_x87_add, excel_x87_mul, excel_x87_sub};\n        let difference = excel_x87_sub(upper, lower);\n        let increment = excel_x87_mul(difference, fraction);\n        return site.number(excel_x87_add(lower, increment));\n    }\n    evaluate_fitted(site, &series, output, statistic, confidence, season, horizon)\n}\n"
+    "text": "pub(super) fn evaluate(\n    site: &Site<'_>,\n    args: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n    output: Output,\n) -> Step<CalcValue> {\n    let offset = usize::from(matches!(output, Output::Forecast | Output::Confidence));\n    // Excel 20527 coerces the target before inspecting history shape or option domains.\n    let target = if offset == 1 { Some(num(site, args, 0)?) } else { None };\n    // Excel 20527 checks this unequal-length shape before reading the scalar history,\n    // even when that scalar holds an error. Optional scalar coercion can take priority,\n    // so admit only the default-argument forms covered by independent controls.\n    let default_options = match output {\n        Output::Seasonality => args.len() == 2,\n        Output::Statistic => args.len() == 3 && args[2].as_number().is_some_and(|n| {\n            n.is_finite() && n.fract() == 0.0 && (1.0..=8.0).contains(&n)\n        }),\n        Output::Forecast | Output::Confidence => args.len() == 3\n            && args[0].as_number().is_some_and(|n| n.is_finite() && !n.is_subnormal()),\n    };\n    let scalar_history = match args.get(offset).map(CalcValue::core_ref) {\n        Some(CoreRef::Number(n)) => n.is_finite() && !n.is_subnormal(),\n        Some(CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_)) => true,\n        _ => false,\n    };\n    if default_options && scalar_history\n        && let Some(timeline) = args.get(offset + 1).and_then(CalcValue::as_array)\n    {\n        let shape = timeline.shape();\n        if shape.cols == 1 && (2..=16).contains(&shape.rows)\n            && timeline.iter_row_major().all(|v| v.as_number().is_some_and(|n| n.is_finite() && !n.is_subnormal()))\n        {\n            return fail(WorksheetErrorCode::NA);\n        }\n    }\n    let y = vector(site, args, offset, sv)?;\n    let t = vector(site, args, offset + 1, sv)?;\n    // Excel checks paired vector lengths before the scalar option domains.\n    if y.len() != t.len() {\n        return fail(WorksheetErrorCode::NA);\n    }\n    let statistic = if output == Output::Statistic {\n        num(site, args, 2)?\n    } else {\n        8.0\n    };\n    let confidence = if output == Output::Confidence {\n        opt(site, args, 3, 0.95)?\n    } else {\n        0.0\n    };\n    let option_start = match output {\n        Output::Forecast | Output::Statistic => 3,\n        Output::Confidence => 4,\n        Output::Seasonality => 2,\n    };\n    let season = if output == Output::Seasonality {\n        1.0\n    } else {\n        opt(site, args, option_start, 1.0)?\n    };\n    let completion_at = option_start + usize::from(output != Output::Seasonality);\n    let completion = opt(site, args, completion_at, 1.0)?;\n    let aggregation = opt(site, args, completion_at + 1, 1.0)?;\n    if statistic.fract() != 0.0 || !(1.0..=8.0).contains(&statistic)\n        || !(0.0..1.0).contains(&confidence)\n        // Bisection locates the last admitted integer period at 8784; the\n        // error applies to step statistics and confidence zero as well.\n        || season < 0.0 || season > 8_784.0 || season.fract() != 0.0\n        || (completion != 0.0 && completion != 1.0)\n        || aggregation.fract() != 0.0 || !(1.0..=7.0).contains(&aggregation)\n    {\n        return fail(WorksheetErrorCode::Num);\n    }\n    let series = prepare(site, y, t, completion, aggregation)?;\n    let target = target.unwrap_or(series.last);\n    if target < series.first {\n        // A reversed input timeline can admit extrapolation before its minimum\n        // where an ascending one returns NUM. Its admission rule is still open.\n        return if series.ordered {\n            fail(WorksheetErrorCode::Num)\n        } else {\n            Err(unfinished(site))\n        };\n    }\n    if output == Output::Confidence && target <= series.last {\n        return fail(WorksheetErrorCode::Num);\n    }\n    let horizon = if offset == 1 {\n        // 2^31 times a finite positive binary64 step is exact when finite.\n        // A rounded subtraction strictly above that representable bound is\n        // also above it exactly, even when the subtraction cannot be stored\n        // without loss. Excel rejects this horizon before fitting the model.\n        let distance_bound = (i32::MAX as f64 + 1.0) * series.step;\n        let rounded_distance = target - series.last;\n        if distance_bound.is_finite()\n            && rounded_distance.is_finite()\n            && rounded_distance > distance_bound\n        {\n            return fail(WorksheetErrorCode::Num);\n        }\n        if output == Output::Confidence && rounded_distance.is_finite()\n            && rounded_distance < (i32::MAX as f64) * series.step\n        {\n            // Excel forms the normal probability from a stored x87 complement.\n            // When it rounds to one half, the confidence interval is zero.\n            let tail = crate::ported::excel_numeric::excel_x87_sub(1.0, confidence);\n            let probability = crate::ported::excel_numeric::excel_x87_sub(1.0, tail / 2.0);\n            if probability == 0.5 {\n                return site.number(0.0);\n            }\n        }\n        let distance = exact_sum(target, -series.last).ok_or_else(|| unfinished(site))?;\n        let h = distance / series.step;\n        if h * series.step != distance {\n            return Err(unfinished(site));\n        }\n        // Fractional forecasts use adjacent integer forecasts only when the\n        // timeline division is exact; other fractional outputs remain open.\n        if h.fract() != 0.0 && (output != Output::Forecast || h < 0.0\n            || h >= i32::MAX as f64 || h.mul_add(series.step, -distance) != 0.0)\n        {\n            return Err(unfinished(site));\n        }\n        // Both target functions share this signed-32-bit future-index limit,\n        // including the confidence-zero case (three translated/scaled timelines).\n        if h > i32::MAX as f64 {\n            return fail(WorksheetErrorCode::Num);\n        }\n        h\n    } else {\n        0.0\n    };\n    if output == Output::Statistic && statistic == 8.0 {\n        return site.number(series.step);\n    }\n    if output == Output::Confidence && confidence == 0.0 {\n        return site.number(0.0);\n    }\n    if output == Output::Forecast && horizon.fract() != 0.0 {\n        let lower_horizon = horizon.floor();\n        let fraction = horizon - lower_horizon;\n        // Excel snaps targets within 0.001 of a timeline point; otherwise it\n        // interpolates the two fitted forecasts with stored x87 operations.\n        if fraction <= 0.001 {\n            return evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon);\n        }\n        if 1.0 - fraction <= 0.001 {\n            return evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon + 1.0);\n        }\n        let lower = evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon)?;\n        let upper = evaluate_fitted(site, &series, output, statistic, confidence, season, lower_horizon + 1.0)?;\n        let (lower, upper) = match (lower.core_ref(), upper.core_ref()) {\n            (CoreRef::Number(lower), CoreRef::Number(upper)) => (lower, upper),\n            _ => return Err(unfinished(site)),\n        };\n        use crate::ported::excel_numeric::{excel_x87_add, excel_x87_mul, excel_x87_sub};\n        let difference = excel_x87_sub(upper, lower);\n        let increment = excel_x87_mul(difference, fraction);\n        return site.number(excel_x87_add(lower, increment));\n    }\n    evaluate_fitted(site, &series, output, statistic, confidence, season, horizon)\n}\n"
   },
   "catalogue/statistics/ets::evaluate_fitted": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 921,
-    "end_line": 1010,
+    "start_line": 919,
+    "end_line": 1008,
     "name": "evaluate_fitted",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10721,11 +10721,11 @@
   "catalogue/financial::entry::FVSCHEDULE": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
     "start_line": 266,
-    "end_line": 270,
+    "end_line": 271,
     "name": "FVSCHEDULE",
     "module": "catalogue/financial",
     "users": 1,
-    "text": "11 fvschedule_fn |s, a, sv| {\n    let principal = num(s, a, 0)?;\n    let rates = schedule(s, a, 1, sv)?;\n    tv_out(s, tv::fvschedule(principal, &rates))\n}\n"
+    "text": "11 fvschedule_fn |s, a, sv| {\n    reject_logical(&a[0])?;\n    let principal = num(s, a, 0)?;\n    let rates = schedule(s, a, 1, sv)?;\n    tv_out(s, tv::fvschedule(principal, &rates))\n}\n"
   },
   "ported/financial_time_value_family::fvschedule": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
@@ -12655,8 +12655,8 @@
   },
   "catalogue/financial::entry::IRR": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 289,
-    "end_line": 312,
+    "start_line": 290,
+    "end_line": 313,
     "name": "IRR",
     "module": "catalogue/financial",
     "users": 1,
@@ -14446,8 +14446,8 @@
   },
   "catalogue/financial::entry::NOMINAL": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 277,
-    "end_line": 279,
+    "start_line": 278,
+    "end_line": 280,
     "name": "NOMINAL",
     "module": "catalogue/financial",
     "users": 1,
@@ -15238,8 +15238,8 @@
   },
   "catalogue/financial::entry::PDURATION": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 271,
-    "end_line": 273,
+    "start_line": 272,
+    "end_line": 274,
     "name": "PDURATION",
     "module": "catalogue/financial",
     "users": 1,
@@ -16588,8 +16588,8 @@
   },
   "catalogue/financial::entry::RRI": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 274,
-    "end_line": 276,
+    "start_line": 275,
+    "end_line": 277,
     "name": "RRI",
     "module": "catalogue/financial",
     "users": 1,
@@ -16921,8 +16921,8 @@
   },
   "catalogue/financial::entry::SLN": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 359,
-    "end_line": 361,
+    "start_line": 360,
+    "end_line": 362,
     "name": "SLN",
     "module": "catalogue/financial",
     "users": 1,
@@ -17192,11 +17192,11 @@
   "catalogue/text_functions::entry::SUBSTITUTE": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
     "start_line": 365,
-    "end_line": 378,
+    "end_line": 383,
     "name": "SUBSTITUTE",
     "module": "catalogue/text_functions",
     "users": 1,
-    "text": "26 substitute_fn |s, a, sv| {\n    let text = text_arg(s, a, 0)?;\n    let old = text_arg(s, a, 1)?;\n    let new = text_arg(s, a, 2)?;\n    let instance = match a.get(3) {\n        None => None,\n        Some(value) if value.is_missing() => None,\n        Some(_) => {\n            let n = num(s, a, 3)?;\n            Some(k::positive(n).map_err(Exit::Error)?)\n        }\n    };\n    capped(k::substitute(&text, &old, &new, instance), WorksheetErrorCode::Value)\n}\n"
+    "text": "26 substitute_fn |s, a, sv| {\n    let text = text_arg(s, a, 0)?;\n    let old = text_arg(s, a, 1)?;\n    let new = text_arg(s, a, 2)?;\n    let instance = match a.get(3) {\n        None => None,\n        Some(value) if value.is_missing() => None,\n        Some(_) => {\n            let n = num(s, a, 3)?;\n            if n >= 2_147_483_647.0 {\n                return fail(WorksheetErrorCode::Value);\n            }\n            // The transition immediately below the upper bound remains under investigation.\n            let rounded = if n < 2_147_483_646.0 { k::date_integer_floor(n) } else { n };\n            Some(k::positive(rounded).map_err(Exit::Error)?)\n        }\n    };\n    capped(k::substitute(&text, &old, &new, instance), WorksheetErrorCode::Value)\n}\n"
   },
   "ported/text_kernels::substitute": {
     "file": "crates/calc-func/src/ported/text_kernels.rs",
@@ -17407,8 +17407,8 @@
   },
   "catalogue/financial::entry::SYD": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 362,
-    "end_line": 364,
+    "start_line": 363,
+    "end_line": 365,
     "name": "SYD",
     "module": "catalogue/financial",
     "users": 1,
@@ -17425,8 +17425,8 @@
   },
   "catalogue/text_functions::entry::T": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 379,
-    "end_line": 390,
+    "start_line": 384,
+    "end_line": 395,
     "name": "T",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -17830,8 +17830,8 @@
   },
   "catalogue/text_functions::entry::TEXTJOIN": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
-    "start_line": 393,
-    "end_line": 395,
+    "start_line": 398,
+    "end_line": 400,
     "name": "TEXTJOIN",
     "module": "catalogue/text_functions",
     "users": 1,
@@ -18397,8 +18397,8 @@
   },
   "catalogue/financial::entry::VDB": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 376,
-    "end_line": 390,
+    "start_line": 377,
+    "end_line": 391,
     "name": "VDB",
     "module": "catalogue/financial",
     "users": 1,
@@ -18640,8 +18640,8 @@
   },
   "catalogue/financial::entry::XIRR": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 330,
-    "end_line": 358,
+    "start_line": 331,
+    "end_line": 359,
     "name": "XIRR",
     "module": "catalogue/financial",
     "users": 1,
@@ -18865,8 +18865,8 @@
   },
   "catalogue/financial::entry::XNPV": {
     "file": "crates/calc-func/src/catalogue/financial.rs",
-    "start_line": 313,
-    "end_line": 329,
+    "start_line": 314,
+    "end_line": 330,
     "name": "XNPV",
     "module": "catalogue/financial",
     "users": 1,

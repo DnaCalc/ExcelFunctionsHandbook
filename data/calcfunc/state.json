@@ -1,12 +1,12 @@
 {
-  "commit": "81ad8fe259d1f5f04fa7a88371f194613c6d6291",
+  "commit": "31f8232bf9b6144d849dbfd96380440730b18317",
   "counts": {
     "absent": 1,
     "close": 38,
     "deferred": 9,
-    "differs": 162,
+    "differs": 160,
     "host": 0,
-    "matches": 344,
+    "matches": 346,
     "refuses": 0,
     "unmeasured": 0
   },
@@ -5287,18 +5287,18 @@
     "FUNC.FORECAST.ETS": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 876 of 4,059 recorded answers",
-      "detail": "Of 4,059 recorded answers (2,959 in the answer bank and 1,100 workbook cells), 876 do not match: 11 differ by at most 16 ULP, 103 differ in kind or value, 762 are refused.",
+      "summary": "Known differences on 841 of 4,059 recorded answers",
+      "detail": "Of 4,059 recorded answers (2,959 in the answer bank and 1,100 workbook cells), 841 do not match: 11 differ by at most 16 ULP, 68 differ in kind or value, 762 are refused.",
       "bank": {
         "rows": 2959,
-        "matched": 2244,
+        "matched": 2279,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 103,
+        "other_mismatch": 68,
         "refused": 612,
         "excluded": 0,
         "unread": 0
@@ -5317,18 +5317,18 @@
     "FUNC.FORECAST.ETS.CONFINT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 906 of 5,455 recorded answers",
-      "detail": "Of 5,455 recorded answers (4,355 in the answer bank and 1,100 workbook cells), 906 do not match: 1 differ by more than 16 ULP, 19 differ by at most 16 ULP, 40 differ in kind or value, 846 are refused.",
+      "summary": "Known differences on 867 of 5,455 recorded answers",
+      "detail": "Of 5,455 recorded answers (4,355 in the answer bank and 1,100 workbook cells), 867 do not match: 1 differ by more than 16 ULP, 19 differ by at most 16 ULP, 1 differ in kind or value, 846 are refused.",
       "bank": {
         "rows": 4355,
-        "matched": 3612,
+        "matched": 3651,
         "worst_ulp": 5494198,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 1,
         "last_bit": 6,
-        "other_mismatch": 40,
+        "other_mismatch": 1,
         "refused": 696,
         "excluded": 0,
         "unread": 0
@@ -5548,20 +5548,20 @@
       "code": "FV"
     },
     "FUNC.FVSCHEDULE": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known differences on 102 of 2,863 recorded answers",
-      "detail": "Of 2,863 recorded answers (2,857 in the answer bank and 6 workbook cells), 102 do not match: 102 differ in kind or value.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2,863 recorded answers",
+      "detail": "Recorded: 2,857 in the answer bank and 6 workbook cells.",
       "bank": {
         "rows": 2857,
-        "matched": 2755,
+        "matched": 2857,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 102,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -12820,20 +12820,20 @@
       "code": null
     },
     "FUNC.SUBSTITUTE": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known differences on 97 of 2,942 recorded answers",
-      "detail": "Of 2,942 recorded answers (2,921 in the answer bank and 21 workbook cells), 97 do not match: 97 differ in kind or value.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2,942 recorded answers",
+      "detail": "Recorded: 2,921 in the answer bank and 21 workbook cells.",
       "bank": {
         "rows": 2921,
-        "matched": 2824,
+        "matched": 2921,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 97,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -15187,9 +15187,9 @@
     {
       "function": "FORECAST.ETS.CONFINT",
       "worst_ulp": "5494198",
-      "rows_open": "743",
+      "rows_open": "704",
       "bead": "dc-gcn9",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "target coercion fixed; numeric discrepancy not yet attempted"
     },
     {
       "function": "T.INV.2T",
