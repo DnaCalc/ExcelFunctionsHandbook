@@ -320,15 +320,17 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
     let n = |v: &Value| v.as_u64().unwrap_or(0);
     let bank = &row["bank"];
     let corpus = &row["corpus"];
-    let total = n(&bank["rows"]).saturating_sub(n(&bank["unread"]))
-        + n(&corpus["cells"]).saturating_sub(n(&corpus["pending"]));
+    let total = n(&bank["rows"]) + n(&corpus["cells"]);
     let matched = n(&bank["matched"]) + n(&corpus["matched"]);
     let refused = n(&bank["refused"]) + n(&corpus["refused"]);
     let last = n(&bank["last_bit"]) + n(&corpus["last_bit"]);
     let worst = n(&bank["worst_ulp"]).max(n(&corpus["worst_ulp"]));
-    let other = total.saturating_sub(matched + refused + last);
+    let other = n(&bank["larger_numeric"]) + n(&bank["other_mismatch"])
+        + n(&corpus["larger_numeric"]) + n(&corpus["other_mismatch"]);
+    let unavailable = n(&bank["unread"]) + n(&bank["excluded"])
+        + n(&corpus["pending"]) + n(&corpus["failed"]);
     let cases = count_word(total, "case", "cases");
-    let what = "formulas we ran in Excel, recorded, then ran through DNA Calc";
+    let what = "recorded Excel comparisons attributed to this function";
     match s(&row["state"]) {
         "matches" => (
             "same results as Excel in every case we compared".into(),
@@ -338,7 +340,7 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
             "very close to Excel".into(),
             format!("DNA Calc gives exactly Excel's result in {} of the {cases} we compared ({what}). In the other {}, the result differs only in the last few binary digits, at most {} in the last place: usually too small to show in the 15 digits Excel displays.", fmt_count(&json!(total.saturating_sub(last))), fmt_count(&json!(last)), count_word(worst, "unit", "units")),
         ),
-        "differs" if other == 0 && last == 0 && refused > 0 => (
+        "differs" if other == 0 && last == 0 && unavailable == 0 && refused > 0 => (
             "not finished, declines some inputs".into(),
             format!("DNA Calc is not finished here. Of the {cases} we compared ({what}), it declines {}: it gives no answer rather than a guess. Every case it does answer matches Excel.", fmt_count(&json!(refused))),
         ),
@@ -352,6 +354,9 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
             }
             if refused > 0 {
                 parts.push(format!("{} {} declined", fmt_count(&json!(refused)), if refused == 1 { "is" } else { "are" }));
+            }
+            if unavailable > 0 {
+                parts.push(format!("{} {} unread, excluded, pending or failed", fmt_count(&json!(unavailable)), if unavailable == 1 { "is" } else { "are" }));
             }
             (
                 "differs from Excel in some cases".into(),
@@ -370,8 +375,7 @@ pub fn plain(calc: &CalcFunc, id: &str) -> (String, String) {
 fn list_note(calc: &CalcFunc, id: &str) -> String {
     let row = calc.entry(id);
     let n = |v: &Value| v.as_u64().unwrap_or(0);
-    let total = n(&row["bank"]["rows"]).saturating_sub(n(&row["bank"]["unread"]))
-        + n(&row["corpus"]["cells"]).saturating_sub(n(&row["corpus"]["pending"]));
+    let total = n(&row["bank"]["rows"]) + n(&row["corpus"]["cells"]);
     if row["host_evidence"].is_object() {
         return s(&row["summary"]).to_string();
     }
@@ -582,10 +586,21 @@ pub fn summary_page(
         fmt_count(&corpus["formula_cells"]),
         fmt_count(&corpus["matched"]),
         esc(&s(&calc.pin["measured_application_revision"])[..12]),
-        if calc.pin["calc_func_unchanged_since_report"] == true { "<code>calc-func</code> has not changed since that report landed." } else { "<code>calc-func</code> has changed since that report landed, so the code shown may be newer than the counts." },
+        if calc.pin["calc_func_unchanged_since_report"] == true { "<code>calc-func</code> has not changed since that measurement." } else { "<code>calc-func</code> has changed since that measurement, so the code shown may be newer than the counts." },
         calc.short(),
         esc(s(&calc.pin["rule"]))
     );
+    if let Some(stragglers) = calc.state["stragglers"].as_array() {
+        if !stragglers.is_empty() {
+            h += "<h2>Investigations above 256 ULP</h2><p>These are the worst recorded numeric distances; open rows also include other failures.</p><div class=\"table-scroll\"><table><thead><tr><th>Function</th><th>Worst ULP</th><th>Open rows</th><th>Bead</th><th>Attempt</th></tr></thead><tbody>";
+            for row in stragglers {
+                h += &format!("<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>",
+                    esc(s(&row["function"])), esc(s(&row["worst_ulp"])), esc(s(&row["rows_open"])),
+                    esc(s(&row["bead"])), esc(s(&row["what_was_tried"])));
+            }
+            h += "</tbody></table></div>";
+        }
+    }
     for (state, title, meaning) in STATES {
         let members: Vec<_> = functions
             .iter()
@@ -644,6 +659,23 @@ mod evidence_tests {
         assert!(text.contains("9 differ only"));
         assert!(text.contains("72 are declined"));
         assert!(!text.contains("0 give"));
+    }
+
+    #[test]
+    fn unavailable_rows_stay_in_the_denominator() {
+        let calc = CalcFunc {
+            pin: json!({}),
+            state: json!({"functions": {"FUNC.TEST": {
+                "state": "differs", "bank": {"rows": 10, "matched": 7, "unread": 1, "excluded": 2},
+                "corpus": {"cells": 4, "matched": 3, "pending": 1}
+            }}}),
+            code: json!({}), fragments: json!({}), variants: json!({}),
+        };
+        let (_, text) = plain(&calc, "FUNC.TEST");
+        assert!(text.contains("14 cases"));
+        assert!(text.contains("10"));
+        assert!(text.contains("4 are unread, excluded, pending or failed"));
+        assert!(!text.contains("give a different result"));
     }
 
     #[test]

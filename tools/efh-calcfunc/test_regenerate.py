@@ -1,14 +1,22 @@
 """Checks the attribution and presentation of independently recorded comparisons."""
+import json
 import tempfile
 import unittest
 from pathlib import Path
 
 import rustindex
 
-from regenerate import corpus_for, shared_entry_item, state_of
+from regenerate import corpus_for, require_corpus_revision, shared_entry_item, state_of
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_corpus_revision_must_match_pin(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            (Path(tmp) / "summary.json").write_text(json.dumps({"run": {"repository": "old"}}))
+            require_corpus_revision(tmp, "old")
+            with self.assertRaises(SystemExit):
+                require_corpus_revision(tmp, "new")
+
     def test_prefixed_and_plain_corpus_counts_are_combined(self):
         rows = {
             "FORECAST.ETS.STAT": {"cells": 3, "matched": 3, "worst_ulp": 0},
@@ -22,6 +30,29 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(label, "differs")
         self.assertIn("9 differ by at most 16 ULP", detail)
         self.assertIn("96 are refused", detail)
+
+    def test_unread_and_excluded_bank_rows_remain_failures(self):
+        bank = {"rows": 10, "matched": 7, "unread": 1, "excluded": 2}
+        label, summary, detail = state_of("EXAMPLE", {"kind": "implemented"}, bank, None, 0)
+        self.assertEqual(label, "differs")
+        self.assertIn("3 of 10", summary)
+        self.assertIn("1 were unread", detail)
+        self.assertIn("2 were excluded", detail)
+
+    def test_pending_workbook_cells_remain_failures(self):
+        corpus = {"cells": 4, "matched": 3, "pending": 1}
+        label, summary, detail = state_of("EXAMPLE", {"kind": "implemented"}, None, corpus, 0)
+        self.assertEqual(label, "differs")
+        self.assertIn("1 of 4", summary)
+        self.assertIn("1 await a comparable workbook result", detail)
+
+    def test_missing_workbook_result_is_not_called_a_refusal(self):
+        corpus = {"cells": 4, "matched": 3, "failed": 1}
+        label, summary, detail = state_of("EXAMPLE", {"kind": "implemented"}, None, corpus, 0)
+        self.assertEqual(label, "differs")
+        self.assertIn("1 of 4", summary)
+        self.assertIn("1 failed or were missing", detail)
+        self.assertNotIn("refused", detail)
 
     def test_shared_family_id_selects_the_attached_kernel(self):
         with tempfile.TemporaryDirectory() as tmp:

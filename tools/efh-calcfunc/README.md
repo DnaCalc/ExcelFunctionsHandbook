@@ -7,20 +7,26 @@ CalcFunc has no repository of its own: it is the crate `crates/calc-func` there.
 ```sh
 git -C DNACALC checkout PIN
 (cd DNACALC && cargo xtask corpus --oracle --no-capture --cache CACHE --out RUN)
-python3 tools/efh-calcfunc/regenerate.py --dnacalc DNACALC --pin PIN --corpus-run RUN
+python3 tools/efh-calcfunc/regenerate.py --dnacalc DNACALC --pin PIN --corpus-run RUN \
+  --bank-trace FULL_JUDGE_TRACE.jsonl --stragglers STRAGGLERS.tsv
 cargo run --release --locked --manifest-path tools/efh-site/Cargo.toml -- build
 ```
 
 `tools/build-site.sh` runs the last two steps with the committed pin and tally. Omit `--pin` and
 `--corpus-run` to regenerate at the committed pin. The script refuses a checkout that is not clean
-at the pin, and stops if the corpus tally, the bank table and `problem-functions.json` disagree.
+at the pin, and stops if the corpus tally and bank table disagree with their evidence. `--bank-trace` supplies
+the full judge trace when the existing mismatch breakdown is stale; the importer classifies its
+rows through DnaCalc’s `calc-verdict` and records the breakdown against the bank table hash.
+`--stragglers` supplies the current investigation list for functions over 256 ULP; it must agree
+with the bank table. Unread and excluded rows remain in the denominator and count as failures.
 
 | Input at the pin | Gives |
 |---|---|
 | `crates/calc-func` catalogue, through `dump/` | signature, arity, parameter classes, and each entry's kind, implementation (held, binding, not held, deferred, with owner) and availability: these decide the deferred, host and Not in Excel states (an entry whose availability is `AbsentOnWindows`, such as JIS, is counted on its own as `absent`, apart from the entries that refuse) |
 | `crates/calc-fml/src/eval/builtins.rs` | its hash only: the names it lists are built from the catalogue |
 | `crates/calc-func/witness-status.tsv` | answer-bank rows, matches and worst ULP per function |
-| `docs/generated/problem-functions.json` | mismatch classes per function, and the rule |
+| full judge trace and `calc-verdict` | measured mismatch classes per function |
+| `docs/generated/problem-functions.json` | earlier mismatch detail and the rule |
 | corpus run (`tally.py`) | workbook cells per function, the denominator the report omits; and per operator (`operators`), read from the parsed formula text, so prefix, postfix and reference operators get their own counts. A matched cell counts for every operator it uses; an unmatched cell is charged to the operators only when the formula calls no function |
 | `crates/calc-func/witness-differences.tsv` | conflicting Excel readings |
 | source text (`rustindex.py`) | quoted entry, its kernels, shared kernels |

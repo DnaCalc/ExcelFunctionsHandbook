@@ -173,15 +173,17 @@ def tally(corpus):
                     for name in set(STRIP.sub('', n) for n in CALL.findall(tokens)):
                         if name != label:
                             nested[name] += 1
-                elif state in ('external_link', 'circular_rule', 'awaiting_capture'):
+                elif state in ('external_link', 'circular_rule', 'awaiting_capture', 'agreed_rejection'):
                     row['pending'] += 1
                 elif state == 'mismatched':
                     kind = mismatch_kind(verdict, expected.get(k), actual.get(k))
                     row[kind[0]] += 1
                     if kind[0] == 'last_bit':
                         row['worst_ulp'] = max(row['worst_ulp'], kind[1])
-                else:
+                elif state == 'not_modeled':
                     row['refused'] += 1
+                else:
+                    row['failed'] += 1
                 # Operator uses, read from the parsed formula. A matched cell is evidence for every
                 # operator it uses. A cell that is not matched is charged to the operators only when
                 # the formula calls no function, so a failing function is never blamed on an operator
@@ -194,7 +196,7 @@ def tally(corpus):
                         if state == 'matched' and not ('external_links' in verdict or 'circular_rule' in verdict):
                             op['cells'] += 1
                             op['matched'] += 1
-                        elif state in ('external_link', 'circular_rule', 'awaiting_capture') or state == 'matched':
+                        elif state in ('external_link', 'circular_rule', 'awaiting_capture', 'agreed_rejection') or state == 'matched':
                             op['cells'] += 1
                             op['pending'] += 1
                         elif function_free:
@@ -204,8 +206,10 @@ def tally(corpus):
                                 op[kind[0]] += 1
                                 if kind[0] == 'last_bit':
                                     op['worst_ulp'] = max(op['worst_ulp'], kind[1])
-                            else:
+                            elif state == 'not_modeled':
                                 op['refused'] += 1
+                            else:
+                                op['failed'] += 1
     return {'functions': {k: dict(v) for k, v in sorted(functions.items())},
             'operators': {k: dict(v) for k, v in sorted(operator_rows.items())},
             'nested_matched': dict(sorted(nested.items())),

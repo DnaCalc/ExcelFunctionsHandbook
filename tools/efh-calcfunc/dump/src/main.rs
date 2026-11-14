@@ -8,6 +8,7 @@ use calc_func::{
     PreparedArguments,
 };
 use std::io::BufRead;
+use std::collections::BTreeMap;
 
 struct Given(Vec<CalcValue>);
 
@@ -51,6 +52,45 @@ fn evaluate() {
     }
 }
 
+/// Summarize the full judge trace using the same witness verdict as DnaCalc.
+fn bank_mismatches() {
+    use calc_verdict::{decode_result, Severity};
+    let mut counts: BTreeMap<String, BTreeMap<&str, u64>> = BTreeMap::new();
+    for line in std::io::stdin().lock().lines() {
+        let row: serde_json::Value = serde_json::from_str(&line.expect("trace input")).expect("trace JSON");
+        let function = row["function"].as_str().expect("function");
+        let actual = row["actual"].as_str().expect("actual");
+        let expected = row["expected"].as_str().expect("expected");
+        let function_counts = counts.entry(function.to_owned()).or_default();
+        *function_counts.entry("trace_rows").or_default() += 1;
+        if actual == expected {
+            *function_counts.entry("matched").or_default() += 1;
+            continue;
+        }
+        let kind = if actual.starts_with("excluded:") {
+            "excluded"
+        } else if matches!(actual, "fault:NotImplemented" | "fault:WitnessReferencePosition" |
+                           "fault:Deferred" | "fault:NotHeld" | "fault:NotCatalogued") {
+            "refused"
+        } else if let (Ok(e), Ok(a)) = (decode_result(expected), decode_result(actual)) {
+            let (severity, ulp) = Severity::of(&e, &a);
+            if severity == Severity::Exact {
+                *function_counts.entry("matched").or_default() += 1;
+                continue;
+            }
+            match ulp {
+                Some(distance) if distance <= 16 => "last_bit",
+                Some(_) => "larger_numeric",
+                None => "other_mismatch",
+            }
+        } else {
+            "other_mismatch"
+        };
+        *function_counts.entry(kind).or_default() += 1;
+    }
+    println!("{}", serde_json::to_string(&counts).expect("summary JSON"));
+}
+
 fn quoted(text: &str) -> String {
     let mut out = String::from("\"");
     for c in text.chars() {
@@ -69,8 +109,10 @@ fn quoted(text: &str) -> String {
 }
 
 fn main() {
-    if std::env::args().nth(1).as_deref() == Some("eval") {
-        return evaluate();
+    match std::env::args().nth(1).as_deref() {
+        Some("eval") => return evaluate(),
+        Some("bank-mismatches") => return bank_mismatches(),
+        _ => {}
     }
     let mut rows = Vec::new();
     // Every entry the catalogue declares, held or not: its own kind, implementation and

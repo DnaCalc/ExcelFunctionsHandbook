@@ -35,8 +35,7 @@
     "AGGREGATE": {
       "cells": 14,
       "matched": 8,
-      "refused": 5,
-      "pending": 1
+      "pending": 6
     },
     "AMORDEGRC": {
       "cells": 46,
@@ -140,25 +139,25 @@
       "cells": 6,
       "matched": 5,
       "last_bit": 1,
-      "worst_ulp": 2
+      "worst_ulp": 1
     },
     "BETA.INV": {
       "cells": 6,
       "matched": 5,
       "last_bit": 1,
-      "worst_ulp": 2
+      "worst_ulp": 1
     },
     "BETADIST": {
       "cells": 42,
-      "matched": 30,
-      "last_bit": 12,
+      "matched": 32,
+      "last_bit": 10,
       "worst_ulp": 7
     },
     "BETAINV": {
       "cells": 6,
       "matched": 4,
       "last_bit": 2,
-      "worst_ulp": 2
+      "worst_ulp": 1
     },
     "BIN2DEC": {
       "cells": 11,
@@ -174,10 +173,10 @@
     },
     "BINOM.DIST": {
       "cells": 312,
-      "matched": 261,
-      "last_bit": 24,
-      "worst_ulp": 16,
-      "larger_numeric": 27
+      "matched": 272,
+      "last_bit": 31,
+      "worst_ulp": 5,
+      "larger_numeric": 9
     },
     "BINOM.DIST.RANGE": {
       "cells": 52,
@@ -261,8 +260,7 @@
     "CHISQ.INV": {
       "cells": 4,
       "matched": 3,
-      "last_bit": 1,
-      "worst_ulp": 15
+      "larger_numeric": 1
     },
     "CHISQ.INV.RT": {
       "cells": 4,
@@ -299,8 +297,7 @@
     },
     "COLUMN": {
       "cells": 11,
-      "matched": 9,
-      "larger_numeric": 1,
+      "matched": 10,
       "pending": 1
     },
     "COLUMNS": {
@@ -467,16 +464,11 @@
     },
     "CUMIPMT": {
       "cells": 238,
-      "matched": 186,
-      "last_bit": 52,
-      "worst_ulp": 16
+      "matched": 238
     },
     "CUMPRINC": {
       "cells": 248,
-      "matched": 80,
-      "last_bit": 157,
-      "worst_ulp": 15,
-      "larger_numeric": 11
+      "matched": 248
     },
     "Cell reference (unresolved)": {
       "cells": 16,
@@ -499,7 +491,7 @@
     "DAVERAGE": {
       "cells": 4,
       "matched": 3,
-      "refused": 1
+      "pending": 1
     },
     "DAY": {
       "cells": 269,
@@ -524,7 +516,7 @@
     "DCOUNT": {
       "cells": 4,
       "matched": 3,
-      "refused": 1
+      "pending": 1
     },
     "DCOUNTA": {
       "cells": 3,
@@ -573,12 +565,12 @@
     "DMAX": {
       "cells": 4,
       "matched": 3,
-      "refused": 1
+      "pending": 1
     },
     "DMIN": {
       "cells": 4,
       "matched": 3,
-      "refused": 1
+      "pending": 1
     },
     "DOLLAR": {
       "cells": 12,
@@ -595,7 +587,7 @@
     "DPRODUCT": {
       "cells": 4,
       "matched": 3,
-      "refused": 1
+      "pending": 1
     },
     "DROP": {
       "cells": 23,
@@ -612,7 +604,7 @@
     "DSUM": {
       "cells": 4,
       "matched": 3,
-      "refused": 1
+      "pending": 1
     },
     "DURATION": {
       "cells": 6,
@@ -696,9 +688,7 @@
     },
     "F.DIST.RT": {
       "cells": 5,
-      "matched": 4,
-      "last_bit": 1,
-      "worst_ulp": 1
+      "matched": 5
     },
     "F.INV": {
       "cells": 5,
@@ -730,9 +720,7 @@
     },
     "FDIST": {
       "cells": 5,
-      "matched": 3,
-      "last_bit": 2,
-      "worst_ulp": 1
+      "matched": 5
     },
     "FIELDVALUE": {
       "cells": 25,
@@ -832,8 +820,7 @@
     "Formula without function": {
       "cells": 2657,
       "matched": 2647,
-      "refused": 8,
-      "pending": 2
+      "pending": 10
     },
     "GAMMA": {
       "cells": 3,
@@ -1431,7 +1418,7 @@
     "N": {
       "cells": 170,
       "matched": 168,
-      "refused": 1,
+      "failed": 1,
       "pending": 1
     },
     "NA": {
@@ -1440,10 +1427,8 @@
     },
     "NEGBINOM.DIST": {
       "cells": 100,
-      "matched": 98,
-      "larger_numeric": 1,
-      "last_bit": 1,
-      "worst_ulp": 1
+      "matched": 99,
+      "larger_numeric": 1
     },
     "NEGBINOMDIST": {
       "cells": 47,
@@ -1724,18 +1709,15 @@
     },
     "REGEXEXTRACT": {
       "cells": 30,
-      "matched": 29,
-      "refused": 1
+      "matched": 30
     },
     "REGEXREPLACE": {
       "cells": 12,
-      "matched": 11,
-      "refused": 1
+      "matched": 12
     },
     "REGEXTEST": {
       "cells": 13,
-      "matched": 11,
-      "refused": 2
+      "matched": 13
     },
     "REPLACE": {
       "cells": 14,
@@ -1777,8 +1759,7 @@
     },
     "ROW": {
       "cells": 13,
-      "matched": 11,
-      "larger_numeric": 1,
+      "matched": 12,
       "pending": 1
     },
     "ROWS": {
@@ -1926,14 +1907,12 @@
     "SUBTOTAL": {
       "cells": 15,
       "matched": 8,
-      "refused": 6,
-      "pending": 1
+      "pending": 7
     },
     "SUM": {
       "cells": 181,
       "matched": 171,
-      "pending": 9,
-      "refused": 1
+      "pending": 10
     },
     "SUMIF": {
       "cells": 33,
@@ -1981,9 +1960,7 @@
     },
     "T.DIST": {
       "cells": 5,
-      "matched": 4,
-      "last_bit": 1,
-      "worst_ulp": 1
+      "matched": 5
     },
     "T.DIST.2T": {
       "cells": 4,
@@ -1999,9 +1976,7 @@
     },
     "T.INV": {
       "cells": 4,
-      "matched": 3,
-      "last_bit": 1,
-      "worst_ulp": 1
+      "matched": 4
     },
     "T.INV.2T": {
       "cells": 4,
@@ -2009,9 +1984,7 @@
     },
     "T.TEST": {
       "cells": 8,
-      "matched": 7,
-      "last_bit": 1,
-      "worst_ulp": 2
+      "matched": 8
     },
     "TABLE": {
       "cells": 13,
@@ -2123,9 +2096,7 @@
     },
     "TTEST": {
       "cells": 8,
-      "matched": 6,
-      "last_bit": 2,
-      "worst_ulp": 2
+      "matched": 8
     },
     "TYPE": {
       "cells": 369,
@@ -2265,8 +2236,7 @@
     },
     "XMATCH": {
       "cells": 247,
-      "matched": 246,
-      "other_mismatch": 1
+      "matched": 247
     },
     "XNPV": {
       "cells": 8,
@@ -2310,8 +2280,8 @@
   },
   "operators": {
     "OP_IMPLICIT_INTERSECTION": {
-      "cells": 3874,
-      "matched": 3872,
+      "cells": 3878,
+      "matched": 3876,
       "pending": 2
     },
     "OP_INTERSECTION_REF": {
@@ -2328,8 +2298,8 @@
       "matched": 11
     },
     "OP_RANGE_REF": {
-      "cells": 5779,
-      "matched": 5741,
+      "cells": 5786,
+      "matched": 5748,
       "pending": 38
     },
     "OP_SPILL_REF": {
@@ -2463,28 +2433,28 @@
   },
   "wholly_pending_cells": 100,
   "totals": {
-    "agreed_rejections": 8,
+    "agreed_rejections": 26,
     "awaiting_capture": 108,
     "circular_rule": 14,
     "external_links": 73,
-    "fail": 1495,
+    "fail": 1228,
     "failed_or_missing": 1,
     "failed_or_missing_by_verdict": {
       "not_run": 1
     },
     "formula_cells": 78264,
-    "mismatched": 627,
-    "pass": 76769,
-    "pass_rate": 0.9808979863027701,
-    "refused": 672,
+    "mismatched": 364,
+    "pass": 77036,
+    "pass_rate": 0.9843095165082285,
+    "refused": 668,
     "saved_excel_oracle": {},
     "source_cache_classes": {
       "array-cache-shape-unclassified": 3,
       "different": 667,
-      "no-live-excel-observation": 9,
+      "no-live-excel-observation": 27,
       "same": 1900,
-      "source-cache-missing": 75577
+      "source-cache-missing": 75559
     }
   },
-  "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f"
+  "commit": "c15a46caad754f75e9e3f48a8e764400a49caa3d"
 }

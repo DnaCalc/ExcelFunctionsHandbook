@@ -26,6 +26,14 @@ GITHUB = "https://github.com/DnaCalc/DnaCalc"
 DATA = REPO / "data"
 OUT = DATA / "calcfunc"
 SERIES = json.loads((HERE / "non-catalogue.json").read_text(encoding="utf8"))
+
+
+def require_corpus_revision(corpus_run, pin):
+    summary = json.loads((Path(corpus_run) / "summary.json").read_text())
+    if summary.get("run", {}).get("repository") != pin:
+        raise SystemExit("the corpus run names another commit; run the corpus at the pin")
+
+
 STATE_LABELS = {
     "matches": "Matches every recorded Excel answer",
     "close": "Close: last-bit deviations remain",
@@ -69,6 +77,10 @@ class Dumper:
 
     def catalogue(self):
         return json.loads(subprocess.check_output([self.binary]))
+
+    def bank_mismatches(self, path):
+        with open(path, "rb") as trace:
+            return json.loads(subprocess.run([self.binary, "bank-mismatches"], stdin=trace, stdout=subprocess.PIPE, check=True).stdout)
 
     def calls(self, lines):
         out = subprocess.run([self.binary, "eval"], input="\n".join(lines) + "\n", text=True, capture_output=True, check=True)
@@ -291,9 +303,9 @@ def host_evidence(root, pin):
     # These qualitative conclusions must be reviewed if their supporting tests or notes change.
     evidence_hashes = {
         "crates/calc-func/tests/import_excel.rs": "494575200fb9f98d855bda081d32b104ef641f671219a0a273c6dfe31b5ba2cf",
-        "crates/calc-host/tests/fetch.rs": "f7d3b060c4feb40245f638a9a88a715a8d1360ee32c9ade8e31e0c8c064d5e61",
+        "crates/calc-host/tests/fetch.rs": "ac24126a237011a30c63e2eb5261958fd5d5300582ab90df7045901778aa1f8c",
         "crates/calc-func/src/fetch.rs": "1d0056a7c98a519f90e944617c7fd0012fbdf5149b262f32f099c9e6831c0dd0",
-        "docs/architecture/ONECALC_ADDINS.md": "6f4f566e57dd0687b5d8e2cafb5a2eb1f7a96ecce1a88a9cdd45e8a053f3a004",
+        "docs/architecture/ONECALC_ADDINS.md": "9c07d8f5d231a38dd0e25523264fd5e1c47dedab73cf08ef69eec1e4f9191290",
     }
     for path, expected in evidence_hashes.items():
         if hashlib.sha256(show(root, pin, path).encode("utf8")).hexdigest() != expected:
@@ -351,13 +363,17 @@ def state_of(name, group, bank, corpus, conflicts):
     b = bank or {}
     c = corpus or {}
     rows = b.get("rows", 0)
-    read = rows - b.get("unread", 0)
-    cells = c.get("cells", 0) - c.get("pending", 0)
+    read = rows
+    cells = c.get("cells", 0)
+    pending = c.get("pending", 0)
     total = read + cells
     last = b.get("last_bit", 0) + c.get("last_bit", 0)
     larger = b.get("larger_numeric", 0) + c.get("larger_numeric", 0)
     other = b.get("other_mismatch", 0) + c.get("other_mismatch", 0)
     refused = b.get("refused", 0) + c.get("refused", 0)
+    unread = b.get("unread", 0)
+    excluded = b.get("excluded", 0)
+    failed = c.get("failed", 0)
     worst = max(b.get("worst_ulp", 0) if b.get("larger_numeric", 0) == 0 else 0, c.get("worst_ulp", 0))
     sources = " and ".join(x for x in (f"{read:,} in the answer bank" if read else "", f"{cells:,} workbook cells" if cells else "") if x)
     if group["kind"] in ("deferred", "host"):
@@ -370,7 +386,7 @@ def state_of(name, group, bank, corpus, conflicts):
         return "unmeasured", "Implemented; no recorded answers are attributed to this entry", group.get("reason") or ""
     if refused == total:
         return "refuses", f"Refuses all {total:,} recorded calls", group.get("reason") or "The catalogue row declines the call as not modelled."
-    if larger or other or refused:
+    if larger or other or refused or unread or excluded or pending or failed:
         parts = []
         if larger:
             parts.append(f"{larger:,} differ by more than 16 ULP")
@@ -380,13 +396,21 @@ def state_of(name, group, bank, corpus, conflicts):
             parts.append(f"{other:,} differ in kind or value")
         if refused:
             parts.append(f"{refused:,} are refused")
-        wrong = larger + last + other + refused
+        if unread:
+            parts.append(f"{unread:,} were unread")
+        if excluded:
+            parts.append(f"{excluded:,} were excluded")
+        if pending:
+            parts.append(f"{pending:,} await a comparable workbook result")
+        if failed:
+            parts.append(f"{failed:,} failed or were missing")
+        wrong = larger + last + other + refused + unread + excluded + pending + failed
         detail = f"Of {total:,} recorded answers ({sources}), {wrong:,} do not match: {', '.join(parts)}."
         if conflicts:
             detail += f" Excel's own recorded readings disagree with each other on {conflicts:,} of these inputs."
         if refused == wrong:
             return "differs", f"Refuses {refused:,} of {total:,} recorded calls; the rest match", detail
-        if not larger and not other:
+        if not larger and not other and not unread and not excluded and not pending and not failed:
             return "differs", f"{last:,} last-bit differences and {refused:,} refusals in {total:,} recorded answers", detail
         return "differs", f"Known differences on {wrong:,} of {total:,} recorded answers", detail
     if last:
@@ -556,6 +580,8 @@ def main():
     parser.add_argument("--dnacalc", required=True)
     parser.add_argument("--pin")
     parser.add_argument("--corpus-run")
+    parser.add_argument("--bank-trace", help="full judge trace JSONL, for measured mismatch categories")
+    parser.add_argument("--stragglers", help="TSV of functions above 256 ULP and their investigation notes")
     args = parser.parse_args()
     root = Path(args.dnacalc).resolve()
     pin_path = OUT / "pin.json"
@@ -582,6 +608,7 @@ def main():
     bank = read_bank(root, pin)
     tally_path = OUT / "corpus-tally.json"
     if args.corpus_run:
+        require_corpus_revision(args.corpus_run, pin)
         counted = corpus_tally.tally(args.corpus_run)
         counted["commit"] = pin
         write_json(tally_path, counted)
@@ -598,42 +625,48 @@ def main():
             # The problem list is generated at some earlier corpus run; the tally was counted at
             # this pin from the run named on the command line, and is the count of record.
             print(f"note: problem-functions.json lists corpus mismatches for {name} that differ from the corpus run at the pin; using the corpus run", file=sys.stderr)
+    # The detailed report can predate witness-status.tsv. Preserve a measured breakdown
+    # keyed by the exact status content instead of estimating categories from old counts.
+    breakdown_path = OUT / "bank-breakdown.json"
+    status_hash = hashlib.sha256(show(root, pin, "crates/calc-func/witness-status.tsv").encode()).hexdigest()
+    if args.bank_trace:
+        measured_detail = dumper.bank_mismatches(args.bank_trace)
+        write_json(breakdown_path, dict(status_sha256=status_hash, functions=measured_detail))
+    elif breakdown_path.exists() and json.loads(breakdown_path.read_text()).get("status_sha256") == status_hash:
+        measured_detail = json.loads(breakdown_path.read_text())["functions"]
+    else:
+        measured_detail = None
+    stragglers = []
+    prior_state = OUT / "state.json"
+    if not args.stragglers and prior_state.exists():
+        prior = json.loads(prior_state.read_text())
+        if prior.get("commit") == pin:
+            stragglers = prior.get("stragglers", [])
+    if args.stragglers:
+        with open(args.stragglers, newline="", encoding="utf8") as source:
+            stragglers = list(csv.DictReader(source, delimiter="\t"))
+        for item in stragglers:
+            row = bank[item["function"]]
+            if int(item["worst_ulp"]) != int(row["worst_ulp"]) or int(item["rows_open"]) != int(row["rows"]) - int(row["matched"]):
+                raise SystemExit(f"straggler does not match bank: {item['function']}")
+        expected = {name for name, row in bank.items() if row["worst_ulp"] != "-" and int(row["worst_ulp"]) > 256}
+        if {item["function"] for item in stragglers} != expected:
+            raise SystemExit("straggler list does not cover the functions above 256 ULP")
     measured_bank = {}
     for name, row in bank.items():
         detail = failing.get(name, {"bank": {}})["bank"]
         merged = {k: detail.get(k, 0) for k in ("larger_numeric", "last_bit", "other_mismatch", "refused", "unread")}
         rows, matched = int(row["rows"]), int(row["matched"])
-        if rows == matched and any(merged.values()):
-            # The status table is the count of record. A problem list generated before the rows
-            # were re-recorded can still list failures for a function whose rows now all match.
-            print(f"note: problem-functions.json lists bank failures for {name} but witness-status.tsv matches all {rows} rows; using the status table", file=sys.stderr)
-            merged = dict.fromkeys(merged, 0)
-        short = rows - matched - sum(merged.values())
-        if short > 0 and any(merged.values()) or short > 0 and rows != matched:
-            # The problem list was generated before the rows were re-recorded and does not explain
-            # every mismatch the status table counts (or lists none). The status table is the count
-            # of record; the unexplained remainder is reported as a difference in kind or value.
-            # The status table's own class and worst ULP say what kind the remainder is: a finite
-            # numeric mismatch of at most 16 ULP is last-bit, a larger one larger-numeric (the problem
-            # list's own split); excluded and structural rows stay other_mismatch.
-            worst_row = 0 if row["worst_ulp"] == "-" else int(row["worst_ulp"])
-            kind = "other_mismatch"
-            if row["class"] in ("last_bit", "numeric", "gross"):
-                kind = "last_bit" if worst_row <= 16 else "larger_numeric"
-            print(f"note: witness-status.tsv counts {short} more mismatches for {name} than problem-functions.json lists; counted as {kind}", file=sys.stderr)
-            merged[kind] += short
-        excess = sum(merged.values()) - (rows - matched)
-        if excess > 0:
-            # The problem list was generated before rows were gained: it lists more failures than the
-            # status table counts. The status table is the count of record. The list cannot say which
-            # of its failures were fixed, so the excess is taken from the least severe classes first
-            # (last-bit, then other, then larger numeric, then refused); this never turns a larger
-            # difference into a last-bit one.
-            print(f"note: problem-functions.json lists {excess} more bank failures for {name} than witness-status.tsv counts; removed from the last-bit class first", file=sys.stderr)
-            for key in ("last_bit", "other_mismatch", "larger_numeric", "refused", "unread"):
-                take = min(excess, merged[key])
-                merged[key] -= take
-                excess -= take
+        if measured_detail is not None:
+            detail = measured_detail.get(name, {})
+            merged = {k: detail.get(k, 0) for k in ("larger_numeric", "last_bit", "other_mismatch", "refused", "excluded")}
+            if merged["excluded"] != int(row.get("excluded", 0)):
+                raise SystemExit(f"excluded rows do not reconcile for {name}")
+            merged["unread"] = rows - detail.get("trace_rows", 0)
+            if merged["unread"] < 0 or detail.get("matched", 0) != matched:
+                raise SystemExit(f"trace counts do not match status for {name}")
+        if measured_detail is None and rows - matched != sum(merged.values()):
+            raise SystemExit(f"bank details for {name} differ from status; supply --bank-trace")
         if rows - matched != sum(merged.values()):
             raise SystemExit(f"bank counts do not reconcile for {name}")
         ulp = 0 if row["worst_ulp"] == "-" else int(row["worst_ulp"])
@@ -770,15 +803,28 @@ def main():
     github = lambda key: f"{GITHUB}/blob/{pin}/{fragments[key]['file']}#L{fragments[key]['start_line']}-L{fragments[key]['end_line']}"
     write_json(OUT / "variants.json", environment_variants(dumper, state, code, fragments, github, pin))
     report_commit = git(root, "log", "-1", "--format=%H", pin, "--", "docs/generated/problem-functions.json")
-    unchanged = git(root, "diff", "--stat", report_commit, pin, "--", "crates/calc-func/src") == ""
+    status_revisions = {row["calc_func_commit"] for row in bank.values()}
+    if len(status_revisions) != 1 or "+" in next(iter(status_revisions)):
+        raise SystemExit("full bank status must name one committed calculation revision")
+    measured_revision = git(root, "rev-parse", next(iter(status_revisions)))
+    unchanged = git(root, "diff", "--stat", measured_revision, pin, "--", "crates/calc-func/src") == ""
+    bank_counts = {kind: sum(row.get(kind, 0) for row in measured_bank.values())
+                   for kind in ("last_bit", "larger_numeric", "other_mismatch", "refused", "unread", "excluded")}
+    bank_rows = sum(row["rows"] for row in measured_bank.values())
+    bank_matched = sum(row["matched"] for row in measured_bank.values())
+    bank_summary = dict(rows=bank_rows, matched=bank_matched, failed=bank_rows-bank_matched,
+                        counts=bank_counts, pass_rate=bank_matched/bank_rows if bank_rows else 0)
+    corpus_summary = dict(formula_cells=counted["totals"]["formula_cells"],
+                          matched=counted["totals"]["pass"], inclusive_failed=counted["totals"]["fail"],
+                          pass_rate=counted["totals"]["pass_rate"])
     write_json(OUT / "code.json", dict(commit=pin, repository=GITHUB, entries=code["entries"]))
     write_json(OUT / "fragments.json", fragments)
-    write_json(OUT / "state.json", dict(commit=pin, counts=dict(sorted(counts.items())), functions=state))
+    write_json(OUT / "state.json", dict(commit=pin, counts=dict(sorted(counts.items())), functions=state, stragglers=stragglers))
     write_json(pin_path, dict(
         repository=GITHUB, commit=pin, commit_date=git(root, "show", "-s", "--format=%cs", pin),
-        measured_application_revision=problems["application"]["revision"],
+        measured_application_revision=measured_revision,
         report_commit=report_commit, calc_func_unchanged_since_report=unchanged,
-        answer_bank=problems["bank"], corpus=problems["corpus"], rule=problems["rule"],
+        answer_bank=bank_summary, corpus=corpus_summary, rule=problems["rule"],
         sources={p: hashlib.sha256(show(root, pin, p).encode("utf8")).hexdigest()
                  for p in ("docs/generated/problem-functions.json", "docs/generated/numeric-fingerprints.json",
                            "crates/calc-func/witness-status.tsv", "crates/calc-func/witness-differences.tsv",

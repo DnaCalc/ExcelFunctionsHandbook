@@ -1,5 +1,5 @@
 {
-  "commit": "b8738ae6a60ae5aa7c48a1bc0d0a9837ddb2090f",
+  "commit": "c15a46caad754f75e9e3f48a8e764400a49caa3d",
   "repository": "https://github.com/DnaCalc/DnaCalc",
   "entries": {
     "% postfix": {
@@ -705,6 +705,12 @@
         "ported/percentile_common::percentile_inc_kernel",
         "ported/percentile_common::percentile_exc_kernel",
         "ported/percentile_common::interpolate_sorted",
+        "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper",
         "ported/variance_common::variance_from_values",
         "ported/variance_common::stdev_from_values"
       ],
@@ -723,7 +729,10 @@
         "ported/amor_depreciation_family::amordegrc_kernel"
       ],
       "shared": [
+        "catalogue/financial::required_number",
+        "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
+        "catalogue/financial::amor_arguments",
         "catalogue/financial::amor_out",
         "locale::days_from_civil",
         "locale::civil_from_days",
@@ -742,9 +751,12 @@
         "ported/amor_depreciation_family::map_amor_depreciation_error_to_ws"
       ],
       "plumbing": [
+        "catalogue/kit::checked_date_serial",
         "catalogue/kit::fail",
         "catalogue/kit::given",
-        "catalogue/kit::num"
+        "catalogue/kit::num",
+        "catalogue/kit::num_without_logical",
+        "catalogue/kit::reject_logical"
       ]
     },
     "AMORLINC": {
@@ -754,7 +766,10 @@
         "ported/amor_depreciation_family::amorlinc_kernel"
       ],
       "shared": [
+        "catalogue/financial::required_number",
+        "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
+        "catalogue/financial::amor_arguments",
         "catalogue/financial::amor_out",
         "locale::days_from_civil",
         "locale::civil_from_days",
@@ -773,9 +788,12 @@
         "ported/amor_depreciation_family::map_amor_depreciation_error_to_ws"
       ],
       "plumbing": [
+        "catalogue/kit::checked_date_serial",
         "catalogue/kit::fail",
         "catalogue/kit::given",
-        "catalogue/kit::num"
+        "catalogue/kit::num",
+        "catalogue/kit::num_without_logical",
+        "catalogue/kit::reject_logical"
       ]
     },
     "AND": {
@@ -859,6 +877,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -936,6 +964,8 @@
         "ported/text_more::error_literal",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -969,6 +999,7 @@
         "catalogue/text_format::width_conversion"
       ],
       "plumbing": [
+        "catalogue/kit::scalar_error",
         "catalogue/kit::text_arg"
       ]
     },
@@ -1095,7 +1126,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::values"
       ]
     },
     "AVERAGE": {
@@ -1515,6 +1547,7 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::beta_log_norm",
         "ported/beta_gamma_stats_family::validate_beta_shape",
         "ported/beta_gamma_stats_family::beta_dist_kernel",
@@ -1522,9 +1555,15 @@
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -1538,8 +1577,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -1593,6 +1642,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -1617,15 +1668,26 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "catalogue/distributions::beta_inverse",
+        "ported/asin::asin_kernel",
+        "ported/beta_gamma_stats_family::beta_log_norm",
         "ported/beta_gamma_stats_family::validate_beta_shape",
+        "ported/beta_gamma_stats_family::beta_dist_kernel",
+        "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed",
         "ported/beta_gamma_stats_family::beta_inv_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -1639,8 +1701,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -1652,10 +1724,16 @@
         "ported/excel_numeric/x87_chains::excel_exp",
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
+        "ported/normal_dist_common::phi_kernel",
         "ported/normal_dist_common::stored_horner",
         "ported/normal_dist_common::erf_approx",
         "ported/normal_dist_common::erfc_upper",
         "ported/normal_dist_common::erfc_scaled",
+        "ported/normal_log_family::validate_probability_open_unit",
+        "ported/normal_log_family::inverse_standard_normal_as241_tail",
+        "ported/normal_log_family::inverse_standard_normal_acklam_refined",
+        "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_s_inv_kernel",
         "ported/special_dist_family::erf_precise_kernel",
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
@@ -1694,6 +1772,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -1704,9 +1784,11 @@
         "ported/special_math_common::bratio_basym",
         "ported/special_math_common::bratio",
         "ported/special_math_common::regularized_beta",
-        "ported/special_math_common::bisect_inverse"
+        "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest"
       ],
       "plumbing": [
+        "catalogue/kit::fail",
         "catalogue/kit::given",
         "catalogue/kit::num",
         "catalogue/kit::out"
@@ -1718,6 +1800,7 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::beta_log_norm",
         "ported/beta_gamma_stats_family::validate_beta_shape",
         "ported/beta_gamma_stats_family::beta_dist_kernel",
@@ -1725,9 +1808,15 @@
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -1741,8 +1830,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -1796,6 +1895,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -1819,15 +1920,26 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "catalogue/distributions::beta_inverse",
+        "ported/asin::asin_kernel",
+        "ported/beta_gamma_stats_family::beta_log_norm",
         "ported/beta_gamma_stats_family::validate_beta_shape",
+        "ported/beta_gamma_stats_family::beta_dist_kernel",
+        "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed",
         "ported/beta_gamma_stats_family::beta_inv_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -1841,8 +1953,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -1854,10 +1976,16 @@
         "ported/excel_numeric/x87_chains::excel_exp",
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
+        "ported/normal_dist_common::phi_kernel",
         "ported/normal_dist_common::stored_horner",
         "ported/normal_dist_common::erf_approx",
         "ported/normal_dist_common::erfc_upper",
         "ported/normal_dist_common::erfc_scaled",
+        "ported/normal_log_family::validate_probability_open_unit",
+        "ported/normal_log_family::inverse_standard_normal_as241_tail",
+        "ported/normal_log_family::inverse_standard_normal_acklam_refined",
+        "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_s_inv_kernel",
         "ported/special_dist_family::erf_precise_kernel",
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
@@ -1896,6 +2024,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -1906,9 +2036,11 @@
         "ported/special_math_common::bratio_basym",
         "ported/special_math_common::bratio",
         "ported/special_math_common::regularized_beta",
-        "ported/special_math_common::bisect_inverse"
+        "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest"
       ],
       "plumbing": [
+        "catalogue/kit::fail",
         "catalogue/kit::given",
         "catalogue/kit::num",
         "catalogue/kit::out"
@@ -1993,11 +2125,13 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
         "ported/discrete_dist::binom_mass",
+        "ported/discrete_dist::beta_density_at",
         "ported/discrete_dist::binom_exponent",
         "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
@@ -2005,6 +2139,8 @@
         "ported/discrete_dist::expon_dist_kernel",
         "ported/discrete_dist::binom_dist_kernel",
         "ported/discrete_dist::binom_cumulative",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -2018,8 +2154,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -2073,6 +2219,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -2081,8 +2229,7 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio",
-        "ported/special_math_common::regularized_beta"
+        "ported/special_math_common::bratio"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -2097,17 +2244,21 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
         "ported/discrete_dist::binom_mass",
+        "ported/discrete_dist::beta_density_at",
         "ported/discrete_dist::binom_exponent",
         "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
         "ported/discrete_dist::binom_cumulative",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -2121,8 +2272,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -2176,6 +2337,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -2184,8 +2347,7 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio",
-        "ported/special_math_common::regularized_beta"
+        "ported/special_math_common::bratio"
       ],
       "plumbing": [
         "catalogue/kit::given",
@@ -2199,11 +2361,13 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
         "ported/discrete_dist::binom_mass",
+        "ported/discrete_dist::beta_density_at",
         "ported/discrete_dist::binom_exponent",
         "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
@@ -2212,6 +2376,8 @@
         "ported/discrete_dist::binom_cumulative",
         "ported/discrete_dist::binom_inv_kernel",
         "ported/discrete_dist::binom_inv_estimate",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -2225,8 +2391,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -2280,6 +2456,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -2288,8 +2466,7 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio",
-        "ported/special_math_common::regularized_beta"
+        "ported/special_math_common::bratio"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -2302,11 +2479,13 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
         "ported/discrete_dist::binom_mass",
+        "ported/discrete_dist::beta_density_at",
         "ported/discrete_dist::binom_exponent",
         "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
@@ -2314,6 +2493,8 @@
         "ported/discrete_dist::expon_dist_kernel",
         "ported/discrete_dist::binom_dist_kernel",
         "ported/discrete_dist::binom_cumulative",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -2327,8 +2508,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -2382,6 +2573,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -2390,8 +2583,7 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio",
-        "ported/special_math_common::regularized_beta"
+        "ported/special_math_common::bratio"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -2668,7 +2860,9 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_q"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -2681,6 +2875,7 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/beta_gamma_stats_family::large_shape_inverse_unit",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_probability_open_unit",
         "ported/chi_f_t_family::search_upper_bound",
@@ -2725,8 +2920,12 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
+        "ported/special_math_common::regularized_gamma_p",
         "ported/special_math_common::regularized_gamma_q",
-        "ported/special_math_common::bisect_inverse"
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1",
+        "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -2778,7 +2977,6 @@
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
         "ported/special_math_common::ln_gamma",
-        "ported/special_math_common::gamma",
         "ported/special_math_common::gratio_integer_sum",
         "ported/special_math_common::gratio_rexp",
         "ported/special_math_common::gratio_rlog",
@@ -2791,7 +2989,9 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_p"
+        "ported/special_math_common::regularized_gamma_p",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -2849,7 +3049,9 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_q"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -2863,6 +3065,7 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/beta_gamma_stats_family::large_shape_inverse_unit",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_inv_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
@@ -2907,7 +3110,11 @@
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
         "ported/special_math_common::regularized_gamma_p",
-        "ported/special_math_common::bisect_inverse"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1",
+        "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -2920,6 +3127,7 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/beta_gamma_stats_family::large_shape_inverse_unit",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_probability_open_unit",
         "ported/chi_f_t_family::search_upper_bound",
@@ -2964,8 +3172,12 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
+        "ported/special_math_common::regularized_gamma_p",
         "ported/special_math_common::regularized_gamma_q",
-        "ported/special_math_common::bisect_inverse"
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1",
+        "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -3022,12 +3234,15 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_q"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::grid",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "CHITEST": {
@@ -3080,12 +3295,15 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_q"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::grid",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "CHOOSE": {
@@ -3399,17 +3617,27 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
+        "ported/beta_gamma_stats_family::beta_log_norm",
+        "ported/beta_gamma_stats_family::validate_beta_shape",
+        "ported/beta_gamma_stats_family::beta_dist_kernel",
+        "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed",
+        "ported/beta_gamma_stats_family::beta_inv_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
-        "ported/chi_f_t_family::validate_probability_open_unit",
-        "ported/chi_f_t_family::search_upper_bound",
         "ported/chi_f_t_family::t_inv_2t_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::tan_with",
         "ported/excel_numeric::asuint64",
@@ -3425,8 +3653,10 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
         "ported/excel_numeric/soft87::pack_raw",
         "ported/excel_numeric/soft87::zero",
         "ported/excel_numeric/soft87::inf",
@@ -3434,6 +3664,8 @@
         "ported/excel_numeric/soft87::ext_pi",
         "ported/excel_numeric/soft87::ext_one",
         "ported/excel_numeric/soft87::ext_chs",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -3445,10 +3677,16 @@
         "ported/excel_numeric/x87_chains::excel_exp",
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
+        "ported/normal_dist_common::phi_kernel",
         "ported/normal_dist_common::stored_horner",
         "ported/normal_dist_common::erf_approx",
         "ported/normal_dist_common::erfc_upper",
         "ported/normal_dist_common::erfc_scaled",
+        "ported/normal_log_family::validate_probability_open_unit",
+        "ported/normal_log_family::inverse_standard_normal_as241_tail",
+        "ported/normal_log_family::inverse_standard_normal_acklam_refined",
+        "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_s_inv_kernel",
         "ported/special_dist_family::erf_precise_kernel",
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
@@ -3487,6 +3725,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -3498,6 +3738,7 @@
         "ported/special_math_common::bratio",
         "ported/special_math_common::regularized_beta",
         "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest",
         "ported/tan::tan_kernel"
       ],
       "plumbing": [
@@ -3533,12 +3774,15 @@
         "catalogue/statistics::entry::CORREL"
       ],
       "shared": [
-        "ported/paired_stats_common::means",
-        "ported/paired_stats_common::correlation_from_pairs"
+        "catalogue/statistics::statistical_pairs",
+        "ported/paired_stats_common::means_using",
+        "ported/paired_stats_common::correlation_from_pairs",
+        "ported/paired_stats_common::correlation_with_divisor"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "COS": {
@@ -4065,12 +4309,15 @@
         "catalogue/statistics::entry::COVAR"
       ],
       "shared": [
+        "catalogue/statistics::statistical_pairs",
         "ported/paired_stats_common::means",
+        "ported/paired_stats_common::means_using",
         "ported/paired_stats_common::covariance_from_pairs"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "COVARIANCE.P": {
@@ -4078,12 +4325,15 @@
         "catalogue/statistics::entry::COVARIANCE.P"
       ],
       "shared": [
+        "catalogue/statistics::statistical_pairs",
         "ported/paired_stats_common::means",
+        "ported/paired_stats_common::means_using",
         "ported/paired_stats_common::covariance_from_pairs"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "COVARIANCE.S": {
@@ -4091,12 +4341,15 @@
         "catalogue/statistics::entry::COVARIANCE.S"
       ],
       "shared": [
+        "catalogue/statistics::statistical_pairs",
         "ported/paired_stats_common::means",
+        "ported/paired_stats_common::means_using",
         "ported/paired_stats_common::covariance_from_pairs"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "CRITBINOM": {
@@ -4105,11 +4358,13 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
         "ported/discrete_dist::binom_mass",
+        "ported/discrete_dist::beta_density_at",
         "ported/discrete_dist::binom_exponent",
         "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
@@ -4118,6 +4373,8 @@
         "ported/discrete_dist::binom_cumulative",
         "ported/discrete_dist::binom_inv_kernel",
         "ported/discrete_dist::binom_inv_estimate",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -4131,8 +4388,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -4186,6 +4453,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -4194,8 +4463,7 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio",
-        "ported/special_math_common::regularized_beta"
+        "ported/special_math_common::bratio"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -4441,8 +4709,10 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::alnrel",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::discounted_balance",
         "ported/financial_time_value_family::due_coefficient",
         "ported/financial_time_value_family::pmt",
@@ -4453,12 +4723,14 @@
         "ported/financial_time_value_family::end_payment_parts",
         "ported/financial_time_value_family::ipmt",
         "ported/financial_time_value_family::ppmt",
+        "ported/financial_time_value_family::cumulative_principal",
         "ported/financial_time_value_family::discounted_payment_principal",
         "ported/power_fn::exact_integer_magnitude",
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -4526,8 +4798,10 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::alnrel",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::discounted_balance",
         "ported/financial_time_value_family::due_coefficient",
         "ported/financial_time_value_family::pmt",
@@ -4538,12 +4812,14 @@
         "ported/financial_time_value_family::end_payment_parts",
         "ported/financial_time_value_family::ipmt",
         "ported/financial_time_value_family::ppmt",
+        "ported/financial_time_value_family::cumulative_principal",
         "ported/financial_time_value_family::discounted_payment_principal",
         "ported/power_fn::exact_integer_magnitude",
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -4608,6 +4884,7 @@
       ],
       "shared": [
         "catalogue/text_format::read_value",
+        "catalogue/text_format::value",
         "catalogue/text_format::profile",
         "catalogue/text_format::rendered",
         "catalogue/text_format::text",
@@ -4638,6 +4915,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -4714,6 +5001,8 @@
         "ported/text_kernels::upper",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -4731,7 +5020,8 @@
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::text_arg",
-        "catalogue/kit::text_value"
+        "catalogue/kit::text_value",
+        "coerce::number"
       ]
     },
     "DAVERAGE": {
@@ -4801,6 +5091,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -4945,6 +5236,7 @@
         "catalogue/text_format::width_conversion"
       ],
       "plumbing": [
+        "catalogue/kit::scalar_error",
         "catalogue/kit::text_arg"
       ]
     },
@@ -5015,6 +5307,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -5111,6 +5404,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -5306,7 +5600,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::values"
       ]
     },
     "DGET": {
@@ -5376,6 +5671,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -5510,6 +5806,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -5606,6 +5903,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -5639,13 +5937,17 @@
       "own": [
         "catalogue/text_format::entry::DOLLAR",
         "catalogue/text_format::dollar",
+        "format::fixed",
         "format::dollar"
       ],
       "shared": [
+        "catalogue/text_format::read_value",
+        "catalogue/text_format::value",
         "catalogue/text_format::profile",
         "catalogue/text_format::rendered",
         "catalogue/text_format::text",
         "catalogue/text_format::places",
+        "catalogue/text_format::checked_places",
         "decimal::low32",
         "decimal::Natural::zero",
         "decimal::Natural::from_u64",
@@ -5673,11 +5975,21 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
         "format::grouped",
-        "format::fixed",
+        "format::fixed_with_separators",
         "format::general",
         "format::significant",
         "format::is_text_section",
@@ -5730,6 +6042,12 @@
         "number_text::rounded",
         "number_text::increment",
         "number_text::ascii",
+        "ported/date_kernels::days_from_civil",
+        "ported/date_kernels::civil_from_days",
+        "ported/date_kernels::serial_unbounded_1900",
+        "ported/date_kernels::ymd_1900",
+        "ported/date_kernels::is_leap",
+        "ported/date_kernels::days_in_month",
         "ported/date_kernels::whole_serial",
         "ported/date_kernels::whole",
         "ported/date_kernels::weekday_sunday_one_based",
@@ -5741,13 +6059,31 @@
         "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::push_singleton_or_original",
         "ported/text_kernels::push_upper",
-        "ported/text_kernels::upper"
+        "ported/text_kernels::upper",
+        "value_text::measured_host_reader",
+        "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
+        "value_text::read",
+        "value_text::number",
+        "value_text::decimal",
+        "value_text::fraction",
+        "value_text::tokens",
+        "value_text::month_named",
+        "value_text::time_at",
+        "value_text::full_year",
+        "value_text::valid_day",
+        "value_text::this_year",
+        "value_text::serial_1900",
+        "value_text::date_of",
+        "value_text::date_time"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::num",
         "catalogue/kit::text_arg",
-        "catalogue/kit::text_value"
+        "catalogue/kit::text_value",
+        "coerce::number"
       ]
     },
     "DOLLARDE": {
@@ -5849,6 +6185,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -5975,6 +6312,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -6071,6 +6409,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -6167,6 +6506,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -6318,6 +6658,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -6414,6 +6755,7 @@
         "catalogue/database::field",
         "catalogue/database::matching",
         "catalogue/database::criterion_verdict",
+        "catalogue/database::database_grid",
         "catalogue/database::database",
         "catalogue/database::published",
         "decimal::low32",
@@ -6531,6 +6873,8 @@
         "catalogue/text_format::encodeurl"
       ],
       "shared": [
+        "catalogue/text_format::read_value",
+        "catalogue/text_format::value",
         "catalogue/text_format::profile",
         "catalogue/text_format::rendered",
         "catalogue/text_format::text",
@@ -6561,6 +6905,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -6617,6 +6971,12 @@
         "number_text::rounded",
         "number_text::increment",
         "number_text::ascii",
+        "ported/date_kernels::days_from_civil",
+        "ported/date_kernels::civil_from_days",
+        "ported/date_kernels::serial_unbounded_1900",
+        "ported/date_kernels::ymd_1900",
+        "ported/date_kernels::is_leap",
+        "ported/date_kernels::days_in_month",
         "ported/date_kernels::whole_serial",
         "ported/date_kernels::whole",
         "ported/date_kernels::weekday_sunday_one_based",
@@ -6628,13 +6988,31 @@
         "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::push_singleton_or_original",
         "ported/text_kernels::push_upper",
-        "ported/text_kernels::upper"
+        "ported/text_kernels::upper",
+        "value_text::measured_host_reader",
+        "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
+        "value_text::read",
+        "value_text::number",
+        "value_text::decimal",
+        "value_text::fraction",
+        "value_text::tokens",
+        "value_text::month_named",
+        "value_text::time_at",
+        "value_text::full_year",
+        "value_text::valid_day",
+        "value_text::this_year",
+        "value_text::serial_1900",
+        "value_text::date_of",
+        "value_text::date_time"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::text",
         "catalogue/kit::text_arg",
-        "catalogue/kit::text_value"
+        "catalogue/kit::text_value",
+        "coerce::number"
       ]
     },
     "EOMONTH": {
@@ -6945,19 +7323,27 @@
       "own": [
         "catalogue/distributions::entry::F.DIST",
         "ported/chi_f_t_family::f_pdf_kernel",
-        "ported/chi_f_t_family::f_dist_kernel"
+        "ported/chi_f_t_family::f_dist_kernel",
+        "ported/special_math_common::gamma"
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_nonnegative_x",
+        "ported/chi_f_t_family::f_tails",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -6971,8 +7357,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -6992,7 +7388,6 @@
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
         "ported/special_math_common::ln_gamma",
-        "ported/special_math_common::gamma",
         "ported/special_math_common::gratio_integer_sum",
         "ported/special_math_common::gratio_rexp",
         "ported/special_math_common::gratio_rlog",
@@ -7027,6 +7422,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -7035,7 +7432,8 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio"
+        "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -7049,16 +7447,23 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_nonnegative_x",
+        "ported/chi_f_t_family::f_tails",
         "ported/chi_f_t_family::f_dist_rt_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -7072,8 +7477,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -7127,6 +7542,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -7135,7 +7552,8 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio"
+        "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -7149,16 +7567,23 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_probability_open_unit",
         "ported/chi_f_t_family::search_upper_bound",
+        "ported/chi_f_t_family::f_tails",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -7172,8 +7597,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -7227,6 +7662,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -7236,6 +7673,7 @@
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
         "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper",
         "ported/special_math_common::bisect_inverse"
       ],
       "plumbing": [
@@ -7249,17 +7687,24 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_probability_open_unit",
         "ported/chi_f_t_family::search_upper_bound",
+        "ported/chi_f_t_family::f_tails",
         "ported/chi_f_t_family::f_inv_rt_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -7273,8 +7718,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -7328,6 +7783,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -7337,6 +7794,7 @@
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
         "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper",
         "ported/special_math_common::bisect_inverse"
       ],
       "plumbing": [
@@ -7350,13 +7808,19 @@
       ],
       "shared": [
         "catalogue/distributions::sample",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -7370,8 +7834,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -7425,6 +7899,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -7440,7 +7916,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "FACT": {
@@ -7488,16 +7965,23 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_nonnegative_x",
+        "ported/chi_f_t_family::f_tails",
         "ported/chi_f_t_family::f_dist_rt_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -7511,8 +7995,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -7566,6 +8060,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -7574,7 +8070,8 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio"
+        "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -7660,6 +8157,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -7736,6 +8243,8 @@
         "ported/text_kernels::upper",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -7813,17 +8322,24 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_probability_open_unit",
         "ported/chi_f_t_family::search_upper_bound",
+        "ported/chi_f_t_family::f_tails",
         "ported/chi_f_t_family::f_inv_rt_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -7837,8 +8353,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -7892,6 +8418,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -7901,6 +8429,7 @@
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
         "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper",
         "ported/special_math_common::bisect_inverse"
       ],
       "plumbing": [
@@ -7944,10 +8473,13 @@
         "catalogue/text_format::fixed"
       ],
       "shared": [
+        "catalogue/text_format::read_value",
+        "catalogue/text_format::value",
         "catalogue/text_format::profile",
         "catalogue/text_format::rendered",
         "catalogue/text_format::text",
         "catalogue/text_format::places",
+        "catalogue/text_format::checked_places",
         "decimal::low32",
         "decimal::Natural::zero",
         "decimal::Natural::from_u64",
@@ -7975,11 +8507,21 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
         "format::grouped",
-        "format::fixed",
+        "format::fixed_with_separators",
         "format::general",
         "format::significant",
         "format::is_text_section",
@@ -8032,6 +8574,12 @@
         "number_text::rounded",
         "number_text::increment",
         "number_text::ascii",
+        "ported/date_kernels::days_from_civil",
+        "ported/date_kernels::civil_from_days",
+        "ported/date_kernels::serial_unbounded_1900",
+        "ported/date_kernels::ymd_1900",
+        "ported/date_kernels::is_leap",
+        "ported/date_kernels::days_in_month",
         "ported/date_kernels::whole_serial",
         "ported/date_kernels::whole",
         "ported/date_kernels::weekday_sunday_one_based",
@@ -8043,14 +8591,32 @@
         "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::push_singleton_or_original",
         "ported/text_kernels::push_upper",
-        "ported/text_kernels::upper"
+        "ported/text_kernels::upper",
+        "value_text::measured_host_reader",
+        "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
+        "value_text::read",
+        "value_text::number",
+        "value_text::decimal",
+        "value_text::fraction",
+        "value_text::tokens",
+        "value_text::month_named",
+        "value_text::time_at",
+        "value_text::full_year",
+        "value_text::valid_day",
+        "value_text::this_year",
+        "value_text::serial_1900",
+        "value_text::date_of",
+        "value_text::date_time"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::flag",
         "catalogue/kit::num",
         "catalogue/kit::text_arg",
-        "catalogue/kit::text_value"
+        "catalogue/kit::text_value",
+        "coerce::number"
       ]
     },
     "FLOOR": {
@@ -8110,12 +8676,14 @@
         "catalogue/statistics::entry::FORECAST"
       ],
       "shared": [
+        "catalogue/statistics::statistical_pairs",
         "catalogue/statistics::forecast"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::num",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "FORECAST.ETS": {
@@ -8131,6 +8699,7 @@
         "catalogue/statistics/ets::quantum_exponent",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
+        "catalogue/statistics/ets::strictly_curved_five",
         "catalogue/statistics/ets::regression_slope",
         "catalogue/statistics/ets::initial_slope",
         "catalogue/statistics/ets::statistic_window",
@@ -8142,12 +8711,15 @@
         "catalogue/statistics/ets::exact_seasonal",
         "catalogue/statistics/ets::nonseasonal",
         "catalogue/statistics/ets::evaluate",
+        "catalogue/statistics/ets::evaluate_fitted",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::excel_x87_add",
+        "ported/excel_numeric::excel_x87_sub",
         "ported/excel_numeric::excel_x87_mul",
         "ported/excel_numeric::excel_x87_div",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
+        "ported/excel_numeric/x87::sub",
         "ported/excel_numeric/x87::div",
         "ported/normal_dist_common::phi_kernel",
         "ported/normal_log_family::validate_probability_open_unit",
@@ -8176,6 +8748,7 @@
         "catalogue/statistics/ets::quantum_exponent",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
+        "catalogue/statistics/ets::strictly_curved_five",
         "catalogue/statistics/ets::regression_slope",
         "catalogue/statistics/ets::initial_slope",
         "catalogue/statistics/ets::statistic_window",
@@ -8187,12 +8760,15 @@
         "catalogue/statistics/ets::exact_seasonal",
         "catalogue/statistics/ets::nonseasonal",
         "catalogue/statistics/ets::evaluate",
+        "catalogue/statistics/ets::evaluate_fitted",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::excel_x87_add",
+        "ported/excel_numeric::excel_x87_sub",
         "ported/excel_numeric::excel_x87_mul",
         "ported/excel_numeric::excel_x87_div",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
+        "ported/excel_numeric/x87::sub",
         "ported/excel_numeric/x87::div",
         "ported/normal_dist_common::phi_kernel",
         "ported/normal_log_family::validate_probability_open_unit",
@@ -8221,6 +8797,7 @@
         "catalogue/statistics/ets::quantum_exponent",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
+        "catalogue/statistics/ets::strictly_curved_five",
         "catalogue/statistics/ets::regression_slope",
         "catalogue/statistics/ets::initial_slope",
         "catalogue/statistics/ets::statistic_window",
@@ -8232,12 +8809,15 @@
         "catalogue/statistics/ets::exact_seasonal",
         "catalogue/statistics/ets::nonseasonal",
         "catalogue/statistics/ets::evaluate",
+        "catalogue/statistics/ets::evaluate_fitted",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::excel_x87_add",
+        "ported/excel_numeric::excel_x87_sub",
         "ported/excel_numeric::excel_x87_mul",
         "ported/excel_numeric::excel_x87_div",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
+        "ported/excel_numeric/x87::sub",
         "ported/excel_numeric/x87::div",
         "ported/normal_dist_common::phi_kernel",
         "ported/normal_log_family::validate_probability_open_unit",
@@ -8266,6 +8846,7 @@
         "catalogue/statistics/ets::quantum_exponent",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
+        "catalogue/statistics/ets::strictly_curved_five",
         "catalogue/statistics/ets::regression_slope",
         "catalogue/statistics/ets::initial_slope",
         "catalogue/statistics/ets::statistic_window",
@@ -8277,12 +8858,15 @@
         "catalogue/statistics/ets::exact_seasonal",
         "catalogue/statistics/ets::nonseasonal",
         "catalogue/statistics/ets::evaluate",
+        "catalogue/statistics/ets::evaluate_fitted",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::excel_x87_add",
+        "ported/excel_numeric::excel_x87_sub",
         "ported/excel_numeric::excel_x87_mul",
         "ported/excel_numeric::excel_x87_div",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
+        "ported/excel_numeric/x87::sub",
         "ported/excel_numeric/x87::div",
         "ported/normal_dist_common::phi_kernel",
         "ported/normal_log_family::validate_probability_open_unit",
@@ -8303,12 +8887,14 @@
         "catalogue/statistics::entry::FORECAST.LINEAR"
       ],
       "shared": [
+        "catalogue/statistics::statistical_pairs",
         "catalogue/statistics::forecast"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::num",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "FORMULATEXT": {
@@ -8354,12 +8940,11 @@
         "catalogue/statistics::entry::FREQUENCY",
         "catalogue/statistics::frequency_counts"
       ],
-      "shared": [
-        "catalogue/statistics::list"
-      ],
+      "shared": [],
       "plumbing": [
-        "catalogue/kit::numbers",
-        "catalogue/kit::out_matrix"
+        "catalogue/kit::fail",
+        "catalogue/kit::out_matrix",
+        "catalogue/kit::values"
       ]
     },
     "FTEST": {
@@ -8368,13 +8953,19 @@
       ],
       "shared": [
         "catalogue/distributions::sample",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -8388,8 +8979,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -8443,6 +9044,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -8458,7 +9061,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "FV": {
@@ -8496,14 +9100,17 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::rate",
         "ported/financial_time_value_family::rate_secant",
         "ported/power_fn::exact_integer_magnitude",
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -8546,14 +9153,17 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::rate",
         "ported/financial_time_value_family::rate_secant",
         "ported/power_fn::exact_integer_magnitude",
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -8627,7 +9237,9 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_p"
+        "ported/special_math_common::regularized_gamma_p",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -8641,6 +9253,7 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/beta_gamma_stats_family::large_shape_inverse_unit",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_inv_kernel",
         "ported/discrete_dist::stirling_error",
@@ -8684,7 +9297,11 @@
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
         "ported/special_math_common::regularized_gamma_p",
-        "ported/special_math_common::bisect_inverse"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1",
+        "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -8744,7 +9361,9 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_p"
+        "ported/special_math_common::regularized_gamma_p",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -8758,6 +9377,7 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/beta_gamma_stats_family::large_shape_inverse_unit",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_inv_kernel",
         "ported/discrete_dist::stirling_error",
@@ -8801,7 +9421,11 @@
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
         "ported/special_math_common::regularized_gamma_p",
-        "ported/special_math_common::bisect_inverse"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1",
+        "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -8891,7 +9515,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::values"
       ]
     },
     "GESTEP": {
@@ -9090,7 +9715,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::values"
       ]
     },
     "HEX2BIN": {
@@ -9319,6 +9945,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -9395,6 +10031,8 @@
         "ported/text_kernels::upper",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -10370,12 +11008,15 @@
         "ported/paired_stats_common::intercept_from_pairs"
       ],
       "shared": [
+        "catalogue/statistics::statistical_pairs",
         "ported/paired_stats_common::means",
+        "ported/paired_stats_common::means_using",
         "ported/paired_stats_common::slope_from_pairs"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "INTRATE": {
@@ -10463,8 +11104,10 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::alnrel",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::discounted_balance",
         "ported/financial_time_value_family::due_coefficient",
         "ported/financial_time_value_family::pmt",
@@ -10478,7 +11121,8 @@
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -10534,7 +11178,8 @@
         "catalogue/kit::fail",
         "catalogue/kit::given",
         "catalogue/kit::grid",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::reject_logical"
       ]
     },
     "ISBLANK": {
@@ -10796,6 +11441,13 @@
       ],
       "shared": [
         "catalogue/financial::tv_out",
+        "ported/excel_numeric::binary_with",
+        "ported/excel_numeric::excel_x87_sub",
+        "ported/excel_numeric::excel_x87_mul",
+        "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric/x87::mul",
+        "ported/excel_numeric/x87::sub",
+        "ported/excel_numeric/x87::div",
         "ported/financial_time_value_family::validate_finite"
       ],
       "plumbing": [
@@ -10891,12 +11543,19 @@
       "shared": [
         "catalogue/statistics::list",
         "catalogue/statistics::sorted",
-        "catalogue/statistics::nth"
+        "catalogue/statistics::nth",
+        "catalogue/statistics::rank_number",
+        "catalogue/statistics::rank",
+        "ported/rank_common::rank_eq",
+        "ported/rank_common::rank_avg"
       ],
       "plumbing": [
         "catalogue/kit::fail",
+        "catalogue/kit::given",
         "catalogue/kit::num",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "LCM": {
@@ -11163,11 +11822,12 @@
         "ported/normal_log_family::inverse_standard_normal_as241_tail",
         "ported/normal_log_family::inverse_standard_normal_acklam_refined",
         "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_inv_kernel",
         "ported/normal_log_family::lognorm_inv_kernel"
       ],
       "plumbing": [
         "catalogue/kit::num",
-        "catalogue/kit::out"
+        "catalogue/kit::out_with_subnormal"
       ]
     },
     "LOGNORM.DIST": {
@@ -11222,11 +11882,12 @@
         "ported/normal_log_family::inverse_standard_normal_as241_tail",
         "ported/normal_log_family::inverse_standard_normal_acklam_refined",
         "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_inv_kernel",
         "ported/normal_log_family::lognorm_inv_kernel"
       ],
       "plumbing": [
         "catalogue/kit::num",
-        "catalogue/kit::out"
+        "catalogue/kit::out_with_subnormal"
       ]
     },
     "LOGNORMDIST": {
@@ -11712,7 +12373,8 @@
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::numbers",
-        "catalogue/kit::out_with_subnormal"
+        "catalogue/kit::out_with_subnormal",
+        "catalogue/kit::values"
       ]
     },
     "MID": {
@@ -11969,11 +12631,45 @@
     "MIRR": {
       "own": [
         "catalogue/financial::entry::MIRR",
+        "ported/financial_time_value_family::growth",
         "ported/financial_time_value_family::mirr"
       ],
       "shared": [
         "catalogue/financial::tv_out",
-        "ported/financial_time_value_family::validate_finite"
+        "decimal::low32",
+        "decimal::Natural::from_u64",
+        "decimal::Natural::normalize",
+        "decimal::ExactDecimal::unit",
+        "ported/excel_numeric::backend::sqrt",
+        "ported/excel_numeric::binary_with",
+        "ported/excel_numeric::excel_pow_positive",
+        "ported/excel_numeric::excel_pow_chain",
+        "ported/excel_numeric::excel_x87_add",
+        "ported/excel_numeric::excel_x87_sub",
+        "ported/excel_numeric::excel_x87_mul",
+        "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_x87_recip",
+        "ported/excel_numeric/x87::mul",
+        "ported/excel_numeric/x87::add",
+        "ported/excel_numeric/x87::sub",
+        "ported/excel_numeric/x87::div",
+        "ported/excel_numeric/x87::recip",
+        "ported/excel_numeric/x87_chains::pow2_positive",
+        "ported/excel_numeric/x87_chains::pow2",
+        "ported/excel_numeric/x87_chains::exp_ext",
+        "ported/excel_numeric/x87_chains::exp_with",
+        "ported/excel_numeric/x87_chains::excel_exp",
+        "ported/excel_numeric/x87_chains::log_with",
+        "ported/excel_numeric/x87_chains::excel_log",
+        "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
+        "ported/financial_time_value_family::discounted_cashflows",
+        "ported/financial_time_value_family::discounted_npv",
+        "ported/power_fn::exact_integer_magnitude",
+        "ported/power_fn::accept_negative_base_odd_root",
+        "ported/power_fn::binexp_positive",
+        "ported/power_fn::ten_to",
+        "ported/power_fn::power_kernel"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -12022,7 +12718,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::values"
       ]
     },
     "MODE.MULT": {
@@ -12036,7 +12733,8 @@
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::numbers",
-        "catalogue/kit::out_matrix"
+        "catalogue/kit::out_matrix",
+        "catalogue/kit::values"
       ]
     },
     "MODE.SNGL": {
@@ -12049,7 +12747,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::values"
       ]
     },
     "MONTH": {
@@ -12157,10 +12856,12 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
         "ported/discrete_dist::binom_exponent",
         "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
@@ -12168,6 +12869,8 @@
         "ported/discrete_dist::expon_dist_kernel",
         "ported/discrete_dist::negbinom_mass",
         "ported/discrete_dist::negbinom_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -12181,8 +12884,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -12236,6 +12949,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -12259,10 +12974,12 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
         "ported/discrete_dist::binom_exponent",
         "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
@@ -12270,6 +12987,8 @@
         "ported/discrete_dist::expon_dist_kernel",
         "ported/discrete_dist::negbinom_mass",
         "ported/discrete_dist::negbinom_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -12283,8 +13002,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -12338,6 +13067,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -12748,7 +13479,10 @@
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::div",
-        "ported/financial_time_value_family::validate_finite"
+        "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
+        "ported/financial_time_value_family::discounted_cashflows",
+        "ported/financial_time_value_family::discounted_npv"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -12798,6 +13532,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -12874,6 +13618,8 @@
         "ported/text_kernels::upper",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -12990,8 +13736,10 @@
         "catalogue/bonds::entry::ODDFPRICE"
       ],
       "shared": [
-        "catalogue/bonds::basis",
+        "catalogue/bonds::yield_date",
         "catalogue/bonds::odd_out",
+        "catalogue/financial::required_number",
+        "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
         "locale::days_from_civil",
         "locale::civil_from_days",
@@ -13026,8 +13774,11 @@
         "ported/odd_bond_family::map_odd_bond_error_to_ws"
       ],
       "plumbing": [
+        "catalogue/kit::checked_date_serial",
         "catalogue/kit::fail",
-        "catalogue/kit::num"
+        "catalogue/kit::num",
+        "catalogue/kit::num_without_logical",
+        "catalogue/kit::reject_logical"
       ]
     },
     "ODDFYIELD": {
@@ -13100,8 +13851,10 @@
         "ported/odd_bond_family::oddlprice_kernel"
       ],
       "shared": [
-        "catalogue/bonds::basis",
+        "catalogue/bonds::yield_date",
         "catalogue/bonds::odd_out",
+        "catalogue/financial::required_number",
+        "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
         "locale::days_from_civil",
         "locale::civil_from_days",
@@ -13126,8 +13879,11 @@
         "ported/odd_bond_family::map_odd_bond_error_to_ws"
       ],
       "plumbing": [
+        "catalogue/kit::checked_date_serial",
         "catalogue/kit::fail",
-        "catalogue/kit::num"
+        "catalogue/kit::num",
+        "catalogue/kit::num_without_logical",
+        "catalogue/kit::reject_logical"
       ]
     },
     "ODDLYIELD": {
@@ -13136,8 +13892,10 @@
         "ported/odd_bond_family::oddlyield_kernel"
       ],
       "shared": [
-        "catalogue/bonds::basis",
+        "catalogue/bonds::yield_date",
         "catalogue/bonds::odd_out",
+        "catalogue/financial::required_number",
+        "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
         "locale::days_from_civil",
         "locale::civil_from_days",
@@ -13162,8 +13920,11 @@
         "ported/odd_bond_family::map_odd_bond_error_to_ws"
       ],
       "plumbing": [
+        "catalogue/kit::checked_date_serial",
         "catalogue/kit::fail",
-        "catalogue/kit::num"
+        "catalogue/kit::num",
+        "catalogue/kit::num_without_logical",
+        "catalogue/kit::reject_logical"
       ]
     },
     "OFFSET": {
@@ -13263,12 +14024,15 @@
         "catalogue/statistics::entry::PEARSON"
       ],
       "shared": [
-        "ported/paired_stats_common::means",
-        "ported/paired_stats_common::correlation_from_pairs"
+        "catalogue/statistics::statistical_pairs",
+        "ported/paired_stats_common::means_using",
+        "ported/paired_stats_common::correlation_from_pairs",
+        "ported/paired_stats_common::correlation_with_divisor"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "PERCENTILE": {
@@ -13285,7 +14049,8 @@
       "plumbing": [
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "PERCENTILE.EXC": {
@@ -13302,7 +14067,8 @@
       "plumbing": [
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "PERCENTILE.INC": {
@@ -13319,7 +14085,8 @@
       "plumbing": [
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "PERCENTOF": {
@@ -13355,7 +14122,8 @@
         "catalogue/kit::num",
         "catalogue/kit::numbers",
         "catalogue/kit::opt",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "PERCENTRANK.EXC": {
@@ -13373,7 +14141,8 @@
         "catalogue/kit::num",
         "catalogue/kit::numbers",
         "catalogue/kit::opt",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "PERCENTRANK.INC": {
@@ -13391,7 +14160,8 @@
         "catalogue/kit::num",
         "catalogue/kit::numbers",
         "catalogue/kit::opt",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "PERMUT": {
@@ -13584,8 +14354,10 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::alnrel",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::discounted_balance",
         "ported/financial_time_value_family::due_coefficient",
         "ported/financial_time_value_family::pmt",
@@ -13595,7 +14367,8 @@
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -13651,7 +14424,9 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_q"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -13707,7 +14482,9 @@
         "ported/special_math_common::gratio_temme_340",
         "ported/special_math_common::gratio_temme_330",
         "ported/special_math_common::gratio_temme_finish",
-        "ported/special_math_common::regularized_gamma_q"
+        "ported/special_math_common::regularized_gamma_q",
+        "ported/special_math_common::bratio_exparg",
+        "ported/special_math_common::bratio_erfc1"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -13803,8 +14580,10 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::alnrel",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::discounted_balance",
         "ported/financial_time_value_family::due_coefficient",
         "ported/financial_time_value_family::pmt",
@@ -13820,7 +14599,8 @@
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -13970,6 +14750,7 @@
     "PROB": {
       "own": [
         "catalogue/statistics::entry::PROB",
+        "catalogue/statistics::prob_nonnumeric_singletons",
         "catalogue/statistics::strict_numbers",
         "ported/lookup_prob_frequency_family::prob_kernel"
       ],
@@ -14054,14 +14835,17 @@
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
         "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::rate",
         "ported/financial_time_value_family::rate_secant",
         "ported/power_fn::exact_integer_magnitude",
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -14084,7 +14868,8 @@
         "catalogue/kit::fail",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "QUARTILE.EXC": {
@@ -14102,7 +14887,8 @@
         "catalogue/kit::fail",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "QUARTILE.INC": {
@@ -14120,7 +14906,8 @@
         "catalogue/kit::fail",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "QUOTIENT": {
@@ -14204,7 +14991,8 @@
         "catalogue/kit::given",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "RANK.AVG": {
@@ -14223,7 +15011,8 @@
         "catalogue/kit::given",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "RANK.EQ": {
@@ -14242,7 +15031,8 @@
         "catalogue/kit::given",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "RATE": {
@@ -14278,14 +15068,17 @@
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
         "ported/financial_time_value_family::PaymentTiming::factor",
+        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::growth_from_base",
+        "ported/financial_time_value_family::payment_balance",
         "ported/financial_time_value_family::rate",
         "ported/financial_time_value_family::rate_secant",
         "ported/power_fn::exact_integer_magnitude",
         "ported/power_fn::accept_negative_base_odd_root",
         "ported/power_fn::binexp_positive",
         "ported/power_fn::ten_to",
-        "ported/power_fn::power_kernel"
+        "ported/power_fn::power_kernel",
+        "ported/real_policy::excel_underflow_to_zero"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -14395,6 +15188,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -14491,6 +15294,8 @@
         "ported/text_more::regex_matches",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -14555,6 +15360,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -14651,6 +15466,8 @@
         "ported/text_more::regex_matches",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -14715,6 +15532,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -14811,6 +15638,8 @@
         "ported/text_more::regex_matches",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -15197,7 +16026,6 @@
     "RRI": {
       "own": [
         "catalogue/financial::entry::RRI",
-        "ported/financial_time_value_family::financial_daz",
         "ported/financial_time_value_family::rri"
       ],
       "shared": [
@@ -15219,7 +16047,8 @@
         "ported/excel_numeric/x87_chains::excel_exp",
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
-        "ported/financial_time_value_family::validate_finite"
+        "ported/financial_time_value_family::validate_finite",
+        "ported/financial_time_value_family::financial_daz"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -15232,12 +16061,14 @@
         "ported/paired_stats_common::rsq_from_pairs"
       ],
       "shared": [
-        "ported/paired_stats_common::means",
-        "ported/paired_stats_common::correlation_from_pairs"
+        "catalogue/statistics::statistical_pairs",
+        "ported/paired_stats_common::means_using",
+        "ported/paired_stats_common::correlation_with_divisor"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "SCAN": {
@@ -15398,7 +16229,13 @@
         "ported/dynamic_array_reshape_family::scalar_cell",
         "ported/dynamic_array_reshape_family::get",
         "ported/dynamic_array_reshape_family::build_array",
-        "ported/dynamic_array_reshape_family::map_dynamic_array_reshape_error_to_ws"
+        "ported/dynamic_array_reshape_family::map_dynamic_array_reshape_error_to_ws",
+        "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -15409,11 +16246,36 @@
       "own": [
         "catalogue/math::entry::SERIESSUM"
       ],
-      "shared": [],
+      "shared": [
+        "decimal::low32",
+        "decimal::Natural::from_u64",
+        "decimal::Natural::normalize",
+        "decimal::ExactDecimal::unit",
+        "ported/excel_numeric::backend::sqrt",
+        "ported/excel_numeric::binary_with",
+        "ported/excel_numeric::excel_pow_positive",
+        "ported/excel_numeric::excel_pow_chain",
+        "ported/excel_numeric::excel_x87_mul",
+        "ported/excel_numeric::excel_x87_recip",
+        "ported/excel_numeric/x87::mul",
+        "ported/excel_numeric/x87::recip",
+        "ported/excel_numeric/x87_chains::pow2_positive",
+        "ported/excel_numeric/x87_chains::pow2",
+        "ported/excel_numeric/x87_chains::exp_ext",
+        "ported/excel_numeric/x87_chains::exp_with",
+        "ported/excel_numeric/x87_chains::excel_exp",
+        "ported/excel_numeric/x87_chains::log_with",
+        "ported/excel_numeric/x87_chains::excel_log",
+        "ported/power_fn::exact_integer_magnitude",
+        "ported/power_fn::accept_negative_base_odd_root",
+        "ported/power_fn::binexp_positive",
+        "ported/power_fn::ten_to",
+        "ported/power_fn::power_kernel"
+      ],
       "plumbing": [
-        "catalogue/kit::fail",
         "catalogue/kit::grid",
-        "catalogue/kit::num_without_logical"
+        "catalogue/kit::num_without_logical",
+        "catalogue/kit::reject_logical"
       ]
     },
     "SHEET": {
@@ -15604,12 +16466,15 @@
         "catalogue/statistics::entry::SLOPE"
       ],
       "shared": [
+        "catalogue/statistics::statistical_pairs",
         "ported/paired_stats_common::means",
+        "ported/paired_stats_common::means_using",
         "ported/paired_stats_common::slope_from_pairs"
       ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "SMALL": {
@@ -15619,12 +16484,19 @@
       "shared": [
         "catalogue/statistics::list",
         "catalogue/statistics::sorted",
-        "catalogue/statistics::nth"
+        "catalogue/statistics::nth",
+        "catalogue/statistics::rank_number",
+        "catalogue/statistics::rank",
+        "ported/rank_common::rank_eq",
+        "ported/rank_common::rank_avg"
       ],
       "plumbing": [
         "catalogue/kit::fail",
+        "catalogue/kit::given",
         "catalogue/kit::num",
-        "catalogue/kit::numbers"
+        "catalogue/kit::numbers",
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "SORT": {
@@ -15633,6 +16505,7 @@
         "catalogue/arrays::sort"
       ],
       "shared": [
+        "catalogue/arrays::source_error",
         "catalogue/arrays::prepared",
         "catalogue/arrays::prepared_one",
         "catalogue/arrays::as_array",
@@ -15693,6 +16566,7 @@
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::grid",
+        "catalogue/kit::scalar_error",
         "coerce::number"
       ]
     },
@@ -15815,7 +16689,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "STDEV.P": {
@@ -15831,7 +16706,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "STDEV.S": {
@@ -15847,7 +16723,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "STDEVA": {
@@ -15863,7 +16740,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "STDEVP": {
@@ -15879,7 +16757,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "STDEVPA": {
@@ -15895,7 +16774,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "STEYX": {
@@ -15903,10 +16783,13 @@
         "catalogue/statistics::entry::STEYX",
         "ported/moment_stats_family::steyx_kernel"
       ],
-      "shared": [],
+      "shared": [
+        "catalogue/statistics::statistical_pairs"
+      ],
       "plumbing": [
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "SUBSTITUTE": {
@@ -15937,6 +16820,12 @@
         "catalogue/subtotal::numbers_of",
         "catalogue/subtotal::compute",
         "ported/excel_numeric::excel_sqrt_staged",
+        "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper",
         "ported/variance_common::variance_from_values",
         "ported/variance_common::stdev_from_values"
       ],
@@ -16212,7 +17101,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::grid"
+        "catalogue/kit::grid",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "SUMX2PY2": {
@@ -16225,7 +17115,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::grid"
+        "catalogue/kit::grid",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "SUMXMY2": {
@@ -16238,7 +17129,8 @@
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::grid"
+        "catalogue/kit::grid",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "SWITCH": {
@@ -16342,19 +17234,26 @@
       "own": [
         "catalogue/distributions::entry::T.DIST",
         "ported/chi_f_t_family::t_pdf",
+        "ported/chi_f_t_family::t_cdf",
         "ported/chi_f_t_family::t_dist_kernel"
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
-        "ported/chi_f_t_family::t_cdf",
+        "ported/chi_f_t_family::t_two_tail",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -16369,8 +17268,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -16390,7 +17299,6 @@
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
         "ported/special_math_common::ln_gamma",
-        "ported/special_math_common::gamma",
         "ported/special_math_common::gratio_integer_sum",
         "ported/special_math_common::gratio_rexp",
         "ported/special_math_common::gratio_rlog",
@@ -16425,6 +17333,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -16433,7 +17343,8 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio"
+        "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper"
       ],
       "plumbing": [
         "catalogue/kit::flag",
@@ -16447,16 +17358,23 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_nonnegative_x",
+        "ported/chi_f_t_family::t_two_tail",
         "ported/chi_f_t_family::t_dist_2t_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -16470,8 +17388,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -16525,6 +17453,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -16533,7 +17463,8 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio"
+        "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -16546,16 +17477,22 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
-        "ported/chi_f_t_family::validate_nonnegative_x",
+        "ported/chi_f_t_family::t_two_tail",
         "ported/chi_f_t_family::t_dist_rt_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -16569,8 +17506,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -16624,6 +17571,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -16632,7 +17581,8 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio"
+        "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -16646,18 +17596,27 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
+        "ported/beta_gamma_stats_family::beta_log_norm",
+        "ported/beta_gamma_stats_family::validate_beta_shape",
+        "ported/beta_gamma_stats_family::beta_dist_kernel",
+        "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed",
+        "ported/beta_gamma_stats_family::beta_inv_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
-        "ported/chi_f_t_family::validate_probability_open_unit",
-        "ported/chi_f_t_family::search_upper_bound",
-        "ported/chi_f_t_family::t_cdf",
         "ported/chi_f_t_family::t_inv_2t_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::tan_with",
         "ported/excel_numeric::asuint64",
@@ -16673,8 +17632,10 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
         "ported/excel_numeric/soft87::pack_raw",
         "ported/excel_numeric/soft87::zero",
         "ported/excel_numeric/soft87::inf",
@@ -16682,6 +17643,8 @@
         "ported/excel_numeric/soft87::ext_pi",
         "ported/excel_numeric/soft87::ext_one",
         "ported/excel_numeric/soft87::ext_chs",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -16693,10 +17656,16 @@
         "ported/excel_numeric/x87_chains::excel_exp",
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
+        "ported/normal_dist_common::phi_kernel",
         "ported/normal_dist_common::stored_horner",
         "ported/normal_dist_common::erf_approx",
         "ported/normal_dist_common::erfc_upper",
         "ported/normal_dist_common::erfc_scaled",
+        "ported/normal_log_family::validate_probability_open_unit",
+        "ported/normal_log_family::inverse_standard_normal_as241_tail",
+        "ported/normal_log_family::inverse_standard_normal_acklam_refined",
+        "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_s_inv_kernel",
         "ported/special_dist_family::erf_precise_kernel",
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
@@ -16735,6 +17704,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -16746,6 +17717,7 @@
         "ported/special_math_common::bratio",
         "ported/special_math_common::regularized_beta",
         "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest",
         "ported/tan::tan_kernel"
       ],
       "plumbing": [
@@ -16759,17 +17731,27 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
+        "ported/beta_gamma_stats_family::beta_log_norm",
+        "ported/beta_gamma_stats_family::validate_beta_shape",
+        "ported/beta_gamma_stats_family::beta_dist_kernel",
+        "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed",
+        "ported/beta_gamma_stats_family::beta_inv_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
-        "ported/chi_f_t_family::validate_probability_open_unit",
-        "ported/chi_f_t_family::search_upper_bound",
         "ported/chi_f_t_family::t_inv_2t_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::tan_with",
         "ported/excel_numeric::asuint64",
@@ -16785,8 +17767,10 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
         "ported/excel_numeric/soft87::pack_raw",
         "ported/excel_numeric/soft87::zero",
         "ported/excel_numeric/soft87::inf",
@@ -16794,6 +17778,8 @@
         "ported/excel_numeric/soft87::ext_pi",
         "ported/excel_numeric/soft87::ext_one",
         "ported/excel_numeric/soft87::ext_chs",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -16805,10 +17791,16 @@
         "ported/excel_numeric/x87_chains::excel_exp",
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
+        "ported/normal_dist_common::phi_kernel",
         "ported/normal_dist_common::stored_horner",
         "ported/normal_dist_common::erf_approx",
         "ported/normal_dist_common::erfc_upper",
         "ported/normal_dist_common::erfc_scaled",
+        "ported/normal_log_family::validate_probability_open_unit",
+        "ported/normal_log_family::inverse_standard_normal_as241_tail",
+        "ported/normal_log_family::inverse_standard_normal_acklam_refined",
+        "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_s_inv_kernel",
         "ported/special_dist_family::erf_precise_kernel",
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
@@ -16847,6 +17839,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -16858,6 +17852,7 @@
         "ported/special_math_common::bratio",
         "ported/special_math_common::regularized_beta",
         "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest",
         "ported/tan::tan_kernel"
       ],
       "plumbing": [
@@ -16871,15 +17866,20 @@
       ],
       "shared": [
         "catalogue/distributions::sample",
-        "catalogue/distributions::whole",
         "catalogue/distributions::t_test_of",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -16893,8 +17893,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -16948,6 +17958,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -16963,14 +17975,21 @@
         "ported/statistical_tests_family::t_probability",
         "ported/statistical_tests_family::t_test_paired_kernel",
         "ported/statistical_tests_family::t_test_equal_variance_kernel",
-        "ported/statistical_tests_family::t_test_unequal_variance_kernel"
+        "ported/statistical_tests_family::t_test_unequal_variance_kernel",
+        "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "TAKE": {
@@ -17153,21 +18172,29 @@
     },
     "TDIST": {
       "own": [
-        "catalogue/distributions::entry::TDIST"
+        "catalogue/distributions::entry::TDIST",
+        "ported/chi_f_t_family::tdist_kernel"
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
         "ported/chi_f_t_family::validate_nonnegative_x",
+        "ported/chi_f_t_family::t_two_tail",
         "ported/chi_f_t_family::t_dist_rt_kernel",
         "ported/chi_f_t_family::t_dist_2t_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -17181,8 +18208,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -17236,6 +18273,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -17244,7 +18283,14 @@
         "ported/special_math_common::bratio_bgrat",
         "ported/special_math_common::bratio_grat1",
         "ported/special_math_common::bratio_basym",
-        "ported/special_math_common::bratio"
+        "ported/special_math_common::bratio",
+        "ported/special_math_common::bratio_from_wrapper",
+        "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -17256,6 +18302,8 @@
         "catalogue/text_format::entry::TEXT"
       ],
       "shared": [
+        "catalogue/text_format::read_value",
+        "catalogue/text_format::value",
         "catalogue/text_format::profile",
         "catalogue/text_format::rendered",
         "catalogue/text_format::text",
@@ -17286,6 +18334,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -17342,6 +18400,12 @@
         "number_text::rounded",
         "number_text::increment",
         "number_text::ascii",
+        "ported/date_kernels::days_from_civil",
+        "ported/date_kernels::civil_from_days",
+        "ported/date_kernels::serial_unbounded_1900",
+        "ported/date_kernels::ymd_1900",
+        "ported/date_kernels::is_leap",
+        "ported/date_kernels::days_in_month",
         "ported/date_kernels::whole_serial",
         "ported/date_kernels::whole",
         "ported/date_kernels::weekday_sunday_one_based",
@@ -17353,12 +18417,30 @@
         "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::push_singleton_or_original",
         "ported/text_kernels::push_upper",
-        "ported/text_kernels::upper"
+        "ported/text_kernels::upper",
+        "value_text::measured_host_reader",
+        "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
+        "value_text::read",
+        "value_text::number",
+        "value_text::decimal",
+        "value_text::fraction",
+        "value_text::tokens",
+        "value_text::month_named",
+        "value_text::time_at",
+        "value_text::full_year",
+        "value_text::valid_day",
+        "value_text::this_year",
+        "value_text::serial_1900",
+        "value_text::date_of",
+        "value_text::date_time"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::text_arg",
-        "catalogue/kit::text_value"
+        "catalogue/kit::text_value",
+        "coerce::number"
       ]
     },
     "TEXTAFTER": {
@@ -17402,6 +18484,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -17481,6 +18573,8 @@
         "ported/text_more::delimited",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -17546,6 +18640,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -17625,6 +18729,8 @@
         "ported/text_more::delimited",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -17710,6 +18816,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -17788,6 +18904,8 @@
         "ported/text_more::units_match",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -17829,6 +18947,7 @@
       ],
       "shared": [
         "catalogue/text_format::read_value",
+        "catalogue/text_format::value",
         "catalogue/text_format::profile",
         "catalogue/text_format::rendered",
         "catalogue/text_format::text",
@@ -17859,6 +18978,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -17935,6 +19064,8 @@
         "ported/text_kernels::upper",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -17952,7 +19083,8 @@
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::text_arg",
-        "catalogue/kit::text_value"
+        "catalogue/kit::text_value",
+        "coerce::number"
       ]
     },
     "TINV": {
@@ -17961,17 +19093,27 @@
       ],
       "shared": [
         "catalogue/distributions::nums",
+        "ported/asin::asin_kernel",
+        "ported/beta_gamma_stats_family::beta_log_norm",
+        "ported/beta_gamma_stats_family::validate_beta_shape",
+        "ported/beta_gamma_stats_family::beta_dist_kernel",
+        "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed",
+        "ported/beta_gamma_stats_family::beta_inv_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/chi_f_t_family::truncate_positive_integer",
-        "ported/chi_f_t_family::validate_probability_open_unit",
-        "ported/chi_f_t_family::search_upper_bound",
         "ported/chi_f_t_family::t_inv_2t_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::tan_with",
         "ported/excel_numeric::asuint64",
@@ -17987,8 +19129,10 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
         "ported/excel_numeric/soft87::pack_raw",
         "ported/excel_numeric/soft87::zero",
         "ported/excel_numeric/soft87::inf",
@@ -17996,6 +19140,8 @@
         "ported/excel_numeric/soft87::ext_pi",
         "ported/excel_numeric/soft87::ext_one",
         "ported/excel_numeric/soft87::ext_chs",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -18007,10 +19153,16 @@
         "ported/excel_numeric/x87_chains::excel_exp",
         "ported/excel_numeric/x87_chains::log_with",
         "ported/excel_numeric/x87_chains::excel_log",
+        "ported/normal_dist_common::phi_kernel",
         "ported/normal_dist_common::stored_horner",
         "ported/normal_dist_common::erf_approx",
         "ported/normal_dist_common::erfc_upper",
         "ported/normal_dist_common::erfc_scaled",
+        "ported/normal_log_family::validate_probability_open_unit",
+        "ported/normal_log_family::inverse_standard_normal_as241_tail",
+        "ported/normal_log_family::inverse_standard_normal_acklam_refined",
+        "ported/normal_log_family::inverse_standard_normal",
+        "ported/normal_log_family::norm_s_inv_kernel",
         "ported/special_dist_family::erf_precise_kernel",
         "ported/special_dist_family::erfc_kernel",
         "ported/special_dist_family::erfc_precise_kernel",
@@ -18049,6 +19201,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -18060,6 +19214,7 @@
         "ported/special_math_common::bratio",
         "ported/special_math_common::regularized_beta",
         "ported/special_math_common::bisect_inverse",
+        "ported/special_math_common::bisect_inverse_closest",
         "ported/tan::tan_kernel"
       ],
       "plumbing": [
@@ -18164,7 +19319,8 @@
         "ported/regression_forecast_family::linear_model_from_data",
         "ported/regression_forecast_family::linear_prediction",
         "ported/regression_forecast_family::trend_kernel",
-        "ported/regression_forecast_family::eval_trend_surface"
+        "ported/regression_forecast_family::eval_trend_surface",
+        "ported/regression_forecast_family::paired_trend_matrices"
       ],
       "shared": [
         "catalogue/statistics::regression",
@@ -18229,7 +19385,8 @@
       "plumbing": [
         "catalogue/kit::num",
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "TRIMRANGE": {
@@ -18315,15 +19472,20 @@
       ],
       "shared": [
         "catalogue/distributions::sample",
-        "catalogue/distributions::whole",
         "catalogue/distributions::t_test_of",
+        "ported/asin::asin_kernel",
         "ported/beta_gamma_stats_family::validate_gamma_shape",
         "ported/beta_gamma_stats_family::gamma_dist_kernel",
         "ported/discrete_dist::stirling_error",
         "ported/discrete_dist::deviance",
+        "ported/discrete_dist::beta_density_at",
+        "ported/discrete_dist::binom_exponent",
+        "ported/discrete_dist::binom_normalizer",
         "ported/discrete_dist::poisson_mass",
         "ported/discrete_dist::finite",
         "ported/discrete_dist::expon_dist_kernel",
+        "ported/excel_numeric::atan_with",
+        "ported/excel_numeric::atan_reduced_with",
         "ported/excel_numeric::binary_with",
         "ported/excel_numeric::asuint64",
         "ported/excel_numeric::asdouble",
@@ -18337,8 +19499,18 @@
         "ported/excel_numeric::excel_x87_mul_add",
         "ported/excel_numeric::excel_x87_temme_finish",
         "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric::excel_atan_reduced",
         "ported/excel_numeric::log_general_hi_lo",
         "ported/excel_numeric::excel_log1p",
+        "ported/excel_numeric::excel_sqrt_staged",
+        "ported/excel_numeric/soft87::pack_raw",
+        "ported/excel_numeric/soft87::zero",
+        "ported/excel_numeric/soft87::inf",
+        "ported/excel_numeric/soft87::pack",
+        "ported/excel_numeric/soft87::ext_pi",
+        "ported/excel_numeric/soft87::ext_one",
+        "ported/excel_numeric/x87::atan",
+        "ported/excel_numeric/x87::atan_reduced",
         "ported/excel_numeric/x87::mul",
         "ported/excel_numeric/x87::add",
         "ported/excel_numeric/x87::sub",
@@ -18392,6 +19564,8 @@
         "ported/special_math_common::bratio_psi",
         "ported/special_math_common::bratio_fpser",
         "ported/special_math_common::bratio_apser",
+        "ported/special_math_common::excel_ln_beta_small",
+        "ported/special_math_common::excel_brcomp",
         "ported/special_math_common::bratio_bpser",
         "ported/special_math_common::bratio_bup",
         "ported/special_math_common::bratio_brcomp",
@@ -18407,14 +19581,21 @@
         "ported/statistical_tests_family::t_probability",
         "ported/statistical_tests_family::t_test_paired_kernel",
         "ported/statistical_tests_family::t_test_equal_variance_kernel",
-        "ported/statistical_tests_family::t_test_unequal_variance_kernel"
+        "ported/statistical_tests_family::t_test_unequal_variance_kernel",
+        "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper"
       ],
       "plumbing": [
         "catalogue/kit::fail",
         "catalogue/kit::num",
         "catalogue/kit::numbers",
         "catalogue/kit::out",
-        "catalogue/kit::pairs"
+        "catalogue/kit::pairs",
+        "catalogue/kit::validate_paired_singletons"
       ]
     },
     "TYPE": {
@@ -18589,6 +19770,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -18665,6 +19856,8 @@
         "ported/text_kernels::upper",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -18727,6 +19920,16 @@
         "format/datetime::TimeParts::from_serial",
         "format::measured_host",
         "format::currency_literal",
+        "format::integer_code",
+        "format::literal_integer_code",
+        "format::plain_decimal_code",
+        "format::plain_letter_literal_code",
+        "format::invalid_plain_exponent_code",
+        "format::plain_datetime_code",
+        "format::literal_scientific_parts",
+        "format::literal_scientific_code",
+        "format::literal_scientific_decimal_code",
+        "format::literal_scientific",
         "format::digits",
         "format::fifteen",
         "format::split",
@@ -18804,6 +20007,8 @@
         "ported/text_more::error_literal",
         "value_text::measured_host_reader",
         "value_text::measured_space",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
         "value_text::read",
         "value_text::number",
         "value_text::decimal",
@@ -18840,7 +20045,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "VAR.P": {
@@ -18856,7 +20062,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "VAR.S": {
@@ -18872,7 +20079,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "VARA": {
@@ -18888,7 +20096,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "VARP": {
@@ -18904,7 +20113,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "VARPA": {
@@ -18920,7 +20130,8 @@
       ],
       "plumbing": [
         "catalogue/kit::numbers",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::values"
       ]
     },
     "VDB": {
@@ -19358,6 +20569,7 @@
         "ported/cashflow_rate_family::xirr_kernel"
       ],
       "shared": [
+        "catalogue/financial::required_number",
         "catalogue/financial::resolved",
         "catalogue/financial::cash_err",
         "catalogue/financial::guess",
@@ -19365,7 +20577,6 @@
         "ported/cashflow_rate_family::scalar_number_from_eval",
         "ported/cashflow_rate_family::collect_numeric_vector_from_eval",
         "ported/cashflow_rate_family::serial_from_number",
-        "ported/cashflow_rate_family::collect_serial_vector_from_eval",
         "ported/cashflow_rate_family::validate_cashflows",
         "ported/cashflow_rate_family::validate_xnpv_inputs",
         "ported/cashflow_rate_family::map_cashflow_rate_error_to_ws"
@@ -19374,7 +20585,8 @@
         "catalogue/kit::fail",
         "catalogue/kit::given",
         "catalogue/kit::grid",
-        "catalogue/kit::out"
+        "catalogue/kit::out",
+        "catalogue/kit::reject_logical"
       ]
     },
     "XLOOKUP": {
@@ -19540,6 +20752,7 @@
     "XNPV": {
       "own": [
         "catalogue/financial::entry::XNPV",
+        "ported/cashflow_rate_family::collect_serial_vector_from_eval",
         "ported/cashflow_rate_family::xnpv_kernel"
       ],
       "shared": [
@@ -19553,7 +20766,6 @@
         "ported/cashflow_rate_family::scalar_number_from_eval",
         "ported/cashflow_rate_family::collect_numeric_vector_from_eval",
         "ported/cashflow_rate_family::serial_from_number",
-        "ported/cashflow_rate_family::collect_serial_vector_from_eval",
         "ported/cashflow_rate_family::validate_xnpv_inputs",
         "ported/cashflow_rate_family::map_cashflow_rate_error_to_ws",
         "ported/excel_numeric::backend::sqrt",
@@ -19671,6 +20883,7 @@
       "shared": [
         "catalogue/bonds::basis",
         "catalogue/bonds::yield_date",
+        "catalogue/bonds::yield_basis",
         "catalogue/bonds::bond_out",
         "catalogue/financial::required_number",
         "catalogue/financial::required_num",
@@ -19738,20 +20951,22 @@
         "ported/bond_core_family::yielddisc_kernel"
       ],
       "shared": [
-        "catalogue/bonds::or",
+        "catalogue/bonds::basis",
+        "catalogue/bonds::yield_date",
+        "catalogue/bonds::yield_basis",
         "catalogue/bonds::bond_out",
+        "catalogue/financial::required_number",
+        "catalogue/financial::required_num",
         "catalogue/financial::date_1900",
         "locale::days_from_civil",
         "locale::civil_from_days",
         "locale::excel_serial_from_ymd",
         "locale::ymd_from_excel_serial",
-        "ported/bond_core_family::max_serial",
         "ported/bond_core_family::derr",
         "ported/bond_core_family::dyear",
         "ported/bond_core_family::dim",
         "ported/bond_core_family::act",
         "ported/bond_core_family::basis",
-        "ported/bond_core_family::dser",
         "ported/bond_core_family::pos",
         "ported/bond_core_family::d360us",
         "ported/bond_core_family::d360eu",
@@ -19760,13 +20975,26 @@
         "ported/bond_core_family::days_in_year_for_mat",
         "ported/bond_core_family::dd",
         "ported/bond_core_family::map_bond_core_error_to_ws",
+        "ported/date_kernels::serial_from_number",
         "ported/day_count_common::days_in_month",
-        "ported/day_count_common::us_30_360"
+        "ported/day_count_common::us_30_360",
+        "ported/day_count_common::real_days_in_year",
+        "ported/day_count_common::excel_actual_actual_year",
+        "ported/excel_numeric::binary_with",
+        "ported/excel_numeric::excel_x87_sub",
+        "ported/excel_numeric::excel_x87_mul",
+        "ported/excel_numeric::excel_x87_div",
+        "ported/excel_numeric/x87::mul",
+        "ported/excel_numeric/x87::sub",
+        "ported/excel_numeric/x87::div"
       ],
       "plumbing": [
+        "catalogue/kit::checked_date_serial",
         "catalogue/kit::fail",
         "catalogue/kit::given",
-        "catalogue/kit::num"
+        "catalogue/kit::num",
+        "catalogue/kit::num_without_logical",
+        "catalogue/kit::reject_logical"
       ]
     },
     "YIELDMAT": {
