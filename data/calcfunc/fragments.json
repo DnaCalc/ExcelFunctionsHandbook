@@ -4355,19 +4355,28 @@
     "users": 8,
     "text": "fn validate_beta_shape(\n    alpha: f64,\n    beta: f64,\n    lower: f64,\n    upper: f64,\n) -> Result<(), WorksheetErrorCode> {\n    if !alpha.is_finite() || !beta.is_finite() || !lower.is_finite() || !upper.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if alpha <= 0.0 || beta <= 0.0 || upper <= lower {\n        return Err(WorksheetErrorCode::Num);\n    }\n    Ok(())\n}\n"
   },
-  "ported/beta_gamma_stats_family::beta_dist_kernel": {
+  "ported/beta_gamma_stats_family::beta_absorbed_shape_error": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
     "start_line": 32,
-    "end_line": 90,
+    "end_line": 43,
+    "name": "beta_absorbed_shape_error",
+    "module": "ported/beta_gamma_stats_family",
+    "users": 10,
+    "text": "/// Excel's cumulative continued fraction fails in this absorbed-shape region.\npub(crate) fn beta_absorbed_shape_error(alpha: f64, beta: f64, z: f64) -> bool {\n    let large = alpha.max(beta);\n    let small = alpha.min(beta);\n    let coordinate = if alpha > beta { z } else { 1.0 - z };\n    large.is_finite()\n        && small >= 40.0\n        && large + small == large\n        && z > 0.0\n        && z < 1.0\n        && coordinate <= 0.99\n}\n"
+  },
+  "ported/beta_gamma_stats_family::beta_dist_kernel": {
+    "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
+    "start_line": 45,
+    "end_line": 100,
     "name": "beta_dist_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 8,
-    "text": "pub(crate) fn beta_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n    lower: f64,\n    upper: f64,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_beta_shape(alpha, beta, lower, upper)?;\n    if !x.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if x < lower || x > upper {\n        return Err(WorksheetErrorCode::Num);\n    }\n    let z = (x - lower) / (upper - lower);\n    if cumulative {\n        // Excel's continued-fraction arm returns NUM when the larger shape\n        // absorbs a smaller shape of at least 40, within this coordinate\n        // region. The adjacent shape and coordinate boundaries are measured.\n        let large = alpha.max(beta);\n        let small = alpha.min(beta);\n        let coordinate = if alpha > beta { z } else { 1.0 - z };\n        if small >= 40.0 && large + small == large && z > 0.0 && z < 1.0 && coordinate <= 0.99 {\n            return Err(WorksheetErrorCode::Num);\n        }\n        // W109 lane-3 (2026-07-18, b30): Excel has NO integer-shape beta\n        // fast path — bratio scores integer shapes at the same wall rate as\n        // fractional (344/768 vs the binomial-sum shortcut's 254/768, and\n        // the shortcut loses the disagreement rows 177:87). Route all\n        // shapes through the identified BRATIO.\n        return Ok(regularized_beta(z, alpha, beta));\n    }\n    // Excel normalises from the lower endpoint, then divides its unit density\n    // by the width, with each operation stored through PC64 (dc-bc1o,\n    // statistical-density-scaling-2026-11-12.md). The CDF keeps its own route.\n    use crate::ported::excel_numeric::{excel_x87_div, excel_x87_sub};\n    let width = excel_x87_sub(upper, lower);\n    let unit_x = excel_x87_div(excel_x87_sub(x, lower), width);\n    if unit_x > 0.0 && unit_x < 1.0 {\n        if let Some(pdf) = crate::ported::discrete_dist::beta_density(unit_x, alpha, beta) {\n            let pdf = excel_x87_div(pdf, width);\n            return if pdf.is_finite() {\n                Ok(pdf)\n            } else {\n                Err(WorksheetErrorCode::Num)\n            };\n        }\n    }\n    let log_pdf = (alpha - 1.0) * crt_log(z) + (beta - 1.0) * crt_log(1.0 - z)\n        - beta_log_norm(alpha, beta)\n        - crt_log(upper - lower);\n    let pdf = crt_exp(log_pdf);\n    if pdf.is_finite() {\n        Ok(pdf)\n    } else {\n        Err(WorksheetErrorCode::Num)\n    }\n}\n"
+    "text": "pub(crate) fn beta_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n    lower: f64,\n    upper: f64,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_beta_shape(alpha, beta, lower, upper)?;\n    if !x.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if x < lower || x > upper {\n        return Err(WorksheetErrorCode::Num);\n    }\n    let z = (x - lower) / (upper - lower);\n    if cumulative {\n        // Excel's continued-fraction arm returns NUM when the larger shape\n        // absorbs a smaller shape of at least 40, within this coordinate\n        // region. The adjacent shape and coordinate boundaries are measured.\n        if beta_absorbed_shape_error(alpha, beta, z) {\n            return Err(WorksheetErrorCode::Num);\n        }\n        // W109 lane-3 (2026-07-18, b30): Excel has NO integer-shape beta\n        // fast path — bratio scores integer shapes at the same wall rate as\n        // fractional (344/768 vs the binomial-sum shortcut's 254/768, and\n        // the shortcut loses the disagreement rows 177:87). Route all\n        // shapes through the identified BRATIO.\n        return Ok(regularized_beta(z, alpha, beta));\n    }\n    // Excel normalises from the lower endpoint, then divides its unit density\n    // by the width, with each operation stored through PC64 (dc-bc1o,\n    // statistical-density-scaling-2026-11-12.md). The CDF keeps its own route.\n    use crate::ported::excel_numeric::{excel_x87_div, excel_x87_sub};\n    let width = excel_x87_sub(upper, lower);\n    let unit_x = excel_x87_div(excel_x87_sub(x, lower), width);\n    if unit_x > 0.0 && unit_x < 1.0 {\n        if let Some(pdf) = crate::ported::discrete_dist::beta_density(unit_x, alpha, beta) {\n            let pdf = excel_x87_div(pdf, width);\n            return if pdf.is_finite() {\n                Ok(pdf)\n            } else {\n                Err(WorksheetErrorCode::Num)\n            };\n        }\n    }\n    let log_pdf = (alpha - 1.0) * crt_log(z) + (beta - 1.0) * crt_log(1.0 - z)\n        - beta_log_norm(alpha, beta)\n        - crt_log(upper - lower);\n    let pdf = crt_exp(log_pdf);\n    if pdf.is_finite() {\n        Ok(pdf)\n    } else {\n        Err(WorksheetErrorCode::Num)\n    }\n}\n"
   },
   "ported/beta_gamma_stats_family::validate_gamma_shape": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 167,
-    "end_line": 175,
+    "start_line": 177,
+    "end_line": 185,
     "name": "validate_gamma_shape",
     "module": "ported/beta_gamma_stats_family",
     "users": 35,
@@ -4375,12 +4384,12 @@
   },
   "ported/beta_gamma_stats_family::gamma_dist_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 177,
-    "end_line": 237,
+    "start_line": 187,
+    "end_line": 250,
     "name": "gamma_dist_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 32,
-    "text": "pub fn gamma_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_gamma_shape(alpha, beta)?;\n    if !x.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if x < 0.0 {\n        return Err(WorksheetErrorCode::Num);\n    }\n    if cumulative {\n        // Inverse-problem identity, live Excel 16.0 b20228:\n        // GAMMA.DIST(x,0.5,beta,TRUE) == ERF.PRECISE(SQRT(x/beta))\n        // for beta in {1,2,4} on 68/68 (and beta=2 on the earlier 154/154\n        // bank). Staging is divide-then-sqrt, matching the df=1 chi route\n        // when beta=2. Other shapes are not claimed.\n        if alpha == 0.5 && beta > 0.0 && beta.is_finite() {\n            return crate::ported::special_dist_family::erf_precise_kernel((x / beta).sqrt());\n        }\n        // Inverse-problem identity, live Excel 16.0 b20228:\n        // GAMMA.DIST(x,1,beta,TRUE) == EXPON.DIST(x/beta,1,TRUE)\n        // (85/85 on dyadic scales; 11/11 on beta=3 and beta=5).\n        // EXPON.DIST(x,1/beta,TRUE) misses by 1 ULP when 1/beta is inexact.\n        // PDF identity is false (33/85).\n        if alpha == 1.0 {\n            return crate::ported::discrete_dist::expon_dist_kernel(x / beta, 1.0, true);\n        }\n        // W109 lane-3 (2026-07-18): the pre-W109 integer-shape fast path\n        // (1 − e^{-x}·Σ x^k/k!) is an OxFunc-side shortcut Excel does NOT\n        // take — on the b26 integer-a corpora it scored 8.1% with ±4,400-ULP\n        // catastrophics vs 39.4% (worst −10) through the identified GRATIO\n        // path. All other shapes route through regularized_gamma_p.\n        return Ok(regularized_gamma_p(alpha, x / beta));\n    }\n    // Gamma(1) = 1 exactly; Lanczos leaves a small nonzero log at this point.\n    if x > 0.0 {\n        // The density is the Poisson mass at `alpha` of mean `x/beta`, stored, times the stored\n        // `alpha/x`: R30's scaled public calls read the ratio, and with this mass every one of\n        // the 750 unit-shape rows of the bank agrees, where `exp(-x/beta)/beta` does not.\n        use crate::ported::excel_numeric::{excel_x87_div, excel_x87_mul};\n        let y = excel_x87_div(x, beta);\n        let r = crate::ported::discrete_dist::poisson_mass(alpha, y);\n        let pdf = excel_x87_mul(r, excel_x87_div(alpha, x));\n        return if pdf.is_finite() {\n            Ok(pdf)\n        } else {\n            Err(WorksheetErrorCode::Num)\n        };\n    }\n    let log_normalizer = if alpha == 1.0 { 0.0 } else { ln_gamma(alpha) };\n    let log_pdf = (alpha - 1.0) * crt_log(x) - x / beta - log_normalizer - alpha * crt_log(beta);\n    let pdf = crt_exp(log_pdf);\n    if pdf.is_finite() {\n        Ok(pdf)\n    } else {\n        Err(WorksheetErrorCode::Num)\n    }\n}\n"
+    "text": "pub fn gamma_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_gamma_shape(alpha, beta)?;\n    if !x.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if x < 0.0 {\n        return Err(WorksheetErrorCode::Num);\n    }\n    if crate::ported::discrete_dist::poisson_compensation_error(alpha, x / beta) {\n        return Err(WorksheetErrorCode::Num);\n    }\n    if cumulative {\n        // Inverse-problem identity, live Excel 16.0 b20228:\n        // GAMMA.DIST(x,0.5,beta,TRUE) == ERF.PRECISE(SQRT(x/beta))\n        // for beta in {1,2,4} on 68/68 (and beta=2 on the earlier 154/154\n        // bank). Staging is divide-then-sqrt, matching the df=1 chi route\n        // when beta=2. Other shapes are not claimed.\n        if alpha == 0.5 && beta > 0.0 && beta.is_finite() {\n            return crate::ported::special_dist_family::erf_precise_kernel((x / beta).sqrt());\n        }\n        // Inverse-problem identity, live Excel 16.0 b20228:\n        // GAMMA.DIST(x,1,beta,TRUE) == EXPON.DIST(x/beta,1,TRUE)\n        // (85/85 on dyadic scales; 11/11 on beta=3 and beta=5).\n        // EXPON.DIST(x,1/beta,TRUE) misses by 1 ULP when 1/beta is inexact.\n        // PDF identity is false (33/85).\n        if alpha == 1.0 {\n            return crate::ported::discrete_dist::expon_dist_kernel(x / beta, 1.0, true);\n        }\n        // W109 lane-3 (2026-07-18): the pre-W109 integer-shape fast path\n        // (1 − e^{-x}·Σ x^k/k!) is an OxFunc-side shortcut Excel does NOT\n        // take — on the b26 integer-a corpora it scored 8.1% with ±4,400-ULP\n        // catastrophics vs 39.4% (worst −10) through the identified GRATIO\n        // path. All other shapes route through regularized_gamma_p.\n        return Ok(regularized_gamma_p(alpha, x / beta));\n    }\n    // Gamma(1) = 1 exactly; Lanczos leaves a small nonzero log at this point.\n    if x > 0.0 {\n        // The density is the Poisson mass at `alpha` of mean `x/beta`, stored, times the stored\n        // `alpha/x`: R30's scaled public calls read the ratio, and with this mass every one of\n        // the 750 unit-shape rows of the bank agrees, where `exp(-x/beta)/beta` does not.\n        use crate::ported::excel_numeric::{excel_x87_div, excel_x87_mul};\n        let y = excel_x87_div(x, beta);\n        let r = crate::ported::discrete_dist::poisson_mass(alpha, y);\n        let pdf = excel_x87_mul(r, excel_x87_div(alpha, x));\n        return if pdf.is_finite() {\n            Ok(pdf)\n        } else {\n            Err(WorksheetErrorCode::Num)\n        };\n    }\n    let log_normalizer = if alpha == 1.0 { 0.0 } else { ln_gamma(alpha) };\n    let log_pdf = (alpha - 1.0) * crt_log(x) - x / beta - log_normalizer - alpha * crt_log(beta);\n    let pdf = crt_exp(log_pdf);\n    if pdf.is_finite() {\n        Ok(pdf)\n    } else {\n        Err(WorksheetErrorCode::Num)\n    }\n}\n"
   },
   "ported/discrete_dist::stirling_error": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
@@ -4445,10 +4454,19 @@
     "users": 43,
     "text": "/// The Poisson mass at `x` for `lambda > 0`, with `x` not necessarily whole: it is also GAMMA.DIST's\n/// prefactor `y^a exp(-y) / Gamma(a + 1)`, in the cumulative's arms and in the density, which is the\n/// mass times the stored `a/y`. At `a = 2` the error of GAMMA.DIST jumps at `y = 1.1` (5,000 live\n/// answers around it), and with this route the bank's failures fall from 29,872 to 594.\n///\n/// Two routes, split at `lambda = 1.1` (bisected on live answers at `x = 2, 3, 7`) with `x <= 1`\n/// always on the first:\n///\n/// - `exp(x ln lambda - lambda - GAMMALN(x + 1))`.\n///   `ln lambda` is stored (the answers sit on its grid) and so is the product with `x`; the stored\n///   GAMMALN is why the bank's constants carry its low bits (+1 unit at `x = 2, 8`). The two\n///   subtractions are compensated (`excel_exp_compensated`).\n/// - Loader's saddle point `exp(-stirling_error(x) - deviance(x, lambda)) / sqrt(2 pi x)`, with the\n///   exponent and the exponential each stored: the answers sit on the exponent's binary64 grid\n///   once the normalizer is removed, from `lambda` near 4 to 1000 and `x` up to 100.\npub(crate) fn poisson_mass(x: f64, lambda: f64) -> f64 {\n    if x == 0.0 {\n        return excel_exp(-lambda);\n    }\n    if x <= 1.0 || lambda < 1.1 {\n        let t = excel_x87_mul(x, excel_log(lambda));\n        return excel_exp_compensated(t, &[lambda, gammaln_excel(x + 1.0)]);\n    }\n    let exponent = excel_x87_sub(-stirling_error(x), deviance(x, lambda));\n    excel_x87_div(\n        excel_exp(exponent),\n        (2.0 * core::f64::consts::PI * x).sqrt(),\n    )\n}\n"
   },
-  "ported/discrete_dist::finite": {
+  "ported/discrete_dist::poisson_compensation_error": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
     "start_line": 220,
-    "end_line": 230,
+    "end_line": 233,
+    "name": "poisson_compensation_error",
+    "module": "ported/discrete_dist",
+    "users": 32,
+    "text": "/// Excel's gamma route can fail in the shared low-mean Poisson prefactor\n/// when its stored GAMMALN subtraction drops more than one.\npub(crate) fn poisson_compensation_error(x: f64, lambda: f64) -> bool {\n    // Below 2^40, even the logarithm of the smallest positive binary64\n    // keeps both subtractions below 2^50, where their lost part is under one.\n    if !(x >= 1_099_511_627_776.0 && x.is_finite() && lambda > 0.0 && lambda < 1.1) {\n        return false;\n    }\n    let start = excel_x87_mul(x, excel_log(lambda));\n    let gamma = gammaln_excel(x + 1.0);\n    start.is_finite()\n        && gamma.is_finite()\n        && crate::ported::excel_numeric::excel_exp_second_dropped(start, lambda, gamma) > 1.0\n}\n"
+  },
+  "ported/discrete_dist::finite": {
+    "file": "crates/calc-func/src/ported/discrete_dist.rs",
+    "start_line": 235,
+    "end_line": 245,
     "name": "finite",
     "module": "ported/discrete_dist",
     "users": 38,
@@ -4456,8 +4474,8 @@
   },
   "ported/discrete_dist::expon_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 232,
-    "end_line": 250,
+    "start_line": 247,
+    "end_line": 265,
     "name": "expon_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 34,
@@ -4600,8 +4618,8 @@
   },
   "ported/excel_numeric/x87_chains::log_with": {
     "file": "crates/calc-func/src/ported/excel_numeric/x87_chains.rs",
-    "start_line": 369,
-    "end_line": 387,
+    "start_line": 380,
+    "end_line": 398,
     "name": "log_with",
     "module": "ported/excel_numeric/x87_chains",
     "users": 76,
@@ -4609,8 +4627,8 @@
   },
   "ported/excel_numeric/x87_chains::excel_log": {
     "file": "crates/calc-func/src/ported/excel_numeric/x87_chains.rs",
-    "start_line": 389,
-    "end_line": 392,
+    "start_line": 400,
+    "end_line": 403,
     "name": "excel_log",
     "module": "ported/excel_numeric/x87_chains",
     "users": 76,
@@ -5131,8 +5149,8 @@
   },
   "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 92,
-    "end_line": 129,
+    "start_line": 102,
+    "end_line": 139,
     "name": "beta_inverse_zero_density_seed",
     "module": "ported/beta_gamma_stats_family",
     "users": 6,
@@ -5140,8 +5158,8 @@
   },
   "ported/beta_gamma_stats_family::beta_inv_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 131,
-    "end_line": 160,
+    "start_line": 141,
+    "end_line": 170,
     "name": "beta_inv_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 6,
@@ -5419,8 +5437,8 @@
   },
   "ported/discrete_dist::binom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 252,
-    "end_line": 283,
+    "start_line": 267,
+    "end_line": 298,
     "name": "binom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -5428,8 +5446,8 @@
   },
   "ported/discrete_dist::binom_cumulative": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 285,
-    "end_line": 309,
+    "start_line": 300,
+    "end_line": 324,
     "name": "binom_cumulative",
     "module": "ported/discrete_dist",
     "users": 5,
@@ -5446,8 +5464,8 @@
   },
   "ported/discrete_dist::binom_dist_range_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 311,
-    "end_line": 351,
+    "start_line": 326,
+    "end_line": 366,
     "name": "binom_dist_range_kernel",
     "module": "ported/discrete_dist",
     "users": 1,
@@ -5464,8 +5482,8 @@
   },
   "ported/discrete_dist::binom_inv_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 353,
-    "end_line": 384,
+    "start_line": 368,
+    "end_line": 399,
     "name": "binom_inv_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -5473,8 +5491,8 @@
   },
   "ported/discrete_dist::binom_inv_estimate": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 386,
-    "end_line": 410,
+    "start_line": 401,
+    "end_line": 425,
     "name": "binom_inv_estimate",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -6121,8 +6139,8 @@
   },
   "ported/beta_gamma_stats_family::large_shape_inverse_unit": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 162,
-    "end_line": 165,
+    "start_line": 172,
+    "end_line": 175,
     "name": "large_shape_inverse_unit",
     "module": "ported/beta_gamma_stats_family",
     "users": 5,
@@ -6202,8 +6220,8 @@
   },
   "ported/beta_gamma_stats_family::gamma_inv_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 239,
-    "end_line": 337,
+    "start_line": 252,
+    "end_line": 350,
     "name": "gamma_inv_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 3,
@@ -11314,8 +11332,8 @@
   },
   "ported/regression_forecast_family::shape_first_cell": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 184,
-    "end_line": 196,
+    "start_line": 203,
+    "end_line": 215,
     "name": "shape_first_cell",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11323,35 +11341,35 @@
   },
   "ported/regression_forecast_family::shape_first_matrix": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 198,
-    "end_line": 223,
+    "start_line": 217,
+    "end_line": 247,
     "name": "shape_first_matrix",
     "module": "ported/regression_forecast_family",
     "users": 4,
-    "text": "fn shape_first_matrix(arg: &CalcValue) -> Result<ShapeFirst<NumericMatrix>, WorksheetErrorCode> {\n    if matches!(arg.core_ref(), CoreRef::Missing) {\n        return Err(WorksheetErrorCode::Value);\n    }\n    let mut non_numeric = false;\n    let value = match arg.core_ref() {\n        CoreRef::Array(array) => {\n            let shape = array.shape();\n            let mut values = Vec::with_capacity(shape.rows * shape.cols);\n            for cell in array.iter_row_major() {\n                values.push(shape_first_cell(cell, &mut non_numeric)?);\n            }\n            NumericMatrix {\n                rows: shape.rows,\n                cols: shape.cols,\n                values,\n            }\n        }\n        _ => NumericMatrix {\n            rows: 1,\n            cols: 1,\n            values: vec![shape_first_cell(arg, &mut non_numeric)?],\n        },\n    };\n    Ok(ShapeFirst { value, non_numeric })\n}\n"
+    "text": "fn shape_first_matrix(arg: &CalcValue, held_errors_as_values: bool) -> Result<ShapeFirst<NumericMatrix>, WorksheetErrorCode> {\n    if matches!(arg.core_ref(), CoreRef::Missing) {\n        return Err(WorksheetErrorCode::Value);\n    }\n    let mut non_numeric = false;\n    let value = match arg.core_ref() {\n        CoreRef::Array(array) => {\n            let shape = array.shape();\n            let mut values = Vec::with_capacity(shape.rows * shape.cols);\n            for cell in array.iter_row_major() {\n                if held_errors_as_values && matches!(cell.core_ref(), CoreRef::Error(_)) {\n                    non_numeric = true;\n                    values.push(f64::NAN);\n                } else {\n                    values.push(shape_first_cell(cell, &mut non_numeric)?);\n                }\n            }\n            NumericMatrix {\n                rows: shape.rows,\n                cols: shape.cols,\n                values,\n            }\n        }\n        _ => NumericMatrix {\n            rows: 1,\n            cols: 1,\n            values: vec![shape_first_cell(arg, &mut non_numeric)?],\n        },\n    };\n    Ok(ShapeFirst { value, non_numeric })\n}\n"
   },
   "ported/regression_forecast_family::shape_first_vector": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 225,
-    "end_line": 247,
+    "start_line": 249,
+    "end_line": 271,
     "name": "shape_first_vector",
     "module": "ported/regression_forecast_family",
     "users": 4,
-    "text": "fn shape_first_vector(arg: &CalcValue) -> Result<ShapeFirst<NumericVector>, WorksheetErrorCode> {\n    let ShapeFirst {\n        value: matrix,\n        non_numeric,\n    } = shape_first_matrix(arg)?;\n    if matrix.rows > 1 && matrix.cols > 1 {\n        return Err(WorksheetErrorCode::Ref);\n    }\n    let shape = if matrix.rows == 1 && matrix.cols == 1 {\n        VectorShape::Scalar\n    } else if matrix.rows == 1 {\n        VectorShape::Row(matrix.cols)\n    } else {\n        VectorShape::Column(matrix.rows)\n    };\n    Ok(ShapeFirst {\n        value: NumericVector {\n            values: matrix.values,\n            shape,\n        },\n        non_numeric,\n    })\n}\n"
+    "text": "fn shape_first_vector(arg: &CalcValue, held_errors_as_values: bool) -> Result<ShapeFirst<NumericVector>, WorksheetErrorCode> {\n    let ShapeFirst {\n        value: matrix,\n        non_numeric,\n    } = shape_first_matrix(arg, held_errors_as_values)?;\n    if matrix.rows > 1 && matrix.cols > 1 {\n        return Err(WorksheetErrorCode::Ref);\n    }\n    let shape = if matrix.rows == 1 && matrix.cols == 1 {\n        VectorShape::Scalar\n    } else if matrix.rows == 1 {\n        VectorShape::Row(matrix.cols)\n    } else {\n        VectorShape::Column(matrix.rows)\n    };\n    Ok(ShapeFirst {\n        value: NumericVector {\n            values: matrix.values,\n            shape,\n        },\n        non_numeric,\n    })\n}\n"
   },
   "ported/regression_forecast_family::shape_first_inputs": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 249,
-    "end_line": 266,
+    "start_line": 273,
+    "end_line": 300,
     "name": "shape_first_inputs",
     "module": "ported/regression_forecast_family",
     "users": 4,
-    "text": "/// known_y, then known_x read into the predictors (#REF! when the shapes disagree), then #VALUE!\n/// for a value that is not a number.\nfn shape_first_inputs(\n    args: &[CalcValue],\n) -> Result<(NumericVector, PreparedPredictorInput), WorksheetErrorCode> {\n    let known_y = shape_first_vector(&args[0])?;\n    let known_x_raw = args\n        .get(1)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(shape_first_matrix)\n        .transpose()?;\n    let x_non_numeric = known_x_raw.as_ref().is_some_and(|x| x.non_numeric);\n    let known_x = predictor_input_from_optional(known_x_raw.map(|x| x.value), &known_y.value)?;\n    if known_y.non_numeric || x_non_numeric {\n        return Err(WorksheetErrorCode::Value);\n    }\n    Ok((known_y.value, known_x))\n}\n"
+    "text": "/// known_y, then known_x read into the predictors (#REF! when the shapes disagree), then #VALUE!\n/// for a value that is not a number.\nfn shape_first_inputs(\n    args: &[CalcValue],\n    held_errors_as_values: bool,\n) -> Result<(NumericVector, PreparedPredictorInput), WorksheetErrorCode> {\n    if held_errors_as_values {\n        if let CoreRef::Array(array) = args[0].core_ref() {\n            if array.shape().rows == 1 && array.shape().cols == 1\n                && matches!(array.get(0, 0).expect(\"single-cell array\").core_ref(), CoreRef::Error(_))\n            {\n                return Err(WorksheetErrorCode::Value);\n            }\n        }\n    }\n    let known_y = shape_first_vector(&args[0], held_errors_as_values)?;\n    let known_x_raw = args\n        .get(1)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(|arg| shape_first_matrix(arg, held_errors_as_values))\n        .transpose()?;\n    let x_non_numeric = known_x_raw.as_ref().is_some_and(|x| x.non_numeric);\n    let known_x = predictor_input_from_optional(known_x_raw.map(|x| x.value), &known_y.value)?;\n    if known_y.non_numeric || x_non_numeric {\n        return Err(WorksheetErrorCode::Value);\n    }\n    Ok((known_y.value, known_x))\n}\n"
   },
   "ported/regression_forecast_family::NumericMatrix::cell": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 269,
-    "end_line": 271,
+    "start_line": 303,
+    "end_line": 305,
     "name": "NumericMatrix::cell",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11359,8 +11377,8 @@
   },
   "ported/regression_forecast_family::NumericMatrix::transpose": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 273,
-    "end_line": 285,
+    "start_line": 307,
+    "end_line": 319,
     "name": "NumericMatrix::transpose",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11368,8 +11386,8 @@
   },
   "ported/regression_forecast_family::NumericMatrix::row_values": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 287,
-    "end_line": 290,
+    "start_line": 321,
+    "end_line": 324,
     "name": "NumericMatrix::row_values",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -11377,8 +11395,8 @@
   },
   "ported/regression_forecast_family::collect_numeric_matrix_from_eval": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 293,
-    "end_line": 320,
+    "start_line": 327,
+    "end_line": 354,
     "name": "collect_numeric_matrix_from_eval",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -11386,8 +11404,8 @@
   },
   "ported/regression_forecast_family::collect_numeric_matrix_arg": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 322,
-    "end_line": 325,
+    "start_line": 356,
+    "end_line": 359,
     "name": "collect_numeric_matrix_arg",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -11395,8 +11413,8 @@
   },
   "ported/regression_forecast_family::sequence_predictors": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 327,
-    "end_line": 333,
+    "start_line": 361,
+    "end_line": 367,
     "name": "sequence_predictors",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11404,8 +11422,8 @@
   },
   "ported/regression_forecast_family::default_output_shape_for_known_y": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 335,
-    "end_line": 341,
+    "start_line": 369,
+    "end_line": 375,
     "name": "default_output_shape_for_known_y",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11413,8 +11431,8 @@
   },
   "ported/regression_forecast_family::normalize_known_x_matrix": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 343,
-    "end_line": 367,
+    "start_line": 377,
+    "end_line": 401,
     "name": "normalize_known_x_matrix",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11422,8 +11440,8 @@
   },
   "ported/regression_forecast_family::prepare_predictor_input": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 369,
-    "end_line": 433,
+    "start_line": 403,
+    "end_line": 467,
     "name": "prepare_predictor_input",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11431,8 +11449,8 @@
   },
   "ported/regression_forecast_family::predictor_input_from_optional": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 435,
-    "end_line": 440,
+    "start_line": 469,
+    "end_line": 474,
     "name": "predictor_input_from_optional",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11440,8 +11458,8 @@
   },
   "ported/regression_forecast_family::prediction_input_from_optional": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 442,
-    "end_line": 491,
+    "start_line": 476,
+    "end_line": 525,
     "name": "prediction_input_from_optional",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -11449,8 +11467,8 @@
   },
   "ported/regression_forecast_family::least_squares": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 543,
-    "end_line": 756,
+    "start_line": 577,
+    "end_line": 790,
     "name": "least_squares",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11458,8 +11476,8 @@
   },
   "ported/regression_forecast_family::linear_fit_from_data": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 766,
-    "end_line": 783,
+    "start_line": 800,
+    "end_line": 817,
     "name": "linear_fit_from_data",
     "module": "ported/regression_forecast_family",
     "users": 4,
@@ -11467,8 +11485,8 @@
   },
   "ported/regression_forecast_family::exponential_prediction": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 792,
-    "end_line": 803,
+    "start_line": 826,
+    "end_line": 837,
     "name": "exponential_prediction",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -11476,8 +11494,8 @@
   },
   "ported/regression_forecast_family::exponential_model_from_data": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 805,
-    "end_line": 813,
+    "start_line": 839,
+    "end_line": 847,
     "name": "exponential_model_from_data",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -11485,8 +11503,8 @@
   },
   "ported/regression_forecast_family::exponential_fit_from_data": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 815,
-    "end_line": 832,
+    "start_line": 849,
+    "end_line": 866,
     "name": "exponential_fit_from_data",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -11494,8 +11512,8 @@
   },
   "ported/regression_forecast_family::eval_value_from_output_shape": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 834,
-    "end_line": 871,
+    "start_line": 868,
+    "end_line": 905,
     "name": "eval_value_from_output_shape",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -11503,8 +11521,8 @@
   },
   "ported/regression_forecast_family::growth_kernel": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 898,
-    "end_line": 912,
+    "start_line": 932,
+    "end_line": 946,
     "name": "growth_kernel",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -11512,12 +11530,12 @@
   },
   "ported/regression_forecast_family::eval_growth_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1215,
-    "end_line": 1225,
+    "start_line": 1249,
+    "end_line": 1259,
     "name": "eval_growth_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
-    "text": "pub(crate) fn eval_growth_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    let (known_y, known_x) = shape_first_inputs(args)?;\n    let new_x_raw = args\n        .get(2)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(|arg| collect_numeric_matrix_arg(arg))\n        .transpose()?;\n    let new_x = prediction_input_from_optional(new_x_raw, &known_y, &known_x)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, true)?;\n    growth_kernel(&known_y, &known_x, &new_x, use_const)\n}\n"
+    "text": "pub(crate) fn eval_growth_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    let (known_y, known_x) = shape_first_inputs(args, false)?;\n    let new_x_raw = args\n        .get(2)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(|arg| collect_numeric_matrix_arg(arg))\n        .transpose()?;\n    let new_x = prediction_input_from_optional(new_x_raw, &known_y, &known_x)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, true)?;\n    growth_kernel(&known_y, &known_x, &new_x, use_const)\n}\n"
   },
   "catalogue/statistics::entry::HARMEAN": {
     "file": "crates/calc-func/src/catalogue/statistics.rs",
@@ -11800,8 +11818,8 @@
   },
   "ported/discrete_dist::hypergeom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 443,
-    "end_line": 462,
+    "start_line": 458,
+    "end_line": 477,
     "name": "hypergeom_mass",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -11809,8 +11827,8 @@
   },
   "ported/discrete_dist::hypergeom_cumulative_by_ratios": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 469,
-    "end_line": 505,
+    "start_line": 484,
+    "end_line": 520,
     "name": "hypergeom_cumulative_by_ratios",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -11818,8 +11836,8 @@
   },
   "ported/discrete_dist::hypergeom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 507,
-    "end_line": 552,
+    "start_line": 522,
+    "end_line": 567,
     "name": "hypergeom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -13391,10 +13409,19 @@
     "users": 1,
     "text": "57 linest |s, a, sv| {\n    regression(s, a, sv, k::regression_forecast_family::eval_linest_surface, RegressionNumbers::Standard)\n}\n"
   },
+  "ported/regression_forecast_family::linest_flag_from_eval_or_default": {
+    "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
+    "start_line": 129,
+    "end_line": 146,
+    "name": "linest_flag_from_eval_or_default",
+    "module": "ported/regression_forecast_family",
+    "users": 2,
+    "text": "fn linest_flag_from_eval_or_default(\n    value: Option<CalcValue>,\n    default: bool,\n) -> Result<bool, WorksheetErrorCode> {\n    if let Some(value) = value.as_ref() {\n        if matches!(value.core_ref(), CoreRef::Error(_)) {\n            return Err(WorksheetErrorCode::Value);\n        }\n        if let CoreRef::Array(array) = value.core_ref() {\n            if array.shape().rows == 1 && array.shape().cols == 1\n                && matches!(array.get(0, 0).expect(\"single-cell array\").core_ref(), CoreRef::Error(_))\n            {\n                return Err(WorksheetErrorCode::Value);\n            }\n        }\n    }\n    bool_flag_from_eval_or_default(value, default)\n}\n"
+  },
   "ported/regression_forecast_family::row_array": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 873,
-    "end_line": 880,
+    "start_line": 907,
+    "end_line": 914,
     "name": "row_array",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -13402,8 +13429,8 @@
   },
   "ported/regression_forecast_family::one_observation_statistics": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 914,
-    "end_line": 940,
+    "start_line": 948,
+    "end_line": 974,
     "name": "one_observation_statistics",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -13411,8 +13438,8 @@
   },
   "ported/regression_forecast_family::statistics_block": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 942,
-    "end_line": 1063,
+    "start_line": 976,
+    "end_line": 1097,
     "name": "statistics_block",
     "module": "ported/regression_forecast_family",
     "users": 2,
@@ -13420,8 +13447,8 @@
   },
   "ported/regression_forecast_family::linest_kernel": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1065,
-    "end_line": 1079,
+    "start_line": 1099,
+    "end_line": 1113,
     "name": "linest_kernel",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -13429,12 +13456,12 @@
   },
   "ported/regression_forecast_family::eval_linest_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1243,
-    "end_line": 1248,
+    "start_line": 1277,
+    "end_line": 1282,
     "name": "eval_linest_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
-    "text": "pub(crate) fn eval_linest_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    let (known_y, known_x) = shape_first_inputs(args)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(2))?, true)?;\n    let stats = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, false)?;\n    linest_kernel(&known_y, &known_x, use_const, stats)\n}\n"
+    "text": "pub(crate) fn eval_linest_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    let (known_y, known_x) = shape_first_inputs(args, true)?;\n    let use_const = linest_flag_from_eval_or_default(optional_arg_value(args.get(2))?, true)?;\n    let stats = linest_flag_from_eval_or_default(optional_arg_value(args.get(3))?, false)?;\n    linest_kernel(&known_y, &known_x, use_const, stats)\n}\n"
   },
   "catalogue/math::entry::LN": {
     "file": "crates/calc-func/src/catalogue/math.rs",
@@ -13501,8 +13528,8 @@
   },
   "ported/regression_forecast_family::logest_kernel": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1081,
-    "end_line": 1104,
+    "start_line": 1115,
+    "end_line": 1138,
     "name": "logest_kernel",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -13510,12 +13537,12 @@
   },
   "ported/regression_forecast_family::eval_logest_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1250,
-    "end_line": 1255,
+    "start_line": 1284,
+    "end_line": 1289,
     "name": "eval_logest_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
-    "text": "pub(crate) fn eval_logest_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    let (known_y, known_x) = shape_first_inputs(args)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(2))?, true)?;\n    let stats = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, false)?;\n    logest_kernel(&known_y, &known_x, use_const, stats)\n}\n"
+    "text": "pub(crate) fn eval_logest_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    let (known_y, known_x) = shape_first_inputs(args, true)?;\n    let use_const = linest_flag_from_eval_or_default(optional_arg_value(args.get(2))?, true)?;\n    let stats = linest_flag_from_eval_or_default(optional_arg_value(args.get(3))?, false)?;\n    logest_kernel(&known_y, &known_x, use_const, stats)\n}\n"
   },
   "catalogue/distributions::entry::LOGINV": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -14338,8 +14365,8 @@
   },
   "ported/discrete_dist::negbinom_mass": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 554,
-    "end_line": 583,
+    "start_line": 569,
+    "end_line": 598,
     "name": "negbinom_mass",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -14347,12 +14374,12 @@
   },
   "ported/discrete_dist::negbinom_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 585,
-    "end_line": 609,
+    "start_line": 600,
+    "end_line": 627,
     "name": "negbinom_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
-    "text": "/// `NEGBINOM.DIST(number_f, number_s, probability_s, cumulative)`.\npub fn negbinom_dist_kernel(number_f: f64, number_s: f64, p: f64, cumulative: bool) -> R {\n    if number_f < 0.0 {\n        return Err(NUM);\n    }\n    let (f, s) = (number_f.trunc(), number_s.trunc());\n    if f < 0.0 || s < 1.0 || !(p > 0.0 && p < 1.0) {\n        return Err(NUM);\n    }\n    if !cumulative {\n        return finite(negbinom_mass(f, s, p));\n    }\n    if f == 0.0 {\n        return finite(negbinom_mass(0.0, s, p));\n    }\n    // Excel's cumulative is not the sum of its masses: at dyadic `p` it can sit on the exact dyadic\n    // sum (`fresh-negbinom.dist-00113`) where masses through EXP cannot, and at `p = 1/8` it stands\n    // 13 units off it. `I_p(s, f + 1)` holds the exact row and more of the 141 rows than the sum\n    // (73 against 70). The stages belong to the incomplete beta, still open.\n    finite(crate::ported::special_math_common::regularized_beta(\n        p,\n        s,\n        f + 1.0,\n    ))\n}\n"
+    "text": "/// `NEGBINOM.DIST(number_f, number_s, probability_s, cumulative)`.\npub fn negbinom_dist_kernel(number_f: f64, number_s: f64, p: f64, cumulative: bool) -> R {\n    if number_f < 0.0 {\n        return Err(NUM);\n    }\n    let (f, s) = (number_f.trunc(), number_s.trunc());\n    if f < 0.0 || s < 1.0 || !(p > 0.0 && p < 1.0) {\n        return Err(NUM);\n    }\n    if !cumulative {\n        return finite(negbinom_mass(f, s, p));\n    }\n    if f == 0.0 {\n        return finite(negbinom_mass(0.0, s, p));\n    }\n    if crate::ported::beta_gamma_stats_family::beta_absorbed_shape_error(s, f + 1.0, p) {\n        return Err(NUM);\n    }\n    // Excel's cumulative is not the sum of its masses: at dyadic `p` it can sit on the exact dyadic\n    // sum (`fresh-negbinom.dist-00113`) where masses through EXP cannot, and at `p = 1/8` it stands\n    // 13 units off it. `I_p(s, f + 1)` holds the exact row and more of the 141 rows than the sum\n    // (73 against 70). The stages belong to the incomplete beta, still open.\n    finite(crate::ported::special_math_common::regularized_beta(\n        p,\n        s,\n        f + 1.0,\n    ))\n}\n"
   },
   "catalogue/distributions::entry::NEGBINOMDIST": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -15607,8 +15634,8 @@
   },
   "ported/discrete_dist::poisson_dist_kernel": {
     "file": "crates/calc-func/src/ported/discrete_dist.rs",
-    "start_line": 412,
-    "end_line": 441,
+    "start_line": 427,
+    "end_line": 456,
     "name": "poisson_dist_kernel",
     "module": "ported/discrete_dist",
     "users": 2,
@@ -18100,8 +18127,8 @@
   },
   "ported/regression_forecast_family::linear_model_from_data": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 758,
-    "end_line": 764,
+    "start_line": 792,
+    "end_line": 798,
     "name": "linear_model_from_data",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -18109,8 +18136,8 @@
   },
   "ported/regression_forecast_family::linear_prediction": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 785,
-    "end_line": 790,
+    "start_line": 819,
+    "end_line": 824,
     "name": "linear_prediction",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -18118,8 +18145,8 @@
   },
   "ported/regression_forecast_family::trend_kernel": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 882,
-    "end_line": 896,
+    "start_line": 916,
+    "end_line": 930,
     "name": "trend_kernel",
     "module": "ported/regression_forecast_family",
     "users": 1,
@@ -18127,17 +18154,17 @@
   },
   "ported/regression_forecast_family::eval_trend_surface": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1157,
-    "end_line": 1188,
+    "start_line": 1191,
+    "end_line": 1222,
     "name": "eval_trend_surface",
     "module": "ported/regression_forecast_family",
     "users": 1,
-    "text": "pub(crate) fn eval_trend_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    // Excel 20527 reports VALUE for a nonnumeric scalar new_x with two numeric 2x2 histories,\n    // even when new_x or the optional constant argument contains a worksheet error.\n    let numeric_matrix = |index: usize| {\n        args.get(index).and_then(CalcValue::as_array).is_some_and(|a| {\n            let shape = a.shape();\n            shape.rows == 2 && shape.cols == 2 && a.iter_row_major().all(|v| v.as_number().is_some())\n        })\n    };\n    if numeric_matrix(1) && args.first().is_some_and(|v| {\n        matches!(v.core_ref(), CoreRef::Number(_) | CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_))\n    }) {\n        return Err(WorksheetErrorCode::Ref);\n    }\n    if numeric_matrix(0) && numeric_matrix(1) && args.get(2).is_some_and(|v| {\n        matches!(v.core_ref(), CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_))\n    }) {\n        return Err(WorksheetErrorCode::Value);\n    }\n    let (known_y, known_x) = match paired_trend_matrices(args) {\n        Some(pair) => pair,\n        None => shape_first_inputs(args)?,\n    };\n    let new_x_raw = args\n        .get(2)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(|arg| collect_numeric_matrix_arg(arg))\n        .transpose()?;\n    let new_x = prediction_input_from_optional(new_x_raw, &known_y, &known_x)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, true)?;\n    trend_kernel(&known_y, &known_x, &new_x, use_const)\n}\n"
+    "text": "pub(crate) fn eval_trend_surface(args: &[CalcValue]) -> Result<CalcValue, WorksheetErrorCode> {\n    // Excel 20527 reports VALUE for a nonnumeric scalar new_x with two numeric 2x2 histories,\n    // even when new_x or the optional constant argument contains a worksheet error.\n    let numeric_matrix = |index: usize| {\n        args.get(index).and_then(CalcValue::as_array).is_some_and(|a| {\n            let shape = a.shape();\n            shape.rows == 2 && shape.cols == 2 && a.iter_row_major().all(|v| v.as_number().is_some())\n        })\n    };\n    if numeric_matrix(1) && args.first().is_some_and(|v| {\n        matches!(v.core_ref(), CoreRef::Number(_) | CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_))\n    }) {\n        return Err(WorksheetErrorCode::Ref);\n    }\n    if numeric_matrix(0) && numeric_matrix(1) && args.get(2).is_some_and(|v| {\n        matches!(v.core_ref(), CoreRef::Text(_) | CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Error(_))\n    }) {\n        return Err(WorksheetErrorCode::Value);\n    }\n    let (known_y, known_x) = match paired_trend_matrices(args) {\n        Some(pair) => pair,\n        None => shape_first_inputs(args, false)?,\n    };\n    let new_x_raw = args\n        .get(2)\n        .filter(|arg| !matches!(arg.core_ref(), CoreRef::Missing))\n        .map(|arg| collect_numeric_matrix_arg(arg))\n        .transpose()?;\n    let new_x = prediction_input_from_optional(new_x_raw, &known_y, &known_x)?;\n    let use_const = bool_flag_from_eval_or_default(optional_arg_value(args.get(3))?, true)?;\n    trend_kernel(&known_y, &known_x, &new_x, use_const)\n}\n"
   },
   "ported/regression_forecast_family::paired_trend_matrices": {
     "file": "crates/calc-func/src/ported/regression_forecast_family.rs",
-    "start_line": 1190,
-    "end_line": 1213,
+    "start_line": 1224,
+    "end_line": 1247,
     "name": "paired_trend_matrices",
     "module": "ported/regression_forecast_family",
     "users": 1,

@@ -1,5 +1,5 @@
 {
-  "commit": "1b90d38748e1e7e33c46c502e570a719392bd1de",
+  "commit": "8d61ac2bd330333db1d5c366fdbcadd5a87d6f8f",
   "counts": {
     "absent": 1,
     "close": 39,
@@ -5671,11 +5671,11 @@
     "FUNC.GAMMADIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 123 of 2,960 recorded answers",
-      "detail": "Of 2,960 recorded answers (2,954 in the answer bank and 6 workbook cells), 123 do not match: 1 differ by more than 16 ULP, 99 differ by at most 16 ULP, 22 differ in kind or value, 1 are refused.",
+      "summary": "Known differences on 101 of 2,960 recorded answers",
+      "detail": "Of 2,960 recorded answers (2,954 in the answer bank and 6 workbook cells), 101 do not match: 1 differ by more than 16 ULP, 99 differ by at most 16 ULP, 1 are refused.",
       "bank": {
         "rows": 2954,
-        "matched": 2831,
+        "matched": 2853,
         "worst_ulp": 94,
         "excel_builds": [
           "20131",
@@ -5684,7 +5684,7 @@
         ],
         "larger_numeric": 1,
         "last_bit": 99,
-        "other_mismatch": 22,
+        "other_mismatch": 0,
         "refused": 1,
         "excluded": 0,
         "unread": 0
@@ -8139,18 +8139,18 @@
     "FUNC.LINEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 84 of 6,570 recorded answers",
-      "detail": "Of 6,570 recorded answers (3,225 in the answer bank and 3,345 workbook cells), 84 do not match: 7 differ by more than 16 ULP, 12 differ by at most 16 ULP, 65 differ in kind or value.",
+      "summary": "Known differences on 42 of 6,570 recorded answers",
+      "detail": "Of 6,570 recorded answers (3,225 in the answer bank and 3,345 workbook cells), 42 do not match: 7 differ by more than 16 ULP, 12 differ by at most 16 ULP, 23 differ in kind or value.",
       "bank": {
         "rows": 3225,
-        "matched": 3159,
+        "matched": 3201,
         "worst_ulp": 1,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 1,
-        "other_mismatch": 65,
+        "other_mismatch": 23,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -8257,11 +8257,11 @@
     "FUNC.LOGEST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 80 of 5,642 recorded answers",
-      "detail": "Of 5,642 recorded answers (3,585 in the answer bank and 2,057 workbook cells), 80 do not match: 7 differ by more than 16 ULP, 8 differ by at most 16 ULP, 65 differ in kind or value.",
+      "summary": "Known differences on 38 of 5,642 recorded answers",
+      "detail": "Of 5,642 recorded answers (3,585 in the answer bank and 2,057 workbook cells), 38 do not match: 7 differ by more than 16 ULP, 8 differ by at most 16 ULP, 23 differ in kind or value.",
       "bank": {
         "rows": 3585,
-        "matched": 3518,
+        "matched": 3560,
         "worst_ulp": 1,
         "excel_builds": [
           "20228",
@@ -8269,7 +8269,7 @@
         ],
         "larger_numeric": 0,
         "last_bit": 2,
-        "other_mismatch": 65,
+        "other_mismatch": 23,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -9225,11 +9225,11 @@
     "FUNC.NEGBINOM.DIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 143 of 3,548 recorded answers",
-      "detail": "Of 3,548 recorded answers (3,448 in the answer bank and 100 workbook cells), 143 do not match: 64 differ by more than 16 ULP, 71 differ by at most 16 ULP, 8 differ in kind or value.",
+      "summary": "Known differences on 136 of 3,548 recorded answers",
+      "detail": "Of 3,548 recorded answers (3,448 in the answer bank and 100 workbook cells), 136 do not match: 64 differ by more than 16 ULP, 71 differ by at most 16 ULP, 1 differ in kind or value.",
       "bank": {
         "rows": 3448,
-        "matched": 3306,
+        "matched": 3313,
         "worst_ulp": 1955,
         "excel_builds": [
           "20430",
@@ -9237,7 +9237,7 @@
         ],
         "larger_numeric": 63,
         "last_bit": 71,
-        "other_mismatch": 8,
+        "other_mismatch": 1,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -15299,9 +15299,9 @@
     {
       "function": "NEGBINOM.DIST",
       "worst_ulp": "1955",
-      "rows_open": "142",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted"
+      "rows_open": "135",
+      "bead": "dc-ymjf.2.136",
+      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted; shared beta absorbed-shape NUM fixes 7 error rows, one remains outside rule"
     },
     {
       "function": "TDIST",
