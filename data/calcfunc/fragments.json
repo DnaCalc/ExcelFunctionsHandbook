@@ -2908,8 +2908,8 @@
   },
   "number_text::decimal": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 68,
-    "end_line": 80,
+    "start_line": 70,
+    "end_line": 82,
     "name": "decimal",
     "module": "number_text",
     "users": 21,
@@ -2917,26 +2917,26 @@
   },
   "number_text::first_precision": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 82,
-    "end_line": 98,
+    "start_line": 84,
+    "end_line": 101,
     "name": "first_precision",
     "module": "number_text",
     "users": 21,
-    "text": "fn first_precision(x: f64) -> (Vec<u8>, i32) {\n    let exact = ExactDecimal::binary(x);\n    let all = exact.coefficient.digits();\n    let length = i32::try_from(all.len()).expect(\"a digit count\");\n    let exponent = length - 1 + exact.exponent;\n    let above_tie = all.as_bytes().get(SIGNIFICANT_DIGITS) == Some(&b'5')\n        && all.as_bytes()[SIGNIFICANT_DIGITS + 1..].iter().any(|&digit| digit != b'0');\n    let near = near_tie(&exact.coefficient, &all);\n    let measured_above_tie = above_tie && (matches!(exponent, 1 | 2)\n        || (exponent == 0 && near && scaled_x87_above_midpoint(x)));\n    let up = (!near || measured_above_tie)\n        && all\n            .as_bytes()\n            .get(SIGNIFICANT_DIGITS)\n            .is_some_and(|&d| d >= b'5');\n    first_rounding(all.as_bytes(), exponent, up)\n}\n"
+    "text": "fn first_precision(x: f64) -> (Vec<u8>, i32) {\n    let exact = ExactDecimal::binary(x);\n    let all = exact.coefficient.digits();\n    let length = i32::try_from(all.len()).expect(\"a digit count\");\n    let exponent = length - 1 + exact.exponent;\n    let above_tie = all.as_bytes().get(SIGNIFICANT_DIGITS) == Some(&b'5')\n        && all.as_bytes()[SIGNIFICANT_DIGITS + 1..].iter().any(|&digit| digit != b'0');\n    let near = near_tie(&exact.coefficient, &all);\n    let measured_above_tie = above_tie && (matches!(exponent, 1 | 2)\n        || (exponent == 0 && near && scaled_x87_above_midpoint(x, false))\n        || (exponent == -1 && x >= 0.5 && near && scaled_x87_above_midpoint(x, true)));\n    let up = (!near || measured_above_tie)\n        && all\n            .as_bytes()\n            .get(SIGNIFICANT_DIGITS)\n            .is_some_and(|&d| d >= b'5');\n    first_rounding(all.as_bytes(), exponent, up)\n}\n"
   },
   "number_text::scaled_x87_above_midpoint": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 100,
-    "end_line": 118,
+    "start_line": 103,
+    "end_line": 122,
     "name": "scaled_x87_above_midpoint",
     "module": "number_text",
     "users": 21,
-    "text": "/// Whether x * 10^14, rounded to a 64-bit significand, is above the half-integer.\n/// This is only called for 1 <= x < 10. The exact binary64 significand times 10^14\n/// fits in u128, so the test is independent of native extended precision.\nfn scaled_x87_above_midpoint(x: f64) -> bool {\n    let bits = x.to_bits();\n    let significand = (bits & ((1_u64 << 52) - 1)) | (1_u64 << 52);\n    let input_exponent = ((bits >> 52) & 0x7ff) as u32 - 1023;\n    let denominator = 1_u128 << (52 - input_exponent);\n    let numerator = u128::from(significand) * 100_000_000_000_000_u128;\n    let integer = numerator / denominator;\n    let remainder = numerator % denominator;\n    if 2 * remainder <= denominator {\n        return false;\n    }\n    let scaled_exponent = 127 - integer.leading_zeros();\n    // A midpoint has an even final significand bit here, so an exact half-ULP\n    // rounds to the midpoint; only a strictly greater distance rounds above it.\n    ((2 * remainder - denominator) << (63 - scaled_exponent)) > denominator\n}\n"
+    "text": "/// Whether the scaled product, rounded to a 64-bit significand, clears the measured\n/// midpoint. Only called for 0.5 <= x < 10; the exact product fits in u128.\nfn scaled_x87_above_midpoint(x: f64, two_units: bool) -> bool {\n    let bits = x.to_bits();\n    let significand = (bits & ((1_u64 << 52) - 1)) | (1_u64 << 52);\n    let input_exponent = ((bits >> 52) & 0x7ff) as i32 - 1023;\n    let denominator = 1_u128 << (52 - input_exponent);\n    let scale = if two_units { 1_000_000_000_000_000_u128 } else { 100_000_000_000_000_u128 };\n    let numerator = u128::from(significand) * scale;\n    let integer = numerator / denominator;\n    let remainder = numerator % denominator;\n    if 2 * remainder <= denominator {\n        return false;\n    }\n    let scaled_exponent = 127 - integer.leading_zeros();\n    let distance = (2 * remainder - denominator) << (63 - scaled_exponent);\n    // The midpoint and the value two units above it have even final bits.\n    // Their respective halfway cases therefore round to those even values.\n    if two_units { distance >= 3 * denominator } else { distance > denominator }\n}\n"
   },
   "number_text::near_tie": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 120,
-    "end_line": 151,
+    "start_line": 124,
+    "end_line": 155,
     "name": "near_tie",
     "module": "number_text",
     "users": 21,
@@ -2944,8 +2944,8 @@
   },
   "number_text::first_rounding": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 153,
-    "end_line": 159,
+    "start_line": 157,
+    "end_line": 163,
     "name": "first_rounding",
     "module": "number_text",
     "users": 21,
@@ -2953,8 +2953,8 @@
   },
   "number_text::rounded": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 188,
-    "end_line": 204,
+    "start_line": 192,
+    "end_line": 208,
     "name": "rounded",
     "module": "number_text",
     "users": 21,
@@ -2962,8 +2962,8 @@
   },
   "number_text::increment": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 206,
-    "end_line": 217,
+    "start_line": 210,
+    "end_line": 221,
     "name": "increment",
     "module": "number_text",
     "users": 21,
@@ -2971,8 +2971,8 @@
   },
   "number_text::ascii": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 238,
-    "end_line": 240,
+    "start_line": 242,
+    "end_line": 244,
     "name": "ascii",
     "module": "number_text",
     "users": 21,
@@ -4384,8 +4384,8 @@
   },
   "ported/beta_gamma_stats_family::validate_gamma_shape": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 239,
-    "end_line": 247,
+    "start_line": 263,
+    "end_line": 271,
     "name": "validate_gamma_shape",
     "module": "ported/beta_gamma_stats_family",
     "users": 35,
@@ -4393,8 +4393,8 @@
   },
   "ported/beta_gamma_stats_family::gamma_dist_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 249,
-    "end_line": 318,
+    "start_line": 273,
+    "end_line": 342,
     "name": "gamma_dist_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 32,
@@ -5189,7 +5189,7 @@
     "end_line": 27,
     "name": "phi_kernel",
     "module": "ported/normal_dist_common",
-    "users": 18,
+    "users": 23,
     "text": "/// Worksheet `PHI` numerical graph observed on the reference Excel host.\n/// W111 retains a fresh 9,130-row exact numerical replay; surface overflow\n/// admission and contextual coercion remain separate obligations.\n///\n/// ```text\n/// sq  = RN53(RN64(x·x))            (x87 double-rounded square)\n/// t   = -(sq/2)                    (exact halving + negation)\n/// e   = EXP(t)                     (the x87 exponential, `excel_exp`)\n/// v   = RN53(RN64(e · RN(1/sqrt(2π))))\n/// PHI = +0.0 if |v| < DBL_MIN      (live-pinned publication flush;\n///        normal values publish unchanged — boundary probed at bit level)\n/// ```\npub fn phi_kernel(x: f64) -> f64 {\n    use crate::ported::excel_numeric::{excel_exp, excel_x87_mul};\n    let sq = excel_x87_mul(x, x);\n    let e = excel_exp(-(sq / 2.0));\n    let v = excel_x87_mul(e, INV_SQRT_2PI);\n    if v.abs() < f64::MIN_POSITIVE { 0.0 } else { v }\n}\n"
   },
   "ported/normal_log_family::validate_probability_open_unit": {
@@ -5198,7 +5198,7 @@
     "end_line": 85,
     "name": "validate_probability_open_unit",
     "module": "ported/normal_log_family",
-    "users": 18,
+    "users": 23,
     "text": "fn validate_probability_open_unit(p: f64) -> Result<(), WorksheetErrorCode> {\n    if !p.is_finite() || p <= 0.0 || p >= 1.0 {\n        return Err(WorksheetErrorCode::Num);\n    }\n    Ok(())\n}\n"
   },
   "ported/normal_log_family::inverse_standard_normal_as241_tail": {
@@ -5207,7 +5207,7 @@
     "end_line": 154,
     "name": "inverse_standard_normal_as241_tail",
     "module": "ported/normal_log_family",
-    "users": 18,
+    "users": 23,
     "text": "/// The tail of the inverse standard normal by the rational approximations of\n/// M. J. Wichura, \"Algorithm AS 241: The Percentage Points of the Normal Distribution\",\n/// Applied Statistics 37(3), 1988, pp. 477-484 (PPND16): the published coefficients of its\n/// tail approximations evaluated in `sqrt(-ln p)`. Every Horner product and sum and the final\n/// quotient is stored to binary64 from precision 64 (R42: the lower windows near 6.4e-82 and\n/// 1.8e-26 separate it from strict binary64; the R39 upper answers agree with both).\nfn inverse_standard_normal_as241_tail(p: f64) -> f64 {\n    use crate::ported::excel_numeric::{excel_x87_add, excel_x87_div, excel_x87_mul};\n    let horner = |c: &[f64; 8], r: f64| {\n        c[..7]\n            .iter()\n            .rev()\n            .fold(c[7], |v, &a| excel_x87_add(excel_x87_mul(v, r), a))\n    };\n    const C: [f64; 8] = [\n        1.4234371107496835,\n        4.630337846156546,\n        5.769497221460691,\n        3.6478483247632045,\n        1.2704582524523684,\n        0.2417807251774506,\n        0.022723844989269184,\n        0.0007745450142783414,\n    ];\n    const D: [f64; 8] = [\n        1.0,\n        2.053191626637759,\n        1.6763848301838038,\n        0.6897673349851,\n        0.14810397642748008,\n        0.015198666563616457,\n        0.0005475938084995345,\n        1.0507500716444169e-09,\n    ];\n    const E: [f64; 8] = [\n        6.657904643501103,\n        5.463784911164114,\n        1.7848265399172913,\n        0.29656057182850487,\n        0.026532189526576124,\n        0.0012426609473880784,\n        2.7115555687434876e-05,\n        2.0103343992922881e-07,\n    ];\n    const F: [f64; 8] = [\n        1.0,\n        0.599832206555888,\n        0.1369298809227358,\n        0.014875361290850615,\n        0.0007868691311456133,\n        1.8463183175100548e-05,\n        1.421511758316446e-07,\n        2.0442631033899397e-15,\n    ];\n\n    let q = p - 0.5;\n    let tail_p = if q < 0.0 { p } else { 1.0 - p };\n    let mut r = libm::sqrt(-crt_log(tail_p));\n    let x = if r <= 5.0 {\n        r -= 1.6;\n        excel_x87_div(horner(&C, r), horner(&D, r))\n    } else {\n        r -= 5.0;\n        excel_x87_div(horner(&E, r), horner(&F, r))\n    };\n\n    if q < 0.0 { -x } else { x }\n}\n"
   },
   "ported/normal_log_family::inverse_standard_normal_acklam_refined": {
@@ -5216,7 +5216,7 @@
     "end_line": 211,
     "name": "inverse_standard_normal_acklam_refined",
     "module": "ported/normal_log_family",
-    "users": 18,
+    "users": 23,
     "text": "fn inverse_standard_normal_acklam_refined(p: f64) -> f64 {\n    const A: [f64; 6] = [\n        -3.969_683_028_665_376e1,\n        2.209_460_984_245_205e2,\n        -2.759_285_104_469_687e2,\n        1.383_577_518_672_69e2,\n        -3.066_479_806_614_716e1,\n        2.506_628_277_459_239,\n    ];\n    const B: [f64; 5] = [\n        -5.447_609_879_822_406e1,\n        1.615_858_368_580_409e2,\n        -1.556_989_798_598_866e2,\n        6.680_131_188_771_972e1,\n        -1.328_068_155_288_572e1,\n    ];\n    const C: [f64; 6] = [\n        -7.784_894_002_430_293e-3,\n        -3.223_964_580_411_365e-1,\n        -2.400_758_277_161_838,\n        -2.549_732_539_343_734,\n        4.374_664_141_464_968,\n        2.938_163_982_698_783,\n    ];\n    const D: [f64; 4] = [\n        7.784_695_709_041_462e-3,\n        3.224_671_290_700_398e-1,\n        2.445_134_137_142_996,\n        3.754_408_661_907_416,\n    ];\n    const P_LOW: f64 = 0.02425;\n    const P_HIGH: f64 = 1.0 - P_LOW;\n\n    let x = if p < P_LOW {\n        let q = (-2.0 * crt_log(p)).sqrt();\n        (((((C[0] * q + C[1]) * q + C[2]) * q + C[3]) * q + C[4]) * q + C[5])\n            / ((((D[0] * q + D[1]) * q + D[2]) * q + D[3]) * q + 1.0)\n    } else if p <= P_HIGH {\n        let q = p - 0.5;\n        let r = q * q;\n        (((((A[0] * r + A[1]) * r + A[2]) * r + A[3]) * r + A[4]) * r + A[5]) * q\n            / (((((B[0] * r + B[1]) * r + B[2]) * r + B[3]) * r + B[4]) * r + 1.0)\n    } else {\n        let q = (-2.0 * crt_log(1.0 - p)).sqrt();\n        -(((((C[0] * q + C[1]) * q + C[2]) * q + C[3]) * q + C[4]) * q + C[5])\n            / ((((D[0] * q + D[1]) * q + D[2]) * q + D[3]) * q + 1.0)\n    };\n\n    // Form the lower tail directly. Subtracting erf from 1 loses it entirely\n    // for small probabilities; at positive x compute the complementary error\n    // before subtracting, so the Newton residual does not round through 1.\n    let tail = 0.5 * libm::erfc(x.abs() / std::f64::consts::SQRT_2);\n    let err = if x < 0.0 { tail - p } else { (1.0 - p) - tail };\n    let density = phi_kernel(x);\n    if density == 0.0 { x } else { x - err / density }\n}\n"
   },
   "ported/normal_log_family::inverse_standard_normal": {
@@ -5225,7 +5225,7 @@
     "end_line": 235,
     "name": "inverse_standard_normal",
     "module": "ported/normal_log_family",
-    "users": 18,
+    "users": 23,
     "text": "fn inverse_standard_normal(p: f64) -> Result<f64, WorksheetErrorCode> {\n    validate_probability_open_unit(p)?;\n\n    // In the independently measured windows immediately around one half,\n    // Excel stores each product of the leading inverse-erf term separately.\n    // Keep to a power-of-two interval inside both retained windows.\n    let q = p - 0.5;\n    if q.abs() <= 2.0_f64.powi(-42) {\n        use crate::ported::excel_numeric::excel_x87_mul;\n        let leading = excel_x87_mul(2.0 * q, f64::from_bits(0x3fec_5bf8_91b4_ef6b));\n        return Ok(excel_x87_mul(leading, std::f64::consts::SQRT_2));\n    }\n\n    // R39 single-bit regions separate the upper AS241 route at 15/16. Below AS241's\n    // central bound (`p - 0.5 < -0.425`) Excel publishes the same AS241 tail evaluated at\n    // `p` itself (R42: 393,140 of 393,216 retained R41 answers there). The central route and\n    // the upper interval (0.925, 15/16] keep their existing numerical program.\n    Ok(if p > 15.0 / 16.0 || p - 0.5 < -0.425 {\n        inverse_standard_normal_as241_tail(p)\n    } else {\n        inverse_standard_normal_acklam_refined(p)\n    })\n}\n"
   },
   "ported/normal_log_family::norm_s_inv_kernel": {
@@ -5234,7 +5234,7 @@
     "end_line": 279,
     "name": "norm_s_inv_kernel",
     "module": "ported/normal_log_family",
-    "users": 12,
+    "users": 17,
     "text": "pub fn norm_s_inv_kernel(p: f64) -> Result<f64, WorksheetErrorCode> {\n    inverse_standard_normal(p)\n}\n"
   },
   "ported/special_math_common::bisect_inverse": {
@@ -6164,6 +6164,15 @@
     "users": 5,
     "text": "/// Excel 20527's stored unit result in the measured very-large-shape region.\npub(crate) fn large_shape_inverse_unit(shape: f64) -> f64 {\n    crate::ported::excel_numeric::excel_x87_mul(shape, f64::from_bits(0x3ff0_0116_bc77_4cb6))\n}\n"
   },
+  "ported/beta_gamma_stats_family::large_shape_inverse_factor": {
+    "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
+    "start_line": 239,
+    "end_line": 261,
+    "name": "large_shape_inverse_factor",
+    "module": "ported/beta_gamma_stats_family",
+    "users": 5,
+    "text": "/// Excel's measured large-shape inverse steps around the saturation factor.\n/// The step count follows the normal quantile divided by the square root of\n/// twice the shape; neighboring factors are three binary64 words apart. The\n/// measured scale is kept away from step transitions, whose rounding is open.\npub(crate) fn large_shape_inverse_factor(probability: f64, shape: f64) -> Option<f64> {\n    if !(0.05..=0.95).contains(&probability)\n        || !(2.0_f64.powi(95)..2.0_f64.powi(109)).contains(&shape)\n    {\n        return None;\n    }\n    let z = crate::ported::normal_log_family::norm_s_inv_kernel(probability).ok()?;\n    let coordinate = (2_124_007_406_095_908.0 * z) / (2.0 * shape).sqrt();\n    let fraction = coordinate.abs().fract();\n    if (fraction - 0.5).abs() < 0.01 {\n        return None;\n    }\n    let step = coordinate.round();\n    if step.abs() > 8.0 {\n        return None;\n    }\n    let bits = 0x3ff0_0116_bc77_4cb6_i64 + 3 * step as i64;\n    Some(f64::from_bits(bits as u64))\n}\n"
+  },
   "ported/chi_f_t_family::validate_probability_open_unit": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
     "start_line": 19,
@@ -6185,11 +6194,11 @@
   "ported/chi_f_t_family::chisq_inv_rt_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
     "start_line": 131,
-    "end_line": 198,
+    "end_line": 210,
     "name": "chisq_inv_rt_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
-    "text": "pub fn chisq_inv_rt_kernel(probability: f64, deg_freedom: f64) -> Result<f64, WorksheetErrorCode> {\n    let p = if probability == 1.0 {\n        1.0\n    } else {\n        validate_probability_open_unit(probability)?\n    };\n    if p == 1.0 {\n        let k = deg_freedom.trunc();\n        return if k.is_finite() && k >= 1.0 {\n            Ok(0.0)\n        } else {\n            Err(WorksheetErrorCode::Num)\n        };\n    }\n    // Excel 20527's right-tail inverse admits these large degrees even though\n    // the other chi-square routes enforce the 1e10 limit. Its asymptotic\n    // result matches a single x87 multiplication; splitting the correction and\n    // addition changes constructed halfway results. A narrower probability\n    // interval admits lower degrees, with controls on both sides of it.\n    if p >= f64::MIN_POSITIVE\n        && (deg_freedom >= f64::from_bits(0x4720_0000_0000_0000) // 2^115\n            || (deg_freedom >= f64::from_bits(0x46a0_0000_0000_0000) // 2^107\n                && (0.01..=0.99).contains(&p)))\n        && deg_freedom < f64::from_bits(0x7e70_0000_0000_0000) // 2^1000\n    {\n        return Ok(crate::ported::beta_gamma_stats_family::large_shape_inverse_unit(deg_freedom));\n    }\n    let k = truncate_positive_integer(deg_freedom)?;\n    if k == 2.0 {\n        use crate::ported::excel_numeric::{excel_log, excel_log1p_times};\n        // Exponential right inverse, preserving p rather than first taking\n        // 1-p. The near-one arm shares the measured distribution logarithm.\n        return Ok(if p > 0.625 {\n            excel_log1p_times(-2.0, p - 1.0)\n        } else {\n            -2.0 * excel_log(p)\n        });\n    }\n    if k > 2.0 && p > 0.5 {\n        // Q near one loses the small lower tail. Keep that lower tail and\n        // publish its closest forward lattice point. Fresh164 controls gain\n        //55 words, lose nine one-ULP words; worst error falls to121 ULP.\n        let target = 1.0 - p;\n        let forward = |x| regularized_gamma_p(k / 2.0, x / 2.0);\n        let hi = search_upper_bound(target, k, forward);\n        return Ok(bisect_inverse_closest(target, 0.0, hi, forward));\n    }\n    // Excel 20527: the df=1 arm first forms P = .5 + (.5-p).\n    // All 320 independently chosen probabilities retain the same CHIINV word\n    // after this fold; the df=2 control retains only 37/320. Preserve both\n    // binary64 stores, including the tiny-tail #NUM! when P rounds to one.\n    let p = if k == 1.0 {\n        let complement = 0.5 + (0.5 - p);\n        let folded = 1.0 - complement;\n        if folded == 0.0 {\n            return Err(WorksheetErrorCode::Num);\n        }\n        folded\n    } else {\n        p\n    };\n    // Keep the measured df=1 fold and invert the smaller right tail directly.\n    // Q decreases in x, so negate it for the increasing-forward convention.\n    let hi = search_upper_bound(-p, k, |x| -regularized_gamma_q(k / 2.0, x / 2.0));\n    Ok(bisect_inverse(-p, 0.0, hi, |x| {\n        -regularized_gamma_q(k / 2.0, x / 2.0)\n    }))\n}\n"
+    "text": "pub fn chisq_inv_rt_kernel(probability: f64, deg_freedom: f64) -> Result<f64, WorksheetErrorCode> {\n    let p = if probability == 1.0 {\n        1.0\n    } else {\n        validate_probability_open_unit(probability)?\n    };\n    if p == 1.0 {\n        let k = deg_freedom.trunc();\n        return if k.is_finite() && k >= 1.0 {\n            Ok(0.0)\n        } else {\n            Err(WorksheetErrorCode::Num)\n        };\n    }\n    if let Some(factor) = crate::ported::beta_gamma_stats_family::large_shape_inverse_factor(\n        1.0 - p, deg_freedom / 2.0,\n    ) {\n        return Ok(crate::ported::excel_numeric::excel_x87_mul(deg_freedom, factor));\n    }\n    // Excel 20527's right-tail inverse admits these large degrees even though\n    // the other chi-square routes enforce the 1e10 limit. Its asymptotic\n    // result matches a single x87 multiplication; splitting the correction and\n    // addition changes constructed halfway results. A narrower probability\n    // interval admits lower degrees, with controls on both sides of it. At\n    // still smaller degrees the plateau boundary depends on the normal\n    // quantile; the conservative bound below stays inside the measured region.\n    let lower_degree_plateau = deg_freedom >= 2.0_f64.powi(105)\n        && (0.5..=63.0 / 64.0).contains(&p)\n        && crate::ported::normal_log_family::norm_s_inv_kernel(1.0 - p)\n            .is_ok_and(|z| deg_freedom.sqrt() >= z.abs() * (63.0 * 2.0_f64.powi(46)));\n    if p >= f64::MIN_POSITIVE\n        && (deg_freedom >= f64::from_bits(0x4720_0000_0000_0000) // 2^115\n            || (deg_freedom >= f64::from_bits(0x46a0_0000_0000_0000) // 2^107\n                && (0.01..=0.99).contains(&p))\n            || lower_degree_plateau)\n        && deg_freedom < f64::from_bits(0x7e70_0000_0000_0000) // 2^1000\n    {\n        return Ok(crate::ported::beta_gamma_stats_family::large_shape_inverse_unit(deg_freedom));\n    }\n    let k = truncate_positive_integer(deg_freedom)?;\n    if k == 2.0 {\n        use crate::ported::excel_numeric::{excel_log, excel_log1p_times};\n        // Exponential right inverse, preserving p rather than first taking\n        // 1-p. The near-one arm shares the measured distribution logarithm.\n        return Ok(if p > 0.625 {\n            excel_log1p_times(-2.0, p - 1.0)\n        } else {\n            -2.0 * excel_log(p)\n        });\n    }\n    if k > 2.0 && p > 0.5 {\n        // Q near one loses the small lower tail. Keep that lower tail and\n        // publish its closest forward lattice point. Fresh164 controls gain\n        //55 words, lose nine one-ULP words; worst error falls to121 ULP.\n        let target = 1.0 - p;\n        let forward = |x| regularized_gamma_p(k / 2.0, x / 2.0);\n        let hi = search_upper_bound(target, k, forward);\n        return Ok(bisect_inverse_closest(target, 0.0, hi, forward));\n    }\n    // Excel 20527: the df=1 arm first forms P = .5 + (.5-p).\n    // All 320 independently chosen probabilities retain the same CHIINV word\n    // after this fold; the df=2 control retains only 37/320. Preserve both\n    // binary64 stores, including the tiny-tail #NUM! when P rounds to one.\n    let p = if k == 1.0 {\n        let complement = 0.5 + (0.5 - p);\n        let folded = 1.0 - complement;\n        if folded == 0.0 {\n            return Err(WorksheetErrorCode::Num);\n        }\n        folded\n    } else {\n        p\n    };\n    // Keep the measured df=1 fold and invert the smaller right tail directly.\n    // Q decreases in x, so negate it for the increasing-forward convention.\n    let hi = search_upper_bound(-p, k, |x| -regularized_gamma_q(k / 2.0, x / 2.0));\n    Ok(bisect_inverse(-p, 0.0, hi, |x| {\n        -regularized_gamma_q(k / 2.0, x / 2.0)\n    }))\n}\n"
   },
   "catalogue/distributions::entry::CHISQ.DIST": {
     "file": "crates/calc-func/src/catalogue/distributions.rs",
@@ -6238,12 +6247,12 @@
   },
   "ported/beta_gamma_stats_family::gamma_inv_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 320,
-    "end_line": 418,
+    "start_line": 344,
+    "end_line": 450,
     "name": "gamma_inv_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 3,
-    "text": "pub fn gamma_inv_kernel(\n    probability: f64,\n    alpha: f64,\n    beta: f64,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_gamma_shape(alpha, beta)?;\n    if !probability.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    // Excel: p==0 returns the support lower bound (0); p==1 -> #NUM! (+inf);\n    // p<0 or p>1 -> #NUM!. Verified vs live Excel 16.0 build 20026:\n    // GAMMA.INV(0,3,2)=0, GAMMA.INV(1,3,2)=#NUM! (BUG-FUNC-039 / oxf-99zz).\n    if probability < 0.0 || probability >= 1.0 {\n        return Err(WorksheetErrorCode::Num);\n    }\n    if probability == 0.0 {\n        return Ok(0.0);\n    }\n    // At these large shapes Excel's unit search saturates to the same stored\n    // x87 factor as the right-tail chi-square inverse. The scale is\n    // applied in its own stored multiplication. Keep unmeasured overflow and\n    // underflow ranges on the existing solver.\n    if probability >= f64::MIN_POSITIVE\n        && alpha >= f64::from_bits(0x4720_0000_0000_0000) // 2^115\n        && alpha < f64::from_bits(0x6570_0000_0000_0000) // 2^600\n        && beta >= f64::from_bits(0x26f0_0000_0000_0000) // 2^-400\n        && beta < f64::from_bits(0x58f0_0000_0000_0000) // 2^400\n    {\n        return Ok(crate::ported::excel_numeric::excel_x87_mul(\n            beta,\n            large_shape_inverse_unit(alpha),\n        ));\n    }\n    if alpha == 1.0 {\n        use crate::ported::excel_numeric::{excel_log, excel_log1p_times, excel_x87_mul};\n        // Exponential inverse: the distribution logarithm keeps the small\n        // probability before the final stored scale. Fresh Excel20527: 698/698\n        // after final subnormal publication is flushed, plus 48 scaling controls.\n        let unit = if probability < 0.375 {\n            excel_log1p_times(-1.0, -probability)\n        } else {\n            -excel_log(1.0 - probability)\n        };\n        let x = excel_x87_mul(beta, unit);\n        return Ok(if x.is_subnormal() { 0.0 } else { x });\n    }\n    if alpha < 1.0 {\n        use crate::ported::excel_numeric::{\n            excel_exp, excel_log, excel_x87_add, excel_x87_div, gammaln_excel,\n        };\n        // The lower-tail power estimate is exact at the underflow scale.\n        // Excel 20527: 56 controls separate an estimate rounded to zero\n        // from a nonzero subnormal, which fails before scale is applied.\n        let log_seed = excel_x87_div(\n            excel_x87_add(excel_log(probability), gammaln_excel(1.0 + alpha)),\n            alpha,\n        );\n        let seed = excel_exp(log_seed);\n        if seed == 0.0 {\n            return Ok(0.0);\n        }\n        if seed.is_subnormal() {\n            return Err(WorksheetErrorCode::Div0);\n        }\n    }\n    // design/fable52-last-bit.md section 5 (Claude Fable 5.2), measured 300/300 on Excel:\n    // GAMMA.INV(p,a,b) = st(b * GAMMA.INV(p,a,1)), CHISQ.INV(p,2a) = GAMMA.INV(p,a,2): a\n    // unit-scale search followed by one stored multiply.\n    // Preserve the smaller upper tail: the stored P=1-Q has wide plateaus\n    // near one. Fresh Excel20527 controls gain139 exact words, lose four\n    // one-ULP words, and reduce worst error from 8.7e13 to76 ULP.\n    let upper = probability > 0.5;\n    let target = if upper {\n        -(1.0 - probability)\n    } else {\n        probability\n    };\n    let forward = |x| {\n        if upper {\n            -regularized_gamma_q(alpha, x)\n        } else {\n            regularized_gamma_p(alpha, x)\n        }\n    };\n    let mut hi = (alpha + 10.0 * alpha.sqrt() + 10.0).max(1.0);\n    for _ in 0..200 {\n        if forward(hi) >= target || hi == f64::INFINITY {\n            break;\n        }\n        hi *= 2.0;\n    }\n    let unit = if upper {\n        bisect_inverse_closest(target, 0.0, hi, forward)\n    } else {\n        bisect_inverse(target, 0.0, hi, forward)\n    };\n    let x = crate::ported::excel_numeric::excel_x87_mul(beta, unit);\n    Ok(if x.is_subnormal() { 0.0 } else { x })\n}\n"
+    "text": "pub fn gamma_inv_kernel(\n    probability: f64,\n    alpha: f64,\n    beta: f64,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_gamma_shape(alpha, beta)?;\n    if !probability.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    // Excel: p==0 returns the support lower bound (0); p==1 -> #NUM! (+inf);\n    // p<0 or p>1 -> #NUM!. Verified vs live Excel 16.0 build 20026:\n    // GAMMA.INV(0,3,2)=0, GAMMA.INV(1,3,2)=#NUM! (BUG-FUNC-039 / oxf-99zz).\n    if probability < 0.0 || probability >= 1.0 {\n        return Err(WorksheetErrorCode::Num);\n    }\n    if probability == 0.0 {\n        return Ok(0.0);\n    }\n    // Shared with the right-tail chi-square inverse. Scale only after the\n    // independently measured unit result has been stored.\n    if (2.0_f64.powi(-40)..2.0_f64.powi(40)).contains(&beta)\n        && let Some(factor) = large_shape_inverse_factor(probability, alpha)\n    {\n        let unit = crate::ported::excel_numeric::excel_x87_mul(alpha, factor);\n        return Ok(crate::ported::excel_numeric::excel_x87_mul(beta, unit));\n    }\n    // At these large shapes Excel's unit search saturates to the same stored\n    // x87 factor as the right-tail chi-square inverse. The scale is\n    // applied in its own stored multiplication. Keep unmeasured overflow and\n    // underflow ranges on the existing solver.\n    if probability >= f64::MIN_POSITIVE\n        && alpha >= f64::from_bits(0x4720_0000_0000_0000) // 2^115\n        && alpha < f64::from_bits(0x6570_0000_0000_0000) // 2^600\n        && beta >= f64::from_bits(0x26f0_0000_0000_0000) // 2^-400\n        && beta < f64::from_bits(0x58f0_0000_0000_0000) // 2^400\n    {\n        return Ok(crate::ported::excel_numeric::excel_x87_mul(\n            beta,\n            large_shape_inverse_unit(alpha),\n        ));\n    }\n    if alpha == 1.0 {\n        use crate::ported::excel_numeric::{excel_log, excel_log1p_times, excel_x87_mul};\n        // Exponential inverse: the distribution logarithm keeps the small\n        // probability before the final stored scale. Fresh Excel20527: 698/698\n        // after final subnormal publication is flushed, plus 48 scaling controls.\n        let unit = if probability < 0.375 {\n            excel_log1p_times(-1.0, -probability)\n        } else {\n            -excel_log(1.0 - probability)\n        };\n        let x = excel_x87_mul(beta, unit);\n        return Ok(if x.is_subnormal() { 0.0 } else { x });\n    }\n    if alpha < 1.0 {\n        use crate::ported::excel_numeric::{\n            excel_exp, excel_log, excel_x87_add, excel_x87_div, gammaln_excel,\n        };\n        // The lower-tail power estimate is exact at the underflow scale.\n        // Excel 20527: 56 controls separate an estimate rounded to zero\n        // from a nonzero subnormal, which fails before scale is applied.\n        let log_seed = excel_x87_div(\n            excel_x87_add(excel_log(probability), gammaln_excel(1.0 + alpha)),\n            alpha,\n        );\n        let seed = excel_exp(log_seed);\n        if seed == 0.0 {\n            return Ok(0.0);\n        }\n        if seed.is_subnormal() {\n            return Err(WorksheetErrorCode::Div0);\n        }\n    }\n    // design/fable52-last-bit.md section 5 (Claude Fable 5.2), measured 300/300 on Excel:\n    // GAMMA.INV(p,a,b) = st(b * GAMMA.INV(p,a,1)), CHISQ.INV(p,2a) = GAMMA.INV(p,a,2): a\n    // unit-scale search followed by one stored multiply.\n    // Preserve the smaller upper tail: the stored P=1-Q has wide plateaus\n    // near one. Fresh Excel20527 controls gain139 exact words, lose four\n    // one-ULP words, and reduce worst error from 8.7e13 to76 ULP.\n    let upper = probability > 0.5;\n    let target = if upper {\n        -(1.0 - probability)\n    } else {\n        probability\n    };\n    let forward = |x| {\n        if upper {\n            -regularized_gamma_q(alpha, x)\n        } else {\n            regularized_gamma_p(alpha, x)\n        }\n    };\n    let mut hi = (alpha + 10.0 * alpha.sqrt() + 10.0).max(1.0);\n    for _ in 0..200 {\n        if forward(hi) >= target || hi == f64::INFINITY {\n            break;\n        }\n        hi *= 2.0;\n    }\n    let unit = if upper {\n        bisect_inverse_closest(target, 0.0, hi, forward)\n    } else {\n        bisect_inverse(target, 0.0, hi, forward)\n    };\n    let x = crate::ported::excel_numeric::excel_x87_mul(beta, unit);\n    Ok(if x.is_subnormal() { 0.0 } else { x })\n}\n"
   },
   "ported/chi_f_t_family::chisq_inv_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
@@ -6949,8 +6958,8 @@
   },
   "ported/chi_f_t_family::t_inv_2t_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 490,
-    "end_line": 537,
+    "start_line": 502,
+    "end_line": 549,
     "name": "t_inv_2t_kernel",
     "module": "ported/chi_f_t_family",
     "users": 4,
@@ -9910,8 +9919,8 @@
   },
   "ported/chi_f_t_family::f_pdf_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 200,
-    "end_line": 245,
+    "start_line": 212,
+    "end_line": 257,
     "name": "f_pdf_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -9919,8 +9928,8 @@
   },
   "ported/chi_f_t_family::f_tails": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 247,
-    "end_line": 281,
+    "start_line": 259,
+    "end_line": 293,
     "name": "f_tails",
     "module": "ported/chi_f_t_family",
     "users": 6,
@@ -9928,8 +9937,8 @@
   },
   "ported/chi_f_t_family::f_dist_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 283,
-    "end_line": 300,
+    "start_line": 295,
+    "end_line": 312,
     "name": "f_dist_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -9964,8 +9973,8 @@
   },
   "ported/chi_f_t_family::f_dist_rt_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 302,
-    "end_line": 313,
+    "start_line": 314,
+    "end_line": 325,
     "name": "f_dist_rt_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
@@ -9982,8 +9991,8 @@
   },
   "ported/chi_f_t_family::f_inv_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 315,
-    "end_line": 329,
+    "start_line": 327,
+    "end_line": 341,
     "name": "f_inv_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -10000,8 +10009,8 @@
   },
   "ported/chi_f_t_family::f_inv_rt_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 331,
-    "end_line": 349,
+    "start_line": 343,
+    "end_line": 361,
     "name": "f_inv_rt_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
@@ -17605,8 +17614,8 @@
   },
   "ported/chi_f_t_family::t_pdf": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 351,
-    "end_line": 402,
+    "start_line": 363,
+    "end_line": 414,
     "name": "t_pdf",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17614,8 +17623,8 @@
   },
   "ported/chi_f_t_family::t_two_tail": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 404,
-    "end_line": 423,
+    "start_line": 416,
+    "end_line": 435,
     "name": "t_two_tail",
     "module": "ported/chi_f_t_family",
     "users": 4,
@@ -17623,8 +17632,8 @@
   },
   "ported/chi_f_t_family::t_cdf": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 425,
-    "end_line": 429,
+    "start_line": 437,
+    "end_line": 441,
     "name": "t_cdf",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17632,8 +17641,8 @@
   },
   "ported/chi_f_t_family::t_dist_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 431,
-    "end_line": 441,
+    "start_line": 443,
+    "end_line": 453,
     "name": "t_dist_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17650,8 +17659,8 @@
   },
   "ported/chi_f_t_family::t_dist_2t_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 451,
-    "end_line": 458,
+    "start_line": 463,
+    "end_line": 470,
     "name": "t_dist_2t_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
@@ -17668,8 +17677,8 @@
   },
   "ported/chi_f_t_family::t_dist_rt_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 443,
-    "end_line": 449,
+    "start_line": 455,
+    "end_line": 461,
     "name": "t_dist_rt_kernel",
     "module": "ported/chi_f_t_family",
     "users": 2,
@@ -17686,8 +17695,8 @@
   },
   "ported/chi_f_t_family::t_inv_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 473,
-    "end_line": 488,
+    "start_line": 485,
+    "end_line": 500,
     "name": "t_inv_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
@@ -17893,8 +17902,8 @@
   },
   "ported/chi_f_t_family::tdist_kernel": {
     "file": "crates/calc-func/src/ported/chi_f_t_family.rs",
-    "start_line": 460,
-    "end_line": 471,
+    "start_line": 472,
+    "end_line": 483,
     "name": "tdist_kernel",
     "module": "ported/chi_f_t_family",
     "users": 1,
