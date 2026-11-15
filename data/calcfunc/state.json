@@ -1,5 +1,5 @@
 {
-  "commit": "ca54e716c02ad995d83016a51528d8dbaeccbb2d",
+  "commit": "4a4e3d6db0c9193d402a02e9fc65f3f1e2cfc84d",
   "counts": {
     "absent": 1,
     "close": 39,
@@ -440,11 +440,11 @@
     "FUNC.ASC": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Refuses 2,083 of 2,105 recorded calls; the rest match",
-      "detail": "Of 2,105 recorded answers (2,090 in the answer bank and 15 workbook cells), 2,083 do not match: 2,083 are refused.",
+      "summary": "Refuses 2,082 of 2,105 recorded calls; the rest match",
+      "detail": "Of 2,105 recorded answers (2,090 in the answer bank and 15 workbook cells), 2,082 do not match: 2,082 are refused.",
       "bank": {
         "rows": 2090,
-        "matched": 7,
+        "matched": 8,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -452,7 +452,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 2083,
+        "refused": 2082,
         "excluded": 0,
         "unread": 0
       },
@@ -3400,11 +3400,11 @@
     "FUNC.DBCS": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Refuses 2,094 of 2,118 recorded calls; the rest match",
-      "detail": "Of 2,118 recorded answers (2,101 in the answer bank and 17 workbook cells), 2,094 do not match: 2,094 are refused.",
+      "summary": "Refuses 2,093 of 2,118 recorded calls; the rest match",
+      "detail": "Of 2,118 recorded answers (2,101 in the answer bank and 17 workbook cells), 2,093 do not match: 2,093 are refused.",
       "bank": {
         "rows": 2101,
-        "matched": 7,
+        "matched": 8,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -3412,7 +3412,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 2094,
+        "refused": 2093,
         "excluded": 0,
         "unread": 0
       },
@@ -5317,11 +5317,11 @@
     "FUNC.FORECAST.ETS.CONFINT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 867 of 5,455 recorded answers",
-      "detail": "Of 5,455 recorded answers (4,355 in the answer bank and 1,100 workbook cells), 867 do not match: 1 differ by more than 16 ULP, 19 differ by at most 16 ULP, 1 differ in kind or value, 846 are refused.",
+      "summary": "Known differences on 865 of 5,455 recorded answers",
+      "detail": "Of 5,455 recorded answers (4,355 in the answer bank and 1,100 workbook cells), 865 do not match: 1 differ by more than 16 ULP, 19 differ by at most 16 ULP, 1 differ in kind or value, 844 are refused.",
       "bank": {
         "rows": 4355,
-        "matched": 3651,
+        "matched": 3653,
         "worst_ulp": 5494198,
         "excel_builds": [
           "20527"
@@ -5329,7 +5329,7 @@
         "larger_numeric": 1,
         "last_bit": 6,
         "other_mismatch": 1,
-        "refused": 696,
+        "refused": 694,
         "excluded": 0,
         "unread": 0
       },
@@ -9954,11 +9954,11 @@
     "FUNC.OFFSET": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 4,143 of 4,355 recorded answers",
-      "detail": "Of 4,355 recorded answers (4,345 in the answer bank and 10 workbook cells), 4,143 do not match: 4,142 are refused, 1 await a comparable workbook result.",
+      "summary": "Known differences on 3,829 of 4,355 recorded answers",
+      "detail": "Of 4,355 recorded answers (4,345 in the answer bank and 10 workbook cells), 3,829 do not match: 3,828 are refused, 1 await a comparable workbook result.",
       "bank": {
         "rows": 4345,
-        "matched": 203,
+        "matched": 517,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -9966,7 +9966,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 4142,
+        "refused": 3828,
         "excluded": 0,
         "unread": 0
       },
@@ -15154,35 +15154,35 @@
       "worst_ulp": "1788117888542",
       "rows_open": "631",
       "bead": "dc-g0qz",
-      "what_was_tried": "not yet attempted in fix3g; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally"
+      "what_was_tried": "not yet attempted in fix3g; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range"
     },
     {
       "function": "GAMMA.INV",
       "worst_ulp": "1731866076314",
       "rows_open": "735",
       "bead": "dc-5pvg",
-      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally"
+      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range"
     },
     {
       "function": "TINV",
       "worst_ulp": "306433734",
       "rows_open": "171",
       "bead": "dc-09hz",
-      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search"
+      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; 64 large-df paired Excel controls lie 30 below and 34 above first-order normal approximation, so asymptotic substitution is invalid"
     },
     {
       "function": "F.INV.RT",
       "worst_ulp": "11518483",
       "rows_open": "259",
       "bead": "dc-vi7v",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "not yet attempted in fix3g; on 256 retained Excel inverse outputs, application forward at the returned word is above target in 106 cases, below in 117 and equal in 33; forward error versus Excel remains unresolved; 118 cases with degrees <=365 have median relative residual 2.51e-16, larger-degree controls 7.64e-14; second round: only 9/118 smaller-degree inverse outputs match; 57/138 larger-degree cases exceed 256 ULP; search and forward contributions remain unresolved; dc-vi7v note recorded"
     },
     {
       "function": "FORECAST.ETS.CONFINT",
       "worst_ulp": "5494198",
-      "rows_open": "704",
+      "rows_open": "702",
       "bead": "dc-gcn9",
-      "what_was_tried": "broader curved route withdrawn after independent rounding counterexamples; fractional cases and worst discrepancy remain"
+      "what_was_tried": "verified five- and seven-point slopes admit 2 default-confidence rows with 181 independent controls; broader curved route still has rounding counterexamples and fractional cases remain"
     },
     {
       "function": "T.INV.2T",
@@ -15196,7 +15196,7 @@
       "worst_ulp": "1011046",
       "rows_open": "338",
       "bead": "dc-iuji",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "62 same-argument F.INV.RT bank pairs are matching errors; equal-degree inverse reciprocal matches 8/14 retained Excel controls only; direct/reflected beta routes fail generally; solver still unidentified"
     },
     {
       "function": "T.INV",
@@ -15210,7 +15210,7 @@
       "worst_ulp": "387428",
       "rows_open": "76",
       "bead": "dc-0tye",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "512 paired Excel controls support existing scale-first composition; only three numeric bank parameter pairs overlap T.INV.2T and none of those confidence rows fail; remaining cause is shared inverse-t"
     },
     {
       "function": "F.INV",
@@ -15224,77 +15224,77 @@
       "worst_ulp": "9091",
       "rows_open": "252",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "saved extreme-tail controls: 11 of 23 differ from both probed public beta-coordinate forms; shared internal beta route not identified"
+      "what_was_tried": "saved extreme-tail controls: 11 of 23 differ from both probed public beta-coordinate forms; shared internal beta route not identified; 78/79 controls with complementary stored beta coordinates match Excel public beta; direct degree-two formulas match only 4 to 8 of 98 controls; no forward change; two subnormal refusals need boundary controls dc-ymjf.2.143"
     },
     {
       "function": "LOGNORM.INV",
       "worst_ulp": "6978",
       "rows_open": "278",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "bead": "dc-j9k.47",
+      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified"
     },
     {
       "function": "T.DIST.RT",
       "worst_ulp": "6583",
       "rows_open": "330",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "not yet attempted in fix3g; 78/79 controls with complementary stored beta coordinates match Excel public beta; direct degree-two formulas match only 4 to 8 of 98 controls; no forward change; two subnormal refusals need boundary controls dc-ymjf.2.143"
     },
     {
       "function": "LOGINV",
       "worst_ulp": "6562",
       "rows_open": "278",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "bead": "dc-j9k.47",
+      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified"
     },
     {
       "function": "T.DIST.2T",
       "worst_ulp": "5954",
       "rows_open": "246",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "not yet attempted in fix3g; 78/79 controls with complementary stored beta coordinates match Excel public beta; direct degree-two formulas match only 4 to 8 of 98 controls; no forward change; two subnormal refusals need boundary controls dc-ymjf.2.143"
     },
     {
       "function": "F.DIST",
       "worst_ulp": "5036",
       "rows_open": "81",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "deep-underflow bound fixed two errors; ten nonzero gamma-normalization errors and value differences remain"
+      "what_was_tried": "deep-underflow bound fixed two errors; ten nonzero gamma-normalization errors and value differences remain; d1=1 T-density identity misses all eight independent nonzero Excel controls, dc-ymjf.2.117"
     },
     {
       "function": "MULTINOMIAL",
       "worst_ulp": "4672",
       "rows_open": "235",
       "bead": "dc-ymjf.2.142",
-      "what_was_tried": "blank scalar reference fixed; 123 single-argument numeric rows disagree with one; factorial-log and log-sum gamma normalizers both fail independent n=170 control; cause-specific bead filed"
+      "what_was_tried": "blank scalar reference fixed; 123 single-argument numeric rows disagree with one; factorial-log and log-sum gamma normalizers both fail independent n=170 control; cause-specific bead filed; retained extended log-sum and EXP(GAMMALN)/FACT hypotheses miss independent n=170; 22 same-n groups agree across zero-argument additions"
     },
     {
       "function": "YIELD",
       "worst_ulp": "2844",
       "rows_open": "436",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "bead": "dc-j9k.46",
+      "what_was_tried": "all misses numeric; 434 near-seed family; existing redemption-based and face-100 seed variants both reproduce 0/48 on-coupon non-100-redemption Excel words; full solver remains unidentified"
     },
     {
       "function": "IPMT",
       "worst_ulp": "2369",
       "rows_open": "9",
       "bead": "dc-jrnh",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "nper reassociation changes none of the nine open rows; unspilled product loses 5 of 472 independent controls and gains none; first-period identity disagrees with Excel; no change"
     },
     {
       "function": "BINOMDIST",
       "worst_ulp": "2038",
       "rows_open": "42",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted"
+      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded"
     },
     {
       "function": "NEGBINOM.DIST",
       "worst_ulp": "1955",
       "rows_open": "134",
       "bead": "dc-j9k.45",
-      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted; shared beta absorbed-shape NUM fixes 7 error rows, integer recurrence fixes the final captured NUM row"
+      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted; shared beta absorbed-shape NUM fixes 7 error rows, integer recurrence fixes the final captured NUM row; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded"
     },
     {
       "function": "TDIST",
@@ -15307,22 +15307,22 @@
       "function": "NORM.INV",
       "worst_ulp": "1033",
       "rows_open": "426",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "forward at Excel inverse equals p on 40/128 controls; solver not yet fitted"
+      "bead": "dc-j9k.47",
+      "what_was_tried": "forward at Excel inverse equals p on 40/128 controls; solver not yet fitted; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified"
     },
     {
       "function": "IRR",
       "worst_ulp": "1024",
       "rows_open": "185",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "bead": "dc-j9k.43",
+      "what_was_tried": "183 numeric discrepancies and two NUM-versus-number rows; offline strict-binary64 secant replay jumps discount factor 0.3323 to 78.60 then stalls; Excel recovery unknown, dc-ymjf.2.146 filed"
     },
     {
       "function": "NORMINV",
       "worst_ulp": "960",
       "rows_open": "475",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "bead": "dc-j9k.47",
+      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified"
     },
     {
       "function": "F.DIST.RT",
@@ -15336,28 +15336,28 @@
       "worst_ulp": "651",
       "rows_open": "23",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted"
+      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded"
     },
     {
       "function": "NORMSINV",
       "worst_ulp": "581",
       "rows_open": "1099",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "bead": "dc-j9k.47",
+      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified"
     },
     {
       "function": "CHIINV",
       "worst_ulp": "530",
       "rows_open": "633",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "large-df central term scales with df; probability correction roughly 1.0001551 times normal quantile times sqrt(2df); exact graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results"
+      "what_was_tried": "large-df central term scales with df; probability correction roughly 1.0001551 times normal quantile times sqrt(2df); exact graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; low-degree shape shows normal-quantile correction plus finite offset; simple saturation misses 14/15 unresolved large-degree words and neighboring controls; no stored program established, dc-ymjf.2.48"
     },
     {
       "function": "CHISQ.DIST.RT",
       "worst_ulp": "347",
       "rows_open": "38",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "bead": "dc-j9k.5",
+      "what_was_tried": "worst large-shape tail: Decimal exact sum shows application -240.492 ULP and Excel +106.508 ULP; rounded x/a shifts exponent +6.22e-14, but Excel staging unresolved"
     },
     {
       "function": "BETADIST",
