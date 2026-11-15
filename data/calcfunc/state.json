@@ -1,12 +1,12 @@
 {
-  "commit": "37f9a79bb1ddf445b783c66ff6be7a1a4860260a",
+  "commit": "e5f8bf2f619d057379733defba1b63a98acbdeb4",
   "counts": {
     "absent": 1,
     "close": 39,
     "deferred": 9,
-    "differs": 142,
+    "differs": 141,
     "host": 0,
-    "matches": 363,
+    "matches": 364,
     "refuses": 0,
     "unmeasured": 0
   },
@@ -4227,20 +4227,20 @@
       "code": "EFFECT"
     },
     "FUNC.ENCODEURL": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Known differences on 2 of 3,197 recorded answers",
-      "detail": "Of 3,197 recorded answers (3,064 in the answer bank and 133 workbook cells), 2 do not match: 2 differ in kind or value.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 3,197 recorded answers",
+      "detail": "Recorded: 3,064 in the answer bank and 133 workbook cells.",
       "bank": {
         "rows": 3064,
-        "matched": 3062,
+        "matched": 3064,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
-        "other_mismatch": 2,
+        "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -9954,11 +9954,11 @@
     "FUNC.OFFSET": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 3,636 of 4,355 recorded answers",
-      "detail": "Of 4,355 recorded answers (4,345 in the answer bank and 10 workbook cells), 3,636 do not match: 3,635 are refused, 1 await a comparable workbook result.",
+      "summary": "Known differences on 3,629 of 4,355 recorded answers",
+      "detail": "Of 4,355 recorded answers (4,345 in the answer bank and 10 workbook cells), 3,629 do not match: 3,628 are refused, 1 await a comparable workbook result.",
       "bank": {
         "rows": 4345,
-        "matched": 710,
+        "matched": 717,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -9966,7 +9966,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 3635,
+        "refused": 3628,
         "excluded": 0,
         "unread": 0
       },
@@ -15224,7 +15224,7 @@
       "worst_ulp": "6978",
       "rows_open": "278",
       "bead": "dc-j9k.47",
-      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42"
+      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42; 32 worst rows equal Excel EXP(NORM.INV), shared inverse remains open"
     },
     {
       "function": "T.DIST.RT",
@@ -15280,7 +15280,7 @@
       "worst_ulp": "2038",
       "rows_open": "42",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded"
+      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded; 1025 adjacent controls reveal dependence on original p beyond rounded complement"
     },
     {
       "function": "NEGBINOM.DIST",
@@ -15308,7 +15308,7 @@
       "worst_ulp": "1024",
       "rows_open": "185",
       "bead": "dc-j9k.43",
-      "what_was_tried": "183 numeric discrepancies and two NUM-versus-number rows; offline strict-binary64 secant replay jumps discount factor 0.3323 to 78.60 then stalls; Excel recovery unknown, dc-ymjf.2.146 filed"
+      "what_was_tried": "183 numeric discrepancies and two NUM-versus-number rows; offline strict-binary64 secant replay jumps discount factor 0.3323 to 78.60 then stalls; Excel recovery unknown, dc-ymjf.2.146 filed; distant-guess retry refuted by 10 NUM and 6 positive-root controls"
     },
     {
       "function": "NORMINV",

@@ -2908,8 +2908,8 @@
   },
   "number_text::decimal": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 66,
-    "end_line": 78,
+    "start_line": 68,
+    "end_line": 80,
     "name": "decimal",
     "module": "number_text",
     "users": 21,
@@ -2917,17 +2917,26 @@
   },
   "number_text::first_precision": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 80,
-    "end_line": 94,
+    "start_line": 82,
+    "end_line": 98,
     "name": "first_precision",
     "module": "number_text",
     "users": 21,
-    "text": "fn first_precision(x: f64) -> (Vec<u8>, i32) {\n    let exact = ExactDecimal::binary(x);\n    let all = exact.coefficient.digits();\n    let length = i32::try_from(all.len()).expect(\"a digit count\");\n    let exponent = length - 1 + exact.exponent;\n    let above_tie = all.as_bytes().get(SIGNIFICANT_DIGITS) == Some(&b'5')\n        && all.as_bytes()[SIGNIFICANT_DIGITS + 1..].iter().any(|&digit| digit != b'0');\n    let measured_above_tie = exponent == 2 && above_tie;\n    let up = (!near_tie(&exact.coefficient, &all) || measured_above_tie)\n        && all\n            .as_bytes()\n            .get(SIGNIFICANT_DIGITS)\n            .is_some_and(|&d| d >= b'5');\n    first_rounding(all.as_bytes(), exponent, up)\n}\n"
+    "text": "fn first_precision(x: f64) -> (Vec<u8>, i32) {\n    let exact = ExactDecimal::binary(x);\n    let all = exact.coefficient.digits();\n    let length = i32::try_from(all.len()).expect(\"a digit count\");\n    let exponent = length - 1 + exact.exponent;\n    let above_tie = all.as_bytes().get(SIGNIFICANT_DIGITS) == Some(&b'5')\n        && all.as_bytes()[SIGNIFICANT_DIGITS + 1..].iter().any(|&digit| digit != b'0');\n    let near = near_tie(&exact.coefficient, &all);\n    let measured_above_tie = above_tie && (matches!(exponent, 1 | 2)\n        || (exponent == 0 && near && scaled_x87_above_midpoint(x)));\n    let up = (!near || measured_above_tie)\n        && all\n            .as_bytes()\n            .get(SIGNIFICANT_DIGITS)\n            .is_some_and(|&d| d >= b'5');\n    first_rounding(all.as_bytes(), exponent, up)\n}\n"
+  },
+  "number_text::scaled_x87_above_midpoint": {
+    "file": "crates/calc-func/src/number_text.rs",
+    "start_line": 100,
+    "end_line": 118,
+    "name": "scaled_x87_above_midpoint",
+    "module": "number_text",
+    "users": 21,
+    "text": "/// Whether x * 10^14, rounded to a 64-bit significand, is above the half-integer.\n/// This is only called for 1 <= x < 10. The exact binary64 significand times 10^14\n/// fits in u128, so the test is independent of native extended precision.\nfn scaled_x87_above_midpoint(x: f64) -> bool {\n    let bits = x.to_bits();\n    let significand = (bits & ((1_u64 << 52) - 1)) | (1_u64 << 52);\n    let input_exponent = ((bits >> 52) & 0x7ff) as u32 - 1023;\n    let denominator = 1_u128 << (52 - input_exponent);\n    let numerator = u128::from(significand) * 100_000_000_000_000_u128;\n    let integer = numerator / denominator;\n    let remainder = numerator % denominator;\n    if 2 * remainder <= denominator {\n        return false;\n    }\n    let scaled_exponent = 127 - integer.leading_zeros();\n    // A midpoint has an even final significand bit here, so an exact half-ULP\n    // rounds to the midpoint; only a strictly greater distance rounds above it.\n    ((2 * remainder - denominator) << (63 - scaled_exponent)) > denominator\n}\n"
   },
   "number_text::near_tie": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 96,
-    "end_line": 127,
+    "start_line": 120,
+    "end_line": 151,
     "name": "near_tie",
     "module": "number_text",
     "users": 21,
@@ -2935,8 +2944,8 @@
   },
   "number_text::first_rounding": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 129,
-    "end_line": 135,
+    "start_line": 153,
+    "end_line": 159,
     "name": "first_rounding",
     "module": "number_text",
     "users": 21,
@@ -2944,8 +2953,8 @@
   },
   "number_text::rounded": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 164,
-    "end_line": 180,
+    "start_line": 188,
+    "end_line": 204,
     "name": "rounded",
     "module": "number_text",
     "users": 21,
@@ -2953,8 +2962,8 @@
   },
   "number_text::increment": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 182,
-    "end_line": 193,
+    "start_line": 206,
+    "end_line": 217,
     "name": "increment",
     "module": "number_text",
     "users": 21,
@@ -2962,8 +2971,8 @@
   },
   "number_text::ascii": {
     "file": "crates/calc-func/src/number_text.rs",
-    "start_line": 214,
-    "end_line": 216,
+    "start_line": 238,
+    "end_line": 240,
     "name": "ascii",
     "module": "number_text",
     "users": 21,
@@ -13096,8 +13105,8 @@
   },
   "catalogue/offset::isomitted": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 306,
-    "end_line": 314,
+    "start_line": 307,
+    "end_line": 315,
     "name": "isomitted",
     "module": "catalogue/offset",
     "users": 1,
@@ -15257,16 +15266,16 @@
   "catalogue/offset::shifted": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
     "start_line": 90,
-    "end_line": 141,
+    "end_line": 145,
     "name": "shifted",
     "module": "catalogue/offset",
     "users": 1,
-    "text": "fn shifted(site: &Site<'_>, arguments: &[CalcValue], positions_known: bool) -> Step<CalcValue> {\n    site.scalar_operands(arguments)?;\n    let Some(reference) = arguments[0].as_reference() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let [base] = reference.areas() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let rows = whole(site, 1, &arguments[1])?;\n    let cols = whole(site, 2, &arguments[2])?;\n    // A zero extent alone cannot determine the displayed result when the caller has not\n    // supplied the reference position and spill placement (for example, Excel can show #SPILL!).\n    let without_position = |exit| match exit {\n        Exit::Error(WorksheetErrorCode::Ref) if !positions_known => site.not_modelled(Some(0)),\n        other => other,\n    };\n    let height = extent(site, 3, arguments.get(3), base.row_count()).map_err(without_position)?;\n    let width = extent(site, 4, arguments.get(4), base.column_count()).map_err(without_position)?;\n    if !positions_known {\n        // A zero shift of a one-cell reference still names that same cell, even\n        // when the caller did not supply its worksheet position.\n        if rows == 0 && cols == 0 && height.abs() == 1 && width.abs() == 1\n            && base.row_count() == 1 && base.column_count() == 1\n        {\n            return Ok(arguments[0].clone());\n        }\n        // A single-cell result cannot spill, and a shift at least as large as the\n        // grid leaves it regardless of the original cell's unknown position.\n        if height.abs() == 1\n            && width.abs() == 1\n            && (rows.abs() >= i64::from(MAX_ROWS) || cols.abs() >= i64::from(MAX_COLUMNS))\n        {\n            return Err(Exit::Error(WorksheetErrorCode::Ref));\n        }\n        return Err(site.not_modelled(Some(0)));\n    }\n    let top = i64::from(base.first().row()) + rows;\n    let left = i64::from(base.first().column()) + cols;\n    let (top, bottom) = span(top, height);\n    let (left, right) = span(left, width);\n    let on_grid = |low: i64, high: i64, max: u32| low >= 1 && high <= i64::from(max);\n    if !on_grid(top, bottom, MAX_ROWS) || !on_grid(left, right, MAX_COLUMNS) {\n        return Err(Exit::Error(WorksheetErrorCode::Ref));\n    }\n    let sheet = base.sheet();\n    let corner = |row: i64, column: i64| {\n        CellKey::new(sheet, row as u32, column as u32).expect(\"checked on the grid\")\n    };\n    let area = GridArea::new(corner(top, left), corner(bottom, right))\n        .expect(\"both corners lie on one sheet\");\n    Ok(CalcValue::reference(ReferenceLike::area(area)))\n}\n"
+    "text": "fn shifted(site: &Site<'_>, arguments: &[CalcValue], positions_known: bool) -> Step<CalcValue> {\n    site.scalar_operands(arguments)?;\n    let Some(reference) = arguments[0].as_reference() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let [base] = reference.areas() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let rows = whole(site, 1, &arguments[1])?;\n    let cols = whole(site, 2, &arguments[2])?;\n    // A zero extent alone cannot determine the displayed result when the caller has not\n    // supplied the reference position and spill placement (for example, Excel can show #SPILL!).\n    let without_position = |exit| match exit {\n        Exit::Error(WorksheetErrorCode::Ref) if !positions_known => site.not_modelled(Some(0)),\n        other => other,\n    };\n    let height = extent(site, 3, arguments.get(3), base.row_count())?;\n    let width = extent(site, 4, arguments.get(4), base.column_count())?;\n    // Excel reads both dimensions before deciding whether a zero extent is valid.\n    if height == 0 || width == 0 {\n        return Err(without_position(Exit::Error(WorksheetErrorCode::Ref)));\n    }\n    if !positions_known {\n        // A zero shift of a one-cell reference still names that same cell, even\n        // when the caller did not supply its worksheet position.\n        if rows == 0 && cols == 0 && height.abs() == 1 && width.abs() == 1\n            && base.row_count() == 1 && base.column_count() == 1\n        {\n            return Ok(arguments[0].clone());\n        }\n        // A single-cell result cannot spill, and a shift at least as large as the\n        // grid leaves it regardless of the original cell's unknown position.\n        if height.abs() == 1\n            && width.abs() == 1\n            && (rows.abs() >= i64::from(MAX_ROWS) || cols.abs() >= i64::from(MAX_COLUMNS))\n        {\n            return Err(Exit::Error(WorksheetErrorCode::Ref));\n        }\n        return Err(site.not_modelled(Some(0)));\n    }\n    let top = i64::from(base.first().row()) + rows;\n    let left = i64::from(base.first().column()) + cols;\n    let (top, bottom) = span(top, height);\n    let (left, right) = span(left, width);\n    let on_grid = |low: i64, high: i64, max: u32| low >= 1 && high <= i64::from(max);\n    if !on_grid(top, bottom, MAX_ROWS) || !on_grid(left, right, MAX_COLUMNS) {\n        return Err(Exit::Error(WorksheetErrorCode::Ref));\n    }\n    let sheet = base.sheet();\n    let corner = |row: i64, column: i64| {\n        CellKey::new(sheet, row as u32, column as u32).expect(\"checked on the grid\")\n    };\n    let area = GridArea::new(corner(top, left), corner(bottom, right))\n        .expect(\"both corners lie on one sheet\");\n    Ok(CalcValue::reference(ReferenceLike::area(area)))\n}\n"
   },
   "catalogue/offset::whole": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 143,
-    "end_line": 148,
+    "start_line": 147,
+    "end_line": 152,
     "name": "whole",
     "module": "catalogue/offset",
     "users": 1,
@@ -15274,17 +15283,17 @@
   },
   "catalogue/offset::extent": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 150,
-    "end_line": 161,
+    "start_line": 154,
+    "end_line": 162,
     "name": "extent",
     "module": "catalogue/offset",
     "users": 1,
-    "text": "/// The height or width argument `index`, truncated: the reference's own `own` when it is not\n/// given, #REF! when it is 0.\nfn extent(site: &Site<'_>, index: usize, value: Option<&CalcValue>, own: u32) -> Step<i64> {\n    match value {\n        None => Ok(i64::from(own)),\n        Some(value) if value.is_missing() => Ok(i64::from(own)),\n        Some(value) => match whole(site, index, value)? {\n            0 => Err(Exit::Error(WorksheetErrorCode::Ref)),\n            n => Ok(n),\n        },\n    }\n}\n"
+    "text": "/// The height or width argument `index`, truncated: the reference's own `own` when it is not\n/// given. Zero is checked after both dimensions have been read.\nfn extent(site: &Site<'_>, index: usize, value: Option<&CalcValue>, own: u32) -> Step<i64> {\n    match value {\n        None => Ok(i64::from(own)),\n        Some(value) if value.is_missing() => Ok(i64::from(own)),\n        Some(value) => whole(site, index, value),\n    }\n}\n"
   },
   "catalogue/offset::span": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 163,
-    "end_line": 171,
+    "start_line": 164,
+    "end_line": 172,
     "name": "span",
     "module": "catalogue/offset",
     "users": 2,
@@ -18271,8 +18280,8 @@
   },
   "catalogue/offset::trimrange": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 173,
-    "end_line": 260,
+    "start_line": 174,
+    "end_line": 261,
     "name": "trimrange",
     "module": "catalogue/offset",
     "users": 1,
@@ -18280,8 +18289,8 @@
   },
   "catalogue/offset::trim_array": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 262,
-    "end_line": 304,
+    "start_line": 263,
+    "end_line": 305,
     "name": "trim_array",
     "module": "catalogue/offset",
     "users": 1,
