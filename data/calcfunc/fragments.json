@@ -1742,7 +1742,7 @@
     "end_line": 20,
     "name": "text_from_str",
     "module": "ported/text_kernels",
-    "users": 64,
+    "users": 66,
     "text": "pub(crate) fn text_from_str(s: &str) -> ExcelText {\n    ExcelText::from_utf16_code_units(s.encode_utf16().collect())\n}\n"
   },
   "ported/text_kernels::date_integer_floor": {
@@ -1751,7 +1751,7 @@
     "end_line": 36,
     "name": "date_integer_floor",
     "module": "ported/text_kernels",
-    "users": 38,
+    "users": 42,
     "text": "/// Observed date-argument conversion (OxFunc date_fn.rs): the inclusive boundary is a two-step\n/// binary rounding rule. LEFT and RIGHT share it.\npub(crate) fn date_integer_floor(number: f64) -> f64 {\n    let upper = number.ceil();\n    let threshold = if upper > 0.0 {\n        2.0_f64.powi(-22) + 2.0_f64.powi(-33)\n    } else {\n        2.0_f64.powi(-23) + 2.0_f64.powi(-34)\n    };\n    if upper - number <= threshold {\n        upper\n    } else {\n        number.floor()\n    }\n}\n"
   },
   "ported/text_kernels::push_singleton_or_original": {
@@ -1760,7 +1760,7 @@
     "end_line": 539,
     "name": "push_singleton_or_original",
     "module": "ported/text_kernels",
-    "users": 63,
+    "users": 65,
     "text": "fn push_singleton_or_original(\n    out: &mut String,\n    mapped: impl Iterator<Item = char>,\n    original: char,\n) {\n    let mut chars = mapped;\n    match (chars.next(), chars.next()) {\n        (Some(single), None) => out.push(single),\n        _ => out.push(original),\n    }\n}\n"
   },
   "ported/text_kernels::push_upper": {
@@ -1769,7 +1769,7 @@
     "end_line": 561,
     "name": "push_upper",
     "module": "ported/text_kernels",
-    "users": 40,
+    "users": 44,
     "text": "fn push_upper(out: &mut String, ch: char) {\n    // Excel maps individual BMP code units. A supplementary letter's surrogate pair stays\n    // unchanged (fn1 UPPER, U+10428), as do non-expanding ligatures and sharp s.\n    if ch as u32 > 0xFFFF {\n        out.push(ch);\n        return;\n    }\n    match ch {\n        'ß' => out.push('ß'),\n        'ά' => out.push('Α'),\n        'έ' => out.push('Ε'),\n        'ή' => out.push('Η'),\n        'ί' => out.push('Ι'),\n        'ό' => out.push('Ο'),\n        'ύ' => out.push('Υ'),\n        'ώ' => out.push('Ω'),\n        'ΐ' => out.push('Ϊ'),\n        'ΰ' => out.push('Ϋ'),\n        _ => push_singleton_or_original(out, ch.to_uppercase(), ch),\n    }\n}\n"
   },
   "ported/text_kernels::upper": {
@@ -1778,7 +1778,7 @@
     "end_line": 593,
     "name": "upper",
     "module": "ported/text_kernels",
-    "users": 39,
+    "users": 43,
     "text": "pub(crate) fn upper(text: &ExcelText) -> ExcelText {\n    let mut out = String::new();\n    for ch in text.to_string_lossy().chars() {\n        push_upper(&mut out, ch);\n    }\n    text_from_str(&out)\n}\n"
   },
   "ported/variance_common::variance_from_values": {
@@ -7715,25 +7715,43 @@
   "catalogue/cube_functions::model": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
     "start_line": 44,
-    "end_line": 60,
+    "end_line": 63,
     "name": "model",
     "module": "catalogue/cube_functions",
     "users": 6,
-    "text": "/// The model a connection argument names; any other connection is #N/A.\nfn model(\n    site: &Site<'_>,\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Step<Arc<CubeModel>> {\n    let connection = single(site, arguments, 0, services)?;\n    let CoreRef::Text(name) = connection.core_ref() else {\n        return fail(WorksheetErrorCode::NA);\n    };\n    let facts = services.host().and_then(|host| host.workbook_facts());\n    match facts.map(|facts| facts.cube_model(&name.to_string_lossy())) {\n        Some(CubeLookup::Model(model)) => Ok(model),\n        Some(CubeLookup::NotReadable) => Err(site.not_modelled(Some(0))),\n        Some(CubeLookup::NoConnection) | None => fail(WorksheetErrorCode::NA),\n    }\n}\n"
+    "text": "/// The model a connection argument names; any other connection is #N/A.\nfn model(\n    site: &Site<'_>,\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Step<Arc<CubeModel>> {\n    let connection = single(site, arguments, 0, services)?;\n    if let CoreRef::Error(code) = connection.core_ref() {\n        return fail(code);\n    }\n    let CoreRef::Text(name) = connection.core_ref() else {\n        return fail(WorksheetErrorCode::NA);\n    };\n    let facts = services.host().and_then(|host| host.workbook_facts());\n    match facts.map(|facts| facts.cube_model(&name.to_string_lossy())) {\n        Some(CubeLookup::Model(model)) => Ok(model),\n        Some(CubeLookup::NotReadable) => Err(site.not_modelled(Some(0))),\n        Some(CubeLookup::NoConnection) | None => fail(WorksheetErrorCode::NA),\n    }\n}\n"
+  },
+  "catalogue/cube_functions::given": {
+    "file": "crates/calc-func/src/catalogue/cube_functions.rs",
+    "start_line": 95,
+    "end_line": 99,
+    "name": "given",
+    "module": "catalogue/cube_functions",
+    "users": 5,
+    "text": "fn given(arguments: &[CalcValue], index: usize) -> bool {\n    arguments\n        .get(index)\n        .is_some_and(|value| !value.is_missing())\n}\n"
+  },
+  "catalogue/cube_functions::early_errors": {
+    "file": "crates/calc-func/src/catalogue/cube_functions.rs",
+    "start_line": 101,
+    "end_line": 133,
+    "name": "early_errors",
+    "module": "catalogue/cube_functions",
+    "users": 5,
+    "text": "/// The scalar arguments Excel reads before looking up the connection differ\n/// between cube functions. The member/set expression itself can be deferred.\nfn early_errors(\n    site: &Site<'_>,\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n    indices: &[usize],\n) -> Step<()> {\n    let connection = single(site, arguments, 0, services)?;\n    if let CoreRef::Error(code) = connection.core_ref() {\n        return fail(code);\n    }\n    // Controls cover scalars and one-cell references. Keep the existing path\n    // for larger ranges and arrays until their argument order is measured.\n    for &index in indices {\n        let Some(value) = arguments.get(index) else { continue };\n        match value.core_ref() {\n            CoreRef::Reference(reference)\n                if !matches!(reference.areas(), [area] if area.cell_count() == 1) => return Ok(()),\n            CoreRef::Array(array) if array.shape().rows != 1 || array.shape().cols != 1 => return Ok(()),\n            _ => {}\n        }\n    }\n    for &index in indices {\n        if given(arguments, index) {\n            let value = single(site, arguments, index, services)?;\n            if let CoreRef::Error(code) = value.core_ref() {\n                return fail(code);\n            }\n        }\n    }\n    Ok(())\n}\n"
   },
   "catalogue/cube_functions::cubekpimember": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 283,
-    "end_line": 289,
+    "start_line": 328,
+    "end_line": 335,
     "name": "cubekpimember",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cubekpimember(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    model(site, a, sv)?;\n    match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Text(_) => fail(WorksheetErrorCode::Value),\n        _ => fail(WorksheetErrorCode::NA),\n    }\n}\n"
+    "text": "fn cubekpimember(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[1, 2])?;\n    model(site, a, sv)?;\n    match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Text(_) => fail(WorksheetErrorCode::Value),\n        _ => fail(WorksheetErrorCode::NA),\n    }\n}\n"
   },
   "catalogue/cube_functions::entry::CUBEKPIMEMBER": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 300,
-    "end_line": 300,
+    "start_line": 346,
+    "end_line": 346,
     "name": "CUBEKPIMEMBER",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7750,8 +7768,8 @@
   },
   "catalogue/cube_functions::text_value": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 62,
-    "end_line": 64,
+    "start_line": 65,
+    "end_line": 67,
     "name": "text_value",
     "module": "catalogue/cube_functions",
     "users": 3,
@@ -7759,8 +7777,8 @@
   },
   "catalogue/cube_functions::caption_text": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 66,
-    "end_line": 74,
+    "start_line": 69,
+    "end_line": 77,
     "name": "caption_text",
     "module": "catalogue/cube_functions",
     "users": 3,
@@ -7768,35 +7786,26 @@
   },
   "catalogue/cube_functions::held_value": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 76,
-    "end_line": 90,
+    "start_line": 79,
+    "end_line": 93,
     "name": "held_value",
     "module": "catalogue/cube_functions",
     "users": 3,
     "text": "fn held_value(model: &CubeModel, tuples: &[Vec<CubeMember>], set: bool) -> CubeValue {\n    CubeValue {\n        connection: model.connection.clone(),\n        tuples: tuples\n            .iter()\n            .map(|tuple| {\n                tuple\n                    .iter()\n                    .map(|member| model.unique_name(member))\n                    .collect()\n            })\n            .collect(),\n        set,\n    }\n}\n"
   },
-  "catalogue/cube_functions::given": {
-    "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 92,
-    "end_line": 96,
-    "name": "given",
-    "module": "catalogue/cube_functions",
-    "users": 3,
-    "text": "fn given(arguments: &[CalcValue], index: usize) -> bool {\n    arguments\n        .get(index)\n        .is_some_and(|value| !value.is_missing())\n}\n"
-  },
   "catalogue/cube_functions::cubemember": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 98,
-    "end_line": 136,
+    "start_line": 135,
+    "end_line": 174,
     "name": "cubemember",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cubemember(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    let model = model(site, a, sv)?;\n    let mut tuple: Vec<CubeMember> = Vec::new();\n    for cell in cells(site, a, 1, sv)? {\n        let members = match (cell.cube_value(), cell.core_ref()) {\n            (Some(held), _) => model\n                .held(held)\n                .or_else(|failure| failed(site, failure))?\n                .into_iter()\n                .flatten()\n                .collect(),\n            (None, CoreRef::Text(text)) => vec![\n                model\n                    .member(&text.to_string_lossy())\n                    .or_else(|failure| failed(site, failure))?,\n            ],\n            _ => return fail(WorksheetErrorCode::NA),\n        };\n        for member in members {\n            if tuple\n                .iter()\n                .any(|held| CubeModel::same_hierarchy(held, &member))\n            {\n                return fail(WorksheetErrorCode::NA);\n            }\n            tuple.push(member);\n        }\n    }\n    let shown = if given(a, 2) {\n        caption_text(&single(site, a, 2, sv)?).unwrap_or_default()\n    } else {\n        tuple\n            .last()\n            .map(|member| model.caption(member))\n            .unwrap_or_default()\n    };\n    let held = held_value(&model, &[tuple], false);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
+    "text": "fn cubemember(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[2])?;\n    let model = model(site, a, sv)?;\n    let mut tuple: Vec<CubeMember> = Vec::new();\n    for cell in cells(site, a, 1, sv)? {\n        let members = match (cell.cube_value(), cell.core_ref()) {\n            (Some(held), _) => model\n                .held(held)\n                .or_else(|failure| failed(site, failure))?\n                .into_iter()\n                .flatten()\n                .collect(),\n            (None, CoreRef::Text(text)) => vec![\n                model\n                    .member(&text.to_string_lossy())\n                    .or_else(|failure| failed(site, failure))?,\n            ],\n            _ => return fail(WorksheetErrorCode::NA),\n        };\n        for member in members {\n            if tuple\n                .iter()\n                .any(|held| CubeModel::same_hierarchy(held, &member))\n            {\n                return fail(WorksheetErrorCode::NA);\n            }\n            tuple.push(member);\n        }\n    }\n    let shown = if given(a, 2) {\n        caption_text(&single(site, a, 2, sv)?).unwrap_or_default()\n    } else {\n        tuple\n            .last()\n            .map(|member| model.caption(member))\n            .unwrap_or_default()\n    };\n    let held = held_value(&model, &[tuple], false);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
   },
   "catalogue/cube_functions::entry::CUBEMEMBER": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 294,
-    "end_line": 294,
+    "start_line": 340,
+    "end_line": 340,
     "name": "CUBEMEMBER",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7813,17 +7822,17 @@
   },
   "catalogue/cube_functions::cubememberproperty": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 274,
-    "end_line": 281,
+    "start_line": 318,
+    "end_line": 326,
     "name": "cubememberproperty",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cubememberproperty(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n) -> Step<CalcValue> {\n    model(site, a, sv)?;\n    fail(WorksheetErrorCode::NA)\n}\n"
+    "text": "fn cubememberproperty(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[1, 2])?;\n    model(site, a, sv)?;\n    fail(WorksheetErrorCode::NA)\n}\n"
   },
   "catalogue/cube_functions::entry::CUBEMEMBERPROPERTY": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 299,
-    "end_line": 299,
+    "start_line": 345,
+    "end_line": 345,
     "name": "CUBEMEMBERPROPERTY",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7831,17 +7840,17 @@
   },
   "catalogue/cube_functions::cuberankedmember": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 235,
-    "end_line": 272,
+    "start_line": 278,
+    "end_line": 316,
     "name": "cuberankedmember",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cuberankedmember(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n) -> Step<CalcValue> {\n    let model = model(site, a, sv)?;\n    let set = single(site, a, 1, sv)?;\n    let tuples = match (set.cube_value(), set.core_ref()) {\n        (Some(held), _) if held.set => model.held(held).or_else(|failure| failed(site, failure))?,\n        (None, CoreRef::Text(text)) => model\n            .set(&text.to_string_lossy())\n            .or_else(|failure| failed(site, failure))?,\n        _ => return fail(WorksheetErrorCode::NA),\n    };\n    let rank = match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Number(number) => number.trunc(),\n        CoreRef::Logical(logical) => f64::from(u8::from(logical)),\n        CoreRef::Text(text) => match text.to_string_lossy().trim().parse::<f64>() {\n            Ok(number) => number.trunc(),\n            Err(_) => return fail(WorksheetErrorCode::Value),\n        },\n        _ => return fail(WorksheetErrorCode::Value),\n    };\n    if rank < 1.0 || rank > tuples.len() as f64 {\n        return fail(WorksheetErrorCode::NA);\n    }\n    let tuple = tuples[rank as usize - 1].clone();\n    let shown = if given(a, 3) {\n        caption_text(&single(site, a, 3, sv)?).unwrap_or_default()\n    } else {\n        tuple\n            .last()\n            .map(|member| model.caption(member))\n            .unwrap_or_default()\n    };\n    let held = held_value(&model, &[tuple], false);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
+    "text": "fn cuberankedmember(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[1, 2])?;\n    let model = model(site, a, sv)?;\n    let set = single(site, a, 1, sv)?;\n    let tuples = match (set.cube_value(), set.core_ref()) {\n        (Some(held), _) if held.set => model.held(held).or_else(|failure| failed(site, failure))?,\n        (None, CoreRef::Text(text)) => model\n            .set(&text.to_string_lossy())\n            .or_else(|failure| failed(site, failure))?,\n        _ => return fail(WorksheetErrorCode::NA),\n    };\n    let rank = match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Number(number) => number.trunc(),\n        CoreRef::Logical(logical) => f64::from(u8::from(logical)),\n        CoreRef::Text(text) => match text.to_string_lossy().trim().parse::<f64>() {\n            Ok(number) => number.trunc(),\n            Err(_) => return fail(WorksheetErrorCode::Value),\n        },\n        _ => return fail(WorksheetErrorCode::Value),\n    };\n    if rank < 1.0 || rank > tuples.len() as f64 {\n        return fail(WorksheetErrorCode::NA);\n    }\n    let tuple = tuples[rank as usize - 1].clone();\n    let shown = if given(a, 3) {\n        caption_text(&single(site, a, 3, sv)?).unwrap_or_default()\n    } else {\n        tuple\n            .last()\n            .map(|member| model.caption(member))\n            .unwrap_or_default()\n    };\n    let held = held_value(&model, &[tuple], false);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
   },
   "catalogue/cube_functions::entry::CUBERANKEDMEMBER": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 298,
-    "end_line": 298,
+    "start_line": 344,
+    "end_line": 344,
     "name": "CUBERANKEDMEMBER",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7849,17 +7858,17 @@
   },
   "catalogue/cube_functions::cubeset": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 180,
-    "end_line": 225,
+    "start_line": 218,
+    "end_line": 264,
     "name": "cubeset",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cubeset(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    let model = model(site, a, sv)?;\n    let mut tuples = Vec::new();\n    for cell in cells(site, a, 1, sv)? {\n        match (cell.cube_value(), cell.core_ref()) {\n            (Some(held), _) => {\n                tuples.extend(model.held(held).or_else(|failure| failed(site, failure))?);\n            }\n            (None, CoreRef::Text(text)) => tuples.extend(\n                model\n                    .set(&text.to_string_lossy())\n                    .or_else(|failure| failed(site, failure))?,\n            ),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    }\n    let order = if given(a, 3) {\n        match single(site, a, 3, sv)?.core_ref() {\n            CoreRef::Number(number) => number.trunc() as i64,\n            CoreRef::Logical(logical) => i64::from(logical),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    } else {\n        0\n    };\n    let sort_by = if given(a, 4) {\n        let value = single(site, a, 4, sv)?;\n        match (value.cube_value(), value.core_ref()) {\n            (Some(held), _) => held.tuples.first().and_then(|tuple| tuple.first()).cloned(),\n            (None, CoreRef::Text(text)) => Some(text.to_string_lossy()),\n            _ => None,\n        }\n    } else {\n        None\n    };\n    let ordered = model\n        .ordered(tuples, order, sort_by.as_deref())\n        .or_else(|failure| failed(site, failure))?;\n    let shown = if given(a, 2) {\n        caption_text(&single(site, a, 2, sv)?).unwrap_or_default()\n    } else {\n        String::new()\n    };\n    let held = held_value(&model, &ordered, true);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
+    "text": "fn cubeset(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[2, 3])?;\n    let model = model(site, a, sv)?;\n    let mut tuples = Vec::new();\n    for cell in cells(site, a, 1, sv)? {\n        match (cell.cube_value(), cell.core_ref()) {\n            (Some(held), _) => {\n                tuples.extend(model.held(held).or_else(|failure| failed(site, failure))?);\n            }\n            (None, CoreRef::Text(text)) => tuples.extend(\n                model\n                    .set(&text.to_string_lossy())\n                    .or_else(|failure| failed(site, failure))?,\n            ),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    }\n    let order = if given(a, 3) {\n        match single(site, a, 3, sv)?.core_ref() {\n            CoreRef::Number(number) => number.trunc() as i64,\n            CoreRef::Logical(logical) => i64::from(logical),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    } else {\n        0\n    };\n    let sort_by = if given(a, 4) {\n        let value = single(site, a, 4, sv)?;\n        match (value.cube_value(), value.core_ref()) {\n            (Some(held), _) => held.tuples.first().and_then(|tuple| tuple.first()).cloned(),\n            (None, CoreRef::Text(text)) => Some(text.to_string_lossy()),\n            _ => None,\n        }\n    } else {\n        None\n    };\n    let ordered = model\n        .ordered(tuples, order, sort_by.as_deref())\n        .or_else(|failure| failed(site, failure))?;\n    let shown = if given(a, 2) {\n        caption_text(&single(site, a, 2, sv)?).unwrap_or_default()\n    } else {\n        String::new()\n    };\n    let held = held_value(&model, &ordered, true);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
   },
   "catalogue/cube_functions::entry::CUBESET": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 296,
-    "end_line": 296,
+    "start_line": 342,
+    "end_line": 342,
     "name": "CUBESET",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7867,17 +7876,17 @@
   },
   "catalogue/cube_functions::cubesetcount": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 227,
-    "end_line": 233,
+    "start_line": 266,
+    "end_line": 276,
     "name": "cubesetcount",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cubesetcount(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    match single(site, a, 0, sv)?.cube_value() {\n        Some(held) if held.set => Ok(CalcValue::number(held.tuples.len() as f64)),\n        Some(_) => fail(WorksheetErrorCode::Value),\n        None => fail(WorksheetErrorCode::NA),\n    }\n}\n"
+    "text": "fn cubesetcount(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    let value = single(site, a, 0, sv)?;\n    if let CoreRef::Error(code) = value.core_ref() {\n        return fail(code);\n    }\n    match value.cube_value() {\n        Some(held) if held.set => Ok(CalcValue::number(held.tuples.len() as f64)),\n        Some(_) => fail(WorksheetErrorCode::Value),\n        None => fail(WorksheetErrorCode::NA),\n    }\n}\n"
   },
   "catalogue/cube_functions::entry::CUBESETCOUNT": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 297,
-    "end_line": 297,
+    "start_line": 343,
+    "end_line": 343,
     "name": "CUBESETCOUNT",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7885,8 +7894,8 @@
   },
   "catalogue/cube_functions::value_argument": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 138,
-    "end_line": 158,
+    "start_line": 176,
+    "end_line": 196,
     "name": "value_argument",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7894,8 +7903,8 @@
   },
   "catalogue/cube_functions::cubevalue": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 160,
-    "end_line": 178,
+    "start_line": 198,
+    "end_line": 216,
     "name": "cubevalue",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7903,8 +7912,8 @@
   },
   "catalogue/cube_functions::entry::CUBEVALUE": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 295,
-    "end_line": 295,
+    "start_line": 341,
+    "end_line": 341,
     "name": "CUBEVALUE",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -8228,16 +8237,16 @@
   "ported/financial_time_value_family::rate_secant": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
     "start_line": 471,
-    "end_line": 557,
+    "end_line": 568,
     "name": "rate_secant",
     "module": "ported/financial_time_value_family",
     "users": 9,
-    "text": "/// RATE's search as IRR's (`irr_discount_secant`), in the rate itself: the secant from the guess and\n/// a second point 0.001 away, against the sign of the balance at the guess. Over guesses a distance\n/// `d` from the root the error is `K d` with `K / C^2 = 1.00e-6`, `C` being `f''/2f'` in the rate.\n/// The balance is FV's, every step stored.\n///\n/// It stops when the rate moved by less than 1e-7 and the balance at the new rate is under 1e-7 as\n/// well, both at once. With a mortgage's slope the balance is the one that runs on to full\n/// convergence, where the small slope of RATE(10,-120,1000) leaves the error at the step's size:\n/// a guess 2.4e-7 off stops, a guess 4.8e-7 off takes one step more.\n///\n/// 200 steps, from a live window: RATE(360,-599.55,100000,0,0,g) answers up to g = 0.455, the\n/// 200th step, and is #NUM! from g = 0.46, the 201st. After the budget, a separate\n/// 1e-4 step/balance/result check can accept the last iterate. Intermediate powers\n/// retain their own domain, including negative bases with integer exponents.\nfn rate_secant(\n    periods: f64,\n    payment_value: f64,\n    present_value: f64,\n    future_value: f64,\n    timing: PaymentTiming,\n    guess: f64,\n) -> Result<f64, FinancialError> {\n    let balance = |rate: f64| -> Result<f64, FinancialError> {\n        if rate == 0.0 {\n            return Ok(excel_x87_add(\n                excel_x87_add(future_value, present_value),\n                excel_underflow_to_zero(excel_x87_mul(payment_value, periods)),\n            ));\n        }\n        let base = excel_x87_add(1.0, rate);\n        // The initial guess and final root have separate domain rules. An\n        // intermediate integer-period power can cross a negative base.\n        let factor = growth_from_base(base, periods)?;\n        let term = excel_x87_mul(\n            excel_x87_div(excel_x87_sub(factor, 1.0), rate),\n            timing.factor(rate),\n        );\n        Ok(excel_x87_add(\n            payment_balance(present_value, payment_value, factor, term),\n            future_value,\n        ))\n    };\n    let mut before = guess;\n    let mut value_before = balance(before)?;\n    // A zero balance still needs a nonzero secant slope; a flat zero\n    // objective is NUM. The comparison sends either sign of zero upward.\n    let offset = if value_before > 0.0 { -0.001 } else { 0.001 };\n    let mut current = excel_x87_add(before, offset);\n    let mut value = balance(current)?;\n    let mut step = f64::INFINITY;\n    for _ in 0..200 {\n        let change = excel_x87_sub(value, value_before);\n        if change == 0.0 {\n            // A balance that does not move between two rates has no secant step: #NUM!, as in\n            // IRR's search (Excel 16.0.20527, dcztvv_r23: RATE(0,-100,1000,0,0,0.5),\n            // RATE(2^-1022,-100,1000,0,0,0.5) and RATE(FALSE,-200,8000) are #NUM!).\n            return Err(FinancialError::Num);\n        }\n        // The slope comparison precedes the division's DAZ input stage:\n        // an exactly flat objective is NUM, a subnormal divisor is DIV/0.\n        let divisor = financial_daz(change);\n        if divisor == 0.0 {\n            return Err(FinancialError::Div0);\n        }\n        let numerator = excel_underflow_to_zero(excel_x87_mul(value, excel_x87_sub(current, before)));\n        let next = excel_x87_sub(current, excel_x87_div(numerator, divisor));\n        step = excel_x87_sub(next, current).abs();\n        (before, value_before) = (current, value);\n        current = next;\n        value = balance(current)?;\n        if step < RATE_TOLERANCE && value.abs() < RATE_TOLERANCE {\n            return Ok(current);\n        }\n    }\n    // Excel has a separate final check after the iteration budget. Adjacent-word\n    // public calls locate its step, balance and near-minus-one boundaries.\n    // Keep this outside the strict convergence loop: using 1e-4 there changes\n    // ordinary loan answers and accepting every final iterate admits failures.\n    if step <= RATE_FINAL_TOLERANCE\n        && value.abs() <= RATE_FINAL_TOLERANCE\n        && excel_x87_add(1.0, current) >= RATE_FINAL_TOLERANCE\n    {\n        Ok(current)\n    } else {\n        Err(FinancialError::Num)\n    }\n}\n"
+    "text": "/// RATE's search as IRR's (`irr_discount_secant`), in the rate itself: the secant from the guess and\n/// a second point 0.001 away, against the sign of the balance at the guess. Over guesses a distance\n/// `d` from the root the error is `K d` with `K / C^2 = 1.00e-6`, `C` being `f''/2f'` in the rate.\n/// The balance is FV's, every step stored.\n///\n/// It stops when the rate moved by less than 1e-7 and the balance at the new rate is under 1e-7 as\n/// well, both at once. With a mortgage's slope the balance is the one that runs on to full\n/// convergence, where the small slope of RATE(10,-120,1000) leaves the error at the step's size:\n/// a guess 2.4e-7 off stops, a guess 4.8e-7 off takes one step more.\n///\n/// 200 steps, from a live window: RATE(360,-599.55,100000,0,0,g) answers up to g = 0.455, the\n/// 200th step, and is #NUM! from g = 0.46, the 201st. After the budget, a separate\n/// 1e-4 step/balance/result check can accept the last iterate. Intermediate powers\n/// retain their own domain, including negative bases with integer exponents.\nfn rate_secant(\n    periods: f64,\n    payment_value: f64,\n    present_value: f64,\n    future_value: f64,\n    timing: PaymentTiming,\n    guess: f64,\n) -> Result<f64, FinancialError> {\n    let balance = |rate: f64| -> Result<f64, FinancialError> {\n        if rate == 0.0 {\n            return Ok(excel_x87_add(\n                excel_x87_add(future_value, present_value),\n                excel_underflow_to_zero(excel_x87_mul(payment_value, periods)),\n            ));\n        }\n        let base = excel_x87_add(1.0, rate);\n        // The initial guess and final root have separate domain rules. An\n        // intermediate integer-period power can cross a negative base.\n        let factor = growth_from_base(base, periods)?;\n        let term = excel_x87_mul(\n            excel_x87_div(excel_x87_sub(factor, 1.0), rate),\n            timing.factor(rate),\n        );\n        Ok(excel_x87_add(\n            payment_balance(present_value, payment_value, factor, term),\n            future_value,\n        ))\n    };\n    let mut before = guess;\n    let mut value_before = balance(before)?;\n    // A zero balance still needs a nonzero secant slope; a flat zero\n    // objective is NUM. The comparison sends either sign of zero upward.\n    let offset = if value_before > 0.0 { -0.001 } else { 0.001 };\n    let mut current = excel_x87_add(before, offset);\n    let mut value = balance(current)?;\n    let mut step = f64::INFINITY;\n    for _ in 0..200 {\n        let change = excel_x87_sub(value, value_before);\n        if change == 0.0 {\n            // A balance that does not move between two rates has no secant step: #NUM!, as in\n            // IRR's search (Excel 16.0.20527, dcztvv_r23: RATE(0,-100,1000,0,0,0.5),\n            // RATE(2^-1022,-100,1000,0,0,0.5) and RATE(FALSE,-200,8000) are #NUM!).\n            return Err(FinancialError::Num);\n        }\n        // The slope comparison precedes the division's DAZ input stage:\n        // an exactly flat objective is NUM, a subnormal divisor is DIV/0.\n        let divisor = financial_daz(change);\n        if divisor == 0.0 {\n            return Err(FinancialError::Div0);\n        }\n        let numerator = excel_underflow_to_zero(excel_x87_mul(value, excel_x87_sub(current, before)));\n        let next = excel_x87_sub(current, excel_x87_div(numerator, divisor));\n        // With negative periods and a cash-flow balance that tends to zero,\n        // Excel publishes the last finite secant iterate if the next one\n        // overflows positively. Other cash-flow shapes can return NUM instead.\n        if next == f64::INFINITY\n            && current > 0.0\n            && periods < 0.0\n            && future_value == 0.0\n            && (timing == PaymentTiming::EndOfPeriod || payment_value == 0.0)\n        {\n            return Ok(current);\n        }\n        step = excel_x87_sub(next, current).abs();\n        (before, value_before) = (current, value);\n        current = next;\n        value = balance(current)?;\n        if step < RATE_TOLERANCE && value.abs() < RATE_TOLERANCE {\n            return Ok(current);\n        }\n    }\n    // Excel has a separate final check after the iteration budget. Adjacent-word\n    // public calls locate its step, balance and near-minus-one boundaries.\n    // Keep this outside the strict convergence loop: using 1e-4 there changes\n    // ordinary loan answers and accepting every final iterate admits failures.\n    if step <= RATE_FINAL_TOLERANCE\n        && value.abs() <= RATE_FINAL_TOLERANCE\n        && excel_x87_add(1.0, current) >= RATE_FINAL_TOLERANCE\n    {\n        Ok(current)\n    } else {\n        Err(FinancialError::Num)\n    }\n}\n"
   },
   "ported/financial_time_value_family::end_payment_quotient": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 632,
-    "end_line": 652,
+    "start_line": 643,
+    "end_line": 663,
     "name": "end_payment_quotient",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8245,8 +8254,8 @@
   },
   "ported/financial_time_value_family::period_components": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 654,
-    "end_line": 671,
+    "start_line": 665,
+    "end_line": 682,
     "name": "period_components",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8254,8 +8263,8 @@
   },
   "ported/financial_time_value_family::end_payment_parts": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 673,
-    "end_line": 698,
+    "start_line": 684,
+    "end_line": 709,
     "name": "end_payment_parts",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8263,8 +8272,8 @@
   },
   "ported/financial_time_value_family::ipmt": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 700,
-    "end_line": 795,
+    "start_line": 711,
+    "end_line": 806,
     "name": "ipmt",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8272,8 +8281,8 @@
   },
   "ported/financial_time_value_family::ppmt": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 797,
-    "end_line": 863,
+    "start_line": 808,
+    "end_line": 874,
     "name": "ppmt",
     "module": "ported/financial_time_value_family",
     "users": 3,
@@ -8281,8 +8290,8 @@
   },
   "ported/financial_time_value_family::cumulative_principal": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 865,
-    "end_line": 902,
+    "start_line": 876,
+    "end_line": 913,
     "name": "cumulative_principal",
     "module": "ported/financial_time_value_family",
     "users": 2,
@@ -8290,8 +8299,8 @@
   },
   "ported/financial_time_value_family::discounted_payment_principal": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 904,
-    "end_line": 924,
+    "start_line": 915,
+    "end_line": 935,
     "name": "discounted_payment_principal",
     "module": "ported/financial_time_value_family",
     "users": 3,
@@ -9442,8 +9451,8 @@
   },
   "ported/financial_time_value_family::effect": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1145,
-    "end_line": 1184,
+    "start_line": 1156,
+    "end_line": 1195,
     "name": "effect",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -10203,7 +10212,7 @@
     "name": "start",
     "module": "catalogue/text_functions",
     "users": 8,
-    "text": "/// The optional start of FIND and SEARCH: 1 when the call does not reach it or leaves it empty.\nfn start(site: &Site<'_>, a: &[CalcValue]) -> Step<usize> {\n    match a.get(2) {\n        None => Ok(1),\n        Some(value) if value.is_missing() => Ok(1),\n        Some(_) => {\n            let n = num(site, a, 2)?;\n            k::positive(n).map_err(Exit::Error)\n        }\n    }\n}\n"
+    "text": "/// The optional start of FIND and SEARCH: 1 when the call does not reach it or leaves it empty.\nfn start(site: &Site<'_>, a: &[CalcValue]) -> Step<usize> {\n    match a.get(2) {\n        None => Ok(1),\n        Some(value) if value.is_missing() => Ok(1),\n        Some(_) => {\n            let n = num(site, a, 2)?;\n            k::positive(k::date_integer_floor(n)).map_err(Exit::Error)\n        }\n    }\n}\n"
   },
   "catalogue/text_functions::find": {
     "file": "crates/calc-func/src/catalogue/text_functions.rs",
@@ -10457,19 +10466,28 @@
     "users": 4,
     "text": "/// Sufficient exact-arithmetic region for the initial ordinary least-squares\n/// trend and its zero innovations. The bound follows the moment sums' n^3\n/// growth and binary64's 53 bits; it is not a cutoff fitted to answer counts.\nfn quantum_exponent(y: &[f64]) -> i32 {\n    y.iter()\n        .filter(|&&v| v != 0.0)\n        .map(|v| {\n            let raw = v.to_bits() & 0x7fff_ffff_ffff_ffff;\n            let exp = ((raw >> 52) & 0x7ff) as i32;\n            let mantissa = (raw & ((1u64 << 52) - 1)) | (1u64 << 52);\n            exp - 1023 - 52 + mantissa.trailing_zeros() as i32\n        })\n        .min()\n        .unwrap_or(0)\n}\n"
   },
-  "catalogue/statistics/ets::exact_trend": {
+  "catalogue/statistics/ets::exact_scaled_history": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
     "start_line": 232,
-    "end_line": 270,
+    "end_line": 248,
+    "name": "exact_scaled_history",
+    "module": "catalogue/statistics/ets",
+    "users": 4,
+    "text": "fn exact_scaled_history(y: &[f64]) -> Option<(f64, Vec<f64>)> {\n    let n = y.len();\n    let minimum = quantum_exponent(y);\n    if !(-900..=900).contains(&minimum) {\n        return None;\n    }\n    let quantum = 2.0_f64.powi(minimum);\n    let bound = (1u64 << 50) as f64 / (n as f64).powi(3);\n    let scaled: Vec<_> = y.iter().map(|v| v / quantum).collect();\n    if scaled\n        .iter()\n        .any(|v| !v.is_finite() || v.fract() != 0.0 || v.abs() > bound)\n    {\n        return None;\n    }\n    Some((quantum, scaled))\n}\n"
+  },
+  "catalogue/statistics/ets::exact_trend": {
+    "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
+    "start_line": 250,
+    "end_line": 275,
     "name": "exact_trend",
     "module": "catalogue/statistics/ets",
     "users": 4,
-    "text": "fn exact_trend(y: &[f64]) -> Option<f64> {\n    let n = y.len();\n    let minimum = quantum_exponent(y);\n    if !(-900..=900).contains(&minimum) {\n        return None;\n    }\n    let quantum = 2.0_f64.powi(minimum);\n    let bound = (1u64 << 50) as f64 / (n as f64).powi(3);\n    let scaled: Vec<_> = y.iter().map(|v| v / quantum).collect();\n    if scaled\n        .iter()\n        .any(|v| !v.is_finite() || v.fract() != 0.0 || v.abs() > bound)\n    {\n        return None;\n    }\n    let difference = scaled[1] - scaled[0];\n    if scaled\n        .iter()\n        .enumerate()\n        .any(|(i, &v)| v != scaled[0] + i as f64 * difference)\n    {\n        return None;\n    }\n    let trend = difference * quantum;\n    // The observed nonseasonal default is alpha .9, beta .001, gamma 2^-52.\n    // Require the actual state updates to retain zero innovations as well.\n    let mut level = y[0];\n    for &v in &y[1..] {\n        let prediction = level + trend;\n        if prediction != v {\n            return None;\n        }\n        level = 0.9 * v + (1.0 - 0.9) * prediction;\n        if level != v {\n            return None;\n        }\n    }\n    Some(trend)\n}\n"
+    "text": "fn exact_trend(y: &[f64]) -> Option<f64> {\n    let (quantum, scaled) = exact_scaled_history(y)?;\n    let difference = scaled[1] - scaled[0];\n    if scaled\n        .iter()\n        .enumerate()\n        .any(|(i, &v)| v != scaled[0] + i as f64 * difference)\n    {\n        return None;\n    }\n    let trend = difference * quantum;\n    // The observed nonseasonal default is alpha .9, beta .001, gamma 2^-52.\n    // Require the actual state updates to retain zero innovations as well.\n    let mut level = y[0];\n    for &v in &y[1..] {\n        let prediction = level + trend;\n        if prediction != v {\n            return None;\n        }\n        level = 0.9 * v + (1.0 - 0.9) * prediction;\n        if level != v {\n            return None;\n        }\n    }\n    Some(trend)\n}\n"
   },
   "catalogue/statistics/ets::exact_sum": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 272,
-    "end_line": 280,
+    "start_line": 277,
+    "end_line": 285,
     "name": "exact_sum",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10477,8 +10495,8 @@
   },
   "catalogue/statistics/ets::strictly_curved_five": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 282,
-    "end_line": 299,
+    "start_line": 287,
+    "end_line": 304,
     "name": "strictly_curved_five",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10486,8 +10504,8 @@
   },
   "catalogue/statistics/ets::regression_slope": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 330,
-    "end_line": 344,
+    "start_line": 335,
+    "end_line": 349,
     "name": "regression_slope",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10495,8 +10513,8 @@
   },
   "catalogue/statistics/ets::initial_slope": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 346,
-    "end_line": 359,
+    "start_line": 351,
+    "end_line": 364,
     "name": "initial_slope",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10504,8 +10522,8 @@
   },
   "catalogue/statistics/ets::statistic_window": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 361,
-    "end_line": 367,
+    "start_line": 366,
+    "end_line": 372,
     "name": "statistic_window",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10513,8 +10531,8 @@
   },
   "catalogue/statistics/ets::Model::run": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 388,
-    "end_line": 404,
+    "start_line": 393,
+    "end_line": 409,
     "name": "Model::run",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10522,8 +10540,8 @@
   },
   "catalogue/statistics/ets::Model::run_initialized": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 406,
-    "end_line": 438,
+    "start_line": 411,
+    "end_line": 443,
     "name": "Model::run_initialized",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10531,8 +10549,8 @@
   },
   "catalogue/statistics/ets::Model::squared_errors": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 440,
-    "end_line": 442,
+    "start_line": 445,
+    "end_line": 447,
     "name": "Model::squared_errors",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10540,8 +10558,8 @@
   },
   "catalogue/statistics/ets::Model::finish": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 444,
-    "end_line": 479,
+    "start_line": 449,
+    "end_line": 484,
     "name": "Model::finish",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10549,8 +10567,8 @@
   },
   "catalogue/statistics/ets::Model::statistics": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 481,
-    "end_line": 509,
+    "start_line": 486,
+    "end_line": 514,
     "name": "Model::statistics",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10558,8 +10576,8 @@
   },
   "catalogue/statistics/ets::exact_seasonal": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 512,
-    "end_line": 641,
+    "start_line": 517,
+    "end_line": 646,
     "name": "exact_seasonal",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10567,17 +10585,17 @@
   },
   "catalogue/statistics/ets::nonseasonal": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 643,
-    "end_line": 753,
+    "start_line": 648,
+    "end_line": 761,
     "name": "nonseasonal",
     "module": "catalogue/statistics/ets",
     "users": 4,
-    "text": "fn nonseasonal(\n    site: &Site<'_>,\n    y: &[f64],\n    output: Output,\n    statistic: f64,\n    horizon: f64,\n    confidence: f64,\n) -> Step<CalcValue> {\n    if y.iter()\n        .any(|&v| v != 0.0 && !(2.0_f64.powi(-400)..=2.0_f64.powi(400)).contains(&v.abs()))\n    {\n        return Err(unfinished(site));\n    }\n    // Gamma does not require the unidentified initial states. Fresh short and\n    // rounded-constant selections retain the same two epsilon seasonal states.\n    if output == Output::Statistic && statistic == 3.0 && (3..=32).contains(&y.len()) {\n        return site.number(f64::EPSILON);\n    }\n    if !(3..=32).contains(&y.len()) {\n        return Err(unfinished(site));\n    }\n    // Outside the exact short-history region, the private initial regression's\n    // rounding remains unidentified. Every refusal remains a counted failure.\n    // The binary64 regression and seven-point extension reproduce Excel on the\n    // recorded short histories (199 of 204 cells; the other five are 1-3 ulp).\n    let extended;\n    let search_history = if y.len() < 7 {\n        extended = {\n            let trend = regression_slope(y);\n            let mut e = y.to_vec();\n            for j in y.len()..7 {\n                e.push(y[j % 2] + (j - j % 2) as f64 * trend);\n            }\n            e\n        };\n        &extended[..]\n    } else {\n        y\n    };\n    // The exact-affine route has already failed here. Rounded constant\n    // initialisation changes the search parameters in retained adjacent probes.\n    if y.iter().all(|&v| v == y[0]) {\n        return Err(unfinished(site));\n    }\n    let start = search_history.len() - statistic_window(search_history.len());\n    let validation = (start != 0).then_some(start);\n    let mut best = f64::INFINITY;\n    let mut chosen = PARAMETERS[0];\n    for &(alpha, beta) in PARAMETERS {\n        let score = Model::run(search_history, alpha, beta, validation).squared_errors();\n        if score < best {\n            best = score;\n            chosen = (alpha, beta);\n        }\n    }\n    if !best.is_finite() {\n        return Err(unfinished(site));\n    }\n    let (alpha, mut beta) = chosen;\n    let mut model = Model::run(y, alpha, beta, None);\n    let squared_errors = model.squared_errors();\n    let statistics = model.statistics(y);\n    model.finish(y, &mut beta);\n    match output {\n        Output::Forecast => {\n            if horizon < 0.0 {\n                return Err(unfinished(site));\n            }\n            let phase = ((y.len() - 1) as u64 + horizon as u64) % 2;\n            // Fresh midpoint questions distinguish the final seasonal addition\n            // at PC64 followed by a binary64 store from strict binary64 addition.\n            site.number(crate::ported::excel_numeric::excel_x87_add(\n                model.level + horizon * model.trend,\n                model.seasons[phase as usize],\n            ))\n        }\n        Output::Statistic => site.number(match statistic as u8 {\n            1 => alpha,\n            2 => beta,\n            3 => f64::EPSILON,\n            4..=7 => statistics[statistic as usize - 4],\n            _ => unreachable!(),\n        }),\n        Output::Confidence => {\n            let h = horizon;\n            let k = ((h - 1.0) / 2.0).floor();\n            let g = f64::EPSILON;\n            let variance = 1.0\n                + (h - 1.0)\n                    * ((h * alpha * beta + h * (2.0 * h - 1.0) * beta * beta / 6.0)\n                        + alpha * alpha);\n            let variance = variance + g * k * ((2.0 * alpha + g) + 2.0 * beta * (k + 1.0));\n            let probability = (1.0 + confidence) / 2.0;\n            // Valid confidence immediately below one rounds this probability\n            // to one. Sixteen fresh selections identify the internal fallback.\n            let z = if probability == 1.0 {\n                1.0\n            } else {\n                crate::ported::normal_log_family::norm_s_inv_kernel(probability)\n                    .map_err(Exit::Error)?\n            };\n            // R40 independently certified product-midpoint questions identify\n            // the same PC64-then-binary64 publication used by the forecast.\n            site.number(crate::ported::excel_numeric::excel_x87_mul(\n                z,\n                ((squared_errors / y.len() as f64) * variance).sqrt(),\n            ))\n        }\n        Output::Seasonality => Err(unfinished(site)),\n    }\n}\n"
+    "text": "fn nonseasonal(\n    site: &Site<'_>,\n    y: &[f64],\n    output: Output,\n    statistic: f64,\n    horizon: f64,\n    confidence: f64,\n) -> Step<CalcValue> {\n    if y.iter()\n        .any(|&v| v != 0.0 && !(2.0_f64.powi(-400)..=2.0_f64.powi(400)).contains(&v.abs()))\n    {\n        return Err(unfinished(site));\n    }\n    // Gamma does not require the unidentified initial states. Fresh short and\n    // rounded-constant selections retain the same two epsilon seasonal states.\n    if output == Output::Statistic && statistic == 3.0 && (3..=32).contains(&y.len()) {\n        return site.number(f64::EPSILON);\n    }\n    if !(3..=32).contains(&y.len()) {\n        return Err(unfinished(site));\n    }\n    // Outside the exact short-history region, the private initial regression's\n    // rounding remains unidentified. Every refusal remains a counted failure.\n    // The binary64 regression and seven-point extension reproduce Excel on the\n    // recorded short histories (199 of 204 cells; the other five are 1-3 ulp).\n    let extended;\n    let search_history = if y.len() < 7 {\n        extended = {\n            let trend = regression_slope(y);\n            let mut e = y.to_vec();\n            for j in y.len()..7 {\n                e.push(y[j % 2] + (j - j % 2) as f64 * trend);\n            }\n            e\n        };\n        &extended[..]\n    } else {\n        y\n    };\n    // The exact-affine route has already failed here. Rounded constant\n    // initialisation changes the search parameters in retained adjacent probes.\n    if y.iter().all(|&v| v == y[0]) {\n        return Err(unfinished(site));\n    }\n    let start = search_history.len() - statistic_window(search_history.len());\n    let validation = (start != 0).then_some(start);\n    let mut best = f64::INFINITY;\n    let mut chosen = PARAMETERS[0];\n    for &(alpha, beta) in PARAMETERS {\n        let score = Model::run(search_history, alpha, beta, validation).squared_errors();\n        if score < best {\n            best = score;\n            chosen = (alpha, beta);\n        }\n    }\n    if !best.is_finite() {\n        return Err(unfinished(site));\n    }\n    let (alpha, mut beta) = chosen;\n    let mut model = Model::run(y, alpha, beta, None);\n    let squared_errors = model.squared_errors();\n    let statistics = model.statistics(y);\n    model.finish(y, &mut beta);\n    match output {\n        Output::Forecast => {\n            if horizon < 0.0 {\n                return Err(unfinished(site));\n            }\n            let phase = ((y.len() - 1) as u64 + horizon as u64) % 2;\n            // Fresh midpoint questions distinguish the final seasonal addition\n            // at PC64 followed by a binary64 store from strict binary64 addition.\n            site.number(crate::ported::excel_numeric::excel_x87_add(\n                model.level + horizon * model.trend,\n                model.seasons[phase as usize],\n            ))\n        }\n        Output::Statistic => site.number(match statistic as u8 {\n            1 => alpha,\n            2 => beta,\n            3 => f64::EPSILON,\n            4..=7 => statistics[statistic as usize - 4],\n            _ => unreachable!(),\n        }),\n        Output::Confidence => {\n            let h = horizon;\n            let k = ((h - 1.0) / 2.0).floor();\n            let g = f64::EPSILON;\n            // Excel forms 2h-1 in signed 32-bit arithmetic. At and above\n            // 2^30+1 it wraps; a negative resulting variance publishes zero.\n            let twice_h_minus_one = (h as i32).wrapping_mul(2).wrapping_sub(1) as f64;\n            let variance = 1.0\n                + (h - 1.0)\n                    * ((h * alpha * beta + h * twice_h_minus_one * beta * beta / 6.0)\n                        + alpha * alpha);\n            let variance = (variance + g * k * ((2.0 * alpha + g) + 2.0 * beta * (k + 1.0))).max(0.0);\n            let probability = (1.0 + confidence) / 2.0;\n            // Valid confidence immediately below one rounds this probability\n            // to one. Sixteen fresh selections identify the internal fallback.\n            let z = if probability == 1.0 {\n                1.0\n            } else {\n                crate::ported::normal_log_family::norm_s_inv_kernel(probability)\n                    .map_err(Exit::Error)?\n            };\n            // R40 independently certified product-midpoint questions identify\n            // the same PC64-then-binary64 publication used by the forecast.\n            site.number(crate::ported::excel_numeric::excel_x87_mul(\n                z,\n                ((squared_errors / y.len() as f64) * variance).sqrt(),\n            ))\n        }\n        Output::Seasonality => Err(unfinished(site)),\n    }\n}\n"
   },
   "catalogue/statistics/ets::evaluate": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 755,
-    "end_line": 917,
+    "start_line": 763,
+    "end_line": 925,
     "name": "evaluate",
     "module": "catalogue/statistics/ets",
     "users": 4,
@@ -10585,12 +10603,12 @@
   },
   "catalogue/statistics/ets::evaluate_fitted": {
     "file": "crates/calc-func/src/catalogue/statistics/ets.rs",
-    "start_line": 919,
-    "end_line": 1008,
+    "start_line": 927,
+    "end_line": 1028,
     "name": "evaluate_fitted",
     "module": "catalogue/statistics/ets",
     "users": 4,
-    "text": "fn evaluate_fitted(\n    site: &Site<'_>,\n    series: &Series,\n    output: Output,\n    statistic: f64,\n    confidence: f64,\n    season: f64,\n    horizon: f64,\n) -> Step<CalcValue> {\n    if !series.preparation_exact {\n        return Err(unfinished(site));\n    }\n    // R46's adjacent/exponent controls identify the detector's minimum\n    // history: lag two first becomes available at five prepared observations.\n    // This does not identify the detector or fitted model for longer histories.\n    if output == Output::Seasonality && series.values.len() <= 4 {\n        return site.number(0.0);\n    }\n    // Fresh controls cover strict curvature with direct observations, shuffled\n    // timelines, translations and scale changes. Other detector shapes and\n    // the seasonal fitted model remain on their existing paths.\n    if output == Output::Seasonality\n        && series.directly_observed\n        && strictly_curved_five(&series.values)\n    {\n        return site.number(0.0);\n    }\n    // R47 paired questions identify the nonseasonal fit before five prepared\n    // observations, including explicit period two at length four. Admit its\n    // proved zero-innovation region. Rounded short initialization and nonzero\n    // confidence/statistic differences still keep the other short fits open.\n    // Measured (dc-6332.5): every prepared history of four or fewer points is\n    // fitted nonseasonally, whether the period is automatic, explicit two or zero.\n    let short_history = series.values.len() <= 4;\n    let nonseasonal_mode =\n        season == 0.0 || short_history || season > (series.values.len() / 2) as f64;\n    if season == 1.0 && !nonseasonal_mode {\n        match exact_seasonal(site, &series.values, 2, output, statistic, horizon, true) {\n            Ok(value) => return Ok(value),\n            Err(Exit::Fault(FunctionFault::NotHeld { .. })) => {}\n            Err(why) => return Err(why),\n        }\n    }\n    if season > 1.0 && !nonseasonal_mode {\n        return exact_seasonal(\n            site,\n            &series.values,\n            season as usize,\n            output,\n            statistic,\n            horizon,\n            false,\n        );\n    }\n    let trend = match exact_trend(&series.values) {\n        Some(trend) => trend,\n        None => {\n            if nonseasonal_mode {\n                return nonseasonal(site, &series.values, output, statistic, horizon, confidence);\n            }\n            return Err(unfinished(site));\n        }\n    };\n    if output == Output::Seasonality {\n        return site.number(0.0);\n    }\n    // An explicit period longer than half the data uses the nonseasonal model.\n    match output {\n        Output::Forecast => {\n            let product = horizon * trend;\n            // The trend's quantum is at least 2^-900 and h is an integer, so\n            // a nonzero multiplication residue cannot underflow here.\n            if !product.is_finite() || horizon.mul_add(trend, -product) != 0.0 {\n                return Err(unfinished(site));\n            }\n            site.number(\n                exact_sum(*series.values.last().unwrap(), product)\n                    .ok_or_else(|| unfinished(site))?,\n            )\n        }\n        Output::Confidence => site.number(0.0),\n        Output::Statistic => site.number(match statistic as u8 {\n            1 => 0.9,\n            2 => 0.001,\n            3 => f64::EPSILON,\n            _ => 0.0,\n        }),\n        Output::Seasonality => unreachable!(),\n    }\n}\n"
+    "text": "fn evaluate_fitted(\n    site: &Site<'_>,\n    series: &Series,\n    output: Output,\n    statistic: f64,\n    confidence: f64,\n    season: f64,\n    horizon: f64,\n) -> Step<CalcValue> {\n    if !series.preparation_exact {\n        return Err(unfinished(site));\n    }\n    // R46's adjacent/exponent controls identify the detector's minimum\n    // history: lag two first becomes available at five prepared observations.\n    // This does not identify the detector or fitted model for longer histories.\n    if output == Output::Seasonality && series.values.len() <= 4 {\n        return site.number(0.0);\n    }\n    // Fresh controls cover strict curvature with direct observations, shuffled\n    // timelines, translations and scale changes. Other detector shapes and\n    // the seasonal fitted model remain on their existing paths.\n    if output == Output::Seasonality\n        && series.directly_observed\n        && strictly_curved_five(&series.values)\n    {\n        return site.number(0.0);\n    }\n    // R47 paired questions identify the nonseasonal fit before five prepared\n    // observations, including explicit period two at length four. Admit its\n    // proved zero-innovation region. Rounded short initialization and nonzero\n    // confidence/statistic differences still keep the other short fits open.\n    // Measured (dc-6332.5): every prepared history of four or fewer points is\n    // fitted nonseasonally, whether the period is automatic, explicit two or zero.\n    let short_history = series.values.len() <= 4;\n    let nonseasonal_mode =\n        season == 0.0 || short_history || season > (series.values.len() / 2) as f64;\n    // The five-point curvature detector above identifies no seasonality for\n    // these directly observed histories. The existing nonseasonal forecast\n    // agrees with independent Excel controls in the existing exact-scaled\n    // history region. Finer histories and confidence intervals have shown\n    // independent rounding discrepancies and remain unmodelled.\n    if season == 1.0 && series.directly_observed && horizon >= 1.0\n        && strictly_curved_five(&series.values)\n        && exact_scaled_history(&series.values).is_some()\n        && output == Output::Forecast\n    {\n        return nonseasonal(site, &series.values, output, statistic, horizon, confidence);\n    }\n    if season == 1.0 && !nonseasonal_mode {\n        match exact_seasonal(site, &series.values, 2, output, statistic, horizon, true) {\n            Ok(value) => return Ok(value),\n            Err(Exit::Fault(FunctionFault::NotHeld { .. })) => {}\n            Err(why) => return Err(why),\n        }\n    }\n    if season > 1.0 && !nonseasonal_mode {\n        return exact_seasonal(\n            site,\n            &series.values,\n            season as usize,\n            output,\n            statistic,\n            horizon,\n            false,\n        );\n    }\n    let trend = match exact_trend(&series.values) {\n        Some(trend) => trend,\n        None => {\n            if nonseasonal_mode {\n                return nonseasonal(site, &series.values, output, statistic, horizon, confidence);\n            }\n            return Err(unfinished(site));\n        }\n    };\n    if output == Output::Seasonality {\n        return site.number(0.0);\n    }\n    // An explicit period longer than half the data uses the nonseasonal model.\n    match output {\n        Output::Forecast => {\n            let product = horizon * trend;\n            // The trend's quantum is at least 2^-900 and h is an integer, so\n            // a nonzero multiplication residue cannot underflow here.\n            if !product.is_finite() || horizon.mul_add(trend, -product) != 0.0 {\n                return Err(unfinished(site));\n            }\n            site.number(\n                exact_sum(*series.values.last().unwrap(), product)\n                    .ok_or_else(|| unfinished(site))?,\n            )\n        }\n        Output::Confidence => site.number(0.0),\n        Output::Statistic => site.number(match statistic as u8 {\n            1 => 0.9,\n            2 => 0.001,\n            3 => f64::EPSILON,\n            _ => 0.0,\n        }),\n        Output::Seasonality => unreachable!(),\n    }\n}\n"
   },
   "catalogue/statistics::entry::FORECAST.ETS.CONFINT": {
     "file": "crates/calc-func/src/catalogue/statistics.rs",
@@ -10729,8 +10747,8 @@
   },
   "ported/financial_time_value_family::fvschedule": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1018,
-    "end_line": 1030,
+    "start_line": 1029,
+    "end_line": 1041,
     "name": "fvschedule",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -13006,8 +13024,8 @@
   },
   "ported/financial_time_value_family::ispmt": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 926,
-    "end_line": 949,
+    "start_line": 937,
+    "end_line": 960,
     "name": "ispmt",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -13960,8 +13978,8 @@
   },
   "ported/financial_time_value_family::discounted_cashflows": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 559,
-    "end_line": 583,
+    "start_line": 570,
+    "end_line": 594,
     "name": "discounted_cashflows",
     "module": "ported/financial_time_value_family",
     "users": 2,
@@ -13969,8 +13987,8 @@
   },
   "ported/financial_time_value_family::discounted_npv": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 585,
-    "end_line": 596,
+    "start_line": 596,
+    "end_line": 607,
     "name": "discounted_npv",
     "module": "ported/financial_time_value_family",
     "users": 2,
@@ -13978,8 +13996,8 @@
   },
   "ported/financial_time_value_family::mirr": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 951,
-    "end_line": 1016,
+    "start_line": 962,
+    "end_line": 1027,
     "name": "mirr",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -14455,8 +14473,8 @@
   },
   "ported/financial_time_value_family::nominal": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1117,
-    "end_line": 1143,
+    "start_line": 1128,
+    "end_line": 1154,
     "name": "nominal",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -14626,8 +14644,8 @@
   },
   "ported/financial_time_value_family::npv": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 598,
-    "end_line": 603,
+    "start_line": 609,
+    "end_line": 614,
     "name": "npv",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -15256,8 +15274,8 @@
   },
   "ported/financial_time_value_family::pduration": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1032,
-    "end_line": 1052,
+    "start_line": 1043,
+    "end_line": 1063,
     "name": "pduration",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -16606,8 +16624,8 @@
   },
   "ported/financial_time_value_family::rri": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1054,
-    "end_line": 1115,
+    "start_line": 1065,
+    "end_line": 1126,
     "name": "rri",
     "module": "ported/financial_time_value_family",
     "users": 1,

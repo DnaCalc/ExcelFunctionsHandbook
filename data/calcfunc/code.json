@@ -1,5 +1,5 @@
 {
-  "commit": "258d10e19906abcc0e7e4972f2f087abf93b6e9c",
+  "commit": "4bdd26d7c70ebbbf33cc3024c3631a13e92a4595",
   "repository": "https://github.com/DnaCalc/DnaCalc",
   "entries": {
     "% postfix": {
@@ -4541,7 +4541,9 @@
       "shared": [
         "catalogue/cube_functions::cells",
         "catalogue/cube_functions::single",
-        "catalogue/cube_functions::model"
+        "catalogue/cube_functions::model",
+        "catalogue/cube_functions::given",
+        "catalogue/cube_functions::early_errors"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -4562,7 +4564,8 @@
         "catalogue/cube_functions::text_value",
         "catalogue/cube_functions::caption_text",
         "catalogue/cube_functions::held_value",
-        "catalogue/cube_functions::given"
+        "catalogue/cube_functions::given",
+        "catalogue/cube_functions::early_errors"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -4577,7 +4580,9 @@
       "shared": [
         "catalogue/cube_functions::cells",
         "catalogue/cube_functions::single",
-        "catalogue/cube_functions::model"
+        "catalogue/cube_functions::model",
+        "catalogue/cube_functions::given",
+        "catalogue/cube_functions::early_errors"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -4597,7 +4602,8 @@
         "catalogue/cube_functions::text_value",
         "catalogue/cube_functions::caption_text",
         "catalogue/cube_functions::held_value",
-        "catalogue/cube_functions::given"
+        "catalogue/cube_functions::given",
+        "catalogue/cube_functions::early_errors"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -4617,7 +4623,8 @@
         "catalogue/cube_functions::text_value",
         "catalogue/cube_functions::caption_text",
         "catalogue/cube_functions::held_value",
-        "catalogue/cube_functions::given"
+        "catalogue/cube_functions::given",
+        "catalogue/cube_functions::early_errors"
       ],
       "plumbing": [
         "catalogue/kit::fail",
@@ -8285,6 +8292,8 @@
         "catalogue/text_functions::start",
         "catalogue/text_functions::find",
         "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::unit_width",
         "ported/text_kernels::character_boundary",
         "ported/text_kernels::slice_character_count",
@@ -8292,7 +8301,10 @@
         "ported/text_kernels::len_character_count",
         "ported/text_kernels::truncated",
         "ported/text_kernels::positive",
-        "ported/text_kernels::find"
+        "ported/text_kernels::find",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -8310,6 +8322,8 @@
         "catalogue/text_functions::start",
         "catalogue/text_functions::find",
         "ported/text_kernels::text",
+        "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::unit_width",
         "ported/text_kernels::character_boundary",
         "ported/text_kernels::slice_character_count",
@@ -8317,7 +8331,10 @@
         "ported/text_kernels::len_character_count",
         "ported/text_kernels::truncated",
         "ported/text_kernels::positive",
-        "ported/text_kernels::find"
+        "ported/text_kernels::find",
+        "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
+        "ported/text_kernels::upper"
       ],
       "plumbing": [
         "catalogue/kit::num",
@@ -8706,6 +8723,7 @@
         "catalogue/statistics/ets::exact_total",
         "catalogue/statistics/ets::prepare",
         "catalogue/statistics/ets::quantum_exponent",
+        "catalogue/statistics/ets::exact_scaled_history",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
         "catalogue/statistics/ets::strictly_curved_five",
@@ -8755,6 +8773,7 @@
         "catalogue/statistics/ets::exact_total",
         "catalogue/statistics/ets::prepare",
         "catalogue/statistics/ets::quantum_exponent",
+        "catalogue/statistics/ets::exact_scaled_history",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
         "catalogue/statistics/ets::strictly_curved_five",
@@ -8804,6 +8823,7 @@
         "catalogue/statistics/ets::exact_total",
         "catalogue/statistics/ets::prepare",
         "catalogue/statistics/ets::quantum_exponent",
+        "catalogue/statistics/ets::exact_scaled_history",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
         "catalogue/statistics/ets::strictly_curved_five",
@@ -8853,6 +8873,7 @@
         "catalogue/statistics/ets::exact_total",
         "catalogue/statistics/ets::prepare",
         "catalogue/statistics/ets::quantum_exponent",
+        "catalogue/statistics/ets::exact_scaled_history",
         "catalogue/statistics/ets::exact_trend",
         "catalogue/statistics/ets::exact_sum",
         "catalogue/statistics/ets::strictly_curved_five",
@@ -16122,6 +16143,7 @@
         "catalogue/text_functions::search",
         "ported/text_kernels::text",
         "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::unit_width",
         "ported/text_kernels::character_boundary",
         "ported/text_kernels::slice_character_count",
@@ -16132,7 +16154,9 @@
         "ported/text_kernels::search_pattern_matches_prefix",
         "ported/text_kernels::search",
         "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
         "ported/text_kernels::push_lower",
+        "ported/text_kernels::upper",
         "ported/text_kernels::lower"
       ],
       "plumbing": [
@@ -16152,6 +16176,7 @@
         "catalogue/text_functions::search",
         "ported/text_kernels::text",
         "ported/text_kernels::text_from_str",
+        "ported/text_kernels::date_integer_floor",
         "ported/text_kernels::unit_width",
         "ported/text_kernels::character_boundary",
         "ported/text_kernels::slice_character_count",
@@ -16162,7 +16187,9 @@
         "ported/text_kernels::search_pattern_matches_prefix",
         "ported/text_kernels::search",
         "ported/text_kernels::push_singleton_or_original",
+        "ported/text_kernels::push_upper",
         "ported/text_kernels::push_lower",
+        "ported/text_kernels::upper",
         "ported/text_kernels::lower"
       ],
       "plumbing": [
