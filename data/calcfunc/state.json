@@ -1,5 +1,5 @@
 {
-  "commit": "c8a1b62ad2e670ef38f3b2a48d3b7da64252e43d",
+  "commit": "246f819cc4cefc62c50009defdbab74223bbfe42",
   "counts": {
     "absent": 1,
     "close": 39,
@@ -1016,18 +1016,18 @@
     "FUNC.BETAINV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 275 of 4,417 recorded answers",
-      "detail": "Of 4,417 recorded answers (4,411 in the answer bank and 6 workbook cells), 275 do not match: 28 differ by more than 16 ULP, 202 differ by at most 16 ULP, 45 differ in kind or value.",
+      "summary": "Known differences on 274 of 4,417 recorded answers",
+      "detail": "Of 4,417 recorded answers (4,411 in the answer bank and 6 workbook cells), 274 do not match: 27 differ by more than 16 ULP, 202 differ by at most 16 ULP, 45 differ in kind or value.",
       "bank": {
         "rows": 4411,
-        "matched": 4138,
+        "matched": 4139,
         "worst_ulp": 764307040971430,
         "excel_builds": [
           "20131",
           "20527",
           "?"
         ],
-        "larger_numeric": 28,
+        "larger_numeric": 27,
         "last_bit": 200,
         "other_mismatch": 45,
         "refused": 0,
@@ -5317,18 +5317,18 @@
     "FUNC.FORECAST.ETS.CONFINT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 864 of 5,455 recorded answers",
-      "detail": "Of 5,455 recorded answers (4,355 in the answer bank and 1,100 workbook cells), 864 do not match: 19 differ by at most 16 ULP, 1 differ in kind or value, 844 are refused.",
+      "summary": "19 last-bit differences and 844 refusals in 5,455 recorded answers",
+      "detail": "Of 5,455 recorded answers (4,355 in the answer bank and 1,100 workbook cells), 863 do not match: 19 differ by at most 16 ULP, 844 are refused.",
       "bank": {
         "rows": 4355,
-        "matched": 3654,
+        "matched": 3655,
         "worst_ulp": 6,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 6,
-        "other_mismatch": 1,
+        "other_mismatch": 0,
         "refused": 694,
         "excluded": 0,
         "unread": 0
@@ -13308,17 +13308,17 @@
     "FUNC.T.INV.2T": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 148 of 4,188 recorded answers",
-      "detail": "Of 4,188 recorded answers (4,184 in the answer bank and 4 workbook cells), 148 do not match: 41 differ by more than 16 ULP, 107 differ by at most 16 ULP.",
+      "summary": "Known differences on 147 of 4,188 recorded answers",
+      "detail": "Of 4,188 recorded answers (4,184 in the answer bank and 4 workbook cells), 147 do not match: 41 differ by more than 16 ULP, 106 differ by at most 16 ULP.",
       "bank": {
         "rows": 4184,
-        "matched": 4036,
+        "matched": 4037,
         "worst_ulp": 1020905,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 41,
-        "last_bit": 107,
+        "last_bit": 106,
         "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
@@ -15140,35 +15140,35 @@
       "worst_ulp": "1188129402768354",
       "rows_open": "281",
       "bead": "dc-iici",
-      "what_was_tried": "forward equals p on 26/128 general controls and 40/128 neighboring p controls at shapes 1,1; EXP(LN(p)) holds on 384 neighbors but fails 2/32 general shapes 1,1; solver not fitted; tiny-shape NUM boundary nonmonotone; reflection agrees on 119/128; double-loss and reflected-seed NUM regions fix 40 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain; retained inverse/forward residuals have both signs, 11/128 beta controls exceed four density-scaled output ULP; forward and solver error not separated; bracketed Newton with application forward visits Excel word in 97/128 controls but first exact visit precedes its stop in 66; 9 miss by >4 ULP, so stopping remains unknown"
+      "what_was_tried": "forward equals p on 26/128 general controls and 40/128 neighboring p controls at shapes 1,1; EXP(LN(p)) holds on 384 neighbors but fails 2/32 general shapes 1,1; solver not fitted; tiny-shape NUM boundary nonmonotone; reflection agrees on 119/128; double-loss and reflected-seed NUM regions fix 40 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain; retained inverse/forward residuals have both signs, 11/128 beta controls exceed four density-scaled output ULP; forward and solver error not separated; bracketed Newton with application forward visits Excel word in 97/128 controls but first exact visit precedes its stop in 66; 9 miss by >4 ULP, so stopping remains unknown; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 91/128 saved controls, strictly minimum in 59; fresh paired beta/gamma controls with second shape 2^20..2^300 show the mathematical gamma-scaling identity matched no Excel words in 64 sampled shape/probability pairs; some large shapes publish the reflected 1e-6 seed or NUM instead; A&S both-shapes-above-one seed reproduces 320/320 Excel inverse values using Excel normal and EXP leaves and 1024/1024 application holdout; wider integer/continuous controls expose 1/1024 mismatches each and a focused 2048 holdout 4 mismatches, from final x87 staging or EXP; no code landed; the A&S seed exactly matches the 312584982469279-ULP bank case when supplied Excel normal/EXP leaves, but application normal differs by 1 ULP; a 2049-point normal window shows discrepancies from -5 to +5 ULP and no constant correction; for small first and huge second shape the leading log-gamma power estimate reproduces the largest BETA.INV witness, but four Excel-leaf staging variants match at most 206/256 independent controls, with ten gross differences; no change"
     },
     {
       "function": "BETAINV",
       "worst_ulp": "764307040971430",
-      "rows_open": "273",
+      "rows_open": "272",
       "bead": "dc-b0p4",
-      "what_was_tried": "tiny-shape NUM boundary is nonmonotone across p and shape; no solver fitted; double-loss and reflected-seed NUM regions fix 38 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain"
+      "what_was_tried": "tiny-shape NUM boundary is nonmonotone across p and shape; no solver fitted; double-loss and reflected-seed NUM regions fix 38 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain; fresh paired beta/gamma controls with second shape 2^20..2^300 show the mathematical gamma-scaling identity matched no Excel words in 64 sampled shape/probability pairs; some large shapes publish the reflected 1e-6 seed or NUM instead; A&S both-shapes-above-one seed reproduces 320/320 Excel inverse values using Excel normal and EXP leaves and 1024/1024 application holdout; wider integer/continuous controls expose 1/1024 mismatches each and a focused 2048 holdout 4 mismatches, from final x87 staging or EXP; no code landed; guarded large-second-shape A&S proposal gained one bank row in batch 50; general seed and solver remain open; for small first and huge second shape the leading log-gamma power estimate reproduces the largest BETA.INV witness, but four Excel-leaf staging variants match at most 206/256 independent controls, with ten gross differences; no change"
     },
     {
       "function": "GAMMAINV",
       "worst_ulp": "1788117888542",
       "rows_open": "631",
       "bead": "dc-g0qz",
-      "what_was_tried": "not yet attempted in fix3g; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified"
+      "what_was_tried": "not yet attempted in fix3g; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified; fresh shape powers 2^30..2^116 show at p=0.5 the same 1.0002658235505755 factor from 2^50, while p=0.1 and 0.9 retain a probability-dependent sqrt(shape) correction; no unsaturated stored graph established; 1024 arbitrary shapes at p=0.5 all match the stored saturation factor, but adding the observed normal-scaled correction matches only 250/1024 general controls, with errors up to 3 ULP; solver remains unknown"
     },
     {
       "function": "GAMMA.INV",
       "worst_ulp": "1731866076314",
       "rows_open": "735",
       "bead": "dc-5pvg",
-      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified"
+      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 100/128 saved controls, strictly minimum in 35; fresh shape powers 2^30..2^116 show at p=0.5 the same 1.0002658235505755 factor from 2^50, while p=0.1 and 0.9 retain a probability-dependent sqrt(shape) correction; no unsaturated stored graph established; 1024 arbitrary shapes at p=0.5 all match the stored saturation factor, but adding the observed normal-scaled correction matches only 250/1024 general controls, with errors up to 3 ULP; solver remains unknown"
     },
     {
       "function": "TINV",
       "worst_ulp": "306433734",
       "rows_open": "171",
       "bead": "dc-09hz",
-      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; 64 large-df paired Excel controls lie 30 below and 34 above first-order normal approximation, so asymptotic substitution is invalid; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved"
+      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; 64 large-df paired Excel controls lie 30 below and 34 above first-order normal approximation, so asymptotic substitution is invalid; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut"
     },
     {
       "function": "F.INV.RT",
@@ -15180,9 +15180,9 @@
     {
       "function": "T.INV.2T",
       "worst_ulp": "1020905",
-      "rows_open": "148",
+      "rows_open": "147",
       "bead": "dc-0qju",
-      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved"
+      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut; x87 PI product fixes one degree-one bank row in batch 51, 1024/1024 independent application controls match; general beta inverse remains open"
     },
     {
       "function": "FINV",
@@ -15196,7 +15196,7 @@
       "worst_ulp": "563902",
       "rows_open": "149",
       "bead": "dc-hyod",
-      "what_was_tried": "forward at Excel inverse equals p on 18/128 controls; solver not yet fitted; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved"
+      "what_was_tried": "forward at Excel inverse equals p on 18/128 controls; solver not yet fitted; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 50/128 saved controls, strictly minimum in none; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut"
     },
     {
       "function": "CONFIDENCE.T",
@@ -15210,7 +15210,7 @@
       "worst_ulp": "22148",
       "rows_open": "274",
       "bead": "dc-88rm",
-      "what_was_tried": "forward at Excel inverse equals p on 10/128 controls; solver not yet fitted; unit-degree rational matches 128/128 saved neighbors at 0.5 but only 28/128 at 0.1 and 67/128 at 0.9; no general shortcut; direct public-beta transform matches only 64/128 near 0.1 and 67/128 near 0.9, so its staging is not a general fix; bracketed Newton with application forward visits Excel word in 44/128 controls, misses 20 by >4 ULP; 39 first visits precede probe termination"
+      "what_was_tried": "forward at Excel inverse equals p on 10/128 controls; solver not yet fitted; unit-degree rational matches 128/128 saved neighbors at 0.5 but only 28/128 at 0.1 and 67/128 at 0.9; no general shortcut; direct public-beta transform matches only 64/128 near 0.1 and 67/128 near 0.9, so its staging is not a general fix; bracketed Newton with application forward visits Excel word in 44/128 controls, misses 20 by >4 ULP; 39 first visits precede probe termination; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 32/128 saved controls, strictly minimum in 5; fresh degree-one F.INV controls match the square of Excel T.INV in 11/192 and T.INV.2T in 22/192, so neither public composition is a general replacement that reproduces Excel words"
     },
     {
       "function": "T.DIST",
@@ -15287,7 +15287,7 @@
       "worst_ulp": "1955",
       "rows_open": "134",
       "bead": "dc-j9k.45",
-      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted; shared beta absorbed-shape NUM fixes 7 error rows, integer recurrence fixes the final captured NUM row; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded"
+      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted; shared beta absorbed-shape NUM fixes 7 error rows, integer recurrence fixes the final captured NUM row; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded; seven bank discrepancies have one failure; p^s*(1+s*(1-p)) using Excel POWER matches only 98/384 independent controls"
     },
     {
       "function": "TDIST",
@@ -15301,7 +15301,7 @@
       "worst_ulp": "1033",
       "rows_open": "426",
       "bead": "dc-j9k.47",
-      "what_was_tried": "forward at Excel inverse equals p on 40/128 controls; solver not yet fitted; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42"
+      "what_was_tried": "forward at Excel inverse equals p on 40/128 controls; solver not yet fitted; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42; fresh 2049-point window around p=0x3fbf3609fe2c4e28 shows Excel versus application offsets spanning -5 to +5 ULP; no constant correction; 257 high-precision points in the same window show Excel ranging from -3 to +3 ULP relative to the correctly rounded mathematical quantile, so replacing the approximation with a correctly rounded inverse is not exact"
     },
     {
       "function": "IRR",
@@ -15315,7 +15315,7 @@
       "worst_ulp": "960",
       "rows_open": "475",
       "bead": "dc-j9k.47",
-      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42"
+      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42; fresh 2049-point window around p=0x3fbf3609fe2c4e28 shows Excel versus application offsets spanning -5 to +5 ULP; no constant correction; 257 high-precision points in the same window show Excel ranging from -3 to +3 ULP relative to the correctly rounded mathematical quantile, so replacing the approximation with a correctly rounded inverse is not exact"
     },
     {
       "function": "F.DIST.RT",
@@ -15336,7 +15336,7 @@
       "worst_ulp": "581",
       "rows_open": "1099",
       "bead": "dc-j9k.47",
-      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42"
+      "what_was_tried": "not yet attempted in fix3g; stored-q canonicalization loses 34 independent controls; reflected upper central output unchanged on 2680 controls; central approximation remains unidentified; Excel near-half stored-linear branch has 16383 retained controls but no corresponding noncentral bank input within 2^-42; fresh 2049-point window around p=0x3fbf3609fe2c4e28 shows Excel versus application offsets spanning -5 to +5 ULP; no constant correction; 257 high-precision points in the same window show Excel ranging from -3 to +3 ULP relative to the correctly rounded mathematical quantile, so replacing the approximation with a correctly rounded inverse is not exact"
     },
     {
       "function": "CHIINV",
@@ -15357,7 +15357,7 @@
       "worst_ulp": "322",
       "rows_open": "106",
       "bead": "dc-uef6.1",
-      "what_was_tried": "continued-fraction floor with exact reciprocal product fixes largest row; remaining worst rows use alpha=365 and an unidentified beta normalizer; rounded-down reciprocal remains open: applying the factor twice fixes 14 of 102 saved cases but loses 84"
+      "what_was_tried": "continued-fraction floor with exact reciprocal product fixes largest row; remaining worst rows use alpha=365 and an unidentified beta normalizer; rounded-down reciprocal remains open: applying the factor twice fixes 14 of 102 saved cases but loses 84; two captured large-alpha shape groups show x-dependent implied normalization up to 4.24e-15 and 7.30e-15; exponent staging unresolved"
     }
   ]
 }
