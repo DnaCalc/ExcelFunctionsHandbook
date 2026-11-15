@@ -1,5 +1,5 @@
 {
-  "commit": "4bdd26d7c70ebbbf33cc3024c3631a13e92a4595",
+  "commit": "c1fd1cf8594d9d3933cc3dd6e7e98180610c8b30",
   "repository": "https://github.com/DnaCalc/DnaCalc",
   "entries": {
     "% postfix": {
@@ -4543,11 +4543,18 @@
         "catalogue/cube_functions::single",
         "catalogue/cube_functions::model",
         "catalogue/cube_functions::given",
-        "catalogue/cube_functions::early_errors"
+        "catalogue/cube_functions::is_single",
+        "catalogue/cube_functions::early_errors",
+        "catalogue/cube_functions::early_numeric_text",
+        "catalogue/cube_functions::early_final_error",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
+        "value_text::decimal"
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::grid"
+        "catalogue/kit::grid",
+        "coerce::number"
       ]
     },
     "CUBEMEMBER": {
@@ -4565,6 +4572,7 @@
         "catalogue/cube_functions::caption_text",
         "catalogue/cube_functions::held_value",
         "catalogue/cube_functions::given",
+        "catalogue/cube_functions::is_single",
         "catalogue/cube_functions::early_errors"
       ],
       "plumbing": [
@@ -4582,6 +4590,7 @@
         "catalogue/cube_functions::single",
         "catalogue/cube_functions::model",
         "catalogue/cube_functions::given",
+        "catalogue/cube_functions::is_single",
         "catalogue/cube_functions::early_errors"
       ],
       "plumbing": [
@@ -4603,11 +4612,18 @@
         "catalogue/cube_functions::caption_text",
         "catalogue/cube_functions::held_value",
         "catalogue/cube_functions::given",
-        "catalogue/cube_functions::early_errors"
+        "catalogue/cube_functions::is_single",
+        "catalogue/cube_functions::early_errors",
+        "catalogue/cube_functions::early_numeric_text",
+        "catalogue/cube_functions::early_final_error",
+        "value_text::rejected_comma_number",
+        "value_text::rejected_comparison_number",
+        "value_text::decimal"
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::grid"
+        "catalogue/kit::grid",
+        "coerce::number"
       ]
     },
     "CUBESET": {
@@ -4624,11 +4640,14 @@
         "catalogue/cube_functions::caption_text",
         "catalogue/cube_functions::held_value",
         "catalogue/cube_functions::given",
-        "catalogue/cube_functions::early_errors"
+        "catalogue/cube_functions::is_single",
+        "catalogue/cube_functions::early_errors",
+        "catalogue/cube_functions::early_final_error"
       ],
       "plumbing": [
         "catalogue/kit::fail",
-        "catalogue/kit::grid"
+        "catalogue/kit::grid",
+        "coerce::number"
       ]
     },
     "CUBESETCOUNT": {
@@ -10589,18 +10608,26 @@
       "own": [
         "catalogue/importing::entry::IMPORTCSV"
       ],
-      "shared": [],
+      "shared": [
+        "catalogue/importing::no_route",
+        "import::scalar_preflight"
+      ],
       "plumbing": [
-        "catalogue/kit::fail"
+        "catalogue/kit::fail",
+        "coerce::number"
       ]
     },
     "IMPORTTEXT": {
       "own": [
         "catalogue/importing::entry::IMPORTTEXT"
       ],
-      "shared": [],
+      "shared": [
+        "catalogue/importing::no_route",
+        "import::scalar_preflight"
+      ],
       "plumbing": [
-        "catalogue/kit::fail"
+        "catalogue/kit::fail",
+        "coerce::number"
       ]
     },
     "IMPOWER": {

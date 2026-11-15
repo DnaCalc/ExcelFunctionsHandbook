@@ -302,7 +302,8 @@ def host_evidence(root, pin):
     """Comparisons made through host routes, kept separate from bank and workbook totals."""
     # These qualitative conclusions must be reviewed if their supporting tests or notes change.
     evidence_hashes = {
-        "crates/calc-func/tests/import_excel.rs": "494575200fb9f98d855bda081d32b104ef641f671219a0a273c6dfe31b5ba2cf",
+        # The added error-order test leaves the existing Excel fixture comparison intact.
+        "crates/calc-func/tests/import_excel.rs": "02cde3a62c297fb0f0d9c34d61ce61fddd3c229f3a706603b2f397a1a29c1e1f",
         "crates/calc-host/tests/fetch.rs": "ac24126a237011a30c63e2eb5261958fd5d5300582ab90df7045901778aa1f8c",
         "crates/calc-func/src/fetch.rs": "1d0056a7c98a519f90e944617c7fd0012fbdf5149b262f32f099c9e6831c0dd0",
         "docs/architecture/ONECALC_ADDINS.md": "9c07d8f5d231a38dd0e25523264fd5e1c47dedab73cf08ef69eec1e4f9191290",

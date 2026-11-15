@@ -3110,7 +3110,7 @@
     "end_line": 118,
     "name": "rejected_comma_number",
     "module": "value_text",
-    "users": 18,
+    "users": 20,
     "text": "/// A numeric-only comma followed by a three-digit number of at least 100 is neither a\n/// valid number under the recorded dot/NBSP separators nor a month, day, or Excel year.\n/// Excel 20527 controls cover several such forms; other punctuation stays undecided.\npub(crate) fn rejected_comma_number(units: &[u16], decimal: &str, group: &str) -> bool {\n    if decimal != \".\" || group != \"\\u{00a0}\" {\n        return false;\n    }\n    let Some(comma) = units.iter().position(|&u| u == u16::from(b',')) else {\n        return false;\n    };\n    comma > 0\n        && units.len() == comma + 4\n        && (u16::from(b'1')..=u16::from(b'9')).contains(&units[comma + 1])\n        && units[..comma].iter().chain(&units[comma + 1..]).all(|&u| (u16::from(b'0')..=u16::from(b'9')).contains(&u))\n}\n"
   },
   "value_text::rejected_comparison_number": {
@@ -3119,7 +3119,7 @@
     "end_line": 146,
     "name": "rejected_comparison_number",
     "module": "value_text",
-    "users": 18,
+    "users": 20,
     "text": "/// Comparison syntax followed by a plain ASCII number is not numeric text.\n/// Excel 20527 controls cover these operators with the recorded dot/NBSP separators.\npub(crate) fn rejected_comparison_number(units: &[u16], decimal: &str, group: &str) -> bool {\n    if decimal != \".\" || group != \"\\u{00a0}\" {\n        return false;\n    }\n    let mut chars = units\n        .iter()\n        .copied()\n        .skip_while(|&u| u == u16::from(b' '))\n        .peekable();\n    if !matches!(chars.next(), Some(0x3c | 0x3d | 0x3e)) {\n        return false;\n    }\n    if matches!(chars.peek(), Some(0x3c | 0x3d | 0x3e)) {\n        chars.next();\n    }\n    let mut digit = false;\n    for u in chars {\n        if (u16::from(b'0')..=u16::from(b'9')).contains(&u) {\n            digit = true;\n        } else if !matches!(u, 0x20 | 0x2b | 0x2d | 0x2e | 0x45 | 0x65) {\n            return false;\n        }\n    }\n    digit\n}\n"
   },
   "value_text::read": {
@@ -3146,7 +3146,7 @@
     "end_line": 415,
     "name": "decimal",
     "module": "value_text",
-    "users": 18,
+    "users": 20,
     "text": "/// The binary64 nearest `digits` (ASCII decimal digits) times 10^scale, its significant digits\n/// cut to 15; `None` when the value's decimal point lies outside -308..=308, as Excel's number\n/// text reading rejects it.\npub(crate) fn decimal(digits: &str, scale: i64) -> Option<f64> {\n    let trimmed = digits.trim_start_matches('0');\n    if trimmed.is_empty() {\n        return Some(0.0);\n    }\n    let kept = &trimmed[..trimmed.len().min(15)];\n    let dropped = (trimmed.len() - kept.len()) as i64;\n    let position = scale + trimmed.len() as i64;\n    if !(-308..=308).contains(&position) {\n        return None;\n    }\n    let n: f64 = format!(\"{kept}e{}\", scale + dropped).parse().ok()?;\n    Some(if n.is_subnormal() { 0.0 } else { n })\n}\n"
   },
   "value_text::fraction": {
@@ -7696,8 +7696,8 @@
   },
   "catalogue/cube_functions::cells": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 24,
-    "end_line": 32,
+    "start_line": 25,
+    "end_line": 33,
     "name": "cells",
     "module": "catalogue/cube_functions",
     "users": 7,
@@ -7705,8 +7705,8 @@
   },
   "catalogue/cube_functions::single": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 34,
-    "end_line": 42,
+    "start_line": 35,
+    "end_line": 43,
     "name": "single",
     "module": "catalogue/cube_functions",
     "users": 7,
@@ -7714,8 +7714,8 @@
   },
   "catalogue/cube_functions::model": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 44,
-    "end_line": 63,
+    "start_line": 45,
+    "end_line": 64,
     "name": "model",
     "module": "catalogue/cube_functions",
     "users": 6,
@@ -7723,35 +7723,62 @@
   },
   "catalogue/cube_functions::given": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 95,
-    "end_line": 99,
+    "start_line": 96,
+    "end_line": 100,
     "name": "given",
     "module": "catalogue/cube_functions",
     "users": 5,
     "text": "fn given(arguments: &[CalcValue], index: usize) -> bool {\n    arguments\n        .get(index)\n        .is_some_and(|value| !value.is_missing())\n}\n"
   },
+  "catalogue/cube_functions::is_single": {
+    "file": "crates/calc-func/src/catalogue/cube_functions.rs",
+    "start_line": 102,
+    "end_line": 108,
+    "name": "is_single",
+    "module": "catalogue/cube_functions",
+    "users": 5,
+    "text": "fn is_single(value: &CalcValue) -> bool {\n    match value.core_ref() {\n        CoreRef::Reference(reference) => matches!(reference.areas(), [area] if area.cell_count() == 1),\n        CoreRef::Array(array) => array.shape().rows == 1 && array.shape().cols == 1,\n        _ => true,\n    }\n}\n"
+  },
   "catalogue/cube_functions::early_errors": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 101,
-    "end_line": 133,
+    "start_line": 110,
+    "end_line": 139,
     "name": "early_errors",
     "module": "catalogue/cube_functions",
     "users": 5,
-    "text": "/// The scalar arguments Excel reads before looking up the connection differ\n/// between cube functions. The member/set expression itself can be deferred.\nfn early_errors(\n    site: &Site<'_>,\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n    indices: &[usize],\n) -> Step<()> {\n    let connection = single(site, arguments, 0, services)?;\n    if let CoreRef::Error(code) = connection.core_ref() {\n        return fail(code);\n    }\n    // Controls cover scalars and one-cell references. Keep the existing path\n    // for larger ranges and arrays until their argument order is measured.\n    for &index in indices {\n        let Some(value) = arguments.get(index) else { continue };\n        match value.core_ref() {\n            CoreRef::Reference(reference)\n                if !matches!(reference.areas(), [area] if area.cell_count() == 1) => return Ok(()),\n            CoreRef::Array(array) if array.shape().rows != 1 || array.shape().cols != 1 => return Ok(()),\n            _ => {}\n        }\n    }\n    for &index in indices {\n        if given(arguments, index) {\n            let value = single(site, arguments, index, services)?;\n            if let CoreRef::Error(code) = value.core_ref() {\n                return fail(code);\n            }\n        }\n    }\n    Ok(())\n}\n"
+    "text": "/// The scalar arguments Excel reads before looking up the connection differ\n/// between cube functions. The member/set expression itself can be deferred.\nfn early_errors(\n    site: &Site<'_>,\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n    indices: &[usize],\n) -> Step<()> {\n    let connection = single(site, arguments, 0, services)?;\n    if let CoreRef::Error(code) = connection.core_ref() {\n        return fail(code);\n    }\n    // Controls cover scalars and one-cell references. Keep the existing path\n    // for larger ranges and arrays until their argument order is measured.\n    for &index in indices {\n        let Some(value) = arguments.get(index) else { continue };\n        if !is_single(value) {\n            return Ok(());\n        }\n    }\n    for &index in indices {\n        if given(arguments, index) {\n            let value = single(site, arguments, index, services)?;\n            if let CoreRef::Error(code) = value.core_ref() {\n                return fail(code);\n            }\n        }\n    }\n    Ok(())\n}\n"
+  },
+  "catalogue/cube_functions::early_numeric_text": {
+    "file": "crates/calc-func/src/catalogue/cube_functions.rs",
+    "start_line": 141,
+    "end_line": 159,
+    "name": "early_numeric_text",
+    "module": "catalogue/cube_functions",
+    "users": 2,
+    "text": "/// Rank and KPI type are numeric arguments, validated before connection lookup.\n/// Reject only text the shared numeric readers have already proved invalid.\nfn early_numeric_text(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<()> {\n    if a.iter().take(3).any(|value| !is_single(value)) {\n        return Ok(());\n    }\n    let value = single(site, a, 2, sv)?;\n    if let CoreRef::Text(text) = value.core_ref() {\n        let invalid = matches!(coerce::number(&value), Err(Stop::Error(WorksheetErrorCode::Value)))\n            || site.number_separators().is_some_and(|(decimal, group)| {\n                crate::value_text::rejected_comma_number(text.utf16_code_units(), decimal, group)\n                    || crate::value_text::rejected_comparison_number(text.utf16_code_units(), decimal, group)\n            });\n        if invalid {\n            return fail(WorksheetErrorCode::Value);\n        }\n    }\n    Ok(())\n}\n"
+  },
+  "catalogue/cube_functions::early_final_error": {
+    "file": "crates/calc-func/src/catalogue/cube_functions.rs",
+    "start_line": 161,
+    "end_line": 189,
+    "name": "early_final_error",
+    "module": "catalogue/cube_functions",
+    "users": 3,
+    "text": "/// Excel reads the last scalar error after accepting the numeric argument,\n/// before it looks up the connection. Unreadable text and multi-cell cases\n/// remain on the existing path until their validation order has been measured.\nfn early_final_error(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n    numeric_index: usize,\n    final_index: usize,\n) -> Step<()> {\n    if !given(a, final_index) || a.iter().any(|value| !is_single(value)) {\n        return Ok(());\n    }\n    let number = single(site, a, numeric_index, sv)?;\n    let accepted = match number.core_ref() {\n        CoreRef::Number(n) => n.is_finite() && !number.is_excel_overflow(),\n        CoreRef::Logical(_) | CoreRef::Empty => true,\n        CoreRef::Text(_) => matches!(coerce::number(&number), Ok(Numeric::Decimal(decimal)) if decimal.nearest().is_ok()),\n        _ => false,\n    };\n    if !accepted {\n        return Ok(());\n    }\n    let value = single(site, a, final_index, sv)?;\n    if let CoreRef::Error(code) = value.core_ref() {\n        return fail(code);\n    }\n    Ok(())\n}\n"
   },
   "catalogue/cube_functions::cubekpimember": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 328,
-    "end_line": 335,
+    "start_line": 387,
+    "end_line": 396,
     "name": "cubekpimember",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cubekpimember(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[1, 2])?;\n    model(site, a, sv)?;\n    match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Text(_) => fail(WorksheetErrorCode::Value),\n        _ => fail(WorksheetErrorCode::NA),\n    }\n}\n"
+    "text": "fn cubekpimember(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[1, 2])?;\n    early_numeric_text(site, a, sv)?;\n    early_final_error(site, a, sv, 2, 3)?;\n    model(site, a, sv)?;\n    match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Text(_) => fail(WorksheetErrorCode::Value),\n        _ => fail(WorksheetErrorCode::NA),\n    }\n}\n"
   },
   "catalogue/cube_functions::entry::CUBEKPIMEMBER": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 346,
-    "end_line": 346,
+    "start_line": 407,
+    "end_line": 407,
     "name": "CUBEKPIMEMBER",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7759,8 +7786,8 @@
   },
   "catalogue/cube_functions::failed": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 13,
-    "end_line": 22,
+    "start_line": 14,
+    "end_line": 23,
     "name": "failed",
     "module": "catalogue/cube_functions",
     "users": 4,
@@ -7768,8 +7795,8 @@
   },
   "catalogue/cube_functions::text_value": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 65,
-    "end_line": 67,
+    "start_line": 66,
+    "end_line": 68,
     "name": "text_value",
     "module": "catalogue/cube_functions",
     "users": 3,
@@ -7777,8 +7804,8 @@
   },
   "catalogue/cube_functions::caption_text": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 69,
-    "end_line": 77,
+    "start_line": 70,
+    "end_line": 78,
     "name": "caption_text",
     "module": "catalogue/cube_functions",
     "users": 3,
@@ -7786,8 +7813,8 @@
   },
   "catalogue/cube_functions::held_value": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 79,
-    "end_line": 93,
+    "start_line": 80,
+    "end_line": 94,
     "name": "held_value",
     "module": "catalogue/cube_functions",
     "users": 3,
@@ -7795,8 +7822,8 @@
   },
   "catalogue/cube_functions::cubemember": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 135,
-    "end_line": 174,
+    "start_line": 191,
+    "end_line": 230,
     "name": "cubemember",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7804,8 +7831,8 @@
   },
   "catalogue/cube_functions::entry::CUBEMEMBER": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 340,
-    "end_line": 340,
+    "start_line": 401,
+    "end_line": 401,
     "name": "CUBEMEMBER",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7822,8 +7849,8 @@
   },
   "catalogue/cube_functions::cubememberproperty": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 318,
-    "end_line": 326,
+    "start_line": 377,
+    "end_line": 385,
     "name": "cubememberproperty",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7831,8 +7858,8 @@
   },
   "catalogue/cube_functions::entry::CUBEMEMBERPROPERTY": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 345,
-    "end_line": 345,
+    "start_line": 406,
+    "end_line": 406,
     "name": "CUBEMEMBERPROPERTY",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7840,17 +7867,17 @@
   },
   "catalogue/cube_functions::cuberankedmember": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 278,
-    "end_line": 316,
+    "start_line": 335,
+    "end_line": 375,
     "name": "cuberankedmember",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cuberankedmember(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[1, 2])?;\n    let model = model(site, a, sv)?;\n    let set = single(site, a, 1, sv)?;\n    let tuples = match (set.cube_value(), set.core_ref()) {\n        (Some(held), _) if held.set => model.held(held).or_else(|failure| failed(site, failure))?,\n        (None, CoreRef::Text(text)) => model\n            .set(&text.to_string_lossy())\n            .or_else(|failure| failed(site, failure))?,\n        _ => return fail(WorksheetErrorCode::NA),\n    };\n    let rank = match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Number(number) => number.trunc(),\n        CoreRef::Logical(logical) => f64::from(u8::from(logical)),\n        CoreRef::Text(text) => match text.to_string_lossy().trim().parse::<f64>() {\n            Ok(number) => number.trunc(),\n            Err(_) => return fail(WorksheetErrorCode::Value),\n        },\n        _ => return fail(WorksheetErrorCode::Value),\n    };\n    if rank < 1.0 || rank > tuples.len() as f64 {\n        return fail(WorksheetErrorCode::NA);\n    }\n    let tuple = tuples[rank as usize - 1].clone();\n    let shown = if given(a, 3) {\n        caption_text(&single(site, a, 3, sv)?).unwrap_or_default()\n    } else {\n        tuple\n            .last()\n            .map(|member| model.caption(member))\n            .unwrap_or_default()\n    };\n    let held = held_value(&model, &[tuple], false);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
+    "text": "fn cuberankedmember(\n    site: &Site<'_>,\n    a: &[CalcValue],\n    sv: &mut EvalServices<'_>,\n) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[1, 2])?;\n    early_numeric_text(site, a, sv)?;\n    early_final_error(site, a, sv, 2, 3)?;\n    let model = model(site, a, sv)?;\n    let set = single(site, a, 1, sv)?;\n    let tuples = match (set.cube_value(), set.core_ref()) {\n        (Some(held), _) if held.set => model.held(held).or_else(|failure| failed(site, failure))?,\n        (None, CoreRef::Text(text)) => model\n            .set(&text.to_string_lossy())\n            .or_else(|failure| failed(site, failure))?,\n        _ => return fail(WorksheetErrorCode::NA),\n    };\n    let rank = match single(site, a, 2, sv)?.core_ref() {\n        CoreRef::Number(number) => number.trunc(),\n        CoreRef::Logical(logical) => f64::from(u8::from(logical)),\n        CoreRef::Text(text) => match text.to_string_lossy().trim().parse::<f64>() {\n            Ok(number) => number.trunc(),\n            Err(_) => return fail(WorksheetErrorCode::Value),\n        },\n        _ => return fail(WorksheetErrorCode::Value),\n    };\n    if rank < 1.0 || rank > tuples.len() as f64 {\n        return fail(WorksheetErrorCode::NA);\n    }\n    let tuple = tuples[rank as usize - 1].clone();\n    let shown = if given(a, 3) {\n        caption_text(&single(site, a, 3, sv)?).unwrap_or_default()\n    } else {\n        tuple\n            .last()\n            .map(|member| model.caption(member))\n            .unwrap_or_default()\n    };\n    let held = held_value(&model, &[tuple], false);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
   },
   "catalogue/cube_functions::entry::CUBERANKEDMEMBER": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 344,
-    "end_line": 344,
+    "start_line": 405,
+    "end_line": 405,
     "name": "CUBERANKEDMEMBER",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7858,17 +7885,17 @@
   },
   "catalogue/cube_functions::cubeset": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 218,
-    "end_line": 264,
+    "start_line": 274,
+    "end_line": 321,
     "name": "cubeset",
     "module": "catalogue/cube_functions",
     "users": 1,
-    "text": "fn cubeset(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[2, 3])?;\n    let model = model(site, a, sv)?;\n    let mut tuples = Vec::new();\n    for cell in cells(site, a, 1, sv)? {\n        match (cell.cube_value(), cell.core_ref()) {\n            (Some(held), _) => {\n                tuples.extend(model.held(held).or_else(|failure| failed(site, failure))?);\n            }\n            (None, CoreRef::Text(text)) => tuples.extend(\n                model\n                    .set(&text.to_string_lossy())\n                    .or_else(|failure| failed(site, failure))?,\n            ),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    }\n    let order = if given(a, 3) {\n        match single(site, a, 3, sv)?.core_ref() {\n            CoreRef::Number(number) => number.trunc() as i64,\n            CoreRef::Logical(logical) => i64::from(logical),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    } else {\n        0\n    };\n    let sort_by = if given(a, 4) {\n        let value = single(site, a, 4, sv)?;\n        match (value.cube_value(), value.core_ref()) {\n            (Some(held), _) => held.tuples.first().and_then(|tuple| tuple.first()).cloned(),\n            (None, CoreRef::Text(text)) => Some(text.to_string_lossy()),\n            _ => None,\n        }\n    } else {\n        None\n    };\n    let ordered = model\n        .ordered(tuples, order, sort_by.as_deref())\n        .or_else(|failure| failed(site, failure))?;\n    let shown = if given(a, 2) {\n        caption_text(&single(site, a, 2, sv)?).unwrap_or_default()\n    } else {\n        String::new()\n    };\n    let held = held_value(&model, &ordered, true);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
+    "text": "fn cubeset(site: &Site<'_>, a: &[CalcValue], sv: &mut EvalServices<'_>) -> Step<CalcValue> {\n    early_errors(site, a, sv, &[2, 3])?;\n    early_final_error(site, a, sv, 3, 4)?;\n    let model = model(site, a, sv)?;\n    let mut tuples = Vec::new();\n    for cell in cells(site, a, 1, sv)? {\n        match (cell.cube_value(), cell.core_ref()) {\n            (Some(held), _) => {\n                tuples.extend(model.held(held).or_else(|failure| failed(site, failure))?);\n            }\n            (None, CoreRef::Text(text)) => tuples.extend(\n                model\n                    .set(&text.to_string_lossy())\n                    .or_else(|failure| failed(site, failure))?,\n            ),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    }\n    let order = if given(a, 3) {\n        match single(site, a, 3, sv)?.core_ref() {\n            CoreRef::Number(number) => number.trunc() as i64,\n            CoreRef::Logical(logical) => i64::from(logical),\n            _ => return fail(WorksheetErrorCode::NA),\n        }\n    } else {\n        0\n    };\n    let sort_by = if given(a, 4) {\n        let value = single(site, a, 4, sv)?;\n        match (value.cube_value(), value.core_ref()) {\n            (Some(held), _) => held.tuples.first().and_then(|tuple| tuple.first()).cloned(),\n            (None, CoreRef::Text(text)) => Some(text.to_string_lossy()),\n            _ => None,\n        }\n    } else {\n        None\n    };\n    let ordered = model\n        .ordered(tuples, order, sort_by.as_deref())\n        .or_else(|failure| failed(site, failure))?;\n    let shown = if given(a, 2) {\n        caption_text(&single(site, a, 2, sv)?).unwrap_or_default()\n    } else {\n        String::new()\n    };\n    let held = held_value(&model, &ordered, true);\n    Ok(CalcValue::cube(text_value(&shown), held))\n}\n"
   },
   "catalogue/cube_functions::entry::CUBESET": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 342,
-    "end_line": 342,
+    "start_line": 403,
+    "end_line": 403,
     "name": "CUBESET",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7876,8 +7903,8 @@
   },
   "catalogue/cube_functions::cubesetcount": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 266,
-    "end_line": 276,
+    "start_line": 323,
+    "end_line": 333,
     "name": "cubesetcount",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7885,8 +7912,8 @@
   },
   "catalogue/cube_functions::entry::CUBESETCOUNT": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 343,
-    "end_line": 343,
+    "start_line": 404,
+    "end_line": 404,
     "name": "CUBESETCOUNT",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7894,8 +7921,8 @@
   },
   "catalogue/cube_functions::value_argument": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 176,
-    "end_line": 196,
+    "start_line": 232,
+    "end_line": 252,
     "name": "value_argument",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7903,8 +7930,8 @@
   },
   "catalogue/cube_functions::cubevalue": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 198,
-    "end_line": 216,
+    "start_line": 254,
+    "end_line": 272,
     "name": "cubevalue",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -7912,8 +7939,8 @@
   },
   "catalogue/cube_functions::entry::CUBEVALUE": {
     "file": "crates/calc-func/src/catalogue/cube_functions.rs",
-    "start_line": 341,
-    "end_line": 341,
+    "start_line": 402,
+    "end_line": 402,
     "name": "CUBEVALUE",
     "module": "catalogue/cube_functions",
     "users": 1,
@@ -12203,23 +12230,41 @@
     "users": 1,
     "text": "44 imlog2 |s, a, sv| {\n    unary_complex(s, a, |z| {\n        let ln = z.ln()?;\n        let re = if z.im == 0.0 {\n            // Fn11's exact coefficient-bin bounds uniquely determine this binary64\n            // LN multiplier; independent normal and signed controls retain it.\n            crate::ported::excel_numeric::excel_x87_mul(\n                crate::ported::excel_numeric::excel_log(z.re.abs()),\n                f64::from_bits(0x3ff7_1547_652b_82ff),\n            )\n        } else {\n            ln.re / crt_log(2.0)\n        };\n        Ok(ParsedComplex::new(re, ln.im / crt_log(2.0), None))\n    })\n}\n"
   },
+  "catalogue/importing::no_route": {
+    "file": "crates/calc-func/src/catalogue/importing.rs",
+    "start_line": 13,
+    "end_line": 18,
+    "name": "no_route",
+    "module": "catalogue/importing",
+    "users": 2,
+    "text": "fn no_route(arguments: &[CalcValue], kind: ImportKind) -> Step<CalcValue> {\n    if let Some(answer) = crate::import::scalar_preflight(kind, arguments) {\n        return Ok(answer);\n    }\n    fail(WorksheetErrorCode::Value)\n}\n"
+  },
   "catalogue/importing::entry::IMPORTCSV": {
     "file": "crates/calc-func/src/catalogue/importing.rs",
-    "start_line": 14,
-    "end_line": 14,
+    "start_line": 23,
+    "end_line": 23,
     "name": "IMPORTCSV",
     "module": "catalogue/importing",
     "users": 1,
-    "text": "1 importcsv_fn |s, a, sv| { fail(WorksheetErrorCode::Value) }\n"
+    "text": "1 importcsv_fn |s, a, sv| { no_route(a, ImportKind::Csv) }\n"
+  },
+  "import::scalar_preflight": {
+    "file": "crates/calc-func/src/import.rs",
+    "start_line": 137,
+    "end_line": 172,
+    "name": "scalar_preflight",
+    "module": "import",
+    "users": 2,
+    "text": "/// Excel reads scalar error and numeric argument types in order before\n/// validating the path or the numeric options' permitted ranges. Unknown\n/// text and array cases stay on the existing argument-reading path.\npub(crate) fn scalar_preflight(kind: ImportKind, arguments: &[CalcValue]) -> Option<CalcValue> {\n    use crate::coerce::{self, Numeric, Stop as CoerceStop};\n    if arguments.iter().any(|value| matches!(value.core_ref(), CoreRef::Array(_) | CoreRef::Reference(_))) {\n        return None;\n    }\n    for (index, value) in arguments.iter().enumerate() {\n        if matches!(value.core_ref(), CoreRef::Error(_)) {\n            return Some(value.clone());\n        }\n        let numeric = match kind {\n            ImportKind::Csv => matches!(index, 1..=3),\n            ImportKind::Text => matches!(index, 2..=5),\n        };\n        if !numeric {\n            continue;\n        }\n        match value.core_ref() {\n            CoreRef::Number(number) if number.is_finite() && !value.is_excel_overflow() => {}\n            CoreRef::Logical(_) | CoreRef::Empty | CoreRef::Missing => {}\n            CoreRef::Text(_) => match coerce::number(value) {\n                Ok(Numeric::Decimal(decimal)) => match decimal.nearest() {\n                    Ok(_) => {}\n                    Err(CoerceStop::Error(WorksheetErrorCode::Value)) => return Some(CalcValue::error(WorksheetErrorCode::Value)),\n                    _ => return None,\n                },\n                Err(CoerceStop::Error(WorksheetErrorCode::Value)) => return Some(CalcValue::error(WorksheetErrorCode::Value)),\n                _ => return None,\n            },\n            _ => return None,\n        }\n    }\n    None\n}\n"
   },
   "catalogue/importing::entry::IMPORTTEXT": {
     "file": "crates/calc-func/src/catalogue/importing.rs",
-    "start_line": 15,
-    "end_line": 15,
+    "start_line": 24,
+    "end_line": 24,
     "name": "IMPORTTEXT",
     "module": "catalogue/importing",
     "users": 1,
-    "text": "2 importtext_fn |s, a, sv| { fail(WorksheetErrorCode::Value) }\n"
+    "text": "2 importtext_fn |s, a, sv| { no_route(a, ImportKind::Text) }\n"
   },
   "catalogue/engineering::entry::IMPOWER": {
     "file": "crates/calc-func/src/catalogue/engineering.rs",
