@@ -1,5 +1,5 @@
 {
-  "commit": "6b64272781b18db0c3e0b8bcb80df2b7cc163c92",
+  "commit": "ca54e716c02ad995d83016a51528d8dbaeccbb2d",
   "counts": {
     "absent": 1,
     "close": 39,
@@ -985,18 +985,18 @@
     "FUNC.BETADIST": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 117 of 4,681 recorded answers",
-      "detail": "Of 4,681 recorded answers (4,639 in the answer bank and 42 workbook cells), 117 do not match: 17 differ by more than 16 ULP, 100 differ by at most 16 ULP.",
+      "summary": "Known differences on 116 of 4,681 recorded answers",
+      "detail": "Of 4,681 recorded answers (4,639 in the answer bank and 42 workbook cells), 116 do not match: 16 differ by more than 16 ULP, 100 differ by at most 16 ULP.",
       "bank": {
         "rows": 4639,
-        "matched": 4532,
-        "worst_ulp": 468382554779545343,
+        "matched": 4533,
+        "worst_ulp": 322,
         "excel_builds": [
           "20131",
           "20527",
           "?"
         ],
-        "larger_numeric": 17,
+        "larger_numeric": 16,
         "last_bit": 90,
         "other_mismatch": 0,
         "refused": 0,
@@ -8886,18 +8886,18 @@
     "FUNC.MIRR": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 23 of 3,481 recorded answers",
-      "detail": "Of 3,481 recorded answers (3,475 in the answer bank and 6 workbook cells), 23 do not match: 1 differ by more than 16 ULP, 16 differ by at most 16 ULP, 6 differ in kind or value.",
+      "summary": "Known differences on 19 of 3,481 recorded answers",
+      "detail": "Of 3,481 recorded answers (3,475 in the answer bank and 6 workbook cells), 19 do not match: 1 differ by more than 16 ULP, 16 differ by at most 16 ULP, 2 differ in kind or value.",
       "bank": {
         "rows": 3475,
-        "matched": 3452,
+        "matched": 3456,
         "worst_ulp": 32,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 1,
         "last_bit": 16,
-        "other_mismatch": 6,
+        "other_mismatch": 2,
         "refused": 0,
         "excluded": 0,
         "unread": 0
@@ -9954,11 +9954,11 @@
     "FUNC.OFFSET": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 4,346 of 4,355 recorded answers",
-      "detail": "Of 4,355 recorded answers (4,345 in the answer bank and 10 workbook cells), 4,346 do not match: 4,345 are refused, 1 await a comparable workbook result.",
+      "summary": "Known differences on 4,143 of 4,355 recorded answers",
+      "detail": "Of 4,355 recorded answers (4,345 in the answer bank and 10 workbook cells), 4,143 do not match: 4,142 are refused, 1 await a comparable workbook result.",
       "bank": {
         "rows": 4345,
-        "matched": 0,
+        "matched": 203,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -9966,7 +9966,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 4345,
+        "refused": 4142,
         "excluded": 0,
         "unread": 0
       },
@@ -15136,46 +15136,39 @@
   },
   "stragglers": [
     {
-      "function": "BETADIST",
-      "worst_ulp": "468382554779545343",
-      "rows_open": "107",
-      "bead": "dc-uef6.1",
-      "what_was_tried": "tiny-shape plateau starts next float above 0.7 for alpha=2; forced existing recurrence plus asymptotic branch rejected; arithmetic unidentified; cumulative absorbed-shape NUM behavior fixes 30 rows; one NUM row outside region remains; integer recurrence underflow fixes final captured NUM row"
-    },
-    {
       "function": "BETA.INV",
       "worst_ulp": "1188129402768354",
       "rows_open": "281",
       "bead": "dc-iici",
-      "what_was_tried": "forward equals p on 26/128 general controls and 40/128 neighboring p controls at shapes 1,1; EXP(LN(p)) holds on 384 neighbors but fails 2/32 general shapes 1,1; solver not fitted; tiny-shape NUM boundary nonmonotone; reflection agrees on 119/128; double-loss and reflected-seed NUM regions fix 40 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified"
+      "what_was_tried": "forward equals p on 26/128 general controls and 40/128 neighboring p controls at shapes 1,1; EXP(LN(p)) holds on 384 neighbors but fails 2/32 general shapes 1,1; solver not fitted; tiny-shape NUM boundary nonmonotone; reflection agrees on 119/128; double-loss and reflected-seed NUM regions fix 40 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain"
     },
     {
       "function": "BETAINV",
       "worst_ulp": "764307040971430",
       "rows_open": "273",
       "bead": "dc-b0p4",
-      "what_was_tried": "tiny-shape NUM boundary is nonmonotone across p and shape; no solver fitted; double-loss and reflected-seed NUM regions fix 38 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified"
+      "what_was_tried": "tiny-shape NUM boundary is nonmonotone across p and shape; no solver fitted; double-loss and reflected-seed NUM regions fix 38 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain"
     },
     {
       "function": "GAMMAINV",
       "worst_ulp": "1788117888542",
       "rows_open": "631",
       "bead": "dc-g0qz",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "not yet attempted in fix3g; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally"
     },
     {
       "function": "GAMMA.INV",
       "worst_ulp": "1731866076314",
       "rows_open": "735",
       "bead": "dc-5pvg",
-      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls"
+      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally"
     },
     {
       "function": "TINV",
       "worst_ulp": "306433734",
       "rows_open": "171",
       "bead": "dc-09hz",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search"
     },
     {
       "function": "F.INV.RT",
@@ -15196,7 +15189,7 @@
       "worst_ulp": "1020905",
       "rows_open": "148",
       "bead": "dc-0qju",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search"
     },
     {
       "function": "FINV",
@@ -15210,7 +15203,7 @@
       "worst_ulp": "563902",
       "rows_open": "149",
       "bead": "dc-hyod",
-      "what_was_tried": "forward at Excel inverse equals p on 18/128 controls; solver not yet fitted"
+      "what_was_tried": "forward at Excel inverse equals p on 18/128 controls; solver not yet fitted; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search"
     },
     {
       "function": "CONFIDENCE.T",
@@ -15224,14 +15217,14 @@
       "worst_ulp": "22148",
       "rows_open": "274",
       "bead": "dc-88rm",
-      "what_was_tried": "forward at Excel inverse equals p on 10/128 controls; solver not yet fitted"
+      "what_was_tried": "forward at Excel inverse equals p on 10/128 controls; solver not yet fitted; unit-degree rational matches 128/128 saved neighbors at 0.5 but only 28/128 at 0.1 and 67/128 at 0.9; no general shortcut; direct public-beta transform matches only 64/128 near 0.1 and 67/128 near 0.9, so its staging is not a general fix"
     },
     {
       "function": "T.DIST",
       "worst_ulp": "9091",
       "rows_open": "252",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "not yet attempted in fix3g"
+      "what_was_tried": "saved extreme-tail controls: 11 of 23 differ from both probed public beta-coordinate forms; shared internal beta route not identified"
     },
     {
       "function": "LOGNORM.INV",
@@ -15272,8 +15265,8 @@
       "function": "MULTINOMIAL",
       "worst_ulp": "4672",
       "rows_open": "235",
-      "bead": "dc-ymjf.2",
-      "what_was_tried": "blank scalar references fixed, 2048 Excel controls agree; 235 numerical differences remain uninvestigated"
+      "bead": "dc-ymjf.2.142",
+      "what_was_tried": "blank scalar reference fixed; 123 single-argument numeric rows disagree with one; factorial-log and log-sum gamma normalizers both fail independent n=170 control; cause-specific bead filed"
     },
     {
       "function": "YIELD",
@@ -15357,7 +15350,7 @@
       "worst_ulp": "530",
       "rows_open": "633",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "large-df central term scales with df; probability correction roughly 1.0001551 times normal quantile times sqrt(2df); exact graph unidentified"
+      "what_was_tried": "large-df central term scales with df; probability correction roughly 1.0001551 times normal quantile times sqrt(2df); exact graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results"
     },
     {
       "function": "CHISQ.DIST.RT",
@@ -15365,6 +15358,13 @@
       "rows_open": "38",
       "bead": "dc-ymjf.2",
       "what_was_tried": "not yet attempted in fix3g"
+    },
+    {
+      "function": "BETADIST",
+      "worst_ulp": "322",
+      "rows_open": "106",
+      "bead": "dc-uef6.1",
+      "what_was_tried": "continued-fraction floor with exact reciprocal product fixes largest row; remaining worst rows use alpha=365 and an unidentified beta normalizer; rounded-down reciprocal remains open: applying the factor twice fixes 14 of 102 saved cases but loses 84"
     }
   ]
 }

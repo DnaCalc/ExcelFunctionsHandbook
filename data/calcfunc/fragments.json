@@ -4367,16 +4367,16 @@
   "ported/beta_gamma_stats_family::beta_dist_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
     "start_line": 61,
-    "end_line": 116,
+    "end_line": 132,
     "name": "beta_dist_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 8,
-    "text": "pub(crate) fn beta_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n    lower: f64,\n    upper: f64,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_beta_shape(alpha, beta, lower, upper)?;\n    if !x.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if x < lower || x > upper {\n        return Err(WorksheetErrorCode::Num);\n    }\n    let z = (x - lower) / (upper - lower);\n    if cumulative {\n        // Excel's continued-fraction arm returns NUM when the larger shape\n        // absorbs a smaller shape of at least 40, within this coordinate\n        // region. The adjacent shape and coordinate boundaries are measured.\n        if beta_absorbed_shape_error(alpha, beta, z) {\n            return Err(WorksheetErrorCode::Num);\n        }\n        // W109 lane-3 (2026-07-18, b30): Excel has NO integer-shape beta\n        // fast path — bratio scores integer shapes at the same wall rate as\n        // fractional (344/768 vs the binomial-sum shortcut's 254/768, and\n        // the shortcut loses the disagreement rows 177:87). Route all\n        // shapes through the identified BRATIO.\n        return Ok(regularized_beta(z, alpha, beta));\n    }\n    // Excel normalises from the lower endpoint, then divides its unit density\n    // by the width, with each operation stored through PC64 (dc-bc1o,\n    // statistical-density-scaling-2026-11-12.md). The CDF keeps its own route.\n    use crate::ported::excel_numeric::{excel_x87_div, excel_x87_sub};\n    let width = excel_x87_sub(upper, lower);\n    let unit_x = excel_x87_div(excel_x87_sub(x, lower), width);\n    if unit_x > 0.0 && unit_x < 1.0 {\n        if let Some(pdf) = crate::ported::discrete_dist::beta_density(unit_x, alpha, beta) {\n            let pdf = excel_x87_div(pdf, width);\n            return if pdf.is_finite() {\n                Ok(pdf)\n            } else {\n                Err(WorksheetErrorCode::Num)\n            };\n        }\n    }\n    let log_pdf = (alpha - 1.0) * crt_log(z) + (beta - 1.0) * crt_log(1.0 - z)\n        - beta_log_norm(alpha, beta)\n        - crt_log(upper - lower);\n    let pdf = crt_exp(log_pdf);\n    if pdf.is_finite() {\n        Ok(pdf)\n    } else {\n        Err(WorksheetErrorCode::Num)\n    }\n}\n"
+    "text": "pub(crate) fn beta_dist_kernel(\n    x: f64,\n    alpha: f64,\n    beta: f64,\n    cumulative: bool,\n    lower: f64,\n    upper: f64,\n) -> Result<f64, WorksheetErrorCode> {\n    validate_beta_shape(alpha, beta, lower, upper)?;\n    if !x.is_finite() {\n        return Err(WorksheetErrorCode::Value);\n    }\n    if x < lower || x > upper {\n        return Err(WorksheetErrorCode::Num);\n    }\n    let z = (x - lower) / (upper - lower);\n    if cumulative {\n        // In the measured tiny-second-shape continued-fraction region, the\n        // gamma tail's 1e-30 floor survives the twenty-step recurrence. Only\n        // use its stored exponential when z * (1 / z) is exactly one; the\n        // rounded-down cases need further work. The shape and beta limits\n        // bound this arm to the independent controls.\n        if lower == 0.0 && upper == 1.0 && z > 0.7 && z < 1.0\n            && (0.1..=15.0).contains(&alpha) && alpha != 1.0\n            && (f64::MIN_POSITIVE..=2.0_f64.powi(-180)).contains(&beta)\n        {\n            use crate::ported::excel_numeric::{excel_exp, excel_log, excel_x87_div, excel_x87_mul};\n            let nu = (alpha + 20.0) - 0.5;\n            let t = -excel_x87_mul(nu, excel_log(z));\n            if t >= 1.1 && excel_x87_mul(t, excel_x87_div(1.0, t)) == 1.0 {\n                return Ok(excel_x87_mul(1e-30, excel_exp(-t)));\n            }\n        }\n        // Excel's continued-fraction arm returns NUM when the larger shape\n        // absorbs a smaller shape of at least 40, within this coordinate\n        // region. The adjacent shape and coordinate boundaries are measured.\n        if beta_absorbed_shape_error(alpha, beta, z) {\n            return Err(WorksheetErrorCode::Num);\n        }\n        // W109 lane-3 (2026-07-18, b30): Excel has NO integer-shape beta\n        // fast path — bratio scores integer shapes at the same wall rate as\n        // fractional (344/768 vs the binomial-sum shortcut's 254/768, and\n        // the shortcut loses the disagreement rows 177:87). Route all\n        // shapes through the identified BRATIO.\n        return Ok(regularized_beta(z, alpha, beta));\n    }\n    // Excel normalises from the lower endpoint, then divides its unit density\n    // by the width, with each operation stored through PC64 (dc-bc1o,\n    // statistical-density-scaling-2026-11-12.md). The CDF keeps its own route.\n    use crate::ported::excel_numeric::{excel_x87_div, excel_x87_sub};\n    let width = excel_x87_sub(upper, lower);\n    let unit_x = excel_x87_div(excel_x87_sub(x, lower), width);\n    if unit_x > 0.0 && unit_x < 1.0 {\n        if let Some(pdf) = crate::ported::discrete_dist::beta_density(unit_x, alpha, beta) {\n            let pdf = excel_x87_div(pdf, width);\n            return if pdf.is_finite() {\n                Ok(pdf)\n            } else {\n                Err(WorksheetErrorCode::Num)\n            };\n        }\n    }\n    let log_pdf = (alpha - 1.0) * crt_log(z) + (beta - 1.0) * crt_log(1.0 - z)\n        - beta_log_norm(alpha, beta)\n        - crt_log(upper - lower);\n    let pdf = crt_exp(log_pdf);\n    if pdf.is_finite() {\n        Ok(pdf)\n    } else {\n        Err(WorksheetErrorCode::Num)\n    }\n}\n"
   },
   "ported/beta_gamma_stats_family::validate_gamma_shape": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 193,
-    "end_line": 201,
+    "start_line": 209,
+    "end_line": 217,
     "name": "validate_gamma_shape",
     "module": "ported/beta_gamma_stats_family",
     "users": 35,
@@ -4384,8 +4384,8 @@
   },
   "ported/beta_gamma_stats_family::gamma_dist_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 203,
-    "end_line": 266,
+    "start_line": 219,
+    "end_line": 282,
     "name": "gamma_dist_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 32,
@@ -5149,8 +5149,8 @@
   },
   "ported/beta_gamma_stats_family::beta_inverse_zero_density_seed": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 118,
-    "end_line": 155,
+    "start_line": 134,
+    "end_line": 171,
     "name": "beta_inverse_zero_density_seed",
     "module": "ported/beta_gamma_stats_family",
     "users": 6,
@@ -5158,8 +5158,8 @@
   },
   "ported/beta_gamma_stats_family::beta_inv_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 157,
-    "end_line": 186,
+    "start_line": 173,
+    "end_line": 202,
     "name": "beta_inv_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 6,
@@ -6139,8 +6139,8 @@
   },
   "ported/beta_gamma_stats_family::large_shape_inverse_unit": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 188,
-    "end_line": 191,
+    "start_line": 204,
+    "end_line": 207,
     "name": "large_shape_inverse_unit",
     "module": "ported/beta_gamma_stats_family",
     "users": 5,
@@ -6220,8 +6220,8 @@
   },
   "ported/beta_gamma_stats_family::gamma_inv_kernel": {
     "file": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
-    "start_line": 268,
-    "end_line": 366,
+    "start_line": 284,
+    "end_line": 382,
     "name": "gamma_inv_kernel",
     "module": "ported/beta_gamma_stats_family",
     "users": 3,
@@ -8290,8 +8290,8 @@
   },
   "ported/financial_time_value_family::end_payment_quotient": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 643,
-    "end_line": 663,
+    "start_line": 655,
+    "end_line": 675,
     "name": "end_payment_quotient",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8299,8 +8299,8 @@
   },
   "ported/financial_time_value_family::period_components": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 665,
-    "end_line": 682,
+    "start_line": 677,
+    "end_line": 694,
     "name": "period_components",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8308,8 +8308,8 @@
   },
   "ported/financial_time_value_family::end_payment_parts": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 684,
-    "end_line": 709,
+    "start_line": 696,
+    "end_line": 721,
     "name": "end_payment_parts",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8317,8 +8317,8 @@
   },
   "ported/financial_time_value_family::ipmt": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 711,
-    "end_line": 806,
+    "start_line": 723,
+    "end_line": 818,
     "name": "ipmt",
     "module": "ported/financial_time_value_family",
     "users": 4,
@@ -8326,8 +8326,8 @@
   },
   "ported/financial_time_value_family::ppmt": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 808,
-    "end_line": 874,
+    "start_line": 820,
+    "end_line": 886,
     "name": "ppmt",
     "module": "ported/financial_time_value_family",
     "users": 3,
@@ -8335,8 +8335,8 @@
   },
   "ported/financial_time_value_family::cumulative_principal": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 876,
-    "end_line": 913,
+    "start_line": 888,
+    "end_line": 925,
     "name": "cumulative_principal",
     "module": "ported/financial_time_value_family",
     "users": 2,
@@ -8344,8 +8344,8 @@
   },
   "ported/financial_time_value_family::discounted_payment_principal": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 915,
-    "end_line": 935,
+    "start_line": 927,
+    "end_line": 947,
     "name": "discounted_payment_principal",
     "module": "ported/financial_time_value_family",
     "users": 3,
@@ -9496,8 +9496,8 @@
   },
   "ported/financial_time_value_family::effect": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1156,
-    "end_line": 1195,
+    "start_line": 1172,
+    "end_line": 1211,
     "name": "effect",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -10801,8 +10801,8 @@
   },
   "ported/financial_time_value_family::fvschedule": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1029,
-    "end_line": 1041,
+    "start_line": 1045,
+    "end_line": 1057,
     "name": "fvschedule",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -13051,8 +13051,8 @@
   },
   "catalogue/offset::isomitted": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 279,
-    "end_line": 287,
+    "start_line": 291,
+    "end_line": 299,
     "name": "isomitted",
     "module": "catalogue/offset",
     "users": 1,
@@ -13096,8 +13096,8 @@
   },
   "ported/financial_time_value_family::ispmt": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 937,
-    "end_line": 960,
+    "start_line": 949,
+    "end_line": 972,
     "name": "ispmt",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -14060,29 +14060,29 @@
   "ported/financial_time_value_family::discounted_cashflows": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
     "start_line": 570,
-    "end_line": 594,
+    "end_line": 602,
     "name": "discounted_cashflows",
     "module": "ported/financial_time_value_family",
     "users": 2,
-    "text": "/// Stored discount terms shared by NPV and MIRR. The discount divisor and\n/// each quotient follow Excel's DAZ/FTZ stores; the running sum retains tiny\n/// cancellation residues. None advances time without discounting a flow.\nfn discounted_cashflows(\n    base: f64,\n    cashflows: impl Iterator<Item = Option<f64>>,\n) -> Result<(f64, f64), FinancialError> {\n    let mut power = 1.0;\n    let mut total = 0.0;\n    for cashflow in cashflows {\n        if let Some(cashflow) = cashflow {\n            let divisor = financial_daz(power);\n            if !divisor.is_finite() || divisor == 0.0 {\n                return Err(FinancialError::Div0);\n            }\n            let term = financial_daz(excel_x87_div(cashflow, divisor));\n            if !term.is_finite() {\n                return Err(FinancialError::Div0);\n            }\n            total = excel_x87_add(total, term);\n        }\n        power = excel_x87_mul(power, base);\n    }\n    Ok((total, power))\n}\n"
+    "text": "/// Stored discount terms shared by NPV and MIRR. The discount divisor and\n/// each quotient follow Excel's DAZ/FTZ stores; the running sum retains tiny\n/// cancellation residues. None advances time without discounting a flow.\nfn discounted_cashflows(\n    base: f64,\n    cashflows: impl Iterator<Item = Option<f64>>,\n    term_overflow: FinancialError,\n) -> Result<(f64, f64), FinancialError> {\n    let mut power = 1.0;\n    let mut total = 0.0;\n    let mut overflowed_term = false;\n    for cashflow in cashflows {\n        if let Some(cashflow) = cashflow {\n            let divisor = financial_daz(power);\n            if !divisor.is_finite() || divisor == 0.0 {\n                return Err(FinancialError::Div0);\n            }\n            let term = financial_daz(excel_x87_div(cashflow, divisor));\n            if !term.is_finite() {\n                if term_overflow == FinancialError::Div0 {\n                    return Err(term_overflow);\n                }\n                // MIRR gives a later unusable divisor precedence over an\n                // earlier overflowing positive term.\n                overflowed_term = true;\n            } else {\n                total = excel_x87_add(total, term);\n            }\n        }\n        power = excel_x87_mul(power, base);\n    }\n    if overflowed_term { Err(term_overflow) } else { Ok((total, power)) }\n}\n"
   },
   "ported/financial_time_value_family::discounted_npv": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 596,
-    "end_line": 607,
+    "start_line": 604,
+    "end_line": 619,
     "name": "discounted_npv",
     "module": "ported/financial_time_value_family",
     "users": 2,
-    "text": "fn discounted_npv(base: f64, cashflows: impl Iterator<Item = f64>) -> Result<f64, FinancialError> {\n    if base == 0.0 {\n        return Err(FinancialError::Div0);\n    }\n    let (total, _) = discounted_cashflows(base, cashflows.map(Some))?;\n    let result = financial_daz(excel_x87_div(total, base));\n    if result.is_finite() {\n        Ok(result)\n    } else {\n        Err(FinancialError::Num)\n    }\n}\n"
+    "text": "fn discounted_npv(\n    base: f64,\n    cashflows: impl Iterator<Item = f64>,\n    term_overflow: FinancialError,\n) -> Result<f64, FinancialError> {\n    if base == 0.0 {\n        return Err(FinancialError::Div0);\n    }\n    let (total, _) = discounted_cashflows(base, cashflows.map(Some), term_overflow)?;\n    let result = financial_daz(excel_x87_div(total, base));\n    if result.is_finite() {\n        Ok(result)\n    } else {\n        Err(FinancialError::Num)\n    }\n}\n"
   },
   "ported/financial_time_value_family::mirr": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 962,
-    "end_line": 1027,
+    "start_line": 974,
+    "end_line": 1043,
     "name": "mirr",
     "module": "ported/financial_time_value_family",
     "users": 1,
-    "text": "pub fn mirr(\n    cashflows: &[f64],\n    finance_rate: f64,\n    reinvest_rate: f64,\n) -> Result<f64, FinancialError> {\n    validate_finite(&[finance_rate, reinvest_rate])?;\n    validate_finite(cashflows)?;\n    if cashflows.len() < 2\n        || !cashflows.iter().any(|value| *value > 0.0)\n        || !cashflows.iter().any(|value| *value < 0.0)\n    {\n        return Err(FinancialError::Div0);\n    }\n    // Native Excel 20527: positive NPV is evaluated before finance discounts.\n    // It is compounded for the full cashflow count before division, not for\n    // nper after forming the ratio. The shared loop preserves NPV's stores.\n    let reinvest_base = excel_x87_add(1.0, reinvest_rate);\n    let positive_npv = discounted_npv(\n        reinvest_base,\n        cashflows\n            .iter()\n            .map(|value| if *value > 0.0 { *value } else { 0.0 }),\n    )?;\n    let finance_base = excel_x87_add(1.0, finance_rate);\n    let (finance_pv, terminal_power) = discounted_cashflows(\n        finance_base,\n        cashflows\n            .iter()\n            .map(|value| if *value < 0.0 { Some(*value) } else { None }),\n    )?;\n    // The finance stream also reports overflow of its unused terminal power.\n    // A zero base remains valid when every negative flow is at time zero.\n    if !finance_pv.is_finite() || !terminal_power.is_finite() {\n        return Err(FinancialError::Num);\n    }\n    let finance_pv = financial_daz(finance_pv);\n    if finance_pv == 0.0 {\n        return Err(FinancialError::Div0);\n    }\n    let growth = crt_pow(reinvest_base, cashflows.len() as f64);\n    let ratio = financial_daz(excel_x87_div(\n        excel_x87_mul(-positive_npv, growth),\n        finance_pv,\n    ));\n    let periods = cashflows.len() - 1;\n    let negative = ratio < 0.0;\n    if negative && periods % 2 == 0 {\n        return Err(FinancialError::Num);\n    }\n    let magnitude = ratio.abs();\n    // Degree-one identity and CRT half-power are measured private-root routes;\n    // higher degrees use the existing stored LN/reciprocal/EXP chain.\n    let root = if magnitude == 0.0 || periods == 1 {\n        magnitude\n    } else if periods == 2 {\n        crt_pow(magnitude, 0.5)\n    } else {\n        crate::ported::excel_numeric::excel_pow_chain(magnitude, excel_x87_div(1.0, periods as f64))\n    };\n    let result = excel_x87_sub(if negative { -root } else { root }, 1.0);\n    if result.is_finite() {\n        Ok(result)\n    } else {\n        Err(FinancialError::Num)\n    }\n}\n"
+    "text": "pub fn mirr(\n    cashflows: &[f64],\n    finance_rate: f64,\n    reinvest_rate: f64,\n) -> Result<f64, FinancialError> {\n    validate_finite(&[finance_rate, reinvest_rate])?;\n    validate_finite(cashflows)?;\n    if cashflows.len() < 2\n        || !cashflows.iter().any(|value| *value > 0.0)\n        || !cashflows.iter().any(|value| *value < 0.0)\n    {\n        return Err(FinancialError::Div0);\n    }\n    // Native Excel 20527: positive NPV is evaluated before finance discounts.\n    // It is compounded for the full cashflow count before division, not for\n    // nper after forming the ratio. The shared loop preserves NPV's stores.\n    let reinvest_base = excel_x87_add(1.0, reinvest_rate);\n    let positive_npv = discounted_npv(\n        reinvest_base,\n        cashflows\n            .iter()\n            .map(|value| if *value > 0.0 { *value } else { 0.0 }),\n        // Excel reports NUM for an overflowing positive term in MIRR;\n        // an unusable divisor still reports DIV/0, as it does in NPV.\n        FinancialError::Num,\n    )?;\n    let finance_base = excel_x87_add(1.0, finance_rate);\n    let (finance_pv, terminal_power) = discounted_cashflows(\n        finance_base,\n        cashflows\n            .iter()\n            .map(|value| if *value < 0.0 { Some(*value) } else { None }),\n        FinancialError::Div0,\n    )?;\n    // The finance stream also reports overflow of its unused terminal power.\n    // A zero base remains valid when every negative flow is at time zero.\n    if !finance_pv.is_finite() || !terminal_power.is_finite() {\n        return Err(FinancialError::Num);\n    }\n    let finance_pv = financial_daz(finance_pv);\n    if finance_pv == 0.0 {\n        return Err(FinancialError::Div0);\n    }\n    let growth = crt_pow(reinvest_base, cashflows.len() as f64);\n    let ratio = financial_daz(excel_x87_div(\n        excel_x87_mul(-positive_npv, growth),\n        finance_pv,\n    ));\n    let periods = cashflows.len() - 1;\n    let negative = ratio < 0.0;\n    if negative && periods % 2 == 0 {\n        return Err(FinancialError::Num);\n    }\n    let magnitude = ratio.abs();\n    // Degree-one identity and CRT half-power are measured private-root routes;\n    // higher degrees use the existing stored LN/reciprocal/EXP chain.\n    let root = if magnitude == 0.0 || periods == 1 {\n        magnitude\n    } else if periods == 2 {\n        crt_pow(magnitude, 0.5)\n    } else {\n        crate::ported::excel_numeric::excel_pow_chain(magnitude, excel_x87_div(1.0, periods as f64))\n    };\n    let result = excel_x87_sub(if negative { -root } else { root }, 1.0);\n    if result.is_finite() {\n        Ok(result)\n    } else {\n        Err(FinancialError::Num)\n    }\n}\n"
   },
   "catalogue/math::entry::MMULT": {
     "file": "crates/calc-func/src/catalogue/math.rs",
@@ -14554,8 +14554,8 @@
   },
   "ported/financial_time_value_family::nominal": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1128,
-    "end_line": 1154,
+    "start_line": 1144,
+    "end_line": 1170,
     "name": "nominal",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -14725,12 +14725,12 @@
   },
   "ported/financial_time_value_family::npv": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 609,
-    "end_line": 614,
+    "start_line": 621,
+    "end_line": 626,
     "name": "npv",
     "module": "ported/financial_time_value_family",
     "users": 1,
-    "text": "pub fn npv(periodic_rate: f64, cashflows: &[f64]) -> Result<f64, FinancialError> {\n    validate_finite(&[periodic_rate])?;\n    validate_finite(cashflows)?;\n    // Time-zero stored discounts, followed by one division by the stored base.\n    discounted_npv(excel_x87_add(1.0, periodic_rate), cashflows.iter().copied())\n}\n"
+    "text": "pub fn npv(periodic_rate: f64, cashflows: &[f64]) -> Result<f64, FinancialError> {\n    validate_finite(&[periodic_rate])?;\n    validate_finite(cashflows)?;\n    // Time-zero stored discounts, followed by one division by the stored base.\n    discounted_npv(excel_x87_add(1.0, periodic_rate), cashflows.iter().copied(), FinancialError::Div0)\n}\n"
   },
   "catalogue/text_format::numbervalue": {
     "file": "crates/calc-func/src/catalogue/text_format.rs",
@@ -15203,25 +15203,25 @@
   "catalogue/offset::offset": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
     "start_line": 68,
-    "end_line": 85,
+    "end_line": 88,
     "name": "offset",
     "module": "catalogue/offset",
     "users": 1,
-    "text": "fn offset(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    // dc-ylr: Excel gives OFFSET of a reference to a closed workbook #VALUE!.\n    let external = arguments[0].as_reference().is_some_and(|reference| {\n        reference.areas().iter().any(|area| {\n            services\n                .host()\n                .is_some_and(|host| host.is_external_sheet(area.sheet()))\n        })\n    });\n    let site = Site::new(OFFSET, services);\n    if external {\n        return Site::finish(Err(Exit::Error(WorksheetErrorCode::Value)));\n    }\n    Site::finish(shifted(&site, arguments))\n}\n"
+    "text": "fn offset(\n    arguments: &[CalcValue],\n    services: &mut EvalServices<'_>,\n) -> Result<CalcValue, FunctionFault> {\n    // dc-ylr: Excel gives OFFSET of a reference to a closed workbook #VALUE!.\n    let external = arguments[0].as_reference().is_some_and(|reference| {\n        reference.areas().iter().any(|area| {\n            services\n                .host()\n                .is_some_and(|host| host.is_external_sheet(area.sheet()))\n        })\n    });\n    let positions_known = !services\n        .cells()\n        .is_some_and(|reader| !reader.reference_positions_known());\n    let site = Site::new(OFFSET, services);\n    if external {\n        return Site::finish(Err(Exit::Error(WorksheetErrorCode::Value)));\n    }\n    Site::finish(shifted(&site, arguments, positions_known))\n}\n"
   },
   "catalogue/offset::shifted": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 87,
-    "end_line": 114,
+    "start_line": 90,
+    "end_line": 126,
     "name": "shifted",
     "module": "catalogue/offset",
     "users": 1,
-    "text": "fn shifted(site: &Site<'_>, arguments: &[CalcValue]) -> Step<CalcValue> {\n    site.scalar_operands(arguments)?;\n    let Some(reference) = arguments[0].as_reference() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let [base] = reference.areas() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let rows = whole(site, 1, &arguments[1])?;\n    let cols = whole(site, 2, &arguments[2])?;\n    let height = extent(site, 3, arguments.get(3), base.row_count())?;\n    let width = extent(site, 4, arguments.get(4), base.column_count())?;\n    let top = i64::from(base.first().row()) + rows;\n    let left = i64::from(base.first().column()) + cols;\n    let (top, bottom) = span(top, height);\n    let (left, right) = span(left, width);\n    let on_grid = |low: i64, high: i64, max: u32| low >= 1 && high <= i64::from(max);\n    if !on_grid(top, bottom, MAX_ROWS) || !on_grid(left, right, MAX_COLUMNS) {\n        return Err(Exit::Error(WorksheetErrorCode::Ref));\n    }\n    let sheet = base.sheet();\n    let corner = |row: i64, column: i64| {\n        CellKey::new(sheet, row as u32, column as u32).expect(\"checked on the grid\")\n    };\n    let area = GridArea::new(corner(top, left), corner(bottom, right))\n        .expect(\"both corners lie on one sheet\");\n    Ok(CalcValue::reference(ReferenceLike::area(area)))\n}\n"
+    "text": "fn shifted(site: &Site<'_>, arguments: &[CalcValue], positions_known: bool) -> Step<CalcValue> {\n    site.scalar_operands(arguments)?;\n    let Some(reference) = arguments[0].as_reference() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let [base] = reference.areas() else {\n        return Err(Exit::Error(WorksheetErrorCode::Value));\n    };\n    let rows = whole(site, 1, &arguments[1])?;\n    let cols = whole(site, 2, &arguments[2])?;\n    // A zero extent alone cannot determine the displayed result when the caller has not\n    // supplied the reference position and spill placement (for example, Excel can show #SPILL!).\n    let without_position = |exit| match exit {\n        Exit::Error(WorksheetErrorCode::Ref) if !positions_known => site.not_modelled(Some(0)),\n        other => other,\n    };\n    let height = extent(site, 3, arguments.get(3), base.row_count()).map_err(without_position)?;\n    let width = extent(site, 4, arguments.get(4), base.column_count()).map_err(without_position)?;\n    if !positions_known {\n        return Err(site.not_modelled(Some(0)));\n    }\n    let top = i64::from(base.first().row()) + rows;\n    let left = i64::from(base.first().column()) + cols;\n    let (top, bottom) = span(top, height);\n    let (left, right) = span(left, width);\n    let on_grid = |low: i64, high: i64, max: u32| low >= 1 && high <= i64::from(max);\n    if !on_grid(top, bottom, MAX_ROWS) || !on_grid(left, right, MAX_COLUMNS) {\n        return Err(Exit::Error(WorksheetErrorCode::Ref));\n    }\n    let sheet = base.sheet();\n    let corner = |row: i64, column: i64| {\n        CellKey::new(sheet, row as u32, column as u32).expect(\"checked on the grid\")\n    };\n    let area = GridArea::new(corner(top, left), corner(bottom, right))\n        .expect(\"both corners lie on one sheet\");\n    Ok(CalcValue::reference(ReferenceLike::area(area)))\n}\n"
   },
   "catalogue/offset::whole": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 116,
-    "end_line": 121,
+    "start_line": 128,
+    "end_line": 133,
     "name": "whole",
     "module": "catalogue/offset",
     "users": 1,
@@ -15229,8 +15229,8 @@
   },
   "catalogue/offset::extent": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 123,
-    "end_line": 134,
+    "start_line": 135,
+    "end_line": 146,
     "name": "extent",
     "module": "catalogue/offset",
     "users": 1,
@@ -15238,8 +15238,8 @@
   },
   "catalogue/offset::span": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 136,
-    "end_line": 144,
+    "start_line": 148,
+    "end_line": 156,
     "name": "span",
     "module": "catalogue/offset",
     "users": 2,
@@ -15355,8 +15355,8 @@
   },
   "ported/financial_time_value_family::pduration": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1043,
-    "end_line": 1063,
+    "start_line": 1059,
+    "end_line": 1079,
     "name": "pduration",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -16705,8 +16705,8 @@
   },
   "ported/financial_time_value_family::rri": {
     "file": "crates/calc-func/src/ported/financial_time_value_family.rs",
-    "start_line": 1065,
-    "end_line": 1126,
+    "start_line": 1081,
+    "end_line": 1142,
     "name": "rri",
     "module": "ported/financial_time_value_family",
     "users": 1,
@@ -18226,8 +18226,8 @@
   },
   "catalogue/offset::trimrange": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 146,
-    "end_line": 233,
+    "start_line": 158,
+    "end_line": 245,
     "name": "trimrange",
     "module": "catalogue/offset",
     "users": 1,
@@ -18235,8 +18235,8 @@
   },
   "catalogue/offset::trim_array": {
     "file": "crates/calc-func/src/catalogue/offset.rs",
-    "start_line": 235,
-    "end_line": 277,
+    "start_line": 247,
+    "end_line": 289,
     "name": "trim_array",
     "module": "catalogue/offset",
     "users": 1,
