@@ -1,12 +1,12 @@
 {
-  "commit": "d0198232e9192d56695be79b9d9a883998894777",
+  "commit": "91b1a0b107aa5bb4f7e1460af002108fa3a11dfb",
   "counts": {
     "absent": 1,
-    "close": 39,
+    "close": 38,
     "deferred": 9,
-    "differs": 138,
+    "differs": 132,
     "host": 0,
-    "matches": 367,
+    "matches": 374,
     "refuses": 0,
     "unmeasured": 0
   },
@@ -14,14 +14,15 @@
     "FUNC.ABS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,456 recorded answers",
-      "detail": "Recorded: 1,227 in the answer bank and 229 workbook cells.",
+      "summary": "Matches all 1,531 recorded answers",
+      "detail": "Recorded: 1,302 in the answer bank and 229 workbook cells.",
       "bank": {
-        "rows": 1227,
-        "matched": 1227,
+        "rows": 1302,
+        "matched": 1302,
         "worst_ulp": 0,
         "excel_builds": [
-          "20430"
+          "20430",
+          "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
@@ -438,13 +439,13 @@
       "code": "ARRAYTOTEXT"
     },
     "FUNC.ASC": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 2,081 of 2,105 recorded calls; the rest match",
-      "detail": "Of 2,105 recorded answers (2,090 in the answer bank and 15 workbook cells), 2,081 do not match: 2,081 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2,105 recorded answers",
+      "detail": "Recorded: 2,090 in the answer bank and 15 workbook cells.",
       "bank": {
         "rows": 2090,
-        "matched": 9,
+        "matched": 2090,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -452,7 +453,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 2081,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -725,11 +726,11 @@
     "FUNC.AVERAGEIFS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,393 recorded answers",
-      "detail": "Recorded: 1,380 in the answer bank and 13 workbook cells.",
+      "summary": "Matches all 1,413 recorded answers",
+      "detail": "Recorded: 1,400 in the answer bank and 13 workbook cells.",
       "bank": {
-        "rows": 1380,
-        "matched": 1380,
+        "rows": 1400,
+        "matched": 1400,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -1954,11 +1955,11 @@
     "FUNC.COLUMN": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 3,081 of 3,091 recorded answers",
-      "detail": "Of 3,091 recorded answers (3,080 in the answer bank and 11 workbook cells), 3,081 do not match: 3,080 are refused, 1 await a comparable workbook result.",
+      "summary": "Known differences on 1 of 3,091 recorded answers",
+      "detail": "Of 3,091 recorded answers (3,080 in the answer bank and 11 workbook cells), 1 do not match: 1 await a comparable workbook result.",
       "bank": {
         "rows": 3080,
-        "matched": 0,
+        "matched": 3080,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -1966,7 +1967,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 3080,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -3231,11 +3232,11 @@
     "FUNC.DATEVALUE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,205 recorded answers",
-      "detail": "Recorded: 2,188 in the answer bank and 17 workbook cells.",
+      "summary": "Matches all 2,280 recorded answers",
+      "detail": "Recorded: 2,263 in the answer bank and 17 workbook cells.",
       "bank": {
-        "rows": 2188,
-        "matched": 2188,
+        "rows": 2263,
+        "matched": 2263,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -3398,13 +3399,13 @@
       "code": "DB"
     },
     "FUNC.DBCS": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 2,092 of 2,118 recorded calls; the rest match",
-      "detail": "Of 2,118 recorded answers (2,101 in the answer bank and 17 workbook cells), 2,092 do not match: 2,092 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2,118 recorded answers",
+      "detail": "Recorded: 2,101 in the answer bank and 17 workbook cells.",
       "bank": {
         "rows": 2101,
-        "matched": 9,
+        "matched": 2101,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -3412,7 +3413,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 2092,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -3833,13 +3834,13 @@
       "code": "DMIN"
     },
     "FUNC.DOLLAR": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 1,569 of 2,034 recorded calls; the rest match",
-      "detail": "Of 2,034 recorded answers (2,022 in the answer bank and 12 workbook cells), 1,569 do not match: 1,569 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 2,188 recorded answers",
+      "detail": "Recorded: 2,176 in the answer bank and 12 workbook cells.",
       "bank": {
-        "rows": 2022,
-        "matched": 453,
+        "rows": 2176,
+        "matched": 2176,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -3847,7 +3848,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 1569,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -3976,11 +3977,11 @@
     "FUNC.DSTDEV": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 5,680 recorded answers",
-      "detail": "Recorded: 5,677 in the answer bank and 3 workbook cells.",
+      "summary": "Matches all 6,510 recorded answers",
+      "detail": "Recorded: 6,507 in the answer bank and 3 workbook cells.",
       "bank": {
-        "rows": 5677,
-        "matched": 5677,
+        "rows": 6507,
+        "matched": 6507,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -5119,13 +5120,13 @@
       "code": "FISHERINV"
     },
     "FUNC.FIXED": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 103 of 3,434 recorded calls; the rest match",
-      "detail": "Of 3,434 recorded answers (3,415 in the answer bank and 19 workbook cells), 103 do not match: 103 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 3,742 recorded answers",
+      "detail": "Recorded: 3,723 in the answer bank and 19 workbook cells.",
       "bank": {
-        "rows": 3415,
-        "matched": 3312,
+        "rows": 3723,
+        "matched": 3723,
         "worst_ulp": 0,
         "excel_builds": [
           "20430",
@@ -5134,7 +5135,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 103,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -5154,7 +5155,7 @@
       "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": {
         "rows": 1600,
-        "matched": 0,
+        "matched": 1600,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -5162,7 +5163,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 1600,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -5433,11 +5434,11 @@
     "FUNC.FORMULATEXT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 3,101 of 3,105 recorded answers",
-      "detail": "Of 3,105 recorded answers (3,100 in the answer bank and 5 workbook cells), 3,101 do not match: 3,100 are refused, 1 await a comparable workbook result.",
+      "summary": "Known differences on 1 of 3,105 recorded answers",
+      "detail": "Of 3,105 recorded answers (3,100 in the answer bank and 5 workbook cells), 1 do not match: 1 await a comparable workbook result.",
       "bank": {
         "rows": 3100,
-        "matched": 0,
+        "matched": 3100,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -5445,7 +5446,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 3100,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -5994,7 +5995,7 @@
       "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": {
         "rows": 2839,
-        "matched": 0,
+        "matched": 2839,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -6002,7 +6003,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 2839,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -6018,7 +6019,7 @@
       "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": {
         "rows": 4182,
-        "matched": 0,
+        "matched": 4182,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -6026,7 +6027,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 4182,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -6042,7 +6043,7 @@
       "detail": "Deferred: the catalogue declares this a lists-in-cells function (Insider Beta, workbook compatibility version 3), owned by dc-nk93. DNA Calc does not run it until lists in cells land.",
       "bank": {
         "rows": 2856,
-        "matched": 0,
+        "matched": 2856,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -6050,7 +6051,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 2856,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -6175,14 +6176,15 @@
     "FUNC.HOUR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 14,897 recorded answers",
-      "detail": "Recorded: 14,631 in the answer bank and 266 workbook cells.",
+      "summary": "Matches all 14,972 recorded answers",
+      "detail": "Recorded: 14,706 in the answer bank and 266 workbook cells.",
       "bank": {
-        "rows": 14631,
-        "matched": 14631,
+        "rows": 14706,
+        "matched": 14706,
         "worst_ulp": 0,
         "excel_builds": [
-          "20430"
+          "20430",
+          "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
@@ -7239,11 +7241,11 @@
     "FUNC.INDIRECT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 23 of 3,823 recorded answers",
-      "detail": "Of 3,823 recorded answers (3,644 in the answer bank and 179 workbook cells), 23 do not match: 21 are refused, 2 await a comparable workbook result.",
+      "summary": "Known differences on 2 of 3,823 recorded answers",
+      "detail": "Of 3,823 recorded answers (3,644 in the answer bank and 179 workbook cells), 2 do not match: 2 await a comparable workbook result.",
       "bank": {
         "rows": 3644,
-        "matched": 3623,
+        "matched": 3644,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -7251,7 +7253,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 21,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -7381,11 +7383,11 @@
     "FUNC.IPMT": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 9 of 4,612 recorded answers",
-      "detail": "Of 4,612 recorded answers (4,408 in the answer bank and 204 workbook cells), 9 do not match: 2 differ by more than 16 ULP, 7 differ by at most 16 ULP.",
+      "summary": "Known differences on 7 of 4,612 recorded answers",
+      "detail": "Of 4,612 recorded answers (4,408 in the answer bank and 204 workbook cells), 7 do not match: 2 differ by more than 16 ULP, 5 differ by at most 16 ULP.",
       "bank": {
         "rows": 4408,
-        "matched": 4399,
+        "matched": 4401,
         "worst_ulp": 2369,
         "excel_builds": [
           "20131",
@@ -7393,7 +7395,7 @@
           "?"
         ],
         "larger_numeric": 2,
-        "last_bit": 7,
+        "last_bit": 5,
         "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
@@ -7558,11 +7560,11 @@
     "FUNC.ISFORMULA": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 3,090 of 3,106 recorded answers",
-      "detail": "Of 3,106 recorded answers (3,089 in the answer bank and 17 workbook cells), 3,090 do not match: 3,089 are refused, 1 await a comparable workbook result.",
+      "summary": "Known differences on 1 of 3,106 recorded answers",
+      "detail": "Of 3,106 recorded answers (3,089 in the answer bank and 17 workbook cells), 1 do not match: 1 await a comparable workbook result.",
       "bank": {
         "rows": 3089,
-        "matched": 0,
+        "matched": 3089,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -7570,7 +7572,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 3089,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -7887,8 +7889,8 @@
       "summary": "Not in Excel: recorded Windows Excel does not have it",
       "detail": "The catalogue declares this entry absent on Windows: Excel 16.0 build 20527 gives #NAME? for it, the answer a missing name gets, and the kernel returns the same.",
       "bank": {
-        "rows": 3080,
-        "matched": 3080,
+        "rows": 3082,
+        "matched": 3082,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -8800,11 +8802,11 @@
     "FUNC.MINIFS": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 1,343 recorded answers",
-      "detail": "Recorded: 1,330 in the answer bank and 13 workbook cells.",
+      "summary": "Matches all 1,413 recorded answers",
+      "detail": "Recorded: 1,400 in the answer bank and 13 workbook cells.",
       "bank": {
-        "rows": 1330,
-        "matched": 1330,
+        "rows": 1400,
+        "matched": 1400,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -9698,13 +9700,13 @@
       "code": "NPV"
     },
     "FUNC.NUMBERVALUE": {
-      "state": "close",
-      "state_label": "Close: last-bit deviations remain",
-      "summary": "Close: 1 of 2,730 recorded answers differ in the last bits, worst 1 ULP",
-      "detail": "Everything else matches (2,715 in the answer bank and 15 workbook cells). Last-bit means a finite number within 16 ULP of Excel's.",
+      "state": "differs",
+      "state_label": "Known larger differences",
+      "summary": "Known differences on 2 of 2,850 recorded answers",
+      "detail": "Of 2,850 recorded answers (2,835 in the answer bank and 15 workbook cells), 2 do not match: 1 differ by at most 16 ULP, 1 differ in kind or value.",
       "bank": {
-        "rows": 2715,
-        "matched": 2714,
+        "rows": 2835,
+        "matched": 2834,
         "worst_ulp": 1,
         "excel_builds": [
           "20527"
@@ -9718,7 +9720,8 @@
       },
       "corpus": {
         "cells": 15,
-        "matched": 15,
+        "matched": 14,
+        "other_mismatch": 1,
         "worst_ulp": 0
       },
       "host_evidence": null,
@@ -10695,13 +10698,13 @@
       "code": "PHI"
     },
     "FUNC.PHONETIC": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 3,056 of 3,059 recorded calls; the rest match",
-      "detail": "Of 3,059 recorded answers (3,056 in the answer bank and 3 workbook cells), 3,056 do not match: 3,056 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 3,059 recorded answers",
+      "detail": "Recorded: 3,056 in the answer bank and 3 workbook cells.",
       "bank": {
         "rows": 3056,
-        "matched": 0,
+        "matched": 3056,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -10709,7 +10712,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 3056,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -12185,13 +12188,13 @@
       "code": "SERIESSUM"
     },
     "FUNC.SHEET": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 3,093 of 3,098 recorded calls; the rest match",
-      "detail": "Of 3,098 recorded answers (3,093 in the answer bank and 5 workbook cells), 3,093 do not match: 3,093 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 3,098 recorded answers",
+      "detail": "Recorded: 3,093 in the answer bank and 5 workbook cells.",
       "bank": {
         "rows": 3093,
-        "matched": 0,
+        "matched": 3093,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -12199,7 +12202,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 3093,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -12937,11 +12940,11 @@
     "FUNC.SUMIFS": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 1 of 1,412 recorded answers",
-      "detail": "Of 1,412 recorded answers (1,390 in the answer bank and 22 workbook cells), 1 do not match: 1 await a comparable workbook result.",
+      "summary": "Known differences on 1 of 1,422 recorded answers",
+      "detail": "Of 1,422 recorded answers (1,400 in the answer bank and 22 workbook cells), 1 do not match: 1 await a comparable workbook result.",
       "bank": {
-        "rows": 1390,
-        "matched": 1390,
+        "rows": 1400,
+        "matched": 1400,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -13280,17 +13283,17 @@
     "FUNC.T.INV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 149 of 4,191 recorded answers",
-      "detail": "Of 4,191 recorded answers (4,187 in the answer bank and 4 workbook cells), 149 do not match: 41 differ by more than 16 ULP, 108 differ by at most 16 ULP.",
+      "summary": "Known differences on 143 of 4,191 recorded answers",
+      "detail": "Of 4,191 recorded answers (4,187 in the answer bank and 4 workbook cells), 143 do not match: 41 differ by more than 16 ULP, 102 differ by at most 16 ULP.",
       "bank": {
         "rows": 4187,
-        "matched": 4038,
+        "matched": 4044,
         "worst_ulp": 563902,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 41,
-        "last_bit": 108,
+        "last_bit": 102,
         "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
@@ -13308,17 +13311,17 @@
     "FUNC.T.INV.2T": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 147 of 4,188 recorded answers",
-      "detail": "Of 4,188 recorded answers (4,184 in the answer bank and 4 workbook cells), 147 do not match: 41 differ by more than 16 ULP, 106 differ by at most 16 ULP.",
+      "summary": "Known differences on 141 of 4,188 recorded answers",
+      "detail": "Of 4,188 recorded answers (4,184 in the answer bank and 4 workbook cells), 141 do not match: 41 differ by more than 16 ULP, 100 differ by at most 16 ULP.",
       "bank": {
         "rows": 4184,
-        "matched": 4037,
+        "matched": 4043,
         "worst_ulp": 1020905,
         "excel_builds": [
           "20527"
         ],
         "larger_numeric": 41,
-        "last_bit": 106,
+        "last_bit": 100,
         "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
@@ -13563,13 +13566,13 @@
       "code": "TDIST"
     },
     "FUNC.TEXT": {
-      "state": "differs",
-      "state_label": "Known larger differences",
-      "summary": "Refuses 9 of 4,272 recorded calls; the rest match",
-      "detail": "Of 4,272 recorded answers (2,861 in the answer bank and 1,411 workbook cells), 9 do not match: 9 are refused.",
+      "state": "matches",
+      "state_label": "Matches every recorded Excel answer",
+      "summary": "Matches all 6,043 recorded answers",
+      "detail": "Recorded: 4,632 in the answer bank and 1,411 workbook cells.",
       "bank": {
-        "rows": 2861,
-        "matched": 2852,
+        "rows": 4632,
+        "matched": 4632,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -13577,7 +13580,7 @@
         "larger_numeric": 0,
         "last_bit": 0,
         "other_mismatch": 0,
-        "refused": 9,
+        "refused": 0,
         "excluded": 0,
         "unread": 0
       },
@@ -13734,11 +13737,11 @@
     "FUNC.TIMEVALUE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,126 recorded answers",
-      "detail": "Recorded: 2,114 in the answer bank and 12 workbook cells.",
+      "summary": "Matches all 2,201 recorded answers",
+      "detail": "Recorded: 2,189 in the answer bank and 12 workbook cells.",
       "bank": {
-        "rows": 2114,
-        "matched": 2114,
+        "rows": 2189,
+        "matched": 2189,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -13762,11 +13765,11 @@
     "FUNC.TINV": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 171 of 4,224 recorded answers",
-      "detail": "Of 4,224 recorded answers (4,220 in the answer bank and 4 workbook cells), 171 do not match: 60 differ by more than 16 ULP, 111 differ by at most 16 ULP.",
+      "summary": "Known differences on 166 of 4,224 recorded answers",
+      "detail": "Of 4,224 recorded answers (4,220 in the answer bank and 4 workbook cells), 166 do not match: 60 differ by more than 16 ULP, 106 differ by at most 16 ULP.",
       "bank": {
         "rows": 4220,
-        "matched": 4049,
+        "matched": 4054,
         "worst_ulp": 306433734,
         "excel_builds": [
           "20131",
@@ -13774,7 +13777,7 @@
           "?"
         ],
         "larger_numeric": 60,
-        "last_bit": 111,
+        "last_bit": 106,
         "other_mismatch": 0,
         "refused": 0,
         "excluded": 0,
@@ -14242,11 +14245,11 @@
     "FUNC.VALUE": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 2,170 recorded answers",
-      "detail": "Recorded: 2,101 in the answer bank and 69 workbook cells.",
+      "summary": "Matches all 2,245 recorded answers",
+      "detail": "Recorded: 2,176 in the answer bank and 69 workbook cells.",
       "bank": {
-        "rows": 2101,
-        "matched": 2101,
+        "rows": 2176,
+        "matched": 2176,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -14497,11 +14500,11 @@
     "FUNC.VLOOKUP": {
       "state": "differs",
       "state_label": "Known larger differences",
-      "summary": "Known differences on 1 of 3,430 recorded answers",
-      "detail": "Of 3,430 recorded answers (3,360 in the answer bank and 70 workbook cells), 1 do not match: 1 await a comparable workbook result.",
+      "summary": "Known differences on 1 of 3,750 recorded answers",
+      "detail": "Of 3,750 recorded answers (3,680 in the answer bank and 70 workbook cells), 1 do not match: 1 await a comparable workbook result.",
       "bank": {
-        "rows": 3360,
-        "matched": 3360,
+        "rows": 3680,
+        "matched": 3680,
         "worst_ulp": 0,
         "excel_builds": [
           "20527"
@@ -14936,14 +14939,15 @@
     "FUNC.YEAR": {
       "state": "matches",
       "state_label": "Matches every recorded Excel answer",
-      "summary": "Matches all 10,426 recorded answers",
-      "detail": "Recorded: 10,153 in the answer bank and 273 workbook cells.",
+      "summary": "Matches all 10,501 recorded answers",
+      "detail": "Recorded: 10,228 in the answer bank and 273 workbook cells.",
       "bank": {
-        "rows": 10153,
-        "matched": 10153,
+        "rows": 10228,
+        "matched": 10228,
         "worst_ulp": 0,
         "excel_builds": [
-          "20430"
+          "20430",
+          "20527"
         ],
         "larger_numeric": 0,
         "last_bit": 0,
@@ -15140,49 +15144,49 @@
       "worst_ulp": "1188129402768354",
       "rows_open": "265",
       "bead": "dc-iici",
-      "what_was_tried": "forward equals p on 26/128 general controls and 40/128 neighboring p controls at shapes 1,1; EXP(LN(p)) holds on 384 neighbors but fails 2/32 general shapes 1,1; solver not fitted; tiny-shape NUM boundary nonmonotone; reflection agrees on 119/128; double-loss and reflected-seed NUM regions fix 40 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain; retained inverse/forward residuals have both signs, 11/128 beta controls exceed four density-scaled output ULP; forward and solver error not separated; bracketed Newton with application forward visits Excel word in 97/128 controls but first exact visit precedes its stop in 66; 9 miss by >4 ULP, so stopping remains unknown; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 91/128 saved controls, strictly minimum in 59; fresh paired beta/gamma controls with second shape 2^20..2^300 show the mathematical gamma-scaling identity matched no Excel words in 64 sampled shape/probability pairs; some large shapes publish the reflected 1e-6 seed or NUM instead; A&S both-shapes-above-one seed reproduces 320/320 Excel inverse values using Excel normal and EXP leaves and 1024/1024 application holdout; wider integer/continuous controls expose 1/1024 mismatches each and a focused 2048 holdout 4 mismatches, from final x87 staging or EXP; no code landed; the A&S seed exactly matches the 312584982469279-ULP bank case when supplied Excel normal/EXP leaves, but application normal differs by 1 ULP; a 2049-point normal window shows discrepancies from -5 to +5 ULP and no constant correction; for small first and huge second shape the leading log-gamma power estimate reproduces the largest BETA.INV witness, but four Excel-leaf staging variants match at most 206/256 independent controls, with ten gross differences; no change; 192 fresh large-second-shape controls show EXP(LN(p)-LN(beta)) matches all 192 when alpha is exactly one and 189 when immediately below, but none when immediately above; the bank has no qualifying exact-one row and the adjacent-above seed still needs the Excel normal leaf; 891 fresh alpha-one/tiny-beta questions confirm scattered repeated finite-seed windows amid NUM results even at fixed beta; no threshold rule is supported; reflected tiny-second-shape NUM publication recovers 11 bank rows for this alias, with 2048 application-route independent alias calls matching; lower-half tiny-beta probe found 3 finite seed windows in 2048 points at beta=2^-200 and two midpoint results near the smallest normal beta, so a blanket NUM rule is unsafe; a wider reflected-error rule remains unsafe even for alpha above 100: a fresh alpha 295.8 control returns the finite upper bound; restricting that wider region to p>=0.75 and alpha>=100 still has four finite counterexamples in 2048 fresh cases; reflected large-second-shape absorption returns NUM across 7404 application-route alias controls, recovering 5 bank rows; beta > 2^1000 not measured; worst case follows early Newton iterates, global step and power thresholds refuted"
+      "what_was_tried": "forward equals p on 26/128 general controls and 40/128 neighboring p controls at shapes 1,1; EXP(LN(p)) holds on 384 neighbors but fails 2/32 general shapes 1,1; solver not fitted; tiny-shape NUM boundary nonmonotone; reflection agrees on 119/128; double-loss and reflected-seed NUM regions fix 40 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain; retained inverse/forward residuals have both signs, 11/128 beta controls exceed four density-scaled output ULP; forward and solver error not separated; bracketed Newton with application forward visits Excel word in 97/128 controls but first exact visit precedes its stop in 66; 9 miss by >4 ULP, so stopping remains unknown; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 91/128 saved controls, strictly minimum in 59; fresh paired beta/gamma controls with second shape 2^20..2^300 show the mathematical gamma-scaling identity matched no Excel words in 64 sampled shape/probability pairs; some large shapes publish the reflected 1e-6 seed or NUM instead; A&S both-shapes-above-one seed reproduces 320/320 Excel inverse values using Excel normal and EXP leaves and 1024/1024 application holdout; wider integer/continuous controls expose 1/1024 mismatches each and a focused 2048 holdout 4 mismatches, from final x87 staging or EXP; no code landed; the A&S seed exactly matches the 312584982469279-ULP bank case when supplied Excel normal/EXP leaves, but application normal differs by 1 ULP; a 2049-point normal window shows discrepancies from -5 to +5 ULP and no constant correction; for small first and huge second shape the leading log-gamma power estimate reproduces the largest BETA.INV witness, but four Excel-leaf staging variants match at most 206/256 independent controls, with ten gross differences; no change; 192 fresh large-second-shape controls show EXP(LN(p)-LN(beta)) matches all 192 when alpha is exactly one and 189 when immediately below, but none when immediately above; the bank has no qualifying exact-one row and the adjacent-above seed still needs the Excel normal leaf; 891 fresh alpha-one/tiny-beta questions confirm scattered repeated finite-seed windows amid NUM results even at fixed beta; no threshold rule is supported; reflected tiny-second-shape NUM publication recovers 11 bank rows for this alias, with 2048 application-route independent alias calls matching; lower-half tiny-beta probe found 3 finite seed windows in 2048 points at beta=2^-200 and two midpoint results near the smallest normal beta, so a blanket NUM rule is unsafe; a wider reflected-error rule remains unsafe even for alpha above 100: a fresh alpha 295.8 control returns the finite upper bound; restricting that wider region to p>=0.75 and alpha>=100 still has four finite counterexamples in 2048 fresh cases; reflected large-second-shape absorption returns NUM across 7404 application-route alias controls, recovering 5 bank rows; beta > 2^1000 not measured; worst case follows early Newton iterates, global step and power thresholds refuted; 880 fresh early-seed cases all have public beta CDF below target, excluding forward equality as the exit condition; both-shapes-above-one A&S seed with zero computed density reproduces two large bank discrepancies and loses no selected bank matches, but saved independent cases mostly saturate near one; three seed=1 controls disagree and no safe general rule is established"
     },
     {
       "function": "BETAINV",
       "worst_ulp": "764307040971430",
       "rows_open": "251",
       "bead": "dc-b0p4",
-      "what_was_tried": "tiny-shape NUM boundary is nonmonotone across p and shape; no solver fitted; double-loss and reflected-seed NUM regions fix 38 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain; fresh paired beta/gamma controls with second shape 2^20..2^300 show the mathematical gamma-scaling identity matched no Excel words in 64 sampled shape/probability pairs; some large shapes publish the reflected 1e-6 seed or NUM instead; A&S both-shapes-above-one seed reproduces 320/320 Excel inverse values using Excel normal and EXP leaves and 1024/1024 application holdout; wider integer/continuous controls expose 1/1024 mismatches each and a focused 2048 holdout 4 mismatches, from final x87 staging or EXP; no code landed; guarded large-second-shape A&S proposal gained one bank row in batch 50; general seed and solver remain open; for small first and huge second shape the leading log-gamma power estimate reproduces the largest BETA.INV witness, but four Excel-leaf staging variants match at most 206/256 independent controls, with ten gross differences; no change; reflected tiny-second-shape NUM publication recovers 11 bank rows for this alias, with 2048 application-route independent alias calls matching; conservative reflected-error extension gains two rows, with two independent 1024-input sets passing both aliases and a finite Excel counterexample outside the bound; lower-half tiny-beta probe found 3 finite seed windows in 2048 points at beta=2^-200 and two midpoint results near the smallest normal beta, so a blanket NUM rule is unsafe; a wider reflected-error rule remains unsafe even for alpha above 100: a fresh alpha 295.8 control returns the finite upper bound; restricting that wider region to p>=0.75 and alpha>=100 still has four finite counterexamples in 2048 fresh cases; reflected large-second-shape absorption returns NUM across 7404 application-route alias controls, recovering 8 bank rows; beta > 2^1000 not measured"
+      "what_was_tried": "tiny-shape NUM boundary is nonmonotone across p and shape; no solver fitted; double-loss and reflected-seed NUM regions fix 38 bank rows, midpoint counterexamples remain; p or beta scaled by 3 preserved 256/256 outcomes, 351-point period has interleaved NUM gaps; solver unidentified; separate unit-shape probes add four EXP(LN(p)) counterexamples below 0.5; matching unit-shape bank rows offer no gain; fresh paired beta/gamma controls with second shape 2^20..2^300 show the mathematical gamma-scaling identity matched no Excel words in 64 sampled shape/probability pairs; some large shapes publish the reflected 1e-6 seed or NUM instead; A&S both-shapes-above-one seed reproduces 320/320 Excel inverse values using Excel normal and EXP leaves and 1024/1024 application holdout; wider integer/continuous controls expose 1/1024 mismatches each and a focused 2048 holdout 4 mismatches, from final x87 staging or EXP; no code landed; guarded large-second-shape A&S proposal gained one bank row in batch 50; general seed and solver remain open; for small first and huge second shape the leading log-gamma power estimate reproduces the largest BETA.INV witness, but four Excel-leaf staging variants match at most 206/256 independent controls, with ten gross differences; no change; reflected tiny-second-shape NUM publication recovers 11 bank rows for this alias, with 2048 application-route independent alias calls matching; conservative reflected-error extension gains two rows, with two independent 1024-input sets passing both aliases and a finite Excel counterexample outside the bound; lower-half tiny-beta probe found 3 finite seed windows in 2048 points at beta=2^-200 and two midpoint results near the smallest normal beta, so a blanket NUM rule is unsafe; a wider reflected-error rule remains unsafe even for alpha above 100: a fresh alpha 295.8 control returns the finite upper bound; restricting that wider region to p>=0.75 and alpha>=100 still has four finite counterexamples in 2048 fresh cases; reflected large-second-shape absorption returns NUM across 7404 application-route alias controls, recovering 8 bank rows; beta > 2^1000 not measured; underflow power-seed probes yield NUM and finite floors in alpha-dependent windows; 1777 NUM and 271 finite in 2048 fresh small-alpha cases, no generic NUM rule; finite islands begin near reciprocal powers 1/9, 1/27, 1/81, with boundary shifts of several ULP; search not identified; upper-tail A&S seed passes 1318 recorded controls with the existing equivalence guard, but the remaining bank case fails that guard and relaxing it admits three independent 1-2 ULP errors; retained small-first-shape Excel controls refute eight log-gamma staging graphs and six exponentiate-then-divide graphs; seed publication and exact arithmetic remain unresolved"
     },
     {
       "function": "GAMMAINV",
       "worst_ulp": "1788117888542",
       "rows_open": "631",
       "bead": "dc-g0qz",
-      "what_was_tried": "not yet attempted in fix3g; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified; fresh shape powers 2^30..2^116 show at p=0.5 the same 1.0002658235505755 factor from 2^50, while p=0.1 and 0.9 retain a probability-dependent sqrt(shape) correction; no unsaturated stored graph established; 1024 arbitrary shapes at p=0.5 all match the stored saturation factor, but adding the observed normal-scaled correction matches only 250/1024 general controls, with errors up to 3 ULP; solver remains unknown; for alpha one-half, bisecting the independently identified ERF forward route matched only 28/256 Excel inverse words, so forward inversion alone is insufficient; large-shape correction scales with sqrt(shape), asymmetric residual remains; bounded shared quantile-step solver landed in batch 65; centered normal-quadratic model refuted by 1024 word constraints"
+      "what_was_tried": "not yet attempted in fix3g; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified; fresh shape powers 2^30..2^116 show at p=0.5 the same 1.0002658235505755 factor from 2^50, while p=0.1 and 0.9 retain a probability-dependent sqrt(shape) correction; no unsaturated stored graph established; 1024 arbitrary shapes at p=0.5 all match the stored saturation factor, but adding the observed normal-scaled correction matches only 250/1024 general controls, with errors up to 3 ULP; solver remains unknown; for alpha one-half, bisecting the independently identified ERF forward route matched only 28/256 Excel inverse words, so forward inversion alone is insufficient; large-shape correction scales with sqrt(shape), asymmetric residual remains; bounded shared quantile-step solver landed in batch 65; centered normal-quadratic model refuted by 1024 word constraints; offline paired-output shape: linear fit of the symmetric correction against squared normal quantile gives slope about 0.333 and intercept -0.327 at shape 2^46, versus slope 0.347 and intercept 0.009 at 2^50; quantized outputs and arithmetic order remain unresolved; a bounded low-shape three-word-step extrapolation reproduces the worst bank row but disagrees with 117 of 405 admitted fix3f controls and 20 of 60 admitted fix4 controls, so no change"
     },
     {
       "function": "GAMMA.INV",
       "worst_ulp": "1731866076314",
       "rows_open": "734",
       "bead": "dc-5pvg",
-      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 100/128 saved controls, strictly minimum in 35; fresh shape powers 2^30..2^116 show at p=0.5 the same 1.0002658235505755 factor from 2^50, while p=0.1 and 0.9 retain a probability-dependent sqrt(shape) correction; no unsaturated stored graph established; 1024 arbitrary shapes at p=0.5 all match the stored saturation factor, but adding the observed normal-scaled correction matches only 250/1024 general controls, with errors up to 3 ULP; solver remains unknown; fresh shape-one-half controls: squaring the public normal inverse matched 47/256 using the lower-tail coordinate and 34/256 using the upper coordinate, so that identity does not reproduce the stored gamma inverse; for alpha one-half, bisecting the independently identified ERF forward route matched only 28/256 Excel inverse words, so forward inversion alone is insufficient; fresh 1024-point small-shape grid confirms the NUM island has numeric holes, so no monotone error cutoff was landed; large-shape correction scales with sqrt(shape), asymmetric residual remains; bounded shared quantile-step solver landed in batch 65; centered normal-quadratic model refuted by 1024 word constraints"
+      "what_was_tried": "forward at Excel inverse equals p on 45/128 controls; solver not yet fitted; unit-scale multiplication agrees on 896 controls; saved shape-1e12 controls show probability correction about 1.0001551 times normal quantile times sqrt(shape); stored solver graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; stored lower-tail power seed matches 12/16 independent finite near-underflow cases, so cannot replace the solver generally; 4096 retained controls at shape 2^107..2^115 and p 0.01..0.99 match the existing x87 saturation formula, but neither alias has a valid-scale bank row in that shape range; mean and normal-seed bracketed Newton probes visit Excel words in 81/128 and 79/128, each >4 ULP off in 5; stopping unidentified; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 100/128 saved controls, strictly minimum in 35; fresh shape powers 2^30..2^116 show at p=0.5 the same 1.0002658235505755 factor from 2^50, while p=0.1 and 0.9 retain a probability-dependent sqrt(shape) correction; no unsaturated stored graph established; 1024 arbitrary shapes at p=0.5 all match the stored saturation factor, but adding the observed normal-scaled correction matches only 250/1024 general controls, with errors up to 3 ULP; solver remains unknown; fresh shape-one-half controls: squaring the public normal inverse matched 47/256 using the lower-tail coordinate and 34/256 using the upper coordinate, so that identity does not reproduce the stored gamma inverse; for alpha one-half, bisecting the independently identified ERF forward route matched only 28/256 Excel inverse words, so forward inversion alone is insufficient; fresh 1024-point small-shape grid confirms the NUM island has numeric holes, so no monotone error cutoff was landed; large-shape correction scales with sqrt(shape), asymmetric residual remains; bounded shared quantile-step solver landed in batch 65; centered normal-quadratic model refuted by 1024 word constraints; 512 small-shape controls refute public-log-gamma seed; adjacent p can share LN but differ in inverse, solver retains more information; offline paired-output shape: linear fit of the symmetric correction against squared normal quantile gives slope about 0.333 and intercept -0.327 at shape 2^46, versus slope 0.347 and intercept 0.009 at 2^50; quantized outputs and arithmetic order remain unresolved"
     },
     {
       "function": "TINV",
       "worst_ulp": "306433734",
-      "rows_open": "171",
+      "rows_open": "166",
       "bead": "dc-09hz",
-      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; 64 large-df paired Excel controls lie 30 below and 34 above first-order normal approximation, so asymptotic substitution is invalid; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut; at p=0.5 and large degrees, 52/53 sampled power-spaced Excel outputs follow the stored beta-inverse coordinate and transform, but only 820/1024 independent random-degree outputs do; a 1024-case analytic-coordinate probe has five counterexamples even when three simple coordinate formulas agree, so no correction landed; at worst row df 206686413, Excel returns beta coordinate 3feffffffed17bdc although its forward CDF residual is +1.0381e-8 and the adjacent lower coordinate has residual -4.2997e-10, excluding nearest-forward selection for this case; the mathematically reflected public beta coordinate agrees with Excel direct beta on 902/1024 and reproduces T on 750/1024, so reflection does not identify the private iterate"
+      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; 64 large-df paired Excel controls lie 30 below and 34 above first-order normal approximation, so asymptotic substitution is invalid; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut; at p=0.5 and large degrees, 52/53 sampled power-spaced Excel outputs follow the stored beta-inverse coordinate and transform, but only 820/1024 independent random-degree outputs do; a 1024-case analytic-coordinate probe has five counterexamples even when three simple coordinate formulas agree, so no correction landed; at worst row df 206686413, Excel returns beta coordinate 3feffffffed17bdc although its forward CDF residual is +1.0381e-8 and the adjacent lower coordinate has residual -4.2997e-10, excluding nearest-forward selection for this case; the mathematically reflected public beta coordinate agrees with Excel direct beta on 902/1024 and reproduces T on 750/1024, so reflection does not identify the private iterate; the A&S large-first/half-second initial beta proposal matches neither beta nor T on any of 1024 saved p=0.5 large-degree controls, so it cannot explain the worst row; 1024 saved p=0.5 controls compared with the two-term mathematical t expansion: 902 beta coordinates match, 116 are one word above and six two words above; discrepancies occur even far from rounding midpoints; the shared half-shape beta inverse now uses stored EXP(2*LN(p)) on the independently measured lower tail, gaining degree-two rows with no bank losses; other inverse discrepancies remain"
     },
     {
       "function": "F.INV.RT",
       "worst_ulp": "11518483",
       "rows_open": "259",
       "bead": "dc-vi7v",
-      "what_was_tried": "not yet attempted in fix3g; on 256 retained Excel inverse outputs, application forward at the returned word is above target in 106 cases, below in 117 and equal in 33; forward error versus Excel remains unresolved; 118 cases with degrees <=365 have median relative residual 2.51e-16, larger-degree controls 7.64e-14; second round: only 9/118 smaller-degree inverse outputs match; 57/138 larger-degree cases exceed 256 ULP; search and forward contributions remain unresolved; dc-vi7v note recorded; fresh degree-(2,2) controls reject the direct rational inverse: 140/256 F.INV and 151/256 right-tail alias words match; at degree one and large second degree, squaring Excel T.INV.2T matched just 1/232 finite fresh controls and squaring the normal inverse matched none; replacing p with Excel BETA.INV(p,1,1) improves the degree-(2,2) transform only to 157/256 and 162/256, so its internal staging remains unknown; for the same 232 large-degree controls, transforms of Excel public beta inverse matched only 0 or 7, depending on staging; exact-complement Excel F.INV and F.INV.RT agree on 684 discovery and 1024 holdout cases, but substituting the application F.INV loses 13 controls and does not identify the shared solver"
+      "what_was_tried": "not yet attempted in fix3g; on 256 retained Excel inverse outputs, application forward at the returned word is above target in 106 cases, below in 117 and equal in 33; forward error versus Excel remains unresolved; 118 cases with degrees <=365 have median relative residual 2.51e-16, larger-degree controls 7.64e-14; second round: only 9/118 smaller-degree inverse outputs match; 57/138 larger-degree cases exceed 256 ULP; search and forward contributions remain unresolved; dc-vi7v note recorded; fresh degree-(2,2) controls reject the direct rational inverse: 140/256 F.INV and 151/256 right-tail alias words match; at degree one and large second degree, squaring Excel T.INV.2T matched just 1/232 finite fresh controls and squaring the normal inverse matched none; replacing p with Excel BETA.INV(p,1,1) improves the degree-(2,2) transform only to 157/256 and 162/256, so its internal staging remains unknown; for the same 232 large-degree controls, transforms of Excel public beta inverse matched only 0 or 7, depending on staging; exact-complement Excel F.INV and F.INV.RT agree on 684 discovery and 1024 holdout cases, but substituting the application F.INV loses 13 controls and does not identify the shared solver; 114 saved degree-one controls with p<=0.5 have an inferred near-one beta coordinate exactly matching public Excel BETA.INV; their F results still differ by -23..23 F ULP from the exact coordinate transform, indicating unresolved final search or staging"
     },
     {
       "function": "T.INV.2T",
       "worst_ulp": "1020905",
-      "rows_open": "147",
+      "rows_open": "141",
       "bead": "dc-0qju",
-      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut; x87 PI product fixes one degree-one bank row in batch 51, 1024/1024 independent application controls match; general beta inverse remains open; the degree-two beta composition using the application beta inverse matches only 188/281 saved controls, so the public-Excel-leaf identity cannot be landed through this route; at p=0.5 and large degrees, 52/53 sampled power-spaced Excel outputs follow the stored beta-inverse coordinate and transform, but only 820/1024 independent random-degree outputs do; a 1024-case analytic-coordinate probe has five counterexamples even when three simple coordinate formulas agree, so no correction landed; the mathematically reflected public beta coordinate agrees with Excel direct beta on 902/1024 and reproduces T on 750/1024, so reflection does not identify the private iterate"
+      "what_was_tried": "not yet attempted in fix3g; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut; x87 PI product fixes one degree-one bank row in batch 51, 1024/1024 independent application controls match; general beta inverse remains open; the degree-two beta composition using the application beta inverse matches only 188/281 saved controls, so the public-Excel-leaf identity cannot be landed through this route; at p=0.5 and large degrees, 52/53 sampled power-spaced Excel outputs follow the stored beta-inverse coordinate and transform, but only 820/1024 independent random-degree outputs do; a 1024-case analytic-coordinate probe has five counterexamples even when three simple coordinate formulas agree, so no correction landed; the mathematically reflected public beta coordinate agrees with Excel direct beta on 902/1024 and reproduces T on 750/1024, so reflection does not identify the private iterate; the shared half-shape beta inverse now uses stored EXP(2*LN(p)) on the independently measured lower tail, gaining degree-two rows with no bank losses; other inverse discrepancies remain"
     },
     {
       "function": "FINV",
@@ -15194,9 +15198,9 @@
     {
       "function": "T.INV",
       "worst_ulp": "563902",
-      "rows_open": "149",
+      "rows_open": "143",
       "bead": "dc-hyod",
-      "what_was_tried": "forward at Excel inverse equals p on 18/128 controls; solver not yet fitted; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 50/128 saved controls, strictly minimum in none; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut"
+      "what_was_tried": "forward at Excel inverse equals p on 18/128 controls; solver not yet fitted; complementary internal beta route matches none of 240 saved large-degree p<=0.9 controls, so cannot replace direct inverse; 136 saved direct beta roots split between lower and upper brackets, with 10 outside the current bracket, so neither fixed endpoint solves the search; application-tail bracketed Newton visits 5/128 Excel T.INV words and misses >4 ULP in 94; forward error and coordinate transformation unresolved; Excel forward residual at inverse is tied for minimum among offsets -4,-2,-1,0,1,2,4 ULP in 50/128 saved controls, strictly minimum in none; fresh df=2 controls show public beta composition matches Excel 277/281 through p=0.9 and reflected composition 76/77 above; direct quadratic roots have counterexamples, so shared inverse remains open; for df=2, 43 controls have exact forward beta probability at the quadratic candidate but Excel publishes a different inverse word, refuting a forward-equality shortcut; the shared half-shape beta inverse now uses stored EXP(2*LN(p)) on the independently measured lower tail, gaining degree-two rows with no bank losses; other inverse discrepancies remain"
     },
     {
       "function": "CONFIDENCE.T",
@@ -15252,7 +15256,7 @@
       "worst_ulp": "5036",
       "rows_open": "81",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "deep-underflow bound fixed two errors; ten nonzero gamma-normalization errors and value differences remain; d1=1 T-density identity misses all eight independent nonzero Excel controls, dc-ymjf.2.117"
+      "what_was_tried": "deep-underflow bound fixed two errors; ten nonzero gamma-normalization errors and value differences remain; d1=1 T-density identity misses all eight independent nonzero Excel controls, dc-ymjf.2.117; public Excel log-gamma composition matches 1/384 finite-density controls, so overflow fix remains unresolved; internal half-integer binomial compositions match at most 2/384 odd-degree controls"
     },
     {
       "function": "MULTINOMIAL",
@@ -15271,23 +15275,23 @@
     {
       "function": "IPMT",
       "worst_ulp": "2369",
-      "rows_open": "9",
+      "rows_open": "7",
       "bead": "dc-jrnh",
-      "what_was_tried": "nper reassociation changes none of the nine open rows; unspilled product loses 5 of 472 independent controls and gains none; first-period identity disagrees with Excel; no change"
+      "what_was_tried": "nper reassociation changes none of the nine open rows; unspilled product loses 5 of 472 independent controls and gains none; first-period identity disagrees with Excel; no change; (nper+1)-period matched 512 fixed controls but independent 2048 yielded +754/-49, so no safe staging rule; tiny-negative reordering gains many controls but loses 5/4096 bounded-scale controls, so excluded; bounded first-period higher-rate order landed with 8187 independent readable eligible controls per function; next-up extension loses a PPMT control and is excluded"
     },
     {
       "function": "BINOMDIST",
       "worst_ulp": "2038",
       "rows_open": "42",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded; 1025 adjacent controls reveal dependence on original p beyond rounded complement"
+      "what_was_tried": "negative counts rejected before truncation in independent controls; numeric ULP cause not yet attempted; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded; 1025 adjacent controls reveal dependence on original p beyond rounded complement; normalized Excel tail/public mass differs across same-complement inputs, so a shared public-mass prefix is insufficient"
     },
     {
       "function": "NEGBINOM.DIST",
       "worst_ulp": "1955",
       "rows_open": "134",
       "bead": "dc-j9k.45",
-      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted; shared beta absorbed-shape NUM fixes 7 error rows, integer recurrence fixes the final captured NUM row; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded; seven bank discrepancies have one failure; p^s*(1+s*(1-p)) using Excel POWER matches only 98/384 independent controls"
+      "what_was_tried": "negative failures rejected before truncation on 2 x 256 controls; numeric ULP cause not yet attempted; shared beta absorbed-shape NUM fixes 7 error rows, integer recurrence fixes the final captured NUM row; 33 retained same-parameter cross-function captures agree, but large cumulative errors change sign versus 100-digit summation; simple application GAMMALN normalizer misses the large-shape scale; dc-j9k.45 note recorded; seven bank discrepancies have one failure; p^s*(1+s*(1-p)) using Excel POWER matches only 98/384 independent controls; one-failure EXP(LN) and zero-failure leaves with three staging orders match at most 134/384"
     },
     {
       "function": "TDIST",
@@ -15322,7 +15326,7 @@
       "worst_ulp": "745",
       "rows_open": "68",
       "bead": "dc-j9k.44.1",
-      "what_was_tried": "beta recurrence fixes 13/24 early-zero controls; 11 normal-edge cases remain"
+      "what_was_tried": "beta recurrence fixes 13/24 early-zero controls; 11 normal-edge cases remain; degree-one identity with public T.DIST.2T matches 768/1024, with 11 counterexamples even for rounded-exact square roots"
     },
     {
       "function": "BINOM.DIST",
@@ -15343,21 +15347,21 @@
       "worst_ulp": "530",
       "rows_open": "632",
       "bead": "dc-ymjf.2",
-      "what_was_tried": "large-df central term scales with df; probability correction roughly 1.0001551 times normal quantile times sqrt(2df); exact graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; low-degree shape shows normal-quantile correction plus finite offset; simple saturation misses 14/15 unresolved large-degree words and neighboring controls; no stored program established, dc-ymjf.2.48; routing all 15 large-degree error-to-number bank cases through the application GAMMA.INV composition matched none; Excel GAMMA.INV(1-p,df/2,2) equals both chi inverse aliases on 63 power-of-two controls, but GAMMA.DIST at the answers is already 1; normal-quantile slope is only approximate, no coefficient fitted; quantile-scaled factor steps predict 2045 controls, exact transition rounding open; bounded shared quantile-step solver landed in batch 65"
+      "what_was_tried": "large-df central term scales with df; probability correction roughly 1.0001551 times normal quantile times sqrt(2df); exact graph unidentified; six shared saved large-shape controls have CHIINV(1-p,2a) = 2*GAMMA.INV(p,a,1) with identical stored results; low-degree shape shows normal-quantile correction plus finite offset; simple saturation misses 14/15 unresolved large-degree words and neighboring controls; no stored program established, dc-ymjf.2.48; routing all 15 large-degree error-to-number bank cases through the application GAMMA.INV composition matched none; Excel GAMMA.INV(1-p,df/2,2) equals both chi inverse aliases on 63 power-of-two controls, but GAMMA.DIST at the answers is already 1; normal-quantile slope is only approximate, no coefficient fitted; quantile-scaled factor steps predict 2045 controls, exact transition rounding open; bounded shared quantile-step solver landed in batch 65; df-one near-one sqrt is Excel normal inverse or previous float on 1024 controls, but its public squared leaf matches only 301; exact private rounding remains open"
     },
     {
       "function": "CHISQ.DIST.RT",
       "worst_ulp": "347",
       "rows_open": "38",
       "bead": "dc-j9k.5",
-      "what_was_tried": "worst large-shape tail: Decimal exact sum shows application -240.492 ULP and Excel +106.508 ULP; rounded x/a shifts exponent +6.22e-14, but Excel staging unresolved"
+      "what_was_tried": "worst large-shape tail: Decimal exact sum shows application -240.492 ULP and Excel +106.508 ULP; rounded x/a shifts exponent +6.22e-14, but Excel staging unresolved; 327 adjacent pairs share stored ratio but Excel outputs differ; division-residual trial missed all 1025 controls and was removed"
     },
     {
       "function": "BETADIST",
       "worst_ulp": "322",
       "rows_open": "106",
       "bead": "dc-uef6.1",
-      "what_was_tried": "continued-fraction floor with exact reciprocal product fixes largest row; remaining worst rows use alpha=365 and an unidentified beta normalizer; rounded-down reciprocal remains open: applying the factor twice fixes 14 of 102 saved cases but loses 84; two captured large-alpha shape groups show x-dependent implied normalization up to 4.24e-15 and 7.30e-15; exponent staging unresolved; Excel-style power series with gamma-log plus stable gamma ratio matches both 257-point bank neighborhoods, but misses 575/1024 fresh alpha-365 controls and loses 4 existing matches; normalizer and series staging remain open"
+      "what_was_tried": "continued-fraction floor with exact reciprocal product fixes largest row; remaining worst rows use alpha=365 and an unidentified beta normalizer; rounded-down reciprocal remains open: applying the factor twice fixes 14 of 102 saved cases but loses 84; two captured large-alpha shape groups show x-dependent implied normalization up to 4.24e-15 and 7.30e-15; exponent staging unresolved; Excel-style power series with gamma-log plus stable gamma ratio matches both 257-point bank neighborhoods, but misses 575/1024 fresh alpha-365 controls and loses 4 existing matches; normalizer and series staging remain open; alpha-365 fresh small-x sample gains 467/1024 but matches only 470; fixed-beta sweeps reveal both normalizer offsets and unattainable series words; four larger-x regressions, no change"
     }
   ]
 }
