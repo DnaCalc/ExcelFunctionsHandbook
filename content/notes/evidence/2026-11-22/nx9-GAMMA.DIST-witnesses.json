@@ -1,0 +1,909 @@
+{
+  "format": "dnacalc-witness-set/1",
+  "function": "GAMMA.DIST",
+  "lane": "nx9",
+  "selection": "nx9 live Excel readings where our answer differed (79 distinct rows)",
+  "readings": [
+    {
+      "id": "r0",
+      "excel_build": "16.0.20527.20196",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "platform": "Windows",
+      "bitness": "64",
+      "lane": "nx9",
+      "timestamp": "2026-11-21T21:21:19Z",
+      "source": "nx9-asked_answers.jsonl#A_rexp_3way_gt015"
+    },
+    {
+      "id": "r1",
+      "excel_build": "16.0.20527.20196",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "platform": "Windows",
+      "bitness": "64",
+      "lane": "nx9",
+      "timestamp": "2026-11-21T21:21:19Z",
+      "source": "nx9-asked_answers.jsonl#B_rexp_poly_vs_expm1_le015"
+    },
+    {
+      "id": "r2",
+      "excel_build": "16.0.20527.20196",
+      "cpu": "AMD Ryzen 7 4800H with Radeon Graphics",
+      "platform": "Windows",
+      "bitness": "64",
+      "lane": "nx9",
+      "timestamp": "2026-11-21T21:21:19Z",
+      "source": "nx9-asked_answers.jsonl#C_a0875_zln2_consec"
+    }
+  ],
+  "witnesses": [
+    {
+      "id": "nx9-GAMMA.DIST-00001",
+      "reading": "r0",
+      "args": [
+        "0x3fdd166c5bfdb97f",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb7a0741afc88a"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00002",
+      "reading": "r0",
+      "args": [
+        "0x3fdd16c9b22d9ec9",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb7a4342d0744a"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00003",
+      "reading": "r0",
+      "args": [
+        "0x3fdd1727085d8414",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb7a7f43818cea"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00004",
+      "reading": "r0",
+      "args": [
+        "0x3fdd1acc663c78fb",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb7cd73274dc86"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00005",
+      "reading": "r0",
+      "args": [
+        "0x3fdd1f89c6ab1dc2",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb7fe2db2a24b0"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00006",
+      "reading": "r0",
+      "args": [
+        "0x3fd981bf5eb98f50",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdda6d365505484"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00007",
+      "reading": "r0",
+      "args": [
+        "0x3fd98228bb607a79",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdda71c099ad74a"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00008",
+      "reading": "r0",
+      "args": [
+        "0x3fd98573a097d3c6",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdda96110928a34"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00009",
+      "reading": "r0",
+      "args": [
+        "0x3fd987ebcc8156c0",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fddab14b5e3305e"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00010",
+      "reading": "r0",
+      "args": [
+        "0x3fd98855292841e9",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fddab5d4ec8177c"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00011",
+      "reading": "r0",
+      "args": [
+        "0x3fd537fd05ae4614",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdfabf2764e1986"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00012",
+      "reading": "r0",
+      "args": [
+        "0x3fd53b6afba80840",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdfae8af19a285e"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00013",
+      "reading": "r0",
+      "args": [
+        "0x3fd54246e79b8c97",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdfb3bb04bcb984"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00014",
+      "reading": "r0",
+      "args": [
+        "0x3fd54455ae649ab1",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdfb54935cb2e96"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00015",
+      "reading": "r0",
+      "args": [
+        "0x3fd5450545fcf4ba",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdfb5cdeac1cba2"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00016",
+      "reading": "r0",
+      "args": [
+        "0x3fc456ea8bb5f3e9",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe14fd8b778e555"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00017",
+      "reading": "r0",
+      "args": [
+        "0x3fc45f46ca18c9e1",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe152384538ad19"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00018",
+      "reading": "r0",
+      "args": [
+        "0x3fc48bdd6c27e9bb",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe15ed3b6a78441"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00019",
+      "reading": "r0",
+      "args": [
+        "0x3fc49c95e8ed95ad",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe16388778554a0"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00020",
+      "reading": "r0",
+      "args": [
+        "0x3fb033e3ab35ee1c",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe17cd1ce9c172a"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00021",
+      "reading": "r0",
+      "args": [
+        "0x3fb0494e25aa2f51",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe1824cf00e81fc"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00022",
+      "reading": "r0",
+      "args": [
+        "0x3fb065dc1e4530ee",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe18992af4f732e"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00023",
+      "reading": "r0",
+      "args": [
+        "0x3fb0e65afcfeb82e",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe1a9cf09eaf2f2"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00024",
+      "reading": "r0",
+      "args": [
+        "0x3fb1516f6143fe39",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe1c41499f898bc"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00025",
+      "reading": "r0",
+      "args": [
+        "0x3fdb6027b20e5663",
+        "0x3fea000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdc937973768456"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00026",
+      "reading": "r0",
+      "args": [
+        "0x3fdb607269bc6cd5",
+        "0x3fea000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdc93ab1a0cfd50"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00027",
+      "reading": "r0",
+      "args": [
+        "0x3fdb6107d91899ba",
+        "0x3fea000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdc940e663fd256"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00028",
+      "reading": "r0",
+      "args": [
+        "0x3fdb635d96894d4b",
+        "0x3fea000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdc959b8a04c784"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00029",
+      "reading": "r0",
+      "args": [
+        "0x3fdb69c95f7f3b1b",
+        "0x3fea000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdc99df40f916b4"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00030",
+      "reading": "r0",
+      "args": [
+        "0x3fbc307bf06dc5f7",
+        "0x3fd4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe179784ddbca59"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00031",
+      "reading": "r0",
+      "args": [
+        "0x3fbc5d1b5eafb8b9",
+        "0x3fd4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe181652f7a1c4d"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00032",
+      "reading": "r0",
+      "args": [
+        "0x3fbc69db350bb4f0",
+        "0x3fd4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe183a709a5e91c"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00033",
+      "reading": "r0",
+      "args": [
+        "0x3fbcc31a118f9a73",
+        "0x3fd4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe1935d81422ab0"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00034",
+      "reading": "r0",
+      "args": [
+        "0x3fbcdc99be4792e1",
+        "0x3fd4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe197d39e735b53"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00035",
+      "reading": "r0",
+      "args": [
+        "0x3f99ee50fc7acf39",
+        "0x3fc8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe15c21265bc862"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00036",
+      "reading": "r0",
+      "args": [
+        "0x3f9b7849f62aece6",
+        "0x3fc8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe18b6055be8684"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00037",
+      "reading": "r0",
+      "args": [
+        "0x3f9b928dc28bfff1",
+        "0x3fc8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe18e724aabbf77"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00038",
+      "reading": "r0",
+      "args": [
+        "0x3f9bacd18eed12fc",
+        "0x3fc8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe19181cc1cc732"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00039",
+      "reading": "r0",
+      "args": [
+        "0x3f9bc7155b4e2608",
+        "0x3fc8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe1948ede444d7f"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00040",
+      "reading": "r1",
+      "args": [
+        "0x3feaff590668f14f",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe41c791532cf68"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00041",
+      "reading": "r1",
+      "args": [
+        "0x3feb005b94341c8e",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe41ce1542c3444"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00042",
+      "reading": "r1",
+      "args": [
+        "0x3feb01df68e4dd6e",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe41d7dab8d39d2"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00043",
+      "reading": "r1",
+      "args": [
+        "0x3feb0af6650962a9",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe4212705761661"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00044",
+      "reading": "r1",
+      "args": [
+        "0x3fea3c8b59cd8561",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe5bc5dd1ae7f9d"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00045",
+      "reading": "r1",
+      "args": [
+        "0x3fea52ad5edef05f",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe5c4b66263a4ed"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00046",
+      "reading": "r1",
+      "args": [
+        "0x3fea533b0565c63f",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe5c4ebb3ba5588"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00047",
+      "reading": "r1",
+      "args": [
+        "0x3fea5456527371ff",
+        "0x3fe8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe5c55652cc92a5"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00048",
+      "reading": "r1",
+      "args": [
+        "0x3fe93c8fbac99a79",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe756fc3b96d107"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00049",
+      "reading": "r1",
+      "args": [
+        "0x3fe93e6ae95bc0c1",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe757a0c386725a"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00050",
+      "reading": "r1",
+      "args": [
+        "0x3fe9404617ede708",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe758453d6214d8"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00051",
+      "reading": "r1",
+      "args": [
+        "0x3fe9435e1036d180",
+        "0x3fe4000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe759573e8b6fe6"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00052",
+      "reading": "r1",
+      "args": [
+        "0x3fe583a2eb34c576",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fea48c7b9feca48"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00053",
+      "reading": "r1",
+      "args": [
+        "0x3fe5847e03757fe7",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fea490432599dca"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00054",
+      "reading": "r1",
+      "args": [
+        "0x3fe585591bb63a58",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fea4940a795adea"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00055",
+      "reading": "r1",
+      "args": [
+        "0x3fe58f9e3ebef7a8",
+        "0x3fd8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fea4c1533572b92"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00056",
+      "reading": "r1",
+      "args": [
+        "0x3fe1a5322966264a",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3feb85c1439d3742"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00057",
+      "reading": "r1",
+      "args": [
+        "0x3fe1ae06d821a598",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3feb87f1f37641bd"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00058",
+      "reading": "r1",
+      "args": [
+        "0x3fe1ba2b486374a3",
+        "0x3fd0000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3feb8af292ae2e79"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00059",
+      "reading": "r1",
+      "args": [
+        "0x3fdcfe169f94a8ea",
+        "0x3fc8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fec0776920b610b"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00060",
+      "reading": "r1",
+      "args": [
+        "0x3fdd03512b37e05c",
+        "0x3fc8000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fec081b3760b8c5"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00061",
+      "reading": "r1",
+      "args": [
+        "0x3feab3c3ccb5c0d3",
+        "0x3fea000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe4f2c67f9005b7"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00062",
+      "reading": "r1",
+      "args": [
+        "0x3fe6c4445917303b",
+        "0x3fdc000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe9972c5a5b2fae"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00063",
+      "reading": "r1",
+      "args": [
+        "0x3fe6c697e432750b",
+        "0x3fdc000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fe997db2d6788b9"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00064",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741a5",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b32e"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00065",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741a6",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b32e"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00066",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741a7",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b32e"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00067",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741a8",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b330"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00068",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741a9",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b330"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00069",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741aa",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b330"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00070",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741ab",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b332"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00071",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741ac",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b332"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00072",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741ad",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b334"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00073",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741ae",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b334"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00074",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741af",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b334"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00075",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741b0",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b334"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00076",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741b1",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b336"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00077",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741b2",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b336"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00078",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741b3",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b336"
+    },
+    {
+      "id": "nx9-GAMMA.DIST-00079",
+      "reading": "r2",
+      "args": [
+        "0x3fdcfbb031a741b4",
+        "0x3fec000000000000",
+        "0x3ff0000000000000",
+        true
+      ],
+      "expected_bits": "0x3fdb68d2a049b336"
+    }
+  ]
+}

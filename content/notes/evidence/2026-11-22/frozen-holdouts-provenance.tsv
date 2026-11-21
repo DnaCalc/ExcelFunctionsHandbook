@@ -1,0 +1,20 @@
+round	lane	file	rows	sha256	matched_asked	within_1u	baseline_matched	notes
+cb4	cb4	frozen_multinomial_cb4.jsonl	409	dd35f1b6b2f250a87bfb6feed225938a0c2a9dc3b4fd0797fed67c675b2c96f5	409/409	409/409	0/409	2-arg asym, frac/0, 3-6 args, x87_mul
+cb4	cb4	frozen_yield_cb4.jsonl	500	f3f6790843c44a781a137b0e0e6a26ba6f0e18f5e64e02c2cd32ff6191c57659	413/500	416/500	0/500	v1 before bases 2,3 T fix (492/500 post-hoc)
+cb4	cb4	frozen_yield_v2_cb4.jsonl	250	ebcfe40f7a2aab8546ed5913863e01ac9be1988b70e2fd47b93695cdc865b45a	244/250	245/250	0/250	100/100 on bases 1 and 3 with s_k rollover
+cb4	cb4	frozen_ets_cb4.jsonl	200	e6bf00f65592cfd1c9c56a939a6cb6f2bf0582ac59dff3c8a87fad127babfb8f	104/200	122/200	10/200	before nx3 sliding 2p MA and j=0 loop
+nx3	nx3	frozen_ets_pred.json	48	ec3543df9b480a387c0a0597dc225f083c9ee146304f18acb338edaa14e88ecf	32/48	-	1/48	48 unseen histories across p=2..6, n=5..22
+nx3	nx3	frozen_confint_frac_pred.json	40	6f523f28613ceb0e705ecc852aba37d759479bb77501e6be6ce66ef5eb58884b	33/40	-	16/40	fractional horizons h in (0,1) and h>1
+cb5	cb5	frozen_cb5_predictions.jsonl	750	9dd8f8f5b694013d0ba5691904e43c446377f1b15650cca62c81c81991e1ba7e	241/750	440/750	110/750	6 beta/caller slices across 14 functions
+cb5	cb5	frozen_cb5_f_gt099_v2.jsonl	100	fd940f8758a982bc6892519d519d5491e47ada750962f71e5dde215142fb552	59/100	78/100	0/100	excel_brcomp(b,a,y,x) on F.DIST.RT/FDIST/F.DIST
+nx4	nx4	frozen_nx4_predictions.jsonl	360	57699658f78d61b7358ae434b78b2aa4e2c791a02659f4dc6acdcc565abafb98	115/360	-	34/360	7 beta slices; s2 b<=1 tw20 57/120 vs master 14/120
+cb6	cb6	frozen_predictions.jsonl	500	ac6e3cea3279aac4004a3b349d2a1c432539490159e63f8325cb7655aca028bd	291/500	434/500	130/500	5 gamma/chi inv fns; 140/140 a==0.5 / df==1
+cb7	cb7	frozen_cb7_predictions.jsonl	800	d4c28377c9186756018d90412e7bae57a0c4e23f73f22e9378d862bd34d8cee4	461/800	602/800	79/800	10 forward+inv fns; 318/320 a>20 l>=1.3
+nx6	nx6	frozen_predictions_nx6.jsonl	300	85ce39074c70505817aff7e3931b0e67904e49a5c86d94b81f888fd565319cfd	252/300	-	27/300	60/60 half-int, 40/40 asymp, 20/20 a>20 GAMMA.INV
+cb8	cb8	frozen_cb8_predictions.jsonl	640	bd55c71f7e375c48957caa593ab0cdfff45ebcf9ab874622eeb42c6a79718503	599/640	620/640	-	560/560 across 6 forward functions (max 0 ULP)
+nx7	nx7	frozen_wh_cube_pred.jsonl	60	fb2f7609eec46828812b4fcbd9cefde80afccf1ed6672350d8781911482d571c	57/60	-	-	a<1 Wilson-Hilferty a*exp(3*ln(c)) + Halley stop
+nx7	nx7	frozen_nx7_proof2_pred.jsonl	205	e727a10fd112e427490480afd2dc14a60695e94dde0d94da67b9e64192a5919c	166/205	-	-	pm<=1.1 50/50, |next-x|<=eps*x 60/60, damp 51/65
+cb9	cb9	frozen_cb9_predictions.jsonl	600	6169c9da581e2fb16575cb566a6f4852562ee79ff31c0a785ca314a6c8d11f00	600/600	600/600	0/600	scored by nx8 on Excel 16.0.20527.20196
+cb9	cb9	frozen_cb9_binade4_discriminators.jsonl	32	8cd0fc3554d6ad7164ca94bf8450814aa451e47a0f06551bd3b23abff4322f1b	32/32	32/32	0/32	ceil(frexp_k / 3.3219) 32/32 vs log10(2) 0/32
+cb10	cb10	frozen_cb10_predictions.jsonl	240	3c6249bb80e9e466894c0c8591a50d62853fa6e0ac682112d0607f457465348c	114/240	-	108/240	scored by cb11 (iop=1 fm=12 114/240)
+cb11	cb11	frozen_cb11_predictions.jsonl	240	c01e307f7f86b11260bd2407f75146c2fcfe0b48b60315710167b58298cb0bea	141/240	-	105/240	unseen 6-slice holdout for iop=1 st200 and chisq
