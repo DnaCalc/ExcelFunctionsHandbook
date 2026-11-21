@@ -124,6 +124,52 @@ Evidence:
 - DnaCalc `.beads/issues.jsonl`, dc-6332.4 at `b8738ae6a6` — items 1 to 3: counts of the forms not taken
 - CalcFunc-Evidence `cache/oracle/build-20131/BETA.DIST.jsonl.gz`, BETA.DIST|0x3fee000000000000|0x4034733333333333|0x3fe8000000000000|0x3ff0000000000000 at `b4818a6a23` (readings)
 
+### FN-BETA.DIST-002: Incomplete beta has no basym arm, reflects bfrac prefactors above 0.99 using caller y, and unifies bup and bgrat
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to BETA.DIST, BETA.INV, BETADIST, BETAINV, BINOMDIST, CONFIDENCE.T, F.DIST, F.DIST.RT, FDIST, FINV, NEGBINOM.DIST, T.DIST, T.DIST.2T, T.DIST.RT, T.INV, T.INV.2T, TDIST, TINV.
+
+In Excel 16.0.20527, the incomplete-beta routine (bratio) removes TOMS 708's bratio_basym arm:
+all min(a0, b0) > 1.0, b0 >= 40.0 inputs stay on bratio_bfrac continuously across b = 100 and
+lambda = 0.03 * b (checked across 22 live bisection points). Inside bratio_bfrac, when x > 0.99
+(0x3fefae147ae147ae, strict >), Excel evaluates the density prefactor as excel_brcomp(b, a, y,
+x) using the caller's stored complement y rather than 1.0 - x (eliminating 53-bit cancellation
+in F.DIST.RT, FDIST, and F.DIST), while keeping lam = |a - (a + b) * x| on x. bratio_bup runs
+Excel's density-based stored-power recurrence for all n >= 2 (including bup_140's n = 20
+shift), using ((x * y) / a) * density with stored exp(m * ln(x)) and binary64 summation for b >
+1.0, and extended-precision x^m and summation for b <= 1.0 (plus excel_log(y) in
+beta_density_at for a < 1 || b < 1, x > 0.99). bratio_bgrat applies the 0.99 lnx switch to all
+b, evaluates seeded b == 0.5 via erf/erfc, b == 1.0 via exp(-z), and z >= 1.1 via
+excel_gamma_fraction(b, z).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `BETA.DIST(3.725290298461914e-09, 12.375, 37.62500000000001, TRUE)` | x `3.725290298461914e-09` (`0x3e30000000000000`); alpha `12.375` (`0x4028c00000000000`); beta `37.62500000000001` (`0x4042d00000000001`); cumulative `TRUE` (cells) | `6.820007249574363e-94` (`0x2c96c2fa9478a1b0`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `F.DIST.RT(1.0601920728089276, 144, 39536)` | x `1.0601920728089276` (`0x3ff0f68bf68315b0`); deg_freedom1 `137.0` (`0x4061200000000000`); deg_freedom2 `39532.0` (`0x40e34d8000000000`) (cells) | `0.2989163342678236` (`0x3fd32171f9fae994`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across cb5 (1,638 live Excel 16.0.20527 calls;
+frozen_cb5_f_gt099_v2.jsonl 59 of 100 vs 0 of 100, 99 of 100 within 5 ULP) and nx4
+(frozen_nx4_predictions.jsonl 115 of 360 vs 34 of 360). Landing nx4 moved 29 beta-family
+witness banks (168,767 rows) from 166,630 to 167,126 (+496 net, 0 full regressions: FDIST +206,
+BETA.DIST +116, BETADIST +24, CONFIDENCE.T 4,282/4,282, FINV pinned 32/32).
+
+Inferred, not measured: That Excel executes these branch rules and intermediate store sites is
+inferred from continuity probes, frozen holdouts, and witness-bank improvements; inner-loop
+rounding in bfrac and non-half bgrat remain open.
+
+- Open: bfrac inner-loop 1-8 ULP bound (dyadic 2-step (64, 128, 2^-10) is -2 ULP; dc-j9k.55).
+- Open: bgrat non-half +-6 ULP ceiling inherited from GAMMA.DIST(z, a < 1, 1, TRUE) (dc-j9k.55 / dc-j9k.59).
+- Open: Remaining bup 1-3 ULP residuals and ge8 ln B +-1 ULP (dc-j9k.55).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/special_math_common.rs`, bratio; bratio_bfrac; bratio_bup; bratio_bgrat at `5c2054b1b7` — Carbon cb5 beta arms and nx4 refinements
+- DnaCalc `crates/calc-func/src/ported/discrete_dist.rs`, beta_density_at at `5c2054b1b7` — x > 0.99 caller complement y in beta_density_at
+- CalcFunc-Evidence `readings/excel-20527/studies/cb5.json.gz` at `4ef2c244d7` — 1,635 live Excel cb5 study rows
+- CalcFunc-Evidence `readings/excel-20527/studies/nx4.json.gz` at `4ef2c244d7` — 360 frozen nx4 holdout rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb5; nx4 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/cb5.json.gz`, 294 at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx4.json.gz`, $[219] at `4ef2c244d7` (readings)
+
 <!-- efh:notes end -->
 
 ## Sources

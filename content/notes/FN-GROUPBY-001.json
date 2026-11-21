@@ -1,0 +1,104 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GROUPBY-001",
+  "functions": [
+    "FUNC.GROUPBY",
+    "FUNC.INDEX",
+    "FUNC.N",
+    "FUNC.PIVOTBY",
+    "FUNC.TYPE"
+  ],
+  "kind": "quirk",
+  "title": "GROUPBY and PIVOTBY hold an array returned by their LAMBDA inside its cell; INDEX boxes it unless computed, and N(boxed) is #VALUE!",
+  "statement": "Measured in Excel 16.0.20527 through COM (dc-h9u), when a GROUPBY or PIVOTBY callback LAMBDA returns an array, Excel keeps that array held inside its result cell rather than flattening or failing immediately: a cell spilling that held array shows #VALUE!, an operator over the result is #VALUE! in a dynamic-array formula (and takes the first element in a legacy formula), SUM/COUNT/COUNTA read across its elements, and MAX/MIN/AVERAGE/PRODUCT/SUMSQ give #N/A. INDEX(GROUPBY(...), 1, 2) returns a boxed array that displays its first element (so *10 multiplies the first element and TYPE gives 1, while SUM/ROWS/CONCAT read the whole array); however N(INDEX(GROUPBY(...), 1, 2)) returns #VALUE!, and omitting the column selector as INDEX(INDEX(GROUPBY(...), 0, 2), 1) leaves the inner array held (#VALUE!). When the group LAMBDA builds a computed array (for example LAMBDA(x, x+0), TRANSPOSE(x), or FILTER(x, x>0)), INDEX(GROUPBY(...), 1, 2) spills that array in a dynamic-array formula. In PIVOTBY with several value columns and one function, Total and column subtotal columns are blank; with several functions they carry values.",
+  "status": "measured",
+  "basis": "Read from Excel 16.0.20527 COM measurements recorded in DnaCalc commits ad40ea44 (about 160 dynamic-array and legacy grouping formulas), a61f6695 (15 PIVOTBY multi-field depth calls), d96d8cba (held_arrays explicit dynamic-formula tests), and 2,055 grouping rows in catalogue sheet dch9u_functions.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=INDEX(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,x)),1,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 618 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDEX(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,x)),2,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "4.0",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 620 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,x)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "4.0",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 615 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "d96d8cbaee75c0f7e7e343f4ede973bbe1ed834c",
+      "path": "crates/calc-host/tests/held_arrays.rs",
+      "locator": "dc_h9u__a_groupby_cell_holds_its_lambdas_array; dc_h9u__n_of_a_boxed_group_is_value_error; dc_h9u__index_of_a_computed_group_spills",
+      "note": "End-to-end dynamic-array Excel 16.0.20527 expectations (gp1)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "ad40ea44de98ad44e4cd0f790bb11b2b4acfab32",
+      "path": "crates/calc-func/src/catalogue/grouping.rs",
+      "locator": null,
+      "note": "GROUPBY/PIVOTBY boxed/held array semantics and PIVOTBY multi-value subtotals"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+      "locator": "rows 585 to 630",
+      "note": "Captured Excel 16.0.20527.20088 catalogue observations"
+    }
+  ],
+  "open": [
+    "Worksheet entry, save, and unmeasured held-array call shapes for GROUPBY/PIVOTBY are tracked in dc-h9u.2."
+  ],
+  "recorded_on": "2026-11-22"
+}

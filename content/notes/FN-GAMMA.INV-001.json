@@ -1,0 +1,227 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GAMMA.INV-001",
+  "functions": [
+    "FUNC.CHIINV",
+    "FUNC.CHISQ.INV",
+    "FUNC.CHISQ.INV.RT",
+    "FUNC.GAMMA.INV",
+    "FUNC.GAMMAINV"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Gamma and chi-square inverses use erfinv(p)^2 at a=0.5, Goldstein 451 for a > 1, a 0.9999 complement switch, and damped Halley",
+  "statement": "In Excel 16.0.20527, the five gamma and chi-square inverse functions share one unit solver plus closed forms. At alpha == 0.5 (df == 1), Excel computes erfinv(p)^2 directly using the exact same four-piece rational/AS 241 tables as NORM.S.INV (omitting sqrt(2) on the central pieces and scaling the AS 241 tail by 1/sqrt(2)), flushing subnormal y*y to 0.0 inside the unit helper before multiplying by beta or 2.0. For general shapes, a > 1.0 starts from Goldstein (1973, CACM Algorithm 451) 7-term stored polynomial a * ((c * c) * c) (with z = -NORM.S.INV(q) on right-tail CHIINV/CHISQ.INV.RT for df >= 3 so tiny q never collapses 1 - q to 1.0); a < 1.0 uses AS 91 -1.24 * ln(p) power-law or Wilson-Hilferty with a * exp(3 * ln(c)). Above strict prob > 0.9999 (0x3fefff2e48e8a71e), the Halley residual switches to the upper/lower complement (comp(prob) - flush(Q) or flush(P) - comp(prob)). The unfactored Halley step uses AS 109 thirding damping on sign changes, a 106-trial budget, and stops on |next - x| <= eps * x (returning best_x by strict < on |df| without evaluating next) or |last_adj| >= step_limit && !improved. Remaining >= 5 ULP misses on GAMMA.INV/GAMMAINV sit almost exclusively in a < 1, y < 1.1 where conditioning ~ 1/a magnifies forward gratio offsets. See https://github.com/DnaCalc/DnaCalc/blob/344d70dcea3ea77cbbeee1595f96694630a9610a/docs/articles/last-bit-gamma.md and https://github.com/DnaCalc/DnaCalc/blob/18828c4446e1375dd58ab855ea87c09d649b2e67/docs/articles/last-bit-normsinv.md.",
+  "status": "inferred",
+  "basis": "Measured across cb6 (140 of 140 on a==0.5 / df==1 frozen holdout; 291 of 500 overall), nx6 (20 of 20 on a > 20 GAMMA.INV), and nx7 (30 of 30 on |next - x| <= eps*x, 57 of 60 on a*exp(3*ln(c)) + stop rule, 51 of 65 on damping stop). Across the 5 inverse witness banks (20,160 rows before nx9 expansions), nx5..nx7 raised exact matches from 17,712 to 19,430 (CHIINV 4,290/4,293 worst 2 ULP, CHISQ.INV 2,900/2,903 worst 2 ULP, CHISQ.INV.RT 4,190/4,191 worst 2 ULP).",
+  "inferred": "The internal loop structure and exact stopping predicates are inferred from prospective frozen holdouts and bisection across the 0.9999 and a=1.0 thresholds.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "CHIINV(0.9999, 2000)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "0.9999",
+            "bits": "0x3fefff2e48e8a71e"
+          }
+        },
+        {
+          "name": "deg_freedom",
+          "value": {
+            "kind": "number",
+            "display": "2000.0",
+            "bits": "0x409f400000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1773.2965228301468",
+        "bits": "0x409bb52fa3ae47fe"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/nx5.json.gz",
+        "locator": "$[55]",
+        "note": null
+      }
+    },
+    {
+      "call": "CHIINV(0.9999000000000001, 2000)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "0.9999000000000001",
+            "bits": "0x3fefff2e48e8a71f"
+          }
+        },
+        {
+          "name": "deg_freedom",
+          "value": {
+            "kind": "number",
+            "display": "2000.0",
+            "bits": "0x409f400000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1773.2965228301393",
+        "bits": "0x409bb52fa3ae47dd"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/nx5.json.gz",
+        "locator": "$[56]",
+        "note": null
+      }
+    },
+    {
+      "call": "CHIINV(1e-44, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        },
+        {
+          "name": "deg_freedom",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb6.json.gz",
+        "locator": "$[296]",
+        "note": null
+      }
+    },
+    {
+      "call": "CHIINV(1e-44, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        },
+        {
+          "name": "deg_freedom",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "460.51701859880916",
+        "bits": "0x407cc845b54b54f2"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb6.json.gz",
+        "locator": "$[297]",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "48207c4dc3f69ac84ef916494b12c11271a9dd75",
+      "path": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
+      "locator": "gamma_halley_unit",
+      "note": "cb6 Halley solver and 0.9999 switch (nx5)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "48207c4dc3f69ac84ef916494b12c11271a9dd75",
+      "path": "crates/calc-func/src/ported/normal_log_family.rs",
+      "locator": "gamma_inv_half_unit",
+      "note": "erfinv^2 shared with NORM.S.INV (nx5)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "88b8861796cfc3429f69aed8322ba06720270830",
+      "path": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
+      "locator": "goldstein_451_unit_start",
+      "note": "Goldstein Algorithm 451 a > 1 start (nx6)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "de7cbede41cf26c7b3a16c050062ad7c33ae901d",
+      "path": "crates/calc-func/src/ported/beta_gamma_stats_family.rs",
+      "locator": "gamma_halley_unit",
+      "note": "a < 1 Wilson-Hilferty exp(3*ln(c)) and exact stopping rules (nx7)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "344d70dcea3ea77cbbeee1595f96694630a9610a",
+      "path": "docs/articles/last-bit-gamma.md",
+      "locator": null,
+      "note": "Last-bit article on the gamma family"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "18828c4446e1375dd58ab855ea87c09d649b2e67",
+      "path": "docs/articles/last-bit-normsinv.md",
+      "locator": null,
+      "note": "Last-bit article on NORM.S.INV (shared erfinv tables)"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "readings/excel-20527/studies/cb6.json.gz",
+      "locator": null,
+      "note": "1,008 live Excel cb6 inverse study rows"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "readings/excel-20527/studies/nx5.json.gz",
+      "locator": null,
+      "note": "76 live Excel nx5 verification rows"
+    }
+  ],
+  "open": [
+    "Remaining >= 5 ULP GAMMA.INV/GAMMAINV misses caused by forward a < 1, y < 1.1 gratio residuals magnified by 1/a (dc-j9k.59).",
+    "7 remaining 1-2 ULP chi-square inverse misses from 1-ULP forward gratio_series/gratio_after40 residuals, plus the q <= 1e-44, df <= 6 #NUM! corner (CHIINV(1e-42, 6) succeeds while CHIINV(1e-44, 6) returns #NUM!; dc-j9k.59)."
+  ],
+  "recorded_on": "2026-11-22"
+}

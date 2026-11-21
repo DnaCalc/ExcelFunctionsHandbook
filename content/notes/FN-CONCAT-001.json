@@ -1,0 +1,173 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CONCAT-001",
+  "functions": [
+    "FUNC.ARRAYTOTEXT",
+    "FUNC.CONCAT",
+    "FUNC.CONCATENATE",
+    "FUNC.DOLLAR",
+    "FUNC.FIXED",
+    "FUNC.OP_CONCAT",
+    "FUNC.TEXT",
+    "FUNC.TEXTJOIN",
+    "FUNC.VALUETOTEXT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Number-to-text emits 15 significant digits via an exact Q16.64 split on [1, 65536) and x87 low-nibble scaling into Q0.64 elsewhere",
+  "statement": "Every worksheet consumer of general 15-significant-digit number-to-text conversion (&, CONCAT, CONCATENATE, VALUETOTEXT, ARRAYTOTEXT, FIXED, DOLLAR, TEXT, TEXTJOIN, and general cell formatting) shares one routine (first_precision). For 1.0 <= |x| < 65,536.0 (0 <= exp2 < 16), Branch 1 splits the binary64 significand directly into an integer part w (1..=65535, d digits) and an exact Q0.64 fraction f with no FPU scaling, then adds the truncated half-ulp constant floor(2^63 / 10^(15 - d)); because floor(2^63 / 10^k) < 2^63 / 10^k, exact binary ties below 65,536 never round up, and [1, 10) rounds up only past +0.07204 ulp64(v). For |x| < 1.0 or |x| >= 65,536.0, Branch 2 computes p = ceil((exp2 + 1) / 3.3219) (0 for [0.5, 1)), multiplies x by 10^-p using the low-nibble-first x87 PC64 table chain (10^+-1..15, 10^+-16..240, 10^+-256) with one 10^-1 step if scaled v >= 1.0, shifts the 64-bit significand mv into Q0.64 by a truncating right shift, and adds floor(2^63 / 10^k) (k in 15..=17). That explains why [0.5, 1) and below-2^k values require +0.372036854775808 ulp64(v) to round up, while above-2^k values exhibit a period-8 oscillation +3.37203685 + 1.25 * (mv & 7) ulp64(10v). See https://github.com/DnaCalc/DnaCalc/blob/344d70dcea3ea77cbbeee1595f96694630a9610a/docs/articles/last-bit-number-text.md.",
+  "status": "inferred",
+  "basis": "Measured on 21,377 probe and W111 rows (21,377 of 21,377 matched), 29 formerly failing oracle-corpus cells (29 of 29 matched across dc_q9rb, catalogue, and fn7_format_context), and three prospective frozen proofs in nx8 on Excel 16.0.20527.20196: 600 of 600 on frozen_cb9_predictions.jsonl, 32 of 32 on the 4-binade discriminator (exp2 in {-971, -486, +484, +969}, settling ceil(frexp_k / 3.3219) 32/32 vs ceil(frexp_k * log10(2)) 0/32), and 20 of 20 on the 10^-1 sliver step. Post-study witness banks: CONCAT 3,578 of 3,578, CONCATENATE 3,133 of 3,133, FIXED 3,783 of 3,783, VALUETOTEXT 2,571 of 2,571.",
+  "inferred": "Whether Excel implements Branch 1 via integer bit-shifts or x87 fistp+fsub is unobservable from outputs and inferred; both give identical (w, f) for every binary64 in [1.0, 65536.0).",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "CONCAT(3.645252540996335, \"\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text1",
+          "value": {
+            "kind": "number",
+            "display": "3.645252540996335",
+            "bits": "0x400d297a2a09ebd8"
+          }
+        },
+        {
+          "name": "text2",
+          "value": {
+            "kind": "text",
+            "display": "",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "3.64525254099634",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb9.json.gz",
+        "locator": "scored_600[295]",
+        "note": null
+      }
+    },
+    {
+      "call": "CONCAT(86497.03926400005, \"\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text1",
+          "value": {
+            "kind": "number",
+            "display": "86497.03926400005",
+            "bits": "0x40f51e10a0d349c2"
+          }
+        },
+        {
+          "name": "text2",
+          "value": {
+            "kind": "text",
+            "display": "",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "86497.0392640001",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb9.json.gz",
+        "locator": "scored_600[178]",
+        "note": null
+      }
+    },
+    {
+      "call": "CONCAT(8.594243319945645e-293, \"\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text1",
+          "value": {
+            "kind": "number",
+            "display": "8.594243319945645e-293",
+            "bits": "0x034b71c2dc7a8ed6"
+          }
+        },
+        {
+          "name": "text2",
+          "value": {
+            "kind": "text",
+            "display": "",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "8.5942433199457E-293",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb9.json.gz",
+        "locator": "scored_binade4[6]",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "86427f7ab24d2883fd80a3d73636e92ca662a402",
+      "path": "crates/calc-func/src/number_text.rs",
+      "locator": "first_precision; scale_nibble_pc64; Q64_HALF_POW10",
+      "note": "Q0.64 two-branch number-to-text implementation (nx8)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "344d70dcea3ea77cbbeee1595f96694630a9610a",
+      "path": "docs/articles/last-bit-number-text.md",
+      "locator": null,
+      "note": "Last-bit article on Excel number-to-text"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "readings/excel-20527/studies/cb9.json.gz",
+      "locator": null,
+      "note": "632 scored cb9/nx8 holdout and binade-4 rows"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "readings/excel-20527/studies/nx8.json.gz",
+      "locator": null,
+      "note": "20 nx8 10^-1 sliver proof rows"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "6ee91d3272fc707c3aa1692a043e7e7be4640176",
+      "path": "content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv",
+      "locator": "cb9",
+      "note": "Pre-ask SHA-256 hashes and frozen holdout scores"
+    }
+  ],
+  "open": [
+    "Nothing remains open in first_precision itself. 132 post-study TEXT bank rows (0.00000000000000E+00 / General) return NotImplemented due to format-string/locale handling owned by dc-j9k.65 and dc-0f1k.8."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -129,6 +129,47 @@ Evidence:
 - CalcFunc-Evidence `work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz`, yield-near-seed-discovery-d-oncoupon-long-b0-f2-039 at `b4818a6a23` (readings)
 - CalcFunc-Evidence `work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz`, yield-near-seed-discovery-d-oncoupon-long-b0-f2-040 at `b4818a6a23` (readings)
 
+### FN-YIELD-002: Multi-period YIELD starts from a schedule-free par-100 seed, steps analytic Newton on 1+y/f, and publishes pre-step y when |step| <= 1e-10
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.*
+
+Superseding the near-par special case in FN-YIELD-001, Excel 16.0.20527 runs one universal
+solver for all multi-period YIELD calls (n > 1), regardless of coupon date or redemption. It
+first computes a schedule-free years-to-maturity T (using US/European 30/360 / 360 for bases 0
+and 4, and k + (m - s_k) / year_days for bases 1..3 where s_k uses DATE(sy + k, sm, sd) day
+rollover), forms d = price - 100.0 (hardcoded 100.0, never redemption), and sets the initial
+iterate y_0 = f * ((tau * rate * 100 / f - d) / ((tau * 100 + d * tau / 2) + d * f / 4)). Each
+Newton step evaluates base = 1.0 + y / f (whose rounding into [1, 2) produces +109-ULP sawtooth
+jumps as y crosses base binade boundaries), sums coupon and redemption terms using
+excel_bond_pow, and checks |step| <= 1e-10 (0x3ddb7cdfd9d7bdbb): when satisfied, Excel returns
+the un-updated iterate y before subtracting step (leaving up to 2,844 ULP differences when
+|step_0| <= 1e-10). After 100 iterations without stopping, Excel returns y_100.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `YIELD(44013, 44562, 0.05, 146.42997054598746, 150, 2, 0)` | settlement `44013.0` (`0x40e57da000000000`); maturity `44562.0` (`0x40e5c24000000000`); rate `0.05` (`0x3fa999999999999a`); pr `146.42997054598746` (`0x40624dc25197284d`); redemption `150.0` (`0x4062c00000000000`); frequency `2.0` (`0x4000000000000000`); basis `0.0` (`0x0000000000000000`) (cells) | `0.049999999935487545` (`0x3fa99999990bbc51`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `YIELD(44256, 46753, 0.09, 117.26480472366886, 105, 4, 0)` | settlement `44242.0` (`0x40e59a4000000000`); maturity `45658.0` (`0x40e64b4000000000`); rate `0.0875` (`0x3fb6666666666666`); pr `117.26480472366886` (`0x405d50f28f82fefb`); redemption `105.0` (`0x405a400000000000`); frequency `4.0` (`0x4010000000000000`); basis `0.0` (`0x0000000000000000`) (cells) | `0.049999999999982156` (`0x3fa9999999998f8e`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across 3,198 cb4 live Excel 16.0.20527 calls and two prospective
+frozen holdout suites (frozen_yield_cb4.jsonl 413 of 500, and frozen_yield_v2_cb4.jsonl 244 of
+250 including 100 of 100 on bases 1 and 3 with s_k rollover). Landing nx3 moved the YIELD full
+witness bank from 3,053 to 3,489 of 3,489 (+436, worst ULP 2,844 -> 0) and the pinned bank from
+21 to 120 of 120 (+99).
+
+Inferred, not measured: The exact Newton loop form and 100-iteration fallback are inferred from
+matching all 3,489 full-bank rows, 120 pinned rows, and 64 of 64 consecutive-price sawtooth
+sweeps.
+
+- Open: 6 of 250 frozen_yield_v2_cb4 rows on 30/360 month-end (28/29 Feb, 30/31) seed edges and negative-yield exp(t < 0) (dc-iuwct.67 landed signed discount bases afterwards).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/bond_core_family.rs`, yield_kernel at `209aa59c1d` — Universal schedule-free par-100 seed and Newton solver (nx3)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz` at `4ef2c244d7` — cb4 YIELD live Excel 16.0.20527 study rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb4 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz`, red[13].yield at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz`, B2_consec[3] at `4ef2c244d7` (readings)
+
 <!-- efh:notes end -->
 
 ## Excel versions, platforms and CPUs

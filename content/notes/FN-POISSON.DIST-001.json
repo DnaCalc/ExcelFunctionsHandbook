@@ -1,0 +1,210 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-POISSON.DIST-001",
+  "functions": [
+    "FUNC.CHIDIST",
+    "FUNC.CHISQ.DIST",
+    "FUNC.CHISQ.DIST.RT",
+    "FUNC.GAMMA.DIST",
+    "FUNC.GAMMADIST",
+    "FUNC.POISSON",
+    "FUNC.POISSON.DIST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Upper-tail incomplete gamma for a <= 20 runs uncontracted Modified Lentz with TINY=1e-30, and poisson_mass switches at <= 1.1",
+  "statement": "In Excel 16.0.20527, all upper-tail incomplete-gamma calls with a <= 20.0 (both a < 1.0, x >= 1.1 and 1.0 < a <= 20.0, x > a outside finite sums) evaluate the uncontracted Legendre continued fraction using Thompson-Barnett Modified Lentz from b_0 = 0 (f = c = TINY, d = 0.0) with Numerical Recipes TINY = 1.0e-30 (0x39b08b2a2c280291), storing each arithmetic operation to binary64 at x87 PC64, stopping at k > 0 && del == 1.0, and multiplying S(pm * f) directly without factoring a out of the fraction. At k = 0, c_0 = S(x + S(a / TINY)) rounds a * 10^30 + x into binary64, so changing TINY to 1e-50 or 1e-100 breaks about half of 10,000 tested rows. In poisson_mass(a, x), Excel switches between the compensated exponential and Loader's saddle-point expansion inclusively at x <= 1.1 || a <= 1.1 (0x3ff199999999999a, verified by single-bit bisection at 1.1 vs next_up(1.1)). POISSON(x, mean, cum) and POISSON.DIST(x, mean, cum) match across all 278 paired probes, and POISSON.DIST(k, m, TRUE) equals CHIDIST(2*m, 2*(k+1)) and CHISQ.DIST.RT(2*m, 2*(k+1)). See https://github.com/DnaCalc/DnaCalc/blob/344d70dcea3ea77cbbeee1595f96694630a9610a/docs/articles/last-bit-gamma.md.",
+  "status": "inferred",
+  "basis": "Measured across cb8's 1,325 live Excel 16.0.20527 calls and frozen_cb8_predictions.jsonl (560 of 560 unseen forward calls across 6 functions matched with 0 ULP max error; 599 of 640 overall), plus nx7's frozen_nx7_proof2_pred.jsonl (50 of 50 on the 1.1 inclusive boundary). On full witness banks after nx7, POISSON reached 1,556 of 1,560, POISSON.DIST 49,707 of 49,710 decoded (0 cumulative CF/asymp/Temme misses), CHIDIST 3,241 of 3,241, and CHISQ.DIST.RT 2,858 of 2,859.",
+  "inferred": "That Excel executes this exact Modified Lentz recurrence and TINY constant is inferred from matching 10,000 of 10,000 offline controls, targeted del==1.0 vs nf==f tie-breakers (2 of 2), and 560 of 560 prospective forward holdouts.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "POISSON(1, 32.00000000000001, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "32.00000000000001",
+            "bits": "0x4040000000000001"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4.1791746312010515e-13",
+        "bits": "0x3d5d68881f1c6f57"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb8.json.gz",
+        "locator": "$[50]",
+        "note": null
+      }
+    },
+    {
+      "call": "POISSON.DIST(1, 32.00000000000001, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "32.00000000000001",
+            "bits": "0x4040000000000001"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4.1791746312010515e-13",
+        "bits": "0x3d5d68881f1c6f57"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb8.json.gz",
+        "locator": "$[0]",
+        "note": null
+      }
+    },
+    {
+      "call": "GAMMA.DIST(1.1, 4.143399358773536, 1, FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1.1",
+            "bits": "0x3ff199999999999a"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "4.143399358773536",
+            "bits": "0x401092d74810cc80"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.06233902817180819",
+        "bits": "0x3fafeae6ae865147"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/nx7.json.gz",
+        "locator": "$.rows[40]",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "de7cbede41cf26c7b3a16c050062ad7c33ae901d",
+      "path": "crates/calc-func/src/ported/special_math_common.rs",
+      "locator": "gratio_cf",
+      "note": "Unified Modified Lentz CF with TINY=1e-30 (nx7)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "de7cbede41cf26c7b3a16c050062ad7c33ae901d",
+      "path": "crates/calc-func/src/ported/discrete_dist.rs",
+      "locator": "poisson_mass; poisson_compensation_error",
+      "note": "Inclusive <= 1.1 threshold"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "344d70dcea3ea77cbbeee1595f96694630a9610a",
+      "path": "docs/articles/last-bit-gamma.md",
+      "locator": "Stage 3 (cb8 / nx7)",
+      "note": "Last-bit article on the gamma family"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "readings/excel-20527/studies/cb8.json.gz",
+      "locator": null,
+      "note": "1,230 live Excel cb8 study rows"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "readings/excel-20527/studies/nx7.json.gz",
+      "locator": null,
+      "note": "265 live Excel nx7 proof rows"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "6ee91d3272fc707c3aa1692a043e7e7be4640176",
+      "path": "content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv",
+      "locator": "cb8; nx7",
+      "note": "Pre-ask SHA-256 hashes and frozen holdout scores"
+    }
+  ],
+  "open": [
+    "4 remaining 1-ULP POISSON Temme rows (a > 48) and 3 remaining 1-ULP build-20131 POISSON.DIST rows plus 4 excluded input-changed rows (dc-j9k.42)."
+  ],
+  "recorded_on": "2026-11-22"
+}

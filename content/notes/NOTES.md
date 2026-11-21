@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 82, over 137 functions (of the 554 entries = 531 functions + 23 operators).
-- Excel differs from the mathematical answer: 23.
-- Detail for matching Excel's bits: 18.
-- Quirk: 35.
+- Notes: 93, over 176 functions (of the 554 entries = 531 functions + 23 operators).
+- Excel differs from the mathematical answer: 24.
+- Detail for matching Excel's bits: 26.
+- Quirk: 37.
 - Documentation differs from behaviour: 6.
-- Measured: 75; inferred: 7.
+- Measured: 77; inferred: 16.
 
 ## Where Excel's answer is inaccurate
 
@@ -72,6 +72,9 @@ answer.
 | [FN-MOD-001](#fn-mod-001-mod-with-tiny-operands-gives-wrong-signs-and-num-by-a-rule-that-fits-every-recorded-row) | `MOD(1.223247290044539e-296, -1.2232472900445716e-296)` | `#NUM!` | `-3.25938553492266e-310` (`0x80003c0000000000`) |
 | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) | `MROUND(0.499999999999995, 1)` | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) |
 | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) | `MROUND(0.49999999999999994, 1)` | `1` (`0x3ff0000000000000`) | `0` (`0x0000000000000000`) |
+| [FN-MULTINOMIAL-001](#fn-multinomial-001-multinomial-sums-log102total-subtracts-log102item-in-reverse-argument-order-and-rejects-total--170) | `MULTINOMIAL(1, 2)` | `3.0000000000000004` (`0x4008000000000001`) | `3.0` (`0x4008000000000000`) |
+| [FN-MULTINOMIAL-001](#fn-multinomial-001-multinomial-sums-log102total-subtracts-log102item-in-reverse-argument-order-and-rejects-total--170) | `MULTINOMIAL(4, 108)` | `6210819.999999507` (`0x4157b140fffffdef`) | `6210820.0` (`0x4157b14100000000`) |
+| [FN-MULTINOMIAL-001](#fn-multinomial-001-multinomial-sums-log102total-subtracts-log102item-in-reverse-argument-order-and-rejects-total--170) | `MULTINOMIAL(108, 4)` | `6210819.999999607` (`0x4157b140fffffe5a`) | `6210820.0` (`0x4157b14100000000`) |
 | [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate) | `=PMT(0.05/12,360,200000)` | `-1073.6432460242781` (`0xc090c692af15f63a`) | `-1073.643246024278` (`0xc090c692af15f639`) |
 | [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) | `=PPMT(0.05/12,1,360,200000)` | `-240.30991269094474` (`0xc06e09eace050723`) | `-240.30991269094463` (`0xc06e09eace05071f`) |
 | [FN-ROUND-001](#fn-round-001-round-counts-digits-in-32-bits-and-the-count-wraps) | `ROUND(-112500000000000, 2147483635)` | `0` (`0x0000000000000000`) | `-112500000000000` (`0xc2d9945ca2620000`) |
@@ -105,24 +108,34 @@ answer.
 |---|---|
 | [`ABS`](../functions/FUNC.ABS.md) | [FN-ABS-001](#fn-abs-001-text-to-number-checks-the-exponent-range-even-when-the-mantissa-is-zero), [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`ACCRINTM`](../functions/FUNC.ACCRINTM.md) | [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
+| [`ARRAYTOTEXT`](../functions/FUNC.ARRAYTOTEXT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`ASINH`](../functions/FUNC.ASINH.md) | [FN-ASINH-001](#fn-asinh-001-asinh-is-lnxsqrtxx1-with-every-step-stored-so-small-inputs-lose-their-digits) |
 | [`BAHTTEXT`](../functions/FUNC.BAHTTEXT.md) | [FN-BAHTTEXT-001](#fn-bahttext-001-a-tiny-negative-amount-keeps-the-word-for-minus-before-zero-baht) |
 | [`BESSELI`](../functions/FUNC.BESSELI.md) | [FN-BESSELI-001](#fn-besseli-001-besseli-is-itks-published-polynomial-and-recurrence-on-the-x87-unit), [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded), [FN-BESSELI-003](#fn-besseli-003-at-large-x-the-fixed-recurrence-start-makes-besseli-badly-wrong), [FN-BESSELI-004](#fn-besseli-004-besseli-gives-num-just-above-7097-where-the-function-is-still-finite) |
 | [`BESSELJ`](../functions/FUNC.BESSELJ.md) | [FN-BESSELJ-001](#fn-besselj-001-besselj-at-zero-and-order-zero-is-slightly-above-one) |
 | [`BESSELK`](../functions/FUNC.BESSELK.md) | [FN-BESSELI-002](#fn-besseli-002-besseli-and-besselk-are-low-order-approximations-rarely-correctly-rounded) |
-| [`BETA.DIST`](../functions/FUNC.BETA.DIST.md) | [FN-BETA.DIST-001](#fn-betadist-001-the-beta-bgrat-series-stops-at-eps-not-15eps-and-its-prefactor-and-ratio-follow-the-gamma-family-forms) |
-| [`BETADIST`](../functions/FUNC.BETADIST.md) | [FN-BETA.DIST-001](#fn-betadist-001-the-beta-bgrat-series-stops-at-eps-not-15eps-and-its-prefactor-and-ratio-follow-the-gamma-family-forms) |
+| [`BETA.DIST`](../functions/FUNC.BETA.DIST.md) | [FN-BETA.DIST-001](#fn-betadist-001-the-beta-bgrat-series-stops-at-eps-not-15eps-and-its-prefactor-and-ratio-follow-the-gamma-family-forms), [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`BETA.INV`](../functions/FUNC.BETA.INV.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`BETADIST`](../functions/FUNC.BETADIST.md) | [FN-BETA.DIST-001](#fn-betadist-001-the-beta-bgrat-series-stops-at-eps-not-15eps-and-its-prefactor-and-ratio-follow-the-gamma-family-forms), [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`BETAINV`](../functions/FUNC.BETAINV.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`BINOM.INV`](../functions/FUNC.BINOM.INV.md) | [FN-BINOM.INV-001](#fn-binominv-001-binominv-and-critbinom-test-the-public-cumulative-strictly-at-zero-successes-inclusively-at-later-counts) |
+| [`BINOMDIST`](../functions/FUNC.BINOMDIST.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`BYCOL`](../functions/FUNC.BYCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`BYROW`](../functions/FUNC.BYROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`CEILING`](../functions/FUNC.CEILING.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`CEILING.MATH`](../functions/FUNC.CEILING.MATH.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`CEILING.PRECISE`](../functions/FUNC.CEILING.PRECISE.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
-| [`CHIDIST`](../functions/FUNC.CHIDIST.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x) |
-| [`CHIINV`](../functions/FUNC.CHIINV.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x) |
-| [`CHISQ.INV`](../functions/FUNC.CHISQ.INV.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x) |
+| [`CHIDIST`](../functions/FUNC.CHIDIST.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x), [FN-GAMMA.DIST-004](#fn-gammadist-004-forward-incomplete-gamma-runs-finite-sums-strictly-on-a--x--30-drops-ln10-and-x031-splits-for-a--20-and-loops-forward-for-a--20), [FN-POISSON.DIST-001](#fn-poissondist-001-upper-tail-incomplete-gamma-for-a--20-runs-uncontracted-modified-lentz-with-tiny1e-30-and-poisson_mass-switches-at--11) |
+| [`CHIINV`](../functions/FUNC.CHIINV.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x), [FN-GAMMA.INV-001](#fn-gammainv-001-gamma-and-chi-square-inverses-use-erfinvp2-at-a05-goldstein-451-for-a--1-a-09999-complement-switch-and-damped-halley) |
+| [`CHISQ.DIST`](../functions/FUNC.CHISQ.DIST.md) | [FN-GAMMA.DIST-004](#fn-gammadist-004-forward-incomplete-gamma-runs-finite-sums-strictly-on-a--x--30-drops-ln10-and-x031-splits-for-a--20-and-loops-forward-for-a--20), [FN-GAMMA.DIST-005](#fn-gammadist-005-for-a--1-and-x--11-excel-uses-toms-654-double-precision-st200-branch-bounds-with-shared-kahan-expm1-forcing-even-lsbs-when-p--05), [FN-POISSON.DIST-001](#fn-poissondist-001-upper-tail-incomplete-gamma-for-a--20-runs-uncontracted-modified-lentz-with-tiny1e-30-and-poisson_mass-switches-at--11) |
+| [`CHISQ.DIST.RT`](../functions/FUNC.CHISQ.DIST.RT.md) | [FN-GAMMA.DIST-004](#fn-gammadist-004-forward-incomplete-gamma-runs-finite-sums-strictly-on-a--x--30-drops-ln10-and-x031-splits-for-a--20-and-loops-forward-for-a--20), [FN-POISSON.DIST-001](#fn-poissondist-001-upper-tail-incomplete-gamma-for-a--20-runs-uncontracted-modified-lentz-with-tiny1e-30-and-poisson_mass-switches-at--11) |
+| [`CHISQ.INV`](../functions/FUNC.CHISQ.INV.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x), [FN-GAMMA.INV-001](#fn-gammainv-001-gamma-and-chi-square-inverses-use-erfinvp2-at-a05-goldstein-451-for-a--1-a-09999-complement-switch-and-damped-halley) |
+| [`CHISQ.INV.RT`](../functions/FUNC.CHISQ.INV.RT.md) | [FN-GAMMA.INV-001](#fn-gammainv-001-gamma-and-chi-square-inverses-use-erfinvp2-at-a05-goldstein-451-for-a--1-a-09999-complement-switch-and-damped-halley) |
 | [`CHISQ.TEST`](../functions/FUNC.CHISQ.TEST.md) | [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x) |
 | [`CHOOSE`](../functions/FUNC.CHOOSE.md) | [FN-CHOOSE-001](#fn-choose-001-an-array-index-in-choose-turns-selected-blank-cells-into-0) |
+| [`CONCAT`](../functions/FUNC.CONCAT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
+| [`CONCATENATE`](../functions/FUNC.CONCATENATE.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
+| [`CONFIDENCE.T`](../functions/FUNC.CONFIDENCE.T.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`COUNTBLANK`](../functions/FUNC.COUNTBLANK.md) | [FN-COUNTBLANK-001](#fn-countblank-001-countblank-of-an-omitted-optional-lambda-parameter-is-value) |
 | [`COUPDAYBS`](../functions/FUNC.COUPDAYBS.md) | [FN-COUPDAYSNC-001](#fn-coupdaysnc-001-on-basis-0-coupdaysnc-is-not-always-coupdays-minus-coupdaybs) |
 | [`COUPDAYS`](../functions/FUNC.COUPDAYS.md) | [FN-COUPDAYS-001](#fn-coupdays-001-on-basis-1-coupdays-walks-back-from-maturity-by-its-own-rule-not-couppcd-to-coupncd), [FN-COUPDAYSNC-001](#fn-coupdaysnc-001-on-basis-0-coupdaysnc-is-not-always-coupdays-minus-coupdaybs) |
@@ -136,7 +149,7 @@ answer.
 | [`DATEVALUE`](../functions/FUNC.DATEVALUE.md) | [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits), [FN-VALUE-002](#fn-value-002-a-date-as-text-takes-at-most-two-digits-for-month-and-day) |
 | [`DELTA`](../functions/FUNC.DELTA.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals), [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
 | [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
-| [`DOLLAR`](../functions/FUNC.DOLLAR.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
+| [`DOLLAR`](../functions/FUNC.DOLLAR.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere), [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
 | [`DURATION`](../functions/FUNC.DURATION.md) | [FN-DURATION-001](#fn-duration-001-duration-and-mduration-time-the-redemption-at-ssoffn-1-a-one-coupon-bond-is-not-a-special-case) |
 | [`ERF`](../functions/FUNC.ERF.md) | [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first), [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
 | [`ERF.PRECISE`](../functions/FUNC.ERF.PRECISE.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
@@ -146,24 +159,35 @@ answer.
 | [`EVEN`](../functions/FUNC.EVEN.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`EXP`](../functions/FUNC.EXP.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`EXPAND`](../functions/FUNC.EXPAND.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`F.DIST`](../functions/FUNC.F.DIST.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`F.DIST.RT`](../functions/FUNC.F.DIST.RT.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`F.TEST`](../functions/FUNC.F.TEST.md) | [FN-F.TEST-001](#fn-ftest-001-ftest-is-twice-the-smaller-tail-of-the-larger-first-ratio-swapping-the-arrays-moves-the-last-bit-on-ties) |
-| [`FIXED`](../functions/FUNC.FIXED.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
+| [`FDIST`](../functions/FUNC.FDIST.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`FINV`](../functions/FUNC.FINV.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`FIXED`](../functions/FUNC.FIXED.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere), [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it) |
 | [`FLOOR`](../functions/FUNC.FLOOR.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals), [FN-FLOOR-001](#fn-floor-001-floor-of-zero-is-0-even-with-significance-0), [FN-FLOOR-002](#fn-floor-002-floor-rounds-its-quotient-to-15-digits-first-so-the-result-can-pass-the-number) |
 | [`FLOOR.MATH`](../functions/FUNC.FLOOR.MATH.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`FLOOR.PRECISE`](../functions/FUNC.FLOOR.PRECISE.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
-| [`FORECAST.ETS`](../functions/FUNC.FORECAST.ETS.md) | [FN-FORECAST.ETS-001](#fn-forecastets-001-forecastets-fits-histories-of-four-or-fewer-points-nonseasonally-and-extends-those-under-seven-by-regression) |
+| [`FORECAST.ETS`](../functions/FUNC.FORECAST.ETS.md) | [FN-FORECAST.ETS-001](#fn-forecastets-001-forecastets-fits-histories-of-four-or-fewer-points-nonseasonally-and-extends-those-under-seven-by-regression), [FN-FORECAST.ETS-002](#fn-forecastets-002-seasonal-forecastets-centers-2p-sliding-moving-average-initials-starts-smoothing-at-j0-and-linearly-interpolates-fractional-confint-variance) |
+| [`FORECAST.ETS.CONFINT`](../functions/FUNC.FORECAST.ETS.CONFINT.md) | [FN-FORECAST.ETS-002](#fn-forecastets-002-seasonal-forecastets-centers-2p-sliding-moving-average-initials-starts-smoothing-at-j0-and-linearly-interpolates-fractional-confint-variance) |
+| [`FORECAST.ETS.SEASONALITY`](../functions/FUNC.FORECAST.ETS.SEASONALITY.md) | [FN-FORECAST.ETS-002](#fn-forecastets-002-seasonal-forecastets-centers-2p-sliding-moving-average-initials-starts-smoothing-at-j0-and-linearly-interpolates-fractional-confint-variance) |
+| [`FORECAST.ETS.STAT`](../functions/FUNC.FORECAST.ETS.STAT.md) | [FN-FORECAST.ETS-002](#fn-forecastets-002-seasonal-forecastets-centers-2p-sliding-moving-average-initials-starts-smoothing-at-j0-and-linearly-interpolates-fractional-confint-variance) |
 | [`GAMMA`](../functions/FUNC.GAMMA.md) | [FN-GAMMA-001](#fn-gamma-001-below-10-gamma-is-a-stored-product-down-to-a-seed-on-12), [FN-GAMMA-002](#fn-gamma-002-from-10-up-gamma-is-a-stirling-product-of-stored-stages-and-its-error-grows-with-x) |
-| [`GAMMA.DIST`](../functions/FUNC.GAMMA.DIST.md) | [FN-GAMMA.DIST-001](#fn-gammadist-001-gammadists-prefactor-carries-gammalna1-in-the-exponent-with-its-error), [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x) |
-| [`GAMMA.INV`](../functions/FUNC.GAMMA.INV.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x) |
+| [`GAMMA.DIST`](../functions/FUNC.GAMMA.DIST.md) | [FN-GAMMA.DIST-001](#fn-gammadist-001-gammadists-prefactor-carries-gammalna1-in-the-exponent-with-its-error), [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x), [FN-GAMMA.DIST-004](#fn-gammadist-004-forward-incomplete-gamma-runs-finite-sums-strictly-on-a--x--30-drops-ln10-and-x031-splits-for-a--20-and-loops-forward-for-a--20), [FN-GAMMA.DIST-005](#fn-gammadist-005-for-a--1-and-x--11-excel-uses-toms-654-double-precision-st200-branch-bounds-with-shared-kahan-expm1-forcing-even-lsbs-when-p--05), [FN-POISSON.DIST-001](#fn-poissondist-001-upper-tail-incomplete-gamma-for-a--20-runs-uncontracted-modified-lentz-with-tiny1e-30-and-poisson_mass-switches-at--11) |
+| [`GAMMA.INV`](../functions/FUNC.GAMMA.INV.md) | [FN-GAMMA.DIST-002](#fn-gammadist-002-incomplete-gamma-at-half-integer-shape-starts-from-sqrtpi-to-binary64-and-the-public-erfcprecise-value), [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x), [FN-GAMMA.DIST-005](#fn-gammadist-005-for-a--1-and-x--11-excel-uses-toms-654-double-precision-st200-branch-bounds-with-shared-kahan-expm1-forcing-even-lsbs-when-p--05), [FN-GAMMA.INV-001](#fn-gammainv-001-gamma-and-chi-square-inverses-use-erfinvp2-at-a05-goldstein-451-for-a--1-a-09999-complement-switch-and-damped-halley) |
+| [`GAMMADIST`](../functions/FUNC.GAMMADIST.md) | [FN-GAMMA.DIST-004](#fn-gammadist-004-forward-incomplete-gamma-runs-finite-sums-strictly-on-a--x--30-drops-ln10-and-x031-splits-for-a--20-and-loops-forward-for-a--20), [FN-GAMMA.DIST-005](#fn-gammadist-005-for-a--1-and-x--11-excel-uses-toms-654-double-precision-st200-branch-bounds-with-shared-kahan-expm1-forcing-even-lsbs-when-p--05), [FN-POISSON.DIST-001](#fn-poissondist-001-upper-tail-incomplete-gamma-for-a--20-runs-uncontracted-modified-lentz-with-tiny1e-30-and-poisson_mass-switches-at--11) |
+| [`GAMMAINV`](../functions/FUNC.GAMMAINV.md) | [FN-GAMMA.DIST-005](#fn-gammadist-005-for-a--1-and-x--11-excel-uses-toms-654-double-precision-st200-branch-bounds-with-shared-kahan-expm1-forcing-even-lsbs-when-p--05), [FN-GAMMA.INV-001](#fn-gammainv-001-gamma-and-chi-square-inverses-use-erfinvp2-at-a05-goldstein-451-for-a--1-a-09999-complement-switch-and-damped-halley) |
 | [`GAMMALN`](../functions/FUNC.GAMMALN.md) | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) |
 | [`GAMMALN.PRECISE`](../functions/FUNC.GAMMALN.PRECISE.md) | [FN-GAMMALN-001](#fn-gammaln-001-gammaln-from-3-to-8-is-a-stored-recurrence-and-gammaln3-is-one-unit-above-ln-2) |
 | [`GAUSS`](../functions/FUNC.GAUSS.md) | [FN-ERF.PRECISE-001](#fn-erfprecise-001-below-05-erf-is-a-stored-4-5-rational-from-a-table-not-yet-identified) |
 | [`GCD`](../functions/FUNC.GCD.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
 | [`GEOMEAN`](../functions/FUNC.GEOMEAN.md) | [FN-GEOMEAN-001](#fn-geomean-001-geomean12-and-sqrt2-return-adjacent-values-in-retained-build-20430-controls) |
 | [`GESTEP`](../functions/FUNC.GESTEP.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals), [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
+| [`GROUPBY`](../functions/FUNC.GROUPBY.md) | [FN-GROUPBY-001](#fn-groupby-001-groupby-and-pivotby-hold-an-array-returned-by-their-lambda-inside-its-cell-index-boxes-it-unless-computed-and-nboxed-is-value) |
 | [`HSTACK`](../functions/FUNC.HSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`HYPGEOM.DIST`](../functions/FUNC.HYPGEOM.DIST.md) | [FN-HYPGEOM.DIST-001](#fn-hypgeomdist-001-recorded-hypergeometric-calls-admit-zero-counts-and-counts-above-the-support) |
 | [`IFS`](../functions/FUNC.IFS.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
+| [`INDEX`](../functions/FUNC.INDEX.md) | [FN-GROUPBY-001](#fn-groupby-001-groupby-and-pivotby-hold-an-array-returned-by-their-lambda-inside-its-cell-index-boxes-it-unless-computed-and-nboxed-is-value) |
 | [`INT`](../functions/FUNC.INT.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
 | [`IPMT`](../functions/FUNC.IPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) |
@@ -182,16 +206,25 @@ answer.
 | [`MODE.MULT`](../functions/FUNC.MODE.MULT.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
 | [`MODE.SNGL`](../functions/FUNC.MODE.SNGL.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
 | [`MROUND`](../functions/FUNC.MROUND.md) | [FN-MROUND-001](#fn-mround-001-mround-counts-a-quotient-within-5e-15-below-a-half-up) |
+| [`MULTINOMIAL`](../functions/FUNC.MULTINOMIAL.md) | [FN-MULTINOMIAL-001](#fn-multinomial-001-multinomial-sums-log102total-subtracts-log102item-in-reverse-argument-order-and-rejects-total--170) |
+| [`N`](../functions/FUNC.N.md) | [FN-GROUPBY-001](#fn-groupby-001-groupby-and-pivotby-hold-an-array-returned-by-their-lambda-inside-its-cell-index-boxes-it-unless-computed-and-nboxed-is-value) |
+| [`NEGBINOM.DIST`](../functions/FUNC.NEGBINOM.DIST.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`NETWORKDAYS`](../functions/FUNC.NETWORKDAYS.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`NETWORKDAYS.INTL`](../functions/FUNC.NETWORKDAYS.INTL.md) | [FN-NETWORKDAYS.INTL-001](#fn-networkdaysintl-001-networkdaysintl-checks-weekend-before-the-dates-workdayintl-after-them), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`ODD`](../functions/FUNC.ODD.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
+| [`OP_CONCAT`](../functions/FUNC.OP_CONCAT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`OP_EQUAL`](../functions/FUNC.OP_EQUAL.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable) |
 | [`OP_GREATER_THAN`](../functions/FUNC.OP_GREATER_THAN.md) | [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han) |
 | [`OP_LESS_THAN`](../functions/FUNC.OP_LESS_THAN.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable), [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han), [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
+| [`OP_TRIM_REF_BOTH`](../functions/FUNC.OP_TRIM_REF_BOTH.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
+| [`OP_TRIM_REF_LEADING`](../functions/FUNC.OP_TRIM_REF_LEADING.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
+| [`OP_TRIM_REF_TRAILING`](../functions/FUNC.OP_TRIM_REF_TRAILING.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
 | [`PERCENTRANK`](../functions/FUNC.PERCENTRANK.md) | [FN-PERCENTRANK-001](#fn-percentrank-001-two-percent-rank-controls-retain-decimal-places-rather-than-significant-digits) |
 | [`PERCENTRANK.INC`](../functions/FUNC.PERCENTRANK.INC.md) | [FN-PERCENTRANK-001](#fn-percentrank-001-two-percent-rank-controls-retain-decimal-places-rather-than-significant-digits) |
+| [`PIVOTBY`](../functions/FUNC.PIVOTBY.md) | [FN-GROUPBY-001](#fn-groupby-001-groupby-and-pivotby-hold-an-array-returned-by-their-lambda-inside-its-cell-index-boxes-it-unless-computed-and-nboxed-is-value) |
 | [`PMT`](../functions/FUNC.PMT.md) | [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
-| [`POISSON.DIST`](../functions/FUNC.POISSON.DIST.md) | [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x) |
+| [`POISSON`](../functions/FUNC.POISSON.md) | [FN-GAMMA.DIST-004](#fn-gammadist-004-forward-incomplete-gamma-runs-finite-sums-strictly-on-a--x--30-drops-ln10-and-x031-splits-for-a--20-and-loops-forward-for-a--20), [FN-POISSON.DIST-001](#fn-poissondist-001-upper-tail-incomplete-gamma-for-a--20-runs-uncontracted-modified-lentz-with-tiny1e-30-and-poisson_mass-switches-at--11) |
+| [`POISSON.DIST`](../functions/FUNC.POISSON.DIST.md) | [FN-GAMMA.DIST-003](#fn-gammadist-003-incomplete-gamma-at-integer-shape-2-to-20-is-a-stored-polynomial-of-reciprocal-factorials-times-exp-x), [FN-GAMMA.DIST-004](#fn-gammadist-004-forward-incomplete-gamma-runs-finite-sums-strictly-on-a--x--30-drops-ln10-and-x031-splits-for-a--20-and-loops-forward-for-a--20), [FN-POISSON.DIST-001](#fn-poissondist-001-upper-tail-incomplete-gamma-for-a--20-runs-uncontracted-modified-lentz-with-tiny1e-30-and-poisson_mass-switches-at--11) |
 | [`PPMT`](../functions/FUNC.PPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
 | [`PRICEDISC`](../functions/FUNC.PRICEDISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
 | [`PRICEMAT`](../functions/FUNC.PRICEMAT.md) | [FN-PRICEMAT-001](#fn-pricemat-001-pricemat-formula-order-on-the-x87-unit), [FN-PRICEMAT-002](#fn-pricemat-002-pricemat-basis-0-applies-the-31st-rule-before-the-february-rule) |
@@ -213,20 +246,29 @@ answer.
 | [`STDEVP`](../functions/FUNC.STDEVP.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`STDEVPA`](../functions/FUNC.STDEVPA.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`SWITCH`](../functions/FUNC.SWITCH.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
-| [`T.INV.2T`](../functions/FUNC.T.INV.2T.md) | [FN-TINV-001](#fn-tinv-001-tinv-for-p-up-to-085-is-sqrtv1z---1-on-a-binary64-beta-coordinate-z-so-its-last-digits-follow-z) |
+| [`T.DIST`](../functions/FUNC.T.DIST.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`T.DIST.2T`](../functions/FUNC.T.DIST.2T.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`T.DIST.RT`](../functions/FUNC.T.DIST.RT.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`T.INV`](../functions/FUNC.T.INV.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`T.INV.2T`](../functions/FUNC.T.INV.2T.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat), [FN-TINV-001](#fn-tinv-001-tinv-for-p-up-to-085-is-sqrtv1z---1-on-a-binary64-beta-coordinate-z-so-its-last-digits-follow-z) |
 | [`TAKE`](../functions/FUNC.TAKE.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`TBILLEQ`](../functions/FUNC.TBILLEQ.md) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`TBILLPRICE`](../functions/FUNC.TBILLPRICE.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`TBILLYIELD`](../functions/FUNC.TBILLYIELD.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
-| [`TEXT`](../functions/FUNC.TEXT.md) | [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it), [FN-TEXT-001](#fn-text-001-locale-tagged-month-weekday-and-era-names-in-text-follow-their-own-table), [FN-TEXT-002](#fn-text-002-in-text-an--applied-to-a-number-gives-the-general-display-not-the-full-number) |
+| [`TDIST`](../functions/FUNC.TDIST.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
+| [`TEXT`](../functions/FUNC.TEXT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere), [FN-DOLLAR-001](#fn-dollar-001-dollar-keeps-the-minus-sign-on-an-amount-that-rounds-to-zero-fixed-and-text-drop-it), [FN-TEXT-001](#fn-text-001-locale-tagged-month-weekday-and-era-names-in-text-follow-their-own-table), [FN-TEXT-002](#fn-text-002-in-text-an--applied-to-a-number-gives-the-general-display-not-the-full-number) |
 | [`TEXTAFTER`](../functions/FUNC.TEXTAFTER.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |
 | [`TEXTBEFORE`](../functions/FUNC.TEXTBEFORE.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |
+| [`TEXTJOIN`](../functions/FUNC.TEXTJOIN.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`TEXTSPLIT`](../functions/FUNC.TEXTSPLIT.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit), [FN-TEXTSPLIT-002](#fn-textsplit-002-over-an-array-textsplit-and-regexextract-keep-only-the-first-piece-of-each-element) |
-| [`TINV`](../functions/FUNC.TINV.md) | [FN-TINV-001](#fn-tinv-001-tinv-for-p-up-to-085-is-sqrtv1z---1-on-a-binary64-beta-coordinate-z-so-its-last-digits-follow-z) |
+| [`TINV`](../functions/FUNC.TINV.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat), [FN-TINV-001](#fn-tinv-001-tinv-for-p-up-to-085-is-sqrtv1z---1-on-a-binary64-beta-coordinate-z-so-its-last-digits-follow-z) |
 | [`TOCOL`](../functions/FUNC.TOCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`TOROW`](../functions/FUNC.TOROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`TRIMRANGE`](../functions/FUNC.TRIMRANGE.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
 | [`TRUNC`](../functions/FUNC.TRUNC.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
+| [`TYPE`](../functions/FUNC.TYPE.md) | [FN-GROUPBY-001](#fn-groupby-001-groupby-and-pivotby-hold-an-array-returned-by-their-lambda-inside-its-cell-index-boxes-it-unless-computed-and-nboxed-is-value) |
 | [`VALUE`](../functions/FUNC.VALUE.md) | [FN-ABS-001](#fn-abs-001-text-to-number-checks-the-exponent-range-even-when-the-mantissa-is-zero), [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits), [FN-VALUE-002](#fn-value-002-a-date-as-text-takes-at-most-two-digits-for-month-and-day), [FN-VALUE-003](#fn-value-003-value-takes-one-percent-sign-anywhere-around-parentheses-and-a-euro-sign-but-not-a-dollar) |
+| [`VALUETOTEXT`](../functions/FUNC.VALUETOTEXT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`VAR`](../functions/FUNC.VAR.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`VAR.P`](../functions/FUNC.VAR.P.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`VAR.S`](../functions/FUNC.VAR.S.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
@@ -239,7 +281,7 @@ answer.
 | [`WORKDAY`](../functions/FUNC.WORKDAY.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`WORKDAY.INTL`](../functions/FUNC.WORKDAY.INTL.md) | [FN-NETWORKDAYS.INTL-001](#fn-networkdaysintl-001-networkdaysintl-checks-weekend-before-the-dates-workdayintl-after-them), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`YEARFRAC`](../functions/FUNC.YEARFRAC.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
-| [`YIELD`](../functions/FUNC.YIELD.md) | [FN-YIELD-001](#fn-yield-001-yield-near-par-on-a-coupon-date-returns-a-closed-form-seed-with-stored-partial-sums-not-the-solved-root) |
+| [`YIELD`](../functions/FUNC.YIELD.md) | [FN-YIELD-001](#fn-yield-001-yield-near-par-on-a-coupon-date-returns-a-closed-form-seed-with-stored-partial-sums-not-the-solved-root), [FN-YIELD-002](#fn-yield-002-multi-period-yield-starts-from-a-schedule-free-par-100-seed-steps-analytic-newton-on-1yf-and-publishes-pre-step-y-when-step--1e-10) |
 
 ## Notes
 
@@ -613,6 +655,54 @@ Evidence:
 - DnaCalc `.beads/issues.jsonl`, dc-6332.4 at `b8738ae6a6` — items 1 to 3: counts of the forms not taken
 - CalcFunc-Evidence `cache/oracle/build-20131/BETA.DIST.jsonl.gz`, BETA.DIST|0x3fee000000000000|0x4034733333333333|0x3fe8000000000000|0x3ff0000000000000 at `b4818a6a23` (readings)
 
+### FN-BETA.DIST-002: Incomplete beta has no basym arm, reflects bfrac prefactors above 0.99 using caller y, and unifies bup and bgrat
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to BETA.DIST,
+BETA.INV, BETADIST, BETAINV, BINOMDIST, CONFIDENCE.T, F.DIST, F.DIST.RT, FDIST, FINV,
+NEGBINOM.DIST, T.DIST, T.DIST.2T, T.DIST.RT, T.INV, T.INV.2T, TDIST, TINV.
+
+In Excel 16.0.20527, the incomplete-beta routine (bratio) removes TOMS 708's bratio_basym arm:
+all min(a0, b0) > 1.0, b0 >= 40.0 inputs stay on bratio_bfrac continuously across b = 100 and
+lambda = 0.03 * b (checked across 22 live bisection points). Inside bratio_bfrac, when x > 0.99
+(0x3fefae147ae147ae, strict >), Excel evaluates the density prefactor as excel_brcomp(b, a, y,
+x) using the caller's stored complement y rather than 1.0 - x (eliminating 53-bit cancellation
+in F.DIST.RT, FDIST, and F.DIST), while keeping lam = |a - (a + b) * x| on x. bratio_bup runs
+Excel's density-based stored-power recurrence for all n >= 2 (including bup_140's n = 20
+shift), using ((x * y) / a) * density with stored exp(m * ln(x)) and binary64 summation for b >
+1.0, and extended-precision x^m and summation for b <= 1.0 (plus excel_log(y) in
+beta_density_at for a < 1 || b < 1, x > 0.99). bratio_bgrat applies the 0.99 lnx switch to all
+b, evaluates seeded b == 0.5 via erf/erfc, b == 1.0 via exp(-z), and z >= 1.1 via
+excel_gamma_fraction(b, z).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `BETA.DIST(3.725290298461914e-09, 12.375, 37.62500000000001, TRUE)` | x `3.725290298461914e-09` (`0x3e30000000000000`); alpha `12.375` (`0x4028c00000000000`); beta `37.62500000000001` (`0x4042d00000000001`); cumulative `TRUE` (cells) | `6.820007249574363e-94` (`0x2c96c2fa9478a1b0`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `F.DIST.RT(1.0601920728089276, 144, 39536)` | x `1.0601920728089276` (`0x3ff0f68bf68315b0`); deg_freedom1 `137.0` (`0x4061200000000000`); deg_freedom2 `39532.0` (`0x40e34d8000000000`) (cells) | `0.2989163342678236` (`0x3fd32171f9fae994`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across cb5 (1,638 live Excel 16.0.20527 calls;
+frozen_cb5_f_gt099_v2.jsonl 59 of 100 vs 0 of 100, 99 of 100 within 5 ULP) and nx4
+(frozen_nx4_predictions.jsonl 115 of 360 vs 34 of 360). Landing nx4 moved 29 beta-family
+witness banks (168,767 rows) from 166,630 to 167,126 (+496 net, 0 full regressions: FDIST +206,
+BETA.DIST +116, BETADIST +24, CONFIDENCE.T 4,282/4,282, FINV pinned 32/32).
+
+Inferred, not measured: That Excel executes these branch rules and intermediate store sites is
+inferred from continuity probes, frozen holdouts, and witness-bank improvements; inner-loop
+rounding in bfrac and non-half bgrat remain open.
+
+- Open: bfrac inner-loop 1-8 ULP bound (dyadic 2-step (64, 128, 2^-10) is -2 ULP; dc-j9k.55).
+- Open: bgrat non-half +-6 ULP ceiling inherited from GAMMA.DIST(z, a < 1, 1, TRUE) (dc-j9k.55 / dc-j9k.59).
+- Open: Remaining bup 1-3 ULP residuals and ge8 ln B +-1 ULP (dc-j9k.55).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/special_math_common.rs`, bratio; bratio_bfrac; bratio_bup; bratio_bgrat at `5c2054b1b7` — Carbon cb5 beta arms and nx4 refinements
+- DnaCalc `crates/calc-func/src/ported/discrete_dist.rs`, beta_density_at at `5c2054b1b7` — x > 0.99 caller complement y in beta_density_at
+- CalcFunc-Evidence `readings/excel-20527/studies/cb5.json.gz` at `4ef2c244d7` — 1,635 live Excel cb5 study rows
+- CalcFunc-Evidence `readings/excel-20527/studies/nx4.json.gz` at `4ef2c244d7` — 360 frozen nx4 holdout rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb5; nx4 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/cb5.json.gz`, 294 at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx4.json.gz`, $[219] at `4ef2c244d7` (readings)
+
 ### FN-BINOM.INV-001: BINOM.INV and CRITBINOM test the public cumulative: strictly at zero successes, inclusively at later counts
 
 *Quirk; inferred; recorded 2026-11-11.* Applies to BINOM.INV, CRITBINOM.
@@ -676,6 +766,57 @@ Evidence:
 - DnaCalc `.beads/issues.jsonl`, dc-b1l.24 at `1ec418b2c1` — review record
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q193, row 20, column 10 at `eceb809985` (readings)
 - DnaCalc `crates/calc-host/tests/captures/dc_ylr/oracle.capture.json`, sheet Main, row 54, column 1 at `2d0eddcac8` — The recorded formula names the source workbook by its full path (readings)
+
+### FN-CONCAT-001: Number-to-text emits 15 significant digits via an exact Q16.64 split on [1, 65536) and x87 low-nibble scaling into Q0.64 elsewhere
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to ARRAYTOTEXT,
+CONCAT, CONCATENATE, DOLLAR, FIXED, OP_CONCAT, TEXT, TEXTJOIN, VALUETOTEXT.
+
+Every worksheet consumer of general 15-significant-digit number-to-text conversion (&, CONCAT,
+CONCATENATE, VALUETOTEXT, ARRAYTOTEXT, FIXED, DOLLAR, TEXT, TEXTJOIN, and general cell
+formatting) shares one routine (first_precision). For 1.0 <= |x| < 65,536.0 (0 <= exp2 < 16),
+Branch 1 splits the binary64 significand directly into an integer part w (1..=65535, d digits)
+and an exact Q0.64 fraction f with no FPU scaling, then adds the truncated half-ulp constant
+floor(2^63 / 10^(15 - d)); because floor(2^63 / 10^k) < 2^63 / 10^k, exact binary ties below
+65,536 never round up, and [1, 10) rounds up only past +0.07204 ulp64(v). For |x| < 1.0 or |x|
+>= 65,536.0, Branch 2 computes p = ceil((exp2 + 1) / 3.3219) (0 for [0.5, 1)), multiplies x by
+10^-p using the low-nibble-first x87 PC64 table chain (10^+-1..15, 10^+-16..240, 10^+-256) with
+one 10^-1 step if scaled v >= 1.0, shifts the 64-bit significand mv into Q0.64 by a truncating
+right shift, and adds floor(2^63 / 10^k) (k in 15..=17). That explains why [0.5, 1) and
+below-2^k values require +0.372036854775808 ulp64(v) to round up, while above-2^k values
+exhibit a period-8 oscillation +3.37203685 + 1.25 * (mv & 7) ulp64(10v). See
+https://github.com/DnaCalc/DnaCalc/blob/344d70dcea3ea77cbbeee1595f96694630a9610a/docs/articles/last-bit-number-text.md.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `CONCAT(3.645252540996335, "")` | text1 `3.645252540996335` (`0x400d297a2a09ebd8`); text2 `` (cells) | `3.64525254099634` | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `CONCAT(86497.03926400005, "")` | text1 `86497.03926400005` (`0x40f51e10a0d349c2`); text2 `` (cells) | `86497.0392640001` | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `CONCAT(8.594243319945645e-293, "")` | text1 `8.594243319945645e-293` (`0x034b71c2dc7a8ed6`); text2 `` (cells) | `8.5942433199457E-293` | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured on 21,377 probe and W111 rows (21,377 of 21,377 matched), 29
+formerly failing oracle-corpus cells (29 of 29 matched across dc_q9rb, catalogue, and
+fn7_format_context), and three prospective frozen proofs in nx8 on Excel 16.0.20527.20196: 600
+of 600 on frozen_cb9_predictions.jsonl, 32 of 32 on the 4-binade discriminator (exp2 in {-971,
+-486, +484, +969}, settling ceil(frexp_k / 3.3219) 32/32 vs ceil(frexp_k * log10(2)) 0/32), and
+20 of 20 on the 10^-1 sliver step. Post-study witness banks: CONCAT 3,578 of 3,578, CONCATENATE
+3,133 of 3,133, FIXED 3,783 of 3,783, VALUETOTEXT 2,571 of 2,571.
+
+Inferred, not measured: Whether Excel implements Branch 1 via integer bit-shifts or x87
+fistp+fsub is unobservable from outputs and inferred; both give identical (w, f) for every
+binary64 in [1.0, 65536.0).
+
+- Open: Nothing remains open in first_precision itself. 132 post-study TEXT bank rows (0.00000000000000E+00 / General) return NotImplemented due to format-string/locale handling owned by dc-j9k.65 and dc-0f1k.8.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/number_text.rs`, first_precision; scale_nibble_pc64; Q64_HALF_POW10 at `86427f7ab2` — Q0.64 two-branch number-to-text implementation (nx8)
+- DnaCalc `docs/articles/last-bit-number-text.md` at `344d70dcea` — Last-bit article on Excel number-to-text
+- CalcFunc-Evidence `readings/excel-20527/studies/cb9.json.gz` at `4ef2c244d7` — 632 scored cb9/nx8 holdout and binade-4 rows
+- CalcFunc-Evidence `readings/excel-20527/studies/nx8.json.gz` at `4ef2c244d7` — 20 nx8 10^-1 sliver proof rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb9 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/cb9.json.gz`, scored_600[295] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb9.json.gz`, scored_600[178] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb9.json.gz`, scored_binade4[6] at `4ef2c244d7` (readings)
 
 ### FN-COUNTBLANK-001: COUNTBLANK of an omitted optional LAMBDA parameter is #VALUE!
 
@@ -1295,6 +1436,50 @@ Evidence:
 - DnaCalc `.beads/issues.jsonl`, dc-6332.5 at `b8738ae6a6` — the bead for this change
 - DnaCalc `crates/calc-func/tests/captures/dcj9k_r38_ets/sections/dcj9k_r38_ets.capture.json`, sheet dcj9k_r38_ets row 449 column 4 at `09c7107837` — the formula and its recorded number (readings)
 
+### FN-FORECAST.ETS-002: Seasonal FORECAST.ETS centers 2p sliding moving-average initials, starts smoothing at j=0, and linearly interpolates fractional CONFINT variance
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to FORECAST.ETS,
+FORECAST.ETS.CONFINT, FORECAST.ETS.SEASONALITY, FORECAST.ETS.STAT.
+
+In Excel 16.0.20527, seasonal AAA FORECAST.ETS builds initial state over m = min(len, 5 * p)
+observations (extending histories shorter than ceil(3.5 * p) by tau = sum_q
+regression_slope(phase_q) / (p * p) via raw-moment slopes). It computes a subtract-first 2*p
+sliding moving average sum = (sum - e[t - 1]) + e[t + 2*p - 1], T[t] = sum / (2*p), averages
+detrended e[t + p/2 - 1] - T[t] per phase to form raw[q], centers seasons[q] = raw[q] - center
+with pre-centered initial level = (y[0] - raw[0]) + center, and sets initial trend T_0 =
+regression_slope(e[j] - seasons[j % p]). The smoothing loop starts at t = -1 (level =
+initial.level - initial.trend) and runs from j = 0, so err[0] enters MAE, RMSE, SSE, and state
+updates. FORECAST.ETS.STAT types 1-3 show Excel stores 6-digit rounded binary64 smoothing
+constants (such as 0.001, 0.0833333, 0.166667); seasonal_general re-centers seasons and adds
+them via x87 PC64; and FORECAST.ETS.CONFINT linearly interpolates mse * horizon_variance at
+fractional horizons (from 0 on h in (0, 1)) before sqrt and x87 multiplication by z.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `FORECAST.ETS(5, {2.4336279950102555;4.37860323077562;4.912900198590681;7.012185284475066;7.436222237936547}, {1;2;3;4;5}, 2)` | as typed | `7.514004339153394` (`0x401e0e57274aa9e7`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `FORECAST.ETS.CONFINT(6, {2.4336279950102555;4.37860323077562;4.912900198590681;7.012185284475066;7.436222237936547}, {1;2;3;4;5}, 0.95, 2)` | as typed | `0.1272042030022737` (`0x3fc0483a31e77d46`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across nx3's live Excel 16.0.20527 frozen holdouts
+(frozen_ets_pred.json 32 of 48 vs 1 of 48; frozen_confint_frac_pred.json 33 of 40 vs 16 of 40)
+and cb4's FORECAST.ETS.STAT measurements. On the full witness banks, FORECAST.ETS moved from
+2,640 to 2,959 of 2,959 (+319, worst ULP 1,440 -> 0), FORECAST.ETS.CONFINT from 4,001 to 4,355
+of 4,355 (+354, worst ULP 736 -> 0), FORECAST.ETS.STAT stayed 2,955 of 2,955, and
+FORECAST.ETS.SEASONALITY stayed 2,958 of 2,958.
+
+Inferred, not measured: That Excel executes this exact sliding moving average, j=0 indexing,
+and fractional variance interpolation is inferred from matching all 12,227 bank rows and the
+unseen frozen holdouts.
+
+- Open: Unseen p=2..6 histories (n=6,7 choosing (0.002, 0.001, 0.25/0.75) outside SHORT_TWO_PARAMETERS, plus 1-10 ULP on ~10/43 longer histories) and dcj9k_r39_ets D630/D678 (dc-2u2g, dc-j9k.61).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/statistics/ets.rs`, excel_seasonal_initial; Model::run_initialized; seasonal_general; confidence_interval at `78e5dd51bd` — Seasonal initialization, j=0 loop, and variance interpolation (nx3)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx3.json.gz` at `4ef2c244d7` — 672 live Excel nx3 ETS holdout rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb4; nx3 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/nx3.json.gz`, p2_n5_0.ets[0] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx3.json.gz`, p2_n5_0.ci[0] at `4ef2c244d7` (readings)
+
 ### FN-GAMMA-001: Below 10, GAMMA is a stored product down to a seed on (1,2)
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.*
@@ -1501,6 +1686,165 @@ Evidence:
 - CalcFunc-Evidence `cache/oracle/build-20131/GAMMA.DIST.jsonl.gz`, GAMMA.DIST|0x4014000000000000|0x4008000000000000|0x3ff0000000000000|0x3ff0000000000000 at `b4818a6a23` (readings)
 - CalcFunc-Evidence `cache/oracle/build-20131/GAMMA.DIST.jsonl.gz`, GAMMA.DIST|0x4010000000000000|0x4000000000000000|0x3ff0000000000000|0x3ff0000000000000 at `b4818a6a23` (readings)
 
+### FN-GAMMA.DIST-004: Forward incomplete gamma runs finite sums strictly on a < x <= 30, drops ln(10) and x0=31 splits for a <= 20, and loops forward for a > 20
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to CHIDIST,
+CHISQ.DIST, CHISQ.DIST.RT, GAMMA.DIST, GAMMADIST, POISSON, POISSON.DIST.
+
+In Excel 16.0.20527, the shared forward incomplete-gamma kernel gratio(a, x) removes three
+splits of NSWC TOMS 708. First, for integer shapes a in 2..=20 and half-integer shapes a in
+1.5..=19.5, the finite-sum branch runs strictly on a < x <= 30.0: at x == a Excel runs the
+lower Taylor series (matched on 42 of 42 adjacent-double boundary calls), and for half-integers
+Excel evaluates a stored x87 PC64 Horner polynomial over RN53(2^(k+1) / (2k+1)!!) scaled by
+exp(S(-x - S(0.5 * ln(x)))) * (1 / sqrt(pi)) * x plus ERFC.PRECISE(sqrt(x)). Second, for 1 < a
+<= 20 outside the finite sums, Excel has no ln(10) switch and no x0 = 31.0 asymptotic switch: x
+<= a runs the forward Taylor series and x > a stays in the continued fraction down toward
+DBL_MIN. Third, for a > 20 and x / a >= 1.3 (all x, with no x0 = 31.0 threshold), Excel
+computes the upper tail by a forward x87-stored loop (amn = S(amn - 1), nt = S(t * S(amn / x)),
+stopping at |nt| > |t| or |t|/s <= 2^-52) multiplied by S(pm * S(S(a / x) * s)) using
+poisson_mass(a, x) (Loader's saddle-point prefactor for a > 1 and x > 1.1). See also the
+DnaCalc last-bit article
+https://github.com/DnaCalc/DnaCalc/blob/344d70dcea3ea77cbbeee1595f96694630a9610a/docs/articles/last-bit-gamma.md.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `CHIDIST(18.162619486466507, 15)` | x `18.162619486466507` (`0x403229a16e4010e3`); deg_freedom `15.0` (`0x402e000000000000`) (cells) | `0.25421272406815476` (`0x3fd0450572066312`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `POISSON.DIST(26, 62.46781908508943, TRUE)` | x `26.0` (`0x403a000000000000`); mean `62.46781908508943` (`0x404f3be17eeb73ae`); cumulative `TRUE` (cells) | `1.5066926709301541e-07` (`0x3e8438f4e39171f3`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `GAMMA.DIST(1.4337904022671917, 1.3878205276776927, 1, TRUE)` | x `1.4337904022671917` (`0x3ff6f0ce3470e67e`); alpha `1.3878205276776927` (`0x3ff634834c317d8e`); beta `1.0` (`0x3ff0000000000000`); cumulative `TRUE` (cells) | `0.627034000116316` (`0x3fe410a99b7f5931`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across 5,820 cb7 live Excel 16.0.20527 calls and two prospective
+frozen holdout suites: cb7 frozen_cb7_predictions.jsonl matched 461 of 800 unseen rows (318 of
+320 on a > 20, x/a >= 1.3; 240 of 240 for x >= 31) and nx6 frozen_predictions_nx6.jsonl matched
+252 of 300 (60 of 60 half-integer forward, 40 of 40 asymptotic forward). Offline across 12
+gamma/Poisson/chi witness banks (162,739 rows), landing nx6 moved total matches from 160,287 to
+161,032 (+745 net: CHIDIST pinned 120 of 120, POISSON +199, POISSON.DIST +182).
+
+Inferred, not measured: That Excel executes these exact polynomial, forward-loop, and
+branch-boundary expressions internally is inferred from the zero-ULP match across frozen
+holdouts and adjacent-double sweeps; Excel's source was not read.
+
+- Open: 46 CHISQ.DIST cumulative rows (45 in a > 20, y < 1.1 and 1 tie at a = 104.5, y = 50) remain unmatched (dc-j9k.59).
+- Open: 4 POISSON Temme rows (a > 48) and 3 build-20131 POISSON.DIST rows remain 1 ULP off (dc-j9k.42); forward distribution remainder is tracked in dc-ymjf.2.27.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/special_math_common.rs`, gratio; gratio_half_integer_sum; gratio_after40 at `88b8861796` — Carbon cb7 forward gratio landing (nx6)
+- DnaCalc `docs/articles/last-bit-gamma.md`, Stage 2 (cb7 / nx6) at `344d70dcea` — Last-bit article on the gamma family
+- CalcFunc-Evidence `readings/excel-20527/studies/cb7.json.gz` at `4ef2c244d7` — 5,744 live Excel cb7 study rows
+- CalcFunc-Evidence `readings/excel-20527/studies/nx6.json.gz` at `4ef2c244d7` — 300 frozen nx6 holdout rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb7; nx6 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/nx6.json.gz`, $.rows[7] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx6.json.gz`, $.rows[67] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx6.json.gz`, $.rows[104] at `4ef2c244d7` (readings)
+
+### FN-GAMMA.DIST-005: For a < 1 and x < 1.1, Excel uses TOMS 654 double-precision st200 branch bounds with shared Kahan expm1, forcing even LSBs when P < 0.5
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to CHISQ.DIST,
+GAMMA.DIST, GAMMA.INV, GAMMADIST, GAMMAINV.
+
+In Excel 16.0.20527, when 0 < a < 1.0 and 0 < x < 1.1 (unit scale x / beta), gratio computes z
+= S(a * ln(x)) with x87 PC64 operations and selects the upper-complement branch st200 using
+TOMS 654's double-precision (iop = 1) bounds: z >= -ln(2) (-0x1.62e42fefa39efp-1,
+0xbfe62e42fefa39ef) when x <= 0.5, and S(a - x) < 0.25 when x > 0.5. Single-bit straddles at x
+= 0x3fd965fea53d6e3c vs 0x3fd965fea53d6e3d (a = 0.75) and x = 0.5 vs next_up(0.5) (a = 0.8125)
+establish both seams with zero bits of slack. Inside st200, Excel computes expm1(z) via its
+shared Kahan excel_expm1_internal(z) routine (not Morris's gratio_rexp rational) and forms P =
+0.5 + (0.5 - qans), which by Sterbenz's lemma gives an even LSB (bit 0 = 0) on every output
+with P < 0.5 (85 of 85 across consecutive-x sweeps). Separately, for CHISQ.DIST(2*y, 2*a, TRUE)
+at a > 20 and y < 1.1, Excel exits the anomalous a > 20 lower-series branch at y == 1.1
+(0x3ff199999999999a) while poisson_mass keeps compensated exp until y > 1.1.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `GAMMA.DIST(0.39685026299204984, 0.75, 1, TRUE)` | x `0.39685026299204984` (`0x3fd965fea53d6e3c`); alpha `0.75` (`0x3fe8000000000000`); beta `1.0` (`0x3ff0000000000000`); cumulative `TRUE` (cells) | `0.4621377428146077` (`0x3fdd93aa2ee8b435`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `GAMMA.DIST(0.3968502629920499, 0.75, 1, TRUE)` | x `0.3968502629920499` (`0x3fd965fea53d6e3d`); alpha `0.75` (`0x3fe8000000000000`); beta `1.0` (`0x3ff0000000000000`); cumulative `TRUE` (cells) | `0.46213774281460807` (`0x3fdd93aa2ee8b43c`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `GAMMA.DIST(0.45449360831744195, 0.875, 1, TRUE)` | x `0.45449360831744195` (`0x3fdd166c5bfdb97f`); alpha `0.875` (`0x3fec000000000000`); beta `1.0` (`0x3ff0000000000000`); cumulative `TRUE` (cells) | `0.4293230191680172` (`0x3fdb7a0741afc88a`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `CHISQ.DIST(0.5, 38, TRUE)` | x `0.5` (`0x3fe0000000000000`); deg_freedom `38.0` (`0x4043000000000000`); cumulative `TRUE` (cells) | `2.3585848943481354e-29` (`0x39fde60bab853da6`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured in cb11 (1,391 live Excel 16.0.20527.20196 calls,
+frozen_cb11_predictions.jsonl 141 of 240 vs 105 of 240 on prior master) and nx9 (nx9_probe1:
+582 of 1,478 combined matches vs 525 for gratio_rexp and 464 for prior master). Landing nx9 on
+full witness banks raised GAMMA.DIST by +656 (78,209 -> 78,865 of 83,312), GAMMADIST by +15
+(3,019 -> 3,034 of 3,139), GAMMA.INV by +567 (4,336 -> 4,903 of 10,860), and GAMMAINV by +149
+(4,106 -> 4,255 of 6,163) with zero per-function regressions.
+
+Inferred, not measured: The exact internal code structure of Excel's a < 1, x < 1.1 st190
+primary branch (which still shows a non-monotonic period-16/32 sawtooth) and the a > 20, y <
+1.1 CHISQ.DIST branch remain inferred in part and are open.
+
+- Open: a < 1, x < 1.1 st190 primary-branch period-16/32 sawtooth (-11..+2 ULP) and residual +-1..2 ULP st200 offset (dc-j9k.59).
+- Open: CHISQ.DIST a > 20, y < 1.1 lower-series staging (45 bank misses; dc-j9k.59).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/special_math_common.rs`, gratio; gratio_gam1 at `0707a18dea` — iop=1 st200 branch and Kahan excel_expm1_internal (nx9)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb11.json.gz` at `4ef2c244d7` — 241 cb11 study rows
+- [`content/notes/evidence/2026-11-22/cb11-seam-witnesses.json`](../../content/notes/evidence/2026-11-22/cb11-seam-witnesses.json) — Single-bit z=-ln(2) and x=0.5 st200 seam witnesses
+- [`content/notes/evidence/2026-11-22/nx9-GAMMA.DIST-witnesses.json`](../../content/notes/evidence/2026-11-22/nx9-GAMMA.DIST-witnesses.json) — 79 differing nx9 GAMMA.DIST witnesses
+- [`content/notes/evidence/2026-11-22/nx9-probe-summary.md`](../../content/notes/evidence/2026-11-22/nx9-probe-summary.md) — nx9 expm1 proof summary and witness-bank counts
+- [`content/notes/evidence/2026-11-22/cb11-seam-witnesses.json`](../../content/notes/evidence/2026-11-22/cb11-seam-witnesses.json), cb11-GAMMA.DIST-00907 (readings)
+- [`content/notes/evidence/2026-11-22/cb11-seam-witnesses.json`](../../content/notes/evidence/2026-11-22/cb11-seam-witnesses.json), cb11-GAMMA.DIST-00908 (readings)
+- [`content/notes/evidence/2026-11-22/nx9-GAMMA.DIST-witnesses.json`](../../content/notes/evidence/2026-11-22/nx9-GAMMA.DIST-witnesses.json), nx9-GAMMA.DIST-00001 (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb11.json.gz`, $.witnesses[0] at `4ef2c244d7` (readings)
+
+### FN-GAMMA.INV-001: Gamma and chi-square inverses use erfinv(p)^2 at a=0.5, Goldstein 451 for a > 1, a 0.9999 complement switch, and damped Halley
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to CHIINV,
+CHISQ.INV, CHISQ.INV.RT, GAMMA.INV, GAMMAINV.
+
+In Excel 16.0.20527, the five gamma and chi-square inverse functions share one unit solver plus
+closed forms. At alpha == 0.5 (df == 1), Excel computes erfinv(p)^2 directly using the exact
+same four-piece rational/AS 241 tables as NORM.S.INV (omitting sqrt(2) on the central pieces
+and scaling the AS 241 tail by 1/sqrt(2)), flushing subnormal y*y to 0.0 inside the unit helper
+before multiplying by beta or 2.0. For general shapes, a > 1.0 starts from Goldstein (1973,
+CACM Algorithm 451) 7-term stored polynomial a * ((c * c) * c) (with z = -NORM.S.INV(q) on
+right-tail CHIINV/CHISQ.INV.RT for df >= 3 so tiny q never collapses 1 - q to 1.0); a < 1.0
+uses AS 91 -1.24 * ln(p) power-law or Wilson-Hilferty with a * exp(3 * ln(c)). Above strict
+prob > 0.9999 (0x3fefff2e48e8a71e), the Halley residual switches to the upper/lower complement
+(comp(prob) - flush(Q) or flush(P) - comp(prob)). The unfactored Halley step uses AS 109
+thirding damping on sign changes, a 106-trial budget, and stops on |next - x| <= eps * x
+(returning best_x by strict < on |df| without evaluating next) or |last_adj| >= step_limit &&
+!improved. Remaining >= 5 ULP misses on GAMMA.INV/GAMMAINV sit almost exclusively in a < 1, y <
+1.1 where conditioning ~ 1/a magnifies forward gratio offsets. See
+https://github.com/DnaCalc/DnaCalc/blob/344d70dcea3ea77cbbeee1595f96694630a9610a/docs/articles/last-bit-gamma.md
+and
+https://github.com/DnaCalc/DnaCalc/blob/18828c4446e1375dd58ab855ea87c09d649b2e67/docs/articles/last-bit-normsinv.md.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `CHIINV(0.9999, 2000)` | probability `0.9999` (`0x3fefff2e48e8a71e`); deg_freedom `2000.0` (`0x409f400000000000`) (cells) | `1773.2965228301468` (`0x409bb52fa3ae47fe`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `CHIINV(0.9999000000000001, 2000)` | probability `0.9999000000000001` (`0x3fefff2e48e8a71f`); deg_freedom `2000.0` (`0x409f400000000000`) (cells) | `1773.2965228301393` (`0x409bb52fa3ae47dd`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `CHIINV(1e-44, 1)` | probability `1e-100` (`0x2b2bff2ee48e0530`); deg_freedom `1.0` (`0x3ff0000000000000`) (cells) | `#NUM!` | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `CHIINV(1e-44, 2)` | probability `1e-100` (`0x2b2bff2ee48e0530`); deg_freedom `2.0` (`0x4000000000000000`) (cells) | `460.51701859880916` (`0x407cc845b54b54f2`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across cb6 (140 of 140 on a==0.5 / df==1 frozen holdout; 291 of 500
+overall), nx6 (20 of 20 on a > 20 GAMMA.INV), and nx7 (30 of 30 on |next - x| <= eps*x, 57 of
+60 on a*exp(3*ln(c)) + stop rule, 51 of 65 on damping stop). Across the 5 inverse witness banks
+(20,160 rows before nx9 expansions), nx5..nx7 raised exact matches from 17,712 to 19,430
+(CHIINV 4,290/4,293 worst 2 ULP, CHISQ.INV 2,900/2,903 worst 2 ULP, CHISQ.INV.RT 4,190/4,191
+worst 2 ULP).
+
+Inferred, not measured: The internal loop structure and exact stopping predicates are inferred
+from prospective frozen holdouts and bisection across the 0.9999 and a=1.0 thresholds.
+
+- Open: Remaining >= 5 ULP GAMMA.INV/GAMMAINV misses caused by forward a < 1, y < 1.1 gratio residuals magnified by 1/a (dc-j9k.59).
+- Open: 7 remaining 1-2 ULP chi-square inverse misses from 1-ULP forward gratio_series/gratio_after40 residuals, plus the q <= 1e-44, df <= 6 #NUM! corner (CHIINV(1e-42, 6) succeeds while CHIINV(1e-44, 6) returns #NUM!; dc-j9k.59).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/beta_gamma_stats_family.rs`, gamma_halley_unit at `48207c4dc3` — cb6 Halley solver and 0.9999 switch (nx5)
+- DnaCalc `crates/calc-func/src/ported/normal_log_family.rs`, gamma_inv_half_unit at `48207c4dc3` — erfinv^2 shared with NORM.S.INV (nx5)
+- DnaCalc `crates/calc-func/src/ported/beta_gamma_stats_family.rs`, goldstein_451_unit_start at `88b8861796` — Goldstein Algorithm 451 a > 1 start (nx6)
+- DnaCalc `crates/calc-func/src/ported/beta_gamma_stats_family.rs`, gamma_halley_unit at `de7cbede41` — a < 1 Wilson-Hilferty exp(3*ln(c)) and exact stopping rules (nx7)
+- DnaCalc `docs/articles/last-bit-gamma.md` at `344d70dcea` — Last-bit article on the gamma family
+- DnaCalc `docs/articles/last-bit-normsinv.md` at `18828c4446` — Last-bit article on NORM.S.INV (shared erfinv tables)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb6.json.gz` at `4ef2c244d7` — 1,008 live Excel cb6 inverse study rows
+- CalcFunc-Evidence `readings/excel-20527/studies/nx5.json.gz` at `4ef2c244d7` — 76 live Excel nx5 verification rows
+- CalcFunc-Evidence `readings/excel-20527/studies/nx5.json.gz`, $[55] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx5.json.gz`, $[56] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb6.json.gz`, $[296] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb6.json.gz`, $[297] at `4ef2c244d7` (readings)
+
 ### FN-GAMMALN-001: GAMMALN from 3 to 8 is a stored recurrence, and GAMMALN(3) is one unit above ln 2
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to GAMMALN,
@@ -1606,6 +1950,46 @@ Evidence:
 - DnaCalc `crates/calc-func/src/ported/excel_numeric/x87_chains.rs`, excel_root_x87 at `da3ecc4fb1` — Current normalized LN, reciprocal and EXP root reconstruction.
 - CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-geomean.json.gz`, w111broad-20260929-GEOMEAN-00003 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
 - CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00014 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
+
+### FN-GROUPBY-001: GROUPBY and PIVOTBY hold an array returned by their LAMBDA inside its cell; INDEX boxes it unless computed, and N(boxed) is #VALUE!
+
+*Quirk; measured; recorded 2026-11-22.* Applies to GROUPBY, INDEX, N, PIVOTBY, TYPE.
+
+Measured in Excel 16.0.20527 through COM (dc-h9u), when a GROUPBY or PIVOTBY callback LAMBDA
+returns an array, Excel keeps that array held inside its result cell rather than flattening or
+failing immediately: a cell spilling that held array shows #VALUE!, an operator over the result
+is #VALUE! in a dynamic-array formula (and takes the first element in a legacy formula),
+SUM/COUNT/COUNTA read across its elements, and MAX/MIN/AVERAGE/PRODUCT/SUMSQ give #N/A.
+INDEX(GROUPBY(...), 1, 2) returns a boxed array that displays its first element (so *10
+multiplies the first element and TYPE gives 1, while SUM/ROWS/CONCAT read the whole array);
+however N(INDEX(GROUPBY(...), 1, 2)) returns #VALUE!, and omitting the column selector as
+INDEX(INDEX(GROUPBY(...), 0, 2), 1) leaves the inner array held (#VALUE!). When the group
+LAMBDA builds a computed array (for example LAMBDA(x, x+0), TRANSPOSE(x), or FILTER(x, x>0)),
+INDEX(GROUPBY(...), 1, 2) spills that array in a dynamic-array formula. In PIVOTBY with several
+value columns and one function, Total and column subtotal columns are blank; with several
+functions they carry values.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=INDEX(GROUPBY({"East";"West";"East";"north";"West";"east"},{1;2;3;4;5;6},LAMBDA(x,x)),1,2)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=INDEX(GROUPBY({"East";"West";"East";"north";"West";"east"},{1;2;3;4;5;6},LAMBDA(x,x)),2,2)` | as typed | `4.0` (`0x4010000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(GROUPBY({"East";"West";"East";"north";"West";"east"},{1;2;3;4;5;6},LAMBDA(x,x)))` | as typed | `4.0` (`0x4010000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Read from Excel 16.0.20527 COM measurements recorded in DnaCalc commits
+ad40ea44 (about 160 dynamic-array and legacy grouping formulas), a61f6695 (15 PIVOTBY
+multi-field depth calls), d96d8cba (held_arrays explicit dynamic-formula tests), and 2,055
+grouping rows in catalogue sheet dch9u_functions.
+
+- Open: Worksheet entry, save, and unmeasured held-array call shapes for GROUPBY/PIVOTBY are tracked in dc-h9u.2.
+
+Evidence:
+
+- DnaCalc `crates/calc-host/tests/held_arrays.rs`, dc_h9u__a_groupby_cell_holds_its_lambdas_array; dc_h9u__n_of_a_boxed_group_is_value_error; dc_h9u__index_of_a_computed_group_spills at `d96d8cbaee` — End-to-end dynamic-array Excel 16.0.20527 expectations (gp1)
+- DnaCalc `crates/calc-func/src/catalogue/grouping.rs` at `ad40ea44de` — GROUPBY/PIVOTBY boxed/held array semantics and PIVOTBY multi-value subtotals
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, rows 585 to 630 at `c9f9d35416` — Captured Excel 16.0.20527.20088 catalogue observations
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 618 column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 620 column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 615 column 4 at `c9f9d35416` (readings)
 
 ### FN-HSTACK-001: A direct error stops these array functions; the same error in an array or cell is an element
 
@@ -2056,6 +2440,46 @@ Evidence:
 - CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00183 at `4d5320dfdc` (readings)
 - CalcFunc-Evidence `runs/w111-mround-fraction-cutoff-20260929/answers-mround.json.gz`, mround-fraction-cutoff-00003 at `4d5320dfdc` (readings)
 
+### FN-MULTINOMIAL-001: MULTINOMIAL sums log10(2..=total), subtracts log10(2..=item) in reverse argument order, and rejects total > 170
+
+*Excel differs from the mathematical answer; inferred; recorded 2026-11-22.*
+
+In Excel 16.0.20527, MULTINOMIAL truncates each admitted argument toward zero (negative gives
+#NUM!), rejects total > 170 with #NUM!, accumulates acc = sum_{k=2..=total} excel_log10(k),
+then loops over the flattened items in reverse order (last argument first, first argument last)
+subtracting excel_log10(2..=item), and finishes with POWER(10.0, acc). Because acc climbs
+toward log10(170!) ~ 306.8 before subtracting the item logs back down, rounding at larger
+exponents leaves systematic drift (up to 4,672 ULP on single-argument inputs, where acc < 0
+also triggers POWER's 1.0 / p reciprocal and even LSBs) and makes MULTINOMIAL non-commutative:
+MULTINOMIAL(4, 108) differs from MULTINOMIAL(108, 4) by 107 ULP.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `MULTINOMIAL(1, 2)` | number1 `1.0` (`0x3ff0000000000000`); number2 `2.0` (`0x4000000000000000`) (cells) | `3.0000000000000004` (`0x4008000000000001`) | `3.0` (`0x4008000000000000`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `MULTINOMIAL(4, 108)` | number1 `4.0` (`0x4010000000000000`); number2 `108.0` (`0x405b000000000000`) (cells) | `6210819.999999507` (`0x4157b140fffffdef`) | `6210820.0` (`0x4157b14100000000`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `MULTINOMIAL(108, 4)` | number1 `108.0` (`0x405b000000000000`); number2 `4.0` (`0x4010000000000000`) (cells) | `6210819.999999607` (`0x4157b140fffffe5a`) | `6210820.0` (`0x4157b14100000000`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Correct value: exact integer arithmetic: 3! / (1! * 2!) = 3
+Correct value: exact integer arithmetic: 112! / (4! * 108!) = 6,210,820
+Correct value: exact integer arithmetic: 112! / (108! * 4!) = 6,210,820
+
+Basis (inferred): Measured across 800 cb4 live Excel 16.0.20527 calls and prospective
+frozen_multinomial_cb4.jsonl (409 of 409 matched with 0 ULP max error vs 0 of 409 on prior
+master). Landing nx3 moved the full MULTINOMIAL witness bank from 2,569 to 2,804 of 2,804
+(+235, worst ULP 4,672 -> 0).
+
+Inferred, not measured: That Excel loops in reverse item order using x87 FLDLG2/FYL2X and
+POWER(10, acc) is inferred from matching all 2,804 witness rows and 409 of 409 frozen holdouts.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/multinomial.rs`, multinomial_kernel at `de260e37fc` — Reverse-denominator log10 walk and power_kernel staging (nx3)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz` at `4ef2c244d7` — cb4 MULTINOMIAL live Excel 16.0.20527 study rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb4 — Pre-ask SHA-256 hash and 409/409 frozen holdout score
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz`, 1,2 at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz`, $[130] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz`, $[131] at `4ef2c244d7` (readings)
+
 ### FN-NETWORKDAYS.INTL-001: NETWORKDAYS.INTL checks weekend before the dates, WORKDAY.INTL after them
 
 *Quirk; measured; recorded 2026-11-04.* Applies to NETWORKDAYS.INTL, WORKDAY.INTL.
@@ -2240,6 +2664,56 @@ Evidence:
 - DnaCalc `crates/calc-func/src/ported/excel_numeric/mod.rs`, excel_log1p_atanh at `08ea3d7ae0` — the series
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json` at `c9f9d35416` — recorded answers of the 30-year loan block
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json`, sheet dcj9k_annuity, row 726, column 4 at `c9f9d35416` (readings)
+
+### FN-POISSON.DIST-001: Upper-tail incomplete gamma for a <= 20 runs uncontracted Modified Lentz with TINY=1e-30, and poisson_mass switches at <= 1.1
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to CHIDIST,
+CHISQ.DIST, CHISQ.DIST.RT, GAMMA.DIST, GAMMADIST, POISSON, POISSON.DIST.
+
+In Excel 16.0.20527, all upper-tail incomplete-gamma calls with a <= 20.0 (both a < 1.0, x >=
+1.1 and 1.0 < a <= 20.0, x > a outside finite sums) evaluate the uncontracted Legendre
+continued fraction using Thompson-Barnett Modified Lentz from b_0 = 0 (f = c = TINY, d = 0.0)
+with Numerical Recipes TINY = 1.0e-30 (0x39b08b2a2c280291), storing each arithmetic operation
+to binary64 at x87 PC64, stopping at k > 0 && del == 1.0, and multiplying S(pm * f) directly
+without factoring a out of the fraction. At k = 0, c_0 = S(x + S(a / TINY)) rounds a * 10^30 +
+x into binary64, so changing TINY to 1e-50 or 1e-100 breaks about half of 10,000 tested rows.
+In poisson_mass(a, x), Excel switches between the compensated exponential and Loader's
+saddle-point expansion inclusively at x <= 1.1 || a <= 1.1 (0x3ff199999999999a, verified by
+single-bit bisection at 1.1 vs next_up(1.1)). POISSON(x, mean, cum) and POISSON.DIST(x, mean,
+cum) match across all 278 paired probes, and POISSON.DIST(k, m, TRUE) equals CHIDIST(2*m,
+2*(k+1)) and CHISQ.DIST.RT(2*m, 2*(k+1)). See
+https://github.com/DnaCalc/DnaCalc/blob/344d70dcea3ea77cbbeee1595f96694630a9610a/docs/articles/last-bit-gamma.md.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `POISSON(1, 32.00000000000001, TRUE)` | x `1.0` (`0x3ff0000000000000`); mean `32.00000000000001` (`0x4040000000000001`); cumulative `TRUE` (cells) | `4.1791746312010515e-13` (`0x3d5d68881f1c6f57`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `POISSON.DIST(1, 32.00000000000001, TRUE)` | x `1.0` (`0x3ff0000000000000`); mean `32.00000000000001` (`0x4040000000000001`); cumulative `TRUE` (cells) | `4.1791746312010515e-13` (`0x3d5d68881f1c6f57`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `GAMMA.DIST(1.1, 4.143399358773536, 1, FALSE)` | x `1.1` (`0x3ff199999999999a`); alpha `4.143399358773536` (`0x401092d74810cc80`); beta `1.0` (`0x3ff0000000000000`); cumulative `FALSE` (cells) | `0.06233902817180819` (`0x3fafeae6ae865147`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across cb8's 1,325 live Excel 16.0.20527 calls and
+frozen_cb8_predictions.jsonl (560 of 560 unseen forward calls across 6 functions matched with 0
+ULP max error; 599 of 640 overall), plus nx7's frozen_nx7_proof2_pred.jsonl (50 of 50 on the
+1.1 inclusive boundary). On full witness banks after nx7, POISSON reached 1,556 of 1,560,
+POISSON.DIST 49,707 of 49,710 decoded (0 cumulative CF/asymp/Temme misses), CHIDIST 3,241 of
+3,241, and CHISQ.DIST.RT 2,858 of 2,859.
+
+Inferred, not measured: That Excel executes this exact Modified Lentz recurrence and TINY
+constant is inferred from matching 10,000 of 10,000 offline controls, targeted del==1.0 vs
+nf==f tie-breakers (2 of 2), and 560 of 560 prospective forward holdouts.
+
+- Open: 4 remaining 1-ULP POISSON Temme rows (a > 48) and 3 remaining 1-ULP build-20131 POISSON.DIST rows plus 4 excluded input-changed rows (dc-j9k.42).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/special_math_common.rs`, gratio_cf at `de7cbede41` — Unified Modified Lentz CF with TINY=1e-30 (nx7)
+- DnaCalc `crates/calc-func/src/ported/discrete_dist.rs`, poisson_mass; poisson_compensation_error at `de7cbede41` — Inclusive <= 1.1 threshold
+- DnaCalc `docs/articles/last-bit-gamma.md`, Stage 3 (cb8 / nx7) at `344d70dcea` — Last-bit article on the gamma family
+- CalcFunc-Evidence `readings/excel-20527/studies/cb8.json.gz` at `4ef2c244d7` — 1,230 live Excel cb8 study rows
+- CalcFunc-Evidence `readings/excel-20527/studies/nx7.json.gz` at `4ef2c244d7` — 265 live Excel nx7 proof rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb8; nx7 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/cb8.json.gz`, $[50] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb8.json.gz`, $[0] at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/nx7.json.gz`, $.rows[40] at `4ef2c244d7` (readings)
 
 ### FN-PPMT-001: PPMT is not PMT minus IPMT, and sits further from the exact value than PMT
 
@@ -2847,6 +3321,45 @@ Evidence:
 - CalcFunc-Evidence `cache/oracle/build-20131/TINV.jsonl.gz`, TINV|0x3feb333333333333|0x4039000000000000 at `b4818a6a23` (readings)
 - CalcFunc-Evidence `cache/oracle/build-20131/TINV.jsonl.gz`, TINV|0x3f689374bc6a7efa|0x4039000000000000 at `b4818a6a23` (readings)
 
+### FN-TRIMRANGE-001: TRIMRANGE accepts 3 arguments (0 none, 1 leading, 2 trailing, 3 both default), rejects fractional modes with #VALUE!, and returns #REF! on an all-blank input
+
+*Quirk; measured; recorded 2026-11-22.* Applies to OP_TRIM_REF_BOTH, OP_TRIM_REF_LEADING,
+OP_TRIM_REF_TRAILING, TRIMRANGE.
+
+Measured in Excel 16.0.20527 on 26 catalogue calls (sheet dch9u_functions), TRIMRANGE(range,
+[trim_rows], [trim_cols]) takes at most three arguments and defaults both trim_rows and
+trim_cols to 3 (both margins). Code 0 keeps all margins, 1 trims leading blanks, 2 trims
+trailing blanks, and 3 trims both; string "2" coerces to 2 and TRUE coerces to 1, while
+non-integer 2.9, out-of-range 4 or -1, and a multi-area union (A1:A3,A5:A9) return #VALUE!. A
+completely blank range or array returns #REF! (not #CALC!). TRIMRANGE also accepts array
+constants (ROWS(TRIMRANGE({1,2},1)) is 1) and scalar numbers, text, or logicals. The
+trim-reference operators save in files as _xlfn._TRO_TRAILING(ref) for A1:.B9 (mode 2),
+_xlfn._TRO_LEADING(ref) for A1.:B9 (mode 1), and _xlfn._TRO_ALL(ref) for A1.:.B9 (mode 3), and
+evaluate identically to TRIMRANGE with both trim modes equal.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ROWS(TRIMRANGE(Data!A1:A20,2.9))` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(TRIMRANGE(Data!F1:F20))` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(TRIMRANGE({1,2},1))` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(Data!A1.:A20)` | as typed | `20.0` (`0x4034000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): 26 recorded Excel 16.0.20527.20088 readings in catalogue sheet
+dch9u_functions (rows 17-38 for TRIMRANGE and rows 39-44 for trim-reference operators) with
+Data!A1:A3 holding numbers, Data!A4:A20 blank, and Data!F1:F20 blank.
+
+- Open: Empty-string cells ("") vs truly empty cells in TRIMRANGE have not been separated in this note's cited sheet.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/offset.rs`, trimrange; trim_array at `53ee6b02bb` — TRIMRANGE implementation from Excel 16.0.20527 measurements (dc-h9u)
+- DnaCalc `crates/calc-doc/src/save/file_form.rs` at `53ee6b02bb` — _xlfn._TRO_TRAILING / _TRO_LEADING / _TRO_ALL file forms
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, rows 17 to 46 at `c9f9d35416` — 26 captured TRIMRANGE and trim-reference observations
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 25 column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 22 column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 29 column 4 at `c9f9d35416` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 40 column 4 at `c9f9d35416` (readings)
+
 ### FN-TRUNC-001: TRUNC of DBL_MIN returns a subnormal, not 0
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.* Applies to
@@ -3265,3 +3778,44 @@ Evidence:
 - CalcFunc-Evidence `work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz`, yield-near-seed-discovery-d-oncoupon-short-b0-f2-030 at `b4818a6a23` (readings)
 - CalcFunc-Evidence `work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz`, yield-near-seed-discovery-d-oncoupon-long-b0-f2-039 at `b4818a6a23` (readings)
 - CalcFunc-Evidence `work/w109/G6-solvers/answers-yield-near-seed-discovery-20260809.json.gz`, yield-near-seed-discovery-d-oncoupon-long-b0-f2-040 at `b4818a6a23` (readings)
+
+### FN-YIELD-002: Multi-period YIELD starts from a schedule-free par-100 seed, steps analytic Newton on 1+y/f, and publishes pre-step y when |step| <= 1e-10
+
+*Detail for matching Excel's bits; inferred; recorded 2026-11-22.*
+
+Superseding the near-par special case in FN-YIELD-001, Excel 16.0.20527 runs one universal
+solver for all multi-period YIELD calls (n > 1), regardless of coupon date or redemption. It
+first computes a schedule-free years-to-maturity T (using US/European 30/360 / 360 for bases 0
+and 4, and k + (m - s_k) / year_days for bases 1..3 where s_k uses DATE(sy + k, sm, sd) day
+rollover), forms d = price - 100.0 (hardcoded 100.0, never redemption), and sets the initial
+iterate y_0 = f * ((tau * rate * 100 / f - d) / ((tau * 100 + d * tau / 2) + d * f / 4)). Each
+Newton step evaluates base = 1.0 + y / f (whose rounding into [1, 2) produces +109-ULP sawtooth
+jumps as y crosses base binade boundaries), sums coupon and redemption terms using
+excel_bond_pow, and checks |step| <= 1e-10 (0x3ddb7cdfd9d7bdbb): when satisfied, Excel returns
+the un-updated iterate y before subtracting step (leaving up to 2,844 ULP differences when
+|step_0| <= 1e-10). After 100 iterations without stopping, Excel returns y_100.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `YIELD(44013, 44562, 0.05, 146.42997054598746, 150, 2, 0)` | settlement `44013.0` (`0x40e57da000000000`); maturity `44562.0` (`0x40e5c24000000000`); rate `0.05` (`0x3fa999999999999a`); pr `146.42997054598746` (`0x40624dc25197284d`); redemption `150.0` (`0x4062c00000000000`); frequency `2.0` (`0x4000000000000000`); basis `0.0` (`0x0000000000000000`) (cells) | `0.049999999935487545` (`0x3fa99999990bbc51`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+| `YIELD(44256, 46753, 0.09, 117.26480472366886, 105, 4, 0)` | settlement `44242.0` (`0x40e59a4000000000`); maturity `45658.0` (`0x40e64b4000000000`); rate `0.0875` (`0x3fb6666666666666`); pr `117.26480472366886` (`0x405d50f28f82fefb`); redemption `105.0` (`0x405a400000000000`); frequency `4.0` (`0x4010000000000000`); basis `0.0` (`0x0000000000000000`) (cells) | `0.049999999999982156` (`0x3fa9999999998f8e`) | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (inferred): Measured across 3,198 cb4 live Excel 16.0.20527 calls and two prospective
+frozen holdout suites (frozen_yield_cb4.jsonl 413 of 500, and frozen_yield_v2_cb4.jsonl 244 of
+250 including 100 of 100 on bases 1 and 3 with s_k rollover). Landing nx3 moved the YIELD full
+witness bank from 3,053 to 3,489 of 3,489 (+436, worst ULP 2,844 -> 0) and the pinned bank from
+21 to 120 of 120 (+99).
+
+Inferred, not measured: The exact Newton loop form and 100-iteration fallback are inferred from
+matching all 3,489 full-bank rows, 120 pinned rows, and 64 of 64 consecutive-price sawtooth
+sweeps.
+
+- Open: 6 of 250 frozen_yield_v2_cb4 rows on 30/360 month-end (28/29 Feb, 30/31) seed edges and negative-yield exp(t < 0) (dc-iuwct.67 landed signed discount bases afterwards).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/bond_core_family.rs`, yield_kernel at `209aa59c1d` — Universal schedule-free par-100 seed and Newton solver (nx3)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz` at `4ef2c244d7` — cb4 YIELD live Excel 16.0.20527 study rows
+- [`content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv`](../../content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv), cb4 — Pre-ask SHA-256 hashes and frozen holdout scores
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz`, red[13].yield at `4ef2c244d7` (readings)
+- CalcFunc-Evidence `readings/excel-20527/studies/cb4.json.gz`, B2_consec[3] at `4ef2c244d7` (readings)

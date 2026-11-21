@@ -1,0 +1,122 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TRIMRANGE-001",
+  "functions": [
+    "FUNC.OP_TRIM_REF_BOTH",
+    "FUNC.OP_TRIM_REF_LEADING",
+    "FUNC.OP_TRIM_REF_TRAILING",
+    "FUNC.TRIMRANGE"
+  ],
+  "kind": "quirk",
+  "title": "TRIMRANGE accepts 3 arguments (0 none, 1 leading, 2 trailing, 3 both default), rejects fractional modes with #VALUE!, and returns #REF! on an all-blank input",
+  "statement": "Measured in Excel 16.0.20527 on 26 catalogue calls (sheet dch9u_functions), TRIMRANGE(range, [trim_rows], [trim_cols]) takes at most three arguments and defaults both trim_rows and trim_cols to 3 (both margins). Code 0 keeps all margins, 1 trims leading blanks, 2 trims trailing blanks, and 3 trims both; string \"2\" coerces to 2 and TRUE coerces to 1, while non-integer 2.9, out-of-range 4 or -1, and a multi-area union (A1:A3,A5:A9) return #VALUE!. A completely blank range or array returns #REF! (not #CALC!). TRIMRANGE also accepts array constants (ROWS(TRIMRANGE({1,2},1)) is 1) and scalar numbers, text, or logicals. The trim-reference operators save in files as _xlfn._TRO_TRAILING(ref) for A1:.B9 (mode 2), _xlfn._TRO_LEADING(ref) for A1.:B9 (mode 1), and _xlfn._TRO_ALL(ref) for A1.:.B9 (mode 3), and evaluate identically to TRIMRANGE with both trim modes equal.",
+  "status": "measured",
+  "basis": "26 recorded Excel 16.0.20527.20088 readings in catalogue sheet dch9u_functions (rows 17-38 for TRIMRANGE and rows 39-44 for trim-reference operators) with Data!A1:A3 holding numbers, Data!A4:A20 blank, and Data!F1:F20 blank.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ROWS(TRIMRANGE(Data!A1:A20,2.9))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 25 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(TRIMRANGE(Data!F1:F20))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 22 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(TRIMRANGE({1,2},1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 29 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(Data!A1.:A20)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "20.0",
+        "bits": "0x4034000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 40 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "53ee6b02bbf92276d4c2b50dbbeb85e385b90dc8",
+      "path": "crates/calc-func/src/catalogue/offset.rs",
+      "locator": "trimrange; trim_array",
+      "note": "TRIMRANGE implementation from Excel 16.0.20527 measurements (dc-h9u)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "53ee6b02bbf92276d4c2b50dbbeb85e385b90dc8",
+      "path": "crates/calc-doc/src/save/file_form.rs",
+      "locator": null,
+      "note": "_xlfn._TRO_TRAILING / _TRO_LEADING / _TRO_ALL file forms"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c9f9d354165d2c20b9455c32582ea50baac7ba73",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+      "locator": "rows 17 to 46",
+      "note": "26 captured TRIMRANGE and trim-reference observations"
+    }
+  ],
+  "open": [
+    "Empty-string cells (\"\") vs truly empty cells in TRIMRANGE have not been separated in this note's cited sheet."
+  ],
+  "recorded_on": "2026-11-22"
+}

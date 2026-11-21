@@ -1,0 +1,164 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MULTINOMIAL-001",
+  "functions": [
+    "FUNC.MULTINOMIAL"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "MULTINOMIAL sums log10(2..=total), subtracts log10(2..=item) in reverse argument order, and rejects total > 170",
+  "statement": "In Excel 16.0.20527, MULTINOMIAL truncates each admitted argument toward zero (negative gives #NUM!), rejects total > 170 with #NUM!, accumulates acc = sum_{k=2..=total} excel_log10(k), then loops over the flattened items in reverse order (last argument first, first argument last) subtracting excel_log10(2..=item), and finishes with POWER(10.0, acc). Because acc climbs toward log10(170!) ~ 306.8 before subtracting the item logs back down, rounding at larger exponents leaves systematic drift (up to 4,672 ULP on single-argument inputs, where acc < 0 also triggers POWER's 1.0 / p reciprocal and even LSBs) and makes MULTINOMIAL non-commutative: MULTINOMIAL(4, 108) differs from MULTINOMIAL(108, 4) by 107 ULP.",
+  "status": "inferred",
+  "basis": "Measured across 800 cb4 live Excel 16.0.20527 calls and prospective frozen_multinomial_cb4.jsonl (409 of 409 matched with 0 ULP max error vs 0 of 409 on prior master). Landing nx3 moved the full MULTINOMIAL witness bank from 2,569 to 2,804 of 2,804 (+235, worst ULP 4,672 -> 0).",
+  "inferred": "That Excel loops in reverse item order using x87 FLDLG2/FYL2X and POWER(10, acc) is inferred from matching all 2,804 witness rows and 409 of 409 frozen holdouts.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "MULTINOMIAL(1, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.0000000000000004",
+        "bits": "0x4008000000000001"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000",
+        "how": "exact integer arithmetic: 3! / (1! * 2!) = 3"
+      },
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb4.json.gz",
+        "locator": "1,2",
+        "note": null
+      }
+    },
+    {
+      "call": "MULTINOMIAL(4, 108)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "4.0",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "108.0",
+            "bits": "0x405b000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "6210819.999999507",
+        "bits": "0x4157b140fffffdef"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "6210820.0",
+        "bits": "0x4157b14100000000",
+        "how": "exact integer arithmetic: 112! / (4! * 108!) = 6,210,820"
+      },
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb4.json.gz",
+        "locator": "$[130]",
+        "note": null
+      }
+    },
+    {
+      "call": "MULTINOMIAL(108, 4)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "108.0",
+            "bits": "0x405b000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "4.0",
+            "bits": "0x4010000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "6210819.999999607",
+        "bits": "0x4157b140fffffe5a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "6210820.0",
+        "bits": "0x4157b14100000000",
+        "how": "exact integer arithmetic: 112! / (108! * 4!) = 6,210,820"
+      },
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/studies/cb4.json.gz",
+        "locator": "$[131]",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "de260e37fc31039f9ea85e0e1e44b2497e7a5339",
+      "path": "crates/calc-func/src/ported/multinomial.rs",
+      "locator": "multinomial_kernel",
+      "note": "Reverse-denominator log10 walk and power_kernel staging (nx3)"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "readings/excel-20527/studies/cb4.json.gz",
+      "locator": null,
+      "note": "cb4 MULTINOMIAL live Excel 16.0.20527 study rows"
+    },
+    {
+      "repository": "ExcelFunctionsHandbook",
+      "commit": "6ee91d3272fc707c3aa1692a043e7e7be4640176",
+      "path": "content/notes/evidence/2026-11-22/frozen-holdouts-provenance.tsv",
+      "locator": "cb4",
+      "note": "Pre-ask SHA-256 hash and 409/409 frozen holdout score"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
