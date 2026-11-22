@@ -1,0 +1,128 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OCT2DEC-001",
+  "functions": [
+    "FUNC.OCT2BIN",
+    "FUNC.OCT2DEC",
+    "FUNC.OCT2HEX"
+  ],
+  "kind": "quirk",
+  "title": "Octal radix converters count leading zeros in the 10-digit limit, check places first, and reject logicals with #VALUE!",
+  "statement": "In Excel 16.0 builds 20430 and 20527, OCT2BIN, OCT2DEC, and OCT2HEX reject whitespace and leading signs with #NUM!, reject logical arguments with #VALUE!, count leading zeros toward the 10-character input limit (so OCT2BIN(\"00000000000\") is #NUM!), and treat 10-character octal inputs whose high bit (2^29) is set as 30-bit two's-complement negatives. OCT2BIN and OCT2HEX validate an explicit places argument (truncating into 1..=10) before inspecting number.",
+  "status": "measured",
+  "basis": "Measured in jnt_w111_rounding (Excel 16.0.20527.20088) and build 20430 witness sets; matched 100% of full-bank rows (OCT2BIN 1,201/1,201, OCT2DEC 2,060/2,060, OCT2HEX 1,198/1,198) and 120/120 pinned rows each.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=OCT2BIN(\"00000000000\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_w111_rounding.capture.json",
+        "locator": "sheet jnt_w111_rounding row 6101 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=OCT2BIN(TRUE,#REF!)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_w111_rounding.capture.json",
+        "locator": "sheet jnt_w111_rounding row 6132 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=OCT2HEX(\"1111111111\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "9249249",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_w111_rounding.capture.json",
+        "locator": "sheet jnt_w111_rounding row 6105 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "OCT2DEC(\"4406332761\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "4406332761.0",
+            "bits": "0x41f06a34d5900000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-468077071.0",
+        "bits": "0xc1bbe64a0f000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/OCT2DEC.json",
+        "locator": "w111broad-20260929-OCT2DEC-01000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/engineering_radix_family.rs",
+      "locator": "lines 17-71 and 196-206",
+      "note": "OCT_SPEC (radix 8, 30 bits, 10 chars) and two's-complement decoding"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/engineering.rs",
+      "locator": "lines 26-76",
+      "note": "places-first validation and #VALUE! logical rejection"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "OCT2BIN; OCT2DEC; OCT2HEX",
+      "note": "1,201/1,201 OCT2BIN, 2,060/2,060 OCT2DEC, and 1,198/1,198 OCT2HEX full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

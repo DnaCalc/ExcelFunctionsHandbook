@@ -1,0 +1,158 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NORM.DIST-001",
+  "functions": [
+    "FUNC.NORM.DIST",
+    "FUNC.NORMDIST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "NORM.DIST and NORMDIST densities store x87 z, divide EXP(-z^2/2) by stdev before 1/sqrt(2*pi), and flush subnormals",
+  "statement": "In Excel 16.0 builds 20430 and 20527, NORM.DIST(x, mean, stdev, cumulative) and NORMDIST evaluate cumulative = TRUE as NORM.S.DIST((x - mean) / stdev, TRUE) in binary64, whereas for cumulative = FALSE they compute z = RN53(RN64(RN53(RN64(x - mean)) / stdev)), square z in x87 (returning #NUM! on overflow), compute EXP(-sq / 2), divide by stdev BEFORE multiplying by RN(1/sqrt(2*pi)) = 0x3fd9884533d43651, and flush subnormal outputs to +0. Under compat-1, @NORM.DIST returns #NAME? while NORMDIST remains available.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (24,246/24,246 NORM.DIST and 4,510/4,510 NORMDIST full-bank rows; 120/120 pinned each) and 16.0.20527.20088 in prefix_metadata (rows 161, 165) and jnt_w111_text_dates.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "NORM.DIST(1.0278334215615448, -1.815604338081178, 1.4420270788470526, FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1.0278334215615448",
+            "bits": "0x3ff0720175357b5b"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "-1.815604338081178",
+            "bits": "0xbffd0cb722688cd9"
+          }
+        },
+        {
+          "name": "standard_dev",
+          "value": {
+            "kind": "number",
+            "display": "1.4420270788470526",
+            "bits": "0x3ff7128afc798317"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.03959499125272092",
+        "bits": "0x3fa445cb71081c7f"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/NORM.DIST.json",
+        "locator": "normal-density-normalization-0074",
+        "note": null
+      }
+    },
+    {
+      "call": "NORM.DIST(1, -1.1080546202801855e-16, 1, FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "-1.1080546202801855e-16",
+            "bits": "0xbc9ff00000000000"
+          }
+        },
+        {
+          "name": "standard_dev",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.24197072451914337",
+        "bits": "0x3fcef8e58e331738"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/NORM.DIST.json",
+        "locator": "density-subtraction-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "=@NORM.DIST(42,40,1.5,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 161 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/normal_log_family.rs",
+      "locator": "lines 339-369",
+      "note": "Cumulative binary64 standardization vs x87 density divide-before-constant and subnormal flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NORM.DIST; NORMDIST",
+      "note": "24,246/24,246 NORM.DIST and 4,510/4,510 NORMDIST full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

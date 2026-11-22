@@ -1,0 +1,125 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TANH-001",
+  "functions": [
+    "FUNC.TANH"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "TANH divides SINH(x) by an expm1-based denominator for |x| < 1 (and COSH(x) for |x| >= 1) in x87, saturating to +/-1",
+  "statement": "In Excel 16.0 builds 20326 through 20527, TANH(number) computes RN53(RN64(SINH(x) / denominator)), where denominator is (RN53(RN64(expm1(x) + expm1(-x))) + 2) / 2 in x87 for |x| < 1 (distinct from public COSH) and COSH(x) for |x| >= 1, saturating to +/-1.0 on large |x| via SATURATE_SIGN. Of 39,028 full-bank TANH rows, 39,025 match and 3 differ by 1 ULP.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (39,025/39,028 full-bank and 120/120 pinned TANH rows) and 16.0.20527.20088 in prefix_metadata (row 229).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "TANH(0.49999999999999717)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.49999999999999717",
+            "bits": "0x3fdfffffffffffcd"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.4621171572600075",
+        "bits": "0x3fdd9353d7568acb"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/TANH.json",
+        "locator": "w111inthyp-heldout-TANH-001703",
+        "note": null
+      }
+    },
+    {
+      "call": "TANH(19.999999999999623)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "19.999999999999623",
+            "bits": "0x4033ffffffffff96"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/TANH.json",
+        "locator": "w111inthyp-heldout-TANH-003627",
+        "note": null
+      }
+    },
+    {
+      "call": "=TANH(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.7615941559557649",
+        "bits": "0x3fe85efab514f394"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 229 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/tanh.rs",
+      "locator": "lines 3-16",
+      "note": "|x| < 1 expm1 denominator vs COSH(x) and x87 division"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/math.rs",
+      "locator": "lines 94-96",
+      "note": "ExcelRealPolicy::SATURATE_SIGN publication"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-reference/TANH.tsv",
+      "locator": null,
+      "note": "3 remaining full-bank 1-ULP TANH rows"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TANH",
+      "note": "39,025/39,028 full-bank and 120/120 pinned TANH rows matched"
+    }
+  ],
+  "open": [
+    "3 TANH full-bank last-bit rows remain 1 ULP off (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

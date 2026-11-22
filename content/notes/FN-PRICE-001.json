@@ -1,0 +1,214 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PRICE-001",
+  "functions": [
+    "FUNC.PRICE"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "PRICE counts coupons n periods at once from maturity, uses derived dsc = E - A, and splits integer vs fractional powers",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, PRICE(settlement, maturity, rate, yld, redemption, frequency, [basis]) steps n coupon periods backward from maturity in one call (keeping the 29th/30th day instead of clamping February 28 into month-ends), sets dsc = E - A rather than the direct day count (diverging from COUPDAYSNC on bases 2 and 3), uses x87-stored binary exponentiation for integer exponents and exp(RN53(RN64(exp * ln(base)))) for fractional exponents, and divides redemption by its discount in x87. Of 9,153 full-bank rows, 9,103 match and 50 differ by 1 ULP.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131 and 16.0.20228 (9,103/9,153 full-bank and 120/120 pinned PRICE rows) and 16.0.20527.20088 in prefix_metadata (row 381).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "PRICE(43861, 47118, 0.04, 0.0001, 99.5, 1, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "43861.0",
+            "bits": "0x40e56aa000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "47118.0",
+            "bits": "0x40e701c000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.04",
+            "bits": "0x3fa47ae147ae147b"
+          }
+        },
+        {
+          "name": "yld",
+          "value": {
+            "kind": "number",
+            "display": "0.0001",
+            "bits": "0x3f1a36e2eb1c432d"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "99.5",
+            "bits": "0x4058e00000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "135.04922273876548",
+        "bits": "0x4060e1933b90a6f4"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PRICE.json",
+        "locator": "oc7905",
+        "note": null
+      }
+    },
+    {
+      "call": "PRICE(43890, 45658, 0.04125, 0.049, 101.5, 2, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "43890.0",
+            "bits": "0x40e56e4000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "45658.0",
+            "bits": "0x40e64b4000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.04125",
+            "bits": "0x3fa51eb851eb851f"
+          }
+        },
+        {
+          "name": "yld",
+          "value": {
+            "kind": "number",
+            "display": "0.049",
+            "bits": "0x3fa916872b020c4a"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "101.5",
+            "bits": "0x4059600000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "97.87894757525414",
+        "bits": "0x40587840ad54a75d"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PRICE.json",
+        "locator": "price-yield-companion-d-leap-b1-f2-002",
+        "note": null
+      }
+    },
+    {
+      "call": "=PRICE(39493,43054,0.0575,0.065,100,2,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "94.63436162132213",
+        "bits": "0x4057a899617c5aa1"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 381 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/bond_core_family.rs",
+      "locator": "lines 267-363 and 490-502",
+      "note": "n-period coupon walk, dsc=E-A, and excel_bond_pow staging"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-reference/PRICE.tsv",
+      "locator": null,
+      "note": "50 remaining full-bank 1-ULP PRICE rows"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PRICE",
+      "note": "9,103/9,153 full-bank and 120/120 pinned PRICE rows matched"
+    }
+  ],
+  "open": [
+    "50 PRICE full-bank 1-ULP last-bit rows remain open (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

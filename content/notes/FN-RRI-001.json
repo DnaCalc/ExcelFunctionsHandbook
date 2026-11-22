@@ -1,0 +1,121 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-RRI-001",
+  "functions": [
+    "FUNC.RRI"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "RRI runs the raw x87 EXP((1/nper)*LN(fv/pv)) - 1 chain (skipping nper == 1), drifting 298 ULP on RRI(96,10000,11000)",
+  "statement": "In Excel 16.0 builds 20228 through 20527, RRI(nper, pv, fv) rejects nper < DBL_MIN before checking pv == fv (with DAZ normalization, so equal negative pv and fv return +0), rejects pv == 0 or opposite nonzero signs with #NUM!, returns fv / pv - 1 directly at nper == 1, and otherwise evaluates exp(RN53(RN64((1 / nper) * ln(fv / pv)))) - 1 via the raw x87 chain (bypassing POWER's 0.5 sqrt shortcut). Subtracting 1 near 1 loses bits, putting =RRI(96,10000,11000) 298 ULP below exact. Under compat-1, @RRI returns #NAME?.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0 build 20228 (5,528/5,528 full-bank and 120/120 pinned RRI rows) and 16.0.20527.20088 in prefix_metadata (row 387).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=RRI(96,10000,11000)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0009933073762913303",
+        "bits": "0x3f50463bac8c0800"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.0009933073762913949",
+        "bits": "0x3f50463bac8c092a",
+        "how": "100-digit decimal 1.1^(1/96) - 1, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 387 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "RRI(5e-324, 1, 5e-324)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "nper",
+          "value": {
+            "kind": "number",
+            "display": "5e-324",
+            "bits": "0x0000000000000001"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "fv",
+          "value": {
+            "kind": "number",
+            "display": "5e-324",
+            "bits": "0x0000000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/RRI.json",
+        "locator": "rri-edge-stage1-20260809-008",
+        "note": null
+      }
+    },
+    {
+      "call": "=@RRI(96,10000,11000)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 387 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "lines 1140-1200",
+      "note": "RRI subnormal nper check, DAZ equality, nper==1 identity, and raw x87 power chain"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "RRI",
+      "note": "5,528/5,528 full-bank and 120/120 pinned RRI rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,141 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-STANDARDIZE-001",
+  "functions": [
+    "FUNC.STANDARDIZE"
+  ],
+  "kind": "quirk",
+  "title": "STANDARDIZE computes binary64 (x - mean) / stdev, rejects overflow in x - mean with #NUM!, and flushes subnormals to +0",
+  "statement": "In Excel 16.0 builds 20430 and 20527, STANDARDIZE(x, mean, standard_dev) rejects standard_dev <= 0 with #NUM!, evaluates difference = x - mean and quotient = difference / standard_dev in binary64 (returning #NUM! if either overflows), and flushes subnormal quotients to +0.0 (so STANDARDIZE(DBL_MIN, 0, 8.684494350556545) = 0). All 10,310 full-bank STANDARDIZE rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (10,310/10,310 full-bank and 120/120 pinned STANDARDIZE rows) and 16.0.20527.20088 in prefix_metadata (row 210).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "STANDARDIZE(2.2250738585072014e-308, 0, 8.684494350556545)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "2.2250738585072014e-308",
+            "bits": "0x0010000000000000"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "standard_dev",
+          "value": {
+            "kind": "number",
+            "display": "8.684494350556545",
+            "bits": "0x40215e760b23dfce"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/STANDARDIZE.json",
+        "locator": "w111boundary-STANDARDIZE-02001",
+        "note": null
+      }
+    },
+    {
+      "call": "STANDARDIZE(0, 0, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "standard_dev",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/STANDARDIZE.json",
+        "locator": "w111broad-20260929-STANDARDIZE-00001",
+        "note": null
+      }
+    },
+    {
+      "call": "=STANDARDIZE(42,40,1.5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.3333333333333333",
+        "bits": "0x3ff5555555555555"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 210 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/standardize_fn.rs",
+      "locator": "lines 3-17",
+      "note": "stdev <= 0 and nonfinite guards -> #NUM!, binary64 quotient, subnormal flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "STANDARDIZE",
+      "note": "10,310/10,310 full-bank and 120/120 pinned STANDARDIZE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

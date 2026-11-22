@@ -1,0 +1,125 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PERMUT-001",
+  "functions": [
+    "FUNC.PERMUT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "PERMUT evaluates an ascending x87 double-rounded product from n - k + 1 to n, not n! / (n - k)!",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, PERMUT(number, number_chosen) truncates both arguments toward zero (rejecting n < 0, k < 0, k > n, or overflow with #NUM!) and accumulates the ascending x87 PC64-to-PC53 double-rounded product acc = RN53(RN64(acc * f)) for f = n - k + 1 ..= n. Evaluating n! / (n - k)! instead overflows early for large n and misses PERMUT(61, 20) by 1 ULP. All 3,432 full-bank PERMUT rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131, 20430, and 20527.20088, matching 3,432/3,432 full-bank and 120/120 pinned PERMUT rows plus the PERMUT(61, 20) pin.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "PERMUT(61, 20)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "61.0",
+            "bits": "0x404e800000000000"
+          }
+        },
+        {
+          "name": "number_chosen",
+          "value": {
+            "kind": "number",
+            "display": "20.0",
+            "bits": "0x4034000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.5173150289864456e+34",
+        "bits": "0x470760c0a63908aa"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/src/ported/permut_fn.rs",
+        "locator": "lines 62-66",
+        "note": "W109 PERMUT(61,20) Excel 16.0 build 20131 pin"
+      }
+    },
+    {
+      "call": "PERMUT(239, 25)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "239.0",
+            "bits": "0x406de00000000000"
+          }
+        },
+        {
+          "name": "number_chosen",
+          "value": {
+            "kind": "number",
+            "display": "25.0",
+            "bits": "0x4039000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "7.855306877770863e+58",
+        "bits": "0x4c2907489c326f36"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PERMUT.json",
+        "locator": "oc99",
+        "note": null
+      }
+    },
+    {
+      "call": "=PERMUT(5,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "20.0",
+        "bits": "0x4034000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 179 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/permut_fn.rs",
+      "locator": "lines 4-26 and 60-71",
+      "note": "Ascending x87 double-rounded product and PERMUT(61,20) pin"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PERMUT",
+      "note": "3,432/3,432 full-bank and 120/120 pinned PERMUT rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

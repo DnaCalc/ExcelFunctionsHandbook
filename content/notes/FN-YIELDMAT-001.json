@@ -1,0 +1,189 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-YIELDMAT-001",
+  "functions": [
+    "FUNC.YIELDMAT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "YIELDMAT groups ((1 + DIM/B*rate) - term2) / term2 * (B / DSM) with every step stored from x87 PC64",
+  "statement": "In Excel 16.0.20131 and 16.0.20527, YIELDMAT(settlement, maturity, issue, rate, pr, [basis]) evaluates term2 = pr/100 + (A/B)*rate, term1 = (1 + (DIM/B)*rate) - term2, and (term1 / term2) * (B / (DIM - A)) with every arithmetic operation double-rounded from x87 PC64 to binary64. The left-to-right F# regrouping dim/b*rate + 1 - pr/100 - a/b*rate differs by 1 to 2 ULP. All 1,085 full-bank and 120 pinned YIELDMAT rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131 (1,085/1,085 full-bank and 120/120 pinned YIELDMAT rows) and 16.0.20527.20088 in prefix_metadata (row 398).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "YIELDMAT(25111, 25659, 25001, 0.07543328000342596, 143.45796257391171, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "25111.0",
+            "bits": "0x40d885c000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "25659.0",
+            "bits": "0x40d90ec000000000"
+          }
+        },
+        {
+          "name": "issue",
+          "value": {
+            "kind": "number",
+            "display": "25001.0",
+            "bits": "0x40d86a4000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.07543328000342596",
+            "bits": "0x3fb34f986ea50cb7"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "143.45796257391171",
+            "bits": "0x4061eea7a120b7c5"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-0.14410870714597887",
+        "bits": "0xbfc2722774216293"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/YIELDMAT.json",
+        "locator": "oc711",
+        "note": null
+      }
+    },
+    {
+      "call": "YIELDMAT(25230, 27022, 25028, 0.24477841830169902, 65.54767273897761, 3)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "25230.0",
+            "bits": "0x40d8a38000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "27022.0",
+            "bits": "0x40da638000000000"
+          }
+        },
+        {
+          "name": "issue",
+          "value": {
+            "kind": "number",
+            "display": "25028.0",
+            "bits": "0x40d8710000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.24477841830169902",
+            "bits": "0x3fcf54e632afaaf9"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "65.54767273897761",
+            "bits": "0x4050630d11f5b474"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "3.0",
+            "bits": "0x4008000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.39819798482174107",
+        "bits": "0x3fd97c1366891e6e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/YIELDMAT.json",
+        "locator": "oc719",
+        "note": null
+      }
+    },
+    {
+      "call": "=YIELDMAT(39522,39755,39394,0.0625,100.0123,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.06095433369153867",
+        "bits": "0x3faf35680b825ece"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 398 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/bond_core_family.rs",
+      "locator": "lines 420-458",
+      "note": "x87 spill-loop association ((1+DIM/B*rate) - term2) / term2 * (B/DSM)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "YIELDMAT",
+      "note": "1,085/1,085 full-bank and 120/120 pinned YIELDMAT rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

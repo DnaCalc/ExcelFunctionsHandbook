@@ -1,0 +1,121 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TAN-001",
+  "functions": [
+    "FUNC.TAN"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "TAN reduces arguments with x87 FPREM1(x, FLDPI/2) and rejects |x| >= 2^27 with #NUM!, drifting at large inputs",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, TAN(x) rejects |x| >= 2^27 (134,217,728) with #NUM! and otherwise evaluates FPREM1(x, FLDPI/2), FPTAN, and -1/tan(r) in extended precision on odd quadrants before a single store to binary64. Because reduction uses the 64-bit x87 FLDPI/2 constant rather than exact pi/2, large arguments drift from mathematical tan(x): TAN(81343728.62285979) differs from exact tan(x) by ~1.20e7 ULPs.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131, 20430, and 20527.20088, matching 2,114/2,114 full-bank and 120/120 pinned TAN rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "TAN(81343728.62285979)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "81343728.62285979",
+            "bits": "0x419364d3c27dcef5"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-0.0009184274325275527",
+        "bits": "0xbf4e1853e4aa8f6c"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-0.0009184274312286387",
+        "bits": "0xbf4e1853e3f3c11d",
+        "how": "140-digit decimal Machin pi reduction and Taylor sin/cos ratio, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/TAN.json",
+        "locator": "oc47",
+        "note": null
+      }
+    },
+    {
+      "call": "TAN(1.4979805273070184e+20)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.4979805273070184e+20",
+            "bits": "0x44203dbb2e96c56f"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/TAN.json",
+        "locator": "w111extended-2026092903-TAN-00608",
+        "note": null
+      }
+    },
+    {
+      "call": "=TAN(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.5574077246549023",
+        "bits": "0x3ff8eb245cbee3a6"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 228 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/excel_numeric/mod.rs",
+      "locator": "lines 233-245 and 493-502",
+      "note": "FPREM1(x, FLDPI/2), FPTAN, and odd-quadrant extended reciprocal"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/math.rs",
+      "locator": "lines 91-93",
+      "note": "CIRCULAR_TRIG domain policy (|x| >= 2^27 -> #NUM!)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TAN",
+      "note": "2,114/2,114 full-bank and 120/120 pinned TAN rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
