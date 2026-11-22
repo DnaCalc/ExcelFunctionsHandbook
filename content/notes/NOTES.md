@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 306, over 494 functions (of the 554 entries = 531 functions + 23 operators).
+- Notes: 312, over 502 functions (of the 554 entries = 531 functions + 23 operators).
 - Excel differs from the mathematical answer: 56.
 - Detail for matching Excel's bits: 88.
-- Quirk: 153.
+- Quirk: 159.
 - Documentation differs from behaviour: 9.
-- Measured: 277; inferred: 29.
+- Measured: 283; inferred: 29.
 
 ## Where Excel's answer is inaccurate
 
@@ -474,17 +474,25 @@ answer.
 | [`OP_CONCAT`](../functions/FUNC.OP_CONCAT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`OP_DIVIDE`](../functions/FUNC.OP_DIVIDE.md) | [FN-OP_DIVIDE-001](#fn-op_divide-001-multiplication-and-division-double-round-through-x87-64-bit-significand-precision-and-flush-subnormal-results-to-0) |
 | [`OP_EQUAL`](../functions/FUNC.OP_EQUAL.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable) |
+| [`OP_GREATER_EQUAL`](../functions/FUNC.OP_GREATER_EQUAL.md) | [FN-OP_GREATER_EQUAL-001](#fn-op_greater_equal-001-comparison-operators---and--compare-kind-ordered-values-without-coercion-under-en-za-collation) |
 | [`OP_GREATER_THAN`](../functions/FUNC.OP_GREATER_THAN.md) | [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han) |
+| [`OP_IMPLICIT_INTERSECTION`](../functions/FUNC.OP_IMPLICIT_INTERSECTION.md) | [FN-OP_IMPLICIT_INTERSECTION-001](#fn-op_implicit_intersection-001-implicit-intersection---_xlfnsingle-intersects-ranges-by-caller-position-takes-array11-and-gives-ref-on-3-d) |
+| [`OP_INTERSECTION_REF`](../functions/FUNC.OP_INTERSECTION_REF.md) | [FN-OP_INTERSECTION_REF-001](#fn-op_intersection_ref-001-space-intersection-a-b-gives-null-on-disjoint-areas-value-across-sheets-or-3-d-spans-and-ref-in-indirect) |
+| [`OP_LESS_EQUAL`](../functions/FUNC.OP_LESS_EQUAL.md) | [FN-OP_GREATER_EQUAL-001](#fn-op_greater_equal-001-comparison-operators---and--compare-kind-ordered-values-without-coercion-under-en-za-collation) |
 | [`OP_LESS_THAN`](../functions/FUNC.OP_LESS_THAN.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable), [FN-OP_LESS_THAN-001](#fn-op_less_than-001-punctuation-before-a-japanese-repeat-mark-sorts-one-way-after-a-latin-letter-the-other-after-han), [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
 | [`OP_MULTIPLY`](../functions/FUNC.OP_MULTIPLY.md) | [FN-OP_DIVIDE-001](#fn-op_divide-001-multiplication-and-division-double-round-through-x87-64-bit-significand-precision-and-flush-subnormal-results-to-0) |
 | [`OP_NEGATE`](../functions/FUNC.OP_NEGATE.md) | [FN-OP_NEGATE-001](#fn-op_negate-001-unary-negation-coerces-text-and-logicals-to-numbers-and-flushes-parsed-subnormals-to-0) |
+| [`OP_NOT_EQUAL`](../functions/FUNC.OP_NOT_EQUAL.md) | [FN-OP_GREATER_EQUAL-001](#fn-op_greater_equal-001-comparison-operators---and--compare-kind-ordered-values-without-coercion-under-en-za-collation) |
 | [`OP_PERCENT`](../functions/FUNC.OP_PERCENT.md) | [FN-OP_PERCENT-001](#fn-op_percent-001-postfix--coerces-to-a-number-divides-by-100-and-flushes-subnormal-quotients-to-0) |
 | [`OP_POWER`](../functions/FUNC.OP_POWER.md) | [FN-POWER-001](#fn-power-001-power-and--return-num-for-00-allow-negative-bases-when-1y-rounds-to-an-odd-32-bit-integer-to-15-digits-and-double-round-10126) |
+| [`OP_RANGE_REF`](../functions/FUNC.OP_RANGE_REF.md) | [FN-OP_RANGE_REF-001](#fn-op_range_ref-001-range-operator--forms-one-normalized-area-allows-whitespace-around--and-spans-chained-operands) |
+| [`OP_SPILL_REF`](../functions/FUNC.OP_SPILL_REF.md) | [FN-OP_SPILL_REF-001](#fn-op_spill_ref-001-spill-reference-a1-tracks-dynamic-array-extent-including-1x1-errors-and-returns-ref-on-non-spills) |
 | [`OP_SUBTRACT`](../functions/FUNC.OP_SUBTRACT.md) | [FN-OP_ADD-001](#fn-op_add-001-addition-and-subtraction-double-round-through-x87-64-bit-significand-precision-and-retain-computed-subnormals) |
 | [`OP_TRIM_REF_BOTH`](../functions/FUNC.OP_TRIM_REF_BOTH.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
 | [`OP_TRIM_REF_LEADING`](../functions/FUNC.OP_TRIM_REF_LEADING.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
 | [`OP_TRIM_REF_TRAILING`](../functions/FUNC.OP_TRIM_REF_TRAILING.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
 | [`OP_UNARY_PLUS`](../functions/FUNC.OP_UNARY_PLUS.md) | [FN-OP_UNARY_PLUS-001](#fn-op_unary_plus-001-unary--does-not-coerce-text-or-logicals-turns-a-blank-cell-into-0-and-retains-computed-subnormals) |
+| [`OP_UNION_REF`](../functions/FUNC.OP_UNION_REF.md) | [FN-OP_UNION_REF-001](#fn-op_union_ref-001-union-operator--preserves-ordered-areas-for-areasindexsum-error-order-and-gives-ref-in-rowscolumnsrow) |
 | [`OR`](../functions/FUNC.OR.md) | [FN-AND-001](#fn-and-001-and-or-and-xor-evaluate-direct-arguments-before-referencesarrays-and-skip-direct-non-boolean-text-unless-no-logical-is-found) |
 | [`PDURATION`](../functions/FUNC.PDURATION.md) | [FN-PDURATION-001](#fn-pduration-001-pduration-evaluates-lnfv---lnpv--ln1--rate-rather-than-lnfv--pv-drifting-22-ulp-at-0025) |
 | [`PEARSON`](../functions/FUNC.PEARSON.md) | [FN-CORREL-001](#fn-correl-001-correl-and-pearson-use-population-normalisation-n-with-stored-pc64-two-pass-arithmetic-while-rsq-squares-the-sample-normalised-n-1-correlation) |
@@ -7120,6 +7128,123 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_collation, row 291, column 4 at `eceb809985` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/oracle.capture.json`, sheet fn3_collation, row 296, column 4 at `eceb809985` (readings)
 
+### FN-OP_GREATER_EQUAL-001: Comparison operators >=, <=, and <> compare kind-ordered values without coercion under en-ZA collation
+
+*Quirk; measured; recorded 2026-11-22.* Applies to OP_GREATER_EQUAL, OP_LESS_EQUAL,
+OP_NOT_EQUAL.
+
+In Excel 16.0.20527.20088, >=, <=, and <> share Excel's non-coercive comparison rules: numbers,
+text, and logicals compare in distinct ordered kinds (so =A1<>2 returns TRUE when cell A1 holds
+text "2"); errors propagate left-to-right without numeric coercion (#N/A<>"a" and "a"<>#N/A
+both return #N/A, while #DIV/0!<=#N/A returns #DIV/0!); and text compares case-insensitively
+under en-ZA collation ("a"<="A" and "B">="b" are TRUE, "æ"<="ae" is TRUE, and "é"<>"e" is
+TRUE).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=A1<>2` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="a"<="A"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=1>=1` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=1<=0` | as typed | `FALSE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="é"<>"e"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="æ"<="ae"` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=#DIV/0!<=#N/A` | as typed | `#DIV/0!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `="a">=#N/A` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across Excel 16.0.20527.20088 in cfunc_m1_2 (mixed_operands rows 61,
+76-78; error_order rows 31-35, 41-45, 51-55) and cdoc_jpha (text_and_number_comparison rows 7,
+940, 941, 943).
+
+- Open: 15-significant-digit numeric normalization near 16th-digit ties and binary64 top-binade comparisons share the comparison kernel tracked under dc-j9k.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/comparison.rs`, lines 46-54, 100-151, and 195-240 at `494f964897` — Shared comparison kernel for =, <>, <, <=, >, >=
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, mixed_operands rows 61, 76-78; error_order rows 31-35, 41-45, 51-55 at `494f964897` — Kind ordering, non-coercion, and left-to-right error precedence
+- DnaCalc `crates/calc-func/tests/captures/cdoc_jpha/oracle.capture.json`, text_and_number_comparison rows 7, 940, 941, 943 at `494f964897` — en-ZA case-insensitive collation under <=, >=, and <>
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet mixed_operands row 61 column 4 at `494f964897` — mixed_operands!A1 holds text "2" (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet mixed_operands row 76 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet mixed_operands row 77 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet mixed_operands row 78 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cdoc_jpha/oracle.capture.json`, sheet text_and_number_comparison row 940 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cdoc_jpha/oracle.capture.json`, sheet text_and_number_comparison row 943 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet error_order row 42 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet error_order row 55 column 4 at `494f964897` (readings)
+
+### FN-OP_IMPLICIT_INTERSECTION-001: Implicit intersection (@ / _xlfn.SINGLE) intersects ranges by caller position, takes array[1,1], and gives #REF! on 3-D
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, @x reduces a single-area reference to the cell matching the formula's row
+(for multi-row) and column (for multi-column), returning #VALUE! when the caller lies outside
+the area or over a multi-area union (in row 20, @Data!A1:A3 evaluates to #VALUE!,
+ISREF(@Data!A1:A3) is FALSE, and TYPE(@Data!A1:A3) is 16, whereas in row 2,
+=QUOTIENT(12,+@Data!A1:A3) returns 2). On an array, @ takes element (1,1) without propagating
+off-corner errors (N(@{5,6}) = 5, ERROR.TYPE(@{1,#N/A}) = #N/A). On a 3-D reference, =@Ja:Ma!A1
+returns #REF!. In .xlsx files, nested @x saves as _xlfn.SINGLE(x) while top-level @x in an
+ordinary formula drops @; both SINGLE(A1) and _xlfn.SINGLE(A1) are accepted at worksheet entry.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=@Data!A1:A3` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISREF(@Data!A1:A3)` | as typed | `FALSE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=QUOTIENT(12,+@Data!A1:A3)` | as typed | `2.0` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=N(@{5,6})` | as typed | `5.0` (`0x4014000000000000`) | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ERROR.TYPE(@{1,#N/A})` | as typed | `#N/A` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=@Ja:Ma!A1` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=_xlfn.SINGLE(SUM(A1))` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20196, Windows (bitness and CPU not recorded) |
+
+Basis (measured): Measured across Excel 16.0.20527 in fn2_questions (fn2_q132, fn2_q141-q146),
+dc_nzpw (rows 8, 88, 111, 128, 147), l3 (F rows 1-2), eng13_legacy (q02, q04), hjd (row 9), and
+excel-entry.tsv (SINGLE and _xlfn.SINGLE rows).
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/src/eval/refops.rs`, lines 17-23 and 114-151 at `494f964897` — Implicit intersection implementation over references and arrays
+- DnaCalc `crates/calc-fml/tests/acceptance/l1.rs`, lines 958-982 at `494f964897` — Measured 2026-10-23 Excel 16.0 cross-sheet 2-D and blank-cell checks
+- DnaCalc `crates/calc-doc/src/save/file_form.rs`, lines 12-15 and 704-725 at `494f964897` — Top-level @ stripping vs nested _xlfn.SINGLE serialization
+- DnaCalc `crates/calc-fml/tests/fixtures/entry/excel-entry.tsv`, lines 3153 and 3811-3814 at `494f964897` — Excel 16.0.20527 worksheet entry acceptance of SINGLE and _xlfn.SINGLE
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q145 row 20 column 10 at `494f964897` — Caller in row 20 outside Data!A1:A3 (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q142 row 20 column 10 at `494f964897` (readings)
+- DnaCalc `crates/calc-host/tests/captures/eng13_legacy/oracle.capture.json`, sheet q04 row 2 column 10 at `494f964897` — Caller in row 2 intersects Data!A1:A3 at Data!A2 (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 128 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 147 column 4 at `494f964897` — @{1,#N/A} takes top-left 1; ERROR.TYPE(1) = #N/A (readings)
+- DnaCalc `crates/calc-engine/tests/captures/l3/oracle.capture.json`, sheet F row 1 column 2 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/hjd/oracle.capture.json`, sheet hjd_oxfml row 9 column 4 at `494f964897` (readings)
+
+### FN-OP_INTERSECTION_REF-001: Space intersection (A B) gives #NULL! on disjoint areas, #VALUE! across sheets or 3-D spans, and #REF! in INDIRECT
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0 (measured 2026-10-23), the space intersection operator (A B) returns the shared
+cells of two references on the same sheet, #NULL! when the areas do not overlap (=SUM((A1:A2
+B1:B2)) = #NULL!), and #VALUE! when operands lie on different sheets (=SUM((S1!A1:A2 S2!A1:A2))
+= #VALUE!) or involve 3-D references (=SUM(Ja:Ma!A1:A2 Ja:Ma!A1) = #VALUE!). Excel 16.0 build
+20430 saves =A1:A3 A2:C2 as a dynamic-array formula (cm="1"), whereas INDIRECT("A1 B1") in
+Excel 16.0.20527.20088 returns #REF!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=SUM((A1:A2 B1:B2))` | as typed | `#NULL!` | Excel 16.0, Windows (build, bitness, and CPU not recorded) |
+| `=SUM((Sheet1!A1:A2 Sheet2!A1:A2))` | as typed | `#VALUE!` | Excel 16.0, Windows (build, bitness, and CPU not recorded) |
+| `=SUM(Ja:Ma!A1:A2 Ja:Ma!A1)` | as typed | `#VALUE!` | Excel 16.0, Windows (build, bitness, and CPU not recorded) |
+| `=SUM(INDIRECT("A1 B1"))` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0 (2026-10-23 readings recorded in refops.rs and
+acceptance/l1.rs), Excel 16.0 build 20430 (d1/excel-file-form.json), and Excel 16.0.20527.20088
+(dc_51ka row 52).
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/src/eval/refops.rs`, lines 10-15, 42-52, and 74-96 at `494f964897` — Space intersection implementation and 2026-10-23 Excel 16.0 measurements
+- DnaCalc `crates/calc-fml/tests/acceptance/l1.rs`, lines 926-944 at `494f964897` — L1 intersection acceptance assertions
+- DnaCalc `crates/calc-doc/tests/fixtures/d1/excel-file-form.json`, lines 403-409 at `494f964897` — Excel 16.0 build 20430 dynamic-array cm="1" storage for =A1:A3 A2:C2
+- DnaCalc `crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json`, sheet indirect row 52 column 4 at `494f964897` — INDIRECT rejecting space intersection text as #REF!
+- DnaCalc `crates/calc-fml/src/eval/refops.rs`, lines 13-15 at `494f964897` — Measured on Excel 16.0 on 2026-10-23; asserted in acceptance/l1.rs line 939 (readings)
+- DnaCalc `crates/calc-fml/src/eval/refops.rs`, lines 13-15 at `494f964897` — Measured on Excel 16.0 on 2026-10-23; asserted in acceptance/l1.rs lines 941-942 (readings)
+- DnaCalc `crates/calc-fml/src/eval/refops.rs`, lines 43-44 at `494f964897` — 3-D reference rejected by space intersection in Excel 16.0 on 2026-10-23 (readings)
+- DnaCalc `crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json`, sheet indirect row 52 column 4 at `494f964897` (readings)
+
 ### FN-OP_LESS_THAN-001: Punctuation before a Japanese repeat mark sorts one way after a Latin letter, the other after Han
 
 *Quirk; measured; recorded 2026-11-04.* Applies to OP_GREATER_THAN, OP_LESS_THAN.
@@ -7209,6 +7334,80 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json`, sheet jnt_operators row 12 column 4 at `2e9be2b5b7` (readings)
 - DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json`, sheet jnt_operators row 20 column 4 at `2e9be2b5b7` (readings)
 
+### FN-OP_RANGE_REF-001: Range operator (:) forms one normalized area, allows whitespace around :, and spans chained operands
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, the range operator (:) takes two references on one sheet and produces a
+single rectangular area (AREAS(A1:C7) = 1, ROWS(A:A) = 1048576, ISREF(A1:B2) = TRUE).
+Whitespace around the colon still parses as the range operator rather than space intersection
+(=SUM(A1 : A3), =SUM(A1 :A3), and =SUM(A1: A3) all return 6; INDIRECT("$A1 : B$2") resolves,
+whereas INDIRECT("A1:B2:C3") returns #REF!). Chained ranges in worksheet formulas span their
+bounding box (=ROWS(A1:B2:C4) = 4, Excel 16.0 on 2026-10-23).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=SUM(A1 : A3)` | as typed | `6.0` (`0x4018000000000000`) | Excel 16.0.20527.20196, Windows (bitness and CPU not recorded) |
+| `=SUM(INDIRECT("$A1 : B$2"))` | as typed | `100.0` (`0x4059000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SUM(INDIRECT("A1:B2:C3"))` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(A:A)` | as typed | `1048576.0` (`0x4130000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=AREAS(A1:C7)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across Excel 16.0.20527 in hjd (rows 1-3), dc_51ka (rows 44, 46,
+51), cfunc_m3_6 (reference_result row 48, lookup_edges row 320), dc_nzpw (row 92), and
+2026-10-23 Excel 16.0 checks in refops.rs / l1.rs.
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/src/eval/refops.rs`, lines 9-16 and 55-72 at `494f964897` — Range bounding-box composition and 2026-10-23 =ROWS(A1:B2:C4) = 4 reading
+- DnaCalc `crates/calc-fml/tests/acceptance/l1.rs`, lines 908-924 at `494f964897` — L1 range operator acceptance checks
+- DnaCalc `crates/calc-func/tests/captures/hjd/oracle.capture.json`, sheet hjd_oxfml rows 1-3 at `494f964897` — Whitespace around colon accepted as range operator
+- DnaCalc `crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json`, sheet indirect rows 44, 46, and 51 at `494f964897` — INDIRECT spaced colon vs chained colon behavior
+- DnaCalc `crates/calc-func/tests/captures/hjd/oracle.capture.json`, sheet hjd_oxfml row 1 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json`, sheet indirect row 46 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json`, sheet indirect row 51 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json`, sheet reference_result row 48 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json`, sheet lookup_edges row 320 column 4 at `494f964897` (readings)
+
+### FN-OP_SPILL_REF-001: Spill reference (A1#) tracks dynamic-array extent including 1x1 errors and returns #REF! on non-spills
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, the postfix spill operator A1# resolves to the spilled region anchored at
+A1 (ROWS(fn2_q009!J20#) = 2 and COLUMNS(fn2_q009!J20#) = 2 for a 2x2 spill; ROWS(J20#) = 1 and
+COLUMNS(J20#) = 4 in fn7_format_context, with INDEX(J20#,2,1) = #REF!). A dynamic-array formula
+evaluating to a single error cell still acts as a 1x1 spill anchor (ROWS(fn2_q001!J20#) = 1
+where J20 holds =EXPAND(#N/A,0,3,"pad")), whereas referencing a cell with no spilling formula
+returns #REF! (ROWS(fn2_q123!J20#) = #REF!). In .xlsx files, Excel 16.0 build 20430 saves A1#
+as _xlfn.ANCHORARRAY(A1), but typing =ANCHORARRAY(B1) or =_xlfn.ANCHORARRAY(B1) at worksheet
+entry is refused (0x800A03EC).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ROWS(fn2_q009!J20#)` | as typed | `2.0` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(fn2_q001!J20#)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(fn2_q123!J20#)` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=COLUMNS(J20#)` | as typed | `4.0` (`0x4010000000000000`) | Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=INDEX(J20#,2,1)` | as typed | `#REF!` | Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across Excel 16.0.20527 in fn2_questions (478 observer # formulas
+across fn2_o001..fn2_o197), fn7_format_context (144 J20# formulas), excel-entry.tsv (B1# and
+ANCHORARRAY entry probes), and Excel 16.0 build 20430 in d1/excel-file-form.json (lines
+291-311).
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/src/eval/run.rs`, lines 2507-2530 at `494f964897` — Spill reference (#) evaluation and #REF! on non-spill/multi-cell anchors
+- DnaCalc `crates/calc-fml/tests/acceptance/l1.rs`, lines 984-1014 at `494f964897` — Spill reference acceptance checks and ANCHORARRAY grammar refusal
+- DnaCalc `crates/calc-doc/src/save/file_form.rs`, lines 12-13 at `494f964897` — _xlfn.ANCHORARRAY file-form serialization rule
+- DnaCalc `crates/calc-doc/tests/fixtures/d1/excel-file-form.json`, lines 291-311 at `494f964897` — Excel 16.0 build 20430 saved _xlfn.ANCHORARRAY XML and cm="1" flags
+- DnaCalc `crates/calc-fml/tests/fixtures/entry/excel-entry.tsv`, lines 135, 236, 618, and 3806-3808 at `494f964897` — Excel 16.0.20527 entry acceptance of B1# vs refusal of ANCHORARRAY
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_o009 row 2 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_o001 row 2 column 4 at `494f964897` — fn2_q001!J20 holds =EXPAND(#N/A,0,3,"pad") evaluating to #N/A (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_o123 row 2 column 4 at `494f964897` — fn2_q123!J20 holds no spilling formula (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn7_format_context/oracle.capture.json`, sheet q001 row 3 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn7_format_context/oracle.capture.json`, sheet q001 row 8 column 4 at `494f964897` (readings)
+
 ### FN-OP_UNARY_PLUS-001: Unary + does not coerce text or logicals, turns a blank cell into 0, and retains computed subnormals
 
 *Quirk; measured; recorded 2026-11-22.*
@@ -7235,6 +7434,44 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json`, sheet jnt_operators row 8 column 4 at `2e9be2b5b7` (readings)
 - DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json`, sheet jnt_operators row 11 column 4 at `2e9be2b5b7` (readings)
 - DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json`, sheet jnt_operators row 18 column 4 at `2e9be2b5b7` (readings)
+
+### FN-OP_UNION_REF-001: Union operator (,) preserves ordered areas for AREAS/INDEX/SUM error order and gives #REF! in ROWS/COLUMNS/ROW
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, the parenthesized union operator (A,B) constructs an ordered multi-area
+reference rather than merging areas: AREAS((A1:B2,C3,A4)) = 3, INDEX((A1:A3,C1:C3),2,1,2)
+selects from the second area, ISREF((A1,B2)) = TRUE, and SUM((A2:B2,A1:B1)) returns the first
+error in union area order (#DIV/0!) rather than sheet row-major order (#N/A). Functions
+requiring a single rectangular reference return #REF! (ROWS((A1:A3,B1:B2)),
+COLUMNS((A1:A3,B1:B2)), @ROW((A1,B2)), @COLUMN((A1,B2))), MATCH/XLOOKUP/VLOOKUP/LOOKUP return
+#N/A, TYPE((A1,A2)) returns 16, and cross-sheet unions (=SUM((S1!A1,S2!A1))) return #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=AREAS((A1:B2,C3,A4))` | as typed | `3.0` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=INDEX((A1:A3,C1:C3),2,1,2)` | as typed | `6.0` (`0x4018000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SUM((A2:B2,A1:B1))` | as typed | `#DIV/0!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS((A1:A3,B1:B2))` | as typed | `#REF!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISREF((A1,B2))` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TYPE((A1,A2))` | as typed | `16.0` (`0x4030000000000000`) | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across Excel 16.0.20527 in cfunc_m3_6 (reference_result rows 10, 24,
+47; lookup_edges rows 147, 154-155, 436, 442, 447, 454, 462, 472), cfunc_m1_2 (error_order row
+72), dc_nzpw (rows 93, 110), and 2026-10-23 Excel 16.0 checks in refops.rs / l1.rs.
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/src/eval/refops.rs`, lines 11-15 and 98-112 at `494f964897` — Union multi-area composition and cross-sheet #VALUE! rule
+- DnaCalc `crates/calc-fml/tests/acceptance/l1.rs`, lines 946-956 at `494f964897` — L1 union acceptance checks
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json`, reference_result rows 10, 24, 47; lookup_edges rows 147, 154-155, 436-472 at `494f964897` — Excel 16.0.20527 multi-area behavior across lookup and reference functions
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet error_order row 72 column 4 at `494f964897` — Union area evaluation order for errors
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json`, sheet reference_result row 47 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json`, sheet reference_result row 10 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json`, sheet error_order row 72 column 4 at `494f964897` — A2 is #DIV/0! and B1 is #N/A; union visits A2:B2 before A1:B1 (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json`, sheet lookup_edges row 147 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 93 column 4 at `494f964897` (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 110 column 4 at `494f964897` (readings)
 
 ### FN-PDURATION-001: PDURATION evaluates (LN(fv) - LN(pv)) / LN(1 + rate) rather than LN(fv / pv), drifting 22 ULP at 0.025
 

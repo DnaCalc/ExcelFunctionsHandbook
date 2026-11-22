@@ -1,0 +1,162 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_UNION_REF-001",
+  "functions": [
+    "FUNC.OP_UNION_REF"
+  ],
+  "kind": "quirk",
+  "title": "Union operator (,) preserves ordered areas for AREAS/INDEX/SUM error order and gives #REF! in ROWS/COLUMNS/ROW",
+  "statement": "In Excel 16.0.20527, the parenthesized union operator (A,B) constructs an ordered multi-area reference rather than merging areas: AREAS((A1:B2,C3,A4)) = 3, INDEX((A1:A3,C1:C3),2,1,2) selects from the second area, ISREF((A1,B2)) = TRUE, and SUM((A2:B2,A1:B1)) returns the first error in union area order (#DIV/0!) rather than sheet row-major order (#N/A). Functions requiring a single rectangular reference return #REF! (ROWS((A1:A3,B1:B2)), COLUMNS((A1:A3,B1:B2)), @ROW((A1,B2)), @COLUMN((A1,B2))), MATCH/XLOOKUP/VLOOKUP/LOOKUP return #N/A, TYPE((A1,A2)) returns 16, and cross-sheet unions (=SUM((S1!A1,S2!A1))) return #VALUE!.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527 in cfunc_m3_6 (reference_result rows 10, 24, 47; lookup_edges rows 147, 154-155, 436, 442, 447, 454, 462, 472), cfunc_m1_2 (error_order row 72), dc_nzpw (rows 93, 110), and 2026-10-23 Excel 16.0 checks in refops.rs / l1.rs.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=AREAS((A1:B2,C3,A4))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet reference_result row 47 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDEX((A1:A3,C1:C3),2,1,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "6.0",
+        "bits": "0x4018000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet reference_result row 10 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUM((A2:B2,A1:B1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet error_order row 72 column 4",
+        "note": "A2 is #DIV/0! and B1 is #N/A; union visits A2:B2 before A1:B1"
+      }
+    },
+    {
+      "call": "=ROWS((A1:A3,B1:B2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 147 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISREF((A1,B2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 93 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TYPE((A1,A2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "16.0",
+        "bits": "0x4030000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 110 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/src/eval/refops.rs",
+      "locator": "lines 11-15 and 98-112",
+      "note": "Union multi-area composition and cross-sheet #VALUE! rule"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/tests/acceptance/l1.rs",
+      "locator": "lines 946-956",
+      "note": "L1 union acceptance checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+      "locator": "reference_result rows 10, 24, 47; lookup_edges rows 147, 154-155, 436-472",
+      "note": "Excel 16.0.20527 multi-area behavior across lookup and reference functions"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+      "locator": "sheet error_order row 72 column 4",
+      "note": "Union area evaluation order for errors"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

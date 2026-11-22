@@ -1,0 +1,143 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_RANGE_REF-001",
+  "functions": [
+    "FUNC.OP_RANGE_REF"
+  ],
+  "kind": "quirk",
+  "title": "Range operator (:) forms one normalized area, allows whitespace around :, and spans chained operands",
+  "statement": "In Excel 16.0.20527, the range operator (:) takes two references on one sheet and produces a single rectangular area (AREAS(A1:C7) = 1, ROWS(A:A) = 1048576, ISREF(A1:B2) = TRUE). Whitespace around the colon still parses as the range operator rather than space intersection (=SUM(A1 : A3), =SUM(A1 :A3), and =SUM(A1: A3) all return 6; INDIRECT(\"$A1 : B$2\") resolves, whereas INDIRECT(\"A1:B2:C3\") returns #REF!). Chained ranges in worksheet formulas span their bounding box (=ROWS(A1:B2:C4) = 4, Excel 16.0 on 2026-10-23).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527 in hjd (rows 1-3), dc_51ka (rows 44, 46, 51), cfunc_m3_6 (reference_result row 48, lookup_edges row 320), dc_nzpw (row 92), and 2026-10-23 Excel 16.0 checks in refops.rs / l1.rs.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SUM(A1 : A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "6.0",
+        "bits": "0x4018000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows (bitness and CPU not recorded)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/hjd/oracle.capture.json",
+        "locator": "sheet hjd_oxfml row 1 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUM(INDIRECT(\"$A1 : B$2\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "100.0",
+        "bits": "0x4059000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json",
+        "locator": "sheet indirect row 46 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUM(INDIRECT(\"A1:B2:C3\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json",
+        "locator": "sheet indirect row 51 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(A:A)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1048576.0",
+        "bits": "0x4130000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet reference_result row 48 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=AREAS(A1:C7)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 320 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/src/eval/refops.rs",
+      "locator": "lines 9-16 and 55-72",
+      "note": "Range bounding-box composition and 2026-10-23 =ROWS(A1:B2:C4) = 4 reading"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/tests/acceptance/l1.rs",
+      "locator": "lines 908-924",
+      "note": "L1 range operator acceptance checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-func/tests/captures/hjd/oracle.capture.json",
+      "locator": "sheet hjd_oxfml rows 1-3",
+      "note": "Whitespace around colon accepted as range operator"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json",
+      "locator": "sheet indirect rows 44, 46, and 51",
+      "note": "INDIRECT spaced colon vs chained colon behavior"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,197 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_GREATER_EQUAL-001",
+  "functions": [
+    "FUNC.OP_GREATER_EQUAL",
+    "FUNC.OP_LESS_EQUAL",
+    "FUNC.OP_NOT_EQUAL"
+  ],
+  "kind": "quirk",
+  "title": "Comparison operators >=, <=, and <> compare kind-ordered values without coercion under en-ZA collation",
+  "statement": "In Excel 16.0.20527.20088, >=, <=, and <> share Excel's non-coercive comparison rules: numbers, text, and logicals compare in distinct ordered kinds (so =A1<>2 returns TRUE when cell A1 holds text \"2\"); errors propagate left-to-right without numeric coercion (#N/A<>\"a\" and \"a\"<>#N/A both return #N/A, while #DIV/0!<=#N/A returns #DIV/0!); and text compares case-insensitively under en-ZA collation (\"a\"<=\"A\" and \"B\">=\"b\" are TRUE, \"æ\"<=\"ae\" is TRUE, and \"é\"<>\"e\" is TRUE).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20088 in cfunc_m1_2 (mixed_operands rows 61, 76-78; error_order rows 31-35, 41-45, 51-55) and cdoc_jpha (text_and_number_comparison rows 7, 940, 941, 943).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=A1<>2",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 61 column 4",
+        "note": "mixed_operands!A1 holds text \"2\""
+      }
+    },
+    {
+      "call": "=\"a\"<=\"A\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 76 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=1>=1",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 77 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=1<=0",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 78 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"é\"<>\"e\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cdoc_jpha/oracle.capture.json",
+        "locator": "sheet text_and_number_comparison row 940 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"æ\"<=\"ae\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cdoc_jpha/oracle.capture.json",
+        "locator": "sheet text_and_number_comparison row 943 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=#DIV/0!<=#N/A",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet error_order row 42 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"a\">=#N/A",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet error_order row 55 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-func/src/catalogue/comparison.rs",
+      "locator": "lines 46-54, 100-151, and 195-240",
+      "note": "Shared comparison kernel for =, <>, <, <=, >, >="
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+      "locator": "mixed_operands rows 61, 76-78; error_order rows 31-35, 41-45, 51-55",
+      "note": "Kind ordering, non-coercion, and left-to-right error precedence"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-func/tests/captures/cdoc_jpha/oracle.capture.json",
+      "locator": "text_and_number_comparison rows 7, 940, 941, 943",
+      "note": "en-ZA case-insensitive collation under <=, >=, and <>"
+    }
+  ],
+  "open": [
+    "15-significant-digit numeric normalization near 16th-digit ties and binary64 top-binade comparisons share the comparison kernel tracked under dc-j9k."
+  ],
+  "recorded_on": "2026-11-22"
+}

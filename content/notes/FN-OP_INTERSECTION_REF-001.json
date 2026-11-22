@@ -1,0 +1,124 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_INTERSECTION_REF-001",
+  "functions": [
+    "FUNC.OP_INTERSECTION_REF"
+  ],
+  "kind": "quirk",
+  "title": "Space intersection (A B) gives #NULL! on disjoint areas, #VALUE! across sheets or 3-D spans, and #REF! in INDIRECT",
+  "statement": "In Excel 16.0 (measured 2026-10-23), the space intersection operator (A B) returns the shared cells of two references on the same sheet, #NULL! when the areas do not overlap (=SUM((A1:A2 B1:B2)) = #NULL!), and #VALUE! when operands lie on different sheets (=SUM((S1!A1:A2 S2!A1:A2)) = #VALUE!) or involve 3-D references (=SUM(Ja:Ma!A1:A2 Ja:Ma!A1) = #VALUE!). Excel 16.0 build 20430 saves =A1:A3 A2:C2 as a dynamic-array formula (cm=\"1\"), whereas INDIRECT(\"A1 B1\") in Excel 16.0.20527.20088 returns #REF!.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0 (2026-10-23 readings recorded in refops.rs and acceptance/l1.rs), Excel 16.0 build 20430 (d1/excel-file-form.json), and Excel 16.0.20527.20088 (dc_51ka row 52).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SUM((A1:A2 B1:B2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NULL!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0, Windows (build, bitness, and CPU not recorded)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-fml/src/eval/refops.rs",
+        "locator": "lines 13-15",
+        "note": "Measured on Excel 16.0 on 2026-10-23; asserted in acceptance/l1.rs line 939"
+      }
+    },
+    {
+      "call": "=SUM((Sheet1!A1:A2 Sheet2!A1:A2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0, Windows (build, bitness, and CPU not recorded)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-fml/src/eval/refops.rs",
+        "locator": "lines 13-15",
+        "note": "Measured on Excel 16.0 on 2026-10-23; asserted in acceptance/l1.rs lines 941-942"
+      }
+    },
+    {
+      "call": "=SUM(Ja:Ma!A1:A2 Ja:Ma!A1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0, Windows (build, bitness, and CPU not recorded)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-fml/src/eval/refops.rs",
+        "locator": "lines 43-44",
+        "note": "3-D reference rejected by space intersection in Excel 16.0 on 2026-10-23"
+      }
+    },
+    {
+      "call": "=SUM(INDIRECT(\"A1 B1\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json",
+        "locator": "sheet indirect row 52 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/src/eval/refops.rs",
+      "locator": "lines 10-15, 42-52, and 74-96",
+      "note": "Space intersection implementation and 2026-10-23 Excel 16.0 measurements"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/tests/acceptance/l1.rs",
+      "locator": "lines 926-944",
+      "note": "L1 intersection acceptance assertions"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-doc/tests/fixtures/d1/excel-file-form.json",
+      "locator": "lines 403-409",
+      "note": "Excel 16.0 build 20430 dynamic-array cm=\"1\" storage for =A1:A3 A2:C2"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/tests/captures/dc_51ka/oracle.capture.json",
+      "locator": "sheet indirect row 52 column 4",
+      "note": "INDIRECT rejecting space intersection text as #REF!"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
