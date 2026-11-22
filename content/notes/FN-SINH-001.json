@@ -1,0 +1,123 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SINH-001",
+  "functions": [
+    "FUNC.SINH"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "SINH splits at |x| = 1 between internal Kahan expm1 and x87-stored EXP difference, differing by 1 ULP on small inputs",
+  "statement": "In Excel 16.0 builds 20326 through 20527, SINH(number) evaluates (expm1(x) - expm1(-x)) / 2 using Excel's internal binary64 Kahan expm1 for |x| < 1, switches at |x| >= 1 to RN53(RN64(EXP(x) - EXP(-x))) / 2, and rejects overflow above ln(DBL_MAX) (~709.78) with #NUM!. Because Excel builds expm1 from its x87 EXP/LN primitives, SINH(0.013409894617721019) differs by 1 ULP from mathematical sinh(x). Of 33,551 full-bank SINH rows, 33,547 match and 4 differ by 1 ULP.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 and 16.0.20527.20196 (33,547/33,551 full-bank and 120/120 pinned SINH rows) and 16.0.20527.20088 in prefix_metadata (row 203).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SINH(0.013409894617721019)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.013409894617721019",
+            "bits": "0x3f8b76a5969b7b00"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.013410296527662909",
+        "bits": "0x3f8b76db8820b744"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.013410296527662907",
+        "bits": "0x3f8b76db8820b743",
+        "how": "100-digit decimal (exp(x) - exp(-x)) / 2, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/SINH.json",
+        "locator": "w111inthyp-heldout-SINH-009758",
+        "note": null
+      }
+    },
+    {
+      "call": "SINH(710.4758600739278)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "710.4758600739278",
+            "bits": "0x408633ce8fb9f7f0"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/SINH.json",
+        "locator": "w111inthyp-heldout-SINH-005521",
+        "note": null
+      }
+    },
+    {
+      "call": "=SINH(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.1752011936438014",
+        "bits": "0x3ff2cd9fc44eb982"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 203 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/sinh.rs",
+      "locator": "lines 4-19",
+      "note": "|x| >= 1 stored EXP difference vs |x| < 1 internal Kahan expm1 difference"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-reference/SINH.tsv",
+      "locator": null,
+      "note": "4 remaining full-bank 1-ULP SINH rows"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SINH",
+      "note": "33,547/33,551 full-bank and 120/120 pinned SINH rows matched"
+    }
+  ],
+  "open": [
+    "4 SINH full-bank last-bit rows remain 1 ULP off (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

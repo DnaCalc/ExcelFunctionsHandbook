@@ -1,0 +1,118 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SECH-001",
+  "functions": [
+    "FUNC.SECH"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "SECH evaluates RN53(RN64(1 / COSH(x))) over COSH's x87 EXP-pair grid and flushes subnormals to +0",
+  "statement": "In Excel 16.0 builds 20326 through 20527, SECH(number) evaluates the stored x87 reciprocal RN53(RN64(1 / COSH(x))) over Excel's COSH EXP-pair kernel and flushes subnormal quotients (and overflowed COSH at large |x|) to +0.0 (so SECH(709.9616837415343) = 0). Under compat-1, @SECH returns #NAME?. Of 30,424 full-bank SECH rows, 30,423 match and 1 differs by 1 ULP.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (30,423/30,424 full-bank and 120/120 pinned SECH rows) and 16.0.20527.20088 in prefix_metadata (row 200).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SECH(690.0135139262072)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "690.0135139262072",
+            "bits": "0x4085901bad3078ce"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4.285173976745736e-300",
+        "bits": "0x01c6f53fbffbfc97"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/SECH.json",
+        "locator": "w111boundary-SECH-00474",
+        "note": null
+      }
+    },
+    {
+      "call": "SECH(709.9616837415343)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "709.9616837415343",
+            "bits": "0x40862fb1873ed7e1"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/SECH.json",
+        "locator": "w111boundary-SECH-00482",
+        "note": null
+      }
+    },
+    {
+      "call": "=@SECH(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 200 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/sech.rs",
+      "locator": "lines 3-11",
+      "note": "x87 1/COSH(n) and subnormal flush to 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-reference/SECH.tsv",
+      "locator": null,
+      "note": "1 remaining full-bank 1-ULP row (staged-heldout2-SECH-07052)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SECH",
+      "note": "30,423/30,424 full-bank and 120/120 pinned SECH rows matched"
+    }
+  ],
+  "open": [
+    "1 SECH full-bank last-bit row (staged-heldout2-SECH-07052) remains 1 ULP off (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

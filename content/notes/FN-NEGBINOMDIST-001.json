@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NEGBINOMDIST-001",
+  "functions": [
+    "FUNC.NEGBINOMDIST"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "NEGBINOMDIST evaluates Loader's saddle-point mass times p/(s+f), drifting on exact dyadic rationals at p = 0.25",
+  "statement": "In Excel 16.0.20131 and 16.0.20527, the legacy PMF-only NEGBINOMDIST(number_f, number_s, probability_s) rejects raw number_f < 0 before truncating counts toward zero, requires truncated s >= 1 and 0 < p < 1 (#NUM! otherwise), preserves subnormal exp(s * ln(p)) at f = 0, and for f > 0 evaluates the saddle-point binomial mass of s - 1 successes in s + f - 1 trials with -ln(s + f) in the running exponential followed by stored RN53(RN64(p / (s + f))) (flushed if subnormal). On exact dyadic rationals =NEGBINOMDIST(10,5,0.25) and =NEGBINOMDIST(1,5,0.25), Excel is 1 ULP low and 2 ULP high.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131 (1,801/1,804 full-bank and 120/120 pinned NEGBINOMDIST rows) and 16.0.20527.20088 in dcztvv_r24 (rows 3876, 3889) and prefix_metadata (row 160).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NEGBINOMDIST(10,5,0.25)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.05504866037517785",
+        "bits": "0x3fac2f5687ffffff"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.05504866037517786",
+        "bits": "0x3fac2f5688000000",
+        "how": "Exact rational C(14,4) * (1/4)^5 * (3/4)^10 = 59108049 / 1073741824 (exact in binary64)"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/dcztvv_r24/oracle.capture.json",
+        "locator": "sheet dcztvv_r24 row 3876 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=NEGBINOMDIST(1,5,0.25)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.003662109375000001",
+        "bits": "0x3f6e000000000002"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.003662109375",
+        "bits": "0x3f6e000000000000",
+        "how": "Exact rational C(5,4) * (1/4)^5 * (3/4) = 15 / 4096 (exact in binary64)"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/dcztvv_r24/oracle.capture.json",
+        "locator": "sheet dcztvv_r24 row 3889 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=NEGBINOMDIST(0,5,0.25)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0009765625",
+        "bits": "0x3f50000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/dcztvv_r24/oracle.capture.json",
+        "locator": "sheet dcztvv_r24 row 3887 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/discrete_dist.rs",
+      "locator": "lines 590-651",
+      "note": "negbinom_mass with -LN(s+f) and p/(s+f) subnormal flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-reference/NEGBINOMDIST.tsv",
+      "locator": null,
+      "note": "3 full-bank rows (oc1486, oc1518, oc1755) remaining off by 2 ULP"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NEGBINOMDIST",
+      "note": "1,801/1,804 full-bank and 120/120 pinned NEGBINOMDIST rows matched"
+    }
+  ],
+  "open": [
+    "3 NEGBINOMDIST full-bank last-bit rows remain open (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

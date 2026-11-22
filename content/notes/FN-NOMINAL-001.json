@@ -1,0 +1,113 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NOMINAL-001",
+  "functions": [
+    "FUNC.NOMINAL"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "NOMINAL switches between continuous x87 FYL2X/F2XM1 at n <= 2 and stored x87 pow at n >= 3, drifting 22 ULP on 4 periods",
+  "statement": "In Excel 16.0 builds 20228 through 20527, NOMINAL(effect_rate, npery) truncates npery toward zero (returning #NUM! for effect_rate <= 0 or truncated npery < 1), computes base = RN53(RN64(1 + effect_rate)) and reciprocal = 1 / periods, uses register-continuous x87 FYL2X/F2XM1/FSCALE for periods <= 2 and the stored-LN/product/EXP chain for periods >= 3, and returns periods * (powered - 1). On =NOMINAL(0.053543,4), this produces 0.052500319868356016 (0x3faae15269ba6f00), 22 ULP above the exact mathematical value.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20228/20430 (120/120 pinned and 2,085/2,085 full-bank NOMINAL rows) and Excel 16.0.20527.20088 in dc96l3_x87 and prefix_metadata (row 371).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NOMINAL(0.053543,4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.052500319868356016",
+        "bits": "0x3faae15269ba6f00"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.05250031986835586",
+        "bits": "0x3faae15269ba6eea",
+        "how": "100-digit decimal 4 * (1.053543^(1/4) - 1), rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 371 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "NOMINAL(3.492780700784614, 2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "effect_rate",
+          "value": {
+            "kind": "number",
+            "display": "3.492780700784614",
+            "bits": "0x400bf137020fc250"
+          }
+        },
+        {
+          "name": "npery",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.2392361108032723",
+        "bits": "0x4001e9f49f3f60d8"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/NOMINAL.json",
+        "locator": "nom-branch-same-base-n2",
+        "note": null
+      }
+    },
+    {
+      "call": "=NOMINAL(0.12,2.9)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.11660104885167266",
+        "bits": "0x3fbdd990fb7f4aa0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_x87.capture.json",
+        "locator": "sheet dc96l3_x87 row 146 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "lines 1203-1229",
+      "note": "n <= 2 direct x87 power vs n >= 3 excel_pow_chain and x87 1+effect_rate"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NOMINAL",
+      "note": "2,085/2,085 full-bank and 120/120 pinned NOMINAL rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

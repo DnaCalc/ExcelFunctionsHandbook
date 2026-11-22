@@ -1,0 +1,121 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PDURATION-001",
+  "functions": [
+    "FUNC.PDURATION"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "PDURATION evaluates (LN(fv) - LN(pv)) / LN(1 + rate) rather than LN(fv / pv), drifting 22 ULP at 0.025",
+  "statement": "In Excel 16.0 builds 20326 through 20527, PDURATION(rate, pv, fv) rejects nonpositive rate, pv, or fv with #NUM! and computes (LN(fv) - LN(pv)) / LN(1 + rate) via Excel's x87 LN chain instead of LN(fv / pv) / LN(1 + rate). On =PDURATION(0.025,2000,2200), this yields 3.859866162622655 (0x400ee10182bb35e8), 22 ULP above the exact mathematical value. In compatibility version 1, @PDURATION returns #NAME?.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (1,205/1,205 full-bank and 120/120 pinned PDURATION rows) and 16.0.20527.20088 in prefix_metadata (row 378).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PDURATION(0.025,2000,2200)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.859866162622655",
+        "bits": "0x400ee10182bb35e8"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "3.8598661626226454",
+        "bits": "0x400ee10182bb35d2",
+        "how": "100-digit decimal ln(1.1) / ln(1.025), rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 378 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "PDURATION(0, 100, 200)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "fv",
+          "value": {
+            "kind": "number",
+            "display": "200.0",
+            "bits": "0x4069000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PDURATION.json",
+        "locator": "w111extended-2026092903-PDURATION-00001",
+        "note": null
+      }
+    },
+    {
+      "call": "=@PDURATION(0.025,2000,2200)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 378 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "lines 1118-1138",
+      "note": "Split x87 LN(fv) - LN(pv) divided by LN(1 + rate)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PDURATION",
+      "note": "1,205/1,205 full-bank and 120/120 pinned PDURATION rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

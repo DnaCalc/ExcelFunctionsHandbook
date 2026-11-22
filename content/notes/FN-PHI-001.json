@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PHI-001",
+  "functions": [
+    "FUNC.PHI"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "PHI computes x87 sq = x*x (#NUM! on overflow), EXP(-sq/2) * 0x3fd9884533d43651, and flushes subnormals to +0",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, PHI(x) forms sq = RN53(RN64(x * x)) (rejecting overflow with #NUM!), evaluates e = EXP(-sq / 2), multiplies by the reciprocal constant RN(1/sqrt(2*pi)) = 0x3fd9884533d43651 in x87 (rather than dividing by sqrt(2*pi)), and flushes subnormal results to +0.0 (so PHI(37.8511319) = 0). Under compat-1, @PHI returns #NAME?.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131, 20430, and 20527.20088, matching 14,406/14,406 full-bank and 120/120 pinned PHI rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "PHI(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.3989422804014327",
+        "bits": "0x3fd9884533d43651"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PHI.json",
+        "locator": "w111boundary-PHI-02634",
+        "note": null
+      }
+    },
+    {
+      "call": "PHI(37.8511319000002)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "37.8511319000002",
+            "bits": "0x4042ecf1e3dd8aa6"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PHI.json",
+        "locator": "w111boundary-PHI-02610",
+        "note": null
+      }
+    },
+    {
+      "call": "=@PHI(0.75)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 181 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/phi_fn.rs",
+      "locator": "lines 4-11",
+      "note": "x87 x*x overflow guard -> #NUM!"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/normal_dist_common.rs",
+      "locator": "lines 4-27 and 238-247",
+      "note": "INV_SQRT_2PI constant, EXP(-sq/2) multiply, and subnormal flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PHI",
+      "note": "14,406/14,406 full-bank and 120/120 pinned PHI rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

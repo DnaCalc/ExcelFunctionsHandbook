@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SLN-001",
+  "functions": [
+    "FUNC.SLN"
+  ],
+  "kind": "quirk",
+  "title": "SLN admits negative life, evaluates x87-stored (cost - salvage) / life, and flushes only the published quotient to +0",
+  "statement": "In Excel 16.0 builds 20430 and 20527, SLN(cost, salvage, life) admits negative or fractional cost, salvage, and nonzero life (returning #DIV/0! only when life == 0), evaluates RN53(RN64((cost - salvage) / life)) while retaining subnormal differences before division, and flushes only the final quotient to +0.0 if subnormal. All 1,205 full-bank SLN rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (1,205/1,205 full-bank and 120/120 pinned SLN rows) and 16.0.20527.20088 in f3_financial (row 10) and prefix_metadata (row 388).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SLN(100, 0, -1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "cost",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "salvage",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "life",
+          "value": {
+            "kind": "number",
+            "display": "-1.0",
+            "bits": "0xbff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-100.0",
+        "bits": "0xc059000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/SLN.json",
+        "locator": "w111broad-20260929-SLN-00001",
+        "note": null
+      }
+    },
+    {
+      "call": "=SLN(1,2,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_financial.capture.json",
+        "locator": "sheet f3_financial row 10 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SLN(30000,7500,10)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2250.0",
+        "bits": "0x40a1940000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 388 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/depreciation_family.rs",
+      "locator": "lines 27-44",
+      "note": "x87 division, negative life admission, and final subnormal flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SLN",
+      "note": "1,205/1,205 full-bank and 120/120 pinned SLN rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SQRTPI-001",
+  "functions": [
+    "FUNC.SQRTPI"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "SQRTPI uses CRT pow(n*pi, 0.5) not IEEE sqrt, returns #NUM! for n*pi > DBL_MAX, and rejects logicals",
+  "statement": "In Excel 16.0 builds 20026, 20430, and 20527, SQRTPI(number) rejects logicals with #VALUE!, rejects number < 0 with #NUM!, multiplies number * pi in binary64 (returning #NUM! once number * pi overflows DBL_MAX, starting at 0x7fd45f306dc9c883), and evaluates CRT pow(number * pi, 0.5) rather than IEEE sqrt. At =SQRTPI(1), Excel returns 1.7724538509055159 (0x3ffc5bf891b4ef6a), 1 ULP below exact sqrt(pi); at 0x7fd45f306dc9c882 it returns 0x5ff0000000000000 (1 ULP above IEEE sqrt).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20026 (sqrtpi.rs pinned boundary tests), build 20430 (1,224/1,224 full-bank and 120/120 pinned SQRTPI rows), and 16.0.20527.20088 in prefix_metadata (row 209) and functions-fn4-arguments (qa047).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SQRTPI(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.7724538509055159",
+        "bits": "0x3ffc5bf891b4ef6a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.772453850905516",
+        "bits": "0x3ffc5bf891b4ef6b",
+        "how": "100-digit decimal sqrt(pi), rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 209 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "SQRTPI(5.7222122209853366e+307)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "5.722234971514056e+307",
+            "bits": "0x7fd45f306dc9c882"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.3407807929942597e+154",
+        "bits": "0x5ff0000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.3407807929942596e+154",
+        "bits": "0x5fefffffffffffff",
+        "how": "Exact sqrt(0x7fd45f306dc9c882 * pi) < 2^512, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0 build 20026, Windows 64-bit (CPU not recorded)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/src/ported/sqrtpi.rs",
+        "locator": "lines 92-97",
+        "note": "Last finite n*pi boundary pin in Excel 16.0 build 20026"
+      }
+    },
+    {
+      "call": "=SQRTPI(TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json",
+        "locator": "sheet qa047 row 20 column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/sqrtpi.rs",
+      "locator": "lines 4-25 and 45-98",
+      "note": "n*pi finite guard, crt_pow(..., 0.5), and build 20026 boundary pins"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/math.rs",
+      "locator": "lines 124-127",
+      "note": "reject_logical before sqrtpi_kernel"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SQRTPI",
+      "note": "1,224/1,224 full-bank and 120/120 pinned SQRTPI rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

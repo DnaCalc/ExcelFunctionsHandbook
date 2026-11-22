@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-RADIANS-001",
+  "functions": [
+    "FUNC.RADIANS"
+  ],
+  "kind": "quirk",
+  "title": "RADIANS multiplies by pi/180 in x87 and flushes subnormal products (even from DBL_MIN) to +0",
+  "statement": "In Excel 16.0 builds 20430 and 20527, RADIANS(angle) evaluates RN53(RN64(angle * (pi / 180))) and flushes any subnormal product (including RADIANS(DBL_MIN) and RADIANS(5e-324)) to +0.0 (0x0000000000000000). All 32,925 full-bank RADIANS rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (32,925/32,925 full-bank and 120/120 pinned RADIANS rows) and 16.0.20527.20088 in prefix_metadata (row 190).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "RADIANS(2.2250738585072014e-308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "angle",
+          "value": {
+            "kind": "number",
+            "display": "2.2250738585072014e-308",
+            "bits": "0x0010000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/RADIANS.json",
+        "locator": "w111boundary-RADIANS-02001",
+        "note": null
+      }
+    },
+    {
+      "call": "RADIANS(5e-324)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "angle",
+          "value": {
+            "kind": "number",
+            "display": "5e-324",
+            "bits": "0x0000000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/RADIANS.json",
+        "locator": "w111broad-20260929-RADIANS-00002",
+        "note": null
+      }
+    },
+    {
+      "call": "=RADIANS(180)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.141592653589793",
+        "bits": "0x400921fb54442d18"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 190 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/radians.rs",
+      "locator": "lines 3-10",
+      "note": "x87 multiply by PI/180 and subnormal flush to 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "RADIANS",
+      "note": "32,925/32,925 full-bank and 120/120 pinned RADIANS rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,98 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-YIELDDISC-001",
+  "functions": [
+    "FUNC.YIELDDISC"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "YIELDDISC checks basis before required slots, accepts serial 0, and groups B / DIM separately in x87",
+  "statement": "In Excel 16.0.20527, YIELDDISC(settlement, maturity, pr, redemption, [basis]) validates the optional basis (0..=4) before reading settlement, maturity, pr, or redemption, accepts serial 0 and spans crossing the fictitious 1900-02-29 (matching INTRATE day counts), and evaluates RN53(RN64(RN53(RN64(RN53(RN64(redemption - pr)) / pr)) * RN53(RN64(B / DIM)))) rather than left-to-right division. All 4,340 full-bank YIELDDISC rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in dcj9k_annuity (rows 301-325) and prefix_metadata (row 397), matching 4,340/4,340 full-bank YIELDDISC rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=YIELDDISC(40807,48786,65.577,105,4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.027517051651067596",
+        "bits": "0x3f9c2d6e13b1d8ae"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity row 301 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=YIELDDISC(43484,47410,83.388,100,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.01853468957411684",
+        "bits": "0x3f92fac1f63fd71b"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_annuity.capture.json",
+        "locator": "sheet dcj9k_annuity row 302 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=YIELDDISC(39494,39508,99.795,100,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.05282257198685834",
+        "bits": "0x3fab0b8f66592bcd"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 397 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/bond_core_family.rs",
+      "locator": "lines 459-489",
+      "note": "Serial 0/1900-02-29 day count and ((red-pr)/pr)*(B/DIM) x87 grouping"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/bonds.rs",
+      "locator": "lines 63-70 and 183-189",
+      "note": "Basis-before-required validation order"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "YIELDDISC",
+      "note": "4,340/4,340 full-bank YIELDDISC rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

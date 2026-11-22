@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SEC-001",
+  "functions": [
+    "FUNC.SEC"
+  ],
+  "kind": "quirk",
+  "title": "SEC computes RN53(RN64(1 / COS(x))) over the x87 COS chain and rejects |x| >= 2^27 with #NUM!",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, SEC(number) applies the circular-trig domain limit (|x| >= 2^27 returns #NUM!) and evaluates RN53(RN64(1 / COS(x))) using Excel's raw x87 COS chain (which inherits FLDPI/2 range reduction at large arguments and returns 1.0 for |x| < 2^-26). Under compat-1, @SEC returns #NAME?. All 2,138 full-bank SEC rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131, 20430, and 20527.20088, matching 2,138/2,138 full-bank and 120/120 pinned SEC rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SEC(78844871.26873629)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "78844871.26873629",
+            "bits": "0x4192cc4f1d132f9b"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.0000003675838816",
+        "bits": "0x3ff0000062ac2c08"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/SEC.json",
+        "locator": "oc298",
+        "note": null
+      }
+    },
+    {
+      "call": "SEC(2.7300482479604487e+53)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "2.7300482479604487e+53",
+            "bits": "0x4b06cd6bd9bd6e3e"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/SEC.json",
+        "locator": "w111extended-2026092903-SEC-00026",
+        "note": null
+      }
+    },
+    {
+      "call": "=@SEC(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 199 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/sec.rs",
+      "locator": "lines 4-12",
+      "note": "CIRCULAR_TRIG check and x87 1 / excel_cos(n)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SEC",
+      "note": "2,138/2,138 full-bank and 120/120 pinned SEC rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

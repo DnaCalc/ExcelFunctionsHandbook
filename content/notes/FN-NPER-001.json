@@ -1,0 +1,173 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NPER-001",
+  "functions": [
+    "FUNC.NPER"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "NPER uses exact rate == 0 for linear branch (#DIV/0! when 1 + rate rounds to 1) and x87-stored logs elsewhere",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, NPER(rate, pmt, pv, [fv], [type]) takes the linear branch -(fv + pv) / pmt only at exact rate == 0.0 (returning #DIV/0! if pmt == 0). Any nonzero rate enters the logarithmic formula using x87 PC64-to-PC53 double-rounded operations and x87 FYL2X logarithms: tiny rates where 1 + rate rounds to 1 return #DIV/0! (such as rate = 1e-300), while small rates like 1e-10 lose accuracy in LN(1 + rate). All 2,509 full-bank NPER rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20131, 20430, and 20527.20088, matching 2,509/2,509 full-bank and 120/120 pinned NPER rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "NPER(1e-300, -120, 10000, 0, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          }
+        },
+        {
+          "name": "pmt",
+          "value": {
+            "kind": "number",
+            "display": "-120.0",
+            "bits": "0xc05e000000000000"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "10000.0",
+            "bits": "0x40c3880000000000"
+          }
+        },
+        {
+          "name": "fv",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "type",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/NPER.json",
+        "locator": "oc1260",
+        "note": null
+      }
+    },
+    {
+      "call": "NPER(1e-10, -100, 1000, 0, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "1e-10",
+            "bits": "0x3ddb7cdfd9d7bdbb"
+          }
+        },
+        {
+          "name": "pmt",
+          "value": {
+            "kind": "number",
+            "display": "-100.0",
+            "bits": "0xc059000000000000"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "1000.0",
+            "bits": "0x408f400000000000"
+          }
+        },
+        {
+          "name": "fv",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "type",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "9.999997775054135",
+        "bits": "0x4023ffffb557dc4d"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/NPER.json",
+        "locator": "w111extended-2026092903-NPER-00006",
+        "note": null
+      }
+    },
+    {
+      "call": "=NPER(0.12/12,-100,-1000,10000,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "59.67386567429457",
+        "bits": "0x404dd6413afc7eff"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 372 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "lines 388-437 and 1402-1519",
+      "note": "x87 spill-loop NPER, exact rate==0 linear branch, and pinned tests"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NPER",
+      "note": "2,509/2,509 full-bank and 120/120 pinned NPER rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

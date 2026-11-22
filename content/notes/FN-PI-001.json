@@ -1,0 +1,75 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PI-001",
+  "functions": [
+    "FUNC.PI"
+  ],
+  "kind": "documentation-differs",
+  "title": "PI returns full binary64 pi (0x400921fb54442d18), 7 ULPs above the documented 15-digit decimal",
+  "statement": "In Excel 16.0 builds 20430 and 20527, PI() returns the nearest binary64 value to pi, 0x400921fb54442d18 (3.141592653589793), which is 7 representable steps above the 15-significant-digit decimal 3.14159265358979 (0x400921fb54442d11). This worksheet constant is distinct from the 64-bit x87 FLDPI constant used inside SIN, COS, and TAN range reduction.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0 build 20430 (2/2 full-bank and 1/1 pinned PI rows) and 16.0.20527.20088 in prefix_metadata (row 182).",
+  "inferred": null,
+  "documentation": {
+    "claim": "Returns the number 3.14159265358979, the mathematical constant pi, accurate to 15 digits.",
+    "source": "Microsoft Support — PI function (https://support.microsoft.com/en-us/office/pi-function-264199d0-a3ba-46b8-975a-c4a04608989b)"
+  },
+  "repros": [
+    {
+      "call": "=PI()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.141592653589793",
+        "bits": "0x400921fb54442d18"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 182 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=PI()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.141592653589793",
+        "bits": "0x400921fb54442d18"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PI.json",
+        "locator": "w111extended-2026092903-PI-00000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/math.rs",
+      "locator": "line 106",
+      "note": "PI() returns std::f64::consts::PI (0x400921fb54442d18)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PI",
+      "note": "2/2 full-bank and 1/1 pinned PI rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

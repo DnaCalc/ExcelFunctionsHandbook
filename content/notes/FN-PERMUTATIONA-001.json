@@ -1,0 +1,125 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PERMUTATIONA-001",
+  "functions": [
+    "FUNC.PERMUTATIONA"
+  ],
+  "kind": "quirk",
+  "title": "PERMUTATIONA checks number < 0 before truncation (-1 < number_chosen < 0 becomes 0) and uses decimal 10^k at base 10",
+  "statement": "In Excel 16.0 builds 20430 and 20527, PERMUTATIONA(number, number_chosen) rejects raw number < 0 before truncation (so PERMUTATIONA(-0.9999999999999987, 1) is #NUM!), whereas number_chosen in (-1, 0] truncates to 0 and returns 1. Both arguments are bounded below 2,147,483,647. When truncated number == 10, Excel takes decimal power conversion ten_to(k) (#NUM! for k > 308); otherwise it runs x87-stored repeated squaring. Under compat-1, @PERMUTATIONA returns #NAME?.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0 build 20430 (71,915/71,915 full-bank and 120/120 pinned PERMUTATIONA rows) and 16.0.20527.20088 in prefix_metadata (row 180).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "PERMUTATIONA(-0.9999999999999987, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-0.9999999999999987",
+            "bits": "0xbfeffffffffffff4"
+          }
+        },
+        {
+          "name": "number_chosen",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PERMUTATIONA.json",
+        "locator": "w111threshold-PERMUTATIONA-000170",
+        "note": null
+      }
+    },
+    {
+      "call": "PERMUTATIONA(0.4990404672430673, -0.2876247117366886)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.4990404672430673",
+            "bits": "0x3fdff0476d8c2150"
+          }
+        },
+        {
+          "name": "number_chosen",
+          "value": {
+            "kind": "number",
+            "display": "-0.2876247117366886",
+            "bits": "0xbfd268717a9b8d64"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/witnesses/PERMUTATIONA.json",
+        "locator": "w111broad-20260929-PERMUTATIONA-00867",
+        "note": null
+      }
+    },
+    {
+      "call": "=@PERMUTATIONA(3,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 180 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/permutationa_fn.rs",
+      "locator": "lines 6-44",
+      "note": "Raw n < 0 check, trunc(k) >= 0, 2147483647 bound, ten_to(k), and x87 squaring"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PERMUTATIONA",
+      "note": "71,915/71,915 full-bank and 120/120 pinned PERMUTATIONA rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
