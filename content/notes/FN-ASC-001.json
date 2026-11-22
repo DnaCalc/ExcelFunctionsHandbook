@@ -1,0 +1,94 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ASC-001",
+  "functions": [
+    "FUNC.ASC",
+    "FUNC.DBCS"
+  ],
+  "kind": "quirk",
+  "title": "ASC and DBCS leave all character widths unchanged under single-byte editing languages",
+  "statement": "In Excel 16.0.20527.20088 under en-ZA (a single-byte editing language), ASC(text) and DBCS(text) return text unchanged—leaving full-width ASCII (UNICHAR(65313)&UNICHAR(65345)&UNICHAR(65297)), katakana, hiragana, Hangul, full-width ideographic space (UNICHAR(12288)), and ASCII text unmodified—while coercing numbers and logicals as text, reading blanks as \"\", and propagating errors. Width conversion occurs only under double-byte editing languages (ja-JP, ko-KR, zh-CN). All 2,090 ASC and 2,101 DBCS full-bank rows match.",
+  "status": "measured",
+  "basis": "Measured across all 24 rows of DnaCalc dczsn3_bytes (Excel 16.0.20527.20088, en-ZA) and f2_rows row 180; 2,090/2,090 ASC and 2,101/2,101 DBCS full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ASC(UNICHAR(65313)&UNICHAR(65345)&UNICHAR(65297))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "Ａａ１",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+        "locator": "sheet dczsn3_bytes row 1 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=DBCS(UNICHAR(65393)&UNICHAR(65398)&UNICHAR(65438))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "ｱｶﾞ",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+        "locator": "sheet dczsn3_bytes row 4 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=DBCS(\"Aa1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "Aa1",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+        "locator": "sheet dczsn3_bytes row 2 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/text_format.rs",
+      "locator": "width_conversion",
+      "note": "single-byte passthrough and DBCS-locale refusal"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ASC; DBCS",
+      "note": "2,090/2,090 ASC and 2,101/2,101 DBCS full-bank matches"
+    }
+  ],
+  "open": [
+    "Double-byte editing language behaviour (ja-JP, ko-KR, zh-CN) has not been captured in a published oracle workbook."
+  ],
+  "recorded_on": "2026-11-22"
+}

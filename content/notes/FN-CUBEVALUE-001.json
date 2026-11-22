@@ -1,0 +1,129 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CUBEVALUE-001",
+  "functions": [
+    "FUNC.CUBEVALUE"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "CUBEVALUE sums <=6-decimal columns as exact scaled integers, returns 1 without a measure, returns \"\" on empty slices, and rejects duplicate hierarchies with #VALUE!",
+  "statement": "In Excel 16.0.20527, CUBEVALUE(connection, [member_expression1], ...) evaluates SUM over a workbook data model column whose entries all have at most 6 decimal places as an exact scaled integer rounded once to binary64 (returning 42.3, 0x4045266666666666, for {10, 20, 5, 7, 0.1, 0.2}, whereas binary64 row-order addition gives 42.300000000000004). With members and no measure it returns 1; with an empty slice it returns \"\"; when given a CUBESET it sums across the set's members; two members from one hierarchy or two measures return #VALUE!; and numbers or \"\" return #N/A. All 4,246 full-bank CUBEVALUE rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc crates/calc-host/tests/fixtures/cube/measured.xlsx and pivot_cube/oracle.xlsx (Excel 16.0.20527); 4,246/4,246 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CUBEVALUE(\"ThisWorkbookDataModel\",\"[Measures].[TotalAmount]\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "42.3",
+        "bits": "0x4045266666666666"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A71",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBEVALUE(\"ThisWorkbookDataModel\",CUBESET(\"ThisWorkbookDataModel\",\"{[Table1].[Region].&[East],[Table1].[Region].&[West]}\"),\"[Measures].[TotalAmount]\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "35.3",
+        "bits": "0x4041a66666666666"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A70",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBEVALUE(\"ThisWorkbookDataModel\",\"[Table1].[Region].&[East]\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A11",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBEVALUE(\"ThisWorkbookDataModel\",\"[Table1].[Region].&[North]\",\"[Table1].[Product].&[A]\",\"[Measures].[TotalAmount]\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A73",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBEVALUE(\"ThisWorkbookDataModel\",\"[Table1].[Product].&[A]\",\"[Table1].[Product].&[B]\",\"[Measures].[TotalAmount]\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A134",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/cube.rs",
+      "locator": "scaled_sum; CubeModel::value_over",
+      "note": "6-decimal scaled summation, empty slice \"\", and hierarchy checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CUBEVALUE",
+      "note": "4,246/4,246 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISFORMULA-001",
+  "functions": [
+    "FUNC.ISFORMULA"
+  ],
+  "kind": "quirk",
+  "title": "ISFORMULA spills a logical array over multi-cell ranges, returns #N/A for closed workbooks, and rejects non-reference constants at entry (0x800A03EC)",
+  "statement": "In Excel 16.0.20527, ISFORMULA(reference) returns TRUE/FALSE per cell, spilling a shaped logical array over a multi-cell single-area reference (=ISFORMULA(B2:D4) -> 3x3 logical array, =ISFORMULA(D1#) -> {TRUE;FALSE;FALSE}), returns #SPILL! when a whole-row/whole-column spill (=ISFORMULA(C:D)) exceeds the sheet, returns #N/A for a reference to a closed external workbook, and rejects literal constants or arrays at formula entry (COM 0x800A03EC). All 3,089 full-bank ISFORMULA rows match.",
+  "status": "measured",
+  "basis": "Measured across all 31 ISFORMULA cases in CalcFunc-Evidence readings/cell-context/reference-info.json, DnaCalc dc_nzpw rows 99-100, dc_ylr row 29, and crates/calc-fml/tests/fixtures/entry/excel-entry.tsv; 3,089/3,089 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ISFORMULA(B2:D4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{FALSE,FALSE,FALSE;FALSE,TRUE,FALSE;FALSE,FALSE,FALSE}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527 (touchstone/1 env 145016f4397d), Windows, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/cell-context/reference-info.json",
+        "locator": "isformula-10",
+        "note": "3x3 logical spill with TRUE at center C3"
+      }
+    },
+    {
+      "call": "=ISFORMULA(C:D)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#SPILL!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527 (touchstone/1 env 145016f4397d), Windows, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/cell-context/reference-info.json",
+        "locator": "isformula-19",
+        "note": "evaluated at Sheet1!H10"
+      }
+    },
+    {
+      "call": "=ISFORMULA('C:\\Work\\DnaCalc\\cw-ceng\\ylr\\[ylr-source.xlsx]Sheet1'!D1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/captures/dc_ylr/oracle.capture.json",
+        "locator": "sheet Main row 29 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISFORMULA(2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "entry rejected (0x800A03EC)",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-fml/tests/fixtures/entry/excel-entry.tsv",
+        "locator": "0\t=ISFORMULA(2)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/information.rs",
+      "locator": "isformula",
+      "note": "array spill, closed-workbook #N/A, and single-cell check"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/entry.rs",
+      "locator": "the_measured_reference_places",
+      "note": "formula-entry reference requirement"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ISFORMULA",
+      "note": "3,089/3,089 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

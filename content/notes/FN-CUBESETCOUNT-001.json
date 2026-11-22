@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CUBESETCOUNT-001",
+  "functions": [
+    "FUNC.CUBESETCOUNT"
+  ],
+  "kind": "quirk",
+  "title": "CUBESETCOUNT counts tuples in a held CUBESET (including 0 for [Measures].Members), propagates errors, and returns #N/A for non-cube values",
+  "statement": "In Excel 16.0.20527, CUBESETCOUNT(set) returns the tuple count of a CUBESET cell (returning 0 for an empty set such as [Measures].Members), propagates scalar errors (#VALUE!, #DIV/0!, #NUM!, #REF!, #NAME?), and returns #N/A for non-cube values such as blanks, numbers, or plain text (and #VALUE! for a cell holding a CUBEMEMBER). All 3,078 full-bank CUBESETCOUNT rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc crates/calc-host/tests/fixtures/cube/measured.xlsx (A58-A67, A130) and CalcFunc-Evidence admit2-answers-cubesetcount-special.json; 3,078/3,078 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CUBESETCOUNT(CUBESET(\"ThisWorkbookDataModel\",\"[Table1].[Product].Children\",\"p\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A130",
+        "note": null
+      }
+    },
+    {
+      "call": "CUBESETCOUNT(blank)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "set",
+          "value": {
+            "kind": "blank",
+            "display": "",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-cubesetcount-special.json",
+        "locator": "admit2-special-CUBESETCOUNT-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "CUBESETCOUNT(#DIV/0!)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "set",
+          "value": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-cubesetcount-special.json",
+        "locator": "admit2-special-CUBESETCOUNT-0005",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/cube_functions.rs",
+      "locator": "cubesetcount",
+      "note": "set count, #VALUE! on member, #N/A on non-cube"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CUBESETCOUNT",
+      "note": "3,078/3,078 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

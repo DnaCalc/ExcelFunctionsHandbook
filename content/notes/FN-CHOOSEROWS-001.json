@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CHOOSEROWS-001",
+  "functions": [
+    "FUNC.CHOOSEROWS"
+  ],
+  "kind": "quirk",
+  "title": "CHOOSEROWS counts negative selectors from the bottom, flattens array selectors row-major, and rejects 0 or out-of-bounds with #VALUE!",
+  "statement": "In Excel 16.0.20527, CHOOSEROWS(array, row_num1, ...) selects 1-based rows in the order given (permitting duplicates and reordering), counts negative selectors from the last row (-1 selects the final row), truncates fractional selectors toward zero, flattens array selectors in row-major order, and returns #VALUE! when any selector is 0 or its magnitude exceeds the array's row count. All 3,000 full-bank CHOOSEROWS rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc f3_arrays row 22, jnt_aggregate_arrays rows 79-86 (Excel 16.0.20527.20088), and CalcFunc-Evidence admit2-answers-chooserows-spill.json (Excel 16.0 build 20527); 3,000/3,000 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CONCAT(CHOOSEROWS({1,2;3,4;5,6},3,1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "5612",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 22 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CHOOSEROWS({10;20;30},-1.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "30.0",
+        "bits": "0x403e000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 80 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CHOOSEROWS({10;20},0.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 84 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CHOOSEROWS({10;20},5.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 86 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/arrays.rs",
+      "locator": "choose",
+      "note": "array selector flattening and error checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CHOOSEROWS",
+      "note": "3,000/3,000 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,100 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CLEAN-001",
+  "functions": [
+    "FUNC.CLEAN"
+  ],
+  "kind": "quirk",
+  "title": "CLEAN removes C0 control code units (< 32) and preserves UTF-16 supplementary pairs; calc-func also strips five Windows-1252 C1 code units (129, 141, 143, 144, 157)",
+  "statement": "In Excel 16.0.20527.20088, CLEAN(text) coerces numbers and logicals via worksheet text coercion (CLEAN(123) -> \"123\"), removes C0 control code units below 32 (CHAR(7), CHAR(10)), and preserves supplementary UTF-16 surrogate pairs such as UNICHAR(128512) (U+1F600). In calc-func's ported kernel (text_kernels.rs), CLEAN also strips the five unassigned Windows-1252 C1 code units 129, 141, 143, 144, and 157. All 2,082 full-bank CLEAN rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc f2_rows row 20, dcfl2_text row 49, and jnt_text_formats rows 76-78 (Excel 16.0.20527.20088); 2,082/2,082 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CLEAN(CHAR(7)&\"x\"&CHAR(10))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "x",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 20 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CLEAN(\"a\"&LEFT(UNICHAR(128512),1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "a😀",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 49 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CLEAN(123.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "123",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 78 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/ported/text_kernels.rs",
+      "locator": "clean",
+      "note": "C0 (< 32) and C1 (129, 141, 143, 144, 157) filter"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/f2_text.rs",
+      "locator": "line 1196",
+      "note": "unit test asserting CLEAN strips 129 and tab"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CLEAN",
+      "note": "2,082/2,082 full-bank matches"
+    }
+  ],
+  "open": [
+    "Direct Excel capture rows for code units 129, 141, 143, 144, and 157 have not yet been added to a published capture section."
+  ],
+  "recorded_on": "2026-11-22"
+}

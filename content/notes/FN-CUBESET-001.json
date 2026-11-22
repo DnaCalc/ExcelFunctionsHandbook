@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CUBESET-001",
+  "functions": [
+    "FUNC.CUBESET"
+  ],
+  "kind": "quirk",
+  "title": "CUBESET returns caption (or \"\") while holding the ordered set, rejects sort_order 1/2 without sort_by as #VALUE!, and rejects sort_order outside 0..=6 as #N/A",
+  "statement": "In Excel 16.0.20527, CUBESET(connection, set_expression, [caption], [sort_order], [sort_by]) displays caption coerced to text (or \"\" when omitted) while holding the tuple set in metadata. Over a workbook data model it orders tuples for sort_order 0 (natural), 1/2 (by sort_by ascending/descending), 3/4 (by caption), and 5/6 (natural), returns #VALUE! when sort_order is 1 or 2 with no sort_by, and returns #N/A when sort_order is outside 0..=6. All 4,319 full-bank CUBESET rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc crates/calc-host/tests/fixtures/cube/measured.xlsx (A16-A57, A100-A103) and pivot_cube/oracle.xlsx; 4,319/4,319 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CUBESET(\"ThisWorkbookDataModel\",\"[Table1].[Region].Children\",123)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "123",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A100",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBESET(\"ThisWorkbookDataModel\",\"[Table1].[Region].Children\",\"x\",1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A102",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBESET(\"ThisWorkbookDataModel\",\"[Table1].[Region].Children\",\"x\",9)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A101",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBESET(\"ThisWorkbookDataModel\",\"[Table1].[Region].Children\",\"x\",-1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A103",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/cube.rs",
+      "locator": "CubeModel::set; CubeModel::ordered",
+      "note": "MDX set expressions and sort modes 0..=6"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/cube_functions.rs",
+      "locator": "cubeset",
+      "note": "caption coercion and sort_order errors"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CUBESET",
+      "note": "4,319/4,319 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

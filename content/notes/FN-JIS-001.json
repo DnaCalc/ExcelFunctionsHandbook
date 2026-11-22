@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-JIS-001",
+  "functions": [
+    "FUNC.JIS"
+  ],
+  "kind": "quirk",
+  "title": "JIS is absent on Windows English Excel 16.0.20527 and returns #NAME? for every call",
+  "statement": "In Excel 16.0.20527 on Windows (en-ZA culture, en-US UI), JIS is not present in Excel's worksheet function table: every call—whether passed text, katakana, numbers, logicals, or blank cells—evaluates to #NAME?. All 3,082 full-bank JIS rows match.",
+  "status": "measured",
+  "basis": "Measured across all 8 rows of CalcFunc-Evidence readings/excel-20527/JIS.json (Excel 16.0.20527.20088), admit2-answers-jis-scalar.json, and DnaCalc dcj9k_r26_scalar row 2570 (Excel 16.0.20527.20150); 3,082/3,082 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "JIS(\"ABC123\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "ABC123",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/JIS.json",
+        "locator": "fn1-jis-001",
+        "note": null
+      }
+    },
+    {
+      "call": "JIS(\"ｱｶﾞ\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "ｱｶﾞ",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/JIS.json",
+        "locator": "fn1-jis-003",
+        "note": null
+      }
+    },
+    {
+      "call": "=@JIS(\"abc123\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/dcj9k_r26_scalar/oracle.capture.json",
+        "locator": "sheet dcj9k_r26_scalar row 2570 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/text_format.rs",
+      "locator": "jis_fn",
+      "note": "returns #NAME? as absent on Windows"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/entry.rs",
+      "locator": "absent_and_unloaded_names_answer_name_error",
+      "note": "Availability::AbsentOnWindows"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "JIS",
+      "note": "3,082/3,082 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

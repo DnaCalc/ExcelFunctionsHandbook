@@ -1,0 +1,141 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DCOUNTA-001",
+  "functions": [
+    "FUNC.DCOUNTA"
+  ],
+  "kind": "quirk",
+  "title": "DCOUNTA counts non-blank matching cells (or records when field is omitted), requires 2+ rows in database/criteria, and rejects non-reference databases at entry (0x800A03EC)",
+  "statement": "In Excel 16.0.20527, DCOUNTA(database, [field], criteria) counts every non-blank cell (numbers, text, logicals, errors) in the chosen field column across matching records (or counts matching records when field is omitted), matches un-operatored text criteria as case-insensitive prefixes, requires both database and criteria to be ranges with at least one record row below headers (#VALUE! otherwise), and rejects literal numbers or array constants in database at formula entry (COM 0x800A03EC). All 5,676 full-bank DCOUNTA rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence admit3-answers-dcounta-range-mixed.json, DnaCalc prefix_metadata row 266, and crates/calc-fml/tests/fixtures/entry/excel-entry.tsv; 5,676/5,676 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DCOUNTA(A1:B3, \"Value\", D1:D2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "database",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\",\"Value\";\"a0\",0;\"a1\",-49}",
+            "bits": null
+          }
+        },
+        {
+          "name": "field",
+          "value": {
+            "kind": "text",
+            "display": "Value",
+            "bits": null
+          }
+        },
+        {
+          "name": "criteria",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\";\"a*\"}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit3-answers-dcounta-range-mixed.json",
+        "locator": "admit3-range-mixed-DCOUNTA-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "DCOUNTA(A1:B5, \"Value\", D1:D2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "database",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\",\"Value\";\"a2\",0.11764705882352941;\"a3\",-47;\"a4\",-46;\"a5\",-45}",
+            "bits": null
+          }
+        },
+        {
+          "name": "field",
+          "value": {
+            "kind": "text",
+            "display": "Value",
+            "bits": null
+          }
+        },
+        {
+          "name": "criteria",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\";\"a1\"}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit3-answers-dcounta-range-mixed.json",
+        "locator": "admit3-range-mixed-DCOUNTA-0002",
+        "note": null
+      }
+    },
+    {
+      "call": "=DCOUNTA(2,1,B1:B3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "entry rejected (0x800A03EC)",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-fml/tests/fixtures/entry/excel-entry.tsv",
+        "locator": "0\t=DCOUNTA(2,1,B1:B3)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/database.rs",
+      "locator": "database",
+      "note": "non-blank field count, 2-row minimum, and entry rules"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DCOUNTA",
+      "note": "5,676/5,676 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

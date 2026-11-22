@@ -1,0 +1,264 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DSTDEV-001",
+  "functions": [
+    "FUNC.DSTDEV",
+    "FUNC.DSTDEVP",
+    "FUNC.DVAR",
+    "FUNC.DVARP"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "DSTDEV, DSTDEVP, DVAR, and DVARP compute variance via raw x87 PC64-stored moments with centered fallback, returning #DIV/0! on <2 (sample) or 0 (population) numbers",
+  "statement": "In Excel 16.0.20527, DSTDEV, DSTDEVP, DVAR, and DVARP collect numbers in matching records' field cells (ignoring text, logicals, and blanks while propagating errors), reject non-reference database arguments at formula entry (0x800A03EC), return #DIV/0! on 0 matching numbers (and on 1 matching number for sample DSTDEV/DVAR, whereas population DSTDEVP/DVARP return 0), and evaluate variance through Excel's x87 PC64-stored raw-moment sequence (switching to centered deviations when square_total / count / squares > 0.99, variance * 1000 <= |mean|, or non-finite, with staged sqrt for DSTDEV/DSTDEVP). All 6,507 DSTDEV, 5,673 DSTDEVP, 5,669 DVAR, and 5,670 DVARP full-bank rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence admit3-answers-{dstdev,dstdevp,dvar,dvarp}-range-mixed.json, DnaCalc prefix_metadata rows 272-276, and crates/calc-fml/tests/fixtures/entry/excel-entry.tsv; all 23,519 full-bank rows across the four functions match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DSTDEV(A1:B3, \"Value\", D1:D2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "database",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\",\"Value\";\"a0\",0;\"a1\",-49}",
+            "bits": null
+          }
+        },
+        {
+          "name": "field",
+          "value": {
+            "kind": "text",
+            "display": "Value",
+            "bits": null
+          }
+        },
+        {
+          "name": "criteria",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\";\"a*\"}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "34.64823227814083",
+        "bits": "0x404152f9467969c9"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit3-answers-dstdev-range-mixed.json",
+        "locator": "admit3-range-mixed-DSTDEV-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "DSTDEVP(A1:B3, \"Value\", D1:D2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "database",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\",\"Value\";\"a0\",0;\"a1\",-49}",
+            "bits": null
+          }
+        },
+        {
+          "name": "field",
+          "value": {
+            "kind": "text",
+            "display": "Value",
+            "bits": null
+          }
+        },
+        {
+          "name": "criteria",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\";\"a*\"}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "24.5",
+        "bits": "0x4038800000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit3-answers-dstdevp-range-mixed.json",
+        "locator": "admit3-range-mixed-DSTDEVP-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "DVAR(A1:B3, \"Value\", D1:D2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "database",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\",\"Value\";\"a0\",0;\"a1\",-49}",
+            "bits": null
+          }
+        },
+        {
+          "name": "field",
+          "value": {
+            "kind": "text",
+            "display": "Value",
+            "bits": null
+          }
+        },
+        {
+          "name": "criteria",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\";\"a*\"}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1200.5",
+        "bits": "0x4092c20000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit3-answers-dvar-range-mixed.json",
+        "locator": "admit3-range-mixed-DVAR-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "DVARP(A1:B3, \"Value\", D1:D2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "database",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\",\"Value\";\"a0\",0;\"a1\",-49}",
+            "bits": null
+          }
+        },
+        {
+          "name": "field",
+          "value": {
+            "kind": "text",
+            "display": "Value",
+            "bits": null
+          }
+        },
+        {
+          "name": "criteria",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\";\"a*\"}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "600.25",
+        "bits": "0x4082c20000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit3-answers-dvarp-range-mixed.json",
+        "locator": "admit3-range-mixed-DVARP-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "DSTDEV(A1:B4, \"Value\", D1:D2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "database",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\",\"Value\";\"a6\",0.35294117647058826;\"a0\",-43;\"a1\",-42}",
+            "bits": null
+          }
+        },
+        {
+          "name": "field",
+          "value": {
+            "kind": "text",
+            "display": "Value",
+            "bits": null
+          }
+        },
+        {
+          "name": "criteria",
+          "value": {
+            "kind": "array",
+            "display": "{\"Key\";\"a1\"}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit3-answers-dstdev-range-mixed.json",
+        "locator": "admit3-range-mixed-DSTDEV-0006",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/database.rs",
+      "locator": "database",
+      "note": "database variance dispatch"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/ported/variance_common.rs",
+      "locator": "variance_from_values; stdev_from_values",
+      "note": "x87 PC64 raw-moment and centered variance rules"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DSTDEV; DSTDEVP; DVAR; DVARP",
+      "note": "6,507 + 5,673 + 5,669 + 5,670 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CUBEMEMBERPROPERTY-001",
+  "functions": [
+    "FUNC.CUBEMEMBERPROPERTY"
+  ],
+  "kind": "quirk",
+  "title": "CUBEMEMBERPROPERTY returns #N/A for every property on a workbook data model member after validating scalar argument errors",
+  "statement": "In Excel 16.0.20527, CUBEMEMBERPROPERTY(connection, member_expression, property) checks scalar errors in connection, member_expression, and property in argument order (returning the first error), and returns #N/A for every tried property (MEMBER_CAPTION, MEMBER_UNIQUE_NAME, MEMBER_NAME, MEMBER_KEY, column name, or unknown property) on a workbook data model member or measure. All 4,279 full-bank CUBEMEMBERPROPERTY rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx (rows A94, A112-A119, Excel 16.0.20527) and CalcFunc-Evidence admit2-answers-cubememberproperty-special.json; 4,279/4,279 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CUBEMEMBERPROPERTY(\"ThisWorkbookDataModel\",\"[Table1].[Region].&[East]\",\"MEMBER_CAPTION\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A112",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBEMEMBERPROPERTY(\"ThisWorkbookDataModel\",\"[Measures].[TotalAmount]\",\"MEMBER_CAPTION\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A117",
+        "note": null
+      }
+    },
+    {
+      "call": "CUBEMEMBERPROPERTY(2, #VALUE!, 44960)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "connection",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "member_expression",
+          "value": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          }
+        },
+        {
+          "name": "property",
+          "value": {
+            "kind": "number",
+            "display": "45000.0",
+            "bits": "0x40e5f90000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-cubememberproperty-special.json",
+        "locator": "admit2-special-CUBEMEMBERPROPERTY-0003",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/cube_functions.rs",
+      "locator": "cubememberproperty",
+      "note": "early scalar error checks and #N/A on data model"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CUBEMEMBERPROPERTY",
+      "note": "4,279/4,279 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

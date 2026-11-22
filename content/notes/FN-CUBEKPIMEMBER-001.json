@@ -1,0 +1,157 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CUBEKPIMEMBER-001",
+  "functions": [
+    "FUNC.CUBEKPIMEMBER"
+  ],
+  "kind": "quirk",
+  "title": "CUBEKPIMEMBER validates scalar errors and numeric kpi_property text before connection lookup, returning #VALUE! for invalid text and #N/A on models without KPIs",
+  "statement": "In Excel 16.0.20527, CUBEKPIMEMBER(connection, kpi_name, kpi_property, [caption]) checks scalar errors on connection, kpi_name, and kpi_property first, then validates that kpi_property is numeric (returning #VALUE! for non-numeric text such as \"1,234\" or \"<>\" before checking the connection), then checks a scalar error on caption, and returns #N/A when the connection is unknown or the workbook data model defines no KPI. All 4,294 full-bank CUBEKPIMEMBER rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx (A120-A121, Excel 16.0.20527) and CalcFunc-Evidence admit2-answers-cubekpimember-enrich.json and special.json (Excel 16.0 build 20527); 4,294/4,294 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CUBEKPIMEMBER(\"ThisWorkbookDataModel\",\"KPI1\",1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A120",
+        "note": null
+      }
+    },
+    {
+      "call": "CUBEKPIMEMBER(1e100, 17, \"1,234\", 1e100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "connection",
+          "value": {
+            "kind": "number",
+            "display": "45000.0",
+            "bits": "0x40e5f90000000000"
+          }
+        },
+        {
+          "name": "kpi_name",
+          "value": {
+            "kind": "number",
+            "display": "17.000000000000004",
+            "bits": "0x4031000000000001"
+          }
+        },
+        {
+          "name": "kpi_property",
+          "value": {
+            "kind": "text",
+            "display": "1,234",
+            "bits": null
+          }
+        },
+        {
+          "name": "caption",
+          "value": {
+            "kind": "number",
+            "display": "1e+100",
+            "bits": "0x54b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-cubekpimember-enrich.json",
+        "locator": "admit2-enrich-CUBEKPIMEMBER-0017",
+        "note": null
+      }
+    },
+    {
+      "call": "CUBEKPIMEMBER(2, #VALUE!, 100000, 1e-15)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "connection",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "kpi_name",
+          "value": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          }
+        },
+        {
+          "name": "kpi_property",
+          "value": {
+            "kind": "number",
+            "display": "45000.0",
+            "bits": "0x40e5f90000000000"
+          }
+        },
+        {
+          "name": "caption",
+          "value": {
+            "kind": "number",
+            "display": "402.65475791367",
+            "bits": "0x40792a79e36f2028"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-cubekpimember-special.json",
+        "locator": "admit2-special-CUBEKPIMEMBER-0003",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/cube_functions.rs",
+      "locator": "cubekpimember; early_numeric_text; early_final_error",
+      "note": "pre-connection validation order and KPI refusal"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CUBEKPIMEMBER",
+      "note": "4,294/4,294 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ENCODEURL-001",
+  "functions": [
+    "FUNC.ENCODEURL"
+  ],
+  "kind": "quirk",
+  "title": "ENCODEURL percent-encodes tilde (~) as %7E, leaves only [A-Za-z0-9.-_] unencoded, and returns #VALUE! past 32,767 UTF-16 units",
+  "statement": "In Excel 16.0.20527.20088, ENCODEURL(text) percent-encodes the UTF-8 bytes of text using uppercase hex for every byte except ASCII letters, ASCII digits, '-', '.', and '_'—notably encoding '~' as %7E (unlike RFC 3986 unreserved characters) and spaces as %20. Numbers and logicals coerce to text as '&' does (ENCODEURL(TRUE) -> \"TRUE\"), and an encoded output exceeding 32,767 UTF-16 code units returns #VALUE! (LEN(ENCODEURL(REPT(UNICHAR(233),5000))) -> 30000, while 6000 -> #VALUE!). All 3,064 full-bank ENCODEURL rows match.",
+  "status": "measured",
+  "basis": "Measured across all 115 ENCODEURL rows of DnaCalc dcuar_text and jnt_text_formats rows 194-196 (Excel 16.0.20527.20088); 3,064/3,064 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ENCODEURL(\"a~b\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "a%7Eb",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 95 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ENCODEURL(TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 104 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=LEN(ENCODEURL(REPT(UNICHAR(233),5000)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "30000.0",
+        "bits": "0x40dd4c0000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 110 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=LEN(ENCODEURL(REPT(UNICHAR(233),6000)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 111 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/text_format.rs",
+      "locator": "encodeurl",
+      "note": "unencoded set [A-Za-z0-9.-_], uppercase hex, and 32,767 limit"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ENCODEURL",
+      "note": "3,064/3,064 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

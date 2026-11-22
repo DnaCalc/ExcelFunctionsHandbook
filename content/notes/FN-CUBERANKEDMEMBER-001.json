@@ -1,0 +1,143 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CUBERANKEDMEMBER-001",
+  "functions": [
+    "FUNC.CUBERANKEDMEMBER"
+  ],
+  "kind": "quirk",
+  "title": "CUBERANKEDMEMBER accepts set expressions directly or via cell references, truncates rank (with logical/numeric-text coercion), and returns #VALUE! on invalid rank text before connection lookup",
+  "statement": "In Excel 16.0.20527, CUBERANKEDMEMBER(connection, set_expression, rank, [caption]) accepts either a CUBESET cell reference or an inline set expression string, reads rank by truncating numbers (1.9 -> 1), coercing logicals (TRUE -> 1) and numeric strings (\"1\" -> 1), rejects non-numeric rank text (\"hello\", \"1,234\") with #VALUE! before connection lookup, and returns #N/A for rank < 1 or exceeding the set size. All 4,287 full-bank CUBERANKEDMEMBER rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc crates/calc-host/tests/fixtures/cube/measured.xlsx (A104-A107), pivot_cube/oracle.xlsx (A131-A132), and CalcFunc-Evidence admit2-answers-cuberankedmember-scalar.json; 4,287/4,287 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CUBERANKEDMEMBER(\"ThisWorkbookDataModel\",\"[Table1].[Region].Children\",1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "East",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/cube/measured.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A107",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBERANKEDMEMBER(\"ThisWorkbookDataModel\",CUBESET(\"ThisWorkbookDataModel\",\"[Table1].[Product].Children\",\"p\",2,\"[Measures].[TotalAmount]\"),1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A131",
+        "note": null
+      }
+    },
+    {
+      "call": "=CUBERANKEDMEMBER(\"ThisWorkbookDataModel\",CUBESET(\"ThisWorkbookDataModel\",\"[Table1].[Product].Children\",\"p\",2,\"[Measures].[TotalAmount]\"),0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527 (64-bit), Windows, workbook data model, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fixtures/pivot_cube/oracle.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A132",
+        "note": null
+      }
+    },
+    {
+      "call": "CUBERANKEDMEMBER(41, 44960, \"hello\", 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "connection",
+          "value": {
+            "kind": "number",
+            "display": "39.99999999999999",
+            "bits": "0x4043ffffffffffff"
+          }
+        },
+        {
+          "name": "set_expression",
+          "value": {
+            "kind": "number",
+            "display": "25569.0",
+            "bits": "0x40d8f84000000000"
+          }
+        },
+        {
+          "name": "rank",
+          "value": {
+            "kind": "text",
+            "display": "hello",
+            "bits": null
+          }
+        },
+        {
+          "name": "caption",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-cuberankedmember-scalar.json",
+        "locator": "admit2-scalar-CUBERANKEDMEMBER-0241",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/cube_functions.rs",
+      "locator": "cuberankedmember",
+      "note": "rank parsing, truncation, and early text error"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CUBERANKEDMEMBER",
+      "note": "4,287/4,287 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

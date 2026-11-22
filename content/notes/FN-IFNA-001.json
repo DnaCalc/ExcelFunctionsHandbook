@@ -1,0 +1,142 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IFNA-001",
+  "functions": [
+    "FUNC.IFNA"
+  ],
+  "kind": "quirk",
+  "title": "IFNA catches only #N/A, passes all other errors through without reading value_if_na, and shows 0 for a blank cell",
+  "statement": "In Excel 16.0.20527, IFNA(value, value_if_na) evaluates value lazily and substitutes value_if_na only when value is #N/A; any other worksheet error (such as #DIV/0!) is returned unchanged without evaluating value_if_na, and a blank cell in value returns the empty value (displayed as 0 in a cell). All 4,166 full-bank IFNA rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence admit2-answers-ifna-special.json (Excel 16.0 build 20527) and DnaCalc jnt_logical_info rows 93-95; 4,166/4,166 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IFNA(blank, 1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "blank",
+            "display": "",
+            "bits": null
+          }
+        },
+        {
+          "name": "value_if_na",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-ifna-special.json",
+        "locator": "admit2-special-IFNA-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "IFNA(#N/A, -1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          }
+        },
+        {
+          "name": "value_if_na",
+          "value": {
+            "kind": "number",
+            "display": "-1e-100",
+            "bits": "0xab2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1e-100",
+        "bits": "0xab2bff2ee48e0530"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-ifna-special.json",
+        "locator": "admit2-special-IFNA-0001",
+        "note": null
+      }
+    },
+    {
+      "call": "IFNA(#DIV/0!, 1.0000000000000002)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          }
+        },
+        {
+          "name": "value_if_na",
+          "value": {
+            "kind": "number",
+            "display": "1.0000000000000002",
+            "bits": "0x3ff0000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-ifna-special.json",
+        "locator": "admit2-special-IFNA-0005",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/error_fallback.rs",
+      "locator": "ifna_selected; fallback_selected",
+      "note": "lazy #N/A-only fallback and empty-value preservation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IFNA",
+      "note": "4,166/4,166 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

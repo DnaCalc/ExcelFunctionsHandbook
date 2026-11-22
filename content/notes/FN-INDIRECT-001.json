@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-INDIRECT-001",
+  "functions": [
+    "FUNC.INDIRECT"
+  ],
+  "kind": "quirk",
+  "title": "INDIRECT coerces numbers/logicals in ref_text to text (#REF!), treats omitted a1 as TRUE vs written-omitted/blank a1 as FALSE, and lifts over arrays",
+  "statement": "In Excel 16.0.20527.20088, INDIRECT(ref_text, [a1]) coerces ref_text to text (so numbers and logicals like INDIRECT(123) or INDIRECT(TRUE) become \"123\"/\"TRUE\" and return #REF!), defaults a1 to TRUE when omitted from the call while treating a written-but-omitted or blank a1 as FALSE (R1C1), rejects digit strings like \"1\" in a1 with #VALUE!, lifts over array ref_text arguments (e.g. SUMPRODUCT(SUBTOTAL(9,INDIRECT({\"Data!E1:E2\";\"Data!A1:A2\"})))), and returns #REF! for invalid names or closed workbooks. All 3,644 full-bank INDIRECT rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc jnt_lookup rows 75-77, dcb1l_language rows 117-119, and prefix_metadata row 26 (Excel 16.0.20527.20088); 3,644/3,644 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=INDIRECT(123.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_lookup.capture.json",
+        "locator": "sheet jnt_lookup row 76 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDIRECT(TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_lookup.capture.json",
+        "locator": "sheet jnt_lookup row 77 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUMPRODUCT(SUBTOTAL(9,INDIRECT({\"Data!E1:E2\";\"Data!A1:A2\"})))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "9.0",
+        "bits": "0x4022000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 119 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/reference_text.rs",
+      "locator": "resolved",
+      "note": "text/logical coercion and a1 omission distinction"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "INDIRECT",
+      "note": "3,644/3,644 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

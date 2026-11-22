@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-INFO-001",
+  "functions": [
+    "FUNC.INFO"
+  ],
+  "kind": "quirk",
+  "title": "INFO matches type_text case-insensitively without trimming spaces, returns #N/A for memory keys, and reports \"Automatic\" for AutomaticExceptTables",
+  "statement": "In Excel 16.0.20527.20088, INFO(type_text) matches type_text without regard to case (\"RECALC\" and \"recalc\" match) and without trimming leading or trailing spaces (\" recalc\" and \"recalc \" return #VALUE!). On Windows 64-bit Excel, \"memavail\", \"memused\", and \"totmem\" return #N/A; \"recalc\" returns \"Automatic\" even under Automatic-except-tables; \"origin\" returns \"$A:\" plus the calling sheet window's top-left cell (\"$A:$C$5\"); \"release\" returns \"16.0\"; \"system\" returns \"pcdos\"; and \"numfile\" counts worksheets (including hidden ones, excluding chart sheets). All 1,482 full-bank INFO rows match.",
+  "status": "measured",
+  "basis": "Measured across all 19 INFO rows of DnaCalc dcuar_cell (rows 63-77, Excel 16.0.20527.20088); 1,482/1,482 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=INFO(\"RECALC\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "Automatic",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 64 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INFO(\" recalc\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 65 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INFO(\"origin\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "$A:$C$5",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 71 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INFO(\"memavail\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 73 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/host_facts.rs",
+      "locator": "info",
+      "note": "INFO keys, no trimming, and #N/A memory keys"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "INFO",
+      "note": "1,482/1,482 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

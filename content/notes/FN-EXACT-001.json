@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-EXACT-001",
+  "functions": [
+    "FUNC.EXACT"
+  ],
+  "kind": "quirk",
+  "title": "EXACT coerces numbers, logicals, and blanks to text before comparing exact UTF-16 code units without case folding or Unicode normalization",
+  "statement": "In Excel 16.0.20527.20088, EXACT(text1, text2) converts both operands with worksheet text coercion (so EXACT(123,\"123\"), EXACT(TRUE,\"TRUE\"), and EXACT(blank,\"\") are TRUE) and tests exact UTF-16 code-unit sequence equality without case folding (EXACT(\"abc\",\"ABC\") -> FALSE), without Unicode normalization or German sharp-s equivalence (EXACT(\"ß\",\"ss\") -> FALSE), and keeping supplementary surrogate pairs intact. All 2,856 full-bank EXACT rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc jnt_text_formats rows 79-86, jnt_logical_info rows 171-173, and dcfl2_text row 16 (Excel 16.0.20527.20088); 2,856/2,856 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=EXACT(123.0,\"123\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 82 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=EXACT(TRUE,\"TRUE\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 83 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=EXACT(\"abc\",\"ABC\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_logical_info.capture.json",
+        "locator": "sheet jnt_logical_info row 171 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=EXACT(\"ß\",\"ss\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_logical_info.capture.json",
+        "locator": "sheet jnt_logical_info row 173 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/text_functions.rs",
+      "locator": "exact_fn",
+      "note": "text_arg coercion and UTF-16 code-unit slice equality"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "EXACT",
+      "note": "2,856/2,856 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

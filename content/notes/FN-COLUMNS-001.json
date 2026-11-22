@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COLUMNS-001",
+  "functions": [
+    "FUNC.COLUMNS"
+  ],
+  "kind": "quirk",
+  "title": "COLUMNS returns 1 for non-empty scalars, #REF! for multi-area references, and #VALUE! for blank or omitted arguments",
+  "statement": "In Excel 16.0.20527.20088, COLUMNS(array) returns the column count of a single-area reference (COLUMNS(A1:C5) -> 3, COLUMNS(INDEX(A1:C3,2,0)) -> 3) or array constant (COLUMNS({1,2,3}) -> 3, COLUMNS({1;2;3}) -> 1), returns 1 for a scalar number, text, or logical (COLUMNS(5) -> 1), propagates an error argument (COLUMNS(#N/A) -> #N/A), returns #REF! for a multi-area reference (COLUMNS((A1:A3,B1:B2)) -> #REF!), and returns #VALUE! for a blank/omitted argument (COLUMNS(CHOOSE(2,1,)) -> #VALUE!). All 3,350 full-bank COLUMNS rows match.",
+  "status": "measured",
+  "basis": "Measured in DnaCalc cfunc_m3_6 (reference_result and lookup_edges) and jnt_lookup rows 50-56 (Excel 16.0.20527.20088); 3,350/3,350 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=COLUMNS({1,2,3})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_lookup.capture.json",
+        "locator": "sheet jnt_lookup row 50 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=COLUMNS(5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 470 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=COLUMNS((A1:A3,B1:B2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 472 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=COLUMNS(CHOOSE(2,1,))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 186 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/lookup.rs",
+      "locator": "columns; extent",
+      "note": "single-area, array, scalar, multi-area #REF!, blank #VALUE!"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COLUMNS",
+      "note": "3,350/3,350 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
