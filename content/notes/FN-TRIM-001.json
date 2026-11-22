@@ -1,0 +1,72 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TRIM-001",
+  "functions": [
+    "FUNC.TRIM"
+  ],
+  "kind": "quirk",
+  "title": "TRIM strips and collapses only ASCII space (U+0020) and leaves non-breaking spaces and surrogate pairs intact",
+  "statement": "In Excel 16.0.20527.20088, TRIM removes leading and trailing ASCII spaces (U+0020) and collapses internal runs of U+0020 to a single space, while preserving other Unicode characters including astral emoji (\" a\"&LEFT(UNICHAR(128512),1)&\" \" becomes \"a😀\").",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in f2_rows (row 19), dcfl2_text (row 48), and jnt_text_formats (rows 108-109), and matched across 2,092/2,092 full-bank TRIM rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TRIM(\"  a  b  \")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "a b",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 19 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TRIM(\" a\"&LEFT(UNICHAR(128512),1)&\" \")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "a😀",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 48 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/text_kernels.rs",
+      "locator": "trim_ascii_spaces",
+      "note": "U+0020-only trimming loop"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TRIM",
+      "note": "2,092/2,092 full-bank TRIM rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

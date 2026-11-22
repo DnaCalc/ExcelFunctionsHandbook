@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TRANSPOSE-001",
+  "functions": [
+    "FUNC.TRANSPOSE"
+  ],
+  "kind": "quirk",
+  "title": "TRANSPOSE converts blank cells to 0 and returns #VALUE! when its input is an out-of-range @ implicit intersection",
+  "statement": "In Excel 16.0.20527.20088, TRANSPOSE turns blank cells in a reference into 0 (as array formulas over blank cells do), and returns #VALUE! when given an implicit-intersection (@) reference or array-lifted @ expression whose intersection fails (e.g. ROWS(TRANSPOSE(@Data!A1:A3)) is #VALUE!, whereas ROWS(TRANSPOSE({1,2,3}*1)) is 3).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in dch9u_functions (rows 1153-1162) and matched across 1,277/1,277 full-bank TRANSPOSE rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ROWS(TRANSPOSE(@Data!A1:A3))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 1154 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(TRANSPOSE({1,2,3}*1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 1160 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUM(TRANSPOSE({1,2,3}))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "6.0",
+        "bits": "0x4018000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 1161 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/host_facts.rs",
+      "locator": "lines 496-522",
+      "note": "TRANSPOSE blank-to-0 and scalar pass-through"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TRANSPOSE",
+      "note": "1,277/1,277 full-bank TRANSPOSE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

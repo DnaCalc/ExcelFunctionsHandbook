@@ -1,0 +1,79 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-UPPER-001",
+  "functions": [
+    "FUNC.UPPER"
+  ],
+  "kind": "quirk",
+  "title": "UPPER applies simple single-codepoint Unicode case mapping without expanding ß/ﬀ or applying Turkish dotted-I rules",
+  "statement": "In Excel 16.0.20527.20088 and 16.0.19822, UPPER performs single-codepoint BMP case mapping without full Unicode SpecialCasing expansions or NFC normalization: \"straße\" becomes \"STRAßE\" (not \"STRASSE\"), \"ﬀoo\" remains \"ﬀOO\", \"Istanbul\" becomes \"ISTANBUL\" (not Turkish dotted İ), dotless \"ı\" becomes \"I\", Greek final \"ς\" becomes \"Σ\", and Deseret U+10428 (\"𐐨\") above U+FFFF is unchanged. In compatibility version 1, @UNICHAR(454) returns #NAME? (pre-2013 function prefix) whereas compatibility version 2 supports it.",
+  "status": "measured",
+  "basis": "Measured across dcfl2_text (row 46), f2_rows (row 16), jnt_text_formats (rows 99-100) in Excel 16.0.20527.20088, docs/research/text-casing-2026-05-20.md in Excel 16.0.19822, and fn1_excel_case_mapping_controls, and matched across 2,114/2,114 full-bank UPPER rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=UPPER(\"hello World\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "HELLO WORLD",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 99 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=UPPER(\"a\"&LEFT(UNICHAR(128512),1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "A😀",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 46 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "docs/research/text-casing-2026-05-20.md",
+      "locator": "lines 12-38",
+      "note": "Observed Excel UPPER/LOWER/PROPER matrix in build 19822"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/tests/f2_text.rs",
+      "locator": "fn1_excel_case_mapping_controls",
+      "note": "UPPER(\"𐐨\") and UPPER(\"éßǆİςσΣﬀ\") readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "UPPER",
+      "note": "2,114/2,114 full-bank UPPER rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

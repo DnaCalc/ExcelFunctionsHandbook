@@ -1,0 +1,111 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MATCH-001",
+  "functions": [
+    "FUNC.MATCH",
+    "FUNC.VLOOKUP"
+  ],
+  "kind": "quirk",
+  "title": "MATCH and VLOOKUP require equal UTF-16 length in non-wildcard exact mode and count wildcard ? in UTF-16 units",
+  "statement": "In Excel 16.0.20527.20088, MATCH(..., 0) and VLOOKUP(..., FALSE) without wildcards match only text of the same UTF-16 code-unit length: \"SS\" does not match \"ß\" and \"ae\" does not match \"æ\", whereas \"e\"&UNICHAR(769) (length 2) matches \"e\"+U+0301 in D2 rather than precomposed \"é\" in D1. In wildcard mode, \"?\" matches one UTF-16 code unit, so surrogate-pair emoji \"😀\" matches \"??\" rather than \"?\". Both functions read a blank or omitted lookup_value as 0 and reject lookup strings longer than 255 UTF-16 code units with #VALUE!.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in dczsn1_collation (rows 107-116) and fn1_collation (rows 217, 219), and matched across 3,373/3,373 MATCH and 3,680/3,680 VLOOKUP full-bank rows plus 13/13 MATCH pinned rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=MATCH(\"SS\",D5:D16,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json",
+        "locator": "sheet dczsn1_collation row 109 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=VLOOKUP(\"ae\",D7:D16,1,FALSE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json",
+        "locator": "sheet dczsn1_collation row 116 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MATCH(\"??\",{\"😀\";\"a\";\"ab\"},0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation row 217 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MATCH(\"?\",{\"😀\";\"a\";\"ab\"},0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation row 219 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/lookup.rs",
+      "locator": "lines 17-37",
+      "note": "Exact length rule vs wildcard UTF-16 matching and bisection semantics"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "MATCH; VLOOKUP",
+      "note": "3,373/3,373 MATCH and 3,680/3,680 VLOOKUP full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

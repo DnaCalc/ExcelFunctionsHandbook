@@ -1,0 +1,126 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NORM.S.DIST-001",
+  "functions": [
+    "FUNC.NORM.S.DIST",
+    "FUNC.NORMSDIST"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "NORM.S.DIST(z, TRUE) and NORMSDIST(z) scale |z| in stored x87 before ERFC.PRECISE, diverging up to 72 ULP in the tail",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, NORM.S.DIST(z, TRUE) and NORMSDIST(z) compute z_scaled = RN53(RN64(|z| * RN(1/sqrt(2)))) and pass it to Excel's ERFC.PRECISE kernel, returning 0.5*Q for z < 0 and RN53(RN64(1 - 0.5*Q)) for z >= 0, flushing subnormal results to +0.0 (e.g. NORMSDIST(-37.52) = 0). Because ERFC.PRECISE loses accuracy in the Gaussian tail, NORM.S.DIST(-10.907735625234475, TRUE) differs by 72 ULP from the true mathematical CDF.",
+  "status": "measured",
+  "basis": "Recorded in crates/calc-func/witness-reference/NORM.S.DIST.tsv (6 mismatching rows of 27,497 full-bank NORM.S.DIST rows; 27,491/27,497 NORM.S.DIST and 2,121/2,121 NORMSDIST full-bank rows matched, plus 120/120 pinned NORM.S.DIST rows).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "NORM.S.DIST(-10.907735625234475, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "z",
+          "value": {
+            "kind": "number",
+            "display": "-10.907735625234475",
+            "bits": "0xc025d0c2b94f97a5"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "5.293017147361349e-28",
+        "bits": "0x3a44f7c1d0b8dc97"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "5.293017147361414e-28",
+        "bits": "0x3a44f7c1d0b8dcdf",
+        "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/witness-reference/NORM.S.DIST.tsv",
+        "locator": "oc8669",
+        "note": null
+      }
+    },
+    {
+      "call": "NORM.S.DIST(-0.39999999999999986, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "z",
+          "value": {
+            "kind": "number",
+            "display": "-0.39999999999999986",
+            "bits": "0xbfd9999999999997"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.3445782583896758",
+        "bits": "0x3fd60d91f7ac901a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.3445782583896759",
+        "bits": "0x3fd60d91f7ac901b",
+        "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/witness-reference/NORM.S.DIST.tsv",
+        "locator": "oc15690",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/normal_log_family.rs",
+      "locator": "identified_std_normal_cdf",
+      "note": "x87 scaling RN53(RN64(|x|*RN(1/sqrt(2)))), ERFC.PRECISE dispatch, and subnormal flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-reference/NORM.S.DIST.tsv",
+      "locator": null,
+      "note": "6 NORM.S.DIST witness-reference rows differing from nearest binary64"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NORM.S.DIST; NORMSDIST",
+      "note": "27,491/27,497 NORM.S.DIST and 2,121/2,121 NORMSDIST full-bank rows matched"
+    }
+  ],
+  "open": [
+    "6 NORM.S.DIST tail rows (inherited from ERFC.PRECISE) remain open last-bit/tail residuals (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

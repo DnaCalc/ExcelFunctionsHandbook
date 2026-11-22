@@ -1,0 +1,77 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TIMEVALUE-001",
+  "functions": [
+    "FUNC.TIMEVALUE"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "TIMEVALUE stores the full serial before subtracting the date floor, losing 16 mantissa bits on date-time text",
+  "statement": "In Excel 16.0.20527.20088, TIMEVALUE parses the string as a full Excel serial first and then subtracts its integer date floor, so a date-qualified timestamp such as \"22-Aug-2008 6:35 AM\" loses the 16 low mantissa bits occupied by date serial 39682 and returns 0.2743055555547471 (0x3fd18e38e38e0000), 16,384 ULP below exact (6*60+35)/1440 (0x3fd18e38e38e38e4). On time-only strings over 24 hours such as \"25:30\", TIMEVALUE wraps modulo 24 hours to 0.0625.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in jnt_dates_random (rows 48-52) and f2_rows (rows 55-57), and matched across 2,189/2,189 full-bank TIMEVALUE rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TIMEVALUE(\"22-Aug-2008 6:35 AM\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.2743055555547471",
+        "bits": "0x3fd18e38e38e0000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.2743055555555556",
+        "bits": "0x3fd18e38e38e38e4",
+        "how": "Exact rational 395/1440 rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_dates_random.capture.json",
+        "locator": "sheet jnt_dates_random row 49 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TIMEVALUE(\"25:30\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0625",
+        "bits": "0x3fb0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 57 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/tests/f2_dates.rs",
+      "locator": "date_qualified_time_text_admits_one_extended_component",
+      "note": "Date-serial storage before fractional time extraction"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TIMEVALUE",
+      "note": "2,189/2,189 full-bank TIMEVALUE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

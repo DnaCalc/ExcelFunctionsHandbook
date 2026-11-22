@@ -1,0 +1,104 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-REDUCE-001",
+  "functions": [
+    "FUNC.REDUCE",
+    "FUNC.SCAN"
+  ],
+  "kind": "quirk",
+  "title": "REDUCE allows its accumulator to hold a multi-cell array whereas SCAN rejects multi-cell LAMBDA results with #CALC!",
+  "statement": "In Excel 16.0.20527.20088, REDUCE permits its LAMBDA accumulator to hold and return a multi-cell array (e.g. TEXTSPLIT), whereas SCAN rejects any multi-cell LAMBDA result with #CALC!. For both helpers, a reference source argument passes one-cell references into the LAMBDA while an array literal passes values, and any non-LAMBDA final argument (even an error or number) returns #VALUE!.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 across fn2_questions (fn2_q091, fn2_q092), jnt_aggregate_arrays (rows 104-105), and f3_arrays (rows 35-37).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=REDUCE(\"\",{\"a,b\",\"c,d\"},LAMBDA(acc,txt,TEXTSPLIT(txt,\",\")))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{\"c\",\"d\"}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q091 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=SCAN(\"\",{\"a,b\",\"c,d\"},LAMBDA(acc,txt,TEXTSPLIT(txt,\",\")))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q092 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=REDUCE(0.0,{1,2},1.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 104 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CONCAT(SCAN(0,{1,2,3},LAMBDA(a,b,@a+@b)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "136",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 37 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/lambda_helpers.rs",
+      "locator": "lines 1-37",
+      "note": "LAMBDA helper reference passing, array accumulator allowance, and #VALUE!/#CALC! rules"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

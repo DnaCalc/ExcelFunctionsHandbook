@@ -1,0 +1,101 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-T.TEST-001",
+  "functions": [
+    "FUNC.T.TEST",
+    "FUNC.TTEST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "T.TEST and TTEST pass rounded complement y = 1 - z to the beta CDF kernel and validate tails after sample singletons",
+  "statement": "In Excel 16.0.20527.20088, T.TEST and TTEST coerce sample arrays before validating tails and type (so singleton sample errors precede invalid tails/type, and non-numeric singletons like \"\" or \"2\" yield #DIV/0! before #NUM!), and compute the p-value by passing the rounded complement y = 1 - z (rather than direct z) to the shared incomplete beta CDF kernel (matching 109/129 retained and 195/384 independent calls when isolated from beta kernel gaps). Under compatibility version 1, @T.TEST evaluates to #NAME? while TTEST remains unprefixed.",
+  "status": "measured",
+  "basis": "Measured across fn4_questions (ql134-ql146), prefix_metadata (rows 227, 234), and docs/research/paired-t-arithmetic-2026-11-12.md in Excel 16.0.20527.20088, and matched across 2,950/2,950 T.TEST and 2,951/2,951 TTEST full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=T.TEST(\"\",2,2,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql135 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=TTEST(\"2\",2,2,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql138 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=T.TEST(Data!A1:A3,Data!E1:E3,2,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.42264973081037416",
+        "bits": "0x3fdb0cb174df99c6"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 227 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "docs/research/paired-t-arithmetic-2026-11-12.md",
+      "locator": null,
+      "note": "dc-bc1o T.TEST rounded complement y=1-z and 384-call invoke qualification"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "t_test_validates_tails_after_singleton_sample_errors",
+      "note": "Validation order and b<=1 1-ULP note on Sheet1!B70"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "T.TEST; TTEST",
+      "note": "2,950/2,950 T.TEST and 2,951/2,951 TTEST full-bank rows matched"
+    }
+  ],
+  "open": [
+    "Paired Sheet1!B70 sits 1 ULP below Excel 20527 under dc-j9k.58 universal bup_140 (dc-j9k.55)."
+  ],
+  "recorded_on": "2026-11-22"
+}

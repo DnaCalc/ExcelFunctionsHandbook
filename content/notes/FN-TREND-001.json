@@ -1,0 +1,106 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TREND-001",
+  "functions": [
+    "FUNC.TREND"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "TREND evaluates its QR fit and prediction in stored-PC64 x87 arithmetic, drifting by 1-4 ULP on exact lines",
+  "statement": "In Excel 16.0.20527.20088, TREND solves the linear least-squares fit using the same Householder QR factorization in stored-PC64 x87 arithmetic as LINEST (including unpermuted predictor ordering and reverse back-substitution) and evaluates predictions with stored-PC64 arithmetic. Even on the three-point regression y={1;5;3}, x={1;2;3} whose exact least-squares line is x+1, TREND(..., 0) returns 0.9999999999999996 (4 ULP below 1), TREND(..., 1) returns 1.9999999999999998 (1 ULP below 2), and TREND(..., 100) returns 101.00000000000003 (2 ULP above 101). Paired 2x2 histories are read as four paired observations, where non-numeric scalar new_x returns #VALUE!.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in dcj9k_regression (rows 22-27) and dcj9k_r26_regression, and matched across 1,532/1,532 full-bank and 12/12 pinned TREND rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=@TREND({1;5;3},{1;2;3},0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.9999999999999996",
+        "bits": "0x3feffffffffffffc"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000",
+        "how": "Exact OLS fit to {(1,1),(2,5),(3,3)} is y = x + 1, yielding 1 at x=0"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json",
+        "locator": "sheet dcj9k_regression row 24 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@TREND({1;5;3},{1;2;3},1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.9999999999999998",
+        "bits": "0x3fffffffffffffff"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000",
+        "how": "Exact OLS fit y = x + 1 at x = 1"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json",
+        "locator": "sheet dcj9k_regression row 25 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@TREND({1;5;3},{1;2;3},100)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "101.00000000000003",
+        "bits": "0x4059400000000002"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "101.0",
+        "bits": "0x4059400000000000",
+        "how": "Exact OLS fit y = x + 1 at x = 100"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json",
+        "locator": "sheet dcj9k_regression row 27 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "trend_paired_matrix_history",
+      "note": "2x2 paired matrix TREND history and non-numeric new_x controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TREND",
+      "note": "1,532/1,532 full-bank and 12/12 pinned TREND rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

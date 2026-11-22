@@ -1,0 +1,92 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MAX-001",
+  "functions": [
+    "FUNC.MAX",
+    "FUNC.MIN"
+  ],
+  "kind": "quirk",
+  "title": "MAX and MIN coerce direct text and logicals and read omitted direct args as 0, while skipping them inside arrays/ranges",
+  "statement": "In Excel 16.0.20527.20088, MAX and MIN coerce direct arguments to numbers (reading \"2\" as 2, TRUE as 1, non-numeric text as #VALUE!, and omitted direct arguments as 0 so MIN(1,) = 0 and MAX(-1,) = 0), whereas inside arrays and cell references they skip text, logicals, and blanks and return 0 when no numeric value is present (MIN({TRUE,\"1\"}) = 0).",
+  "status": "measured",
+  "basis": "Measured across cfunc_m3_4 readings in Excel 16.0.20527.20088 (argument_classes rows 75-87) and matched across 1,211/1,211 MAX and 1,212/1,212 MIN full-bank rows plus 120/120 pinned rows each.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=MIN(\"2\",TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 76 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MIN({TRUE,\"1\"})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 80 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MAX(-1,)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 87 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/aggregate.rs",
+      "locator": "lines 207-301",
+      "note": "MAX/MIN direct coercion vs Held::Numbers"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "MAX; MIN",
+      "note": "1,211/1,211 MAX and 1,212/1,212 MIN full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

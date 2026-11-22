@@ -1,0 +1,123 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NUMBERVALUE-001",
+  "functions": [
+    "FUNC.NUMBERVALUE"
+  ],
+  "kind": "quirk",
+  "title": "NUMBERVALUE falls back to the host VALUE grammar for letter/digit separators and rounds 15-digit mantissas by reciprocal",
+  "statement": "In Excel 16.0.20527 (en-ZA), when given a separator outside \".\", \",\", \" \", or U+00A0 on text its own reader refuses, NUMBERVALUE strips group_separator before the first decimal_separator, replaces decimal_separator with the host decimal separator, and parses via the host VALUE grammar (e.g. NUMBERVALUE(\"%1e3\", \".\", \"e\") is 0.13, while NUMBERVALUE(\"1e-3\", \"e\", \",\") is #VALUE!). On 15-digit mantissas such as \"600757912143053e-27\", Excel divides by 10^27 rather than correctly rounding to binary64, differing by 1 ULP on 48 of 366 fn12 pinned rows. In compatibility-version-1 workbooks, @NUMBERVALUE evaluates to #NAME?.",
+  "status": "measured",
+  "basis": "Measured across jnt_text_formats (rows 40-46), 366 fn12 rows (crates/calc-func/tests/witnesses/NUMBERVALUE.json), and 30 letter/digit-separator controls in dc-iuwct.35; matched across 2,835/2,835 full-bank and 318/366 pinned rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NUMBERVALUE(\"1.234,56\",\",\",\".\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1234.56",
+        "bits": "0x40934a3d70a3d70a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 42 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=NUMBERVALUE(\"123.45\",\",\",\",\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 45 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "NUMBERVALUE(\"600757912143053e-27\", \".\", \",\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "600757912143053e-27",
+            "bits": null
+          }
+        },
+        {
+          "name": "decimal_separator",
+          "value": {
+            "kind": "text",
+            "display": ".",
+            "bits": null
+          }
+        },
+        {
+          "name": "group_separator",
+          "value": {
+            "kind": "text",
+            "display": ",",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "6.007579121430529e-13",
+        "bits": "0x3d6523256e93f070"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "6.00757912143053e-13",
+        "bits": "0x3d6523256e93f071",
+        "how": "Exact decimal 600757912143053e-27 rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/witnesses/NUMBERVALUE.json",
+        "locator": "fn12-NUMBERVALUE-000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/tests/witnesses/call.rs",
+      "locator": "numbervalue_letter_separators_fall_back_to_the_value_grammar",
+      "note": "29 non-date and clocked date letter-separator controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NUMBERVALUE",
+      "note": "2,835/2,835 full-bank and 318/366 pinned rows matched"
+    }
+  ],
+  "open": [
+    "48 1-ULP 15-digit e-27 rounding rows and unclocked \"1q-3\" date refusal remain open on the pinned bank."
+  ],
+  "recorded_on": "2026-11-22"
+}

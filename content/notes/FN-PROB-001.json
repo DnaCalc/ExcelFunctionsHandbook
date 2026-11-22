@@ -1,0 +1,79 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PROB-001",
+  "functions": [
+    "FUNC.PROB"
+  ],
+  "kind": "quirk",
+  "title": "PROB validates the running stored sum of probabilities against [1 - 4 ULP, 1 + 22 ULP] rather than per-term [0, 1]",
+  "statement": "In Excel 16.0.20527.20088, PROB accumulates the probabilities in input order as binary64 additions and admits any vector whose final sum lies in [1.0 - 4 ULP, 1.0 + 22 ULP] (0x3feffffffffffffc ..= 0x3ff0000000000016), so compensating negative or >1 entries (such as {-0.25, 1.25} or {1e16, -1e16, 1}) are accepted whereas reordered {1e16, 1, -1e16} fails with #NUM!. Non-numeric scalar x_range or prob_range arguments (\"2\", TRUE, \"x\") return #DIV/0!.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 across fn4_questions (ql086-ql103) and dc-ymjf.2.79 tests (crates/calc-func/tests/f1_stats.rs), and matched across 2,919/2,919 full-bank PROB rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PROB(2,1,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql098 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=PROB(\"2\",1,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+        "locator": "sheet ql099 row 20 column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/lookup_prob_frequency_family.rs",
+      "locator": "prob_kernel",
+      "note": "Running stored sum tolerance [one-4 ..= one+22]"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "prob_multi_item_sum_and_bounds",
+      "note": "Out-of-range compensating probabilities and ULP sum bounds"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PROB",
+      "note": "2,919/2,919 full-bank PROB rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
