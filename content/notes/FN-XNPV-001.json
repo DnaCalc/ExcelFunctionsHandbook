@@ -1,0 +1,141 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-XNPV-001",
+  "functions": [
+    "FUNC.XNPV"
+  ],
+  "kind": "quirk",
+  "title": "XNPV rejects rate <= 0 with #NUM!, rejects non-numeric cells in vectors, and uses worksheet POWER",
+  "statement": "In Excel 16.0.20131 and 16.0.20527, XNPV(rate, values, dates) returns #NUM! for rate <= 0 (including rate = 0 and -0.0) while accepting +1e-300, rejects text, logicals, and blank cells inside values or dates with #VALUE!, rejects 2-D arrays with #REF!, truncates dates, and requires all dates >= dates[0]. It evaluates years = (date - anchor) / 365 in binary64, base = RN53(RN64(1 + rate)), pow = POWER(base, years), and x87 double-rounded division and sum.",
+  "status": "measured",
+  "basis": "Measured across 120 pinned XNPV rows in crates/calc-func/tests/witnesses/XNPV.json (Excel 16.0.20131) plus f3_financial (row 18) and prefix_metadata (row 395) in Excel 16.0.20527.20088, and matched across 3,406/3,406 full-bank and 120/120 pinned XNPV rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "XNPV(0, {-1000, 1100}, {40000, 40200})",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "v1",
+          "value": {
+            "kind": "number",
+            "display": "-1000.0",
+            "bits": "0xc08f400000000000"
+          }
+        },
+        {
+          "name": "d1",
+          "value": {
+            "kind": "number",
+            "display": "40000.0",
+            "bits": "0x40e3880000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/witnesses/XNPV.json",
+        "locator": "oc1696",
+        "note": null
+      }
+    },
+    {
+      "call": "XNPV(1e-300, {-1000, 1100}, {40000, 40200})",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          }
+        },
+        {
+          "name": "v1",
+          "value": {
+            "kind": "number",
+            "display": "-1000.0",
+            "bits": "0xc08f400000000000"
+          }
+        },
+        {
+          "name": "d1",
+          "value": {
+            "kind": "number",
+            "display": "40000.0",
+            "bits": "0x40e3880000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "100.0",
+        "bits": "0x4059000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/witnesses/XNPV.json",
+        "locator": "oc1700",
+        "note": null
+      }
+    },
+    {
+      "call": "=XNPV(0.09,{1,2},{39448})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_financial.capture.json",
+        "locator": "sheet f3_financial row 18 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/ported/cashflow_rate_family.rs",
+      "locator": "lines 591-634",
+      "note": "rate <= 0 #NUM! guard, binary64 years, POWER dispatch, and x87 staging"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "XNPV",
+      "note": "3,406/3,406 full-bank and 120/120 pinned XNPV rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

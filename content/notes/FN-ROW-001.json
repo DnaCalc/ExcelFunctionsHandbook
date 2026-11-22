@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ROW-001",
+  "functions": [
+    "FUNC.ROW"
+  ],
+  "kind": "quirk",
+  "title": "ROW returns a vertical array up to 1,048,576 rows on multi-row areas and #REF! on multi-area unions",
+  "statement": "In Excel 16.0.20527, ROW([reference]) returns a single number for a 1-row reference (or when omitted, the caller's row) and a vertical array of 1-based row numbers for multi-row areas up to 1,048,576 rows (spilling, or returning #SPILL! if placement overflows the sheet edge, while @ROW returns the top row). Multi-area references return #REF!, and non-reference values such as ROW(CHOOSE(1,5)) return #VALUE!.",
+  "status": "measured",
+  "basis": "Measured across cfunc_m3_6 (lookup_edges rows 138-183 and reference_result row 25) in Excel 16.0.20527.20088, and matched across 3,058/3,058 full-bank ROW rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=@ROW(B3:B5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 150 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@ROW((A1,B2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 154 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROW(CHOOSE(1,5))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_6/oracle.capture.json",
+        "locator": "sheet lookup_edges row 180 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/lookup.rs",
+      "locator": "lines 1614-1684",
+      "note": "ROW caller fallback, 1,048,576-row array construction, #REF!, and #VALUE!"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ROW",
+      "note": "3,058/3,058 full-bank ROW rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

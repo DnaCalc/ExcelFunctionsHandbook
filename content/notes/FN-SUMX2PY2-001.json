@@ -1,0 +1,152 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SUMX2PY2-001",
+  "functions": [
+    "FUNC.SUMX2PY2",
+    "FUNC.SUMXMY2"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "SUMX2PY2 and SUMXMY2 check shape mismatch (#N/A) before array error cells and round per binary64 term",
+  "statement": "In Excel 16.0.20527, SUMX2PY2 and SUMXMY2 validate paired singleton arguments and array shape equality (#N/A) before reading error cells inside mismatched arrays (so SUMX2PY2({#VALUE!;1},{1;2;3}) returns #N/A), skip positions where either entry is text, logical, or blank (returning #DIV/0! if no position has two numbers), and accumulate binary64 terms x*x + y*y or (x - y)*(x - y), differing by up to 0.66 ULP from the exact mathematical value on rounding boundaries.",
+  "status": "measured",
+  "basis": "Recorded in crates/calc-func/witness-reference/SUMX2PY2.tsv and SUMXMY2.tsv (Excel 16.0.20527) plus prefix_metadata (rows 220-221), and matched across 2,842/2,853 SUMX2PY2 and 2,845/2,856 SUMXMY2 full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SUMX2PY2(-5.000000000000001, 10)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array_x",
+          "value": {
+            "kind": "number",
+            "display": "-5.000000000000001",
+            "bits": "0xc014000000000001"
+          }
+        },
+        {
+          "name": "array_y",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "125.0",
+        "bits": "0x405f400000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "125.00000000000001",
+        "bits": "0x405f400000000001",
+        "how": "Exact rational x^2 + y^2 rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/witness-reference/SUMX2PY2.tsv",
+        "locator": "bank2-more-SUMX2PY2-0267",
+        "note": null
+      }
+    },
+    {
+      "call": "SUMXMY2(-19.000000000000004, 1.0000000000000002)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array_x",
+          "value": {
+            "kind": "number",
+            "display": "-19.000000000000004",
+            "bits": "0xc033000000000001"
+          }
+        },
+        {
+          "name": "array_y",
+          "value": {
+            "kind": "number",
+            "display": "1.0000000000000002",
+            "bits": "0x3ff0000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "400.0000000000001",
+        "bits": "0x4079000000000002"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "400.00000000000017",
+        "bits": "0x4079000000000003",
+        "how": "Exact rational (x - y)^2 rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/witness-reference/SUMXMY2.tsv",
+        "locator": "bank2-scalar-SUMXMY2-1252",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUMX2PY2({1,2},{3,4})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "30.0",
+        "bits": "0x403e000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 220 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/math.rs",
+      "locator": "lines 246-251 and 333-368",
+      "note": "Shape-before-error ordering and paired binary64 term accumulation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-reference/SUMX2PY2.tsv",
+      "locator": null,
+      "note": "11 SUMX2PY2 mismatch rows against exact reference"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-reference/SUMXMY2.tsv",
+      "locator": null,
+      "note": "11 SUMXMY2 mismatch rows against exact reference"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SUMX2PY2; SUMXMY2",
+      "note": "2,842/2,853 SUMX2PY2 and 2,845/2,856 SUMXMY2 full-bank rows matched"
+    }
+  ],
+  "open": [
+    "11 SUMX2PY2 and 11 SUMXMY2 1-ULP last-bit rows remain open (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

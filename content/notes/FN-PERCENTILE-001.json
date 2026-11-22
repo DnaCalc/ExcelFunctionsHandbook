@@ -1,0 +1,93 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PERCENTILE-001",
+  "functions": [
+    "FUNC.PERCENTILE",
+    "FUNC.PERCENTILE.EXC",
+    "FUNC.PERCENTILE.INC"
+  ],
+  "kind": "quirk",
+  "title": "PERCENTILE.EXC rejects k <= 1/(n+1) or k >= n/(n+1) with #NUM!, while .INC/.EXC return #NAME? in compat-1",
+  "statement": "In Excel 16.0.20527, PERCENTILE and PERCENTILE.INC interpolate linearly at rank 1 + k*(n - 1) over [0, 1], whereas PERCENTILE.EXC interpolates at rank k*(n + 1) and returns #NUM! whenever rank < 1 or rank > n (for example outside (1/(n+1), n/(n+1))). Under compatibility version 1, @PERCENTILE.INC and @PERCENTILE.EXC evaluate to #NAME? while PERCENTILE remains unprefixed.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (rows 173-175), and matched across 2,851/2,851 PERCENTILE, 2,849/2,849 PERCENTILE.EXC, and 2,855/2,855 PERCENTILE.INC full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PERCENTILE(Data!A1:A3,0.5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 173 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=@PERCENTILE.EXC(Data!A1:A3,0.5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 174 column 2 (compat-1)",
+        "note": null
+      }
+    },
+    {
+      "call": "=@PERCENTILE.INC(Data!A1:A3,0.5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 175 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/ported/percentile_common.rs",
+      "locator": "lines 2-45",
+      "note": "Inclusive 1+k*(n-1) vs exclusive k*(n+1) rank and #NUM! bounds"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PERCENTILE; PERCENTILE.EXC; PERCENTILE.INC",
+      "note": "2,851/2,851, 2,849/2,849, and 2,855/2,855 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

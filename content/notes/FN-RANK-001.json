@@ -1,0 +1,100 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-RANK-001",
+  "functions": [
+    "FUNC.RANK",
+    "FUNC.RANK.AVG",
+    "FUNC.RANK.EQ"
+  ],
+  "kind": "quirk",
+  "title": "RANK functions require a reference-producing ref, accept spelled logical text in order, and #NAME? in compat-1",
+  "statement": "In Excel 16.0.20527, RANK, RANK.EQ, and RANK.AVG reject non-reference literals/arrays in the second argument at formula entry, coerce number before checking ref errors or order, equate -0.0 and +0.0, and accept spelled logical strings (\"TRUE\"/\"FALSE\", case-insensitive, without leading spaces) for order while rejecting numeric text such as \"1\" with #VALUE!. Under compatibility version 1, @RANK.AVG and @RANK.EQ evaluate to #NAME?.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (rows 194-196) and rank_coerces_number_before_validating_order controls, and matched across 2,810/2,810 RANK, 2,812/2,812 RANK.AVG, and 2,811/2,811 RANK.EQ full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=RANK(5,Data!A1:A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 194 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=@RANK.AVG(5,Data!A1:A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 195 column 2 (compat-1)",
+        "note": null
+      }
+    },
+    {
+      "call": "=@RANK.EQ(5,Data!A1:A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 196 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "lines 131-185 and 441-447",
+      "note": "Reference parameter restriction, spelled logical order, and +/-0.0 equality"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "rank_coerces_number_before_validating_order",
+      "note": "Excel 20527 order coercion and error-precedence controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "RANK; RANK.AVG; RANK.EQ",
+      "note": "2,810/2,810, 2,812/2,812, and 2,811/2,811 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
