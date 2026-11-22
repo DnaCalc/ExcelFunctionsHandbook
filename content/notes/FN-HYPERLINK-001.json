@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-HYPERLINK-001",
+  "functions": [
+    "FUNC.HYPERLINK"
+  ],
+  "kind": "quirk",
+  "title": "HYPERLINK coerces link_location to text and returns friendly_name verbatim (or 0 for a blank cell) when supplied",
+  "statement": "In Excel 16.0.20527, HYPERLINK(link_location, [friendly_name]) coerces link_location to text and returns that text when friendly_name is omitted; when friendly_name is supplied, it returns friendly_name unchanged (preserving numbers, text, logicals, and errors, or 0 for an empty cell reference). Matches 3,612/3,612 full-bank HYPERLINK rows.",
+  "status": "measured",
+  "basis": "Measured across all 3,612 full-bank HYPERLINK rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-hyperlink-*.json), prefix_metadata (row 288), and f2_rows (row 179).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=HYPERLINK(\"https://example.com\",\"x\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "x",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 288 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "HYPERLINK(TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "link_location",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-hyperlink-scalar.json",
+        "locator": "admit2-scalar-HYPERLINK-0002",
+        "note": null
+      }
+    },
+    {
+      "call": "HYPERLINK(\"hello\", -1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "link_location",
+          "value": {
+            "kind": "text",
+            "display": "hello",
+            "bits": null
+          }
+        },
+        {
+          "name": "friendly_name",
+          "value": {
+            "kind": "number",
+            "display": "-1e-100",
+            "bits": "0xab2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1e-100",
+        "bits": "0xab2bff2ee48e0530"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-hyperlink-scalar.json",
+        "locator": "admit2-scalar-HYPERLINK-0001",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/text_format.rs",
+      "locator": "hyperlink",
+      "note": "link_location text coercion and friendly_name passthrough"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "HYPERLINK",
+      "note": "3,612/3,612 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

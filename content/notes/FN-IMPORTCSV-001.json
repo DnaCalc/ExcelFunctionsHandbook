@@ -1,0 +1,99 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMPORTCSV-001",
+  "functions": [
+    "FUNC.IMPORTCSV",
+    "FUNC.IMPORTTEXT"
+  ],
+  "kind": "quirk",
+  "title": "IMPORTCSV and IMPORTTEXT spill parsed 2-D arrays, return #CALC! on empty results, and preflight scalar argument errors in order",
+  "statement": "In Excel 16.0.20527, IMPORTCSV(path, [skip_rows], [take_rows], [text_only], [locale]) and IMPORTTEXT(path, [delimiter], [skip_rows], [take_rows], [encoding], [text_only], [locale]) preflight scalar errors and numeric option types in argument order before validating paths (#VALUE! on relative paths, folders, or unreadable files; #CALC! on empty files or zero rows remaining after negative/positive skip_rows and take_rows). IMPORTTEXT accepts multi-character delimiters (default tab), ascending fixed-width arrays ({1,3}), and Windows code-page numbers overridden by BOM, and both convert fields under the locale number-text grammar unless text_only is TRUE. Matches 3,021/3,021 IMPORTCSV and 3,149/3,149 IMPORTTEXT full-bank rows, plus 228 fixture cases.",
+  "status": "measured",
+  "basis": "Measured across all 3,021 IMPORTCSV and 3,149 IMPORTTEXT full-bank rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-{importcsv,importtext}-*.json) and 228 live Excel 16.0.20527 file-import cases in crates/calc-func/tests/fixtures/import/excel-answers.json.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=IMPORTCSV(\"C:\\data\\basic.csv\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{\"a\",\"b\",\"c\";1,2,3;4,5,6}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/fixtures/import/excel-answers.json",
+        "locator": "i1.1",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMPORTCSV(\"C:\\data\\empty.csv\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/fixtures/import/excel-answers.json",
+        "locator": "i1.13",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMPORTTEXT(\"C:\\data\\fixed.txt\",{1,3})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{\"bc\",\"def\";23,456;\"yz\",\"uvw\"}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/fixtures/import/excel-answers.json",
+        "locator": "i1.29",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/import.rs",
+      "locator": "scalar_preflight",
+      "note": "argument preflight, delimiter/fixed-width slicing, and locale conversion"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/tests/import_excel.rs",
+      "locator": "excel-answers.json",
+      "note": "228 recorded IMPORTCSV/IMPORTTEXT file-import cases"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMPORTCSV; IMPORTTEXT",
+      "note": "3,021 + 3,149 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

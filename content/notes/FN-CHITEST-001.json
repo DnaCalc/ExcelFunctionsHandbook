@@ -1,0 +1,96 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CHITEST-001",
+  "functions": [
+    "FUNC.CHITEST"
+  ],
+  "kind": "quirk",
+  "title": "CHITEST validates singleton blank/error arguments in order before checking shape and returns #N/A on shape mismatch or 1x1 ranges",
+  "statement": "In Excel 16.0.20527, CHITEST(actual_range, expected_range) shares CHISQ.TEST's admission and kernel: single-cell blank or error arguments are checked in argument order before comparing shapes (so CHITEST(blank, NA()) returns #VALUE! while CHITEST(NA(), blank) returns #N/A), shape mismatches and 1x1 inputs (df = 0) return #N/A, and valid tables return CHISQ.DIST.RT(sum((A - E)^2 / E), df). Matches 2,853/2,853 full-bank CHITEST rows.",
+  "status": "measured",
+  "basis": "Measured across all 2,853 full-bank CHITEST rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-chitest-{scalar,more,special}.json) and Excel 16.0.20527.20088 in prefix_metadata (row 43, Data!A1:A3 vs Data!E1:E3).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CHITEST(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.10539922456186433",
+        "bits": "0x3fbafb718e8457f7"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 43 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "CHITEST(0, 1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "actual_range",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "expected_range",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-chitest-scalar.json",
+        "locator": "bank2-scalar-CHITEST-0000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/distributions.rs",
+      "locator": "chisq_test_of",
+      "note": "singleton validation before shape check and df calculation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "chisq_test_validates_singleton_sample_cells_before_shape",
+      "note": "singleton blank/error precedence checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CHITEST",
+      "note": "2,853/2,853 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

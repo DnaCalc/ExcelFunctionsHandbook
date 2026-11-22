@@ -1,0 +1,119 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-HYPGEOMDIST-001",
+  "functions": [
+    "FUNC.HYPGEOMDIST"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "HYPGEOMDIST uses asymmetric binomial-mass ratios and misses exact 224/495 by 2 ULP on HYPGEOMDIST(1, 4, 4, 12)",
+  "statement": "In Excel 16.0 builds 20131 and 20527, HYPGEOMDIST(sample_s, number_sample, population_s, number_pop) evaluates the 4-argument PMF via asymmetric binomial-mass ratios b(s; k, n/N) * b(n-s; N-k, n/N) / b(n; N, n/N) with stored x87 division and multiplication rather than exact rational factorials. On HYPGEOMDIST(1, 4, 4, 12), Excel build 20131 returns 0.45252525252525244 (0x3fdcf62c7a0d724a), 2 ULP below the correctly rounded binary64 representation of 224/495 (0x3fdcf62c7a0d724c). Matches 2,950/2,954 full-bank and 2/3 pinned rows, with 3 last-bit and 1 numeric (worst 28 ULP) discrepancy still open.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20131 (2/3 pinned rows in witnesses/HYPGEOMDIST.json), Excel 16.0.20527 (2,950/2,954 full-bank rows, prefix_metadata row 110), and fable52-last-bit.md.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "HYPGEOMDIST(1, 4, 4, 12)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "sample_s",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "number_sample",
+          "value": {
+            "kind": "number",
+            "display": "4.0",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "population_s",
+          "value": {
+            "kind": "number",
+            "display": "4.0",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "number_pop",
+          "value": {
+            "kind": "number",
+            "display": "12.0",
+            "bits": "0x4028000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.45252525252525244",
+        "bits": "0x3fdcf62c7a0d724a"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.45252525252525255",
+        "bits": "0x3fdcf62c7a0d724c",
+        "how": "Exact rational C(4,1)*C(8,3)/C(12,4) = 224/495 rounded to nearest IEEE-754 binary64"
+      },
+      "recorded_in": "Excel 16.0 build 20131, Windows, AMD Ryzen 7 4800H; bitness not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/HYPGEOMDIST.json",
+        "locator": "oc1",
+        "note": null
+      }
+    },
+    {
+      "call": "=HYPGEOMDIST(1,4,8,20)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.3632610939112486",
+        "bits": "0x3fd73fab75908308"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 110 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/discrete_dist.rs",
+      "locator": "hypergeom_mass",
+      "note": "asymmetric binomial-mass ratio formulation"
+    },
+    {
+      "repository": "DnaCalc-Research",
+      "commit": "63456e2d6e8f99ed5a060898df5cfae3c6c54a64",
+      "path": "design/fable52-last-bit.md",
+      "locator": "Section 6",
+      "note": "300/300 HYPGEOMDIST = HYPGEOM.DIST(..., FALSE) equivalence and asymmetry probes"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "HYPGEOMDIST",
+      "note": "2,950/2,954 full-bank (3 last_bit, 1 numeric) and 2/3 pinned matches"
+    }
+  ],
+  "open": [
+    "3 last-bit and 1 numeric HYPGEOMDIST full-bank discrepancies (worst 28 ULP) and 1 pinned row (oc1, 3 ULP) remain open in DnaCalc."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,136 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COVAR-001",
+  "functions": [
+    "FUNC.COVAR",
+    "FUNC.COVARIANCE.P",
+    "FUNC.COVARIANCE.S"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "COVAR, COVARIANCE.P, and COVARIANCE.S skip non-numeric pairs, validate singletons before shape, and center via two-pass means",
+  "statement": "In Excel 16.0.20527, COVAR(array1, array2), COVARIANCE.P(array1, array2), and COVARIANCE.S(array1, array2) validate single-cell blank/error arguments in formula order before checking array shape (#N/A on mismatch), skip positions where either input holds text, logical, or blank, and compute sum((x - mean_x) * (y - mean_y)) / denom in binary64 from two-pass sample means: COVAR and COVARIANCE.P divide by n (returning 0 for 1 numeric pair and #DIV/0! for 0 pairs), whereas COVARIANCE.S divides by n - 1 (returning #DIV/0! when fewer than 2 numeric pairs exist). Matches 2,855/2,855 COVAR, 2,849/2,849 COVARIANCE.P, and 2,850/2,850 COVARIANCE.S full-bank rows.",
+  "status": "measured",
+  "basis": "Measured across all 2,855 COVAR, 2,849 COVARIANCE.P, and 2,850 COVARIANCE.S full-bank rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-{covar,covariance.p,covariance.s}-*.json) and prefix_metadata (rows 56-58).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=COVAR(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.6666666666666666",
+        "bits": "0x3fe5555555555555"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 56 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=COVARIANCE.P(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.6666666666666666",
+        "bits": "0x3fe5555555555555"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 57 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=COVARIANCE.S(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 58 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "COVARIANCE.S(0, 1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array1",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "array2",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-covariance.s-scalar.json",
+        "locator": "bank2-scalar-COVARIANCE.S-0000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/paired_stats_common.rs",
+      "locator": "covariance_from_pairs",
+      "note": "two-pass centered covariance for Population and Sample divisors"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "statistical_pairs; covar; covariance_p; covariance_s",
+      "note": "singleton ordering and PairScalars::SkipNonnumeric"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COVAR; COVARIANCE.P; COVARIANCE.S",
+      "note": "2,855 + 2,849 + 2,850 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FILTERXML-001",
+  "functions": [
+    "FUNC.FILTERXML"
+  ],
+  "kind": "quirk",
+  "title": "FILTERXML strips default XML namespaces, joins direct text children, parses each node via cell-entry rules, and rejects non-nodesets or empty nodes with #VALUE!",
+  "statement": "In Excel 16.0.20527, FILTERXML(xml, xpath) returns #VALUE! on malformed XML, invalid XPath, non-nodeset results (count(), string(), //b=1), empty nodesets, non-element/non-attribute nodes (text(), comment(), /), or any matched node whose text is empty. For matched elements it strips default xmlns attributes so unprefixed names match, requires declared prefixes for prefixed names, joins direct text children skipping whitespace-only nodes (<b>x<c>y</c>z</b> -> \"xz\"), and parses each node value as a cell entry (truncating numbers beyond 15 significant digits, converting TRUE/FALSE, dates, percentages, and fractions, while leaving \"#N/A\" as text), spilling multi-node results as a column. Matches 4,184/4,184 full-bank FILTERXML rows.",
+  "status": "measured",
+  "basis": "Measured across all 4,184 full-bank FILTERXML rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-filterxml-*.json) and 96 FILTERXML rows in Excel 16.0.20527.20088 (dcuar_text rows 1209-1304).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=@FILTERXML(\"<a>3.14159265358979323</a>\",\"//a\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.14159265358979",
+        "bits": "0x400921fb54442d11"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 1287 column 4",
+        "note": "15-digit cell-entry truncation to 3.14159265358979"
+      }
+    },
+    {
+      "call": "=@FILTERXML(\"<a><b>x<c>y</c>z</b></a>\",\"//b\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "xz",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 1236 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@FILTERXML(\"<a xmlns=\\\"urn:x\\\"><b>1</b></a>\",\"//b\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 1239 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@FILTERXML(\"<a><b>#N/A</b></a>\",\"//b\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+        "locator": "sheet dcuar_text row 1233 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/text_format.rs",
+      "locator": "filterxml; filterxml_value",
+      "note": "XML/XPath evaluation and 15-digit cell-entry coercion"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FILTERXML",
+      "note": "4,184/4,184 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

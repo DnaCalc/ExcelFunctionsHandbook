@@ -1,0 +1,125 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DECIMAL-001",
+  "functions": [
+    "FUNC.DECIMAL"
+  ],
+  "kind": "quirk",
+  "title": "DECIMAL strips leading whitespace only, treats empty text as 0, and rejects trailing whitespace, signs, or radix outside 2..36",
+  "statement": "In Excel 16.0 builds 20430 and 20527, DECIMAL(text, radix) truncates radix to an integer in [2, 36] (#NUM! outside), trims leading whitespace only (so \"  10\" with radix 2 is 2 while trailing whitespace such as \"10\\t\" is #NUM!), returns 0 for empty text \"\", parses ASCII digits 0-9 and case-insensitive letters A-Z up to u128 capacity, and rejects signs or fractional separators with #NUM!. Matches 1,230/1,230 full-bank and 120/120 pinned DECIMAL rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (1,230/1,230 full-bank and 120/120 pinned DECIMAL rows in witnesses/DECIMAL.json) and Excel 16.0.20527.20088 in prefix_metadata (row 65).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=DECIMAL(\"FF\",16)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "255.0",
+        "bits": "0x406fe00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 65 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "DECIMAL(46654860, 16)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "number",
+            "display": "46654860.0",
+            "bits": "0x41863f2c60000000"
+          }
+        },
+        {
+          "name": "radix",
+          "value": {
+            "kind": "number",
+            "display": "16.0",
+            "bits": "0x4030000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1181042784.0",
+        "bits": "0x41d1995218000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/DECIMAL.json",
+        "locator": "w111broad-20260929-DECIMAL-00487",
+        "note": null
+      }
+    },
+    {
+      "call": "DECIMAL(0, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "radix",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/DECIMAL.json",
+        "locator": "w111broad-20260929-DECIMAL-00006",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/decimal_fn.rs",
+      "locator": "decimal_kernel",
+      "note": "trim_start whitespace rule, radix truncation, and u128 overflow check"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DECIMAL",
+      "note": "1,230/1,230 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

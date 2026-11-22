@@ -1,0 +1,108 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FIELDVALUE-001",
+  "functions": [
+    "FUNC.FIELDVALUE"
+  ],
+  "kind": "quirk",
+  "title": "FIELDVALUE returns #FIELD! for every non-linked value (even an error first argument) while propagating an error in field_name",
+  "statement": "In Excel 16.0.20527, FIELDVALUE(value, field_name) returns #FIELD! (ERROR.TYPE 11) whenever value is not a linked Stock/Geography data type—including numbers, text, logicals, blank cells, and even worksheet errors such as NA() or 1/0—while returning an error passed in field_name instead (=FIELDVALUE(1/0, NA()) -> #N/A, ERROR.TYPE 7). Arrays lift in dynamic-array formulas and implicitly intersect in legacy formulas. Matches 40/40 full-bank FIELDVALUE rows.",
+  "status": "measured",
+  "basis": "Measured across all 40 full-bank FIELDVALUE rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-fieldvalue-special.json) and 18 formulas in Excel 16.0.20527.20088 (dcb1l_language rows 1-18).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ERROR.TYPE(@FIELDVALUE(1,\"x\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "13.0",
+        "bits": "0x402a000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 1 column 4",
+        "note": "ERROR.TYPE 11 = #FIELD!"
+      }
+    },
+    {
+      "call": "=ERROR.TYPE(@FIELDVALUE(1/0,NA()))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "7.0",
+        "bits": "0x401c000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 6 column 4",
+        "note": "ERROR.TYPE 7 = #N/A"
+      }
+    },
+    {
+      "call": "FIELDVALUE(2, #VALUE!)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "field_name",
+          "value": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-fieldvalue-special.json",
+        "locator": "admit2-special-FIELDVALUE-0003",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/host_facts.rs",
+      "locator": "fieldvalue",
+      "note": "#FIELD! on non-linked values, field_name error precedence"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FIELDVALUE",
+      "note": "40/40 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-F.INV-001",
+  "functions": [
+    "FUNC.F.INV"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "F.INV returns 0 at p = 0 when df1 >= 1 and transforms the lower-probability beta inverse via four stored logarithms",
+  "statement": "In Excel 16.0.20527, F.INV(probability, deg_freedom1, deg_freedom2) truncates degrees of freedom to integers >= 1 (checking degrees before returning 0 at probability = 0, and returning #NUM! at probability = 1 or degrees < 1), maps probability > 0.5 to 1 - probability, obtains beta quantile z = beta_inv(q, a, b), and evaluates exp(ln(d2) - ln(z) + ln(d1) + ln(1 - z)) through the distribution running exponential (or falls back to bisecting F.DIST). Matches 4,317/4,425 full-bank rows, with 74 last-bit and 34 numeric discrepancies (worst 47 ULP) still open.",
+  "status": "measured",
+  "basis": "Measured across 4,425 full-bank F.INV rows in Excel 16.0.20527 (CalcFunc-Evidence {admit2,bank2}-answers-f.inv-*.json) and prefix_metadata (row 78).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=F.INV(0.01,6,4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.10930991412457855",
+        "bits": "0x3fbbfbbc0a4b2b8e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 78 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "F.INV(0.16581535479335607, 100, 75.00000000000001)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "0.16581535479335607",
+            "bits": "0x3fc5397003018c88"
+          }
+        },
+        {
+          "name": "deg_freedom1",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "deg_freedom2",
+          "value": {
+            "kind": "number",
+            "display": "75.00000000000001",
+            "bits": "0x4052c00000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.8128124377148119",
+        "bits": "0x3fea028f3ab88c87"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-f.inv-more.json",
+        "locator": "admit2-more-F.INV-0036",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/chi_f_t_family.rs",
+      "locator": "f_inv_kernel; f_inverse_beta",
+      "note": "beta-coordinate mapping and 4-log distribution exponential"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "f_and_t_inverse_publish_the_stored_beta_coordinate; f_inverse_probability_endpoints_validate_degrees",
+      "note": "endpoint and coordinate tests"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "F.INV",
+      "note": "4,317/4,425 full-bank matches; 74 last_bit, 34 numeric (worst 47 ULP)"
+    }
+  ],
+  "open": [
+    "74 last-bit and 34 numeric F.INV full-bank discrepancies (worst 47 ULP) remain open in DnaCalc."
+  ],
+  "recorded_on": "2026-11-22"
+}

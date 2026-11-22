@@ -1,0 +1,72 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FALSE-001",
+  "functions": [
+    "FUNC.FALSE"
+  ],
+  "kind": "quirk",
+  "title": "FALSE takes zero arguments, rejects any argument at entry, and returns the logical value FALSE",
+  "statement": "In Excel 16.0 builds 20430 and 20527, FALSE() takes no arguments, refuses any supplied argument at formula entry, and evaluates to the logical FALSE (distinct from text \"FALSE\"; compares above numbers and text and below TRUE, and coerces to 0 when passed as a direct numeric argument while ignored in held ranges by numeric aggregates). Matches 2/2 full-bank and 1/1 pinned FALSE rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (1/1 pinned row in witnesses/FALSE.json) and Excel 16.0.20527 (admit2-answers-false-{scalar,special}.json; 2/2 full-bank rows).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FALSE()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/FALSE.json",
+        "locator": "w111extended-2026092903-FALSE-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "FALSE()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-false-scalar.json",
+        "locator": "admit2-scalar-FALSE-0000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/logical.rs",
+      "locator": "false_value",
+      "note": "returns CalcValue::logical(false)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FALSE",
+      "note": "2/2 full-bank and 1/1 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

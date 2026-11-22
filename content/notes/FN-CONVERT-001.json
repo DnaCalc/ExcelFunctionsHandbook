@@ -1,0 +1,148 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CONVERT-001",
+  "functions": [
+    "FUNC.CONVERT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "CONVERT evaluates linear units via a three-store x87 PC64 chain, treats bar as #N/A, and uses direct affine temperature pairs",
+  "statement": "In Excel 16.0 builds 20228 and 20527, CONVERT(number, from_unit, to_unit) evaluates supported linear categories via three x87 PC64 operations each stored to binary64 before the next: RN53(RN64(RN53(RN64(number * from_factor)) / to_factor) * decimal_prefix_delta), where decimal_prefix_delta is the single binary64 power 10^(from_exp - to_exp) rather than a quotient of prefix factors; length factors use exact integer angstroms, pressure stores independent reciprocals of units-per-pascal while rejecting bar with #N/A, and K/C/F use six direct affine formulas. Matches 33,972/33,972 full-bank and 120/120 pinned CONVERT rows.",
+  "status": "measured",
+  "basis": "Measured across 33,972 full-bank and 120 pinned CONVERT rows in Excel 16.0 build 20228 (witnesses/CONVERT.json, W109_CONVERT_IDENTIFICATION_20260809.md) and Excel 16.0.20527.20088 in prefix_metadata (row 50).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CONVERT(1,\"lbm\",\"kg\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.45359237",
+        "bits": "0x3fdd07a84ab75e51"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 50 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "CONVERT(5.369755851248371e+26, \"nm\", \"Pm\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "5.369755851248386e+26",
+            "bits": "0x457bc2d00cc56eac"
+          }
+        },
+        {
+          "name": "from_unit",
+          "value": {
+            "kind": "text",
+            "display": "nm",
+            "bits": null
+          }
+        },
+        {
+          "name": "to_unit",
+          "value": {
+            "kind": "text",
+            "display": "Pm",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "536.975585124837",
+        "bits": "0x4080c7cdff92ed1d"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/CONVERT.json",
+        "locator": "conv-v3d-00072",
+        "note": null
+      }
+    },
+    {
+      "call": "CONVERT(1048576, \"psi\", \"bar\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1048576.0",
+            "bits": "0x4130000000000000"
+          }
+        },
+        {
+          "name": "from_unit",
+          "value": {
+            "kind": "text",
+            "display": "psi",
+            "bits": null
+          }
+        },
+        {
+          "name": "to_unit",
+          "value": {
+            "kind": "text",
+            "display": "bar",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/CONVERT.json",
+        "locator": "conv-di-04149",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/misc_conversion_family.rs",
+      "locator": "convert_kernel",
+      "note": "three-store x87 linear chain and direct temperature pairs"
+    },
+    {
+      "repository": "CalcFunc-Evidence",
+      "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+      "path": "function-lane/notes/w109/W109_CONVERT_IDENTIFICATION_20260809.md",
+      "locator": "Section 1",
+      "note": "10,418/10,418 disjoint held-out identification"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CONVERT",
+      "note": "33,972/33,972 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

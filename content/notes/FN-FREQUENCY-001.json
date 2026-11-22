@@ -1,0 +1,96 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FREQUENCY-001",
+  "functions": [
+    "FUNC.FREQUENCY"
+  ],
+  "kind": "quirk",
+  "title": "FREQUENCY ignores non-numeric data (even direct scalars), ignores errors in bins_array, and falls back to {0} when no numeric bin exists",
+  "statement": "In Excel 16.0.20527, FREQUENCY(data_array, bins_array) ignores non-numeric values in data_array even when supplied as direct scalars (while propagating errors in data_array), ignores both non-numbers and errors in bins_array, supplies a single {0} bin when bins_array yields no numbers (e.g. FREQUENCY(data, \"2\") counts values <= 0 and > 0), and returns a (bins.len() + 1) x 1 column where repeated bins record their count in the first occurrence and 0 in later copies. Matches 1,520/1,520 full-bank FREQUENCY rows.",
+  "status": "measured",
+  "basis": "Measured across all 1,520 full-bank FREQUENCY rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-frequency-{spill,variants}.json) and prefix_metadata (row 91).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FREQUENCY({-7.75936630023956,7.438362633724339;-6.690896811332554,0.10643380831854488}, \"2\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "data_array",
+          "value": {
+            "kind": "array",
+            "display": "{-7.75936630023956,7.438362633724339;-6.690896811332554,0.10643380831854488}",
+            "bits": null
+          }
+        },
+        {
+          "name": "bins_array",
+          "value": {
+            "kind": "text",
+            "display": "2",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-frequency-variants.json",
+        "locator": "bank2-variants-FREQUENCY-0006",
+        "note": "first cell of 2x1 spill; non-numeric \"2\" falls back to {0}"
+      }
+    },
+    {
+      "call": "=@FREQUENCY(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 91 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "frequency; frequency_counts",
+      "note": "data vs bins admission, {0} fallback, and first-copy bin tie rule"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "prob_and_frequency",
+      "note": "unsorted bins and non-numeric bins fallback checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FREQUENCY",
+      "note": "1,520/1,520 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

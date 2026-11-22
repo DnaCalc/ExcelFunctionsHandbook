@@ -1,0 +1,106 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-F.INV.RT-001",
+  "functions": [
+    "FUNC.F.INV.RT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "F.INV.RT returns 0 at p = 1 when df2 >= 1 and inverts the published right-tail F surface directly on fallback",
+  "statement": "In Excel 16.0.20527, F.INV.RT(probability, deg_freedom1, deg_freedom2) shares FINV's right-tail quantile semantics: truncating degrees of freedom to integers >= 1, returning 0 at probability = 1 after degree validation (#NUM! at probability = 0 or degrees < 1), transforming the beta quantile via f_inverse_beta, and on fallback directly inverting the published right-tail F.DIST.RT surface rather than 1 - p on F.DIST to avoid small-p complement bias. Matches 4,322/4,434 full-bank rows, with 66 last-bit and 46 numeric discrepancies (worst 72 ULP) still open.",
+  "status": "measured",
+  "basis": "Measured across 4,434 full-bank F.INV.RT rows in Excel 16.0.20527 (CalcFunc-Evidence {admit2,bank2}-answers-f.inv.rt-*.json) and prefix_metadata (row 79).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=F.INV.RT(0.01,6,4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "15.20686486115753",
+        "bits": "0x402e69ea30eab9f2"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 79 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "F.INV.RT(0.08885877305767775, 1, 94.00000000000001)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "probability",
+          "value": {
+            "kind": "number",
+            "display": "0.08885877305767775",
+            "bits": "0x3fb6bf72d43ed350"
+          }
+        },
+        {
+          "name": "deg_freedom1",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "deg_freedom2",
+          "value": {
+            "kind": "number",
+            "display": "94.00000000000001",
+            "bits": "0x4057800000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.955848413713666",
+        "bits": "0x4007a593da66ab5d"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-f.inv.rt-more.json",
+        "locator": "admit2-more-F.INV.RT-0033",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/chi_f_t_family.rs",
+      "locator": "f_inv_rt_kernel; f_inverse_beta",
+      "note": "direct right-tail surface inversion on fallback"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "f_and_t_inverse_publish_the_stored_beta_coordinate; f_inverse_probability_endpoints_validate_degrees",
+      "note": "endpoint and coordinate tests"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "F.INV.RT",
+      "note": "4,322/4,434 full-bank matches; 66 last_bit, 46 numeric (worst 72 ULP)"
+    }
+  ],
+  "open": [
+    "66 last-bit and 46 numeric F.INV.RT full-bank discrepancies (worst 72 ULP) remain open in DnaCalc."
+  ],
+  "recorded_on": "2026-11-22"
+}

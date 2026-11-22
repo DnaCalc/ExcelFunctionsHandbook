@@ -1,0 +1,137 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ACCRINT-001",
+  "functions": [
+    "FUNC.ACCRINT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ACCRINT uses plain binary64 day-count steps with canonical period normalization and an x87 PC64 final coupon multiply",
+  "statement": "In Excel 16.0 builds 20131, 20228, and 20527, ACCRINT(issue, first_interest, settlement, rate, [par], frequency, [basis], [calc_method]) evaluates day-count fractions in plain binary64 arithmetic normalized by the canonical last coupon period CoupDays(first - 1 period, first) rather than the settlement period's actual length, sums calc_method=TRUE (default) walks backward from settlement to issue, skips whole interior coupon periods when calc_method=FALSE and issue precedes that canonical period, and applies an x87 PC64 multiply followed by binary64 rounding only at the final coupon * accrual product. Matches 146,688/146,688 full-bank and 120/120 pinned ACCRINT rows.",
+  "status": "measured",
+  "basis": "Measured across 146,688 full-bank and 120 pinned ACCRINT rows in Excel 16.0 builds 20131 and 20228 (witnesses/ACCRINT.json) and Excel 16.0.20527.20088 in prefix_metadata (row 344) and f3_financial (row 16).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ACCRINT(39508,39691,39569,0.1,1000,2,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "16.666666666666664",
+        "bits": "0x4030aaaaaaaaaaaa"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 344 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "ACCRINT(42845, 43009, 43320, 0.037, 997.5, 2, 1, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "issue",
+          "value": {
+            "kind": "number",
+            "display": "42845.0",
+            "bits": "0x40e4eba000000000"
+          }
+        },
+        {
+          "name": "first_interest",
+          "value": {
+            "kind": "number",
+            "display": "43009.0",
+            "bits": "0x40e5002000000000"
+          }
+        },
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "43320.0",
+            "bits": "0x40e5270000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.037",
+            "bits": "0x3fa2f1a9fbe76c8b"
+          }
+        },
+        {
+          "name": "par",
+          "value": {
+            "kind": "number",
+            "display": "997.5",
+            "bits": "0x408f2c0000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "calc_method",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "47.89907786885246",
+        "bits": "0x4047f314fbcda3ac"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows, AMD Ryzen 7 4800H; bitness not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/ACCRINT.json",
+        "locator": "oc138400",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/bond_core_family.rs",
+      "locator": "accrint_kernel",
+      "note": "canonical period normalization, calc_method=FALSE skip, backward sum, x87 final multiply"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ACCRINT",
+      "note": "146,688/146,688 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

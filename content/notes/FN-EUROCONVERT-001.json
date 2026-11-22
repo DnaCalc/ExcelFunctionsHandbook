@@ -1,0 +1,181 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-EUROCONVERT-001",
+  "functions": [
+    "FUNC.EUROCONVERT"
+  ],
+  "kind": "quirk",
+  "title": "EUROCONVERT requires the Euro Currency Tools add-in, coerces TRUE to -1 and VBA literals, and rounds EUR intermediates to 19 places",
+  "statement": "In Excel 16.0.20527, bare =EUROCONVERT(...) returns #NAME? unless EUROTOOL.XLAM is loaded and linked via xlLibrary ([1]!EUROCONVERT). With the add-in loaded, it accepts 18 fixed-rate codes (EUR plus 17 legacy members including GRD, SIT, MTL, CYP, SKK, EEK, rejecting LVL/LTL/HRK/BGN/XEU with #VALUE!), rejects any array, multi-cell range, or worksheet error with #VALUE!, coerces TRUE to -1 and VBA-formatted text (&H, &O, (5), 1-) in number, rounds non-EUR amounts divided by source_rate directly to 19 places (and triangulation_precision >= 3 when supplied, with halves to even), and rounds final outputs to the target currency's places unless full_precision is non-zero. Matches 16,176/16,176 full-bank EUROCONVERT rows.",
+  "status": "measured",
+  "basis": "Measured across 16,176 full-bank EUROCONVERT rows in Excel 16.0.20527 (CalcFunc-Evidence EUROCONVERT.json, eurotool-answers-euroconvert-generated.json, and addin-answers-euroconvert-eurotool.json) and 2,726 workbook rows in crates/calc-host/tests/fixtures/euroconvert/measured.xlsx.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "EUROCONVERT(1, \"DEM\", \"FRF\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "source",
+          "value": {
+            "kind": "text",
+            "display": "DEM",
+            "bits": null
+          }
+        },
+        {
+          "name": "target",
+          "value": {
+            "kind": "text",
+            "display": "FRF",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.35",
+        "bits": "0x400acccccccccccd"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/eurotool-answers-euroconvert-generated.json",
+        "locator": "eurotool-gen-01526",
+        "note": null
+      }
+    },
+    {
+      "call": "EUROCONVERT(1, \"DEM\", \"FRF\", TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "source",
+          "value": {
+            "kind": "text",
+            "display": "DEM",
+            "bits": null
+          }
+        },
+        {
+          "name": "target",
+          "value": {
+            "kind": "text",
+            "display": "FRF",
+            "bits": null
+          }
+        },
+        {
+          "name": "full_precision",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.353854885138276",
+        "bits": "0x400ad4b1deb99701"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/eurotool-answers-euroconvert-generated.json",
+        "locator": "eurotool-gen-01527",
+        "note": null
+      }
+    },
+    {
+      "call": "EUROCONVERT(10, \"DEM\", \"EUR\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        },
+        {
+          "name": "source",
+          "value": {
+            "kind": "text",
+            "display": "DEM",
+            "bits": null
+          }
+        },
+        {
+          "name": "target",
+          "value": {
+            "kind": "text",
+            "display": "EUR",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/EUROCONVERT.json",
+        "locator": "fn1-euroconvert-001",
+        "note": "bare call without EUROTOOL.XLAM"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/euro_tools.rs",
+      "locator": "convert; read_number; UNITS",
+      "note": "18 currencies, VBA numeric parsing, 19-place rounding"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-host/tests/euroconvert.rs",
+      "locator": "literals.tsv",
+      "note": "2,726 measured.xlsx rows with EUROTOOL.XLAM loaded"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "EUROCONVERT",
+      "note": "16,176/16,176 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

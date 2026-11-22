@@ -1,0 +1,79 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GROWTH-001",
+  "functions": [
+    "FUNC.GROWTH"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "GROWTH evaluates exponential QR regression via stored x87 PC64 exp products and flushes subnormal forecasts to zero",
+  "statement": "In Excel 16.0 builds 20228 and 20527, GROWTH(known_y's, [known_x's], [new_x's], [const]) fits excel_log(y) through the LINEST stored-PC64 x87 Householder QR pipeline (#NUM! if any y <= 0), evaluates exp(intercept) * prod(exp(b_j * x_j)) with each exp and multiply stored through x87 PC64, and flushes subnormal forecasts to 0 (unlike LOGEST, which preserves subnormal entries in its coefficient row). Matches 1,260/1,260 full-bank and 126/126 pinned GROWTH rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20228 (1,260/1,260 full-bank and 126/126 pinned GROWTH rows in witnesses/GROWTH.json) and Excel 16.0.20527.20088 in dcj9k_regression (rows 510-655) and prefix_metadata (row 104).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=@GROWTH({55.5;237;111.628;21.2},{8.4;12.7;16.9;16.16},{8.9})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "86.1546398695622",
+        "bits": "0x405589e59e9f9b5a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json",
+        "locator": "sheet dcj9k_regression row 510 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@GROWTH({55.5;237;111.628;21.2},{8.4;12.7;16.9;16.16},{8.9},FALSE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "14.217121942689372",
+        "bits": "0x402c6f2a9b76308f"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json",
+        "locator": "sheet dcj9k_regression row 512 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/regression_forecast_family.rs",
+      "locator": "exponential_prediction; growth_kernel",
+      "note": "stored x87 PC64 exp-product chain"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "regression (RegressionNumbers::Forecast)",
+      "note": "subnormal forecast flush to 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "GROWTH",
+      "note": "1,260/1,260 full-bank and 126/126 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

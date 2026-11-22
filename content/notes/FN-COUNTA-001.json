@@ -1,0 +1,72 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COUNTA-001",
+  "functions": [
+    "FUNC.COUNTA"
+  ],
+  "kind": "quirk",
+  "title": "COUNTA counts every non-blank held cell (including empty text and errors), all direct arguments, and nested array elements",
+  "statement": "In Excel 16.0 builds 20430 and 20527, COUNTA(value1, [value2], ...) counts every direct argument (including omitted slots and empty text), counts every held cell except blank cells (counting empty text \"\", logicals, and errors without propagating them), counts references inside array arguments, and reads through arrays held inside arrays (e.g. GROUPBY returning nested 2x2 arrays yields 15 = 3*1 + 3*4 for COUNTA). Matches 1,212/1,212 full-bank and 120/120 pinned COUNTA rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (1,212/1,212 full-bank and 120/120 pinned COUNTA rows in witnesses/COUNTA.json) and Excel 16.0.20527.20088 in dch9u_functions (rows 2067, 2100, 2109) and dcb1l_language (rows 102, 139, 144).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=COUNTA(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,{1,\"t\";TRUE,4}),0,0))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "15.0",
+        "bits": "0x402e000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 2109 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=COUNTA(OFFSET(Data!E1,@{0,1,2},0))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 102 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/aggregate.rs",
+      "locator": "counta; HeldReference::Counted",
+      "note": "non-blank held cell counting and nested-array flattening"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COUNTA",
+      "note": "1,212/1,212 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

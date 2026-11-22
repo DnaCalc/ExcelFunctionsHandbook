@@ -1,0 +1,175 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FLATTEN-001",
+  "functions": [
+    "FUNC.FLATTEN",
+    "FUNC.HAS",
+    "FUNC.HASALL",
+    "FUNC.HASANY"
+  ],
+  "kind": "quirk",
+  "title": "FLATTEN, HAS, HASALL, and HASANY return #NAME? on every call in Compatibility Version 2 workbooks on Excel 16.0.20527",
+  "statement": "In Excel 16.0.20527 Current Channel under Workbook Compatibility Version 2, the Insider Beta Lists-in-Cells functions FLATTEN, HAS, HASALL, and HASANY are unavailable as worksheet names and return #NAME? for every call (1,600/1,600 FLATTEN, 2,839/2,839 HAS, 4,182/4,182 HASALL, and 2,856/2,856 HASANY full-bank rows match). Compatibility Version 3 Lists-in-Cells semantics remain uncaptured and deferred under dc-nk93.",
+  "status": "measured",
+  "basis": "Measured across all 11,477 Compatibility Version 2 full-bank rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-{flatten,has,hasall,hasany}-*.json).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FLATTEN({7.294527866664246,-5.053088483677333;1.9075822840899838,3.5484133245053555})",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array",
+          "value": {
+            "kind": "array",
+            "display": "{7.294527866664246,-5.053088483677333;1.9075822840899838,3.5484133245053555}",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-flatten-spill.json",
+        "locator": "admit2-spill-FLATTEN-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "HAS(0, 1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "value",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-has-scalar.json",
+        "locator": "admit2-scalar-HAS-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "HASALL(0, 1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "values",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-hasall-scalar.json",
+        "locator": "admit2-scalar-HASALL-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "HASANY(0, 1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "values",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/admit2-answers-hasany-scalar.json",
+        "locator": "admit2-scalar-HASANY-0000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/call.rs",
+      "locator": "invoke (Availability::ListsInCellsBeta)",
+      "note": "#NAME? for compatibility_version < 3, deferred otherwise"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FLATTEN; HAS; HASALL; HASANY",
+      "note": "1,600 + 2,839 + 4,182 + 2,856 full-bank matches"
+    }
+  ],
+  "open": [
+    "Compatibility Version 3 Insider Beta list-cell semantics for FLATTEN, HAS, HASALL, and HASANY remain uncaptured under DnaCalc bead dc-nk93."
+  ],
+  "recorded_on": "2026-11-22"
+}

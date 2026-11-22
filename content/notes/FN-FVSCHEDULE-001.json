@@ -1,0 +1,96 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FVSCHEDULE-001",
+  "functions": [
+    "FUNC.FVSCHEDULE"
+  ],
+  "kind": "quirk",
+  "title": "FVSCHEDULE rejects logical principals, coerces scalar or single-cell text schedules, and rejects text inside multi-cell schedules",
+  "statement": "In Excel 16.0.20527, FVSCHEDULE(principal, schedule) rejects a logical principal with #VALUE! (while coercing numeric text), coerces numeric text when schedule is a direct scalar or single-cell reference, treats blank cells in a range schedule as 0 while rejecting text or logicals inside a multi-cell range or array with #VALUE!, and multiplies principal * prod(1 + r_i) in binary64. Matches 2,857/2,857 full-bank FVSCHEDULE rows.",
+  "status": "measured",
+  "basis": "Measured across all 2,857 full-bank FVSCHEDULE rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-fvschedule-{scalar,more,special}.json), prefix_metadata (row 364), and f3_financial (row 6).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=FVSCHEDULE(1,{0.09,0.11,0.1})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.3308900000000004",
+        "bits": "0x3ff54b5350092cd1"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 364 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "FVSCHEDULE(2, -1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "principal",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "schedule",
+          "value": {
+            "kind": "number",
+            "display": "-1e+100",
+            "bits": "0xd4b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-2e+100",
+        "bits": "0xd4c249ad2594c37d"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-fvschedule-more.json",
+        "locator": "bank2-more-FVSCHEDULE-0003",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/financial.rs",
+      "locator": "fvschedule_fn; schedule",
+      "note": "logical principal rejection and single-cell vs multi-cell schedule coercion"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "fvschedule",
+      "note": "binary64 product loop"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FVSCHEDULE",
+      "note": "2,857/2,857 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

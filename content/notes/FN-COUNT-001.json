@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COUNT-001",
+  "functions": [
+    "FUNC.COUNT"
+  ],
+  "kind": "quirk",
+  "title": "COUNT counts direct logicals, omitted slots, and yearless date text, ignores references inside arrays, and reads through nested arrays",
+  "statement": "In Excel 16.0 builds 20430 and 20527, COUNT(value1, [value2], ...) counts numbers in held ranges and counts direct numbers, logicals, omitted arguments, and text that parses as a number or date (including yearless date text such as \"1/2\", whereas \"1/2/2020\" is 0 under en-ZA DMY settings), ignores text/logicals/blanks/errors in cell ranges, does not count references inside array results (=COUNT(OFFSET(Data!E1,@{0,1,2},0)) -> 0, or 1 for scalar @), and flattens arrays held inside arrays (e.g. GROUPBY results). Matches 1,212/1,212 full-bank and 120/120 pinned COUNT rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (1,212/1,212 full-bank and 120/120 pinned COUNT rows in witnesses/COUNT.json) and Excel 16.0.20527.20088 in dch9u_functions (rows 88-89, 2066, 2099, 2107) and dcb1l_language (rows 101, 129).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=COUNT(\"1/2\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 89 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=COUNT(\"1/2/2020\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 88 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=COUNT(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,{1,#N/A}),0,0))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 2107 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/aggregate.rs",
+      "locator": "count; counts_as_number",
+      "note": "direct vs held admission, yearless date parsing, nested-array read-through"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COUNT",
+      "note": "1,212/1,212 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FTEST-001",
+  "functions": [
+    "FUNC.FTEST"
+  ],
+  "kind": "quirk",
+  "title": "FTEST shares F.TEST's larger-variance-first two-tailed ratio and singleton-validation order",
+  "statement": "In Excel 16.0.20527, FTEST(array1, array2) is the compatibility alias of F.TEST: it validates single-cell blank/error arguments in formula order, collects finite numbers from each array (ignoring text, logicals, and blanks in ranges), returns #DIV/0! when either sample has < 2 numbers or zero variance, orients the variance ratio larger-variance-first, and returns 2 * min(P(F > f), P(F <= f)) from one incomplete-beta call. Matches 2,849/2,849 full-bank FTEST rows.",
+  "status": "measured",
+  "basis": "Measured across all 2,849 full-bank FTEST rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-ftest-{scalar,more,special}.json) and prefix_metadata (row 92).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=FTEST(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.4",
+        "bits": "0x3fd999999999999a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 92 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "FTEST(0, 1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array1",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "array2",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-ftest-scalar.json",
+        "locator": "bank2-scalar-FTEST-0000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/distributions.rs",
+      "locator": "ftest",
+      "note": "validate_paired_singletons and f_test_kernel"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FTEST",
+      "note": "2,849/2,849 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

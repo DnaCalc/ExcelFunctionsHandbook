@@ -1,0 +1,97 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-AVEDEV-001",
+  "functions": [
+    "FUNC.AVEDEV"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "AVEDEV computes the mean absolute deviation in plain binary64 arithmetic and returns #NUM! on zero numbers",
+  "statement": "In Excel 16.0 builds 20430 and 20527, AVEDEV(number1, [number2], ...) coerces direct scalar arguments, ignores text, logicals, and blanks inside cell references or arrays while propagating errors, returns #NUM! when no numeric values are collected, and evaluates sum(|x - mean|) / n with binary64 sum/division. Matches 1,212/1,212 full-bank and 120/120 pinned AVEDEV rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 (1,212/1,212 full-bank and 120/120 pinned AVEDEV rows in witnesses/AVEDEV.json) and Excel 16.0.20527.20088 in prefix_metadata (row 12, Data!A1:A3 = {1;5;3}).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=AVEDEV(Data!A1:A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.3333333333333333",
+        "bits": "0x3ff5555555555555"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 12 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "AVEDEV(1.194773324167647e-10, 1882901061.8982713, 180449.4243419519)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "1.194773324167647e-10",
+            "bits": "0x3de06bbc23b67359"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1882901061.8982713",
+            "bits": "0x41dc0eb291797d47"
+          }
+        },
+        {
+          "name": "number3",
+          "value": {
+            "kind": "number",
+            "display": "180449.4243419519",
+            "bits": "0x4106070b650d64ae"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "836804816.5271558",
+        "bits": "0x41c8f050684379d7"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+        "path": "crates/calc-func/tests/witnesses/AVEDEV.json",
+        "locator": "w111broad-20260929-AVEDEV-00779",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "avedev",
+      "note": "mean absolute deviation over Held::Numbers"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "AVEDEV",
+      "note": "1,212/1,212 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
