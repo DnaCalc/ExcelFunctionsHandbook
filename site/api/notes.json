@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 312,
+  "note_count": 335,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -497,6 +497,143 @@
         "The exact subnormal threshold between 0x00000000001c7ea3 (EXP(-730)) and 0x0008bfe58468888d (EXP(-709)) where SIGN(+x) changes from 0 to 1 and INT(-x) changes from 0 to -1 is not yet pinned."
       ],
       "recorded_on": "2026-11-08"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-ACCRINT-001",
+      "functions": [
+        "FUNC.ACCRINT"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "ACCRINT uses plain binary64 day-count steps with canonical period normalization and an x87 PC64 final coupon multiply",
+      "statement": "In Excel 16.0 builds 20131, 20228, and 20527, ACCRINT(issue, first_interest, settlement, rate, [par], frequency, [basis], [calc_method]) evaluates day-count fractions in plain binary64 arithmetic normalized by the canonical last coupon period CoupDays(first - 1 period, first) rather than the settlement period's actual length, sums calc_method=TRUE (default) walks backward from settlement to issue, skips whole interior coupon periods when calc_method=FALSE and issue precedes that canonical period, and applies an x87 PC64 multiply followed by binary64 rounding only at the final coupon * accrual product. Matches 146,688/146,688 full-bank and 120/120 pinned ACCRINT rows.",
+      "status": "measured",
+      "basis": "Measured across 146,688 full-bank and 120 pinned ACCRINT rows in Excel 16.0 builds 20131 and 20228 (witnesses/ACCRINT.json) and Excel 16.0.20527.20088 in prefix_metadata (row 344) and f3_financial (row 16).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=ACCRINT(39508,39691,39569,0.1,1000,2,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "16.666666666666664",
+            "bits": "0x4030aaaaaaaaaaaa"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 344 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "ACCRINT(42845, 43009, 43320, 0.037, 997.5, 2, 1, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "issue",
+              "value": {
+                "kind": "number",
+                "display": "42845.0",
+                "bits": "0x40e4eba000000000"
+              }
+            },
+            {
+              "name": "first_interest",
+              "value": {
+                "kind": "number",
+                "display": "43009.0",
+                "bits": "0x40e5002000000000"
+              }
+            },
+            {
+              "name": "settlement",
+              "value": {
+                "kind": "number",
+                "display": "43320.0",
+                "bits": "0x40e5270000000000"
+              }
+            },
+            {
+              "name": "rate",
+              "value": {
+                "kind": "number",
+                "display": "0.037",
+                "bits": "0x3fa2f1a9fbe76c8b"
+              }
+            },
+            {
+              "name": "par",
+              "value": {
+                "kind": "number",
+                "display": "997.5",
+                "bits": "0x408f2c0000000000"
+              }
+            },
+            {
+              "name": "frequency",
+              "value": {
+                "kind": "number",
+                "display": "2.0",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "basis",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "calc_method",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "47.89907786885246",
+            "bits": "0x4047f314fbcda3ac"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows, AMD Ryzen 7 4800H; bitness not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/ACCRINT.json",
+            "locator": "oc138400",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/bond_core_family.rs",
+          "locator": "accrint_kernel",
+          "note": "canonical period normalization, calc_method=FALSE skip, backward sum, x87 final multiply"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "ACCRINT",
+          "note": "146,688/146,688 full-bank and 120/120 pinned rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -2416,6 +2553,103 @@
           "path": "crates/calc-func/witness-status.tsv",
           "locator": "ATANH",
           "note": "22,008/22,008 full-bank ATANH matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-AVEDEV-001",
+      "functions": [
+        "FUNC.AVEDEV"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "AVEDEV computes the mean absolute deviation in plain binary64 arithmetic and returns #NUM! on zero numbers",
+      "statement": "In Excel 16.0 builds 20430 and 20527, AVEDEV(number1, [number2], ...) coerces direct scalar arguments, ignores text, logicals, and blanks inside cell references or arrays while propagating errors, returns #NUM! when no numeric values are collected, and evaluates sum(|x - mean|) / n with binary64 sum/division. Matches 1,212/1,212 full-bank and 120/120 pinned AVEDEV rows.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20430 (1,212/1,212 full-bank and 120/120 pinned AVEDEV rows in witnesses/AVEDEV.json) and Excel 16.0.20527.20088 in prefix_metadata (row 12, Data!A1:A3 = {1;5;3}).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=AVEDEV(Data!A1:A3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.3333333333333333",
+            "bits": "0x3ff5555555555555"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 12 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "AVEDEV(1.194773324167647e-10, 1882901061.8982713, 180449.4243419519)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number1",
+              "value": {
+                "kind": "number",
+                "display": "1.194773324167647e-10",
+                "bits": "0x3de06bbc23b67359"
+              }
+            },
+            {
+              "name": "number2",
+              "value": {
+                "kind": "number",
+                "display": "1882901061.8982713",
+                "bits": "0x41dc0eb291797d47"
+              }
+            },
+            {
+              "name": "number3",
+              "value": {
+                "kind": "number",
+                "display": "180449.4243419519",
+                "bits": "0x4106070b650d64ae"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "836804816.5271558",
+            "bits": "0x41c8f050684379d7"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/AVEDEV.json",
+            "locator": "w111broad-20260929-AVEDEV-00779",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/statistics.rs",
+          "locator": "avedev",
+          "note": "mean absolute deviation over Held::Numbers"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "AVEDEV",
+          "note": "1,212/1,212 full-bank and 120/120 pinned rows matched"
         }
       ],
       "open": [],
@@ -4958,6 +5192,102 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-CHITEST-001",
+      "functions": [
+        "FUNC.CHITEST"
+      ],
+      "kind": "quirk",
+      "title": "CHITEST validates singleton blank/error arguments in order before checking shape and returns #N/A on shape mismatch or 1x1 ranges",
+      "statement": "In Excel 16.0.20527, CHITEST(actual_range, expected_range) shares CHISQ.TEST's admission and kernel: single-cell blank or error arguments are checked in argument order before comparing shapes (so CHITEST(blank, NA()) returns #VALUE! while CHITEST(NA(), blank) returns #N/A), shape mismatches and 1x1 inputs (df = 0) return #N/A, and valid tables return CHISQ.DIST.RT(sum((A - E)^2 / E), df). Matches 2,853/2,853 full-bank CHITEST rows.",
+      "status": "measured",
+      "basis": "Measured across all 2,853 full-bank CHITEST rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-chitest-{scalar,more,special}.json) and Excel 16.0.20527.20088 in prefix_metadata (row 43, Data!A1:A3 vs Data!E1:E3).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=CHITEST(Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.10539922456186433",
+            "bits": "0x3fbafb718e8457f7"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 43 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "CHITEST(0, 1e-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "actual_range",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "expected_range",
+              "value": {
+                "kind": "number",
+                "display": "1e-100",
+                "bits": "0x2b2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-chitest-scalar.json",
+            "locator": "bank2-scalar-CHITEST-0000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/distributions.rs",
+          "locator": "chisq_test_of",
+          "note": "singleton validation before shape check and df calculation"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "chisq_test_validates_singleton_sample_cells_before_shape",
+          "note": "singleton blank/error precedence checks"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "CHITEST",
+          "note": "2,853/2,853 full-bank rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-CHOOSE-001",
       "functions": [
         "FUNC.CHOOSE"
@@ -5968,6 +6298,154 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-CONVERT-001",
+      "functions": [
+        "FUNC.CONVERT"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "CONVERT evaluates linear units via a three-store x87 PC64 chain, treats bar as #N/A, and uses direct affine temperature pairs",
+      "statement": "In Excel 16.0 builds 20228 and 20527, CONVERT(number, from_unit, to_unit) evaluates supported linear categories via three x87 PC64 operations each stored to binary64 before the next: RN53(RN64(RN53(RN64(number * from_factor)) / to_factor) * decimal_prefix_delta), where decimal_prefix_delta is the single binary64 power 10^(from_exp - to_exp) rather than a quotient of prefix factors; length factors use exact integer angstroms, pressure stores independent reciprocals of units-per-pascal while rejecting bar with #N/A, and K/C/F use six direct affine formulas. Matches 33,972/33,972 full-bank and 120/120 pinned CONVERT rows.",
+      "status": "measured",
+      "basis": "Measured across 33,972 full-bank and 120 pinned CONVERT rows in Excel 16.0 build 20228 (witnesses/CONVERT.json, W109_CONVERT_IDENTIFICATION_20260809.md) and Excel 16.0.20527.20088 in prefix_metadata (row 50).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=CONVERT(1,\"lbm\",\"kg\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.45359237",
+            "bits": "0x3fdd07a84ab75e51"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 50 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "CONVERT(5.369755851248371e+26, \"nm\", \"Pm\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "5.369755851248386e+26",
+                "bits": "0x457bc2d00cc56eac"
+              }
+            },
+            {
+              "name": "from_unit",
+              "value": {
+                "kind": "text",
+                "display": "nm",
+                "bits": null
+              }
+            },
+            {
+              "name": "to_unit",
+              "value": {
+                "kind": "text",
+                "display": "Pm",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "536.975585124837",
+            "bits": "0x4080c7cdff92ed1d"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/CONVERT.json",
+            "locator": "conv-v3d-00072",
+            "note": null
+          }
+        },
+        {
+          "call": "CONVERT(1048576, \"psi\", \"bar\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1048576.0",
+                "bits": "0x4130000000000000"
+              }
+            },
+            {
+              "name": "from_unit",
+              "value": {
+                "kind": "text",
+                "display": "psi",
+                "bits": null
+              }
+            },
+            {
+              "name": "to_unit",
+              "value": {
+                "kind": "text",
+                "display": "bar",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20228, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/CONVERT.json",
+            "locator": "conv-di-04149",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/misc_conversion_family.rs",
+          "locator": "convert_kernel",
+          "note": "three-store x87 linear chain and direct temperature pairs"
+        },
+        {
+          "repository": "CalcFunc-Evidence",
+          "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+          "path": "function-lane/notes/w109/W109_CONVERT_IDENTIFICATION_20260809.md",
+          "locator": "Section 1",
+          "note": "10,418/10,418 disjoint held-out identification"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "CONVERT",
+          "note": "33,972/33,972 full-bank and 120/120 pinned rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-CORREL-001",
       "functions": [
         "FUNC.CORREL",
@@ -6359,6 +6837,169 @@
       "open": [
         "3 full-bank COTH rows remain 1-2 ULP off via the underlying TANH composition."
       ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-COUNT-001",
+      "functions": [
+        "FUNC.COUNT"
+      ],
+      "kind": "quirk",
+      "title": "COUNT counts direct logicals, omitted slots, and yearless date text, ignores references inside arrays, and reads through nested arrays",
+      "statement": "In Excel 16.0 builds 20430 and 20527, COUNT(value1, [value2], ...) counts numbers in held ranges and counts direct numbers, logicals, omitted arguments, and text that parses as a number or date (including yearless date text such as \"1/2\", whereas \"1/2/2020\" is 0 under en-ZA DMY settings), ignores text/logicals/blanks/errors in cell ranges, does not count references inside array results (=COUNT(OFFSET(Data!E1,@{0,1,2},0)) -> 0, or 1 for scalar @), and flattens arrays held inside arrays (e.g. GROUPBY results). Matches 1,212/1,212 full-bank and 120/120 pinned COUNT rows.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20430 (1,212/1,212 full-bank and 120/120 pinned COUNT rows in witnesses/COUNT.json) and Excel 16.0.20527.20088 in dch9u_functions (rows 88-89, 2066, 2099, 2107) and dcb1l_language (rows 101, 129).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=COUNT(\"1/2\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+            "locator": "sheet dch9u_functions row 89 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=COUNT(\"1/2/2020\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+            "locator": "sheet dch9u_functions row 88 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=COUNT(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,{1,#N/A}),0,0))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3.0",
+            "bits": "0x4008000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+            "locator": "sheet dch9u_functions row 2107 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/aggregate.rs",
+          "locator": "count; counts_as_number",
+          "note": "direct vs held admission, yearless date parsing, nested-array read-through"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "COUNT",
+          "note": "1,212/1,212 full-bank and 120/120 pinned rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-COUNTA-001",
+      "functions": [
+        "FUNC.COUNTA"
+      ],
+      "kind": "quirk",
+      "title": "COUNTA counts every non-blank held cell (including empty text and errors), all direct arguments, and nested array elements",
+      "statement": "In Excel 16.0 builds 20430 and 20527, COUNTA(value1, [value2], ...) counts every direct argument (including omitted slots and empty text), counts every held cell except blank cells (counting empty text \"\", logicals, and errors without propagating them), counts references inside array arguments, and reads through arrays held inside arrays (e.g. GROUPBY returning nested 2x2 arrays yields 15 = 3*1 + 3*4 for COUNTA). Matches 1,212/1,212 full-bank and 120/120 pinned COUNTA rows.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20430 (1,212/1,212 full-bank and 120/120 pinned COUNTA rows in witnesses/COUNTA.json) and Excel 16.0.20527.20088 in dch9u_functions (rows 2067, 2100, 2109) and dcb1l_language (rows 102, 139, 144).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=COUNTA(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,{1,\"t\";TRUE,4}),0,0))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "15.0",
+            "bits": "0x402e000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+            "locator": "sheet dch9u_functions row 2109 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=COUNTA(OFFSET(Data!E1,@{0,1,2},0))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+            "locator": "sheet dcb1l_language row 102 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/aggregate.rs",
+          "locator": "counta; HeldReference::Counted",
+          "note": "non-blank held cell counting and nested-array flattening"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "COUNTA",
+          "note": "1,212/1,212 full-bank and 120/120 pinned rows matched"
+        }
+      ],
+      "open": [],
       "recorded_on": "2026-11-22"
     },
     {
@@ -7733,6 +8374,142 @@
       ],
       "open": [],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-COVAR-001",
+      "functions": [
+        "FUNC.COVAR",
+        "FUNC.COVARIANCE.P",
+        "FUNC.COVARIANCE.S"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "COVAR, COVARIANCE.P, and COVARIANCE.S skip non-numeric pairs, validate singletons before shape, and center via two-pass means",
+      "statement": "In Excel 16.0.20527, COVAR(array1, array2), COVARIANCE.P(array1, array2), and COVARIANCE.S(array1, array2) validate single-cell blank/error arguments in formula order before checking array shape (#N/A on mismatch), skip positions where either input holds text, logical, or blank, and compute sum((x - mean_x) * (y - mean_y)) / denom in binary64 from two-pass sample means: COVAR and COVARIANCE.P divide by n (returning 0 for 1 numeric pair and #DIV/0! for 0 pairs), whereas COVARIANCE.S divides by n - 1 (returning #DIV/0! when fewer than 2 numeric pairs exist). Matches 2,855/2,855 COVAR, 2,849/2,849 COVARIANCE.P, and 2,850/2,850 COVARIANCE.S full-bank rows.",
+      "status": "measured",
+      "basis": "Measured across all 2,855 COVAR, 2,849 COVARIANCE.P, and 2,850 COVARIANCE.S full-bank rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-{covar,covariance.p,covariance.s}-*.json) and prefix_metadata (rows 56-58).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=COVAR(Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.6666666666666666",
+            "bits": "0x3fe5555555555555"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 56 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "=COVARIANCE.P(Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.6666666666666666",
+            "bits": "0x3fe5555555555555"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 57 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "=COVARIANCE.S(Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 58 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "COVARIANCE.S(0, 1e-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array1",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "array2",
+              "value": {
+                "kind": "number",
+                "display": "1e-100",
+                "bits": "0x2b2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-covariance.s-scalar.json",
+            "locator": "bank2-scalar-COVARIANCE.S-0000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/paired_stats_common.rs",
+          "locator": "covariance_from_pairs",
+          "note": "two-pass centered covariance for Population and Sample divisors"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/statistics.rs",
+          "locator": "statistical_pairs; covar; covariance_p; covariance_s",
+          "note": "singleton ordering and PairScalars::SkipNonnumeric"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "COVAR; COVARIANCE.P; COVARIANCE.S",
+          "note": "2,855 + 2,849 + 2,850 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -9857,6 +10634,131 @@
           "path": "crates/calc-func/witness-status.tsv",
           "locator": "DDB",
           "note": "1,761/1,761 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-DECIMAL-001",
+      "functions": [
+        "FUNC.DECIMAL"
+      ],
+      "kind": "quirk",
+      "title": "DECIMAL strips leading whitespace only, treats empty text as 0, and rejects trailing whitespace, signs, or radix outside 2..36",
+      "statement": "In Excel 16.0 builds 20430 and 20527, DECIMAL(text, radix) truncates radix to an integer in [2, 36] (#NUM! outside), trims leading whitespace only (so \"  10\" with radix 2 is 2 while trailing whitespace such as \"10\\t\" is #NUM!), returns 0 for empty text \"\", parses ASCII digits 0-9 and case-insensitive letters A-Z up to u128 capacity, and rejects signs or fractional separators with #NUM!. Matches 1,230/1,230 full-bank and 120/120 pinned DECIMAL rows.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20430 (1,230/1,230 full-bank and 120/120 pinned DECIMAL rows in witnesses/DECIMAL.json) and Excel 16.0.20527.20088 in prefix_metadata (row 65).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=DECIMAL(\"FF\",16)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "255.0",
+            "bits": "0x406fe00000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 65 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "DECIMAL(46654860, 16)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "number",
+                "display": "46654860.0",
+                "bits": "0x41863f2c60000000"
+              }
+            },
+            {
+              "name": "radix",
+              "value": {
+                "kind": "number",
+                "display": "16.0",
+                "bits": "0x4030000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1181042784.0",
+            "bits": "0x41d1995218000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/DECIMAL.json",
+            "locator": "w111broad-20260929-DECIMAL-00487",
+            "note": null
+          }
+        },
+        {
+          "call": "DECIMAL(0, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "radix",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/DECIMAL.json",
+            "locator": "w111broad-20260929-DECIMAL-00006",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/decimal_fn.rs",
+          "locator": "decimal_kernel",
+          "note": "trim_start whitespace rule, radix truncation, and u128 overflow check"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "DECIMAL",
+          "note": "1,230/1,230 full-bank and 120/120 pinned rows matched"
         }
       ],
       "open": [],
@@ -12181,6 +13083,187 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-EUROCONVERT-001",
+      "functions": [
+        "FUNC.EUROCONVERT"
+      ],
+      "kind": "quirk",
+      "title": "EUROCONVERT requires the Euro Currency Tools add-in, coerces TRUE to -1 and VBA literals, and rounds EUR intermediates to 19 places",
+      "statement": "In Excel 16.0.20527, bare =EUROCONVERT(...) returns #NAME? unless EUROTOOL.XLAM is loaded and linked via xlLibrary ([1]!EUROCONVERT). With the add-in loaded, it accepts 18 fixed-rate codes (EUR plus 17 legacy members including GRD, SIT, MTL, CYP, SKK, EEK, rejecting LVL/LTL/HRK/BGN/XEU with #VALUE!), rejects any array, multi-cell range, or worksheet error with #VALUE!, coerces TRUE to -1 and VBA-formatted text (&H, &O, (5), 1-) in number, rounds non-EUR amounts divided by source_rate directly to 19 places (and triangulation_precision >= 3 when supplied, with halves to even), and rounds final outputs to the target currency's places unless full_precision is non-zero. Matches 16,176/16,176 full-bank EUROCONVERT rows.",
+      "status": "measured",
+      "basis": "Measured across 16,176 full-bank EUROCONVERT rows in Excel 16.0.20527 (CalcFunc-Evidence EUROCONVERT.json, eurotool-answers-euroconvert-generated.json, and addin-answers-euroconvert-eurotool.json) and 2,726 workbook rows in crates/calc-host/tests/fixtures/euroconvert/measured.xlsx.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "EUROCONVERT(1, \"DEM\", \"FRF\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "source",
+              "value": {
+                "kind": "text",
+                "display": "DEM",
+                "bits": null
+              }
+            },
+            {
+              "name": "target",
+              "value": {
+                "kind": "text",
+                "display": "FRF",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.35",
+            "bits": "0x400acccccccccccd"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/eurotool-answers-euroconvert-generated.json",
+            "locator": "eurotool-gen-01526",
+            "note": null
+          }
+        },
+        {
+          "call": "EUROCONVERT(1, \"DEM\", \"FRF\", TRUE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "source",
+              "value": {
+                "kind": "text",
+                "display": "DEM",
+                "bits": null
+              }
+            },
+            {
+              "name": "target",
+              "value": {
+                "kind": "text",
+                "display": "FRF",
+                "bits": null
+              }
+            },
+            {
+              "name": "full_precision",
+              "value": {
+                "kind": "logical",
+                "display": "TRUE",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "3.353854885138276",
+            "bits": "0x400ad4b1deb99701"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/eurotool-answers-euroconvert-generated.json",
+            "locator": "eurotool-gen-01527",
+            "note": null
+          }
+        },
+        {
+          "call": "EUROCONVERT(10, \"DEM\", \"EUR\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "10.0",
+                "bits": "0x4024000000000000"
+              }
+            },
+            {
+              "name": "source",
+              "value": {
+                "kind": "text",
+                "display": "DEM",
+                "bits": null
+              }
+            },
+            {
+              "name": "target",
+              "value": {
+                "kind": "text",
+                "display": "EUR",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NAME?",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088, Windows 64-bit (NT 10.0.26200), AMD Ryzen 7 4800H",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/EUROCONVERT.json",
+            "locator": "fn1-euroconvert-001",
+            "note": "bare call without EUROTOOL.XLAM"
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/euro_tools.rs",
+          "locator": "convert; read_number; UNITS",
+          "note": "18 currencies, VBA numeric parsing, 19-place rounding"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-host/tests/euroconvert.rs",
+          "locator": "literals.tsv",
+          "note": "2,726 measured.xlsx rows with EUROTOOL.XLAM loaded"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "EUROCONVERT",
+          "note": "16,176/16,176 full-bank rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-EXACT-001",
       "functions": [
         "FUNC.EXACT"
@@ -12429,6 +13512,218 @@
         }
       ],
       "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-F.INV-001",
+      "functions": [
+        "FUNC.F.INV"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "F.INV returns 0 at p = 0 when df1 >= 1 and transforms the lower-probability beta inverse via four stored logarithms",
+      "statement": "In Excel 16.0.20527, F.INV(probability, deg_freedom1, deg_freedom2) truncates degrees of freedom to integers >= 1 (checking degrees before returning 0 at probability = 0, and returning #NUM! at probability = 1 or degrees < 1), maps probability > 0.5 to 1 - probability, obtains beta quantile z = beta_inv(q, a, b), and evaluates exp(ln(d2) - ln(z) + ln(d1) + ln(1 - z)) through the distribution running exponential (or falls back to bisecting F.DIST). Matches 4,317/4,425 full-bank rows, with 74 last-bit and 34 numeric discrepancies (worst 47 ULP) still open.",
+      "status": "measured",
+      "basis": "Measured across 4,425 full-bank F.INV rows in Excel 16.0.20527 (CalcFunc-Evidence {admit2,bank2}-answers-f.inv-*.json) and prefix_metadata (row 78).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=F.INV(0.01,6,4)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.10930991412457855",
+            "bits": "0x3fbbfbbc0a4b2b8e"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 78 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "F.INV(0.16581535479335607, 100, 75.00000000000001)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "probability",
+              "value": {
+                "kind": "number",
+                "display": "0.16581535479335607",
+                "bits": "0x3fc5397003018c88"
+              }
+            },
+            {
+              "name": "deg_freedom1",
+              "value": {
+                "kind": "number",
+                "display": "100.0",
+                "bits": "0x4059000000000000"
+              }
+            },
+            {
+              "name": "deg_freedom2",
+              "value": {
+                "kind": "number",
+                "display": "75.00000000000001",
+                "bits": "0x4052c00000000001"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.8128124377148119",
+            "bits": "0x3fea028f3ab88c87"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-f.inv-more.json",
+            "locator": "admit2-more-F.INV-0036",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/chi_f_t_family.rs",
+          "locator": "f_inv_kernel; f_inverse_beta",
+          "note": "beta-coordinate mapping and 4-log distribution exponential"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "f_and_t_inverse_publish_the_stored_beta_coordinate; f_inverse_probability_endpoints_validate_degrees",
+          "note": "endpoint and coordinate tests"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "F.INV",
+          "note": "4,317/4,425 full-bank matches; 74 last_bit, 34 numeric (worst 47 ULP)"
+        }
+      ],
+      "open": [
+        "74 last-bit and 34 numeric F.INV full-bank discrepancies (worst 47 ULP) remain open in DnaCalc."
+      ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-F.INV.RT-001",
+      "functions": [
+        "FUNC.F.INV.RT"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "F.INV.RT returns 0 at p = 1 when df2 >= 1 and inverts the published right-tail F surface directly on fallback",
+      "statement": "In Excel 16.0.20527, F.INV.RT(probability, deg_freedom1, deg_freedom2) shares FINV's right-tail quantile semantics: truncating degrees of freedom to integers >= 1, returning 0 at probability = 1 after degree validation (#NUM! at probability = 0 or degrees < 1), transforming the beta quantile via f_inverse_beta, and on fallback directly inverting the published right-tail F.DIST.RT surface rather than 1 - p on F.DIST to avoid small-p complement bias. Matches 4,322/4,434 full-bank rows, with 66 last-bit and 46 numeric discrepancies (worst 72 ULP) still open.",
+      "status": "measured",
+      "basis": "Measured across 4,434 full-bank F.INV.RT rows in Excel 16.0.20527 (CalcFunc-Evidence {admit2,bank2}-answers-f.inv.rt-*.json) and prefix_metadata (row 79).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=F.INV.RT(0.01,6,4)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "15.20686486115753",
+            "bits": "0x402e69ea30eab9f2"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 79 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "F.INV.RT(0.08885877305767775, 1, 94.00000000000001)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "probability",
+              "value": {
+                "kind": "number",
+                "display": "0.08885877305767775",
+                "bits": "0x3fb6bf72d43ed350"
+              }
+            },
+            {
+              "name": "deg_freedom1",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "deg_freedom2",
+              "value": {
+                "kind": "number",
+                "display": "94.00000000000001",
+                "bits": "0x4057800000000001"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2.955848413713666",
+            "bits": "0x4007a593da66ab5d"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-f.inv.rt-more.json",
+            "locator": "admit2-more-F.INV.RT-0033",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/chi_f_t_family.rs",
+          "locator": "f_inv_rt_kernel; f_inverse_beta",
+          "note": "direct right-tail surface inversion on fallback"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "f_and_t_inverse_publish_the_stored_beta_coordinate; f_inverse_probability_endpoints_validate_degrees",
+          "note": "endpoint and coordinate tests"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "F.INV.RT",
+          "note": "4,322/4,434 full-bank matches; 66 last_bit, 46 numeric (worst 72 ULP)"
+        }
+      ],
+      "open": [
+        "66 last-bit and 46 numeric F.INV.RT full-bank discrepancies (worst 72 ULP) remain open in DnaCalc."
+      ],
       "recorded_on": "2026-11-22"
     },
     {
@@ -12703,6 +13998,186 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-FALSE-001",
+      "functions": [
+        "FUNC.FALSE"
+      ],
+      "kind": "quirk",
+      "title": "FALSE takes zero arguments, rejects any argument at entry, and returns the logical value FALSE",
+      "statement": "In Excel 16.0 builds 20430 and 20527, FALSE() takes no arguments, refuses any supplied argument at formula entry, and evaluates to the logical FALSE (distinct from text \"FALSE\"; compares above numbers and text and below TRUE, and coerces to 0 when passed as a direct numeric argument while ignored in held ranges by numeric aggregates). Matches 2/2 full-bank and 1/1 pinned FALSE rows.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20430 (1/1 pinned row in witnesses/FALSE.json) and Excel 16.0.20527 (admit2-answers-false-{scalar,special}.json; 2/2 full-bank rows).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "FALSE()",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/FALSE.json",
+            "locator": "w111extended-2026092903-FALSE-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "FALSE()",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-false-scalar.json",
+            "locator": "admit2-scalar-FALSE-0000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/logical.rs",
+          "locator": "false_value",
+          "note": "returns CalcValue::logical(false)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FALSE",
+          "note": "2/2 full-bank and 1/1 pinned rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FIELDVALUE-001",
+      "functions": [
+        "FUNC.FIELDVALUE"
+      ],
+      "kind": "quirk",
+      "title": "FIELDVALUE returns #FIELD! for every non-linked value (even an error first argument) while propagating an error in field_name",
+      "statement": "In Excel 16.0.20527, FIELDVALUE(value, field_name) returns #FIELD! (ERROR.TYPE 11) whenever value is not a linked Stock/Geography data type—including numbers, text, logicals, blank cells, and even worksheet errors such as NA() or 1/0—while returning an error passed in field_name instead (=FIELDVALUE(1/0, NA()) -> #N/A, ERROR.TYPE 7). Arrays lift in dynamic-array formulas and implicitly intersect in legacy formulas. Matches 40/40 full-bank FIELDVALUE rows.",
+      "status": "measured",
+      "basis": "Measured across all 40 full-bank FIELDVALUE rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-fieldvalue-special.json) and 18 formulas in Excel 16.0.20527.20088 (dcb1l_language rows 1-18).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=ERROR.TYPE(@FIELDVALUE(1,\"x\"))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "13.0",
+            "bits": "0x402a000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+            "locator": "sheet dcb1l_language row 1 column 4",
+            "note": "ERROR.TYPE 11 = #FIELD!"
+          }
+        },
+        {
+          "call": "=ERROR.TYPE(@FIELDVALUE(1/0,NA()))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "7.0",
+            "bits": "0x401c000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+            "locator": "sheet dcb1l_language row 6 column 4",
+            "note": "ERROR.TYPE 7 = #N/A"
+          }
+        },
+        {
+          "call": "FIELDVALUE(2, #VALUE!)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "value",
+              "value": {
+                "kind": "number",
+                "display": "2.0",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "field_name",
+              "value": {
+                "kind": "error",
+                "display": "#VALUE!",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-fieldvalue-special.json",
+            "locator": "admit2-special-FIELDVALUE-0003",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/host_facts.rs",
+          "locator": "fieldvalue",
+          "note": "#FIELD! on non-linked values, field_name error precedence"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FIELDVALUE",
+          "note": "40/40 full-bank rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-FILTER-001",
       "functions": [
         "FUNC.CHOOSECOLS",
@@ -12809,6 +14284,116 @@
           "path": "crates/calc-func/src/ported/dynamic_array_reshape_family.rs",
           "locator": null,
           "note": "FILTER, DROP, CHOOSECOLS, and EXPAND error rules"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FILTERXML-001",
+      "functions": [
+        "FUNC.FILTERXML"
+      ],
+      "kind": "quirk",
+      "title": "FILTERXML strips default XML namespaces, joins direct text children, parses each node via cell-entry rules, and rejects non-nodesets or empty nodes with #VALUE!",
+      "statement": "In Excel 16.0.20527, FILTERXML(xml, xpath) returns #VALUE! on malformed XML, invalid XPath, non-nodeset results (count(), string(), //b=1), empty nodesets, non-element/non-attribute nodes (text(), comment(), /), or any matched node whose text is empty. For matched elements it strips default xmlns attributes so unprefixed names match, requires declared prefixes for prefixed names, joins direct text children skipping whitespace-only nodes (<b>x<c>y</c>z</b> -> \"xz\"), and parses each node value as a cell entry (truncating numbers beyond 15 significant digits, converting TRUE/FALSE, dates, percentages, and fractions, while leaving \"#N/A\" as text), spilling multi-node results as a column. Matches 4,184/4,184 full-bank FILTERXML rows.",
+      "status": "measured",
+      "basis": "Measured across all 4,184 full-bank FILTERXML rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-filterxml-*.json) and 96 FILTERXML rows in Excel 16.0.20527.20088 (dcuar_text rows 1209-1304).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=@FILTERXML(\"<a>3.14159265358979323</a>\",\"//a\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3.14159265358979",
+            "bits": "0x400921fb54442d11"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+            "locator": "sheet dcuar_text row 1287 column 4",
+            "note": "15-digit cell-entry truncation to 3.14159265358979"
+          }
+        },
+        {
+          "call": "=@FILTERXML(\"<a><b>x<c>y</c>z</b></a>\",\"//b\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "xz",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+            "locator": "sheet dcuar_text row 1236 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=@FILTERXML(\"<a xmlns=\\\"urn:x\\\"><b>1</b></a>\",\"//b\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+            "locator": "sheet dcuar_text row 1239 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=@FILTERXML(\"<a><b>#N/A</b></a>\",\"//b\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "#N/A",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_text.capture.json",
+            "locator": "sheet dcuar_text row 1233 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/text_format.rs",
+          "locator": "filterxml; filterxml_value",
+          "note": "XML/XPath evaluation and 15-digit cell-entry coercion"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FILTERXML",
+          "note": "4,184/4,184 full-bank rows matched"
         }
       ],
       "open": [],
@@ -13178,6 +14763,181 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-FLATTEN-001",
+      "functions": [
+        "FUNC.FLATTEN",
+        "FUNC.HAS",
+        "FUNC.HASALL",
+        "FUNC.HASANY"
+      ],
+      "kind": "quirk",
+      "title": "FLATTEN, HAS, HASALL, and HASANY return #NAME? on every call in Compatibility Version 2 workbooks on Excel 16.0.20527",
+      "statement": "In Excel 16.0.20527 Current Channel under Workbook Compatibility Version 2, the Insider Beta Lists-in-Cells functions FLATTEN, HAS, HASALL, and HASANY are unavailable as worksheet names and return #NAME? for every call (1,600/1,600 FLATTEN, 2,839/2,839 HAS, 4,182/4,182 HASALL, and 2,856/2,856 HASANY full-bank rows match). Compatibility Version 3 Lists-in-Cells semantics remain uncaptured and deferred under dc-nk93.",
+      "status": "measured",
+      "basis": "Measured across all 11,477 Compatibility Version 2 full-bank rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-{flatten,has,hasall,hasany}-*.json).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "FLATTEN({7.294527866664246,-5.053088483677333;1.9075822840899838,3.5484133245053555})",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array",
+              "value": {
+                "kind": "array",
+                "display": "{7.294527866664246,-5.053088483677333;1.9075822840899838,3.5484133245053555}",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NAME?",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-flatten-spill.json",
+            "locator": "admit2-spill-FLATTEN-0000",
+            "note": null
+          }
+        },
+        {
+          "call": "HAS(0, 1e-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "value",
+              "value": {
+                "kind": "number",
+                "display": "1e-100",
+                "bits": "0x2b2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NAME?",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-has-scalar.json",
+            "locator": "admit2-scalar-HAS-0000",
+            "note": null
+          }
+        },
+        {
+          "call": "HASALL(0, 1e-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "values",
+              "value": {
+                "kind": "number",
+                "display": "1e-100",
+                "bits": "0x2b2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NAME?",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-hasall-scalar.json",
+            "locator": "admit2-scalar-HASALL-0000",
+            "note": null
+          }
+        },
+        {
+          "call": "HASANY(0, 1e-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "values",
+              "value": {
+                "kind": "number",
+                "display": "1e-100",
+                "bits": "0x2b2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NAME?",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-hasany-scalar.json",
+            "locator": "admit2-scalar-HASANY-0000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/call.rs",
+          "locator": "invoke (Availability::ListsInCellsBeta)",
+          "note": "#NAME? for compatibility_version < 3, deferred otherwise"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FLATTEN; HAS; HASALL; HASANY",
+          "note": "1,600 + 2,839 + 4,182 + 2,856 full-bank matches"
+        }
+      ],
+      "open": [
+        "Compatibility Version 3 Insider Beta list-cell semantics for FLATTEN, HAS, HASALL, and HASANY remain uncaptured under DnaCalc bead dc-nk93."
+      ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-FLOOR-001",
       "functions": [
         "FUNC.FLOOR"
@@ -13419,6 +15179,149 @@
       ],
       "open": [],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FORECAST-001",
+      "functions": [
+        "FUNC.FORECAST",
+        "FUNC.FORECAST.LINEAR"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "FORECAST and FORECAST.LINEAR use plain binary64 sample-mean OLS (not TREND's QR pipeline) and coerce scalar pairs",
+      "statement": "In Excel 16.0 builds 20131 and 20527, FORECAST(x, known_ys, known_xs) and FORECAST.LINEAR(x, known_ys, known_xs) validate singleton blank/error arguments in formula order, return #N/A on shape mismatch, coerce direct scalar known_ys/known_xs while skipping non-numeric elements in ranges/arrays, and compute a + b*x using plain binary64 sample means and centered sums (unlike TREND, which routes through LINEST's stored-PC64 Householder QR pipeline and gives different low bits), returning #DIV/0! when n == 0 or sum((x - mean_x)^2) == 0. Matches 2,984/2,984 full-bank and 70/70 pinned FORECAST rows, and 2,910/2,910 full-bank FORECAST.LINEAR rows.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20131 (70/70 pinned FORECAST rows in witnesses/FORECAST.json) and Excel 16.0.20527 (2,984 FORECAST and 2,910 FORECAST.LINEAR full-bank rows, prefix_metadata rows 89-90, and fn4_questions ql136-145).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=FORECAST(4,Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "5.0",
+            "bits": "0x4014000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 89 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "=FORECAST.LINEAR(4,Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "5.0",
+            "bits": "0x4014000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 90 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "FORECAST(0, {2;4.1;5.9;8.05}, {1;2;3;4})",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "known_ys",
+              "value": {
+                "kind": "array",
+                "display": "{2;4.1;5.9;8.05}",
+                "bits": null
+              }
+            },
+            {
+              "name": "known_xs",
+              "value": {
+                "kind": "array",
+                "display": "{1;2;3;4}",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.024999999999999467",
+            "bits": "0x3f99999999999900"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows, AMD Ryzen 7 4800H; bitness not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/FORECAST.json",
+            "locator": "oc8",
+            "note": null
+          }
+        },
+        {
+          "call": "=FORECAST.LINEAR(2,\"\",2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json",
+            "locator": "sheet ql137 row 20 column 10",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/regression_forecast_family.rs",
+          "locator": "forecast_pair_kernel",
+          "note": "direct binary64 OLS distinct from TREND's QR pipeline"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/statistics.rs",
+          "locator": "forecast; forecast_legacy; forecast_linear",
+          "note": "PairScalars::Coerce handling"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FORECAST; FORECAST.LINEAR",
+          "note": "2,984 + 2,910 full-bank and 70/70 pinned rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -13686,6 +15589,191 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-FREQUENCY-001",
+      "functions": [
+        "FUNC.FREQUENCY"
+      ],
+      "kind": "quirk",
+      "title": "FREQUENCY ignores non-numeric data (even direct scalars), ignores errors in bins_array, and falls back to {0} when no numeric bin exists",
+      "statement": "In Excel 16.0.20527, FREQUENCY(data_array, bins_array) ignores non-numeric values in data_array even when supplied as direct scalars (while propagating errors in data_array), ignores both non-numbers and errors in bins_array, supplies a single {0} bin when bins_array yields no numbers (e.g. FREQUENCY(data, \"2\") counts values <= 0 and > 0), and returns a (bins.len() + 1) x 1 column where repeated bins record their count in the first occurrence and 0 in later copies. Matches 1,520/1,520 full-bank FREQUENCY rows.",
+      "status": "measured",
+      "basis": "Measured across all 1,520 full-bank FREQUENCY rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-frequency-{spill,variants}.json) and prefix_metadata (row 91).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "FREQUENCY({-7.75936630023956,7.438362633724339;-6.690896811332554,0.10643380831854488}, \"2\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "data_array",
+              "value": {
+                "kind": "array",
+                "display": "{-7.75936630023956,7.438362633724339;-6.690896811332554,0.10643380831854488}",
+                "bits": null
+              }
+            },
+            {
+              "name": "bins_array",
+              "value": {
+                "kind": "text",
+                "display": "2",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-frequency-variants.json",
+            "locator": "bank2-variants-FREQUENCY-0006",
+            "note": "first cell of 2x1 spill; non-numeric \"2\" falls back to {0}"
+          }
+        },
+        {
+          "call": "=@FREQUENCY(Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 91 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/statistics.rs",
+          "locator": "frequency; frequency_counts",
+          "note": "data vs bins admission, {0} fallback, and first-copy bin tie rule"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "prob_and_frequency",
+          "note": "unsorted bins and non-numeric bins fallback checks"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FREQUENCY",
+          "note": "1,520/1,520 full-bank rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FTEST-001",
+      "functions": [
+        "FUNC.FTEST"
+      ],
+      "kind": "quirk",
+      "title": "FTEST shares F.TEST's larger-variance-first two-tailed ratio and singleton-validation order",
+      "statement": "In Excel 16.0.20527, FTEST(array1, array2) is the compatibility alias of F.TEST: it validates single-cell blank/error arguments in formula order, collects finite numbers from each array (ignoring text, logicals, and blanks in ranges), returns #DIV/0! when either sample has < 2 numbers or zero variance, orients the variance ratio larger-variance-first, and returns 2 * min(P(F > f), P(F <= f)) from one incomplete-beta call. Matches 2,849/2,849 full-bank FTEST rows.",
+      "status": "measured",
+      "basis": "Measured across all 2,849 full-bank FTEST rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-ftest-{scalar,more,special}.json) and prefix_metadata (row 92).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=FTEST(Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.4",
+            "bits": "0x3fd999999999999a"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 92 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "FTEST(0, 1e-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array1",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "array2",
+              "value": {
+                "kind": "number",
+                "display": "1e-100",
+                "bits": "0x2b2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-ftest-scalar.json",
+            "locator": "bank2-scalar-FTEST-0000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/distributions.rs",
+          "locator": "ftest",
+          "note": "validate_paired_singletons and f_test_kernel"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FTEST",
+          "note": "2,849/2,849 full-bank rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-FV-001",
       "functions": [
         "FUNC.FV"
@@ -13843,6 +15931,102 @@
       "open": [
         "2 remaining FV bank rows involving beginning-payment term production stay open under dc-dfl / DnaCalc financial work."
       ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FVSCHEDULE-001",
+      "functions": [
+        "FUNC.FVSCHEDULE"
+      ],
+      "kind": "quirk",
+      "title": "FVSCHEDULE rejects logical principals, coerces scalar or single-cell text schedules, and rejects text inside multi-cell schedules",
+      "statement": "In Excel 16.0.20527, FVSCHEDULE(principal, schedule) rejects a logical principal with #VALUE! (while coercing numeric text), coerces numeric text when schedule is a direct scalar or single-cell reference, treats blank cells in a range schedule as 0 while rejecting text or logicals inside a multi-cell range or array with #VALUE!, and multiplies principal * prod(1 + r_i) in binary64. Matches 2,857/2,857 full-bank FVSCHEDULE rows.",
+      "status": "measured",
+      "basis": "Measured across all 2,857 full-bank FVSCHEDULE rows in Excel 16.0.20527 (CalcFunc-Evidence bank2-answers-fvschedule-{scalar,more,special}.json), prefix_metadata (row 364), and f3_financial (row 6).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=FVSCHEDULE(1,{0.09,0.11,0.1})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.3308900000000004",
+            "bits": "0x3ff54b5350092cd1"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 364 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "FVSCHEDULE(2, -1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "principal",
+              "value": {
+                "kind": "number",
+                "display": "2.0",
+                "bits": "0x4000000000000000"
+              }
+            },
+            {
+              "name": "schedule",
+              "value": {
+                "kind": "number",
+                "display": "-1e+100",
+                "bits": "0xd4b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-2e+100",
+            "bits": "0xd4c249ad2594c37d"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-fvschedule-more.json",
+            "locator": "bank2-more-FVSCHEDULE-0003",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/financial.rs",
+          "locator": "fvschedule_fn; schedule",
+          "note": "logical principal rejection and single-cell vs multi-cell schedule coercion"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+          "locator": "fvschedule",
+          "note": "binary64 product loop"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FVSCHEDULE",
+          "note": "2,857/2,857 full-bank rows matched"
+        }
+      ],
+      "open": [],
       "recorded_on": "2026-11-22"
     },
     {
@@ -15755,6 +17939,85 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-GROWTH-001",
+      "functions": [
+        "FUNC.GROWTH"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "GROWTH evaluates exponential QR regression via stored x87 PC64 exp products and flushes subnormal forecasts to zero",
+      "statement": "In Excel 16.0 builds 20228 and 20527, GROWTH(known_y's, [known_x's], [new_x's], [const]) fits excel_log(y) through the LINEST stored-PC64 x87 Householder QR pipeline (#NUM! if any y <= 0), evaluates exp(intercept) * prod(exp(b_j * x_j)) with each exp and multiply stored through x87 PC64, and flushes subnormal forecasts to 0 (unlike LOGEST, which preserves subnormal entries in its coefficient row). Matches 1,260/1,260 full-bank and 126/126 pinned GROWTH rows.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20228 (1,260/1,260 full-bank and 126/126 pinned GROWTH rows in witnesses/GROWTH.json) and Excel 16.0.20527.20088 in dcj9k_regression (rows 510-655) and prefix_metadata (row 104).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=@GROWTH({55.5;237;111.628;21.2},{8.4;12.7;16.9;16.16},{8.9})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "86.1546398695622",
+            "bits": "0x405589e59e9f9b5a"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json",
+            "locator": "sheet dcj9k_regression row 510 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=@GROWTH({55.5;237;111.628;21.2},{8.4;12.7;16.9;16.16},{8.9},FALSE)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "14.217121942689372",
+            "bits": "0x402c6f2a9b76308f"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json",
+            "locator": "sheet dcj9k_regression row 512 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/regression_forecast_family.rs",
+          "locator": "exponential_prediction; growth_kernel",
+          "note": "stored x87 PC64 exp-product chain"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/statistics.rs",
+          "locator": "regression (RegressionNumbers::Forecast)",
+          "note": "subnormal forecast flush to 0"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "GROWTH",
+          "note": "1,260/1,260 full-bank and 126/126 pinned rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-HARMEAN-001",
       "functions": [
         "FUNC.HARMEAN"
@@ -16276,6 +18539,123 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-HYPERLINK-001",
+      "functions": [
+        "FUNC.HYPERLINK"
+      ],
+      "kind": "quirk",
+      "title": "HYPERLINK coerces link_location to text and returns friendly_name verbatim (or 0 for a blank cell) when supplied",
+      "statement": "In Excel 16.0.20527, HYPERLINK(link_location, [friendly_name]) coerces link_location to text and returns that text when friendly_name is omitted; when friendly_name is supplied, it returns friendly_name unchanged (preserving numbers, text, logicals, and errors, or 0 for an empty cell reference). Matches 3,612/3,612 full-bank HYPERLINK rows.",
+      "status": "measured",
+      "basis": "Measured across all 3,612 full-bank HYPERLINK rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-hyperlink-*.json), prefix_metadata (row 288), and f2_rows (row 179).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=HYPERLINK(\"https://example.com\",\"x\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "x",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 288 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "HYPERLINK(TRUE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "link_location",
+              "value": {
+                "kind": "logical",
+                "display": "TRUE",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-hyperlink-scalar.json",
+            "locator": "admit2-scalar-HYPERLINK-0002",
+            "note": null
+          }
+        },
+        {
+          "call": "HYPERLINK(\"hello\", -1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "link_location",
+              "value": {
+                "kind": "text",
+                "display": "hello",
+                "bits": null
+              }
+            },
+            {
+              "name": "friendly_name",
+              "value": {
+                "kind": "number",
+                "display": "-1e-100",
+                "bits": "0xab2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-1e-100",
+            "bits": "0xab2bff2ee48e0530"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/admit2-answers-hyperlink-scalar.json",
+            "locator": "admit2-scalar-HYPERLINK-0001",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/catalogue/text_format.rs",
+          "locator": "hyperlink",
+          "note": "link_location text coercion and friendly_name passthrough"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "HYPERLINK",
+          "note": "3,612/3,612 full-bank rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-HYPGEOM.DIST-001",
       "functions": [
         "FUNC.HYPGEOM.DIST"
@@ -16552,6 +18932,125 @@
         "Whether every out-of-support and zero-count combination follows the same rule in other builds."
       ],
       "recorded_on": "2026-11-06"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-HYPGEOMDIST-001",
+      "functions": [
+        "FUNC.HYPGEOMDIST"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "HYPGEOMDIST uses asymmetric binomial-mass ratios and misses exact 224/495 by 2 ULP on HYPGEOMDIST(1, 4, 4, 12)",
+      "statement": "In Excel 16.0 builds 20131 and 20527, HYPGEOMDIST(sample_s, number_sample, population_s, number_pop) evaluates the 4-argument PMF via asymmetric binomial-mass ratios b(s; k, n/N) * b(n-s; N-k, n/N) / b(n; N, n/N) with stored x87 division and multiplication rather than exact rational factorials. On HYPGEOMDIST(1, 4, 4, 12), Excel build 20131 returns 0.45252525252525244 (0x3fdcf62c7a0d724a), 2 ULP below the correctly rounded binary64 representation of 224/495 (0x3fdcf62c7a0d724c). Matches 2,950/2,954 full-bank and 2/3 pinned rows, with 3 last-bit and 1 numeric (worst 28 ULP) discrepancy still open.",
+      "status": "measured",
+      "basis": "Measured across Excel 16.0 build 20131 (2/3 pinned rows in witnesses/HYPGEOMDIST.json), Excel 16.0.20527 (2,950/2,954 full-bank rows, prefix_metadata row 110), and fable52-last-bit.md.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "HYPGEOMDIST(1, 4, 4, 12)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "sample_s",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "number_sample",
+              "value": {
+                "kind": "number",
+                "display": "4.0",
+                "bits": "0x4010000000000000"
+              }
+            },
+            {
+              "name": "population_s",
+              "value": {
+                "kind": "number",
+                "display": "4.0",
+                "bits": "0x4010000000000000"
+              }
+            },
+            {
+              "name": "number_pop",
+              "value": {
+                "kind": "number",
+                "display": "12.0",
+                "bits": "0x4028000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.45252525252525244",
+            "bits": "0x3fdcf62c7a0d724a"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "0.45252525252525255",
+            "bits": "0x3fdcf62c7a0d724c",
+            "how": "Exact rational C(4,1)*C(8,3)/C(12,4) = 224/495 rounded to nearest IEEE-754 binary64"
+          },
+          "recorded_in": "Excel 16.0 build 20131, Windows, AMD Ryzen 7 4800H; bitness not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/witnesses/HYPGEOMDIST.json",
+            "locator": "oc1",
+            "note": null
+          }
+        },
+        {
+          "call": "=HYPGEOMDIST(1,4,8,20)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.3632610939112486",
+            "bits": "0x3fd73fab75908308"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 110 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/ported/discrete_dist.rs",
+          "locator": "hypergeom_mass",
+          "note": "asymmetric binomial-mass ratio formulation"
+        },
+        {
+          "repository": "DnaCalc-Research",
+          "commit": "63456e2d6e8f99ed5a060898df5cfae3c6c54a64",
+          "path": "design/fable52-last-bit.md",
+          "locator": "Section 6",
+          "note": "300/300 HYPGEOMDIST = HYPGEOM.DIST(..., FALSE) equivalence and asymmetry probes"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "HYPGEOMDIST",
+          "note": "2,950/2,954 full-bank (3 last_bit, 1 numeric) and 2/3 pinned matches"
+        }
+      ],
+      "open": [
+        "3 last-bit and 1 numeric HYPGEOMDIST full-bank discrepancies (worst 28 ULP) and 1 pinned row (oc1, 3 ULP) remain open in DnaCalc."
+      ],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -18702,6 +21201,105 @@
           "path": "crates/calc-func/witness-status.tsv",
           "locator": "IMLOG2",
           "note": "1,209/1,209 full-bank and 1,397/1,397 pinned matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMPORTCSV-001",
+      "functions": [
+        "FUNC.IMPORTCSV",
+        "FUNC.IMPORTTEXT"
+      ],
+      "kind": "quirk",
+      "title": "IMPORTCSV and IMPORTTEXT spill parsed 2-D arrays, return #CALC! on empty results, and preflight scalar argument errors in order",
+      "statement": "In Excel 16.0.20527, IMPORTCSV(path, [skip_rows], [take_rows], [text_only], [locale]) and IMPORTTEXT(path, [delimiter], [skip_rows], [take_rows], [encoding], [text_only], [locale]) preflight scalar errors and numeric option types in argument order before validating paths (#VALUE! on relative paths, folders, or unreadable files; #CALC! on empty files or zero rows remaining after negative/positive skip_rows and take_rows). IMPORTTEXT accepts multi-character delimiters (default tab), ascending fixed-width arrays ({1,3}), and Windows code-page numbers overridden by BOM, and both convert fields under the locale number-text grammar unless text_only is TRUE. Matches 3,021/3,021 IMPORTCSV and 3,149/3,149 IMPORTTEXT full-bank rows, plus 228 fixture cases.",
+      "status": "measured",
+      "basis": "Measured across all 3,021 IMPORTCSV and 3,149 IMPORTTEXT full-bank rows in Excel 16.0.20527 (CalcFunc-Evidence admit2-answers-{importcsv,importtext}-*.json) and 228 live Excel 16.0.20527 file-import cases in crates/calc-func/tests/fixtures/import/excel-answers.json.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IMPORTCSV(\"C:\\data\\basic.csv\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{\"a\",\"b\",\"c\";1,2,3;4,5,6}",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/fixtures/import/excel-answers.json",
+            "locator": "i1.1",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMPORTCSV(\"C:\\data\\empty.csv\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#CALC!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/fixtures/import/excel-answers.json",
+            "locator": "i1.13",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMPORTTEXT(\"C:\\data\\fixed.txt\",{1,3})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "array",
+            "display": "{\"bc\",\"def\";23,456;\"yz\",\"uvw\"}",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527, Windows 64-bit; CPU not recorded",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+            "path": "crates/calc-func/tests/fixtures/import/excel-answers.json",
+            "locator": "i1.29",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/src/import.rs",
+          "locator": "scalar_preflight",
+          "note": "argument preflight, delimiter/fixed-width slicing, and locale conversion"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/tests/import_excel.rs",
+          "locator": "excel-answers.json",
+          "note": "228 recorded IMPORTCSV/IMPORTTEXT file-import cases"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "39c98c7193e40b5e69677c6bcab6c6b9a6634922",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMPORTCSV; IMPORTTEXT",
+          "note": "3,021 + 3,149 full-bank matches"
         }
       ],
       "open": [],
