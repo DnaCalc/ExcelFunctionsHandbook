@@ -1,0 +1,142 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ECMA.CEILING-001",
+  "functions": [
+    "FUNC.ECMA.CEILING"
+  ],
+  "kind": "quirk",
+  "title": "ECMA.CEILING follows CEILING's sign and zero rules, returning #NUM! for positive number and negative significance",
+  "statement": "In Excel 16.0 build 20527, ECMA.CEILING(number, significance) uses CEILING's sign and zero rules rather than CEILING.PRECISE's: it returns 0 when number = 0 or significance = 0, returns #NUM! when number > 0 and significance < 0, and rounds negative numbers up toward zero when significance > 0 (using the same 15-significant-digit quotient rounding as CEILING). All 2,773 full-bank ECMA.CEILING rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-ecma.ceiling-scalar.json and bank2-answers-ecma.ceiling-more.json (Excel 16.0 build 20527); 2,773/2,773 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ECMA.CEILING(100, -1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "-1e-100",
+            "bits": "0xab2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-ecma.ceiling-more.json",
+        "locator": "bank2-more-ECMA.CEILING-0001",
+        "note": null
+      }
+    },
+    {
+      "call": "ECMA.CEILING(0, -1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "-1e-100",
+            "bits": "0xab2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-ecma.ceiling-scalar.json",
+        "locator": "bank2-scalar-ECMA.CEILING-0001",
+        "note": null
+      }
+    },
+    {
+      "call": "ECMA.CEILING(-2, 0.9999999999999999)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-2.0",
+            "bits": "0xc000000000000000"
+          }
+        },
+        {
+          "name": "significance",
+          "value": {
+            "kind": "number",
+            "display": "0.9999999999999999",
+            "bits": "0x3fefffffffffffff"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1.9999999999999998",
+        "bits": "0xbfffffffffffffff"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-ecma.ceiling-scalar.json",
+        "locator": "bank2-scalar-ECMA.CEILING-0004",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/rounding.rs",
+      "locator": "ecma_ceiling; ceiling_for",
+      "note": "ECMA.CEILING wired to CEILING sign/zero rules"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ECMA.CEILING",
+      "note": "2,773/2,773 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

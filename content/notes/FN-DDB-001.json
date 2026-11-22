@@ -1,0 +1,113 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DDB-001",
+  "functions": [
+    "FUNC.DDB"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "DDB flushes subnormal factor/life before multiplying by cost and uses a u32::MAX integer-power threshold",
+  "statement": "In Excel 16.0 build 20430, DDB(cost, salvage, life, period, [factor]) evaluates rate = RN53(RN64(factor / life)) and flushes a subnormal rate to 0 before multiplying by cost, evaluates (1 - rate)^(period - 1) via an x87-stored binary-squaring loop when period - 1 is an integer below u32::MAX (and via excel_pow_positive at or above u32::MAX), and checks declining-amount overflow before clipping to salvage. All 1,761 full-bank DDB rows match.",
+  "status": "inferred",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-depreciation-20260929/answers-ddb.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (f3_financial row 9); 1,761/1,761 full-bank rows match.",
+  "inferred": "That the internal u32::MAX boundary and x87-stored staging apply identically across arbitrary untested extreme-period inputs beyond the 1,761 full-bank rows is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DDB(1000, 100, 1.5, 1.1, 0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "cost",
+          "value": {
+            "kind": "number",
+            "display": "1000.0",
+            "bits": "0x408f400000000000"
+          }
+        },
+        {
+          "name": "salvage",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "life",
+          "value": {
+            "kind": "number",
+            "display": "1.5",
+            "bits": "0x3ff8000000000000"
+          }
+        },
+        {
+          "name": "period",
+          "value": {
+            "kind": "number",
+            "display": "1.1",
+            "bits": "0x3ff199999999999a"
+          }
+        },
+        {
+          "name": "factor",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "320.08816693073936",
+        "bits": "0x4074016921ba41d4"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-depreciation-20260929/answers-ddb.json.gz",
+        "locator": "w111dep-DDB-00221",
+        "note": null
+      }
+    },
+    {
+      "call": "=DDB(2400,300,10,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "384.0",
+        "bits": "0x4078000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_financial.capture.json",
+        "locator": "sheet f3_financial row 9 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/depreciation_family.rs",
+      "locator": "ddb_kernel; ddb_period_depreciation",
+      "note": "rate flush, u32::MAX loop threshold, and pre-clip overflow"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DDB",
+      "note": "1,761/1,761 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DEGREES-001",
+  "functions": [
+    "FUNC.DEGREES"
+  ],
+  "kind": "quirk",
+  "title": "DEGREES flushes subnormals such as 5e-324 to 0 and rejects overflow (e.g. DBL_MAX) with #NUM!",
+  "statement": "In Excel 16.0 build 20430, DEGREES(angle) multiplies angle by 180 / pi, returning #NUM! when the product overflows binary64 (e.g. DEGREES(DBL_MAX) = #NUM!) and flushing subnormal arguments/results such as +/-5e-324 to +0. All 1,227 full-bank DEGREES rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-broad-20260929/answers/answers-degrees.json.gz (Excel 16.0 build 20430) and matched on 1,227/1,227 full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DEGREES(5e-324)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "angle",
+          "value": {
+            "kind": "number",
+            "display": "5e-324",
+            "bits": "0x0000000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-broad-20260929/answers/answers-degrees.json.gz",
+        "locator": "w111broad-20260929-DEGREES-00002",
+        "note": null
+      }
+    },
+    {
+      "call": "DEGREES(1.7976931348623157e+308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "angle",
+          "value": {
+            "kind": "number",
+            "display": "1.7976931348623157e+308",
+            "bits": "0x7fefffffffffffff"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-broad-20260929/answers/answers-degrees.json.gz",
+        "locator": "w111broad-20260929-DEGREES-00025",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/degrees.rs",
+      "locator": "degrees_kernel",
+      "note": "angle * (180/pi) with FINITE overflow -> #NUM!"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DEGREES",
+      "note": "1,227/1,227 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

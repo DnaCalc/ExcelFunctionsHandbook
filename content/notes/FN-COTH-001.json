@@ -1,0 +1,120 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COTH-001",
+  "functions": [
+    "FUNC.COTH"
+  ],
+  "kind": "quirk",
+  "title": "COTH returns #DIV/0! at 0, evaluates RN53(RN64(1/TANH(x))), and saturates large |x| to +/-1",
+  "statement": "In Excel 16.0 build 20430, COTH(x) returns #DIV/0! at x = 0, computes the stored x87 reciprocal 1 / TANH(x) over the published TANH composition, and saturates large |x| (where TANH(x) reaches +/-1, including |x| = 1e15) to sign(x) (+/-1) without rejecting large circular arguments. Of 40,241 full-bank COTH rows, 40,238 match and 3 differ by at most 2 ULP.",
+  "status": "measured",
+  "basis": "Measured across CalcFunc-Evidence runs/w111-extended-numeric-20260929/answers/answers-coth.json.gz and runs/w111-integer-hyperbolic-heldout-20260929/answers/answers-coth.json.gz (Excel 16.0 build 20430); 40,238/40,241 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "COTH(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-coth.json.gz",
+        "locator": "w111extended-2026092903-COTH-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "COTH(1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.3130352854993315",
+        "bits": "0x3ff50231499b6b1e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-coth.json.gz",
+        "locator": "w111extended-2026092903-COTH-00009",
+        "note": null
+      }
+    },
+    {
+      "call": "COTH(-1000000000000000)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-1000000000000000.0",
+            "bits": "0xc30c6bf526340000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1.0",
+        "bits": "0xbff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-coth.json.gz",
+        "locator": "w111extended-2026092903-COTH-00016",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/coth.rs",
+      "locator": "coth_kernel",
+      "note": "1/TANH(x) with +/-1 saturation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COTH",
+      "note": "40,238/40,241 full-bank matches; 3 last_bit <= 2 ULP"
+    }
+  ],
+  "open": [
+    "3 full-bank COTH rows remain 1-2 ULP off via the underlying TANH composition."
+  ],
+  "recorded_on": "2026-11-22"
+}

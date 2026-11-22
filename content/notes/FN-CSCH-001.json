@@ -1,0 +1,120 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CSCH-001",
+  "functions": [
+    "FUNC.CSCH"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "CSCH evaluates RN53(RN64(1/SINH(x))), flushing subnormal quotients to 0 and returning #DIV/0! at 0",
+  "statement": "In Excel 16.0 build 20430, CSCH(x) returns #DIV/0! at x = 0, takes the stored x87 reciprocal RN53(RN64(1 / SINH(x))) over the SINH kernel, and flushes subnormal outputs (including |x| above ln(DBL_MAX) where SINH(x) overflows to infinity) to +0. Of 33,306 full-bank CSCH rows, 33,305 match and 1 differs by 1 ULP.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-extended-numeric-20260929/answers/answers-csch.json.gz and runs/w111-integer-hyperbolic-heldout-20260929/answers/answers-csch.json.gz (Excel 16.0 build 20430); 33,305/33,306 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "CSCH(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-csch.json.gz",
+        "locator": "w111extended-2026092903-CSCH-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "CSCH(0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.9190347513349437",
+        "bits": "0x3ffeb45dc88defed"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-csch.json.gz",
+        "locator": "w111extended-2026092903-CSCH-00007",
+        "note": null
+      }
+    },
+    {
+      "call": "CSCH(709.7827128933958)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "709.7827128933958",
+            "bits": "0x40862e42fefa3a57"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-integer-hyperbolic-heldout-20260929/answers/answers-csch.json.gz",
+        "locator": "w111inthyp-heldout-CSCH-005291",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/csch.rs",
+      "locator": "csch_kernel",
+      "note": "1/SINH(x) with subnormal flush to 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CSCH",
+      "note": "33,305/33,306 full-bank matches; 1 last_bit (1 ULP)"
+    }
+  ],
+  "open": [
+    "1 full-bank CSCH row remains 1 ULP off via SINH."
+  ],
+  "recorded_on": "2026-11-22"
+}

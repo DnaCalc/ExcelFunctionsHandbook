@@ -1,0 +1,113 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DB-001",
+  "functions": [
+    "FUNC.DB"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "DB keeps life fractional while truncating period/month, rounds rate via decimal ROUND, and flushes subnormal steps",
+  "statement": "In Excel 16.0 build 20430, DB(cost, salvage, life, period, [month]) truncates period and month toward zero while leaving life fractional (so DB(1000, 100, 0.5, 0.25, 1) computes rate = 1 - (100/1000)^(1/0.5) = 0.99 and returns 82.5). The depreciation rate is rounded to 3 decimal places using Excel's 15-significant-digit decimal ROUND rule, integer-power exponents below u32::MAX use an x87 loop, an overflowing exp/log rate power yielding NaN produces rate 0, and each period's depreciation is flushed from subnormals to 0 before updating book value. All 2,034 full-bank DB rows match.",
+  "status": "measured",
+  "basis": "Measured across CalcFunc-Evidence cache/w111-depreciation-20260929/answers-db.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (f3_financial row 7); 2,034/2,034 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DB(1000, 100, 0.5, 0.25, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "cost",
+          "value": {
+            "kind": "number",
+            "display": "1000.0",
+            "bits": "0x408f400000000000"
+          }
+        },
+        {
+          "name": "salvage",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "life",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        },
+        {
+          "name": "period",
+          "value": {
+            "kind": "number",
+            "display": "0.25",
+            "bits": "0x3fd0000000000000"
+          }
+        },
+        {
+          "name": "month",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "82.5",
+        "bits": "0x4054a00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-depreciation-20260929/answers-db.json.gz",
+        "locator": "w111dep-DB-00114",
+        "note": null
+      }
+    },
+    {
+      "call": "=DB(1000000,100000,6,7,7)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "15845.098473848073",
+        "bits": "0x40cef28c9aca827e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_financial.capture.json",
+        "locator": "sheet f3_financial row 7 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/depreciation_family.rs",
+      "locator": "db_kernel; db_rate",
+      "note": "fractional life, decimal ROUND(rate,3), and book recurrence"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DB",
+      "note": "2,034/2,034 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

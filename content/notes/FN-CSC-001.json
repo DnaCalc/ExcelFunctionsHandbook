@@ -1,0 +1,118 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CSC-001",
+  "functions": [
+    "FUNC.CSC"
+  ],
+  "kind": "quirk",
+  "title": "CSC computes RN53(RN64(1/SIN(x))), returning #DIV/0! at 0 and #NUM! for |x| >= 2^27",
+  "statement": "In Excel 16.0 builds 20131 and 20430, CSC(x) applies the circular-trig domain limit (rejecting |x| >= 2^27 = 134,217,728 with #NUM!), returns #DIV/0! where SIN(x) = 0, and otherwise returns the stored x87 reciprocal RN53(RN64(1 / SIN(x))). All 2,136 full-bank CSC rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-extended-numeric-20260929/answers/answers-csc.json.gz (Excel 16.0 build 20430) and matched on 2,136/2,136 full-bank CSC rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "CSC(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-csc.json.gz",
+        "locator": "w111extended-2026092903-CSC-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "CSC(0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.085829642933488",
+        "bits": "0x4000afc773ab69dc"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-csc.json.gz",
+        "locator": "w111extended-2026092903-CSC-00007",
+        "note": null
+      }
+    },
+    {
+      "call": "CSC(1000000000000000)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1000000000000000.0",
+            "bits": "0x430c6bf526340000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-csc.json.gz",
+        "locator": "w111extended-2026092903-CSC-00015",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/csc.rs",
+      "locator": "csc_kernel",
+      "note": "CIRCULAR_TRIG guard and x87 1/SIN(x)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CSC",
+      "note": "2,136/2,136 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

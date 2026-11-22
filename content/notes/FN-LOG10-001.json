@@ -1,0 +1,90 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LOG10-001",
+  "functions": [
+    "FUNC.LOG10"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "LOG10 executes x87 FLDLG2 + FYL2X directly, differing from LOG(x, 10)",
+  "statement": "In Excel 16.0 build 20430, LOG10(x) rejects x <= 0 with #NUM! and executes the x87 FLDLG2 + FYL2X fused logarithm stored to binary64. Unlike LOG(x, 10) (which divides two x87 LN calls), LOG10 returns exact 3 on 1000 and -1 on 0.1, and differs by 1 ULP on general inputs such as 8.501181837508149e-308 (LOG10 gives 0xc0733120da4ebbc1 vs LOG(x, 10) = 0xc0733120da4ebbc0). All 2,823 full-bank LOG10 rows match.",
+  "status": "measured",
+  "basis": "Measured across CalcFunc-Evidence runs/w111-log-omitted-base-20260929/answers-log10.json.gz and runs/w111-elementary-prepared-heldout-20260929/answers-log10.json.gz (Excel 16.0 build 20430); 2,823/2,823 full-bank LOG10 rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "LOG10(1000)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1000.0",
+            "bits": "0x408f400000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-log-omitted-base-20260929/answers-log10.json.gz",
+        "locator": "w111logomission-LOG10-00297-omitted",
+        "note": null
+      }
+    },
+    {
+      "call": "LOG10(8.501181837508149e-308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "8.501181837508149e-308",
+            "bits": "0x002e90a5f78b7174"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-307.0705206943058",
+        "bits": "0xc0733120da4ebbc1"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-elementary-prepared-heldout-20260929/answers-log10.json.gz",
+        "locator": "w111logomissionheldout-LOG10-00077-omitted",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/log10_fn.rs",
+      "locator": "log10_kernel",
+      "note": "x87 FLDLG2 + FYL2X"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "LOG10",
+      "note": "2,823/2,823 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

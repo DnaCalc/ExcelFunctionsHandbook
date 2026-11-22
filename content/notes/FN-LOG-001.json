@@ -1,0 +1,144 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LOG-001",
+  "functions": [
+    "FUNC.LOG"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "LOG(number, base) always divides RN53(RN64(LN(number) / LN(base))), even for base 10",
+  "statement": "In Excel 16.0 builds 20131 and 20430, omitting base (LOG(number)) routes to LOG10 and returns exact integers on powers of 10 (LOG(1000) = 3, LOG(0.1) = -1), whereas passing an explicit base (including base = 10 or 2) evaluates the staged x87 quotient RN53(RN64(LN(number) / LN(base))). Consequently, LOG(1000, 10) returns 2.9999999999999996 (0x4007ffffffffffff) and LOG(0.1, 10) returns -0.9999999999999998 (0xbfeffffffffffffe). LOG(1, base < 1) publishes +0, and base = 1 returns #DIV/0!. All 25,233 full-bank LOG rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-log-omitted-base-20260929/answers-log.json.gz (Excel 16.0 build 20430) and matched on 25,233/25,233 full-bank LOG rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "LOG(1000, 10)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1000.0",
+            "bits": "0x408f400000000000"
+          }
+        },
+        {
+          "name": "base",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.9999999999999996",
+        "bits": "0x4007ffffffffffff"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000",
+        "how": "Exact base-10 logarithm of 1000 is 3."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-log-omitted-base-20260929/answers-log.json.gz",
+        "locator": "w111logomission-LOG-00297-explicit",
+        "note": null
+      }
+    },
+    {
+      "call": "LOG(0.1, 10)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.1",
+            "bits": "0x3fb999999999999a"
+          }
+        },
+        {
+          "name": "base",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-0.9999999999999998",
+        "bits": "0xbfeffffffffffffe"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-1.0",
+        "bits": "0xbff0000000000000",
+        "how": "Exact base-10 logarithm of 0.1 is -1 (0.1 in binary64 differs from 1/10 by 5.55e-18, giving log10(binary64(0.1)) = -1 + 2.41e-17, which rounds to -1.0 in binary64)."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-log-omitted-base-20260929/answers-log.json.gz",
+        "locator": "w111logomission-LOG-00280-explicit",
+        "note": null
+      }
+    },
+    {
+      "call": "LOG(1000)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1000.0",
+            "bits": "0x408f400000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-log-omitted-base-20260929/answers-log.json.gz",
+        "locator": "w111logomission-LOG-00297-omitted",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/log_fn.rs",
+      "locator": "log_kernel",
+      "note": "staged x87 LN(number)/LN(base) for explicit base vs LOG10 when base omitted"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "LOG",
+      "note": "25,233/25,233 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

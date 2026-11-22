@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DAYS360-001",
+  "functions": [
+    "FUNC.DAYS360"
+  ],
+  "kind": "quirk",
+  "title": "DAYS360 treats serial 60 as 1900-02-29 and differs by 1 day on leap-Feb-29 to non-leap-Feb-28",
+  "statement": "In the 1900 date system, DAYS360(start_date, end_date, [method]) maps serial 60 to the fictitious 1900-02-29 and truncates fractional serials. On 2024-02-29 (serial 45351) to 2025-02-28 (serial 45716), Excel 16.0.20527.20088 returns 358 under the US/NASD method (FALSE/omitted) and 359 under the European method (TRUE), because US/NASD adjusts start day 29 to 30 while leaving non-leap end day 28 unadjusted when both dates are end-of-February. All 4,564 full-bank DAYS360 rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (f2_rows rows 131-132) and Excel 16.0 build 20430 (CalcFunc-Evidence cache/oracle-20430/build-20430/DAYS360.jsonl.gz); 4,564/4,564 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=DAYS360(45351,45716)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "358.0",
+        "bits": "0x4076600000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 131 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=DAYS360(45351,45716,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "359.0",
+        "bits": "0x4076700000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 132 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "DAYS360(60, 27060.5, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "60.0",
+            "bits": "0x404e000000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "27060.5",
+            "bits": "0x40da6d2000000000"
+          }
+        },
+        {
+          "name": "method",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "26611.0",
+        "bits": "0x40d9fcc000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/oracle-20430/build-20430/DAYS360.jsonl.gz",
+        "locator": "DAYS360|0x404e000000000000|0x40da6d2000000000|0x3ff0000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/date_kernels.rs",
+      "locator": "days360",
+      "note": "DAYS360 US/European rules and 1900-02-29"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DAYS360",
+      "note": "4,564/4,564 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,78 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-HARMEAN-001",
+  "functions": [
+    "FUNC.HARMEAN"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "HARMEAN stores each x87 reciprocal, running reciprocal sum, count quotient, and final reciprocal",
+  "statement": "In Excel 16.0 build 20430, HARMEAN rejects any input <= 0 with #NUM!, accumulates reciprocal_sum via stored x87 RN53(RN64(1 / v)) and RN53(RN64(sum + recip)), rejects nonfinite reciprocal sums with #NUM!, divides by n in stored x87, and takes the stored x87 reciprocal of that average. All 19,214 full-bank HARMEAN rows match.",
+  "status": "inferred",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-aggregate-rounding-discovery-20260929/answers-harmean.json.gz (Excel 16.0 build 20430) and matched on 19,214/19,214 full-bank HARMEAN rows.",
+  "inferred": "That every arbitrary-length input list follows the same four stored x87 boundaries beyond the 19,214 bank rows is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "HARMEAN(1.456121420580581e+151, 1.1242175481077282e+151, 1.948993480521979e+151)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "1.456121420580581e+151",
+            "bits": "0x5f51cb1e6ea955de"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1.1242175481077282e+151",
+            "bits": "0x5f4b79ad8f06f23f"
+          }
+        },
+        {
+          "name": "number3",
+          "value": {
+            "kind": "number",
+            "display": "1.948993480521979e+151",
+            "bits": "0x5f57d0f2c28eb540"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.435854068307371e+151",
+        "bits": "0x5f518bb7a9b5562e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-aggregate-rounding-discovery-20260929/answers-harmean.json.gz",
+        "locator": "w111agg-discovery-HARMEAN-00041",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "harmean",
+      "note": "stored x87 reciprocals, sum, quotient, and final reciprocal"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "HARMEAN",
+      "note": "19,214/19,214 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

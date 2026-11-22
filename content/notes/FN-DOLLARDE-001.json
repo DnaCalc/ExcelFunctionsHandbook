@@ -1,0 +1,107 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DOLLARDE-001",
+  "functions": [
+    "FUNC.DOLLARDE",
+    "FUNC.DOLLARFR"
+  ],
+  "kind": "quirk",
+  "title": "DOLLARDE and DOLLARFR scale by 10^ceil(log10(d)) and keep truncated fraction as binary64",
+  "statement": "In Excel 16.0 build 20430, DOLLARDE and DOLLARFR truncate fraction toward zero as binary64 (avoiding 32-bit integer saturation, so DOLLARDE(1.5, 1e10) returns 1.5), reject negative fraction with #NUM! and truncated 0 with #DIV/0!, and scale the fractional part using 10^ceil(log10(d)) rather than 10^(digit count). Consequently, any power-of-10 denominator (1, 10, 100, 1e10) equals its scale and leaves the input number unchanged. All 4,847 DOLLARDE and 3,641 DOLLARFR full-bank rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-5-20260924/answers/answers-w1115-dollarde.json.gz and cache/oracle-20430/build-20430/DOLLARFR.jsonl.gz (Excel 16.0 build 20430); 4,847/4,847 DOLLARDE and 3,641/3,641 DOLLARFR full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DOLLARDE(1.5, 10000000000)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "fractional_dollar",
+          "value": {
+            "kind": "number",
+            "display": "1.5",
+            "bits": "0x3ff8000000000000"
+          }
+        },
+        {
+          "name": "fraction",
+          "value": {
+            "kind": "number",
+            "display": "10000000000.0",
+            "bits": "0x4202a05f20000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.5",
+        "bits": "0x3ff8000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-5-20260924/answers/answers-w1115-dollarde.json.gz",
+        "locator": "w1115-DOLLARDE-01205",
+        "note": null
+      }
+    },
+    {
+      "call": "DOLLARFR(321.7284820001346, 100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "decimal_dollar",
+          "value": {
+            "kind": "number",
+            "display": "321.7284820001346",
+            "bits": "0x40741ba7dcbde4d8"
+          }
+        },
+        {
+          "name": "fraction",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "321.7284820001346",
+        "bits": "0x40741ba7dcbde4d8"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/oracle-20430/build-20430/DOLLARFR.jsonl.gz",
+        "locator": "DOLLARFR|0x40741ba7dcbde4d8|0x4059000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/dollar_fraction_family.rs",
+      "locator": "dollarde_kernel; dollarfr_kernel; decimal_scale",
+      "note": "10^ceil(log10(d)) scaling and binary64 truncation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DOLLARDE; DOLLARFR",
+      "note": "4,847/4,847 DOLLARDE and 3,641/3,641 DOLLARFR full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

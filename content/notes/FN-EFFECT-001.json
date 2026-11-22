@@ -1,0 +1,106 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-EFFECT-001",
+  "functions": [
+    "FUNC.EFFECT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "EFFECT switches from x87-spilled binary squaring to the raw x87 power chain at truncated npery = 2^32 - 1",
+  "statement": "In Excel 16.0 builds 20228 and 20430, EFFECT(nominal_rate, npery) truncates npery toward zero, forms base = RN53(RN64(1 + RN53(RN64(nominal_rate / npery)))), and branches at truncated npery < u32::MAX (4,294,967,295): below u32::MAX it uses LSB-first binary exponentiation with every multiply and squaring double-rounded on x87, whereas at and above 4,294,967,295 it switches to the stored-base raw x87 LN/product/EXP power chain before subtracting 1 in x87. All 2,584 full-bank EFFECT rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence work/w109/G6-solvers/answers-effect-huge-domain-scratch.json.gz (Excel 16.0 build 20228) and runs/w111-extended-numeric-20260929/answers/answers-effect.json.gz (Excel 16.0 build 20430); 2,584/2,584 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "EFFECT(0.05, 4294967294.75)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "nominal_rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "npery",
+          "value": {
+            "kind": "number",
+            "display": "4294967294.75",
+            "bits": "0x41efffffffd80000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.05127129680425857",
+        "bits": "0x3faa403b3dfedfa0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "work/w109/G6-solvers/answers-effect-huge-domain-scratch.json.gz",
+        "locator": "effect-huge-frac-trunc-u32-max-minus-1-rate-0p05",
+        "note": null
+      }
+    },
+    {
+      "call": "EFFECT(0.05, 4294967295)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "nominal_rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "npery",
+          "value": {
+            "kind": "number",
+            "display": "4294967295.0",
+            "bits": "0x41efffffffe00000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0512712968775475",
+        "bits": "0x3faa403b3ea009a0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "work/w109/G6-solvers/answers-effect-huge-domain-scratch.json.gz",
+        "locator": "effect-huge-2p32-prev-rate-0p05",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "effect; effect_switches_to_raw_pow_chain_at_u32_max_truncated_periods",
+      "note": "x87 LSB binary squaring vs u32::MAX raw power chain"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "EFFECT",
+      "note": "2,584/2,584 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

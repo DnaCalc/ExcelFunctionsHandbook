@@ -1,0 +1,138 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISPMT-001",
+  "functions": [
+    "FUNC.ISPMT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ISPMT stores (per - nper), then * pv, then * rate, then / nper on x87 and admits negative nper",
+  "statement": "In Excel 16.0 build 20527, ISPMT(rate, per, nper, pv) rejects nper = 0 with #DIV/0! and evaluates the four-stage stored x87 sequence difference = RN53(RN64(per - nper)), scaled = RN53(RN64(pv * difference)), interest = RN53(RN64(scaled * rate)), result = RN53(RN64(interest / nper)), rejecting nonfinite results with #NUM! and admitting negative nper under the same formula. Dividing per / nper first or combining rate * pv first changes final bits. All 4,341 full-bank ISPMT rows match.",
+  "status": "inferred",
+  "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-ispmt-scalar.json (Excel 16.0 build 20527) and matched on 4,341/4,341 full-bank ISPMT rows.",
+  "inferred": "That the four-stage x87 operation order holds for all ISPMT inputs beyond the 4,341 full-bank rows is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ISPMT(2, -1e+100, 45000, -1.1148104378919745)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "per",
+          "value": {
+            "kind": "number",
+            "display": "-1e+100",
+            "bits": "0xd4b249ad2594c37d"
+          }
+        },
+        {
+          "name": "nper",
+          "value": {
+            "kind": "number",
+            "display": "45000.0",
+            "bits": "0x40e5f90000000000"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "-1.1148104378919745",
+            "bits": "0xbff1d643783fc47c"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "4.9547130572976645e+95",
+        "bits": "0x53cdb0fbf598a509"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-ispmt-scalar.json",
+        "locator": "bank2-scalar-ISPMT-0003",
+        "note": null
+      }
+    },
+    {
+      "call": "ISPMT(-2, 0.9999999999999999, -415.78448820399717, 8.136009511723291e-75)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "-2.0",
+            "bits": "0xc000000000000000"
+          }
+        },
+        {
+          "name": "per",
+          "value": {
+            "kind": "number",
+            "display": "0.9999999999999999",
+            "bits": "0x3fefffffffffffff"
+          }
+        },
+        {
+          "name": "nper",
+          "value": {
+            "kind": "number",
+            "display": "-415.78448820399717",
+            "bits": "0xc079fc8d4380c440"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "8.136009511723291e-75",
+            "bits": "0x308d70af2f4a3848"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.631115472832517e-74",
+        "bits": "0x309d82cf8c5bfddf"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-ispmt-scalar.json",
+        "locator": "bank2-scalar-ISPMT-0004",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/financial_time_value_family.rs",
+      "locator": "ispmt",
+      "note": "four-stage stored x87 sequence and negative nper admission"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ISPMT",
+      "note": "4,341/4,341 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

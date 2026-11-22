@@ -1,0 +1,90 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISOWEEKNUM-001",
+  "functions": [
+    "FUNC.ISOWEEKNUM"
+  ],
+  "kind": "quirk",
+  "title": "ISOWEEKNUM truncates the serial and returns week 52 for serial 0 (1900-01-00) and 1 (1900-01-01)",
+  "statement": "In Excel 16.0 build 20430, ISOWEEKNUM(date) truncates date to a whole serial in [0, 2958465] without half-second time rounding and computes the Monday-based ISO week containing the serial's Thursday. On Excel's fictitious 1900-01-00 (serial 0, Saturday) and 1900-01-01 (serial 1, Sunday), the ISO year is 1899 and ISOWEEKNUM returns 52. All 10,153 full-bank ISOWEEKNUM rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-broad-20260929/answers/answers-isoweeknum.json.gz (Excel 16.0 build 20430) and matched on 10,153/10,153 full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ISOWEEKNUM(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "date",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "52.0",
+        "bits": "0x404a000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-broad-20260929/answers/answers-isoweeknum.json.gz",
+        "locator": "w111broad-20260929-ISOWEEKNUM-00001",
+        "note": null
+      }
+    },
+    {
+      "call": "ISOWEEKNUM(1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "date",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "52.0",
+        "bits": "0x404a000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-broad-20260929/answers/answers-isoweeknum.json.gz",
+        "locator": "w111broad-20260929-ISOWEEKNUM-00003",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/date_kernels.rs",
+      "locator": "isoweeknum; iso_weeknum_serial",
+      "note": "whole-serial truncation and ISO week from 1900 serial 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ISOWEEKNUM",
+      "note": "10,153/10,153 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

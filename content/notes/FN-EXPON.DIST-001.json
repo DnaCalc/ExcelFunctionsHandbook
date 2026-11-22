@@ -1,0 +1,142 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-EXPON.DIST-001",
+  "functions": [
+    "FUNC.EXPON.DIST",
+    "FUNC.EXPONDIST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "EXPON.DIST and EXPONDIST stage t = RN53(RN64(lambda * x)) with subnormal flush on t and outputs",
+  "statement": "In Excel 16.0 builds 20131, 20430, and 20527, EXPON.DIST and EXPONDIST require x >= 0 and lambda > 0, compute t = RN53(RN64(lambda * x)) flushing subnormal t to 0, return -expm1(-t) when cumulative is TRUE and RN53(RN64(lambda * EXP(-t))) when cumulative is FALSE, and flush subnormal outputs to 0 (e.g. EXPON.DIST(1E-300, 1E-10, TRUE) = 0). All 4,934 EXPON.DIST and 1,196 EXPONDIST full-bank rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (dc96l3_discrete rows 189-206, 228) and CalcFunc-Evidence runs/w111-extended-numeric-20260929/answers/answers-expon.dist.json.gz and answers-expondist.json.gz (Excel 16.0 build 20430); 4,934/4,934 EXPON.DIST and 1,196/1,196 EXPONDIST full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=EXPON.DIST(1E-300,0.0000000001,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_discrete.capture.json",
+        "locator": "sheet dc96l3_discrete row 228 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "EXPON.DIST(5.9581926435227134e-08, 3.4896555268101465e+59, FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "5.9581926435227134e-08",
+            "bits": "0x3e6ffce0ab622730"
+          }
+        },
+        {
+          "name": "lambda",
+          "value": {
+            "kind": "number",
+            "display": "3.4896555268101465e+59",
+            "bits": "0x4c4bcbf52f1f2f6e"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-expon.dist.json.gz",
+        "locator": "w111pub-heldout-EXPON.DIST-004132",
+        "note": null
+      }
+    },
+    {
+      "call": "EXPONDIST(9.383989063086502e-07, 8.59994595727031e+241, FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "9.383989063086502e-07",
+            "bits": "0x3eaf7cc90498d93c"
+          }
+        },
+        {
+          "name": "lambda",
+          "value": {
+            "kind": "number",
+            "display": "8.59994595727031e+241",
+            "bits": "0x7229cb6c6b728c08"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-expondist.json.gz",
+        "locator": "w111boundary-EXPONDIST-01710",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/discrete_dist.rs",
+      "locator": "expon_dist_kernel",
+      "note": "stored t=lambda*x, -expm1(-t), and subnormal output flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "EXPON.DIST; EXPONDIST",
+      "note": "4,934/4,934 EXPON.DIST and 1,196/1,196 EXPONDIST full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DEVSQ-001",
+  "functions": [
+    "FUNC.DEVSQ"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "DEVSQ squares deviations with x87 multiplication and flushes subnormal squares to 0 before summing",
+  "statement": "In Excel 16.0 builds 20430 and 20527, DEVSQ computes the sample mean in binary64, forms each squared deviation RN53(RN64((v - mean) * (v - mean))) on the x87 unit, and flushes any subnormal square below DBL_MIN to 0 before summing (so DEVSQ(8.08239784871588e-295, 9.013847760079092e-295) returns 0). All 23,106 full-bank DEVSQ rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-aggregate-rounding-discovery-20260929/answers-devsq.json.gz (Excel 16.0 build 20430) and matched on 23,106/23,106 full-bank DEVSQ rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DEVSQ(3.479108388490805e-295, 3.850185966594222e-295)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "3.479108388490805e-295",
+            "bits": "0x02cc710b4ab37714"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "3.850185966594222e-295",
+            "bits": "0x02cf79a1b3844050"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-aggregate-rounding-discovery-20260929/answers-devsq.json.gz",
+        "locator": "w111agg-discovery-DEVSQ-00041",
+        "note": null
+      }
+    },
+    {
+      "call": "DEVSQ(373764.2514240277, 381605.58578899095)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "373764.2514240277",
+            "bits": "0x4116d01101754ce2"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "381605.58578899095",
+            "bits": "0x41174a9657d911ba"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "30743262.31157665",
+        "bits": "0x417d51ade4fc37cc"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-aggregate-rounding-discovery-20260929/answers-devsq.json.gz",
+        "locator": "w111agg-discovery-DEVSQ-00012",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "devsq",
+      "note": "x87 squared deviation and subnormal flush before sum"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DEVSQ",
+      "note": "23,106/23,106 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

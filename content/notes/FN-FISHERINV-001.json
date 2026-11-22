@@ -1,0 +1,123 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FISHERINV-001",
+  "functions": [
+    "FUNC.FISHERINV"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "FISHERINV computes (EXP(2y) - 1) / (EXP(2y) + 1), returning 0 for |y| < 2^-54 and saturating to +1 on overflow",
+  "statement": "In Excel 16.0 build 20527, FISHERINV(y) evaluates (EXP(2*y) - 1) / (EXP(2*y) + 1) using Excel's EXP rather than TANH(y) or 1 - 2/(EXP(2*y) + 1), saturating to +1 when EXP(2*y) overflows to infinity. Because EXP(2*y) rounds to 1 for |2*y| < 2^-53, tiny inputs such as 1e-100 return 0 instead of tanh(y) ~= y, and FISHERINV(1) returns 0x3fe85efab514f394 (1 ULP above TANH(1) = 0x3fe85efab514f393). All 2,087 full-bank FISHERINV rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-fisherinv-scalar.json (Excel 16.0 build 20527) and matched on 2,087/2,087 full-bank FISHERINV rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FISHERINV(1e-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "y",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1e-100",
+        "bits": "0x2b2bff2ee48e0530",
+        "how": "tanh(y) = y - y^3/3 + ... equals y in binary64 for |y| < 2^-27."
+      },
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-fisherinv-scalar.json",
+        "locator": "bank2-scalar-FISHERINV-0007",
+        "note": null
+      }
+    },
+    {
+      "call": "FISHERINV(1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "y",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.7615941559557649",
+        "bits": "0x3fe85efab514f394"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-fisherinv-scalar.json",
+        "locator": "bank2-scalar-FISHERINV-0011",
+        "note": null
+      }
+    },
+    {
+      "call": "FISHERINV(1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "y",
+          "value": {
+            "kind": "number",
+            "display": "1e+100",
+            "bits": "0x54b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-fisherinv-scalar.json",
+        "locator": "bank2-scalar-FISHERINV-0009",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/fisherinv_fn.rs",
+      "locator": "fisherinv_kernel",
+      "note": "(EXP(2y)-1)/(EXP(2y)+1) and overflow saturation to +1"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FISHERINV",
+      "note": "2,087/2,087 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

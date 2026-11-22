@@ -1,0 +1,90 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ASIN-001",
+  "functions": [
+    "FUNC.ASIN"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ASIN forms u = 2 - (1 - x) rather than 1 + x, introducing a 1-ULP sign asymmetry",
+  "statement": "In Excel 16.0 build 20430, ASIN(x) rejects |x| > 1 with #NUM!, evaluates t = RN53(RN64(1 - x)), u = RN53(RN64(2 - t)), root = RN53(sqrt_x87(RN53(RN64(t * u)))), and atan_reduced(RN53(RN64(x / root))), and flushes subnormal outputs to 0. Reusing t in 2 - t instead of computing 1 + x independently makes ASIN(-x) differ from -ASIN(x) by 1 ULP on 714 paired inputs in the held-out uniform capture (e.g. x = +/-0.22748320798034022). All 21,610 full-bank ASIN rows match.",
+  "status": "inferred",
+  "basis": "Measured across 714 asymmetric signed pairs in CalcFunc-Evidence runs/w111-asin-acos-heldout2-20260929/answers-asin.json.gz (Excel 16.0 build 20430) and matched on 21,610/21,610 full-bank ASIN rows.",
+  "inferred": "That the stored 2 - (1 - x) staging and x87 sqrt/atan_reduced sequence holds for all ASIN inputs beyond the 21,610 full-bank rows is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ASIN(0.2274831992937122)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.2274831992937122",
+            "bits": "0x3fcd1e2b62ad8f94"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.22949233650477519",
+        "bits": "0x3fcd60013ffc3dd0"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-asin-acos-heldout2-20260929/answers-asin.json.gz",
+        "locator": "asin-heldout-2026092924-00002-fresh-uniform-pair",
+        "note": null
+      }
+    },
+    {
+      "call": "ASIN(-0.2274831992937122)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-0.2274831992937122",
+            "bits": "0xbfcd1e2b62ad8f94"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-0.22949233650477516",
+        "bits": "0xbfcd60013ffc3dcf"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-asin-acos-heldout2-20260929/answers-asin.json.gz",
+        "locator": "asin-heldout-2026092924-00003-fresh-uniform-pair",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/asin.rs",
+      "locator": "asin_kernel",
+      "note": "t=1-n, u=2-t, x87 sqrt and atan_reduced chain"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ASIN",
+      "note": "21,610/21,610 full-bank ASIN matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

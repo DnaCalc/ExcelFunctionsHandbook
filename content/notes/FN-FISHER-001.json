@@ -1,0 +1,128 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FISHER-001",
+  "functions": [
+    "FUNC.FISHER"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "FISHER computes 0.5 * LN((1+x)/(1-x)) with stored 1+x and 1-x, collapsing tiny |x| < 2^-53 to 0",
+  "statement": "In Excel 16.0 build 20430, FISHER(x) rejects |x| >= 1 with #NUM! and evaluates 0.5 * LN(RN53(RN64(1 + x)) / RN53(RN64(1 - x))) using stored binary64 values for 1 + x and 1 - x rather than ATANH(x)'s small-x cubic series or 0.5 * (LN(1 + x) - LN(1 - x)). Consequently, for any |x| < 2^-53 (such as 1e-16 or 1e-300), both 1 + x and 1 - x round to 1 and FISHER(x) returns 0 instead of atanh(x) ~= x. All 5,697 full-bank FISHER rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-extended-numeric-20260929/answers/answers-fisher.json.gz (Excel 16.0 build 20430) and matched on 5,697/5,697 full-bank rows (33/33 signed small-input discriminators vs 21/33 for ATANH and 10/33 for split LN).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "FISHER(1e-16)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1e-16",
+            "bits": "0x3c9cd2b297d889bc"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1e-16",
+        "bits": "0x3c9cd2b297d889bc",
+        "how": "atanh(1e-16) = 1e-16 + (1e-16)^3/3, correctly rounded to binary64."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-fisher.json.gz",
+        "locator": "w111extended-2026092903-FISHER-00005",
+        "note": null
+      }
+    },
+    {
+      "call": "FISHER(1e-300)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1e-300",
+        "bits": "0x01a56e1fc2f8f359",
+        "how": "atanh(1e-300) = 1e-300 + O(1e-900), correctly rounded to binary64."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-fisher.json.gz",
+        "locator": "w111extended-2026092903-FISHER-00003",
+        "note": null
+      }
+    },
+    {
+      "call": "FISHER(0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.5493061443340549",
+        "bits": "0x3fe193ea7aad030b"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-fisher.json.gz",
+        "locator": "w111extended-2026092903-FISHER-00007",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/fisher_fn.rs",
+      "locator": "fisher_kernel",
+      "note": "0.5 * LN((1+x)/(1-x)) with x87 stored steps"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "FISHER",
+      "note": "5,697/5,697 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

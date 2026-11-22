@@ -1,0 +1,81 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-HOUR-001",
+  "functions": [
+    "FUNC.HOUR"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "HOUR adds 0.5/86400 (half a second) before extracting the hour, so 0.999999 returns 0",
+  "statement": "In Excel 16.0.20527.20088 and build 20430, HOUR(serial_number) rounds the serial to the nearest second by adding 0.5/86400 before taking the fractional day and multiplying by 24 (the same pre-extraction rounding as MINUTE and SECOND). Thus HOUR(0.999999) (23:59:59.9136) rounds up to 00:00:00 of the next day and returns 0 instead of 23. All 10,153 full-bank HOUR rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (f2_rows row 115) and matched across 10,153/10,153 full-bank HOUR rows (Excel 16.0 build 20430).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=HOUR(0.999999)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 115 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "HOUR(60.99)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "serial_number",
+          "value": {
+            "kind": "number",
+            "display": "60.99",
+            "bits": "0x404e7eb851eb851f"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "23.0",
+        "bits": "0x4037000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-broad-20260929/answers/answers-hour.json.gz",
+        "locator": "w111broad-20260929-HOUR-00007",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/date_kernels.rs",
+      "locator": "hms",
+      "note": "0.5/86400 second-rounding before hour/minute/second extraction"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "HOUR",
+      "note": "10,153/10,153 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

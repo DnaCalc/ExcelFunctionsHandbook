@@ -1,0 +1,58 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-KURT-001",
+  "functions": [
+    "FUNC.KURT"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "KURT stores every x87 step of z^4 and the sample prefactor, drifting 74 ULP on KURT(1,2,3,5)",
+  "statement": "In Excel 16.0 builds 20430 and 20527, KURT requires at least 4 numbers and nonzero sum of squares, storing every arithmetic operation from x87 precision 64: two-pass mean and sumsq, s = sqrt_x87(sumsq / (n - 1)), each z = (v - mean) / s, (z^2)^2 summed in order, and coeff * fourths - offset where coeff = n*(n+1)/((n-1)*(n-2)*(n-3)) and offset = 3*(n-1)^2/((n-2)*(n-3)). On =KURT(1,2,3,5), this accumulated rounding gives 0.34285714285714697 (0x3fd5f15f15f15f60), 74 ULP above the exact 12/35 (0x3fd5f15f15f15f16). All 4,508 full-bank KURT rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (prefix_metadata row 138) and CalcFunc-Evidence cache/oracle-20430/build-20430/KURT.jsonl.gz (Excel 16.0 build 20430); 4,508/4,508 full-bank KURT rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=KURT(1,2,3,5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.34285714285714697",
+        "bits": "0x3fd5f15f15f15f60"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.34285714285714286",
+        "bits": "0x3fd5f15f15f15f16",
+        "how": "Exact rational arithmetic: mean = 11/4, s^2 = 35/12, kurtosis = (20/6)*(19614/256 / (35/12)^2) - 27/2 = 12/35."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 138 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/moment_stats_family.rs",
+      "locator": "kurt_kernel; stored_moments",
+      "note": "every operation stored from x87 precision 64"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "KURT",
+      "note": "4,508/4,508 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

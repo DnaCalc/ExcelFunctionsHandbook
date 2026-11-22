@@ -1,0 +1,90 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ATAN-001",
+  "functions": [
+    "FUNC.ATAN"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ATAN uses x87 FPATAN directly for |x| <= 1 and FLDPI/2 - FPATAN(1, |x|) for |x| > 1",
+  "statement": "In Excel 16.0 builds 20430 and 20527, ATAN(x) evaluates x87 FPATAN(x, 1) directly for |x| <= 1, and for |x| > 1 computes RN53(FLDPI / 2 - FPATAN(1, |x|)) in 64-bit x87 extended precision with the sign of x restored. All 181,413 full-bank ATAN rows match.",
+  "status": "inferred",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-atan-heldout-20260929/answers.json.gz and runs/w111-asin-intermediate-20260929/answers-atan.json.gz (Excel 16.0 build 20430), and matched on 181,413/181,413 full-bank ATAN rows.",
+  "inferred": "That Excel's x87 instruction sequence is literally FPATAN(1, |x|) subtracted from FLDPI/2 across every |x| > 1 beyond the 181,413 bank rows is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ATAN(-2.0065467234564327)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-2.0065467234564327",
+            "bits": "0xc0000d685e592174"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1.108454641931369",
+        "bits": "0xbff1bc3aef431d2a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-atan-heldout-20260929/answers.json.gz",
+        "locator": "w111atan-heldout-20468",
+        "note": null
+      }
+    },
+    {
+      "call": "ATAN(0.8818389957882803)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.8818389957882803",
+            "bits": "0x3fec380669e7f0cf"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.7226903104172704",
+        "bits": "0x3fe720476e0c1abe"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-asin-intermediate-20260929/answers-atan.json.gz",
+        "locator": "asin-isolation-ATAN-000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/excel_numeric/x87.rs",
+      "locator": "atan_reduced",
+      "note": "x87 FPATAN / FLDPI/2 reduction"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ATAN",
+      "note": "181,413/181,413 full-bank ATAN matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
