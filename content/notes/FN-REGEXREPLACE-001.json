@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-REGEXREPLACE-001",
+  "functions": [
+    "FUNC.REGEXREPLACE"
+  ],
+  "kind": "quirk",
+  "title": "REGEXREPLACE uses PCRE2 with numbered captures ($1, $2), rejects invalid patterns as #VALUE!, and indexes occurrences",
+  "statement": "In Excel 16.0.20527, REGEXREPLACE evaluates PCRE2 regular expressions, expands numbered group references ($1, $2) in replacement text, supports negative occurrence indices (e.g. -2 selects the second-from-last match), and returns #VALUE! for unclosed/invalid patterns (such as \"[\") or out-of-range occurrence indices on empty patterns. Under compatibility version 1, @REGEXREPLACE evaluates to #NAME?.",
+  "status": "measured",
+  "basis": "Measured across jnt_text_formats (rows 12-15), corpus-examples regex-replace-second-from-last / regex-replace-group-order / regex-pad-components in Excel 16.0.20527.20196, and empty_regex_replace_boundaries, and matched across 4,346/4,346 full-bank REGEXREPLACE rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=REGEXREPLACE(\"abc123def\",\"\\d+\",\"-\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "abc-def",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 12 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=REGEXREPLACE(\"abc\",\"[\",\"x\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json",
+        "locator": "sheet jnt_text_formats row 15 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=REGEXREPLACE(\"p1 p2 p3\",\"\\d+\",\"X\",-2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "p1 pX p3",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "tests/corpus-examples/formulas/regex-replace-second-from-last/oracle.capture.json",
+        "locator": "sheet Sheet1 row 2 column 14 (with A1 = \"p1 p2 p3\")",
+        "note": null
+      }
+    },
+    {
+      "call": "=REGEXREPLACE(\"id=A:41; id=B:7\",\"([A-Z]):(\\d+)\",\"$2/$1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "id=41/A; id=7/B",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "tests/corpus-examples/formulas/regex-replace-group-order/oracle.capture.json",
+        "locator": "sheet Sheet1 row 2 column 14 (with A1 = \"id=A:41; id=B:7\")",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/tests/f2_dates.rs",
+      "locator": "empty_regex_replace_boundaries",
+      "note": "Empty-pattern replacement boundaries at CRLF and UTF-16 positions"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "REGEXREPLACE",
+      "note": "4,346/4,346 full-bank REGEXREPLACE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

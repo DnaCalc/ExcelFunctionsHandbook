@@ -1,0 +1,104 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-WRAPCOLS-001",
+  "functions": [
+    "FUNC.WRAPCOLS",
+    "FUNC.WRAPROWS"
+  ],
+  "kind": "quirk",
+  "title": "WRAPCOLS and WRAPROWS ignore an error in pad_with when no padding cell is needed and lift over array wrap_count",
+  "statement": "In Excel 16.0.20527.20088, WRAPCOLS and WRAPROWS require wrap_count >= 1 (0 gives #NUM!) and only use pad_with for trailing incomplete rows or columns: when no padding is needed, an error passed in pad_with (such as #VALUE!) is ignored. When wrap_count is an array, Excel lifts the call over wrap_count's shape.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in fn2_questions (fn2_q011, fn2_q012, fn2_q074, fn2_q075), f3_arrays (rows 29-30), and jnt_aggregate_arrays (rows 101-102), and matched across 3,000/3,000 WRAPCOLS and 3,000/3,000 WRAPROWS full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=WRAPCOLS(\"2\",2,#VALUE!)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "2",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q012 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WRAPCOLS(\"2\",0,\"pad\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q011 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WRAPROWS({1,2,3,4},{2,3})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{1,1}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q074 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=CONCAT(WRAPROWS({1,2,3,4,5},2,0))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "123450",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 29 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "WRAPCOLS; WRAPROWS",
+      "note": "3,000/3,000 WRAPCOLS and 3,000/3,000 WRAPROWS full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

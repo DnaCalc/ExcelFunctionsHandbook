@@ -1,0 +1,111 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MAXA-001",
+  "functions": [
+    "FUNC.MAXA",
+    "FUNC.MINA"
+  ],
+  "kind": "quirk",
+  "title": "MAXA and MINA read TRUE as 1 and text/FALSE as 0 in references, but skip text and logicals inside array literals",
+  "statement": "In Excel 16.0.20527.20088, MAXA and MINA count text and FALSE as 0 and TRUE as 1 when read from worksheet cell references (skipping blank cells), but inside array literals they skip text and logicals just like MAX and MIN: MAXA({-1,TRUE}) is -1, MAXA({-1,\"a\"}) is -1, MINA({1,TRUE}) is 1, and MINA({1,\"a\"}) is 1. When given an array containing nested arrays (such as GROUPBY with LAMBDA(x,x)), MAXA returns #N/A.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in dch9u_functions (rows 62-64, 2073) and cfunc_m3_4 (argument_classes rows 88-97), and matched across 1,212/1,212 MAXA and 1,212/1,212 MINA full-bank rows plus 120/120 pinned rows each.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=MAXA({-1,TRUE})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-1.0",
+        "bits": "0xbff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 62 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MINA({1,TRUE})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 63 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MINA({1,\"a\"})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 64 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MAXA(GROUPBY({\"East\";\"West\";\"East\";\"north\";\"West\";\"east\"},{1;2;3;4;5;6},LAMBDA(x,x)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 2073 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/aggregate.rs",
+      "locator": "lines 754-797",
+      "note": "Held::Values rule distinguishing Origin::Held from Origin::Element"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "MAXA; MINA",
+      "note": "1,212/1,212 MAXA and 1,212/1,212 MINA full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

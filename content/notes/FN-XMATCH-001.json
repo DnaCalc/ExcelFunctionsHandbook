@@ -1,0 +1,111 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-XMATCH-001",
+  "functions": [
+    "FUNC.XLOOKUP",
+    "FUNC.XMATCH"
+  ],
+  "kind": "quirk",
+  "title": "XMATCH and XLOOKUP equate ligatures and combining sequences in exact mode, while wildcard ? counts UTF-16 units",
+  "statement": "In Excel 16.0.20527.20088, XMATCH and XLOOKUP in default exact mode (match_mode 0) equate text by Excel's full collation rather than UTF-16 length: \"e\"&UNICHAR(769) matches precomposed \"é\", \"ss\"/\"SS\" matches \"ß\", \"ae\" matches \"æ\", and \"a\"&UNICHAR(173)&\"b\" matches \"ab\". By contrast, wildcard mode (match_mode 2) counts \"?\" in UTF-16 code units (\"??\" matches \"😀\", \"?\" skips to \"a\"). Unlike MATCH/VLOOKUP, blank lookup_value matches blank cells, and approximate searches order numbers < text < logicals < errors < blanks.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in dczsn1_collation (rows 118-126) and fn1_collation (rows 218, 220), and matched across 3,373/3,373 XMATCH and 3,360/3,360 XLOOKUP full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=XLOOKUP(\"SS\",D5:D16,D5:D16)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "ß",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json",
+        "locator": "sheet dczsn1_collation row 126 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=XMATCH(\"ae\",D7:D16)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json",
+        "locator": "sheet dczsn1_collation row 120 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=XMATCH(\"??\",{\"😀\";\"a\";\"ab\"},2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation row 218 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=XMATCH(\"?\",{\"😀\";\"a\";\"ab\"},2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation row 220 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/lookup.rs",
+      "locator": "lines 20-45",
+      "note": "XMATCH/XLOOKUP collation equality, blank keys, and cross-kind ordering"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "XLOOKUP; XMATCH",
+      "note": "3,360/3,360 XLOOKUP and 3,373/3,373 XMATCH full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,96 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TIME-001",
+  "functions": [
+    "FUNC.TIME"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "TIME divides total_seconds by 86400 before taking the fractional day, so TIME(25,0,0) differs by 11 ULP from 1/24",
+  "statement": "In Excel 16.0.20527.20088, TIME(hour, minute, second) truncates each argument, checks each |arg| <= 32767 and total_seconds >= 0 (returning #NUM! for negative total seconds such as TIME(0,-1,0)), and evaluates frac(total_seconds / 86400). Because 25*3600/86400 = 1 + 1/24 loses 11 bits when the integer day 1 is subtracted, TIME(25,0,0) returns 0.04166666666666674 (0x3fa5555555555560), 11 ULP above 1/24 (0x3fa5555555555555).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in f2_rows (rows 106-108) and matched across 1,296/1,296 full-bank and 120/120 pinned TIME rows in Excel 16.0.20430.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TIME(25,0,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.04166666666666674",
+        "bits": "0x3fa5555555555560"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.041666666666666664",
+        "bits": "0x3fa5555555555555",
+        "how": "Exact rational 1/24 rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 106 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TIME(0,-1,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 107 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TIME(1,30,90)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.06354166666666666",
+        "bits": "0x3fb0444444444444"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 108 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/date_kernels.rs",
+      "locator": "time",
+      "note": "TIME truncation, 32767 bound, and rem_euclid(1.0)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TIME",
+      "note": "1,296/1,296 full-bank and 120/120 pinned TIME rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

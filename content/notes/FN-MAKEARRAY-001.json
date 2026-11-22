@@ -1,0 +1,84 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MAKEARRAY-001",
+  "functions": [
+    "FUNC.MAKEARRAY"
+  ],
+  "kind": "quirk",
+  "title": "MAKEARRAY returns #VALUE! for non-positive dimensions, non-LAMBDA final arguments, or multi-cell LAMBDA results",
+  "statement": "In Excel 16.0.20527.20088, MAKEARRAY(rows, cols, lambda) passes 1-based row and column numbers to a 2-parameter LAMBDA and rejects zero or negative dimensions, a non-LAMBDA third argument (even a number or error), wrong-arity LAMBDAs, and array results from the LAMBDA with #VALUE!.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in f3_arrays (rows 40, 44) and jnt_aggregate_arrays (rows 108-110).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CONCAT(MAKEARRAY(2,2,LAMBDA(r,c,@r*10+@c)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "11122122",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 40 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@MAKEARRAY(0,1,LAMBDA(r,c,1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 44 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MAKEARRAY(1.0,1.0,1.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 108 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/lambda_helpers.rs",
+      "locator": "lines 28-36",
+      "note": "MAKEARRAY dimension, callable, and array-result #VALUE! checks"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

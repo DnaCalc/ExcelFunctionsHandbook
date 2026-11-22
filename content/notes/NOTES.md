@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 117, over 254 functions (of the 554 entries = 531 functions + 23 operators).
-- Excel differs from the mathematical answer: 27.
-- Detail for matching Excel's bits: 29.
-- Quirk: 55.
+- Notes: 138, over 284 functions (of the 554 entries = 531 functions + 23 operators).
+- Excel differs from the mathematical answer: 31.
+- Detail for matching Excel's bits: 32.
+- Quirk: 69.
 - Documentation differs from behaviour: 6.
-- Measured: 98; inferred: 19.
+- Measured: 119; inferred: 19.
 
 ## Where Excel's answer is inaccurate
 
@@ -77,6 +77,9 @@ answer.
 | [FN-MULTINOMIAL-001](#fn-multinomial-001-multinomial-sums-log102total-subtracts-log102item-in-reverse-argument-order-and-rejects-total--170) | `MULTINOMIAL(1, 2)` | `3.0000000000000004` (`0x4008000000000001`) | `3.0` (`0x4008000000000000`) |
 | [FN-MULTINOMIAL-001](#fn-multinomial-001-multinomial-sums-log102total-subtracts-log102item-in-reverse-argument-order-and-rejects-total--170) | `MULTINOMIAL(4, 108)` | `6210819.999999507` (`0x4157b140fffffdef`) | `6210820.0` (`0x4157b14100000000`) |
 | [FN-MULTINOMIAL-001](#fn-multinomial-001-multinomial-sums-log102total-subtracts-log102item-in-reverse-argument-order-and-rejects-total--170) | `MULTINOMIAL(108, 4)` | `6210819.999999607` (`0x4157b140fffffe5a`) | `6210820.0` (`0x4157b14100000000`) |
+| [FN-NORM.S.DIST-001](#fn-normsdist-001-normsdistz-true-and-normsdistz-scale-z-in-stored-x87-before-erfcprecise-diverging-up-to-72-ulp-in-the-tail) | `NORM.S.DIST(-10.907735625234475, TRUE)` | `5.293017147361349e-28` (`0x3a44f7c1d0b8dc97`) | `5.293017147361414e-28` (`0x3a44f7c1d0b8dcdf`) |
+| [FN-NORM.S.DIST-001](#fn-normsdist-001-normsdistz-true-and-normsdistz-scale-z-in-stored-x87-before-erfcprecise-diverging-up-to-72-ulp-in-the-tail) | `NORM.S.DIST(-0.39999999999999986, TRUE)` | `0.3445782583896758` (`0x3fd60d91f7ac901a`) | `0.3445782583896759` (`0x3fd60d91f7ac901b`) |
+| [FN-NUMBERVALUE-001](#fn-numbervalue-001-numbervalue-falls-back-to-the-host-value-grammar-for-letterdigit-separators-and-rounds-15-digit-mantissas-by-reciprocal) | `NUMBERVALUE("600757912143053e-27", ".", ",")` | `6.007579121430529e-13` (`0x3d6523256e93f070`) | `6.00757912143053e-13` (`0x3d6523256e93f071`) |
 | [FN-PMT-001](#fn-pmt-001-pmt-takes-ln1rate-from-a-series-and-stores-its-quotient-before-the-rate) | `=PMT(0.05/12,360,200000)` | `-1073.6432460242781` (`0xc090c692af15f63a`) | `-1073.643246024278` (`0xc090c692af15f639`) |
 | [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) | `=PPMT(0.05/12,1,360,200000)` | `-240.30991269094474` (`0xc06e09eace050723`) | `-240.30991269094463` (`0xc06e09eace05071f`) |
 | [FN-RATE-001](#fn-rate-001-rate-returns-finite-numbers-near-dbl_max-on-46-inputs-where-no-real-annuity-root-exists-above--1) | `RATE(0.1391623113305186, 10, -438.10866310194024, 8205, 0.5, 1.0000000000000002)` | `1630151639.0138218` (`0x41d84a88f5c0e275`) | `1630151639.0138187` (`0x41d84a88f5c0e268`) |
@@ -102,6 +105,11 @@ answer.
 | [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53) | `SQRT(1.7976931348623157e+308)` | `1.3407807929942597e+154` (`0x5ff0000000000000`) | `1.3407807929942596e+154` (`0x5fefffffffffffff`) |
 | [FN-SUMX2MY2-001](#fn-sumx2my2-001-sumx2my2-rounds-each-x2-and-y2-separately-before-subtracting-differing-by-up-to-082-ulp-from-the-exact-sum-of-x2---y2) | `SUMX2MY2(0.03335225112884599, -11.999999999999998)` | `-143.99888762734457` (`0xc061fff6e32f7a5e`) | `-143.9988876273446` (`0xc061fff6e32f7a5f`) |
 | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula) | `TBILLEQ(40633.25, 40836.25, 0.21193100748125787)` | `0.24110326418450792` (`0x3fcedc78c550cec1`) | `0.24110326418450853` (`0x3fcedc78c550ced7`) |
+| [FN-TIME-001](#fn-time-001-time-divides-total_seconds-by-86400-before-taking-the-fractional-day-so-time2500-differs-by-11-ulp-from-124) | `=TIME(25,0,0)` | `0.04166666666666674` (`0x3fa5555555555560`) | `0.041666666666666664` (`0x3fa5555555555555`) |
+| [FN-TIMEVALUE-001](#fn-timevalue-001-timevalue-stores-the-full-serial-before-subtracting-the-date-floor-losing-16-mantissa-bits-on-date-time-text) | `=TIMEVALUE("22-Aug-2008 6:35 AM")` | `0.2743055555547471` (`0x3fd18e38e38e0000`) | `0.2743055555555556` (`0x3fd18e38e38e38e4`) |
+| [FN-TREND-001](#fn-trend-001-trend-evaluates-its-qr-fit-and-prediction-in-stored-pc64-x87-arithmetic-drifting-by-1-4-ulp-on-exact-lines) | `=@TREND({1;5;3},{1;2;3},0)` | `0.9999999999999996` (`0x3feffffffffffffc`) | `1.0` (`0x3ff0000000000000`) |
+| [FN-TREND-001](#fn-trend-001-trend-evaluates-its-qr-fit-and-prediction-in-stored-pc64-x87-arithmetic-drifting-by-1-4-ulp-on-exact-lines) | `=@TREND({1;5;3},{1;2;3},1)` | `1.9999999999999998` (`0x3fffffffffffffff`) | `2.0` (`0x4000000000000000`) |
+| [FN-TREND-001](#fn-trend-001-trend-evaluates-its-qr-fit-and-prediction-in-stored-pc64-x87-arithmetic-drifting-by-1-4-ulp-on-exact-lines) | `=@TREND({1;5;3},{1;2;3},100)` | `101.00000000000003` (`0x4059400000000002`) | `101.0` (`0x4059400000000000`) |
 | [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) | `TRUNC(2.2250738585072014e-308, 0)` | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) |
 | [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) | `TRUNC(2.2250738585072014e-308, 1)` | `2.2250738585071984e-308` (`0x000ffffffffffffa`) | `0` (`0x0000000000000000`) |
 | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) | `VAR.S(0.8769085090206679, 1, 1.1230914909793321)` | `0.015151515151515138` (`0x3f8f07c1f07c1f00`) | `0.015151515151515006` (`0x3f8f07c1f07c1eb4`) |
@@ -244,12 +252,19 @@ answer.
 | [`LOGINV`](../functions/FUNC.LOGINV.md) | [FN-NORM.S.INV-001](#fn-normsinv-001-normsinv-uses-as241-tails-p--0075-and-p--1516-and-three-x87-stored-rationalpadé-pieces-for-sqrt2erfinv2p-1-in-between) |
 | [`LOGNORM.INV`](../functions/FUNC.LOGNORM.INV.md) | [FN-NORM.S.INV-001](#fn-normsinv-001-normsinv-uses-as241-tails-p--0075-and-p--1516-and-three-x87-stored-rationalpadé-pieces-for-sqrt2erfinv2p-1-in-between) |
 | [`LOWER`](../functions/FUNC.LOWER.md) | [FN-LOWER-001](#fn-lower-001-lower-leaves-letters-above-uffff-alone-and-a-combining-mark-stops-the-final-sigma) |
+| [`MAKEARRAY`](../functions/FUNC.MAKEARRAY.md) | [FN-MAKEARRAY-001](#fn-makearray-001-makearray-returns-value-for-non-positive-dimensions-non-lambda-final-arguments-or-multi-cell-lambda-results) |
 | [`MAP`](../functions/FUNC.MAP.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`MATCH`](../functions/FUNC.MATCH.md) | [FN-MATCH-001](#fn-match-001-match-and-vlookup-require-equal-utf-16-length-in-non-wildcard-exact-mode-and-count-wildcard--in-utf-16-units) |
+| [`MAX`](../functions/FUNC.MAX.md) | [FN-MAX-001](#fn-max-001-max-and-min-coerce-direct-text-and-logicals-and-read-omitted-direct-args-as-0-while-skipping-them-inside-arraysranges) |
+| [`MAXA`](../functions/FUNC.MAXA.md) | [FN-MAXA-001](#fn-maxa-001-maxa-and-mina-read-true-as-1-and-textfalse-as-0-in-references-but-skip-text-and-logicals-inside-array-literals) |
 | [`MAXIFS`](../functions/FUNC.MAXIFS.md) | [FN-COUNTIF-001](#fn-countif-001-criteria-built-as-label-over-digit-bearing-text-with-non-dateexponent-letters-evaluate-as-text-rather-than-failing-coercion) |
 | [`MDURATION`](../functions/FUNC.MDURATION.md) | [FN-DURATION-001](#fn-duration-001-duration-and-mduration-time-the-redemption-at-ssoffn-1-a-one-coupon-bond-is-not-a-special-case) |
 | [`MID`](../functions/FUNC.MID.md) | [FN-LEFT-001](#fn-left-001-in-compatibilityversion-1-leftright-preserve-astral-pairs-mid-slices-utf-16-units-and-32767-unit-overflow-errors-differ-by-function) |
 | [`MIDB`](../functions/FUNC.MIDB.md) | [FN-LENB-001](#fn-lenb-001-under-a-single-byte-windows-locale-such-as-en-za-the-b-suffixed-text-functions-count-characters-rather-than-utf-8-or-utf-16-bytes) |
+| [`MIN`](../functions/FUNC.MIN.md) | [FN-MAX-001](#fn-max-001-max-and-min-coerce-direct-text-and-logicals-and-read-omitted-direct-args-as-0-while-skipping-them-inside-arraysranges) |
+| [`MINA`](../functions/FUNC.MINA.md) | [FN-MAXA-001](#fn-maxa-001-maxa-and-mina-read-true-as-1-and-textfalse-as-0-in-references-but-skip-text-and-logicals-inside-array-literals) |
 | [`MINIFS`](../functions/FUNC.MINIFS.md) | [FN-COUNTIF-001](#fn-countif-001-criteria-built-as-label-over-digit-bearing-text-with-non-dateexponent-letters-evaluate-as-text-rather-than-failing-coercion) |
+| [`MINUTE`](../functions/FUNC.MINUTE.md) | [FN-MINUTE-001](#fn-minute-001-minute-and-second-add-0586400-half-a-second-to-the-serial-before-extracting-fractional-time-components) |
 | [`MOD`](../functions/FUNC.MOD.md) | [FN-MOD-001](#fn-mod-001-mod-with-tiny-operands-gives-wrong-signs-and-num-by-a-rule-that-fits-every-recorded-row) |
 | [`MODE`](../functions/FUNC.MODE.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
 | [`MODE.MULT`](../functions/FUNC.MODE.MULT.md) | [FN-MODE-001](#fn-mode-001-mode-ignores-direct-text-and-logicals-instead-of-converting-them-or-giving-an-error) |
@@ -262,10 +277,13 @@ answer.
 | [`NETWORKDAYS`](../functions/FUNC.NETWORKDAYS.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`NETWORKDAYS.INTL`](../functions/FUNC.NETWORKDAYS.INTL.md) | [FN-NETWORKDAYS.INTL-001](#fn-networkdaysintl-001-networkdaysintl-checks-weekend-before-the-dates-workdayintl-after-them), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`NORM.INV`](../functions/FUNC.NORM.INV.md) | [FN-NORM.S.INV-001](#fn-normsinv-001-normsinv-uses-as241-tails-p--0075-and-p--1516-and-three-x87-stored-rationalpadé-pieces-for-sqrt2erfinv2p-1-in-between) |
+| [`NORM.S.DIST`](../functions/FUNC.NORM.S.DIST.md) | [FN-NORM.S.DIST-001](#fn-normsdist-001-normsdistz-true-and-normsdistz-scale-z-in-stored-x87-before-erfcprecise-diverging-up-to-72-ulp-in-the-tail) |
 | [`NORM.S.INV`](../functions/FUNC.NORM.S.INV.md) | [FN-NORM.S.INV-001](#fn-normsinv-001-normsinv-uses-as241-tails-p--0075-and-p--1516-and-three-x87-stored-rationalpadé-pieces-for-sqrt2erfinv2p-1-in-between) |
 | [`NORMINV`](../functions/FUNC.NORMINV.md) | [FN-NORM.S.INV-001](#fn-normsinv-001-normsinv-uses-as241-tails-p--0075-and-p--1516-and-three-x87-stored-rationalpadé-pieces-for-sqrt2erfinv2p-1-in-between) |
+| [`NORMSDIST`](../functions/FUNC.NORMSDIST.md) | [FN-NORM.S.DIST-001](#fn-normsdist-001-normsdistz-true-and-normsdistz-scale-z-in-stored-x87-before-erfcprecise-diverging-up-to-72-ulp-in-the-tail) |
 | [`NORMSINV`](../functions/FUNC.NORMSINV.md) | [FN-NORM.S.INV-001](#fn-normsinv-001-normsinv-uses-as241-tails-p--0075-and-p--1516-and-three-x87-stored-rationalpadé-pieces-for-sqrt2erfinv2p-1-in-between) |
 | [`NOT`](../functions/FUNC.NOT.md) | [FN-NOT-001](#fn-not-001-not-rejects-numeric-strings-such-as-1-and-empty-strings-with-value-accepting-only-numbers-logicals-and-truefalse) |
+| [`NUMBERVALUE`](../functions/FUNC.NUMBERVALUE.md) | [FN-NUMBERVALUE-001](#fn-numbervalue-001-numbervalue-falls-back-to-the-host-value-grammar-for-letterdigit-separators-and-rounds-15-digit-mantissas-by-reciprocal) |
 | [`ODD`](../functions/FUNC.ODD.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`OP_CONCAT`](../functions/FUNC.OP_CONCAT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`OP_EQUAL`](../functions/FUNC.OP_EQUAL.md) | [FN-OP_EQUAL-001](#fn-op_equal-001-conjoining-hangul-jamo-do-not-compare-equal-to-the-precomposed-syllable) |
@@ -287,12 +305,15 @@ answer.
 | [`PPMT`](../functions/FUNC.PPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp), [FN-PPMT-001](#fn-ppmt-001-ppmt-is-not-pmt-minus-ipmt-and-sits-further-from-the-exact-value-than-pmt) |
 | [`PRICEDISC`](../functions/FUNC.PRICEDISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
 | [`PRICEMAT`](../functions/FUNC.PRICEMAT.md) | [FN-PRICEMAT-001](#fn-pricemat-001-pricemat-formula-order-on-the-x87-unit), [FN-PRICEMAT-002](#fn-pricemat-002-pricemat-basis-0-applies-the-31st-rule-before-the-february-rule) |
+| [`PROB`](../functions/FUNC.PROB.md) | [FN-PROB-001](#fn-prob-001-prob-validates-the-running-stored-sum-of-probabilities-against-1---4-ulp-1--22-ulp-rather-than-per-term-0-1) |
 | [`PRODUCT`](../functions/FUNC.PRODUCT.md) | [FN-SUMPRODUCT-001](#fn-sumproduct-001-sumproduct-reads-direct-text-as-0-and-rejects-omitted-args-unions-and-single-blank-refs-with-value-productsumsqsumproduct-flush-subnormals-to-0) |
 | [`PROPER`](../functions/FUNC.PROPER.md) | [FN-LOWER-001](#fn-lower-001-lower-leaves-letters-above-uffff-alone-and-a-combining-mark-stops-the-final-sigma) |
 | [`QUOTIENT`](../functions/FUNC.QUOTIENT.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`RATE`](../functions/FUNC.RATE.md) | [FN-RATE-001](#fn-rate-001-rate-returns-finite-numbers-near-dbl_max-on-46-inputs-where-no-real-annuity-root-exists-above--1) |
 | [`RECEIVED`](../functions/FUNC.RECEIVED.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
+| [`REDUCE`](../functions/FUNC.REDUCE.md) | [FN-REDUCE-001](#fn-reduce-001-reduce-allows-its-accumulator-to-hold-a-multi-cell-array-whereas-scan-rejects-multi-cell-lambda-results-with-calc) |
 | [`REGEXEXTRACT`](../functions/FUNC.REGEXEXTRACT.md) | [FN-TEXTSPLIT-002](#fn-textsplit-002-over-an-array-textsplit-and-regexextract-keep-only-the-first-piece-of-each-element) |
+| [`REGEXREPLACE`](../functions/FUNC.REGEXREPLACE.md) | [FN-REGEXREPLACE-001](#fn-regexreplace-001-regexreplace-uses-pcre2-with-numbered-captures-1-2-rejects-invalid-patterns-as-value-and-indexes-occurrences) |
 | [`REGEXTEST`](../functions/FUNC.REGEXTEST.md) | [FN-REGEXTEST-001](#fn-regextest-001-in-regextest-w-takes-combining-marks-dot-refuses-cr-and-case-folding-reaches-into-ranges) |
 | [`REPLACE`](../functions/FUNC.REPLACE.md) | [FN-LEFT-001](#fn-left-001-in-compatibilityversion-1-leftright-preserve-astral-pairs-mid-slices-utf-16-units-and-32767-unit-overflow-errors-differ-by-function) |
 | [`REPLACEB`](../functions/FUNC.REPLACEB.md) | [FN-LENB-001](#fn-lenb-001-under-a-single-byte-windows-locale-such-as-en-za-the-b-suffixed-text-functions-count-characters-rather-than-utf-8-or-utf-16-bytes) |
@@ -303,11 +324,15 @@ answer.
 | [`ROUNDDOWN`](../functions/FUNC.ROUNDDOWN.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
 | [`ROUNDUP`](../functions/FUNC.ROUNDUP.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-ROUNDUP-002](#fn-roundup-002-roundup-adds-its-unit-in-binary64-one-bit-from-the-decimal-answer), [FN-ROUNDUP-003](#fn-roundup-003-at-tiny-magnitudes-roundup-may-add-no-unit-and-the-two-signs-differ), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
 | [`RSQ`](../functions/FUNC.RSQ.md) | [FN-CORREL-001](#fn-correl-001-correl-and-pearson-use-population-normalisation-n-with-stored-pc64-two-pass-arithmetic-while-rsq-squares-the-sample-normalised-n-1-correlation) |
+| [`SCAN`](../functions/FUNC.SCAN.md) | [FN-REDUCE-001](#fn-reduce-001-reduce-allows-its-accumulator-to-hold-a-multi-cell-array-whereas-scan-rejects-multi-cell-lambda-results-with-calc) |
 | [`SEARCH`](../functions/FUNC.SEARCH.md) | [FN-FIND-001](#fn-find-001-find-and-search-match-an-empty-find_text-at-start_num-reject-start_num-past-length1-and-floor-start_num-near-integer-boundaries) |
 | [`SEARCHB`](../functions/FUNC.SEARCHB.md) | [FN-LENB-001](#fn-lenb-001-under-a-single-byte-windows-locale-such-as-en-za-the-b-suffixed-text-functions-count-characters-rather-than-utf-8-or-utf-16-bytes) |
+| [`SECOND`](../functions/FUNC.SECOND.md) | [FN-MINUTE-001](#fn-minute-001-minute-and-second-add-0586400-half-a-second-to-the-serial-before-extracting-fractional-time-components) |
+| [`SEQUENCE`](../functions/FUNC.SEQUENCE.md) | [FN-SEQUENCE-001](#fn-sequence-001-sequence-truncates-dimensions-advances-by-stored-additions-and-puts-num-only-in-overflowing-cells) |
 | [`SIGN`](../functions/FUNC.SIGN.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`SIN`](../functions/FUNC.SIN.md) | [FN-SIN-001](#fn-sin-001-sin-and-cos-reduce-with-x87-66-bit-pi-and-double-round-drifting-by-up-to-34-ulp-at-large-inputs-and-05003-ulp-near-tie-points) |
 | [`SORT`](../functions/FUNC.SORT.md) | [FN-SORT-001](#fn-sort-001-a-han-iteration-mark-is-not-read-as-a-repeat-of-the-character) |
+| [`SORTBY`](../functions/FUNC.SORTBY.md) | [FN-SORTBY-001](#fn-sortby-001-sortby-orders-keys-by-excel-collation-including-japanese-iteration-marks-and-preserves-input-order-on-primary-ties) |
 | [`SQRT`](../functions/FUNC.SQRT.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals), [FN-GEOMEAN-001](#fn-geomean-001-geomean12-and-sqrt2-return-adjacent-values-in-retained-build-20430-controls), [FN-SQRT-001](#fn-sqrt-001-sqrt-is-rounded-twice-once-to-64-bits-and-once-to-53), [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits) |
 | [`STDEV`](../functions/FUNC.STDEV.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`STDEV.P`](../functions/FUNC.STDEV.P.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
@@ -329,6 +354,7 @@ answer.
 | [`T.DIST.RT`](../functions/FUNC.T.DIST.RT.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`T.INV`](../functions/FUNC.T.INV.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`T.INV.2T`](../functions/FUNC.T.INV.2T.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat), [FN-TINV-001](#fn-tinv-001-tinv-for-p-up-to-085-is-sqrtv1z---1-on-a-binary64-beta-coordinate-z-so-its-last-digits-follow-z) |
+| [`T.TEST`](../functions/FUNC.T.TEST.md) | [FN-T.TEST-001](#fn-ttest-001-ttest-and-ttest-pass-rounded-complement-y--1---z-to-the-beta-cdf-kernel-and-validate-tails-after-sample-singletons) |
 | [`TAKE`](../functions/FUNC.TAKE.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`TBILLEQ`](../functions/FUNC.TBILLEQ.md) | [FN-TBILLEQ-001](#fn-tbilleq-001-for-bills-longer-than-182-days-tbilleq-is-a-quadratic-not-the-documented-formula), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`TBILLPRICE`](../functions/FUNC.TBILLPRICE.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
@@ -339,15 +365,22 @@ answer.
 | [`TEXTBEFORE`](../functions/FUNC.TEXTBEFORE.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit) |
 | [`TEXTJOIN`](../functions/FUNC.TEXTJOIN.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`TEXTSPLIT`](../functions/FUNC.TEXTSPLIT.md) | [FN-TEXTSPLIT-001](#fn-textsplit-001-empty-text-gives-na-from-textbefore-and-textafter-value-from-textsplit), [FN-TEXTSPLIT-002](#fn-textsplit-002-over-an-array-textsplit-and-regexextract-keep-only-the-first-piece-of-each-element) |
+| [`TIME`](../functions/FUNC.TIME.md) | [FN-TIME-001](#fn-time-001-time-divides-total_seconds-by-86400-before-taking-the-fractional-day-so-time2500-differs-by-11-ulp-from-124) |
+| [`TIMEVALUE`](../functions/FUNC.TIMEVALUE.md) | [FN-TIMEVALUE-001](#fn-timevalue-001-timevalue-stores-the-full-serial-before-subtracting-the-date-floor-losing-16-mantissa-bits-on-date-time-text) |
 | [`TINV`](../functions/FUNC.TINV.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat), [FN-TINV-001](#fn-tinv-001-tinv-for-p-up-to-085-is-sqrtv1z---1-on-a-binary64-beta-coordinate-z-so-its-last-digits-follow-z) |
 | [`TOCOL`](../functions/FUNC.TOCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`TOROW`](../functions/FUNC.TOROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`TRANSPOSE`](../functions/FUNC.TRANSPOSE.md) | [FN-TRANSPOSE-001](#fn-transpose-001-transpose-converts-blank-cells-to-0-and-returns-value-when-its-input-is-an-out-of-range--implicit-intersection) |
+| [`TREND`](../functions/FUNC.TREND.md) | [FN-TREND-001](#fn-trend-001-trend-evaluates-its-qr-fit-and-prediction-in-stored-pc64-x87-arithmetic-drifting-by-1-4-ulp-on-exact-lines) |
+| [`TRIM`](../functions/FUNC.TRIM.md) | [FN-TRIM-001](#fn-trim-001-trim-strips-and-collapses-only-ascii-space-u0020-and-leaves-non-breaking-spaces-and-surrogate-pairs-intact) |
 | [`TRIMRANGE`](../functions/FUNC.TRIMRANGE.md) | [FN-TRIMRANGE-001](#fn-trimrange-001-trimrange-accepts-3-arguments-0-none-1-leading-2-trailing-3-both-default-rejects-fractional-modes-with-value-and-returns-ref-on-an-all-blank-input) |
 | [`TRUNC`](../functions/FUNC.TRUNC.md) | [FN-ROUND-002](#fn-round-002-the-rounding-functions-read-15-digits-first-so-rounddown-can-round-up), [FN-ROUND-003](#fn-round-003-near-dbl_max-round-returns-nan-bit-patterns-that-excel-treats-as-numbers), [FN-ROUNDUP-001](#fn-roundup-001-roundup-rounddown-and-trunc-read-num_digits-from-its-low-16-bits), [FN-TRUNC-001](#fn-trunc-001-trunc-of-dbl_min-returns-a-subnormal-not-0) |
+| [`TTEST`](../functions/FUNC.TTEST.md) | [FN-T.TEST-001](#fn-ttest-001-ttest-and-ttest-pass-rounded-complement-y--1---z-to-the-beta-cdf-kernel-and-validate-tails-after-sample-singletons) |
 | [`TYPE`](../functions/FUNC.TYPE.md) | [FN-GROUPBY-001](#fn-groupby-001-groupby-and-pivotby-hold-an-array-returned-by-their-lambda-inside-its-cell-index-boxes-it-unless-computed-and-nboxed-is-value) |
 | [`UNICHAR`](../functions/FUNC.UNICHAR.md) | [FN-CHAR-001](#fn-char-001-char-and-code-use-the-windows-1252-code-page-char128-is-u20ac-astral-characters-give-code-63-while-unicharunicode-use-unicode-scalar-values) |
 | [`UNICODE`](../functions/FUNC.UNICODE.md) | [FN-CHAR-001](#fn-char-001-char-and-code-use-the-windows-1252-code-page-char128-is-u20ac-astral-characters-give-code-63-while-unicharunicode-use-unicode-scalar-values) |
 | [`UNIQUE`](../functions/FUNC.UNIQUE.md) | [FN-UNIQUE-001](#fn-unique-001-unique-deduplicates-text-case-insensitively-keeping-the-first-spelling-while-comparing-numbers-by-binary64-value) |
+| [`UPPER`](../functions/FUNC.UPPER.md) | [FN-UPPER-001](#fn-upper-001-upper-applies-simple-single-codepoint-unicode-case-mapping-without-expanding-ßﬀ-or-applying-turkish-dotted-i-rules) |
 | [`VALUE`](../functions/FUNC.VALUE.md) | [FN-ABS-001](#fn-abs-001-text-to-number-checks-the-exponent-range-even-when-the-mantissa-is-zero), [FN-VALUE-001](#fn-value-001-text-to-number-reads-arabic-persian-devanagari-and-thai-digits-but-not-fullwidth-digits), [FN-VALUE-002](#fn-value-002-a-date-as-text-takes-at-most-two-digits-for-month-and-day), [FN-VALUE-003](#fn-value-003-value-takes-one-percent-sign-anywhere-around-parentheses-and-a-euro-sign-but-not-a-dollar) |
 | [`VALUETOTEXT`](../functions/FUNC.VALUETOTEXT.md) | [FN-CONCAT-001](#fn-concat-001-number-to-text-emits-15-significant-digits-via-an-exact-q1664-split-on-1-65536-and-x87-low-nibble-scaling-into-q064-elsewhere) |
 | [`VAR`](../functions/FUNC.VAR.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
@@ -357,11 +390,16 @@ answer.
 | [`VARP`](../functions/FUNC.VARP.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`VARPA`](../functions/FUNC.VARPA.md) | [FN-VAR.S-001](#fn-vars-001-the-variance-family-uses-raw-moments-with-stored-steps-and-two-tests-switch-it-to-a-centered-sum) |
 | [`VDB`](../functions/FUNC.VDB.md) | [FN-VDB-001](#fn-vdb-001-an-empty-factor-slot-in-vdb-is-0-not-the-default-2) |
+| [`VLOOKUP`](../functions/FUNC.VLOOKUP.md) | [FN-MATCH-001](#fn-match-001-match-and-vlookup-require-equal-utf-16-length-in-non-wildcard-exact-mode-and-count-wildcard--in-utf-16-units) |
 | [`VSTACK`](../functions/FUNC.VSTACK.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`WEEKDAY`](../functions/FUNC.WEEKDAY.md) | [FN-DATE-001](#fn-date-001-in-the-1900-date-system-serial-0-is-1900-01-00-and-serial-60-is-the-fictitious-1900-02-29) |
 | [`WEEKNUM`](../functions/FUNC.WEEKNUM.md) | [FN-WEEKNUM-001](#fn-weeknum-001-weeknum-with-an-invalid-return_type-can-answer-differently-each-time-it-is-called) |
 | [`WORKDAY`](../functions/FUNC.WORKDAY.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
 | [`WORKDAY.INTL`](../functions/FUNC.WORKDAY.INTL.md) | [FN-NETWORKDAYS.INTL-001](#fn-networkdaysintl-001-networkdaysintl-checks-weekend-before-the-dates-workdayintl-after-them), [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value) |
+| [`WRAPCOLS`](../functions/FUNC.WRAPCOLS.md) | [FN-WRAPCOLS-001](#fn-wrapcols-001-wrapcols-and-wraprows-ignore-an-error-in-pad_with-when-no-padding-cell-is-needed-and-lift-over-array-wrap_count) |
+| [`WRAPROWS`](../functions/FUNC.WRAPROWS.md) | [FN-WRAPCOLS-001](#fn-wrapcols-001-wrapcols-and-wraprows-ignore-an-error-in-pad_with-when-no-padding-cell-is-needed-and-lift-over-array-wrap_count) |
+| [`XLOOKUP`](../functions/FUNC.XLOOKUP.md) | [FN-XMATCH-001](#fn-xmatch-001-xmatch-and-xlookup-equate-ligatures-and-combining-sequences-in-exact-mode-while-wildcard--counts-utf-16-units) |
+| [`XMATCH`](../functions/FUNC.XMATCH.md) | [FN-XMATCH-001](#fn-xmatch-001-xmatch-and-xlookup-equate-ligatures-and-combining-sequences-in-exact-mode-while-wildcard--counts-utf-16-units) |
 | [`XOR`](../functions/FUNC.XOR.md) | [FN-AND-001](#fn-and-001-and-or-and-xor-evaluate-direct-arguments-before-referencesarrays-and-skip-direct-non-boolean-text-unless-no-logical-is-found) |
 | [`YEAR`](../functions/FUNC.YEAR.md) | [FN-DATE-001](#fn-date-001-in-the-1900-date-system-serial-0-is-1900-01-00-and-serial-60-is-the-fictitious-1900-02-29) |
 | [`YEARFRAC`](../functions/FUNC.YEARFRAC.md) | [FN-WORKDAY-001](#fn-workday-001-an-empty-cell-as-a-first-date-is-serial-0-but-a-logical-in-that-cell-is-value), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
@@ -2816,6 +2854,144 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json`, fn3-proper-002 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn3_questions/PROPER.reading.json`, fn3-proper-004 at `2d0eddcac8` (readings)
 
+### FN-MAKEARRAY-001: MAKEARRAY returns #VALUE! for non-positive dimensions, non-LAMBDA final arguments, or multi-cell LAMBDA results
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, MAKEARRAY(rows, cols, lambda) passes 1-based row and column numbers
+to a 2-parameter LAMBDA and rejects zero or negative dimensions, a non-LAMBDA third argument
+(even a number or error), wrong-arity LAMBDAs, and array results from the LAMBDA with #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=CONCAT(MAKEARRAY(2,2,LAMBDA(r,c,@r*10+@c)))` | as typed | `11122122` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=@MAKEARRAY(0,1,LAMBDA(r,c,1))` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MAKEARRAY(1.0,1.0,1.0)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in f3_arrays (rows 40, 44) and
+jnt_aggregate_arrays (rows 108-110).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/lambda_helpers.rs`, lines 28-36 at `95eb0cb2ef` — MAKEARRAY dimension, callable, and array-result #VALUE! checks
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 40 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 44 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json`, sheet jnt_aggregate_arrays row 108 column 4 at `95eb0cb2ef` (readings)
+
+### FN-MATCH-001: MATCH and VLOOKUP require equal UTF-16 length in non-wildcard exact mode and count wildcard ? in UTF-16 units
+
+*Quirk; measured; recorded 2026-11-22.* Applies to MATCH, VLOOKUP.
+
+In Excel 16.0.20527.20088, MATCH(..., 0) and VLOOKUP(..., FALSE) without wildcards match only
+text of the same UTF-16 code-unit length: "SS" does not match "ß" and "ae" does not match "æ",
+whereas "e"&UNICHAR(769) (length 2) matches "e"+U+0301 in D2 rather than precomposed "é" in D1.
+In wildcard mode, "?" matches one UTF-16 code unit, so surrogate-pair emoji "😀" matches "??"
+rather than "?". Both functions read a blank or omitted lookup_value as 0 and reject lookup
+strings longer than 255 UTF-16 code units with #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=MATCH("SS",D5:D16,0)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=VLOOKUP("ae",D7:D16,1,FALSE)` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MATCH("??",{"😀";"a";"ab"},0)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MATCH("?",{"😀";"a";"ab"},0)` | as typed | `2.0` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in dczsn1_collation (rows 107-116) and
+fn1_collation (rows 217, 219), and matched across 3,373/3,373 MATCH and 3,680/3,680 VLOOKUP
+full-bank rows plus 13/13 MATCH pinned rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/lookup.rs`, lines 17-37 at `95eb0cb2ef` — Exact length rule vs wildcard UTF-16 matching and bisection semantics
+- DnaCalc `crates/calc-func/witness-status.tsv`, MATCH; VLOOKUP at `95eb0cb2ef` — 3,373/3,373 MATCH and 3,680/3,680 VLOOKUP full-bank rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json`, sheet dczsn1_collation row 109 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json`, sheet dczsn1_collation row 116 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation row 217 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation row 219 column 4 at `95eb0cb2ef` (readings)
+
+### FN-MAX-001: MAX and MIN coerce direct text and logicals and read omitted direct args as 0, while skipping them inside arrays/ranges
+
+*Quirk; measured; recorded 2026-11-22.* Applies to MAX, MIN.
+
+In Excel 16.0.20527.20088, MAX and MIN coerce direct arguments to numbers (reading "2" as 2,
+TRUE as 1, non-numeric text as #VALUE!, and omitted direct arguments as 0 so MIN(1,) = 0 and
+MAX(-1,) = 0), whereas inside arrays and cell references they skip text, logicals, and blanks
+and return 0 when no numeric value is present (MIN({TRUE,"1"}) = 0).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=MIN("2",TRUE)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MIN({TRUE,"1"})` | as typed | `0.0` (`0x0000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MAX(-1,)` | as typed | `0.0` (`0x0000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across cfunc_m3_4 readings in Excel 16.0.20527.20088
+(argument_classes rows 75-87) and matched across 1,211/1,211 MAX and 1,212/1,212 MIN full-bank
+rows plus 120/120 pinned rows each.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/aggregate.rs`, lines 207-301 at `95eb0cb2ef` — MAX/MIN direct coercion vs Held::Numbers
+- DnaCalc `crates/calc-func/witness-status.tsv`, MAX; MIN at `95eb0cb2ef` — 1,211/1,211 MAX and 1,212/1,212 MIN full-bank rows matched
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json`, sheet argument_classes row 76 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json`, sheet argument_classes row 80 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json`, sheet argument_classes row 87 column 4 at `95eb0cb2ef` (readings)
+
+### FN-MAXA-001: MAXA and MINA read TRUE as 1 and text/FALSE as 0 in references, but skip text and logicals inside array literals
+
+*Quirk; measured; recorded 2026-11-22.* Applies to MAXA, MINA.
+
+In Excel 16.0.20527.20088, MAXA and MINA count text and FALSE as 0 and TRUE as 1 when read from
+worksheet cell references (skipping blank cells), but inside array literals they skip text and
+logicals just like MAX and MIN: MAXA({-1,TRUE}) is -1, MAXA({-1,"a"}) is -1, MINA({1,TRUE}) is
+1, and MINA({1,"a"}) is 1. When given an array containing nested arrays (such as GROUPBY with
+LAMBDA(x,x)), MAXA returns #N/A.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=MAXA({-1,TRUE})` | as typed | `-1.0` (`0xbff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MINA({1,TRUE})` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MINA({1,"a"})` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=MAXA(GROUPBY({"East";"West";"East";"north";"West";"east"},{1;2;3;4;5;6},LAMBDA(x,x)))` | as typed | `#N/A` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in dch9u_functions (rows 62-64, 2073) and
+cfunc_m3_4 (argument_classes rows 88-97), and matched across 1,212/1,212 MAXA and 1,212/1,212
+MINA full-bank rows plus 120/120 pinned rows each.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/aggregate.rs`, lines 754-797 at `95eb0cb2ef` — Held::Values rule distinguishing Origin::Held from Origin::Element
+- DnaCalc `crates/calc-func/witness-status.tsv`, MAXA; MINA at `95eb0cb2ef` — 1,212/1,212 MAXA and 1,212/1,212 MINA full-bank rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 62 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 63 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 64 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 2073 column 4 at `95eb0cb2ef` (readings)
+
+### FN-MINUTE-001: MINUTE and SECOND add 0.5/86400 (half a second) to the serial before extracting fractional time components
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-22.* Applies to MINUTE, SECOND.
+
+In Excel 16.0.20527.20088, MINUTE and SECOND round the serial to the nearest second by adding
+0.5/86400 before decomposing the fractional day into hours, minutes, and seconds. Thus
+MINUTE(0.5 + 1/86400/2) rounds 12:00:00.5 up to 12:00:01 and returns 0, and SECOND(0.5 +
+1/86400*1.5) rounds 12:00:01.5 to 12:00:01 or 12:00:02 according to binary64 evaluation,
+returning 1.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=MINUTE(0.5+1/86400/2)` | as typed | `0.0` (`0x0000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SECOND(0.5+1/86400*1.5)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in f2_rows (rows 116-117) and matched
+across 14,631/14,631 MINUTE and 14,631/14,631 SECOND full-bank rows plus 120/120 pinned rows
+each in Excel 16.0.20430.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/date_kernels.rs`, hms at `95eb0cb2ef` — 0.5/86400 second-rounding before hour/minute/second extraction
+- DnaCalc `crates/calc-func/witness-status.tsv`, MINUTE; SECOND at `95eb0cb2ef` — 14,631/14,631 full-bank and 120/120 pinned rows matched for each
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json`, sheet f2_rows row 116 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json`, sheet f2_rows row 117 column 4 at `95eb0cb2ef` (readings)
+
 ### FN-MOD-001: MOD with tiny operands gives wrong signs and #NUM!, by a rule that fits every recorded row
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-04.*
@@ -3013,6 +3189,38 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa065, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa066, row 20, column 10 at `2d0eddcac8` (readings)
 
+### FN-NORM.S.DIST-001: NORM.S.DIST(z, TRUE) and NORMSDIST(z) scale |z| in stored x87 before ERFC.PRECISE, diverging up to 72 ULP in the tail
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-22.* Applies to
+NORM.S.DIST, NORMSDIST.
+
+In Excel 16.0.20131 through 16.0.20527, NORM.S.DIST(z, TRUE) and NORMSDIST(z) compute z_scaled
+= RN53(RN64(|z| * RN(1/sqrt(2)))) and pass it to Excel's ERFC.PRECISE kernel, returning 0.5*Q
+for z < 0 and RN53(RN64(1 - 0.5*Q)) for z >= 0, flushing subnormal results to +0.0 (e.g.
+NORMSDIST(-37.52) = 0). Because ERFC.PRECISE loses accuracy in the Gaussian tail,
+NORM.S.DIST(-10.907735625234475, TRUE) differs by 72 ULP from the true mathematical CDF.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `NORM.S.DIST(-10.907735625234475, TRUE)` | z `-10.907735625234475` (`0xc025d0c2b94f97a5`); cumulative `TRUE` (cells) | `5.293017147361349e-28` (`0x3a44f7c1d0b8dc97`) | `5.293017147361414e-28` (`0x3a44f7c1d0b8dcdf`) | Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics |
+| `NORM.S.DIST(-0.39999999999999986, TRUE)` | z `-0.39999999999999986` (`0xbfd9999999999997`); cumulative `TRUE` (cells) | `0.3445782583896758` (`0x3fd60d91f7ac901a`) | `0.3445782583896759` (`0x3fd60d91f7ac901b`) | Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics |
+
+Correct value: mpmath at 60 decimal digits, correctly rounded to nearest binary64
+
+Basis (measured): Recorded in crates/calc-func/witness-reference/NORM.S.DIST.tsv (6 mismatching
+rows of 27,497 full-bank NORM.S.DIST rows; 27,491/27,497 NORM.S.DIST and 2,121/2,121 NORMSDIST
+full-bank rows matched, plus 120/120 pinned NORM.S.DIST rows).
+
+- Open: 6 NORM.S.DIST tail rows (inherited from ERFC.PRECISE) remain open last-bit/tail residuals (dc-j9k.62).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/normal_log_family.rs`, identified_std_normal_cdf at `95eb0cb2ef` — x87 scaling RN53(RN64(|x|*RN(1/sqrt(2)))), ERFC.PRECISE dispatch, and subnormal flush
+- DnaCalc `crates/calc-func/witness-reference/NORM.S.DIST.tsv` at `95eb0cb2ef` — 6 NORM.S.DIST witness-reference rows differing from nearest binary64
+- DnaCalc `crates/calc-func/witness-status.tsv`, NORM.S.DIST; NORMSDIST at `95eb0cb2ef` — 27,491/27,497 NORM.S.DIST and 2,121/2,121 NORMSDIST full-bank rows matched
+- DnaCalc `crates/calc-func/witness-reference/NORM.S.DIST.tsv`, oc8669 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/witness-reference/NORM.S.DIST.tsv`, oc15690 at `95eb0cb2ef` (readings)
+
 ### FN-NORM.S.INV-001: NORM.S.INV uses AS241 tails (p < 0.075 and p > 15/16) and three x87-stored rational/Padé pieces for sqrt(2)*erfinv(2p-1) in between
 
 *Detail for matching Excel's bits; inferred; recorded 2026-11-22.* Applies to CONFIDENCE,
@@ -3080,6 +3288,40 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json`, sheet logical_functions row 102 column 4 at `4fb9b728df` (readings)
 - DnaCalc `crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json`, sheet logical_functions row 93 column 4 at `4fb9b728df` (readings)
 - DnaCalc `crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json`, sheet logical_functions row 91 column 4 at `4fb9b728df` (readings)
+
+### FN-NUMBERVALUE-001: NUMBERVALUE falls back to the host VALUE grammar for letter/digit separators and rounds 15-digit mantissas by reciprocal
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527 (en-ZA), when given a separator outside ".", ",", " ", or U+00A0 on text
+its own reader refuses, NUMBERVALUE strips group_separator before the first decimal_separator,
+replaces decimal_separator with the host decimal separator, and parses via the host VALUE
+grammar (e.g. NUMBERVALUE("%1e3", ".", "e") is 0.13, while NUMBERVALUE("1e-3", "e", ",") is
+#VALUE!). On 15-digit mantissas such as "600757912143053e-27", Excel divides by 10^27 rather
+than correctly rounding to binary64, differing by 1 ULP on 48 of 366 fn12 pinned rows. In
+compatibility-version-1 workbooks, @NUMBERVALUE evaluates to #NAME?.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=NUMBERVALUE("1.234,56",",",".")` | as typed | `1234.56` (`0x40934a3d70a3d70a`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=NUMBERVALUE("123.45",",",",")` | as typed | `#VALUE!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `NUMBERVALUE("600757912143053e-27", ".", ",")` | text `600757912143053e-27`; decimal_separator `.`; group_separator `,` (cells) | `6.007579121430529e-13` (`0x3d6523256e93f070`) | `6.00757912143053e-13` (`0x3d6523256e93f071`) | Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA |
+
+Correct value: Exact decimal 600757912143053e-27 rounded to nearest binary64
+
+Basis (measured): Measured across jnt_text_formats (rows 40-46), 366 fn12 rows
+(crates/calc-func/tests/witnesses/NUMBERVALUE.json), and 30 letter/digit-separator controls in
+dc-iuwct.35; matched across 2,835/2,835 full-bank and 318/366 pinned rows.
+
+- Open: 48 1-ULP 15-digit e-27 rounding rows and unclocked "1q-3" date refusal remain open on the pinned bank.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/witnesses/call.rs`, numbervalue_letter_separators_fall_back_to_the_value_grammar at `95eb0cb2ef` — 29 non-date and clocked date letter-separator controls
+- DnaCalc `crates/calc-func/witness-status.tsv`, NUMBERVALUE at `95eb0cb2ef` — 2,835/2,835 full-bank and 318/366 pinned rows matched
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json`, sheet jnt_text_formats row 42 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json`, sheet jnt_text_formats row 45 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/witnesses/NUMBERVALUE.json`, fn12-NUMBERVALUE-000 at `95eb0cb2ef` (readings)
 
 ### FN-OP_EQUAL-001: Conjoining Hangul jamo do not compare equal to the precomposed syllable
 
@@ -3381,6 +3623,33 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/f3_financial.rs`, lines 435-466 at `26bb1800d3` — recorded answers pinned
 - CalcFunc-Evidence `cache/oracle-20430/build-20430/PRICEMAT.jsonl.gz`, line 1455, key PRICEMAT|0x40e6a50000000000|0x40e98c2000000000|0x40e6528000000000|0x3fa67db79160c3a0|0x3fa0b91ffdb34689|0x0000000000000000 at `4d5320dfdc` (readings)
 
+### FN-PROB-001: PROB validates the running stored sum of probabilities against [1 - 4 ULP, 1 + 22 ULP] rather than per-term [0, 1]
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, PROB accumulates the probabilities in input order as binary64
+additions and admits any vector whose final sum lies in [1.0 - 4 ULP, 1.0 + 22 ULP]
+(0x3feffffffffffffc ..= 0x3ff0000000000016), so compensating negative or >1 entries (such as
+{-0.25, 1.25} or {1e16, -1e16, 1}) are accepted whereas reordered {1e16, 1, -1e16} fails with
+#NUM!. Non-numeric scalar x_range or prob_range arguments ("2", TRUE, "x") return #DIV/0!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=PROB(2,1,2)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=PROB("2",1,2)` | as typed | `#DIV/0!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 across fn4_questions (ql086-ql103) and
+dc-ymjf.2.79 tests (crates/calc-func/tests/f1_stats.rs), and matched across 2,919/2,919
+full-bank PROB rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/lookup_prob_frequency_family.rs`, prob_kernel at `95eb0cb2ef` — Running stored sum tolerance [one-4 ..= one+22]
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, prob_multi_item_sum_and_bounds at `95eb0cb2ef` — Out-of-range compensating probabilities and ULP sum bounds
+- DnaCalc `crates/calc-func/witness-status.tsv`, PROB at `95eb0cb2ef` — 2,919/2,919 full-bank PROB rows matched
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql098 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql099 row 20 column 10 at `95eb0cb2ef` (readings)
+
 ### FN-RATE-001: RATE returns finite numbers near DBL_MAX on 46 inputs where no real annuity root exists above -1
 
 *Quirk; measured; recorded 2026-11-22.*
@@ -3409,6 +3678,65 @@ Evidence:
 - DnaCalc `crates/calc-func/witness-status.tsv`, RATE at `4fb9b728df` — 4,722 of 4,787 full-bank rows matched
 - DnaCalc `crates/calc-func/witness-reference/RATE.tsv`, fx2/evidence/rate-overflow-answers.json $[494] at `4fb9b728df` (readings)
 - DnaCalc `crates/calc-func/witness-reference/RATE.tsv`, bank2-more-RATE-1195 at `4fb9b728df` (readings)
+
+### FN-REDUCE-001: REDUCE allows its accumulator to hold a multi-cell array whereas SCAN rejects multi-cell LAMBDA results with #CALC!
+
+*Quirk; measured; recorded 2026-11-22.* Applies to REDUCE, SCAN.
+
+In Excel 16.0.20527.20088, REDUCE permits its LAMBDA accumulator to hold and return a
+multi-cell array (e.g. TEXTSPLIT), whereas SCAN rejects any multi-cell LAMBDA result with
+#CALC!. For both helpers, a reference source argument passes one-cell references into the
+LAMBDA while an array literal passes values, and any non-LAMBDA final argument (even an error
+or number) returns #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=REDUCE("",{"a,b","c,d"},LAMBDA(acc,txt,TEXTSPLIT(txt,",")))` | as typed | `{"c","d"}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SCAN("",{"a,b","c,d"},LAMBDA(acc,txt,TEXTSPLIT(txt,",")))` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=REDUCE(0.0,{1,2},1.0)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=CONCAT(SCAN(0,{1,2,3},LAMBDA(a,b,@a+@b)))` | as typed | `136` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 across fn2_questions (fn2_q091, fn2_q092),
+jnt_aggregate_arrays (rows 104-105), and f3_arrays (rows 35-37).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/lambda_helpers.rs`, lines 1-37 at `95eb0cb2ef` — LAMBDA helper reference passing, array accumulator allowance, and #VALUE!/#CALC! rules
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q091 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q092 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json`, sheet jnt_aggregate_arrays row 104 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 37 column 4 at `95eb0cb2ef` (readings)
+
+### FN-REGEXREPLACE-001: REGEXREPLACE uses PCRE2 with numbered captures ($1, $2), rejects invalid patterns as #VALUE!, and indexes occurrences
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, REGEXREPLACE evaluates PCRE2 regular expressions, expands numbered group
+references ($1, $2) in replacement text, supports negative occurrence indices (e.g. -2 selects
+the second-from-last match), and returns #VALUE! for unclosed/invalid patterns (such as "[") or
+out-of-range occurrence indices on empty patterns. Under compatibility version 1, @REGEXREPLACE
+evaluates to #NAME?.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=REGEXREPLACE("abc123def","\d+","-")` | as typed | `abc-def` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=REGEXREPLACE("abc","[","x")` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=REGEXREPLACE("p1 p2 p3","\d+","X",-2)` | as typed | `p1 pX p3` | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+| `=REGEXREPLACE("id=A:41; id=B:7","([A-Z]):(\d+)","$2/$1")` | as typed | `id=41/A; id=7/B` | Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across jnt_text_formats (rows 12-15), corpus-examples
+regex-replace-second-from-last / regex-replace-group-order / regex-pad-components in Excel
+16.0.20527.20196, and empty_regex_replace_boundaries, and matched across 4,346/4,346 full-bank
+REGEXREPLACE rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f2_dates.rs`, empty_regex_replace_boundaries at `95eb0cb2ef` — Empty-pattern replacement boundaries at CRLF and UTF-16 positions
+- DnaCalc `crates/calc-func/witness-status.tsv`, REGEXREPLACE at `95eb0cb2ef` — 4,346/4,346 full-bank REGEXREPLACE rows matched
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json`, sheet jnt_text_formats row 12 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json`, sheet jnt_text_formats row 15 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `tests/corpus-examples/formulas/regex-replace-second-from-last/oracle.capture.json`, sheet Sheet1 row 2 column 14 (with A1 = "p1 p2 p3") at `95eb0cb2ef` (readings)
+- DnaCalc `tests/corpus-examples/formulas/regex-replace-group-order/oracle.capture.json`, sheet Sheet1 row 2 column 14 (with A1 = "id=A:41; id=B:7") at `95eb0cb2ef` (readings)
 
 ### FN-REGEXTEST-001: In REGEXTEST, \w takes combining marks, dot refuses CR, and case folding reaches into ranges
 
@@ -3699,6 +4027,33 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `ab94fb91a5` — three rows of Excel's answers; failed before the change
 - DnaCalc `crates/calc-func/tests/f1_math.rs`, rounding_family_matches_recorded_bank_rows at `ab94fb91a5` (readings)
 
+### FN-SEQUENCE-001: SEQUENCE truncates dimensions, advances by stored additions, and puts #NUM! only in overflowing cells
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, SEQUENCE(rows, [columns], [start], [step]) coerces its arguments in
+formula order, truncates positive fractional dimensions (requiring rows*columns >= 1, else
+#CALC!; negative or invalid dimensions give #VALUE!), and advances each cell in row-major order
+by one stored binary64 addition cur = cur + step rather than start + k*step. When accumulation
+overflows finite binary64, only the overflowing cells become #NUM! while earlier cells retain
+finite values.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=CONCAT(SEQUENCE(2,3))` | as typed | `123456` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=CONCAT(SEQUENCE(3,1,10,-2))` | as typed | `1086` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in f3_arrays (rows 1-2) and dc-ymjf.2.68 /
+dc-ymjf.2.70 tests (crates/calc-func/tests/f3_arrays.rs), and matched across 1,567/1,567
+full-bank SEQUENCE rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f3_arrays.rs`, sequence_fractional_dimensions_and_accumulation at `95eb0cb2ef` — Stored addition accumulation, argument coercion order, and per-cell #NUM! overflow
+- DnaCalc `crates/calc-func/witness-status.tsv`, SEQUENCE at `95eb0cb2ef` — 1,567/1,567 full-bank SEQUENCE rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 1 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 2 column 4 at `95eb0cb2ef` (readings)
+
 ### FN-SIN-001: SIN and COS reduce with x87 66-bit pi and double-round, drifting by up to 3.4 ULP at large inputs and 0.5003 ULP near tie points
 
 *Excel differs from the mathematical answer; measured; recorded 2026-11-22.* Applies to COS,
@@ -3752,6 +4107,31 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation, row 2, column 4 at `f3275d997a` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation, row 3, column 4 at `f3275d997a` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation, row 229, column 4 at `f3275d997a` (readings)
+
+### FN-SORTBY-001: SORTBY orders keys by Excel collation (including Japanese iteration marks) and preserves input order on primary ties
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, SORTBY sorts by blank < number < text < logical < error, using
+Excel's 15-digit numeric comparison (except IEEE total order on qualified overflow values >=
+2^1023) and case-insensitive collation on text, and merges adjacent ascending runs stably. Thus
+"Σ", "ς", and "σ" tie in primary weight and retain input order (1|2|3), "i" < "ı" < "İ" < Greek
+< emoji "😀", and the Japanese kanji iteration mark "時々" sorts between prefix "時" and "時a".
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=TEXTJOIN("\|",FALSE,SORTBY({"iter";"repeat";"prefix";"a";"b"},{"時々";"時時";"時";"時a";"時b"}))` | as typed | `prefix\|iter\|a\|b\|repeat` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TEXTJOIN("\|",FALSE,SORTBY({1;2;3;4;5;6;7},{"Σ";"ς";"σ";"i";"İ";"ı";"😀"}))` | as typed | `4\|6\|5\|1\|2\|3\|7` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in fn1_collation (rows 231-234) and
+f3_arrays (row 14), and matched across 3,000/3,000 full-bank SORTBY rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/arrays.rs`, lines 283-381 at `95eb0cb2ef` — SORTBY kind ranking, collation order, and pairwise run merge
+- DnaCalc `crates/calc-func/witness-status.tsv`, SORTBY at `95eb0cb2ef` — 3,000/3,000 full-bank SORTBY rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation row 231 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation row 234 column 4 at `95eb0cb2ef` (readings)
 
 ### FN-SQRT-001: SQRT is rounded twice, once to 64 bits and once to 53
 
@@ -3932,6 +4312,38 @@ Evidence:
 - DnaCalc `crates/calc-func/witness-status.tsv`, SUMX2MY2 at `4fb9b728df` — 2,831 of 2,850 full-bank rows matched
 - DnaCalc `crates/calc-func/witness-reference/SUMX2MY2.tsv`, bank2-scalar-SUMX2MY2-0477 at `4fb9b728df` (readings)
 
+### FN-T.TEST-001: T.TEST and TTEST pass rounded complement y = 1 - z to the beta CDF kernel and validate tails after sample singletons
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-22.* Applies to T.TEST, TTEST.
+
+In Excel 16.0.20527.20088, T.TEST and TTEST coerce sample arrays before validating tails and
+type (so singleton sample errors precede invalid tails/type, and non-numeric singletons like ""
+or "2" yield #DIV/0! before #NUM!), and compute the p-value by passing the rounded complement y
+= 1 - z (rather than direct z) to the shared incomplete beta CDF kernel (matching 109/129
+retained and 195/384 independent calls when isolated from beta kernel gaps). Under
+compatibility version 1, @T.TEST evaluates to #NAME? while TTEST remains unprefixed.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=T.TEST("",2,2,1)` | as typed | `#DIV/0!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TTEST("2",2,2,1)` | as typed | `#DIV/0!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=T.TEST(Data!A1:A3,Data!E1:E3,2,1)` | as typed | `0.42264973081037416` (`0x3fdb0cb174df99c6`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across fn4_questions (ql134-ql146), prefix_metadata (rows 227, 234),
+and docs/research/paired-t-arithmetic-2026-11-12.md in Excel 16.0.20527.20088, and matched
+across 2,950/2,950 T.TEST and 2,951/2,951 TTEST full-bank rows.
+
+- Open: Paired Sheet1!B70 sits 1 ULP below Excel 20527 under dc-j9k.58 universal bup_140 (dc-j9k.55).
+
+Evidence:
+
+- DnaCalc `docs/research/paired-t-arithmetic-2026-11-12.md` at `95eb0cb2ef` — dc-bc1o T.TEST rounded complement y=1-z and 384-call invoke qualification
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, t_test_validates_tails_after_singleton_sample_errors at `95eb0cb2ef` — Validation order and b<=1 1-ULP note on Sheet1!B70
+- DnaCalc `crates/calc-func/witness-status.tsv`, T.TEST; TTEST at `95eb0cb2ef` — 2,950/2,950 T.TEST and 2,951/2,951 TTEST full-bank rows matched
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql135 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-list-controls.capture.json`, sheet ql138 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json`, sheet prefix_metadata row 227 column 1 at `95eb0cb2ef` (readings)
+
 ### FN-TBILLEQ-001: For bills longer than 182 days TBILLEQ is a quadratic, not the documented formula
 
 *Documentation differs from behaviour; measured; recorded 2026-11-04.*
@@ -4084,6 +4496,62 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q088, row 20, column 10 at `eceb809985` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q089, row 20, column 10 at `eceb809985` (readings)
 
+### FN-TIME-001: TIME divides total_seconds by 86400 before taking the fractional day, so TIME(25,0,0) differs by 11 ULP from 1/24
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, TIME(hour, minute, second) truncates each argument, checks each
+|arg| <= 32767 and total_seconds >= 0 (returning #NUM! for negative total seconds such as
+TIME(0,-1,0)), and evaluates frac(total_seconds / 86400). Because 25*3600/86400 = 1 + 1/24
+loses 11 bits when the integer day 1 is subtracted, TIME(25,0,0) returns 0.04166666666666674
+(0x3fa5555555555560), 11 ULP above 1/24 (0x3fa5555555555555).
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=TIME(25,0,0)` | as typed | `0.04166666666666674` (`0x3fa5555555555560`) | `0.041666666666666664` (`0x3fa5555555555555`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TIME(0,-1,0)` | as typed | `#NUM!` | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TIME(1,30,90)` | as typed | `0.06354166666666666` (`0x3fb0444444444444`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Correct value: Exact rational 1/24 rounded to nearest binary64
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in f2_rows (rows 106-108) and matched
+across 1,296/1,296 full-bank and 120/120 pinned TIME rows in Excel 16.0.20430.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/date_kernels.rs`, time at `95eb0cb2ef` — TIME truncation, 32767 bound, and rem_euclid(1.0)
+- DnaCalc `crates/calc-func/witness-status.tsv`, TIME at `95eb0cb2ef` — 1,296/1,296 full-bank and 120/120 pinned TIME rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json`, sheet f2_rows row 106 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json`, sheet f2_rows row 107 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json`, sheet f2_rows row 108 column 4 at `95eb0cb2ef` (readings)
+
+### FN-TIMEVALUE-001: TIMEVALUE stores the full serial before subtracting the date floor, losing 16 mantissa bits on date-time text
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, TIMEVALUE parses the string as a full Excel serial first and then
+subtracts its integer date floor, so a date-qualified timestamp such as "22-Aug-2008 6:35 AM"
+loses the 16 low mantissa bits occupied by date serial 39682 and returns 0.2743055555547471
+(0x3fd18e38e38e0000), 16,384 ULP below exact (6*60+35)/1440 (0x3fd18e38e38e38e4). On time-only
+strings over 24 hours such as "25:30", TIMEVALUE wraps modulo 24 hours to 0.0625.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=TIMEVALUE("22-Aug-2008 6:35 AM")` | as typed | `0.2743055555547471` (`0x3fd18e38e38e0000`) | `0.2743055555555556` (`0x3fd18e38e38e38e4`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TIMEVALUE("25:30")` | as typed | `0.0625` (`0x3fb0000000000000`) | — | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Correct value: Exact rational 395/1440 rounded to nearest binary64
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in jnt_dates_random (rows 48-52) and
+f2_rows (rows 55-57), and matched across 2,189/2,189 full-bank TIMEVALUE rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f2_dates.rs`, date_qualified_time_text_admits_one_extended_component at `95eb0cb2ef` — Date-serial storage before fractional time extraction
+- DnaCalc `crates/calc-func/witness-status.tsv`, TIMEVALUE at `95eb0cb2ef` — 2,189/2,189 full-bank TIMEVALUE rows matched
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_dates_random.capture.json`, sheet jnt_dates_random row 49 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json`, sheet f2_rows row 57 column 4 at `95eb0cb2ef` (readings)
+
 ### FN-TINV-001: TINV for p up to 0.85 is SQRT(v*(1/z - 1)) on a binary64 beta coordinate z, so its last digits follow z
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-11.* Applies to T.INV.2T, TINV.
@@ -4123,6 +4591,89 @@ Evidence:
 - DnaCalc `.beads/issues.jsonl`, dc-6332.4 at `b8738ae6a6` — item 3
 - CalcFunc-Evidence `cache/oracle/build-20131/TINV.jsonl.gz`, TINV|0x3feb333333333333|0x4039000000000000 at `b4818a6a23` (readings)
 - CalcFunc-Evidence `cache/oracle/build-20131/TINV.jsonl.gz`, TINV|0x3f689374bc6a7efa|0x4039000000000000 at `b4818a6a23` (readings)
+
+### FN-TRANSPOSE-001: TRANSPOSE converts blank cells to 0 and returns #VALUE! when its input is an out-of-range @ implicit intersection
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, TRANSPOSE turns blank cells in a reference into 0 (as array formulas
+over blank cells do), and returns #VALUE! when given an implicit-intersection (@) reference or
+array-lifted @ expression whose intersection fails (e.g. ROWS(TRANSPOSE(@Data!A1:A3)) is
+#VALUE!, whereas ROWS(TRANSPOSE({1,2,3}*1)) is 3).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ROWS(TRANSPOSE(@Data!A1:A3))` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ROWS(TRANSPOSE({1,2,3}*1))` | as typed | `3.0` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=SUM(TRANSPOSE({1,2,3}))` | as typed | `6.0` (`0x4018000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in dch9u_functions (rows 1153-1162) and
+matched across 1,277/1,277 full-bank TRANSPOSE rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/host_facts.rs`, lines 496-522 at `95eb0cb2ef` — TRANSPOSE blank-to-0 and scalar pass-through
+- DnaCalc `crates/calc-func/witness-status.tsv`, TRANSPOSE at `95eb0cb2ef` — 1,277/1,277 full-bank TRANSPOSE rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 1154 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 1160 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json`, sheet dch9u_functions row 1161 column 4 at `95eb0cb2ef` (readings)
+
+### FN-TREND-001: TREND evaluates its QR fit and prediction in stored-PC64 x87 arithmetic, drifting by 1-4 ULP on exact lines
+
+*Excel differs from the mathematical answer; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, TREND solves the linear least-squares fit using the same Householder
+QR factorization in stored-PC64 x87 arithmetic as LINEST (including unpermuted predictor
+ordering and reverse back-substitution) and evaluates predictions with stored-PC64 arithmetic.
+Even on the three-point regression y={1;5;3}, x={1;2;3} whose exact least-squares line is x+1,
+TREND(..., 0) returns 0.9999999999999996 (4 ULP below 1), TREND(..., 1) returns
+1.9999999999999998 (1 ULP below 2), and TREND(..., 100) returns 101.00000000000003 (2 ULP above
+101). Paired 2x2 histories are read as four paired observations, where non-numeric scalar new_x
+returns #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Correct value | Recorded in |
+|---|---|---|---|---|
+| `=@TREND({1;5;3},{1;2;3},0)` | as typed | `0.9999999999999996` (`0x3feffffffffffffc`) | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=@TREND({1;5;3},{1;2;3},1)` | as typed | `1.9999999999999998` (`0x3fffffffffffffff`) | `2.0` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=@TREND({1;5;3},{1;2;3},100)` | as typed | `101.00000000000003` (`0x4059400000000002`) | `101.0` (`0x4059400000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Correct value: Exact OLS fit to {(1,1),(2,5),(3,3)} is y = x + 1, yielding 1 at x=0
+Correct value: Exact OLS fit y = x + 1 at x = 1
+Correct value: Exact OLS fit y = x + 1 at x = 100
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in dcj9k_regression (rows 22-27) and
+dcj9k_r26_regression, and matched across 1,532/1,532 full-bank and 12/12 pinned TREND rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, trend_paired_matrix_history at `95eb0cb2ef` — 2x2 paired matrix TREND history and non-numeric new_x controls
+- DnaCalc `crates/calc-func/witness-status.tsv`, TREND at `95eb0cb2ef` — 1,532/1,532 full-bank and 12/12 pinned TREND rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json`, sheet dcj9k_regression row 24 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json`, sheet dcj9k_regression row 25 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcj9k_regression.capture.json`, sheet dcj9k_regression row 27 column 4 at `95eb0cb2ef` (readings)
+
+### FN-TRIM-001: TRIM strips and collapses only ASCII space (U+0020) and leaves non-breaking spaces and surrogate pairs intact
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088, TRIM removes leading and trailing ASCII spaces (U+0020) and
+collapses internal runs of U+0020 to a single space, while preserving other Unicode characters
+including astral emoji (" a"&LEFT(UNICHAR(128512),1)&" " becomes "a😀").
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=TRIM("  a  b  ")` | as typed | `a b` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=TRIM(" a"&LEFT(UNICHAR(128512),1)&" ")` | as typed | `a😀` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in f2_rows (row 19), dcfl2_text (row 48),
+and jnt_text_formats (rows 108-109), and matched across 2,092/2,092 full-bank TRIM rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/text_kernels.rs`, trim_ascii_spaces at `95eb0cb2ef` — U+0020-only trimming loop
+- DnaCalc `crates/calc-func/witness-status.tsv`, TRIM at `95eb0cb2ef` — 2,092/2,092 full-bank TRIM rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json`, sheet f2_rows row 19 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 48 column 4 at `95eb0cb2ef` (readings)
 
 ### FN-TRIMRANGE-001: TRIMRANGE accepts 3 arguments (0 none, 1 leading, 2 trailing, 3 both default), rejects fractional modes with #VALUE!, and returns #REF! on an all-blank input
 
@@ -4216,6 +4767,34 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 16 column 4 at `4fb9b728df` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 17 column 4 at `4fb9b728df` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 18 column 4 at `4fb9b728df` (readings)
+
+### FN-UPPER-001: UPPER applies simple single-codepoint Unicode case mapping without expanding ß/ﬀ or applying Turkish dotted-I rules
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527.20088 and 16.0.19822, UPPER performs single-codepoint BMP case mapping
+without full Unicode SpecialCasing expansions or NFC normalization: "straße" becomes "STRAßE"
+(not "STRASSE"), "ﬀoo" remains "ﬀOO", "Istanbul" becomes "ISTANBUL" (not Turkish dotted İ),
+dotless "ı" becomes "I", Greek final "ς" becomes "Σ", and Deseret U+10428 ("𐐨") above U+FFFF
+is unchanged. In compatibility version 1, @UNICHAR(454) returns #NAME? (pre-2013 function
+prefix) whereas compatibility version 2 supports it.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=UPPER("hello World")` | as typed | `HELLO WORLD` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=UPPER("a"&LEFT(UNICHAR(128512),1))` | as typed | `A😀` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across dcfl2_text (row 46), f2_rows (row 16), jnt_text_formats (rows
+99-100) in Excel 16.0.20527.20088, docs/research/text-casing-2026-05-20.md in Excel 16.0.19822,
+and fn1_excel_case_mapping_controls, and matched across 2,114/2,114 full-bank UPPER rows.
+
+Evidence:
+
+- DnaCalc `docs/research/text-casing-2026-05-20.md`, lines 12-38 at `95eb0cb2ef` — Observed Excel UPPER/LOWER/PROPER matrix in build 19822
+- DnaCalc `crates/calc-func/tests/f2_text.rs`, fn1_excel_case_mapping_controls at `95eb0cb2ef` — UPPER("𐐨") and UPPER("éßǆİςσΣﬀ") readings
+- DnaCalc `crates/calc-func/witness-status.tsv`, UPPER at `95eb0cb2ef` — 2,114/2,114 full-bank UPPER rows matched
+- DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_text_formats.capture.json`, sheet jnt_text_formats row 99 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 46 column 4 at `95eb0cb2ef` (readings)
 
 ### FN-VALUE-001: Text to number reads Arabic, Persian, Devanagari and Thai digits, but not fullwidth digits
 
@@ -4519,6 +5098,65 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa062, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa072, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa082, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-WRAPCOLS-001: WRAPCOLS and WRAPROWS ignore an error in pad_with when no padding cell is needed and lift over array wrap_count
+
+*Quirk; measured; recorded 2026-11-22.* Applies to WRAPCOLS, WRAPROWS.
+
+In Excel 16.0.20527.20088, WRAPCOLS and WRAPROWS require wrap_count >= 1 (0 gives #NUM!) and
+only use pad_with for trailing incomplete rows or columns: when no padding is needed, an error
+passed in pad_with (such as #VALUE!) is ignored. When wrap_count is an array, Excel lifts the
+call over wrap_count's shape.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=WRAPCOLS("2",2,#VALUE!)` | as typed | `2` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=WRAPCOLS("2",0,"pad")` | as typed | `#NUM!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=WRAPROWS({1,2,3,4},{2,3})` | as typed | `{1,1}` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=CONCAT(WRAPROWS({1,2,3,4,5},2,0))` | as typed | `123450` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in fn2_questions (fn2_q011, fn2_q012,
+fn2_q074, fn2_q075), f3_arrays (rows 29-30), and jnt_aggregate_arrays (rows 101-102), and
+matched across 3,000/3,000 WRAPCOLS and 3,000/3,000 WRAPROWS full-bank rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/witness-status.tsv`, WRAPCOLS; WRAPROWS at `95eb0cb2ef` — 3,000/3,000 WRAPCOLS and 3,000/3,000 WRAPROWS full-bank rows matched
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q012 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q011 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q074 row 20 column 10 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 29 column 4 at `95eb0cb2ef` (readings)
+
+### FN-XMATCH-001: XMATCH and XLOOKUP equate ligatures and combining sequences in exact mode, while wildcard ? counts UTF-16 units
+
+*Quirk; measured; recorded 2026-11-22.* Applies to XLOOKUP, XMATCH.
+
+In Excel 16.0.20527.20088, XMATCH and XLOOKUP in default exact mode (match_mode 0) equate text
+by Excel's full collation rather than UTF-16 length: "e"&UNICHAR(769) matches precomposed "é",
+"ss"/"SS" matches "ß", "ae" matches "æ", and "a"&UNICHAR(173)&"b" matches "ab". By contrast,
+wildcard mode (match_mode 2) counts "?" in UTF-16 code units ("??" matches "😀", "?" skips to
+"a"). Unlike MATCH/VLOOKUP, blank lookup_value matches blank cells, and approximate searches
+order numbers < text < logicals < errors < blanks.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=XLOOKUP("SS",D5:D16,D5:D16)` | as typed | `ß` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=XMATCH("ae",D7:D16)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=XMATCH("??",{"😀";"a";"ab"},2)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=XMATCH("?",{"😀";"a";"ab"},2)` | as typed | `2.0` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in dczsn1_collation (rows 118-126) and
+fn1_collation (rows 218, 220), and matched across 3,373/3,373 XMATCH and 3,360/3,360 XLOOKUP
+full-bank rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/lookup.rs`, lines 20-45 at `95eb0cb2ef` — XMATCH/XLOOKUP collation equality, blank keys, and cross-kind ordering
+- DnaCalc `crates/calc-func/witness-status.tsv`, XLOOKUP; XMATCH at `95eb0cb2ef` — 3,360/3,360 XLOOKUP and 3,373/3,373 XMATCH full-bank rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json`, sheet dczsn1_collation row 126 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dczsn1_collation.capture.json`, sheet dczsn1_collation row 120 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation row 218 column 4 at `95eb0cb2ef` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json`, sheet fn1_collation row 220 column 4 at `95eb0cb2ef` (readings)
 
 ### FN-YEARFRAC-001: On basis 1 the fictitious 1900-02-29 is not a leap day, and YEARFRAC takes serial 0 as a date
 

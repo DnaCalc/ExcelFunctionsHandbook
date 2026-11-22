@@ -1,0 +1,72 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SORTBY-001",
+  "functions": [
+    "FUNC.SORTBY"
+  ],
+  "kind": "quirk",
+  "title": "SORTBY orders keys by Excel collation (including Japanese iteration marks) and preserves input order on primary ties",
+  "statement": "In Excel 16.0.20527.20088, SORTBY sorts by blank < number < text < logical < error, using Excel's 15-digit numeric comparison (except IEEE total order on qualified overflow values >= 2^1023) and case-insensitive collation on text, and merges adjacent ascending runs stably. Thus \"Σ\", \"ς\", and \"σ\" tie in primary weight and retain input order (1|2|3), \"i\" < \"ı\" < \"İ\" < Greek < emoji \"😀\", and the Japanese kanji iteration mark \"時々\" sorts between prefix \"時\" and \"時a\".",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in fn1_collation (rows 231-234) and f3_arrays (row 14), and matched across 3,000/3,000 full-bank SORTBY rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=TEXTJOIN(\"|\",FALSE,SORTBY({\"iter\";\"repeat\";\"prefix\";\"a\";\"b\"},{\"時々\";\"時時\";\"時\";\"時a\";\"時b\"}))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "prefix|iter|a|b|repeat",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation row 231 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TEXTJOIN(\"|\",FALSE,SORTBY({1;2;3;4;5;6;7},{\"Σ\";\"ς\";\"σ\";\"i\";\"İ\";\"ı\";\"😀\"}))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "4|6|5|1|2|3|7",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/fn1_collation.capture.json",
+        "locator": "sheet fn1_collation row 234 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/arrays.rs",
+      "locator": "lines 283-381",
+      "note": "SORTBY kind ranking, collation order, and pairwise run merge"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SORTBY",
+      "note": "3,000/3,000 full-bank SORTBY rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
