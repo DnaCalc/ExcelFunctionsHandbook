@@ -1,0 +1,132 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LARGE-001",
+  "functions": [
+    "FUNC.LARGE"
+  ],
+  "kind": "quirk",
+  "title": "LARGE validates unrounded k against [1, n] before truncating (n + 1 - k) and preserves qualified overflow numbers",
+  "statement": "In Excel 16.0.20527, LARGE(array, k) validates the unrounded numeric k against 1 <= k <= n (returning #NUM! when k > n even if trunc(k) == n, such as k = 1 + 2^-52 on a 1-element array) before indexing ascending sorted values at trunc(n + 1.0 - k) (whose stored subtraction rounds ranks adjacent to an integer), skips text, logicals, and blanks inside arrays or ranges, and preserves qualified overflow numbers. Matches 2,848/2,848 full-bank LARGE rows.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (row 139) and across 2,848/2,848 full-bank LARGE rows in CalcFunc-Evidence (bank2-answers-large-{more,scalar,special}.json).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=LARGE(Data!A1:A3,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "5.0",
+        "bits": "0x4014000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 139 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "LARGE(-1e+100, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array",
+          "value": {
+            "kind": "number",
+            "display": "-1e+100",
+            "bits": "0xd4b249ad2594c37d"
+          }
+        },
+        {
+          "name": "k",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1e+100",
+        "bits": "0xd4b249ad2594c37d"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-large-scalar.json",
+        "locator": "bank2-scalar-LARGE-0010",
+        "note": "direct scalar logical TRUE coerces to k = 1"
+      }
+    },
+    {
+      "call": "LARGE(0.4272256304209876, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array",
+          "value": {
+            "kind": "number",
+            "display": "0.4272256304209876",
+            "bits": "0x3fdb57aa2baaf3b4"
+          }
+        },
+        {
+          "name": "k",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.4272256304209876",
+        "bits": "0x3fdb57aa2baaf3b4"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-large-scalar.json",
+        "locator": "bank2-scalar-LARGE-0023",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "nth (lines 104-129)",
+      "note": "unrounded k check, stored (n + 1 - k).trunc(), and qualified overflow preservation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "order_statistics (lines 2786-2797)",
+      "note": "LARGE k = 1 + 2^-52 and k = 1.3 rounding checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "LARGE",
+      "note": "2,848/2,848 full-bank LARGE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,119 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-GETPIVOTDATA-001",
+  "functions": [
+    "FUNC.GETPIVOTDATA"
+  ],
+  "kind": "quirk",
+  "title": "GETPIVOTDATA resolves visible PivotTable cells without trimming, matches \"(blank)\" for blank items, and returns #N/A for a reference data_field",
+  "statement": "In Excel 16.0.20527, GETPIVOTDATA(data_field, pivot_table, [field1, item1, ...]) returns #REF! for an odd argument count, a non-PivotTable reference, a hidden/filtered item, or an omitted inner field lacking a visible subtotal; returns #N/A when data_field is a cell reference (while numeric/logical/empty data_field gives #REF!) or when an error appears in data_field, pivot_table, or a field name (whereas an error in an item argument gives #REF!); matches data_field case-insensitively against caption or base field name without trimming trailing spaces; and matches blank pivot items via the text \"(blank)\" rather than \"\". Matches 1,400/1,400 scalar probe rows (#REF!) and the pivot_getpivotdata oracle workbook.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20150 in crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json (123 formulas), Excel 16.0.20527.20088 in prefix_metadata row 286, and 1,400/1,400 scalar probe rows in CalcFunc-Evidence single-cell-answers-getpivotdata-scalar.json.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=GETPIVOTDATA(\"Sum of Amount\",PvOne!$A$3,\"Region\",\"East\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2074.5",
+        "bits": "0x40a0350000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json",
+        "locator": "sheet GPD row 21 column 2",
+        "note": null
+      }
+    },
+    {
+      "call": "=GETPIVOTDATA(\"Sum of Amount\",PvOne!$A$3,\"Region\",\"(blank)\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "158.0",
+        "bits": "0x4063c00000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json",
+        "locator": "sheet GPD row 27 column 2",
+        "note": "\"\" returns #REF! (row 28)"
+      }
+    },
+    {
+      "call": "=GETPIVOTDATA(PvOne!$B$3,PvOne!$A$3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json",
+        "locator": "sheet GPD row 15 column 2",
+        "note": "reference data_field gives #N/A whereas numeric 1 gives #REF! (row 16)"
+      }
+    },
+    {
+      "call": "=GETPIVOTDATA(\"Amount \",PvOne!$A$3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json",
+        "locator": "sheet GPD row 6 column 2",
+        "note": "trailing space is not trimmed"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/host_facts.rs",
+      "locator": "getpivotdata (lines 526-560)",
+      "note": "arity, reference data_field #N/A, and host pivot lookup"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-engine/src/pivot/index.rs",
+      "locator": "data_cell (lines 258-446)",
+      "note": "visible axis lookup, \"(blank)\" matching, and #REF! rules"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json",
+      "locator": "sheet GPD rows 2-127",
+      "note": "123 recorded Excel 16.0.20527.20150 PivotTable lookup cases"
+    }
+  ],
+  "open": [
+    "Successful GETPIVOTDATA queries against Data Model (OLAP) pivots still need full model-pivot evaluation beyond error cases (invalid_model_request in index.rs)."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,119 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISREF-001",
+  "functions": [
+    "FUNC.ISREF"
+  ],
+  "kind": "quirk",
+  "title": "ISREF inspects reference identity without reading cell values (returning TRUE on error cells), and returns FALSE for #REF! and arrays",
+  "statement": "In Excel 16.0 builds 20430 and 20527, ISREF(value) tests whether value is a reference without dereferencing or reading cells—returning TRUE for single cells, multi-cell ranges, area unions such as (A1,B2), cells holding an error (=ISREF(B7) -> TRUE), and reference-preserving IF calls (=ISREF(IF(TRUE,Data!A1:A3,0)) -> TRUE), and returning FALSE for numbers, text such as \"A1\", literal #REF!, and arrays such as {1}. Matches 1,227/1,227 full-bank and 120/120 pinned rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20196 (dc_nzpw rows 91-98), Excel 16.0.20527.20088 (fn2_questions fn2_q023, fn2_q024, fn2_q030; jnt_parse_bind rows 15-17), and 1,227/1,227 full-bank and 120/120 pinned rows (ISREF.json).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ISREF(B7)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 94 column 4",
+        "note": "B7 holds #N/A"
+      }
+    },
+    {
+      "call": "=ISREF(#REF!)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 97 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISREF(IF(TRUE,Data!A1:A3,0))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q023 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "ISREF(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/witnesses/ISREF.json",
+        "locator": "w111broad-20260929-ISREF-00000",
+        "note": "bulk Value2 cell input passes a cell reference"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/information.rs",
+      "locator": "isref (lines 194-208)",
+      "note": "Reference check without reading cells"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ISREF",
+      "note": "1,227/1,227 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

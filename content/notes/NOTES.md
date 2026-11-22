@@ -14,12 +14,12 @@ Machine-readable: [`site/api/notes.json`](../../site/api/notes.json).
 
 ## Summary
 
-- Notes: 335, over 532 functions (of the 554 entries = 531 functions + 23 operators).
+- Notes: 349, over 551 functions (of the 554 entries = 531 functions + 23 operators).
 - Excel differs from the mathematical answer: 57.
-- Detail for matching Excel's bits: 96.
-- Quirk: 173.
+- Detail for matching Excel's bits: 97.
+- Quirk: 186.
 - Documentation differs from behaviour: 9.
-- Measured: 306; inferred: 29.
+- Measured: 318; inferred: 31.
 
 ## Where Excel's answer is inaccurate
 
@@ -214,6 +214,7 @@ answer.
 | [`BITXOR`](../functions/FUNC.BITXOR.md) | [FN-BITAND-001](#fn-bitand-001-bitwise-functions-reject-fractional-operands-with-num-instead-of-truncating-them-while-shift-counts-truncate) |
 | [`BYCOL`](../functions/FUNC.BYCOL.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
 | [`BYROW`](../functions/FUNC.BYROW.md) | [FN-HSTACK-001](#fn-hstack-001-a-direct-error-stops-these-array-functions-the-same-error-in-an-array-or-cell-is-an-element) |
+| [`CALL`](../functions/FUNC.CALL.md) | [FN-CALL-001](#fn-call-001-call-is-macro-sheet-only-refused-on-worksheets-and-defaults-omitted-arguments-to-0-while-coercing-logicals-in-xlm) |
 | [`CEILING`](../functions/FUNC.CEILING.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`CEILING.MATH`](../functions/FUNC.CEILING.MATH.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`CEILING.PRECISE`](../functions/FUNC.CEILING.PRECISE.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
@@ -243,6 +244,7 @@ answer.
 | [`CONFIDENCE.NORM`](../functions/FUNC.CONFIDENCE.NORM.md) | [FN-NORM.S.INV-001](#fn-normsinv-001-normsinv-uses-as241-tails-p--0075-and-p--1516-and-three-x87-stored-rationalpadé-pieces-for-sqrt2erfinv2p-1-in-between) |
 | [`CONFIDENCE.T`](../functions/FUNC.CONFIDENCE.T.md) | [FN-BETA.DIST-002](#fn-betadist-002-incomplete-beta-has-no-basym-arm-reflects-bfrac-prefactors-above-099-using-caller-y-and-unifies-bup-and-bgrat) |
 | [`CONVERT`](../functions/FUNC.CONVERT.md) | [FN-CONVERT-001](#fn-convert-001-convert-evaluates-linear-units-via-a-three-store-x87-pc64-chain-treats-bar-as-na-and-uses-direct-affine-temperature-pairs) |
+| [`COPILOT`](../functions/FUNC.COPILOT.md) | [FN-COPILOT-001](#fn-copilot-001-copilot-stores-without-an-_xlfn-prefix-in-excel-16020430-is-service-deferred-in-dna-calc-and-left-excel-on-2026-09-14) |
 | [`CORREL`](../functions/FUNC.CORREL.md) | [FN-CORREL-001](#fn-correl-001-correl-and-pearson-use-population-normalisation-n-with-stored-pc64-two-pass-arithmetic-while-rsq-squares-the-sample-normalised-n-1-correlation) |
 | [`COS`](../functions/FUNC.COS.md) | [FN-SIN-001](#fn-sin-001-sin-and-cos-reduce-with-x87-66-bit-pi-and-double-round-drifting-by-up-to-34-ulp-at-large-inputs-and-05003-ulp-near-tie-points) |
 | [`COSH`](../functions/FUNC.COSH.md) | [FN-COSH-001](#fn-cosh-001-cosh-evaluates-expx--exp-x2-via-stored-x87-addition-returning-num-above-lndbl_max-where-coshx-is-still-finite) |
@@ -292,6 +294,7 @@ answer.
 | [`DECIMAL`](../functions/FUNC.DECIMAL.md) | [FN-DECIMAL-001](#fn-decimal-001-decimal-strips-leading-whitespace-only-treats-empty-text-as-0-and-rejects-trailing-whitespace-signs-or-radix-outside-236) |
 | [`DEGREES`](../functions/FUNC.DEGREES.md) | [FN-DEGREES-001](#fn-degrees-001-degrees-flushes-subnormals-such-as-5e-324-to-0-and-rejects-overflow-eg-dbl_max-with-num) |
 | [`DELTA`](../functions/FUNC.DELTA.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals), [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
+| [`DETECTLANGUAGE`](../functions/FUNC.DETECTLANGUAGE.md) | [FN-DETECTLANGUAGE-001](#fn-detectlanguage-001-detectlanguage-stores-with-_xlfn-xlsb-variable-arg-id-255-and-is-deferred-as-an-external-translation-service) |
 | [`DEVSQ`](../functions/FUNC.DEVSQ.md) | [FN-DEVSQ-001](#fn-devsq-001-devsq-squares-deviations-with-x87-multiplication-and-flushes-subnormal-squares-to-0-before-summing) |
 | [`DGET`](../functions/FUNC.DGET.md) | [FN-DGET-001](#fn-dget-001-dget-returns-value-on-zero-matches-num-on-multiple-matches-0-for-a-blank-matching-cell-and-rejects-non-reference-databases-at-entry-0x800a03ec) |
 | [`DISC`](../functions/FUNC.DISC.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
@@ -369,6 +372,7 @@ answer.
 | [`GCD`](../functions/FUNC.GCD.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
 | [`GEOMEAN`](../functions/FUNC.GEOMEAN.md) | [FN-GEOMEAN-001](#fn-geomean-001-geomean12-and-sqrt2-return-adjacent-values-in-retained-build-20430-controls) |
 | [`GESTEP`](../functions/FUNC.GESTEP.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals), [FN-DELTA-001](#fn-delta-001-delta-and-gestep-read-their-second-argument-first) |
+| [`GETPIVOTDATA`](../functions/FUNC.GETPIVOTDATA.md) | [FN-GETPIVOTDATA-001](#fn-getpivotdata-001-getpivotdata-resolves-visible-pivottable-cells-without-trimming-matches-blank-for-blank-items-and-returns-na-for-a-reference-data_field) |
 | [`GROUPBY`](../functions/FUNC.GROUPBY.md) | [FN-GROUPBY-001](#fn-groupby-001-groupby-and-pivotby-hold-an-array-returned-by-their-lambda-inside-its-cell-index-boxes-it-unless-computed-and-nboxed-is-value) |
 | [`GROWTH`](../functions/FUNC.GROWTH.md) | [FN-GROWTH-001](#fn-growth-001-growth-evaluates-exponential-qr-regression-via-stored-x87-pc64-exp-products-and-flushes-subnormal-forecasts-to-zero) |
 | [`HARMEAN`](../functions/FUNC.HARMEAN.md) | [FN-HARMEAN-001](#fn-harmean-001-harmean-stores-each-x87-reciprocal-running-reciprocal-sum-count-quotient-and-final-reciprocal) |
@@ -389,6 +393,7 @@ answer.
 | [`IFNA`](../functions/FUNC.IFNA.md) | [FN-IFNA-001](#fn-ifna-001-ifna-catches-only-na-passes-all-other-errors-through-without-reading-value_if_na-and-shows-0-for-a-blank-cell) |
 | [`IFS`](../functions/FUNC.IFS.md) | [FN-IFS-001](#fn-ifs-001-ifs-and-switch-pass-on-the-selected-value-whole-and-later-arrays-do-not-lift-the-call) |
 | [`IMABS`](../functions/FUNC.IMABS.md) | [FN-IMABS-001](#fn-imabs-001-imabs-computes-crt-hypotre-im-without-squaring-underflow-and-rejects-empty-text-with-num) |
+| [`IMAGE`](../functions/FUNC.IMAGE.md) | [FN-IMAGE-001](#fn-image-001-image-requires-https-http-is-blocked-rejects-svg-and-heightwidth-when-sizing--3-and-yields-a-type-128-rich-value) |
 | [`IMAGINARY`](../functions/FUNC.IMAGINARY.md) | [FN-IMAGINARY-001](#fn-imaginary-001-imaginary-truncates-complex-text-coefficients-to-15-significant-digits-before-returning-binary64) |
 | [`IMARGUMENT`](../functions/FUNC.IMARGUMENT.md) | [FN-IMARGUMENT-001](#fn-imargument-001-imargument-forms-imre-before-atan-returning-div0-when-imre-overflows-binary64) |
 | [`IMCONJUGATE`](../functions/FUNC.IMCONJUGATE.md) | [FN-IMCONJUGATE-001](#fn-imconjugate-001-imconjugate-preserves-ij-suffix-formats-dbl_min-as-0-and-rejects-exact-dbl_max-with-num) |
@@ -419,22 +424,36 @@ answer.
 | [`INDIRECT`](../functions/FUNC.INDIRECT.md) | [FN-INDIRECT-001](#fn-indirect-001-indirect-coerces-numberslogicals-in-ref_text-to-text-ref-treats-omitted-a1-as-true-vs-written-omittedblank-a1-as-false-and-lifts-over-arrays) |
 | [`INFO`](../functions/FUNC.INFO.md) | [FN-INFO-001](#fn-info-001-info-matches-type_text-case-insensitively-without-trimming-spaces-returns-na-for-memory-keys-and-reports-automatic-for-automaticexcepttables) |
 | [`INT`](../functions/FUNC.INT.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
+| [`INTERCEPT`](../functions/FUNC.INTERCEPT.md) | [FN-INTERCEPT-001](#fn-intercept-001-intercept-evaluates-mean_y---slope--mean_x-in-plain-binary64-using-two-pass-means-and-slopes-centered-quotient) |
 | [`INTRATE`](../functions/FUNC.INTRATE.md) | [FN-DISC-001](#fn-disc-001-the-discount-security-functions-run-a-fixed-formula-order-on-the-x87-unit), [FN-YEARFRAC-001](#fn-yearfrac-001-on-basis-1-the-fictitious-1900-02-29-is-not-a-leap-day-and-yearfrac-takes-serial-0-as-a-date) |
 | [`IPMT`](../functions/FUNC.IPMT.md) | [FN-IPMT-001](#fn-ipmt-001-ipmt-and-ppmt-reuse-pmts-quotient-one-through-expm1-and-the-other-through-exp) |
 | [`IRR`](../functions/FUNC.IRR.md) | [FN-IRR-001](#fn-irr-001-irr-with-a-direct-non-number-gives-num-and-the-guess-is-still-checked), [FN-IRR-002](#fn-irr-002-irr-with-an-exactly-zero-first-npv-answers-1v---1-from-the-stored-v--11guess-not-the-guess) |
+| [`ISBLANK`](../functions/FUNC.ISBLANK.md) | [FN-ISBLANK-001](#fn-isblank-001-isblank-is-true-only-for-an-empty-cell-returning-false-for-empty-text--constant-or-formula-and-for-a-rich-picture-value) |
+| [`ISERR`](../functions/FUNC.ISERR.md) | [FN-ISERR-001](#fn-iserr-001-iserr-and-iserror-include-newer-errors-getting_data-busy-spill-field-calc-while-returning-false-on-image-rich-values) |
+| [`ISERROR`](../functions/FUNC.ISERROR.md) | [FN-ISERR-001](#fn-iserr-001-iserr-and-iserror-include-newer-errors-getting_data-busy-spill-field-calc-while-returning-false-on-image-rich-values) |
 | [`ISEVEN`](../functions/FUNC.ISEVEN.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`ISFORMULA`](../functions/FUNC.ISFORMULA.md) | [FN-ISFORMULA-001](#fn-isformula-001-isformula-spills-a-logical-array-over-multi-cell-ranges-returns-na-for-closed-workbooks-and-rejects-non-reference-constants-at-entry-0x800a03ec) |
+| [`ISLOGICAL`](../functions/FUNC.ISLOGICAL.md) | [FN-ISNUMBER-001](#fn-isnumber-001-isnumber-istext-isnontext-and-islogical-perform-no-coercion-treating-numericlogical-text-as-text-and-rich-images-as-isnontext-true) |
+| [`ISNA`](../functions/FUNC.ISNA.md) | [FN-ISERR-001](#fn-iserr-001-iserr-and-iserror-include-newer-errors-getting_data-busy-spill-field-calc-while-returning-false-on-image-rich-values) |
+| [`ISNONTEXT`](../functions/FUNC.ISNONTEXT.md) | [FN-ISNUMBER-001](#fn-isnumber-001-isnumber-istext-isnontext-and-islogical-perform-no-coercion-treating-numericlogical-text-as-text-and-rich-images-as-isnontext-true) |
+| [`ISNUMBER`](../functions/FUNC.ISNUMBER.md) | [FN-ISNUMBER-001](#fn-isnumber-001-isnumber-istext-isnontext-and-islogical-perform-no-coercion-treating-numericlogical-text-as-text-and-rich-images-as-isnontext-true) |
 | [`ISO.CEILING`](../functions/FUNC.ISO.CEILING.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
 | [`ISODD`](../functions/FUNC.ISODD.md) | [FN-ABS-002](#fn-abs-002-subnormal-cell-writes-and----underflows-flush-to-0-while----and-exp-745-keep-subnormals) |
+| [`ISOMITTED`](../functions/FUNC.ISOMITTED.md) | [FN-ISOMITTED-001](#fn-isomitted-001-isomitted-returns-true-for-any-omitted-lambda-argument-even-without-brackets-and-does-not-lift-over-arrays) |
 | [`ISOWEEKNUM`](../functions/FUNC.ISOWEEKNUM.md) | [FN-ISOWEEKNUM-001](#fn-isoweeknum-001-isoweeknum-truncates-the-serial-and-returns-week-52-for-serial-0-1900-01-00-and-1-1900-01-01) |
 | [`ISPMT`](../functions/FUNC.ISPMT.md) | [FN-ISPMT-001](#fn-ispmt-001-ispmt-stores-per---nper-then--pv-then--rate-then--nper-on-x87-and-admits-negative-nper) |
+| [`ISREF`](../functions/FUNC.ISREF.md) | [FN-ISREF-001](#fn-isref-001-isref-inspects-reference-identity-without-reading-cell-values-returning-true-on-error-cells-and-returns-false-for-ref-and-arrays) |
+| [`ISTEXT`](../functions/FUNC.ISTEXT.md) | [FN-ISNUMBER-001](#fn-isnumber-001-isnumber-istext-isnontext-and-islogical-perform-no-coercion-treating-numericlogical-text-as-text-and-rich-images-as-isnontext-true) |
 | [`JIS`](../functions/FUNC.JIS.md) | [FN-JIS-001](#fn-jis-001-jis-is-absent-on-windows-english-excel-16020527-and-returns-name-for-every-call) |
 | [`KURT`](../functions/FUNC.KURT.md) | [FN-KURT-001](#fn-kurt-001-kurt-stores-every-x87-step-of-z4-and-the-sample-prefactor-drifting-74-ulp-on-kurt1235) |
+| [`LAMBDA`](../functions/FUNC.LAMBDA.md) | [FN-LAMBDA-001](#fn-lambda-001-lambda-is-lexically-scoped-does-not-force-unused-error-arguments-returns-calc-uncalled-and-rejects-duplicate-parameters-at-entry) |
+| [`LARGE`](../functions/FUNC.LARGE.md) | [FN-LARGE-001](#fn-large-001-large-validates-unrounded-k-against-1-n-before-truncating-n--1---k-and-preserves-qualified-overflow-numbers) |
 | [`LCM`](../functions/FUNC.LCM.md) | [FN-GCD-001](#fn-gcd-001-gcd-and-lcm-accept-253-itself-not-only-values-below-it) |
 | [`LEFT`](../functions/FUNC.LEFT.md) | [FN-LEFT-001](#fn-left-001-in-compatibilityversion-1-leftright-preserve-astral-pairs-mid-slices-utf-16-units-and-32767-unit-overflow-errors-differ-by-function) |
 | [`LEFTB`](../functions/FUNC.LEFTB.md) | [FN-LENB-001](#fn-lenb-001-under-a-single-byte-windows-locale-such-as-en-za-the-b-suffixed-text-functions-count-characters-rather-than-utf-8-or-utf-16-bytes) |
 | [`LEN`](../functions/FUNC.LEN.md) | [FN-LEFT-001](#fn-left-001-in-compatibilityversion-1-leftright-preserve-astral-pairs-mid-slices-utf-16-units-and-32767-unit-overflow-errors-differ-by-function) |
 | [`LENB`](../functions/FUNC.LENB.md) | [FN-LENB-001](#fn-lenb-001-under-a-single-byte-windows-locale-such-as-en-za-the-b-suffixed-text-functions-count-characters-rather-than-utf-8-or-utf-16-bytes) |
+| [`LET`](../functions/FUNC.LET.md) | [FN-LET-001](#fn-let-001-let-scopes-bindings-sequentially-without-self-recursion-name-skips-unreferenced-error-bindings-and-binds-omitted-values-as-blank) |
 | [`LINEST`](../functions/FUNC.LINEST.md) | [FN-LINEST-001](#fn-linest-001-linests-householder-reflector-stores-each-step-from-the-x87-unit), [FN-LINEST-002](#fn-linest-002-linest-with-no-residual-degrees-of-freedom-returns-zeros-and-one-num) |
 | [`LN`](../functions/FUNC.LN.md) | [FN-LN-001](#fn-ln-001-ln-executes-x87-fldln2--fyl2x-and-follows-the-host-cpu-vendors-fyl2x-microcode-on-amd-vs-intel) |
 | [`LOG`](../functions/FUNC.LOG.md) | [FN-LOG-001](#fn-log-001-lognumber-base-always-divides-rn53rn64lnnumber--lnbase-even-for-base-10) |
@@ -1875,6 +1894,38 @@ Evidence:
 - CalcFunc-Evidence `cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitlshift.json.gz`, w111bit-discriminator-BITLSHIFT-00101 at `4ef2c244d7` (readings)
 - CalcFunc-Evidence `cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitrshift.json.gz`, w111bit-discriminator-BITRSHIFT-00186 at `4ef2c244d7` (readings)
 
+### FN-CALL-001: CALL is macro-sheet-only (refused on worksheets) and defaults omitted arguments to 0 while coercing logicals in XLM
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527 (64-bit), CALL(register_id, [argument1], ...) is valid only on Excel 4.0
+macro sheets (XLM): assigning any CALL formula to a worksheet cell throws 0x800A03EC (all CALL
+worksheet-entry probes refused), and opening a saved package holding CALL or _xlfn.CALL fails
+with 0x800A03EC. Under Application.ExecuteExcel4Macro, CALL accepts either a registration ID
+from REGISTER.ID or inline (module_text, procedure, type_text, ...), passes omitted trailing
+arguments as 0, coerces logicals to numbers (TRUE -> 1), takes the first element of an array
+literal, returns FALSE when extra arguments exceed the signature, and returns #VALUE! on text
+or error arguments where numeric type codes apply.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `CALL("<fixture>\hostfix.xll","MyAdd","BBB",1,2)` | as typed | `3.0` (`0x4008000000000000`) | Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded |
+| `CALL("<fixture>\hostfix.xll","MyAdd","BBB",1)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded |
+| `CALL("<fixture>\hostfix.xll","MyAdd","BBB",1,2,3)` | as typed | `FALSE` | Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded |
+| `CALL("kernel32","lstrlenA","JC","hello")` | as typed | `5.0` (`0x4014000000000000`) | Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded |
+
+Basis (measured): Measured across all worksheet entry checks, package open checks, and XLM
+evaluations in Excel 16.0.20527 (64-bit) recorded in call-register-id-excel.json (dc-gh22).
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json`, worksheet_entry and xlm at `c08fee0a47` — Excel 16.0.20527 worksheet-entry refusal and XLM CALL measurements
+- DnaCalc `crates/calc-func/src/catalogue/entry.rs`, lines 240-262 at `c08fee0a47` — MacroSheetOnly entry check refusing CALL on worksheets
+- DnaCalc `crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json`, xlm item 5 (line 183) at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json`, xlm item 20 (line 243) at `c08fee0a47` — missing trailing BBB argument defaulted to 0 (readings)
+- DnaCalc `crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json`, xlm item 21 (line 247) at `c08fee0a47` — extra argument beyond BBB returns FALSE (readings)
+- DnaCalc `crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json`, xlm item 8 (line 195) at `c08fee0a47` (readings)
+
 ### FN-CELL-001: CELL does not trim info_type, reads the active cell when reference is omitted, and returns a two-element {width, is_default} array for "width"
 
 *Quirk; measured; recorded 2026-11-22.*
@@ -2267,6 +2318,34 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json`, sheet prefix_metadata row 50 column 1 at `39c98c7193` (readings)
 - DnaCalc `crates/calc-func/tests/witnesses/CONVERT.json`, conv-v3d-00072 at `39c98c7193` (readings)
 - DnaCalc `crates/calc-func/tests/witnesses/CONVERT.json`, conv-di-04149 at `39c98c7193` (readings)
+
+### FN-COPILOT-001: COPILOT stores without an _xlfn. prefix in Excel 16.0.20430, is service-deferred in DNA Calc, and left Excel on 2026-09-14
+
+*Quirk; inferred; recorded 2026-11-22.*
+
+In Excel 16.0 build 20430, COPILOT(prompt_part1, [context1], ...) was stored in OOXML without
+an _xlfn. prefix (excel-prefixes.json: =COPILOT(1) stored as COPILOT(1)). Microsoft's function
+page states that COPILOT left Excel on 14 September 2026 (so recalculating previously saved
+cells yields #NAME?). Evaluation is deferred as ExternalService in DNA Calc, with zero Excel
+calculation answers recorded.
+
+Basis (inferred): Based on Excel 16.0.20430 workbook storage in DnaCalc
+crates/calc-doc/tests/fixtures/d1/excel-prefixes.json, DnaCalc's catalogue deferral in
+crates/calc-catalogue/src/unheld.rs, and Microsoft's COPILOT function documentation cited in
+FUNC.COPILOT.json.
+
+Inferred, not measured: That COPILOT recalculation after 14 September 2026 returns #NAME? and
+its exact runtime coercion/rate-limit rules are inferred from Microsoft's published withdrawal
+notice rather than recorded Excel calculation captures (zero calculation rows exist in
+CalcFunc-Evidence).
+
+- Open: No Excel calculation rows for COPILOT are recorded; recalculation behaviour post-withdrawal (#NAME?) has not been captured locally.
+
+Evidence:
+
+- DnaCalc `crates/calc-doc/tests/fixtures/d1/excel-prefixes.json`, COPILOT row at `c08fee0a47` — Excel 16.0.20430 stores =COPILOT(1) without _xlfn.
+- DnaCalc `crates/calc-catalogue/src/unheld.rs`, lines 313-321 at `c08fee0a47` — Deferral::ExternalService entry for COPILOT
+- [`data/functions/FUNC.COPILOT.json`](../../data/functions/FUNC.COPILOT.json), admission — Deferred by policy; Microsoft withdrawal date 14 September 2026
 
 ### FN-CORREL-001: CORREL and PEARSON use population normalisation (n) with stored-PC64 two-pass arithmetic, while RSQ squares the sample-normalised (n-1) correlation
 
@@ -3278,6 +3357,32 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/DELTA.reading.json`, fn7-DELTA-argument-order-7 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa003, row 20, column 10 at `2d0eddcac8` (readings)
 - DnaCalc `crates/calc-func/tests/captures/fn4_questions/functions-fn4-arguments.capture.json`, sheet qa004, row 20, column 10 at `2d0eddcac8` (readings)
+
+### FN-DETECTLANGUAGE-001: DETECTLANGUAGE stores with _xlfn. (XLSB variable-arg id 255) and is deferred as an external translation service
+
+*Quirk; inferred; recorded 2026-11-22.*
+
+In Excel 16.0 build 20430, DETECTLANGUAGE(text) is stored in OOXML and XLSB as a
+variable-argument future function with the _xlfn. prefix (_xlfn.DETECTLANGUAGE(1), XLSB
+function id 255). Runtime evaluation requires Microsoft's remote language-detection service, so
+DNA Calc defers it as ExternalService and zero Excel calculation answers are recorded.
+
+Basis (inferred): Based on Excel 16.0.20430 file-format captures in DnaCalc
+crates/calc-doc/tests/fixtures/d1/excel-prefixes.json and
+crates/calc-doc/tests/fixtures/dc_5sr/excel-function-ids.json, and DnaCalc's deferral in
+crates/calc-catalogue/src/unheld.rs.
+
+Inferred, not measured: Runtime evaluation behaviour (offline errors, non-text coercion,
+empty-text handling, and multi-cell spilling) is inferred as dependent on Microsoft Translation
+Services and remains unmeasured in CalcFunc-Evidence.
+
+- Open: No Excel calculation rows for DETECTLANGUAGE are recorded; offline, non-text, empty-text, and array-spill behaviour remain unmeasured.
+
+Evidence:
+
+- DnaCalc `crates/calc-doc/tests/fixtures/d1/excel-prefixes.json`, DETECTLANGUAGE row at `c08fee0a47` — Excel 16.0.20430 stores =DETECTLANGUAGE(1) as _xlfn.DETECTLANGUAGE(1)
+- DnaCalc `crates/calc-doc/tests/fixtures/dc_5sr/excel-function-ids.json`, DETECTLANGUAGE entry at `c08fee0a47` — XLSB function number 255 (variable)
+- DnaCalc `crates/calc-catalogue/src/unheld.rs`, lines 322-331 at `c08fee0a47` — Deferral::ExternalService entry for DETECTLANGUAGE
 
 ### FN-DEVSQ-001: DEVSQ squares deviations with x87 multiplication and flushes subnormal squares to 0 before summing
 
@@ -4978,6 +5083,43 @@ Evidence:
 - CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-geomean.json.gz`, w111broad-20260929-GEOMEAN-00003 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
 - CalcFunc-Evidence `cache/w111-broad-regenerated-20260929/answers-sqrt.json.gz`, w111broad-20260929-SQRT-00014 at `4287ba192d` — Capture provenance records exact-double bulk Value2 cell input. (readings)
 
+### FN-GETPIVOTDATA-001: GETPIVOTDATA resolves visible PivotTable cells without trimming, matches "(blank)" for blank items, and returns #N/A for a reference data_field
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, GETPIVOTDATA(data_field, pivot_table, [field1, item1, ...]) returns #REF!
+for an odd argument count, a non-PivotTable reference, a hidden/filtered item, or an omitted
+inner field lacking a visible subtotal; returns #N/A when data_field is a cell reference (while
+numeric/logical/empty data_field gives #REF!) or when an error appears in data_field,
+pivot_table, or a field name (whereas an error in an item argument gives #REF!); matches
+data_field case-insensitively against caption or base field name without trimming trailing
+spaces; and matches blank pivot items via the text "(blank)" rather than "". Matches
+1,400/1,400 scalar probe rows (#REF!) and the pivot_getpivotdata oracle workbook.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=GETPIVOTDATA("Sum of Amount",PvOne!$A$3,"Region","East")` | as typed | `2074.5` (`0x40a0350000000000`) | Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=GETPIVOTDATA("Sum of Amount",PvOne!$A$3,"Region","(blank)")` | as typed | `158.0` (`0x4063c00000000000`) | Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=GETPIVOTDATA(PvOne!$B$3,PvOne!$A$3)` | as typed | `#N/A` | Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=GETPIVOTDATA("Amount ",PvOne!$A$3)` | as typed | `#REF!` | Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across Excel 16.0.20527.20150 in
+crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json (123 formulas), Excel
+16.0.20527.20088 in prefix_metadata row 286, and 1,400/1,400 scalar probe rows in
+CalcFunc-Evidence single-cell-answers-getpivotdata-scalar.json.
+
+- Open: Successful GETPIVOTDATA queries against Data Model (OLAP) pivots still need full model-pivot evaluation beyond error cases (invalid_model_request in index.rs).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/host_facts.rs`, getpivotdata (lines 526-560) at `c08fee0a47` — arity, reference data_field #N/A, and host pivot lookup
+- DnaCalc `crates/calc-engine/src/pivot/index.rs`, data_cell (lines 258-446) at `c08fee0a47` — visible axis lookup, "(blank)" matching, and #REF! rules
+- DnaCalc `crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json`, sheet GPD rows 2-127 at `c08fee0a47` — 123 recorded Excel 16.0.20527.20150 PivotTable lookup cases
+- DnaCalc `crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json`, sheet GPD row 21 column 2 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json`, sheet GPD row 27 column 2 at `c08fee0a47` — "" returns #REF! (row 28) (readings)
+- DnaCalc `crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json`, sheet GPD row 15 column 2 at `c08fee0a47` — reference data_field gives #N/A whereas numeric 1 gives #REF! (row 16) (readings)
+- DnaCalc `crates/calc-host/tests/captures/pivot_getpivotdata/oracle.capture.json`, sheet GPD row 6 column 2 at `c08fee0a47` — trailing space is not trimmed (readings)
+
 ### FN-GROUPBY-001: GROUPBY and PIVOTBY hold an array returned by their LAMBDA inside its cell; INDEX boxes it unless computed, and N(boxed) is #VALUE!
 
 *Quirk; measured; recorded 2026-11-22.* Applies to GROUPBY, INDEX, N, PIVOTBY, TYPE.
@@ -5427,6 +5569,39 @@ Evidence:
 - CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-imabs.json.gz`, w111extended-2026092903-IMABS-00007 at `4ef2c244d7` (readings)
 - CalcFunc-Evidence `cache/w111-extended-regenerated-20260929/answers-imabs.json.gz`, w111extended-2026092903-IMABS-00000 at `4ef2c244d7` (readings)
 - DnaCalc `crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json`, sheet jnt_parity_complex row 591 column 4 at `f8f4e0aa00` (readings)
+
+### FN-IMAGE-001: IMAGE requires https (http is #BLOCKED!), rejects SVG and height/width when sizing != 3, and yields a TYPE 128 rich value
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527 (64-bit), _xlfn.IMAGE(source, [alt_text], [sizing], [height], [width]) is
+non-volatile and requires an https URL (returning #BLOCKED! for http without fetching, and
+#VALUE! for other schemes or non-text), validates sizing (0..3 after truncation; any height or
+width argument when sizing != 3—even omitted—is #VALUE!; sizing 3 requires non-negative sizes
+with at least one > 0), returns #CONNECT! on HTTP 400-499 and #VALUE! on HTTP
+500+/204/SVG/non-image bodies, and produces a _webimage rich value (TYPE 128, ERROR.TYPE #N/A,
+ISERROR FALSE, ISNONTEXT TRUE, COUNTA 1, COUNT 0, arithmetic #VALUE!, and = comparing source
+and alt_text while ignoring sizing).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=_xlfn.IMAGE("http://mock/png")` | as typed | `#BLOCKED!` | Excel 16.0 build 20527, Windows 64-bit; CPU not recorded |
+| `=_xlfn.IMAGE("https://mock/404")` | as typed | `#CONNECT!` | Excel 16.0 build 20527, Windows 64-bit; CPU not recorded |
+| `=TYPE(_xlfn.IMAGE("https://httpbin.org/base64/R0lGODlhAQABAIAAAAAAAP___yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"))` | as typed | `128.0` (`0x4060000000000000`) | Excel 16.0 build 20527, Windows 64-bit; CPU not recorded |
+| `=_xlfn.IMAGE("https://httpbin.org/base64/PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxIiBoZWlnaHQ9IjEiPjwvc3ZnPg==")` | as typed | `#VALUE!` | Excel 16.0 build 20527, Windows 64-bit; CPU not recorded |
+
+Basis (measured): Measured in Excel 16.0.20527 (64-bit) against a local mock server and public
+URLs on 2026-11-06 and 2026-11-07 (calc-func/src/fetch.rs, calc-host/tests/fetch.rs, and
+fixtures/fetch/excel-image.xlsx).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/fetch.rs`, lines 37-58 and 344-427 at `c08fee0a47` — Measured Excel 16.0.20527 IMAGE argument, scheme, format, and rich-value rules
+- DnaCalc `crates/calc-host/tests/fetch.rs`, lines 400-660 at `c08fee0a47` — Mock-route and saved excel-image.xlsx replay of Excel 16.0.20527 IMAGE measurements
+- DnaCalc `crates/calc-host/tests/fetch.rs`, dc_fetch_f0tp__image_errors_are_excels (lines 442-445) at `c08fee0a47` — http source returns #BLOCKED! without issuing a request (readings)
+- DnaCalc `crates/calc-host/tests/fetch.rs`, dc_fetch_f0tp__image_errors_are_excels (line 438) at `c08fee0a47` — HTTP 400-499 returns #CONNECT! (readings)
+- DnaCalc `crates/calc-host/tests/fixtures/fetch/excel-image.xlsx`, xl/worksheets/sheet1.xml A1 and B1 at `c08fee0a47` — GIF rich value has TYPE 128 (while cell fallback <v> is #VALUE!) (readings)
+- DnaCalc `crates/calc-host/tests/fixtures/fetch/excel-image.xlsx`, xl/worksheets/sheet1.xml A3 and B3 at `c08fee0a47` — SVG payload rejected with #VALUE! (readings)
 
 ### FN-IMAGINARY-001: IMAGINARY truncates complex text coefficients to 15 significant digits before returning binary64
 
@@ -6216,6 +6391,36 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json`, sheet dcuar_cell row 71 column 4 at `2e9be2b5b7` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json`, sheet dcuar_cell row 73 column 4 at `2e9be2b5b7` (readings)
 
+### FN-INTERCEPT-001: INTERCEPT evaluates mean_y - slope * mean_x in plain binary64 using two-pass means and SLOPE's centered quotient
+
+*Detail for matching Excel's bits; measured; recorded 2026-11-22.*
+
+In Excel 16.0 builds 20131 and 20527, INTERCEPT(known_y's, known_x's) validates singleton
+blank/error arguments in formula order (#VALUE! on a blank singleton before inspecting
+known_x's), returns #N/A on shape mismatch, skips positions where either argument holds text,
+logical, or blank, and computes mean_y - slope * mean_x in plain binary64 arithmetic where
+slope is sum((x - mean_x)*(y - mean_y)) / sum((x - mean_x)^2) from two-pass sample means,
+returning #DIV/0! when fewer than 2 numeric pairs exist or sum((x - mean_x)^2) == 0. Matches
+2,856/2,856 full-bank and 4/4 pinned INTERCEPT rows.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=INTERCEPT(Data!A1:A3,Data!E1:E3)` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `INTERCEPT({2;4.1;5.9;8.05}, {1;2;3;4})` | known_y_1 `2.0` (`0x4000000000000000`); known_y_2 `4.1` (`0x4010666666666666`); known_y_3 `5.9` (`0x401799999999999a`); known_y_4 `8.05` (`0x402019999999999a`); known_x_1 `1.0` (`0x3ff0000000000000`); known_x_2 `2.0` (`0x4000000000000000`); known_x_3 `3.0` (`0x4008000000000000`); known_x_4 `4.0` (`0x4010000000000000`) (cells) | `0.024999999999999467` (`0x3f99999999999900`) | Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics |
+| `INTERCEPT({1000000000001;1000000000002;1000000000002.5;1000000000004.75}, {1000000001;1000000002;1000000003;1000000004})` | known_y_1 `1000000000001.0` (`0x426d1a94a2002000`); known_y_2 `1000000000002.0` (`0x426d1a94a2004000`); known_y_3 `1000000000002.5` (`0x426d1a94a2005000`); known_y_4 `1000000000004.75` (`0x426d1a94a2009800`); known_x_1 `1000000001.0` (`0x41cdcd6500800000`); known_x_2 `1000000002.0` (`0x41cdcd6501000000`); known_x_3 `1000000003.0` (`0x41cdcd6501800000`); known_x_4 `1000000004.0` (`0x41cdcd6502000000`) (cells) | `998824999999.625` (`0x426d11d37f87f400`) | Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics |
+
+Basis (measured): Measured across Excel 16.0 build 20131 (4/4 pinned rows in
+witnesses/INTERCEPT.json) and Excel 16.0.20527 (2,856/2,856 full-bank INTERCEPT rows and
+prefix_metadata row 136).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/ported/paired_stats_common.rs`, intercept_from_pairs (lines 111-115) at `c08fee0a47` — mean_y - slope * mean_x using two-pass centered slope_from_pairs
+- DnaCalc `crates/calc-func/witness-status.tsv`, INTERCEPT at `c08fee0a47` — 2,856/2,856 full-bank and 4/4 pinned INTERCEPT rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json`, sheet prefix_metadata row 136 column 1 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/witnesses/INTERCEPT.json`, oc1 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/witnesses/INTERCEPT.json`, oc3 at `c08fee0a47` (readings)
+
 ### FN-IPMT-001: IPMT and PPMT reuse PMT's quotient, one through expm1 and the other through exp
 
 *Detail for matching Excel's bits; measured; recorded 2026-11-04.* Applies to IPMT, PPMT.
@@ -6329,6 +6534,67 @@ Evidence:
 - CalcFunc-Evidence `cache/oracle/build-20131/IRR.jsonl.gz`, IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147ae2|@1,1 at `b4818a6a23` (readings)
 - CalcFunc-Evidence `cache/oracle/build-20131/IRR.jsonl.gz`, IRR|m2x1:b3ceb1f011cae6a8|0x3fcae147ae147adf|@1,1 at `b4818a6a23` (readings)
 
+### FN-ISBLANK-001: ISBLANK is TRUE only for an empty cell, returning FALSE for empty text "" (constant or formula) and for a rich picture value
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0 builds 20430 and 20527, ISBLANK(value) returns TRUE only when value refers to a
+truly empty cell (or an omitted LET binding inside its body), and returns FALSE for empty text
+"" whether held as a cell constant or returned by a formula such as =IF(FALSE,"x",""), for all
+worksheet errors, and for _webimage rich values from IMAGE. On a legacy worksheet formula, a
+multi-cell range undergoes implicit intersection (returning FALSE when @ yields #VALUE! outside
+the range). Matches 1,227/1,227 full-bank and 120/120 pinned rows.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ISBLANK(A1)` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISBLANK("")` | as typed | `FALSE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `ISBLANK(0)` | value `0.0` (`0x0000000000000000`) (cells) | `FALSE` | Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded |
+
+Basis (measured): Measured across Excel 16.0.20527.20196 (dc_nzpw rows 1-8, 148), Excel
+16.0.20527.20088 (jnt_logical_info rows 17, 113-114; prefix_metadata row 28), Excel 16.0.20527
+(fetch.rs row 518), and 1,227/1,227 full-bank and 120/120 pinned rows (ISBLANK.json).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/information.rs`, isblank (lines 108-117) at `c08fee0a47` — CoreRef::Empty predicate after value dereference
+- DnaCalc `crates/calc-func/witness-status.tsv`, ISBLANK at `c08fee0a47` — 1,227/1,227 full-bank and 120/120 pinned rows matched
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 1 column 4 at `c08fee0a47` — A1 is an empty cell (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 5 column 4 at `c08fee0a47` — formula empty text D3 (row 4) is also FALSE (readings)
+- DnaCalc `crates/calc-func/tests/witnesses/ISBLANK.json`, w111broad-20260929-ISBLANK-00000 at `c08fee0a47` (readings)
+
+### FN-ISERR-001: ISERR and ISERROR include newer errors (#GETTING_DATA, #BUSY!, #SPILL!, #FIELD!, #CALC!) while returning FALSE on IMAGE rich values
+
+*Quirk; measured; recorded 2026-11-22.* Applies to ISERR, ISERROR, ISNA.
+
+In Excel 16.0 builds 20430 and 20527, ISERROR(value) returns TRUE for every worksheet
+error—including newer errors #GETTING_DATA, #BUSY!, #SPILL!, #FIELD!, and #CALC! alongside the
+seven classic error codes—while ISERR(value) returns TRUE for every worksheet error except
+#N/A, and ISNA(value) returns TRUE for #N/A alone. All three return FALSE on a _webimage rich
+value produced by IMAGE (even though OOXML serializes its fallback as t="e" #VALUE!). Each
+matches 1,227/1,227 full-bank and 120/120 pinned rows.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ISERR(#GETTING_DATA)` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISERROR(B9)` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISNA(B7)` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `ISERROR(0)` | value `0.0` (`0x0000000000000000`) (cells) | `FALSE` | Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded |
+
+Basis (measured): Measured across Excel 16.0.20527.20196 (dc_nzpw rows 9-38, 149-151, 174-176,
+181-182), Excel 16.0.20527 (fetch.rs rows 514-515), and 1,227/1,227 full-bank and 120/120
+pinned rows for each function.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/information.rs`, iserr; iserror; isna (lines 119-152) at `c08fee0a47` — Error classification and _webimage handling
+- DnaCalc `crates/calc-host/tests/fetch.rs`, dc_fetch_f0tp__a_picture_flows_and_reads_as_excel_measured (lines 514-515) at `c08fee0a47` — ISERROR and ISERR return FALSE on IMAGE pictures
+- DnaCalc `crates/calc-func/witness-status.tsv`, ISERR; ISERROR; ISNA at `c08fee0a47` — 1,227/1,227 full-bank and 120/120 pinned rows matched for each
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 20 column 4 at `c08fee0a47` — #BUSY!, #CALC!, #SPILL!, and #FIELD! are also TRUE in rows 17, 21-23 (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 27 column 4 at `c08fee0a47` — B9 holds #BUSY! (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 33 column 4 at `c08fee0a47` — B7 holds #N/A (readings)
+- DnaCalc `crates/calc-func/tests/witnesses/ISERROR.json`, w111broad-20260929-ISERROR-00000 at `c08fee0a47` (readings)
+
 ### FN-ISFORMULA-001: ISFORMULA spills a logical array over multi-cell ranges, returns #N/A for closed workbooks, and rejects non-reference constants at entry (0x800A03EC)
 
 *Quirk; measured; recorded 2026-11-22.*
@@ -6360,6 +6626,67 @@ Evidence:
 - CalcFunc-Evidence `readings/cell-context/reference-info.json`, isformula-19 at `4ef2c244d7` — evaluated at Sheet1!H10 (readings)
 - DnaCalc `crates/calc-host/tests/captures/dc_ylr/oracle.capture.json`, sheet Main row 29 column 1 at `2e9be2b5b7` (readings)
 - DnaCalc `crates/calc-fml/tests/fixtures/entry/excel-entry.tsv`, 0	=ISFORMULA(2) at `2e9be2b5b7` (readings)
+
+### FN-ISNUMBER-001: ISNUMBER, ISTEXT, ISNONTEXT, and ISLOGICAL perform no coercion, treating numeric/logical text as text and rich images as ISNONTEXT TRUE
+
+*Quirk; measured; recorded 2026-11-22.* Applies to ISLOGICAL, ISNONTEXT, ISNUMBER, ISTEXT.
+
+In Excel 16.0 builds 20430 and 20527, ISNUMBER, ISTEXT, ISNONTEXT, and ISLOGICAL test the
+runtime value type without implicit conversion: ISNUMBER("19") and ISNUMBER(TRUE) are FALSE,
+ISLOGICAL("TRUE") and ISLOGICAL(0) are FALSE, ISTEXT("") is TRUE, and ISNONTEXT is TRUE for
+numbers, logicals, blank cells, worksheet errors, and _webimage pictures (while ISTEXT,
+ISNUMBER, and ISLOGICAL are FALSE for _webimage pictures). Each matches 1,227/1,227 full-bank
+and 120/120 pinned rows.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ISNUMBER("19")` | as typed | `FALSE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISTEXT("")` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISNONTEXT(A1)` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISLOGICAL(A11)` | as typed | `FALSE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `ISNUMBER(0)` | value `0.0` (`0x0000000000000000`) (cells) | `TRUE` | Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded |
+
+Basis (measured): Measured across Excel 16.0.20527.20196 (dc_nzpw rows 39-61, 152-155,
+177-180), Excel 16.0.20527.20088 (jnt_logical_info rows 18-21, 115-130), Excel 16.0.20527
+(fetch.rs rows 516-517), and 1,227/1,227 full-bank and 120/120 pinned rows for each function.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/information.rs`, isnumber; istext; isnontext; islogical (lines 154-192) at `c08fee0a47` — Strict runtime type checks without coercion
+- DnaCalc `crates/calc-func/witness-status.tsv`, ISLOGICAL; ISNONTEXT; ISNUMBER; ISTEXT at `c08fee0a47` — 1,227/1,227 full-bank and 120/120 pinned rows matched for each
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 42 column 4 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 48 column 4 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 51 column 4 at `c08fee0a47` — A1 is blank; #N/A in B7 (row 54) is also TRUE (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 59 column 4 at `c08fee0a47` — A11 holds text "TRUE" (readings)
+- DnaCalc `crates/calc-func/tests/witnesses/ISNUMBER.json`, w111broad-20260929-ISNUMBER-00000 at `c08fee0a47` (readings)
+
+### FN-ISOMITTED-001: ISOMITTED returns TRUE for any omitted LAMBDA argument (even without [brackets]), and does not lift over arrays
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, ISOMITTED(argument) returns TRUE only when argument is an omitted LAMBDA
+parameter—including a non-bracketed parameter whose call passed an empty trailing slot such as
+=LAMBDA(xx,yy,IF(ISOMITTED(yy),xx,yy))(3,)—and returns FALSE for a supplied value, blank cell,
+range reference (=ISOMITTED(Data!A1:A3) -> FALSE), or array (=ISOMITTED({2;3}) -> FALSE,
+without lifting).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=LAMBDA(xx,yy,IF(ISOMITTED(yy),xx,yy))(3,)` | as typed | `3.0` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISOMITTED(Data!A1:A3)` | as typed | `FALSE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISOMITTED(1)` | as typed | `FALSE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 across fn2_questions (fn2_q015, fn2_q116,
+fn2_q117), jnt_evaluator_callables (rows 50-53), prefix_metadata (row 245), and recorded
+array-lift case unswept-00303-isomitted-arg0_array_lift (l1.rs line 488).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/offset.rs`, isomitted (lines 334-342) at `c08fee0a47` — returns CalcValue::logical(arguments[0].is_missing())
+- DnaCalc `crates/calc-fml/tests/acceptance/l1.rs`, isomitted_does_not_lift_over_an_array; optional_parameters_and_arity at `c08fee0a47` — non-lifting array check and optional parameter checks
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q117 row 20 column 10 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q015 row 20 column 10 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json`, sheet prefix_metadata row 245 column 1 at `c08fee0a47` (readings)
 
 ### FN-ISOWEEKNUM-001: ISOWEEKNUM truncates the serial and returns week 52 for serial 0 (1900-01-00) and 1 (1900-01-01)
 
@@ -6417,6 +6744,36 @@ Evidence:
 - CalcFunc-Evidence `readings/excel-20527/bank2-answers-ispmt-scalar.json`, bank2-scalar-ISPMT-0003 at `4ef2c244d7` (readings)
 - CalcFunc-Evidence `readings/excel-20527/bank2-answers-ispmt-scalar.json`, bank2-scalar-ISPMT-0004 at `4ef2c244d7` (readings)
 
+### FN-ISREF-001: ISREF inspects reference identity without reading cell values (returning TRUE on error cells), and returns FALSE for #REF! and arrays
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0 builds 20430 and 20527, ISREF(value) tests whether value is a reference without
+dereferencing or reading cells—returning TRUE for single cells, multi-cell ranges, area unions
+such as (A1,B2), cells holding an error (=ISREF(B7) -> TRUE), and reference-preserving IF calls
+(=ISREF(IF(TRUE,Data!A1:A3,0)) -> TRUE), and returning FALSE for numbers, text such as "A1",
+literal #REF!, and arrays such as {1}. Matches 1,227/1,227 full-bank and 120/120 pinned rows.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=ISREF(B7)` | as typed | `TRUE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISREF(#REF!)` | as typed | `FALSE` | Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=ISREF(IF(TRUE,Data!A1:A3,0))` | as typed | `TRUE` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `ISREF(0)` | value `0.0` (`0x0000000000000000`) (cells) | `TRUE` | Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded |
+
+Basis (measured): Measured across Excel 16.0.20527.20196 (dc_nzpw rows 91-98), Excel
+16.0.20527.20088 (fn2_questions fn2_q023, fn2_q024, fn2_q030; jnt_parse_bind rows 15-17), and
+1,227/1,227 full-bank and 120/120 pinned rows (ISREF.json).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/information.rs`, isref (lines 194-208) at `c08fee0a47` — Reference check without reading cells
+- DnaCalc `crates/calc-func/witness-status.tsv`, ISREF at `c08fee0a47` — 1,227/1,227 full-bank and 120/120 pinned rows matched
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 94 column 4 at `c08fee0a47` — B7 holds #N/A (readings)
+- DnaCalc `crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json`, sheet information_functions row 97 column 4 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q023 row 20 column 10 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/witnesses/ISREF.json`, w111broad-20260929-ISREF-00000 at `c08fee0a47` — bulk Value2 cell input passes a cell reference (readings)
+
 ### FN-JIS-001: JIS is absent on Windows English Excel 16.0.20527 and returns #NAME? for every call
 
 *Quirk; measured; recorded 2026-11-22.*
@@ -6472,6 +6829,67 @@ Evidence:
 - DnaCalc `crates/calc-func/src/ported/moment_stats_family.rs`, kurt_kernel; stored_moments at `95eb0cb2ef` — every operation stored from x87 precision 64
 - DnaCalc `crates/calc-func/witness-status.tsv`, KURT at `95eb0cb2ef` — 4,508/4,508 full-bank matches
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json`, sheet prefix_metadata row 138 column 1 at `95eb0cb2ef` (readings)
+
+### FN-LAMBDA-001: LAMBDA is lexically scoped, does not force unused error arguments, returns #CALC! uncalled, and rejects duplicate parameters at entry
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, LAMBDA([parameter1, ...], calculation) uses lexical scoping over captured
+outer bindings (=LET(xx,1,fn,LAMBDA(xx),LET(xx,2,fn())) -> 1), does not raise an unused
+argument's error (=LAMBDA(xx,7)(1/0) -> 7), returns #VALUE! when called with too few required
+or too many arguments, and yields #CALC! when an uncalled LAMBDA value reaches a cell (directly
+or via IFS/SWITCH/HSTACK). At formula entry (0x800A03EC), Excel refuses empty LAMBDA() and
+duplicate case-folded parameter names (=LAMBDA(xx,XX,xx)(1,2)), while allowing postfix calls
+after IF, CHOOSE, SWITCH, IFS, and LET but refusing postfix calls after IFERROR, IFNA, or MAP.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=LET(xx,1,fn,LAMBDA(xx),LET(xx,2,fn()))` | as typed | `1.0` (`0x3ff0000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LAMBDA(xx,7)(1/0)` | as typed | `7.0` (`0x401c000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=IFS(TRUE,LAMBDA(xx,xx))` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LAMBDA(xx,xx)()` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 across fn2_questions (fn2_q017-020,
+fn2_q098-104, fn2_q110-120), f3_arrays (rows 33-44), and entry measurements in excel-entry.tsv
+(dc-mx3x).
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/src/eval/entry.rs`, check_lambda (lines 217-227) at `c08fee0a47` — formula-entry parameter count and duplicate parameter fold
+- DnaCalc `crates/calc-fml/src/eval/run.rs`, prepare_closure (lines 2438-2505) at `c08fee0a47` — lexical closure capture, arity #VALUE!, and omitted optional slots
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q098 row 20 column 10 at `c08fee0a47` — lexical capture of xx=1 (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q110 row 20 column 10 at `c08fee0a47` — unused argument 1/0 does not error (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q017 row 20 column 10 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q113 row 20 column 10 at `c08fee0a47` (readings)
+
+### FN-LARGE-001: LARGE validates unrounded k against [1, n] before truncating (n + 1 - k) and preserves qualified overflow numbers
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, LARGE(array, k) validates the unrounded numeric k against 1 <= k <= n
+(returning #NUM! when k > n even if trunc(k) == n, such as k = 1 + 2^-52 on a 1-element array)
+before indexing ascending sorted values at trunc(n + 1.0 - k) (whose stored subtraction rounds
+ranks adjacent to an integer), skips text, logicals, and blanks inside arrays or ranges, and
+preserves qualified overflow numbers. Matches 2,848/2,848 full-bank LARGE rows.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=LARGE(Data!A1:A3,1)` | as typed | `5.0` (`0x4014000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `LARGE(-1e+100, TRUE)` | array `-1e+100` (`0xd4b249ad2594c37d`); k `TRUE` (cells) | `-1e+100` (`0xd4b249ad2594c37d`) | Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded |
+| `LARGE(0.4272256304209876, 1)` | array `0.4272256304209876` (`0x3fdb57aa2baaf3b4`); k `1.0` (`0x3ff0000000000000`) (cells) | `0.4272256304209876` (`0x3fdb57aa2baaf3b4`) | Excel 16.0 build 20527, Windows, Compatibility Version 2, cell_value2_bulk; bitness and CPU not recorded |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in prefix_metadata (row 139) and across
+2,848/2,848 full-bank LARGE rows in CalcFunc-Evidence
+(bank2-answers-large-{more,scalar,special}.json).
+
+Evidence:
+
+- DnaCalc `crates/calc-func/src/catalogue/statistics.rs`, nth (lines 104-129) at `c08fee0a47` — unrounded k check, stored (n + 1 - k).trunc(), and qualified overflow preservation
+- DnaCalc `crates/calc-func/tests/f1_stats.rs`, order_statistics (lines 2786-2797) at `c08fee0a47` — LARGE k = 1 + 2^-52 and k = 1.3 rounding checks
+- DnaCalc `crates/calc-func/witness-status.tsv`, LARGE at `c08fee0a47` — 2,848/2,848 full-bank LARGE rows matched
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json`, sheet prefix_metadata row 139 column 1 at `c08fee0a47` (readings)
+- CalcFunc-Evidence `readings/excel-20527/bank2-answers-large-scalar.json`, bank2-scalar-LARGE-0010 at `4ef2c244d7` — direct scalar logical TRUE coerces to k = 1 (readings)
+- CalcFunc-Evidence `readings/excel-20527/bank2-answers-large-scalar.json`, bank2-scalar-LARGE-0023 at `4ef2c244d7` (readings)
 
 ### FN-LEFT-001: In CompatibilityVersion 1, LEFT/RIGHT preserve astral pairs, MID slices UTF-16 units, and 32,767-unit overflow errors differ by function
 
@@ -6541,6 +6959,38 @@ Evidence:
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json`, sheet dczsn3_bytes row 21 column 4 at `4fb9b728df` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json`, sheet dczsn3_bytes row 24 column 4 at `4fb9b728df` (readings)
 - DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json`, sheet dczsn3_bytes row 26 column 4 at `4fb9b728df` (readings)
+
+### FN-LET-001: LET scopes bindings sequentially without self-recursion (#NAME?), skips unreferenced error bindings, and binds omitted values as blank
+
+*Quirk; measured; recorded 2026-11-22.*
+
+In Excel 16.0.20527, LET(name1, value1, ..., calculation) binds names sequentially in lexical
+scope without putting a name in scope within its own value expression (so
+=LET(fn,LAMBDA(xx,IF(xx=0,0,fn(xx-1)+1)),fn(4)) evaluates to #NAME?), does not surface errors
+from unused value expressions (=LET(xx,1/0,7) -> 7), binds an omitted value expression as blank
+(=LET(x,,ISBLANK(x)) -> TRUE and =LET(x,,x) -> 0), and refuses at formula entry (0x800A03EC)
+any even or < 3 argument count or duplicate case-folded name (=LET(xx,1,XX,2,xx)).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=LET(fn,LAMBDA(xx,IF(xx=0,0,fn(xx-1)+1)),fn(4))` | as typed | `#NAME?` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LET(xx,1/0,7)` | as typed | `7.0` (`0x401c000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LET(xx,1,LET(xx,2,xx)+xx)` | as typed | `3.0` (`0x4008000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LET(xx,1,fn,LAMBDA(yy,LET(xx,yy,xx)),fn(4)+xx)` | as typed | `5.0` (`0x4014000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 across fn2_questions (fn2_q086-087,
+fn2_q096-109, fn2_q121-122), Touchstone Formula2 omitted-binding checks (l1.rs lines
+1286-1292), and entry measurements in excel-entry.tsv (dc-mx3x).
+
+Evidence:
+
+- DnaCalc `crates/calc-fml/src/eval/entry.rs`, check_let (lines 203-215) at `c08fee0a47` — formula-entry odd arity >= 3 and duplicate name fold
+- DnaCalc `crates/calc-fml/src/eval/compile.rs`, let_call (lines 1604-1650) at `c08fee0a47` — sequential binding compilation and omitted empty bindings
+- DnaCalc `crates/calc-fml/tests/acceptance/l1.rs`, let_binds_names_in_order; let_omitted_binding_is_blank_in_body at `c08fee0a47` — Excel 16.0.20527 LET acceptance suite
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q122 row 20 column 10 at `c08fee0a47` — name is not in scope inside its own value expression (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q107 row 20 column 10 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q097 row 20 column 10 at `c08fee0a47` (readings)
+- DnaCalc `crates/calc-func/tests/captures/fn2_questions/oracle.capture.json`, sheet fn2_q121 row 20 column 10 at `c08fee0a47` (readings)
 
 ### FN-LINEST-001: LINEST's Householder reflector stores each step from the x87 unit
 

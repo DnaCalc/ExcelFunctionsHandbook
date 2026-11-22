@@ -1,0 +1,141 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISNUMBER-001",
+  "functions": [
+    "FUNC.ISLOGICAL",
+    "FUNC.ISNONTEXT",
+    "FUNC.ISNUMBER",
+    "FUNC.ISTEXT"
+  ],
+  "kind": "quirk",
+  "title": "ISNUMBER, ISTEXT, ISNONTEXT, and ISLOGICAL perform no coercion, treating numeric/logical text as text and rich images as ISNONTEXT TRUE",
+  "statement": "In Excel 16.0 builds 20430 and 20527, ISNUMBER, ISTEXT, ISNONTEXT, and ISLOGICAL test the runtime value type without implicit conversion: ISNUMBER(\"19\") and ISNUMBER(TRUE) are FALSE, ISLOGICAL(\"TRUE\") and ISLOGICAL(0) are FALSE, ISTEXT(\"\") is TRUE, and ISNONTEXT is TRUE for numbers, logicals, blank cells, worksheet errors, and _webimage pictures (while ISTEXT, ISNUMBER, and ISLOGICAL are FALSE for _webimage pictures). Each matches 1,227/1,227 full-bank and 120/120 pinned rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20196 (dc_nzpw rows 39-61, 152-155, 177-180), Excel 16.0.20527.20088 (jnt_logical_info rows 18-21, 115-130), Excel 16.0.20527 (fetch.rs rows 516-517), and 1,227/1,227 full-bank and 120/120 pinned rows for each function.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ISNUMBER(\"19\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 42 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISTEXT(\"\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 48 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISNONTEXT(A1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 51 column 4",
+        "note": "A1 is blank; #N/A in B7 (row 54) is also TRUE"
+      }
+    },
+    {
+      "call": "=ISLOGICAL(A11)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 59 column 4",
+        "note": "A11 holds text \"TRUE\""
+      }
+    },
+    {
+      "call": "ISNUMBER(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/witnesses/ISNUMBER.json",
+        "locator": "w111broad-20260929-ISNUMBER-00000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/information.rs",
+      "locator": "isnumber; istext; isnontext; islogical (lines 154-192)",
+      "note": "Strict runtime type checks without coercion"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ISLOGICAL; ISNONTEXT; ISNUMBER; ISTEXT",
+      "note": "1,227/1,227 full-bank and 120/120 pinned rows matched for each"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

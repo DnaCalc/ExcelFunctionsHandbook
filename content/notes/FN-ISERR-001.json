@@ -1,0 +1,128 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISERR-001",
+  "functions": [
+    "FUNC.ISERR",
+    "FUNC.ISERROR",
+    "FUNC.ISNA"
+  ],
+  "kind": "quirk",
+  "title": "ISERR and ISERROR include newer errors (#GETTING_DATA, #BUSY!, #SPILL!, #FIELD!, #CALC!) while returning FALSE on IMAGE rich values",
+  "statement": "In Excel 16.0 builds 20430 and 20527, ISERROR(value) returns TRUE for every worksheet error—including newer errors #GETTING_DATA, #BUSY!, #SPILL!, #FIELD!, and #CALC! alongside the seven classic error codes—while ISERR(value) returns TRUE for every worksheet error except #N/A, and ISNA(value) returns TRUE for #N/A alone. All three return FALSE on a _webimage rich value produced by IMAGE (even though OOXML serializes its fallback as t=\"e\" #VALUE!). Each matches 1,227/1,227 full-bank and 120/120 pinned rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20196 (dc_nzpw rows 9-38, 149-151, 174-176, 181-182), Excel 16.0.20527 (fetch.rs rows 514-515), and 1,227/1,227 full-bank and 120/120 pinned rows for each function.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ISERR(#GETTING_DATA)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 20 column 4",
+        "note": "#BUSY!, #CALC!, #SPILL!, and #FIELD! are also TRUE in rows 17, 21-23"
+      }
+    },
+    {
+      "call": "=ISERROR(B9)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 27 column 4",
+        "note": "B9 holds #BUSY!"
+      }
+    },
+    {
+      "call": "=ISNA(B7)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 33 column 4",
+        "note": "B7 holds #N/A"
+      }
+    },
+    {
+      "call": "ISERROR(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/witnesses/ISERROR.json",
+        "locator": "w111broad-20260929-ISERROR-00000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/information.rs",
+      "locator": "iserr; iserror; isna (lines 119-152)",
+      "note": "Error classification and _webimage handling"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-host/tests/fetch.rs",
+      "locator": "dc_fetch_f0tp__a_picture_flows_and_reads_as_excel_measured (lines 514-515)",
+      "note": "ISERROR and ISERR return FALSE on IMAGE pictures"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ISERR; ISERROR; ISNA",
+      "note": "1,227/1,227 full-bank and 120/120 pinned rows matched for each"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

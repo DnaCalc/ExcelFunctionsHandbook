@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CALL-001",
+  "functions": [
+    "FUNC.CALL"
+  ],
+  "kind": "quirk",
+  "title": "CALL is macro-sheet-only (refused on worksheets) and defaults omitted arguments to 0 while coercing logicals in XLM",
+  "statement": "In Excel 16.0.20527 (64-bit), CALL(register_id, [argument1], ...) is valid only on Excel 4.0 macro sheets (XLM): assigning any CALL formula to a worksheet cell throws 0x800A03EC (all CALL worksheet-entry probes refused), and opening a saved package holding CALL or _xlfn.CALL fails with 0x800A03EC. Under Application.ExecuteExcel4Macro, CALL accepts either a registration ID from REGISTER.ID or inline (module_text, procedure, type_text, ...), passes omitted trailing arguments as 0, coerces logicals to numbers (TRUE -> 1), takes the first element of an array literal, returns FALSE when extra arguments exceed the signature, and returns #VALUE! on text or error arguments where numeric type codes apply.",
+  "status": "measured",
+  "basis": "Measured across all worksheet entry checks, package open checks, and XLM evaluations in Excel 16.0.20527 (64-bit) recorded in call-register-id-excel.json (dc-gh22).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "CALL(\"<fixture>\\hostfix.xll\",\"MyAdd\",\"BBB\",1,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json",
+        "locator": "xlm item 5 (line 183)",
+        "note": null
+      }
+    },
+    {
+      "call": "CALL(\"<fixture>\\hostfix.xll\",\"MyAdd\",\"BBB\",1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json",
+        "locator": "xlm item 20 (line 243)",
+        "note": "missing trailing BBB argument defaulted to 0"
+      }
+    },
+    {
+      "call": "CALL(\"<fixture>\\hostfix.xll\",\"MyAdd\",\"BBB\",1,2,3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json",
+        "locator": "xlm item 21 (line 247)",
+        "note": "extra argument beyond BBB returns FALSE"
+      }
+    },
+    {
+      "call": "CALL(\"kernel32\",\"lstrlenA\",\"JC\",\"hello\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "5.0",
+        "bits": "0x4014000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit (XLM ExecuteExcel4Macro); CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json",
+        "locator": "xlm item 8 (line 195)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-fml/tests/fixtures/host_functions/call-register-id-excel.json",
+      "locator": "worksheet_entry and xlm",
+      "note": "Excel 16.0.20527 worksheet-entry refusal and XLM CALL measurements"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/entry.rs",
+      "locator": "lines 240-262",
+      "note": "MacroSheetOnly entry check refusing CALL on worksheets"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

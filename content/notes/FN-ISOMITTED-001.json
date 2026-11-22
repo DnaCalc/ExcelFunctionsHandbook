@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISOMITTED-001",
+  "functions": [
+    "FUNC.ISOMITTED"
+  ],
+  "kind": "quirk",
+  "title": "ISOMITTED returns TRUE for any omitted LAMBDA argument (even without [brackets]), and does not lift over arrays",
+  "statement": "In Excel 16.0.20527, ISOMITTED(argument) returns TRUE only when argument is an omitted LAMBDA parameter—including a non-bracketed parameter whose call passed an empty trailing slot such as =LAMBDA(xx,yy,IF(ISOMITTED(yy),xx,yy))(3,)—and returns FALSE for a supplied value, blank cell, range reference (=ISOMITTED(Data!A1:A3) -> FALSE), or array (=ISOMITTED({2;3}) -> FALSE, without lifting).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 across fn2_questions (fn2_q015, fn2_q116, fn2_q117), jnt_evaluator_callables (rows 50-53), prefix_metadata (row 245), and recorded array-lift case unswept-00303-isomitted-arg0_array_lift (l1.rs line 488).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=LAMBDA(xx,yy,IF(ISOMITTED(yy),xx,yy))(3,)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q117 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISOMITTED(Data!A1:A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q015 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISOMITTED(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 245 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/offset.rs",
+      "locator": "isomitted (lines 334-342)",
+      "note": "returns CalcValue::logical(arguments[0].is_missing())"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-fml/tests/acceptance/l1.rs",
+      "locator": "isomitted_does_not_lift_over_an_array; optional_parameters_and_arity",
+      "note": "non-lifting array check and optional parameter checks"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

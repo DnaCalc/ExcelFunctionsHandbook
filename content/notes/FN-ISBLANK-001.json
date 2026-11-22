@@ -1,0 +1,100 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ISBLANK-001",
+  "functions": [
+    "FUNC.ISBLANK"
+  ],
+  "kind": "quirk",
+  "title": "ISBLANK is TRUE only for an empty cell, returning FALSE for empty text \"\" (constant or formula) and for a rich picture value",
+  "statement": "In Excel 16.0 builds 20430 and 20527, ISBLANK(value) returns TRUE only when value refers to a truly empty cell (or an omitted LET binding inside its body), and returns FALSE for empty text \"\" whether held as a cell constant or returned by a formula such as =IF(FALSE,\"x\",\"\"), for all worksheet errors, and for _webimage rich values from IMAGE. On a legacy worksheet formula, a multi-cell range undergoes implicit intersection (returning FALSE when @ yields #VALUE! outside the range). Matches 1,227/1,227 full-bank and 120/120 pinned rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20196 (dc_nzpw rows 1-8, 148), Excel 16.0.20527.20088 (jnt_logical_info rows 17, 113-114; prefix_metadata row 28), Excel 16.0.20527 (fetch.rs row 518), and 1,227/1,227 full-bank and 120/120 pinned rows (ISBLANK.json).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ISBLANK(A1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 1 column 4",
+        "note": "A1 is an empty cell"
+      }
+    },
+    {
+      "call": "=ISBLANK(\"\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/dc_nzpw/oracle.capture.json",
+        "locator": "sheet information_functions row 5 column 4",
+        "note": "formula empty text D3 (row 4) is also FALSE"
+      }
+    },
+    {
+      "call": "ISBLANK(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "value",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, cell_value2_bulk; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/witnesses/ISBLANK.json",
+        "locator": "w111broad-20260929-ISBLANK-00000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/catalogue/information.rs",
+      "locator": "isblank (lines 108-117)",
+      "note": "CoreRef::Empty predicate after value dereference"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ISBLANK",
+      "note": "1,227/1,227 full-bank and 120/120 pinned rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

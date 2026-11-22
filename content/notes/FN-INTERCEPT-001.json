@@ -1,0 +1,221 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-INTERCEPT-001",
+  "functions": [
+    "FUNC.INTERCEPT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "INTERCEPT evaluates mean_y - slope * mean_x in plain binary64 using two-pass means and SLOPE's centered quotient",
+  "statement": "In Excel 16.0 builds 20131 and 20527, INTERCEPT(known_y's, known_x's) validates singleton blank/error arguments in formula order (#VALUE! on a blank singleton before inspecting known_x's), returns #N/A on shape mismatch, skips positions where either argument holds text, logical, or blank, and computes mean_y - slope * mean_x in plain binary64 arithmetic where slope is sum((x - mean_x)*(y - mean_y)) / sum((x - mean_x)^2) from two-pass sample means, returning #DIV/0! when fewer than 2 numeric pairs exist or sum((x - mean_x)^2) == 0. Matches 2,856/2,856 full-bank and 4/4 pinned INTERCEPT rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20131 (4/4 pinned rows in witnesses/INTERCEPT.json) and Excel 16.0.20527 (2,856/2,856 full-bank INTERCEPT rows and prefix_metadata row 136).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=INTERCEPT(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 136 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "INTERCEPT({2;4.1;5.9;8.05}, {1;2;3;4})",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "known_y_1",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "known_y_2",
+          "value": {
+            "kind": "number",
+            "display": "4.1",
+            "bits": "0x4010666666666666"
+          }
+        },
+        {
+          "name": "known_y_3",
+          "value": {
+            "kind": "number",
+            "display": "5.9",
+            "bits": "0x401799999999999a"
+          }
+        },
+        {
+          "name": "known_y_4",
+          "value": {
+            "kind": "number",
+            "display": "8.05",
+            "bits": "0x402019999999999a"
+          }
+        },
+        {
+          "name": "known_x_1",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "known_x_2",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "known_x_3",
+          "value": {
+            "kind": "number",
+            "display": "3.0",
+            "bits": "0x4008000000000000"
+          }
+        },
+        {
+          "name": "known_x_4",
+          "value": {
+            "kind": "number",
+            "display": "4.0",
+            "bits": "0x4010000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.024999999999999467",
+        "bits": "0x3f99999999999900"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/witnesses/INTERCEPT.json",
+        "locator": "oc1",
+        "note": null
+      }
+    },
+    {
+      "call": "INTERCEPT({1000000000001;1000000000002;1000000000002.5;1000000000004.75}, {1000000001;1000000002;1000000003;1000000004})",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "known_y_1",
+          "value": {
+            "kind": "number",
+            "display": "1000000000001.0",
+            "bits": "0x426d1a94a2002000"
+          }
+        },
+        {
+          "name": "known_y_2",
+          "value": {
+            "kind": "number",
+            "display": "1000000000002.0",
+            "bits": "0x426d1a94a2004000"
+          }
+        },
+        {
+          "name": "known_y_3",
+          "value": {
+            "kind": "number",
+            "display": "1000000000002.5",
+            "bits": "0x426d1a94a2005000"
+          }
+        },
+        {
+          "name": "known_y_4",
+          "value": {
+            "kind": "number",
+            "display": "1000000000004.75",
+            "bits": "0x426d1a94a2009800"
+          }
+        },
+        {
+          "name": "known_x_1",
+          "value": {
+            "kind": "number",
+            "display": "1000000001.0",
+            "bits": "0x41cdcd6500800000"
+          }
+        },
+        {
+          "name": "known_x_2",
+          "value": {
+            "kind": "number",
+            "display": "1000000002.0",
+            "bits": "0x41cdcd6501000000"
+          }
+        },
+        {
+          "name": "known_x_3",
+          "value": {
+            "kind": "number",
+            "display": "1000000003.0",
+            "bits": "0x41cdcd6501800000"
+          }
+        },
+        {
+          "name": "known_x_4",
+          "value": {
+            "kind": "number",
+            "display": "1000000004.0",
+            "bits": "0x41cdcd6502000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "998824999999.625",
+        "bits": "0x426d11d37f87f400"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/witnesses/INTERCEPT.json",
+        "locator": "oc3",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/ported/paired_stats_common.rs",
+      "locator": "intercept_from_pairs (lines 111-115)",
+      "note": "mean_y - slope * mean_x using two-pass centered slope_from_pairs"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "INTERCEPT",
+      "note": "2,856/2,856 full-bank and 4/4 pinned INTERCEPT rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

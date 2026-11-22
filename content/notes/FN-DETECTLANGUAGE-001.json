@@ -1,0 +1,42 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DETECTLANGUAGE-001",
+  "functions": [
+    "FUNC.DETECTLANGUAGE"
+  ],
+  "kind": "quirk",
+  "title": "DETECTLANGUAGE stores with _xlfn. (XLSB variable-arg id 255) and is deferred as an external translation service",
+  "statement": "In Excel 16.0 build 20430, DETECTLANGUAGE(text) is stored in OOXML and XLSB as a variable-argument future function with the _xlfn. prefix (_xlfn.DETECTLANGUAGE(1), XLSB function id 255). Runtime evaluation requires Microsoft's remote language-detection service, so DNA Calc defers it as ExternalService and zero Excel calculation answers are recorded.",
+  "status": "inferred",
+  "basis": "Based on Excel 16.0.20430 file-format captures in DnaCalc crates/calc-doc/tests/fixtures/d1/excel-prefixes.json and crates/calc-doc/tests/fixtures/dc_5sr/excel-function-ids.json, and DnaCalc's deferral in crates/calc-catalogue/src/unheld.rs.",
+  "inferred": "Runtime evaluation behaviour (offline errors, non-text coercion, empty-text handling, and multi-cell spilling) is inferred as dependent on Microsoft Translation Services and remains unmeasured in CalcFunc-Evidence.",
+  "documentation": null,
+  "repros": [],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-doc/tests/fixtures/d1/excel-prefixes.json",
+      "locator": "DETECTLANGUAGE row",
+      "note": "Excel 16.0.20430 stores =DETECTLANGUAGE(1) as _xlfn.DETECTLANGUAGE(1)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-doc/tests/fixtures/dc_5sr/excel-function-ids.json",
+      "locator": "DETECTLANGUAGE entry",
+      "note": "XLSB function number 255 (variable)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-catalogue/src/unheld.rs",
+      "locator": "lines 322-331",
+      "note": "Deferral::ExternalService entry for DETECTLANGUAGE"
+    }
+  ],
+  "open": [
+    "No Excel calculation rows for DETECTLANGUAGE are recorded; offline, non-text, empty-text, and array-spill behaviour remain unmeasured."
+  ],
+  "recorded_on": "2026-11-22"
+}

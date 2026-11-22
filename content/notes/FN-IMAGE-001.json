@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMAGE-001",
+  "functions": [
+    "FUNC.IMAGE"
+  ],
+  "kind": "quirk",
+  "title": "IMAGE requires https (http is #BLOCKED!), rejects SVG and height/width when sizing != 3, and yields a TYPE 128 rich value",
+  "statement": "In Excel 16.0.20527 (64-bit), _xlfn.IMAGE(source, [alt_text], [sizing], [height], [width]) is non-volatile and requires an https URL (returning #BLOCKED! for http without fetching, and #VALUE! for other schemes or non-text), validates sizing (0..3 after truncation; any height or width argument when sizing != 3—even omitted—is #VALUE!; sizing 3 requires non-negative sizes with at least one > 0), returns #CONNECT! on HTTP 400-499 and #VALUE! on HTTP 500+/204/SVG/non-image bodies, and produces a _webimage rich value (TYPE 128, ERROR.TYPE #N/A, ISERROR FALSE, ISNONTEXT TRUE, COUNTA 1, COUNT 0, arithmetic #VALUE!, and = comparing source and alt_text while ignoring sizing).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527 (64-bit) against a local mock server and public URLs on 2026-11-06 and 2026-11-07 (calc-func/src/fetch.rs, calc-host/tests/fetch.rs, and fixtures/fetch/excel-image.xlsx).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=_xlfn.IMAGE(\"http://mock/png\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#BLOCKED!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/fetch.rs",
+        "locator": "dc_fetch_f0tp__image_errors_are_excels (lines 442-445)",
+        "note": "http source returns #BLOCKED! without issuing a request"
+      }
+    },
+    {
+      "call": "=_xlfn.IMAGE(\"https://mock/404\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CONNECT!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/fetch.rs",
+        "locator": "dc_fetch_f0tp__image_errors_are_excels (line 438)",
+        "note": "HTTP 400-499 returns #CONNECT!"
+      }
+    },
+    {
+      "call": "=TYPE(_xlfn.IMAGE(\"https://httpbin.org/base64/R0lGODlhAQABAIAAAAAAAP___yH5BAEAAAAALAAAAAABAAEAAAIBRAA7\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "128.0",
+        "bits": "0x4060000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/fixtures/fetch/excel-image.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A1 and B1",
+        "note": "GIF rich value has TYPE 128 (while cell fallback <v> is #VALUE!)"
+      }
+    },
+    {
+      "call": "=_xlfn.IMAGE(\"https://httpbin.org/base64/PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxIiBoZWlnaHQ9IjEiPjwvc3ZnPg==\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-host/tests/fixtures/fetch/excel-image.xlsx",
+        "locator": "xl/worksheets/sheet1.xml A3 and B3",
+        "note": "SVG payload rejected with #VALUE!"
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-func/src/fetch.rs",
+      "locator": "lines 37-58 and 344-427",
+      "note": "Measured Excel 16.0.20527 IMAGE argument, scheme, format, and rich-value rules"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-host/tests/fetch.rs",
+      "locator": "lines 400-660",
+      "note": "Mock-route and saved excel-image.xlsx replay of Excel 16.0.20527 IMAGE measurements"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

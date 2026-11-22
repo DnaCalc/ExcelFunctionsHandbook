@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LAMBDA-001",
+  "functions": [
+    "FUNC.LAMBDA"
+  ],
+  "kind": "quirk",
+  "title": "LAMBDA is lexically scoped, does not force unused error arguments, returns #CALC! uncalled, and rejects duplicate parameters at entry",
+  "statement": "In Excel 16.0.20527, LAMBDA([parameter1, ...], calculation) uses lexical scoping over captured outer bindings (=LET(xx,1,fn,LAMBDA(xx),LET(xx,2,fn())) -> 1), does not raise an unused argument's error (=LAMBDA(xx,7)(1/0) -> 7), returns #VALUE! when called with too few required or too many arguments, and yields #CALC! when an uncalled LAMBDA value reaches a cell (directly or via IFS/SWITCH/HSTACK). At formula entry (0x800A03EC), Excel refuses empty LAMBDA() and duplicate case-folded parameter names (=LAMBDA(xx,XX,xx)(1,2)), while allowing postfix calls after IF, CHOOSE, SWITCH, IFS, and LET but refusing postfix calls after IFERROR, IFNA, or MAP.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 across fn2_questions (fn2_q017-020, fn2_q098-104, fn2_q110-120), f3_arrays (rows 33-44), and entry measurements in excel-entry.tsv (dc-mx3x).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=LET(xx,1,fn,LAMBDA(xx),LET(xx,2,fn()))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q098 row 20 column 10",
+        "note": "lexical capture of xx=1"
+      }
+    },
+    {
+      "call": "=LAMBDA(xx,7)(1/0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "7.0",
+        "bits": "0x401c000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q110 row 20 column 10",
+        "note": "unused argument 1/0 does not error"
+      }
+    },
+    {
+      "call": "=IFS(TRUE,LAMBDA(xx,xx))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q017 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=LAMBDA(xx,xx)()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q113 row 20 column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-fml/src/eval/entry.rs",
+      "locator": "check_lambda (lines 217-227)",
+      "note": "formula-entry parameter count and duplicate parameter fold"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "c08fee0a47c3a7ed55f28b193b03129181980b0a",
+      "path": "crates/calc-fml/src/eval/run.rs",
+      "locator": "prepare_closure (lines 2438-2505)",
+      "note": "lexical closure capture, arity #VALUE!, and omitted optional slots"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
