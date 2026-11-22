@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PERCENTOF-001",
+  "functions": [
+    "FUNC.PERCENTOF"
+  ],
+  "kind": "quirk",
+  "title": "PERCENTOF requires _xlfn., maps held array or reference errors to #NUM!, and coerces only direct scalars",
+  "statement": "In Excel 16.0.20527.20088, PERCENTOF(data_subset, data_all) requires the _xlfn. prefix in OOXML (@PERCENTOF without _xlfn. gives #NAME?), divides SUM(data_subset) by SUM(data_all), coerces direct text and logicals (PERCENTOF(\"1\",4) = 0.25, PERCENTOF(TRUE,4) = 0.25) and omitted arguments (PERCENTOF(,4) = 0), skips text/logicals inside references or arrays, sums union areas, returns direct errors directly (#N/A -> #N/A), and maps any error held inside a reference or array to #NUM! (PERCENTOF(Data!A1:A3,Data!A1:E3) = #NUM! because Data!C1 holds #N/A). Matches 5,578/5,578 full-bank rows.",
+  "status": "measured",
+  "basis": "Measured across all 16 rows of dch9u_functions and row 422 of prefix_metadata in Excel 16.0.20527.20088, plus 5,578/5,578 full-bank PERCENTOF witness rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PERCENTOF(1,4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.25",
+        "bits": "0x3fd0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 1 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PERCENTOF(Data!A1:A3,Data!A1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 3 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PERCENTOF(#N/A,4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 8 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PERCENTOF((Data!A1,Data!A3),Data!A1:A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.4444444444444444",
+        "bits": "0x3fdc71c71c71c71c"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+        "locator": "sheet dch9u_functions row 12 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/group_pivot.rs",
+      "locator": "lines 1-64",
+      "note": "PERCENTOF direct vs held error handling and area-by-area union sum"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dch9u_functions.capture.json",
+      "locator": "rows 1 to 16",
+      "note": "Excel 16.0.20527 PERCENTOF readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PERCENTOF",
+      "note": "5,578/5,578 full-bank PERCENTOF rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

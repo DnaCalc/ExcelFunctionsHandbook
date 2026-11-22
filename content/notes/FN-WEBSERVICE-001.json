@@ -1,0 +1,100 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-WEBSERVICE-001",
+  "functions": [
+    "FUNC.WEBSERVICE"
+  ],
+  "kind": "quirk",
+  "title": "WEBSERVICE requires _xlfn., caps URLs at 2048 chars, stops https->http redirects, and decodes bodies leniently as UTF-8",
+  "statement": "In Excel 16.0.20527 (64-bit), _xlfn.WEBSERVICE(url) trims surrounding spaces, rejects non-text, empty text, URLs > 2048 characters, and schemes other than http/https or host:port with #VALUE! before issuing any GET request, percent-encodes spaces/%20, #/%23, and non-ASCII path bytes, follows up to 25 redirects except stopping https-to-http redirects with empty text, caps responses at 32,767 UTF-16 code units, rejects UTF-16 BOMs (FF FE / FE FF) with #VALUE!, and decodes bodies leniently as UTF-8 regardless of charset header (so bytes E9 6C 6C decode to U+9B2C and C0 80 decodes to NUL).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527 (64-bit) against a local mock server on 2026-11-06 and 2026-11-07 (documented in calc-func/src/fetch.rs and verified by unit/host suites in fetch.rs and calc-host/tests/fetch.rs).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=_xlfn.WEBSERVICE(\"http://mock/latin1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "h鬬o",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fetch.rs",
+        "locator": "dc_fetch_f0tp__webservice_gives_excels_results_for_each_reply (lines 56 and 201-204)",
+        "note": "Local mock server reply body b\"h\\xe9llo\" decoded by Excel 16.0.20527"
+      }
+    },
+    {
+      "call": "=_xlfn.WEBSERVICE(\"http://mock/utf16\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fetch.rs",
+        "locator": "dc_fetch_f0tp__webservice_gives_excels_results_for_each_reply (lines 57 and 205-208)",
+        "note": "UTF-16LE BOM body rejected by Excel 16.0.20527"
+      }
+    },
+    {
+      "call": "=_xlfn.WEBSERVICE(123)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows 64-bit; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-host/tests/fetch.rs",
+        "locator": "dc_fetch_f0tp__webservice_refuses_without_a_request (line 248)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/fetch.rs",
+      "locator": "lines 10-35 and 613-655",
+      "note": "Measured Excel 16.0.20527 WEBSERVICE rules and decode_body byte cases"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-host/tests/fetch.rs",
+      "locator": "lines 45-66 and 189-352",
+      "note": "End-to-end host mock-server replay of Excel 16.0.20527 WEBSERVICE readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-fml/tests/fixtures/entry/excel-entry.tsv",
+      "locator": "lines 3668-3670",
+      "note": "Excel 16.0.20527 entry checks for WEBSERVICE"
+    }
+  ],
+  "open": [
+    "Some raw binary byte bodies (PNG, deflate stream, 00..FF) return #VALUE! in Excel without a published rule yet (fetch.rs lines 34-35)."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_NEGATE-001",
+  "functions": [
+    "FUNC.OP_NEGATE"
+  ],
+  "kind": "quirk",
+  "title": "Unary negation coerces text and logicals to numbers and flushes parsed subnormals to +0",
+  "statement": "In Excel 16.0.20527.20088, unary negation (-x) coerces its scalar operand to a number (so -\"2\" = -2 and -TRUE = -1, unlike unary +x which leaves text and logicals uncoerced), flushes parsed subnormal literals to +0 (-1E-309 = 0x0000000000000000, not -0.0), and retains a computed subnormal's negated sign when fed a live subnormal value.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20088 in jnt_operators (rows 5, 6, and 19) and dc_e00t (row 4).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=-\"2\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-2.0",
+        "bits": "0xc000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 5 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=-TRUE",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-1.0",
+        "bits": "0xbff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 6 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=-1E-309",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 19 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/arithmetic.rs",
+      "locator": "lines 165-180",
+      "note": "OP_NEGATE numeric coercion and sign flip"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+      "locator": "rows 5, 6, and 19",
+      "note": "Unary negation coercion and subnormal-literal flush"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

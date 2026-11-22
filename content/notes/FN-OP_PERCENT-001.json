@@ -1,0 +1,72 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_PERCENT-001",
+  "functions": [
+    "FUNC.OP_PERCENT"
+  ],
+  "kind": "quirk",
+  "title": "Postfix % coerces to a number, divides by 100, and flushes subnormal quotients to +0",
+  "statement": "In Excel 16.0.20527.20088, the postfix percentage operator (x%) coerces its scalar operand to a number, divides by 100 using Excel's division arithmetic, and flushes any subnormal result to +0 (so 1E-307% gives 0 rather than 1E-309).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20088 in jnt_operators (rows 12 and 20) and dc_e00t (row 5).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=5%",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.05",
+        "bits": "0x3fa999999999999a"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 12 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=1E-307%",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 20 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/arithmetic.rs",
+      "locator": "lines 205-217",
+      "note": "OP_PERCENT division by 100 and subnormal flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+      "locator": "rows 12 and 20",
+      "note": "Excel 16.0.20527 readings for 5% and 1E-307%"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

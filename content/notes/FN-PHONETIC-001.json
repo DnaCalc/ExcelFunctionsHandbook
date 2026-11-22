@@ -1,0 +1,62 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PHONETIC-001",
+  "functions": [
+    "FUNC.PHONETIC"
+  ],
+  "kind": "quirk",
+  "title": "PHONETIC requires a reference operand at entry and returns #N/A under non-Japanese profiles",
+  "statement": "In Excel 16.0.20527 (en-ZA), PHONETIC(reference) accepts only an operand that can yield a reference at formula entry (=PHONETIC(2), =PHONETIC({1,2}), and =PHONETIC(1+1) are refused with 0x800A03EC, while =PHONETIC(B1) and =PHONETIC(INDEX(B1:B3,0)) enter), and returns #N/A for both text and blank cells under non-Japanese editing profiles. Matches 3,056/3,056 full-bank rows under en-ZA.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (row 305), 8 entry probes in excel-entry.tsv, and 3,056/3,056 full-bank PHONETIC rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PHONETIC(Data!B1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 305 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/text_format.rs",
+      "locator": "lines 1002-1012 and 1376-1379",
+      "note": "PHONETIC #N/A under non-Japanese profiles and reference-only entry rule"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/entry.rs",
+      "locator": "line 385",
+      "note": "Measured reference-place census for PHONETIC"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PHONETIC",
+      "note": "3,056/3,056 full-bank PHONETIC rows matched"
+    }
+  ],
+  "open": [
+    "Phonetic furigana extraction under ja-JP locale remains unmodelled."
+  ],
+  "recorded_on": "2026-11-22"
+}

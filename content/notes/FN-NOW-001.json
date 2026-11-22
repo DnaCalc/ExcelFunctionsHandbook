@@ -1,0 +1,80 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NOW-001",
+  "functions": [
+    "FUNC.NOW",
+    "FUNC.TODAY"
+  ],
+  "kind": "quirk",
+  "title": "NOW and TODAY mark the formula syntactically volatile with PtgAttrSemi even inside untaken branches",
+  "statement": "In Excel 16.0.20527, NOW() and TODAY() take zero arguments, refuse any argument or call postfix at formula entry, and set the formula's syntactic volatility token (PtgAttrSemi) regardless of whether the call sits in an executed branch (so IF(C1=2,TODAY(),0)*0 with a false condition still recalculates on Calculate). When evaluated against the workbook clock in the 1900 date system, NOW()*0 and TODAY()*0 evaluate to 0.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20088 in prefix_metadata (rows 303 and 330), excel-entry.tsv (4 NOW and 3 TODAY entry rows), and volatility probes p1a/p1b/p2 in VOLATILITY.md.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NOW()*0",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 303 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=TODAY()*0",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 330 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "docs/architecture/VOLATILITY.md",
+      "locator": "sections 2 and 3",
+      "note": "Syntactic PtgAttrSemi volatility for NOW and TODAY in Excel 16.0.20527"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/dates.rs",
+      "locator": "lines 226-232 and 380-387",
+      "note": "NOW and TODAY reading the workbook clock in the 1900 serial system"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-fml/tests/fixtures/entry/excel-entry.tsv",
+      "locator": "NOW and TODAY rows",
+      "note": "Entry arity and non-reference/non-callable checks"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

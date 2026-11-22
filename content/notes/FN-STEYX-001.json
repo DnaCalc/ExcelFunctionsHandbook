@@ -1,0 +1,60 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-STEYX-001",
+  "functions": [
+    "FUNC.STEYX"
+  ],
+  "kind": "quirk",
+  "title": "STEYX requires at least 3 paired numeric observations (#DIV/0! below 3) and clamps tiny negative SSE residuals to 0",
+  "statement": "In Excel 16.0.20527, STEYX(known_y's, known_x's) pairs observations after checking singletons in formula order and skipping non-numeric positions, requires at least 3 numeric pairs (returning #DIV/0! for 0, 1, or 2 pairs or when sum((x - mean_x)^2) == 0), and computes sqrt((sum_y2 - sum_xy^2 / sum_x2) / (n - 2)), clamping tiny negative floating-point cancellation residuals near 0 to 0 rather than returning #NUM!. Matches 2,858/2,858 full-bank rows.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (row 217) and 2,858/2,858 full-bank STEYX witness rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=STEYX(Data!A1:A3,Data!E1:E3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.449489742783178",
+        "bits": "0x4003988e1409212e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 217 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/ported/moment_stats_family.rs",
+      "locator": "lines 93-120",
+      "note": "steyx_kernel requiring >= 3 pairs and clamping tiny negative SSE"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "lines 1656-1679",
+      "note": "Paired-statistics singleton and error-order checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "STEYX",
+      "note": "2,858/2,858 full-bank STEYX rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
