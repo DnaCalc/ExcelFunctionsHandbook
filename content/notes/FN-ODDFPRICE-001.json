@@ -1,0 +1,145 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ODDFPRICE-001",
+  "functions": [
+    "FUNC.ODDFPRICE"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ODDFPRICE splits short vs long odd-first periods, sums per-period fractions, and uses integer-exponent binexp",
+  "statement": "In Excel 16.0 builds 20026, 20131, and 20527, ODDFPRICE branches on whether DFC < E (short odd first coupon) or DFC >= E (long odd first coupon spanning multiple quasi-coupon periods). In the long branch it walks backward from first_coupon summing per-period day-count fractions (dci / nl) rather than using a single-period closed form, and for discount factors (1 + yld/freq)^exp it uses binary exponentiation for non-negative integer exponents < 1024 and x87 pow otherwise, matching all 2,956 full-bank rows.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20026/20131 controls (odd_bond_family.rs lines 985-1045), Excel 16.0.20527.20088 in prefix_metadata (row 374), and 2,956/2,956 full-bank ODDFPRICE rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ODDFPRICE(39763,44256,39736,39873,0.0785,0.0625,100,2,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "113.59771747407883",
+        "bits": "0x405c664100cadaa5"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 374 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "ODDFPRICE(44013, 44562, 43831, 44197, 0.05, 0.06, 100, 2, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "44013.0",
+            "bits": "0x40e57da000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "44562.0",
+            "bits": "0x40e5c24000000000"
+          }
+        },
+        {
+          "name": "issue",
+          "value": {
+            "kind": "number",
+            "display": "43831.0",
+            "bits": "0x40e566e000000000"
+          }
+        },
+        {
+          "name": "first_coupon",
+          "value": {
+            "kind": "number",
+            "display": "44197.0",
+            "bits": "0x40e594a000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.05",
+            "bits": "0x3fa999999999999a"
+          }
+        },
+        {
+          "name": "yld",
+          "value": {
+            "kind": "number",
+            "display": "0.06",
+            "bits": "0x3faeb851eb851eb8"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "98.51287878857208",
+        "bits": "0x4058a0d3018deeab"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/src/ported/odd_bond_family.rs",
+        "locator": "oddfprice_us30360_integer_exponents_bit_exact_vs_excel",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/ported/odd_bond_family.rs",
+      "locator": "lines 382-542 and 985-1046",
+      "note": "Short vs long oddFPrice branches, excel_bond_pow, and bit-pinned Excel tests"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ODDFPRICE",
+      "note": "2,956/2,956 full-bank ODDFPRICE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

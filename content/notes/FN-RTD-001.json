@@ -1,0 +1,145 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-RTD-001",
+  "functions": [
+    "FUNC.RTD"
+  ],
+  "kind": "quirk",
+  "title": "RTD folds ASCII case on ProgID, matches topics case-sensitively after CONCAT coercion, and returns #N/A with no server",
+  "statement": "In Excel 16.0.20527, RTD(progid, server, topic1, ...) requires a ProgID, server, and 1 to 253 topic arguments; returns the first error argument in argument order before looking up any server; folds ASCII case on progid while comparing topic strings case-sensitively and space-sensitively after CONCAT-style text coercion (so 1 and \"1\", TRUE and \"TRUE\", and 0.1+0.2 and \"0.3\" share one topic); returns #N/A when no COM RTD server exists for progid; and shows 0 for an empty RTD reply.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527 across 120/120 pinned rows (RTD.json), 1,546/1,546 full-bank rows, and dc-snz.23.4 topic-key probes (udf.rs).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "RTD(\"\", -0.5, 10, -72.00000000000001)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "progid",
+          "value": {
+            "kind": "text",
+            "display": "",
+            "bits": null
+          }
+        },
+        {
+          "name": "server",
+          "value": {
+            "kind": "number",
+            "display": "-0.5",
+            "bits": "0xbfe0000000000000"
+          }
+        },
+        {
+          "name": "topic1",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        },
+        {
+          "name": "topic2",
+          "value": {
+            "kind": "number",
+            "display": "-72.00000000000001",
+            "bits": "0xc052000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows 64-bit; AMD Ryzen 7 4800H; en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/witnesses/RTD.json",
+        "locator": "admit2-scalar-RTD-0289",
+        "note": null
+      }
+    },
+    {
+      "call": "RTD(3.293954116046109e-101, 100, -361.1484970709432, #NUM!)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "progid",
+          "value": {
+            "kind": "number",
+            "display": "1e-100",
+            "bits": "0x2b2bff2ee48e0530"
+          }
+        },
+        {
+          "name": "server",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        },
+        {
+          "name": "topic1",
+          "value": {
+            "kind": "number",
+            "display": "-361.1484970560126",
+            "bits": "0xc07692603e72f206"
+          }
+        },
+        {
+          "name": "topic2",
+          "value": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows 64-bit; AMD Ryzen 7 4800H; en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/witnesses/RTD.json",
+        "locator": "admit2-special-RTD-0007",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/udf.rs",
+      "locator": "lines 16-100",
+      "note": "TopicKey normalization, CONCAT coercion, and #N/A / 0 rules"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/unheld.rs",
+      "locator": "lines 40-86",
+      "note": "No-connector #N/A fallback and error precedence"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "RTD",
+      "note": "1,546/1,546 full-bank and 120/120 pinned RTD rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

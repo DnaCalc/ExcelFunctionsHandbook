@@ -1,0 +1,171 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ODDFYIELD-001",
+  "functions": [
+    "FUNC.ODDFYIELD"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ODDFYIELD checks frequency before basis, starts from par-100 seed, and stops Newton when |step| <= 1e-10 before updating",
+  "statement": "In Excel 16.0.20527, ODDFYIELD validates frequency before reading optional basis, rejects zero date serials and unaligned first_coupon dates (requiring COUPPCD(first_coupon, maturity, freq, basis) == first_coupon) with #NUM!, allows negative yields while 1 + y/freq > 0, starts from a schedule-free par-100 seed y_0, and runs up to 100 Newton iterations on ODDFPRICE using the regular-coupon derivative (omitting the first-period DFC/E factor), returning the iterate BEFORE updating when |step| <= 1e-10 (or y_100).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 across dcztvv_r23 (50 rows), dcztvv_r24 (36 rows), prefix_metadata (row 375), 250/250 holdout rows, and 2,952/2,952 full-bank ODDFYIELD rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ODDFYIELD(39763,44256,39736,39873,0.0575,84.5,100,2,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.07724554159729888",
+        "bits": "0x3fb3c65d22ec15b6"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 375 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=ODDFYIELD(0,44256,39736,39873,0.0575,84.5,100,2,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/dcztvv_r23/oracle.capture.json",
+        "locator": "sheet dcztvv_r23 row 660 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "ODDFYIELD(49024, 49796, 48993, 49065, 0.085, 162.3938, 125, 4, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "settlement",
+          "value": {
+            "kind": "number",
+            "display": "49024.0",
+            "bits": "0x40e7f00000000000"
+          }
+        },
+        {
+          "name": "maturity",
+          "value": {
+            "kind": "number",
+            "display": "49796.0",
+            "bits": "0x40e8508000000000"
+          }
+        },
+        {
+          "name": "issue",
+          "value": {
+            "kind": "number",
+            "display": "48993.0",
+            "bits": "0x40e7ec2000000000"
+          }
+        },
+        {
+          "name": "first_coupon",
+          "value": {
+            "kind": "number",
+            "display": "49065.0",
+            "bits": "0x40e7f52000000000"
+          }
+        },
+        {
+          "name": "rate",
+          "value": {
+            "kind": "number",
+            "display": "0.085",
+            "bits": "0x3fb5c28f5c28f5c3"
+          }
+        },
+        {
+          "name": "pr",
+          "value": {
+            "kind": "number",
+            "display": "162.3938",
+            "bits": "0x40644c9a02752546"
+          }
+        },
+        {
+          "name": "redemption",
+          "value": {
+            "kind": "number",
+            "display": "125.0",
+            "bits": "0x405f400000000000"
+          }
+        },
+        {
+          "name": "frequency",
+          "value": {
+            "kind": "number",
+            "display": "4.0",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "basis",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-0.06331580189829816",
+        "bits": "0xbfb03576e27923fc"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows 64-bit; AMD Ryzen 7 4800H; en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/src/ported/odd_bond_family.rs",
+        "locator": "oddfyield_diverse_short_long_bases_match_excel_bits",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/ported/odd_bond_family.rs",
+      "locator": "lines 632-765 and 1048-1156",
+      "note": "Par-100 seed, regular-coupon slope, and |step| <= 1e-10 pre-update stop"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/bonds.rs",
+      "locator": "lines 258-264",
+      "note": "Frequency-before-basis admission order"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ODDFYIELD",
+      "note": "2,952/2,952 full-bank ODDFYIELD rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

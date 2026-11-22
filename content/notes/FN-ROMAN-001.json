@@ -1,0 +1,60 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ROMAN-001",
+  "functions": [
+    "FUNC.ROMAN"
+  ],
+  "kind": "quirk",
+  "title": "ROMAN truncates toward zero, returns empty text for 0, and maps form TRUE/blank to 0 and FALSE to 4",
+  "statement": "In Excel 16.0.20527, ROMAN(number, [form]) truncates number toward zero into 0..=3999 (returning empty text \"\" for 0 and #VALUE! outside 0..=3999) and simplifies subtractive pairs according to form in 0..=4 (returning #VALUE! outside 0..=4). An omitted, blank, or TRUE form selects classic form 0 (ROMAN(499) = \"CDXCIX\"), while FALSE selects the most concise form 4 (ROMAN(499, FALSE) = \"ID\"). Matches 2,041/2,041 full-bank rows.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (row 197) and 2,041/2,041 full-bank ROMAN witness rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ROMAN(499)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "CDXCIX",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 197 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/ported/roman_fn.rs",
+      "locator": "lines 144-232",
+      "note": "ROMAN forms 0..=4 and 0..=3999 truncation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/math.rs",
+      "locator": "lines 193-207",
+      "note": "TRUE/blank -> 0 and FALSE -> 4 form mapping"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ROMAN",
+      "note": "2,041/2,041 full-bank ROMAN rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

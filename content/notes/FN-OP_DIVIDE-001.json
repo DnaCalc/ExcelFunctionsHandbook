@@ -1,0 +1,128 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_DIVIDE-001",
+  "functions": [
+    "FUNC.OP_DIVIDE",
+    "FUNC.OP_MULTIPLY"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Multiplication and division double-round through x87 64-bit significand precision and flush subnormal results to +0",
+  "statement": "In Excel 16.0.20527.20088, * and / coerce operands left-to-right to numbers, evaluate at x87 64-bit significand precision (PC64) before rounding to binary64 (differing by 1 ULP from binary64 single rounding on dc6qki_arith rows 1-24, e.g. 0.0989043*6004.60993 = 0x40828f0dceb275c2 vs nearest ...75c3), and flush any subnormal product or quotient to +0 (2.3E-308/2 = 0 and 1E-307*0.01 = 0, while normal 5E-308/2 stays 2.5E-308).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20088 in dc6qki_arith (rows 1-24) and jnt_operators (rows 14-15, 17, 22-24).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=0.0989043*6004.60993",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "593.8817418996989",
+        "bits": "0x40828f0dceb275c2"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "593.881741899699",
+        "bits": "0x40828f0dceb275c3",
+        "how": "Exact rational product of both binary64 operands and decimal literals, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc6qki_arith.capture.json",
+        "locator": "sheet dc6qki_arith row 2 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=0.002577/0.752039485",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0034266817785504975",
+        "bits": "0x3f6c1245c5868a94"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.003426681778550497",
+        "bits": "0x3f6c1245c5868a93",
+        "how": "Exact rational quotient of both binary64 operands and decimal literals, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc6qki_arith.capture.json",
+        "locator": "sheet dc6qki_arith row 14 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=2.3E-308/2",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 23 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=5E-308/2",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.5e-308",
+        "bits": "0x0011fa182c40c60d"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 24 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/arithmetic.rs",
+      "locator": "lines 52-75",
+      "note": "* and / x87 double-rounding with subnormal flush to +0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dc6qki_arith.capture.json",
+      "locator": "rows 1 to 24",
+      "note": "24 double-rounding * and / readings in Excel 16.0.20527"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+      "locator": "rows 22 to 24",
+      "note": "Subnormal vs normal flush boundary on * and /"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

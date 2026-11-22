@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_ADD-001",
+  "functions": [
+    "FUNC.OP_ADD",
+    "FUNC.OP_SUBTRACT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "Addition and subtraction double-round through x87 64-bit significand precision and retain computed subnormals",
+  "statement": "In Excel 16.0.20527.20088, + and - coerce operands left-to-right to numbers and evaluate each operation at x87 64-bit significand precision (PC64) before rounding to binary64, differing by 1 ULP from IEEE-754 binary64 single rounding on every row of dc6qki_arith rows 25-52 (e.g. 0.9882+0.000000004364549 = 0x3fef9f559d94e3b2 vs nearest ...e3b3). Unlike * and /, + and - retain computed subnormal results (0 + EXP(-745) = 2^-1074), while parsed subnormal literals flush to 0.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20088 in dc6qki_arith (rows 25-52), jnt_operators (rows 1-4, 21), and dc-1943 computed-subnormal probes.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=0.9882+0.000000004364549",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.9882000043645489",
+        "bits": "0x3fef9f559d94e3b2"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.988200004364549",
+        "bits": "0x3fef9f559d94e3b3",
+        "how": "Exact rational sum of both binary64 operands and decimal literals, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc6qki_arith.capture.json",
+        "locator": "sheet dc6qki_arith row 26 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=3.262707-0.00005579",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.2626512099999996",
+        "bits": "0x400a19e8e0a9a37c"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "3.26265121",
+        "bits": "0x400a19e8e0a9a37d",
+        "how": "Exact rational difference of both binary64 operands and decimal literals, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc6qki_arith.capture.json",
+        "locator": "sheet dc6qki_arith row 37 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=\"2\"+TRUE",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_operators.capture.json",
+        "locator": "sheet jnt_operators row 3 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/src/catalogue/arithmetic.rs",
+      "locator": "lines 38-50 and 96-111",
+      "note": "+ and - x87 double-rounding with out_with_subnormal"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dc6qki_arith.capture.json",
+      "locator": "rows 25 to 52",
+      "note": "28 double-rounding + and - readings in Excel 16.0.20527"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "2e9be2b5b7032a0ee10266ddc9a7370a1f4b7328",
+      "path": "crates/calc-func/tests/acceptance.rs",
+      "locator": "lines 2192-2220",
+      "note": "dc-1943 computed subnormal retention on + and -"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
