@@ -1,0 +1,100 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-QUARTILE-001",
+  "functions": [
+    "FUNC.QUARTILE",
+    "FUNC.QUARTILE.EXC",
+    "FUNC.QUARTILE.INC"
+  ],
+  "kind": "quirk",
+  "title": "QUARTILE functions coerce quart first, reject negative fractions before truncation, and return #NAME? in compat-1",
+  "statement": "In Excel 16.0.20527, QUARTILE, QUARTILE.INC, and QUARTILE.EXC coerce the quart selector before inspecting array/range errors (so non-numeric quart yields #VALUE! even over #N/A cells), but validate the selector domain after reading sample errors and reject negative fractions such as -0.5 or -MIN_POSITIVE with #NUM! before truncating quart (so 4.5 truncates to 4 while -0.5 fails). Under compatibility version 1, @QUARTILE.INC and @QUARTILE.EXC return #NAME?.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (rows 187-189) and quartile_selector_admission_and_error_order controls, and matched across 2,856/2,856 QUARTILE, 2,854/2,854 QUARTILE.EXC, and 2,851/2,851 QUARTILE.INC full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=QUARTILE(Data!A1:A3,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 187 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=@QUARTILE.EXC(Data!A1:A3,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 188 column 2 (compat-1)",
+        "note": null
+      }
+    },
+    {
+      "call": "=@QUARTILE.INC(Data!A1:A3,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 189 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "lines 205-231",
+      "note": "Selector coercion order and negative-fraction check before truncation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "quartile_selector_admission_and_error_order",
+      "note": "Excel 20527 selector precedence and negative-fraction controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "QUARTILE; QUARTILE.EXC; QUARTILE.INC",
+      "note": "2,856/2,856, 2,854/2,854, and 2,851/2,851 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

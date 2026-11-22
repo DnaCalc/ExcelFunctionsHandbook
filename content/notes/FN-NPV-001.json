@@ -1,0 +1,98 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NPV-001",
+  "functions": [
+    "FUNC.NPV"
+  ],
+  "kind": "quirk",
+  "title": "NPV skips non-numeric cells in ranges without advancing the period and stages discounts in x87",
+  "statement": "In Excel 16.0.20131 and 16.0.20527, NPV(rate, value1, ...) skips text, logicals, and blank cells inside ranges and arrays without advancing the discount period (so NPV(0.1, Data!B1:B3, 1) over text cells B1:B3 returns 1/1.1, and all-text ranges return 0 while still checking rate = -1 for #DIV/0!), whereas direct scalar arguments coerce numeric text and logicals (NPV(0.1, TRUE) = 1/1.1). Each term divides by running stored powers of RN53(RN64(1 + rate)) and flushes subnormals.",
+  "status": "measured",
+  "basis": "Measured across f3_financial (rows 3-4) and prefix_metadata (row 373) in Excel 16.0.20527.20088, 120 pinned NPV rows (NPV.json), and npv_excel_answers.txt (Excel 16.0.20527.20150), matching 3,259/3,259 full-bank and 120/120 pinned NPV rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NPV(0.1,Data!B1:B3,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.9090909090909091",
+        "bits": "0x3fed1745d1745d17"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_financial.capture.json",
+        "locator": "sheet f3_financial row 4 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=NPV(0.1,Data!A1:A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "7.295266716754319",
+        "bits": "0x401d2e5a65f03a77"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_financial.capture.json",
+        "locator": "sheet f3_financial row 3 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=NPV(0.1,-10000,3000,4200,6800)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1188.4434123352207",
+        "bits": "0x409291c60de219aa"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 373 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/financial.rs",
+      "locator": "lines 246-250",
+      "note": "Aggregate collector vs direct scalar coercion for NPV"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "npv_empty_collections_keep_base_validation_and_literal_coercion",
+      "note": "Excel 20527 range-skipping and direct-scalar coercion controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NPV",
+      "note": "3,259/3,259 full-bank and 120/120 pinned NPV rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

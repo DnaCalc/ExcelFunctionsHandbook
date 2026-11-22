@@ -1,0 +1,89 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MEDIAN-001",
+  "functions": [
+    "FUNC.MEDIAN"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "MEDIAN retains subnormal midpoints on cancellation pairs and coerces direct args before held errors",
+  "statement": "In Excel 16.0.20430 and 16.0.20527, MEDIAN validates and coerces direct scalar arguments before reading held errors inside ranges or arrays, skips held text, logicals, and blank cells, and computes an even-count midpoint as values[mid - 1] + half (flushing half = (values[mid] - values[mid - 1]) / 2 to 0 if below MIN_POSITIVE), while retaining subnormal final midpoints produced from normal inputs.",
+  "status": "measured",
+  "basis": "Measured across 281 pinned MEDIAN rows in crates/calc-func/tests/witnesses/MEDIAN.json (including 161 fn10 subnormal-result cancellation pairs in Excel 16.0.20430) and jnt_w111_elementary in Excel 16.0.20527.20088, and matched across 43,412/43,412 full-bank and 281/281 pinned MEDIAN rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "MEDIAN(3.429589234115959e-308, -2.8889406279015687e-308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "3.429589234115959e-308",
+            "bits": "0x0018a95141003d76"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "-2.8889406279015687e-308",
+            "bits": "0x8014c6122e972ba7"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.70324303107195e-309",
+        "bits": "0x0001f19f893488e7"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20430, Windows 64-bit (CPU not recorded)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/witnesses/MEDIAN.json",
+        "locator": "w111lpm-MEDIAN-04588",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUMPRODUCT(MEDIAN(Data!E1:E3*2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "4.0",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 140 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/statistics.rs",
+      "locator": "lines 402-418",
+      "note": "Direct-first coercion, even midpoint flushing, and subnormal output retention"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "MEDIAN",
+      "note": "43,412/43,412 full-bank and 281/281 pinned MEDIAN rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

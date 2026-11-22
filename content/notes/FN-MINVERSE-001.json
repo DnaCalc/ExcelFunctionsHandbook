@@ -1,0 +1,149 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MINVERSE-001",
+  "functions": [
+    "FUNC.MINVERSE"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "MINVERSE runs Doolittle LU with x87 double-rounded sites, a 1e-12 pivot threshold, and +0.0 zero canonicalization",
+  "statement": "In Excel 16.0.20131 through 16.0.20527, MINVERSE performs in-place Doolittle LU with partial pivoting (returning #NUM! when max |pivot| < 1e-12 and #VALUE! for non-square, empty, text, or logical matrices), solves column-by-column using x87 PC64-to-PC53 double-rounding at every multiply, divide, and subtract site, and canonicalizes zero entries in the output array to +0.0.",
+  "status": "measured",
+  "basis": "Measured across 120 pinned MINVERSE rows (Excel 16.0.20131 and 16.0.20228) and 64 dcj9k_r26_regression rows (Excel 16.0.20527.20150), matching 2,243/2,243 full-bank and 120/120 pinned MINVERSE rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "MINVERSE([[3.393e-12, 7.8879167, -0.37497746, 0.5378492], ...])[2,4]",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "a11",
+          "value": {
+            "kind": "number",
+            "display": "1.818989403550255e-12",
+            "bits": "0x3d80000000002a8a"
+          }
+        },
+        {
+          "name": "a12",
+          "value": {
+            "kind": "number",
+            "display": "7.887916699919584",
+            "bits": "0x401f8d3a090ee84e"
+          }
+        },
+        {
+          "name": "a21",
+          "value": {
+            "kind": "number",
+            "display": "-1.804047823648635",
+            "bits": "0xbffcdd61402fda93"
+          }
+        },
+        {
+          "name": "a44",
+          "value": {
+            "kind": "number",
+            "display": "-0.673606653228904",
+            "bits": "0xbfe58e2f8a3f8e96"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.026763466204476248",
+        "bits": "0x3f9b67e1d04da586"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20228, Windows 64-bit (CPU not recorded)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/witnesses/MINVERSE.json",
+        "locator": "minv-p2-00057-24",
+        "note": null
+      }
+    },
+    {
+      "call": "MINVERSE({1,0.5,0.25;0.5,1,0.5;0.25,0.5,1})[3,1]",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "a11",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "a12",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        },
+        {
+          "name": "a13",
+          "value": {
+            "kind": "number",
+            "display": "0.25",
+            "bits": "0x3fd0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/witnesses/MINVERSE.json",
+        "locator": "oc67",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDEX(MINVERSE(CHOOSE({1,2},D3665:D3666,D3667:D3668)),1,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.2500000000000109",
+        "bits": "0x3ff4000000000031"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/dcj9k_r26_regression/oracle.capture.json",
+        "locator": "sheet dcj9k_r26_regression row 3669 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/ported/matrix_family.rs",
+      "locator": "lines 49-129",
+      "note": "Doolittle LU x87 double-rounded arithmetic sites and +0.0 publication"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "MINVERSE",
+      "note": "2,243/2,243 full-bank and 120/120 pinned MINVERSE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

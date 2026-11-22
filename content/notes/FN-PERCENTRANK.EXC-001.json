@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-PERCENTRANK.EXC-001",
+  "functions": [
+    "FUNC.PERCENTRANK.EXC"
+  ],
+  "kind": "quirk",
+  "title": "PERCENTRANK.EXC truncates to significance decimal places (not significant digits) and returns 1 for singletons",
+  "statement": "In Excel 16.0.20527.20088, PERCENTRANK.EXC(array, x, [significance]) computes the exclusive rank (i + 1)/(n + 1) with linear interpolation and truncates the result to significance decimal places (trunc(value * 10^places) / 10^places, default 3) rather than significance significant digits. When array holds a single numeric entry matching x, Excel returns 1 before checking significance <= 0. In compatibility version 1, @PERCENTRANK.EXC returns #NAME?.",
+  "status": "measured",
+  "basis": "Measured across 49 PERCENTRANK.EXC rows in dcj9k_statistics and prefix_metadata (row 177) in Excel 16.0.20527.20088, and matched across 2,864/2,864 full-bank PERCENTRANK.EXC rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=PERCENTRANK.EXC({6,31,32,39.49,40.9,41.73,44.1,50,77,79,79.3,85.3,95},17,5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.10285",
+        "bits": "0x3fba5460aa64c2f8"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json",
+        "locator": "sheet dcj9k_statistics row 847 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PERCENTRANK.EXC({4.61,5,12.7,16.23,25.7,39.3,61.84,62.2,91.34,92.45},50.171,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.5",
+        "bits": "0x3fe0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json",
+        "locator": "sheet dcj9k_statistics row 854 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@PERCENTRANK.EXC(Data!A1:A3,3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 177 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/ported/percentrank_common.rs",
+      "locator": "lines 9-66",
+      "note": "Decimal-place truncation and singleton-before-significance rule"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "PERCENTRANK.EXC",
+      "note": "2,864/2,864 full-bank PERCENTRANK.EXC rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

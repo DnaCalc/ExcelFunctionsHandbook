@@ -1,0 +1,111 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SHEET-001",
+  "functions": [
+    "FUNC.SHEET",
+    "FUNC.SHEETS"
+  ],
+  "kind": "quirk",
+  "title": "SHEET and SHEETS return #N/A for invalid non-error arguments and evaluate to #NAME? in compatibility version 1",
+  "statement": "In Excel 16.0.20430 and 16.0.20527, SHEET([value]) accepts a reference or sheet-name string and returns its 1-based workbook sheet index (defaulting to the caller's sheet when omitted), returning #N/A for numbers, logicals, arrays, or unknown sheet names. SHEETS([reference]) counts distinct sheets spanned by a 3-D reference (or total workbook sheets including hidden sheets when omitted) and returns #N/A for any non-reference non-error value. Both require _xlfn. and evaluate to #NAME? in compatibility version 1.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (rows 318-319) and f2_rows (row 164) plus Excel 16.0.20430 controls, and matched across 3,093/3,093 SHEET and 3,107/3,107 SHEETS full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SHEET()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 318 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=@SHEET()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 318 column 2 (compat-1)",
+        "note": null
+      }
+    },
+    {
+      "call": "=SHEETS()",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "26.0",
+        "bits": "0x403a000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 319 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=@SHEETS(Data!A1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 164 column 4 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/host_facts.rs",
+      "locator": "lines 338-392",
+      "note": "SHEET name/reference lookup and SHEETS 3-D sheet counting"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SHEET; SHEETS",
+      "note": "3,093/3,093 SHEET and 3,107/3,107 SHEETS full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

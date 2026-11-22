@@ -1,0 +1,177 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-WEIBULL-001",
+  "functions": [
+    "FUNC.WEIBULL",
+    "FUNC.WEIBULL.DIST"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "WEIBULL and WEIBULL.DIST return 0 for PDF at x = 0 and use double-rounded x87 powers diverging up to 4.2 ULP",
+  "statement": "In Excel 16.0.20131 and 16.0.20527, WEIBULL and WEIBULL.DIST return 0 at x = 0 even in PDF mode (cumulative = FALSE) and even when alpha <= 1, after checking that beta^alpha neither overflows (#NUM!) nor underflows to 0 or a subnormal (#DIV/0!). For x > 0, Excel evaluates r = RN53(RN64(x/beta)) and raw x87 exp(RN53(RN64(alpha*ln(r)))) powers, returning -expm1(-t) for CDF or left-to-right double-rounded (alpha/beta^alpha)*x^(alpha-1)*exp(-t) for PDF, differing up to 4.2 ULP from the true mathematical CDF/PDF. WEIBULL.DIST returns #NAME? in compatibility version 1.",
+  "status": "measured",
+  "basis": "Recorded in crates/calc-func/witness-reference/WEIBULL.DIST.tsv (Excel 16.0.20131) and prefix_metadata (rows 241-242, Excel 16.0.20527.20088), and matched across 2,951/2,952 WEIBULL and 31,481/31,483 WEIBULL.DIST full-bank rows plus 120/120 pinned WEIBULL.DIST rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "WEIBULL.DIST(0.15508552509665445, 7.457560689652137, 0.2811688182575031, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.15508555375063357",
+            "bits": "0x3fc3d9d7eab87363"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "7.457562593979048",
+            "bits": "0x401dd48b49e40d40"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "0.28116881825296103",
+            "bits": "0x3fd1feab7fc34ab8"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.01176063244358749",
+        "bits": "0x3f8815f55dcdcafe"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.011760632443587482",
+        "bits": "0x3f8815f55dcdcafa",
+        "how": "Exact 1 - exp(-(x/beta)^alpha) at 100 decimal digits, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/witness-reference/WEIBULL.DIST.tsv",
+        "locator": "oc29322",
+        "note": null
+      }
+    },
+    {
+      "call": "WEIBULL.DIST(6.033375577928498, 2, 2, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "6.033375570060644",
+            "bits": "0x4018222d34979553"
+          }
+        },
+        {
+          "name": "alpha",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "beta",
+          "value": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.9998883794284759",
+        "bits": "0x3fefff15ea2976ba"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.999888379428476",
+        "bits": "0x3fefff15ea2976bb",
+        "how": "Exact 1 - exp(-(x/beta)^alpha) at 100 decimal digits, rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/witness-reference/WEIBULL.DIST.tsv",
+        "locator": "oc19641",
+        "note": null
+      }
+    },
+    {
+      "call": "=@WEIBULL.DIST(105,20,100,TRUE)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 242 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/ported/special_dist_family.rs",
+      "locator": "lines 177-254",
+      "note": "x=0 PDF=0 dispatch, beta^alpha validation, and x87 double-rounded body"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-reference/WEIBULL.DIST.tsv",
+      "locator": null,
+      "note": "2 WEIBULL.DIST rows differing from nearest binary64"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "WEIBULL; WEIBULL.DIST",
+      "note": "2,951/2,952 WEIBULL and 31,481/31,483 WEIBULL.DIST full-bank rows matched"
+    }
+  ],
+  "open": [
+    "1 WEIBULL and 2 WEIBULL.DIST last-bit rows remain open (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OFFSET-001",
+  "functions": [
+    "FUNC.OFFSET"
+  ],
+  "kind": "quirk",
+  "title": "OFFSET defaults omitted or blank shifts to 0, extends negative height/width upward/leftward, and gives #REF! for 0",
+  "statement": "In Excel 16.0.20527, OFFSET(reference, rows, cols, [height], [width]) truncates all four numeric arguments toward zero, reads omitted or blank rows/cols as 0, returns #REF! when height or width is exactly 0 (while fractions in (-1, 1) truncate to 0), extends the resulting reference upward or leftward from the shifted cell when height or width is negative, and returns #VALUE! for multi-area references or references to closed external workbooks.",
+  "status": "measured",
+  "basis": "Measured across 23 OFFSET rows in dcb1l_language and 2 rows in jnt_lookup in Excel 16.0.20527.20088, and matched across 4,345/4,345 full-bank OFFSET rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SUM(OFFSET(Data!E1,@{0,1,2},0))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 99 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUM(OFFSET(Data!E1,@{0;1},0,2))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 100 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ISREF(OFFSET(Data!E1,@{0;1},0))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcb1l_language.capture.json",
+        "locator": "sheet dcb1l_language row 106 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=OFFSET(A73,-100.0,0.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_lookup.capture.json",
+        "locator": "sheet jnt_lookup row 73 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/offset.rs",
+      "locator": "lines 1-18 and 68-150",
+      "note": "Blank/omitted shifts, negative height/width extension, 0 #REF!, and external #VALUE!"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "OFFSET",
+      "note": "4,345/4,345 full-bank OFFSET rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,75 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-TRIMMEAN-001",
+  "functions": [
+    "FUNC.TRIMMEAN"
+  ],
+  "kind": "documentation-differs",
+  "title": "TRIMMEAN rejects percent = 1 with #NUM! and sums kept values in original input order rather than sorted order",
+  "statement": "In Excel 16.0.20430 and 16.0.20527, TRIMMEAN(array, percent) rejects percent = 1 with #NUM! (while accepting percent = 0.9999999999), and sums the untrimmed elements in their original input order rather than sorted order. On row 1142 of dcj9k_statistics, input-order addition yields 0x406ba50a3d70a3d8 (221.15750000000003) whereas adding the sorted kept slice gives 0x406ba50a3d70a3d7.",
+  "status": "measured",
+  "basis": "Measured across 120 TRIMMEAN rows in dcj9k_statistics and prefix_metadata (row 233) in Excel 16.0.20527.20088 plus dc-6au controls in Excel 16.0.20430, and matched across 2,855/2,855 full-bank TRIMMEAN rows.",
+  "inferred": null,
+  "documentation": {
+    "claim": "Microsoft's TRIMMEAN documentation states that #NUM! is returned only when percent < 0 or percent > 1.",
+    "source": "https://support.microsoft.com/en-us/office/trimmean-function-d90c9878-a119-4746-88fa-63d988f511d3"
+  },
+  "repros": [
+    {
+      "call": "=TRIMMEAN({495.152,175,491.9,354.9,10,130,-73.692,186},0.12)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "221.15750000000003",
+        "bits": "0x406ba50a3d70a3d8"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_statistics.capture.json",
+        "locator": "sheet dcj9k_statistics row 1142 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=TRIMMEAN(Data!A1:A3,0.2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 233 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/ported/moment_stats_family.rs",
+      "locator": "lines 122-158",
+      "note": "percent < 1 boundary and input-order accumulation loop"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "TRIMMEAN",
+      "note": "2,855/2,855 full-bank TRIMMEAN rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,60 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-XIRR-001",
+  "functions": [
+    "FUNC.XIRR"
+  ],
+  "kind": "quirk",
+  "title": "XIRR validates optional scalar guess before vectors, rejects logical guess as #VALUE!, and returns #N/A for singletons",
+  "statement": "In Excel 16.0.20527, XIRR(values, dates, [guess]) reads optional scalar guess before inspecting values and dates (rejecting logical guess with #VALUE! and guess <= -1 with #NUM! after scalar coercion of values and dates), returns #N/A when both values and dates have length 1 even at a negative date, rejects 2-D ranges or arrays with #REF!, and requires dates >= dates[0] alongside both positive and negative cashflows.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in prefix_metadata (row 394) and xirr_checks_singleton_shape_after_guess_and_scalar_coercion controls, and matched across 2,861/2,861 full-bank XIRR rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=XIRR({-10000,2750,4250,3250,2750},{39448,39508,39751,39859,39904})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.3733625352382659",
+        "bits": "0x3fd7e52bf9999998"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 394 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/financial.rs",
+      "locator": "lines 331-359",
+      "note": "Guess precedence, logical rejection, and singleton #N/A check"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/tests/f3_financial.rs",
+      "locator": "xirr_checks_singleton_shape_after_guess_and_scalar_coercion",
+      "note": "Singleton #N/A and guess error-order controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "XIRR",
+      "note": "2,861/2,861 full-bank XIRR rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

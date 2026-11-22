@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-MUNIT-001",
+  "functions": [
+    "FUNC.MUNIT"
+  ],
+  "kind": "quirk",
+  "title": "MUNIT truncates dimension toward zero, lifts over array inputs, and returns #NAME? in compatibility version 1",
+  "statement": "In Excel 16.0.20527.20088, MUNIT(dimension) truncates dimension toward zero, rejects values below 1 (or above 1,048,576) with #VALUE!, and lifts over array inputs (returning per-element top-left scalars such as #VALUE! beside 1 for MUNIT({0,2})). Under compatibility version 1, @MUNIT evaluates to #NAME? (_xludf.MUNIT).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in fn2_questions (fn2_q066, fn2_q068, fn2_q166) and prefix_metadata (row 158), and matched across 1,277/1,277 full-bank MUNIT rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=MUNIT({0,2})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{#VALUE!,1}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q068 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=MUNIT({2,3})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "array",
+        "display": "{1,1}",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_q066 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=@MUNIT(1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NAME?",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 158 column 2 (compat-1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/src/catalogue/math.rs",
+      "locator": "lines 268-282",
+      "note": "MUNIT truncation and 1..=1048576 domain bounds"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "5f45a6714833e05a2e778ddf09678758d92f7544",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "MUNIT",
+      "note": "1,277/1,277 full-bank MUNIT rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
