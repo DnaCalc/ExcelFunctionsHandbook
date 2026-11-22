@@ -1,0 +1,150 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BINOM.DIST-001",
+  "functions": [
+    "FUNC.BINOM.DIST"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "BINOM.DIST diverges by up to 5.39 ULP on recorded PMF rows (and up to 592 ULP across 1,016 unaligned rows)",
+  "statement": "In Excel build 20131 (and 20527 across the full bank), BINOM.DIST deviates from exact mathematical values: on recorded PMF rows in crates/calc-func/witness-reference/BINOM.DIST.tsv, BINOM.DIST(0, 55, 0.2311064565071698, FALSE) differs by 5.39 ULP (0x3ea1b79145aacfdf vs nearest 0x3ea1b79145aacfe4), and 1,016 of 71,359 full-bank rows (137 excel-quirk, 860 large-deviation, 19 ours-wrong, worst 592 ULP) remain unresolved against CalcFunc.",
+  "status": "measured",
+  "basis": "Recorded in crates/calc-func/witness-reference/BINOM.DIST.tsv (1,016 rows) and crates/calc-func/witness-status.tsv (70,343 of 71,359 rows matched).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BINOM.DIST(0, 55, 0.2311064565071698, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number_s",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "trials",
+          "value": {
+            "kind": "number",
+            "display": "55.0",
+            "bits": "0x404b800000000000"
+          }
+        },
+        {
+          "name": "probability_s",
+          "value": {
+            "kind": "number",
+            "display": "0.2311064565071698",
+            "bits": "0x3fcd94e5784bdeed"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "5.280095466048962e-07",
+        "bits": "0x3ea1b79145aacfdf"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "5.280095466048967e-07",
+        "bits": "0x3ea1b79145aacfe4",
+        "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-reference/BINOM.DIST.tsv",
+        "locator": "oc69559",
+        "note": null
+      }
+    },
+    {
+      "call": "BINOM.DIST(1, 6, 0.13000000000001066, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number_s",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "trials",
+          "value": {
+            "kind": "number",
+            "display": "6.0",
+            "bits": "0x4018000000000000"
+          }
+        },
+        {
+          "name": "probability_s",
+          "value": {
+            "kind": "number",
+            "display": "0.13000000000001066",
+            "bits": "0x3fc0a3d70a3d7224"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.38876831814600815",
+        "bits": "0x3fd8e194830a1d23"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.38876831814600804",
+        "bits": "0x3fd8e194830a1d21",
+        "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-reference/BINOM.DIST.tsv",
+        "locator": "oc37492",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-reference/BINOM.DIST.tsv",
+      "locator": null,
+      "note": "1,016 BINOM.DIST witness-reference differences"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "BINOM.DIST",
+      "note": "70,343 of 71,359 full-bank rows matched"
+    }
+  ],
+  "open": [
+    "Exact Excel operation graph for the 1,016 BINOM.DIST mismatches remains open (dc-j9k)."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,155 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DATE-001",
+  "functions": [
+    "FUNC.DATE",
+    "FUNC.DAY",
+    "FUNC.DAYS",
+    "FUNC.EDATE",
+    "FUNC.EOMONTH",
+    "FUNC.MONTH",
+    "FUNC.WEEKDAY",
+    "FUNC.YEAR"
+  ],
+  "kind": "quirk",
+  "title": "In the 1900 date system, serial 0 is 1900-01-00 and serial 60 is the fictitious 1900-02-29",
+  "statement": "In Excel 16.0.20527.20088 under the 1900 date system, serial 0 formats as 1900/1/0 (YEAR(0)=1900, MONTH(0)=1, DAY(0)=0), and 1900 is treated as a leap year so DATE(1900,2,29) returns 60, WEEKDAY(60,2) returns 3 (Wednesday), and DATE(1900,3,1)-DATE(1900,2,28) returns 2. EOMONTH(60,0) returns 59 (1900-02-28) rather than 60, whereas EDATE(60,12) returns 425 (1901-02-28).",
+  "status": "measured",
+  "basis": "Measured on all 16 sheets (q001-q016) of fn5_dates_1900 in Excel 16.0.20527.20088.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=YEAR(0)&\"/\"&MONTH(0)&\"/\"&DAY(0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "1900/1/0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+        "locator": "sheet q001 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=DATE(1900,2,29)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "60.0",
+        "bits": "0x404e000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+        "locator": "sheet q005 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=EOMONTH(60,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "59.0",
+        "bits": "0x404d800000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+        "locator": "sheet q009 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=EDATE(60,12)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "425.0",
+        "bits": "0x407a900000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+        "locator": "sheet q008 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=WEEKDAY(60,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "3.0",
+        "bits": "0x4008000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+        "locator": "sheet q012 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=DAYS(DATE(1904,1,1),0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1462.0",
+        "bits": "0x4096d80000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+        "locator": "sheet q015 row 20 column 10",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+      "locator": "sheets q001 to q016",
+      "note": "Excel 16.0.20527.20088 1900 leap-year and serial-0 readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/ported/date_kernels.rs",
+      "locator": "ymd_1900; serial_unbounded_1900",
+      "note": "1900-system serial 0 and 60 date arithmetic"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

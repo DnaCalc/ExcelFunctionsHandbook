@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SUM-001",
+  "functions": [
+    "FUNC.SUM"
+  ],
+  "kind": "quirk",
+  "title": "SUM evaluates all direct-argument errors before held reference/array errors, and overflow does not mask later errors",
+  "statement": "In Excel 16.0.20527.20088, SUM checks direct scalar arguments (including text-to-number coercion #VALUE!) in argument order before reporting any error held inside a reference or array argument, so =SUM(A1:B2,\"a\") and =SUM({1,#REF!},\"a\") both return #VALUE! even when B1 holds #N/A. Among held errors, SUM follows argument order, and a numeric overflow to #NUM! does not stop reading later arguments, so =SUM(9.99999999999999E+307,9.99999999999999E+307,B1) returns #N/A.",
+  "status": "measured",
+  "basis": "Recorded in Excel 16.0.20527.20088 in cfunc_m1_2 (sheet error_order rows 69-87, with #N/A in B1 and #DIV/0! in A2) and matched across 1,211 of 1,211 full-bank SUM witness rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SUM({1,#REF!},\"a\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet error_order row 82 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUM(A1:B2,{1,#REF!})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet error_order row 84 column 4 (#N/A in B1)",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUM(9.99999999999999E+307,9.99999999999999E+307,B1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#N/A",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet error_order row 87 column 4 (#N/A in B1)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/aggregate.rs",
+      "locator": "sum; direct_first",
+      "note": "Two-pass SUM direct coercion/error check and overflow continuation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+      "locator": "error_order rows 69 to 87",
+      "note": "Excel 16.0.20527.20088 SUM error-order readings"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

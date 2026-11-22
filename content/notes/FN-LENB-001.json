@@ -1,0 +1,118 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LENB-001",
+  "functions": [
+    "FUNC.FINDB",
+    "FUNC.LEFTB",
+    "FUNC.LENB",
+    "FUNC.MIDB",
+    "FUNC.REPLACEB",
+    "FUNC.RIGHTB",
+    "FUNC.SEARCHB"
+  ],
+  "kind": "quirk",
+  "title": "Under a single-byte Windows locale such as en-ZA, the B-suffixed text functions count characters rather than UTF-8 or UTF-16 bytes",
+  "statement": "In Excel 16.0.20527.20088 with user culture en-ZA (a single-byte Windows code page), LENB, LEFTB, RIGHTB, MIDB, FINDB, SEARCHB, and REPLACEB count characters rather than UTF-8 or UTF-16 bytes: LENB(UNICHAR(20013)) returns 1, LEFTB(UNICHAR(20013)&\"abc\",2) returns \"中a\", and FINDB(\"b\",UNICHAR(20013)&\"b\") returns 2 (double-byte counting applies only under DBCS languages such as ja-JP, ko-KR, or zh-CN).",
+  "status": "measured",
+  "basis": "Measured across rows 18-27 of dczsn3_bytes in Excel 16.0.20527.20088 (en-ZA) and matched across full-bank rows (LENB 2,083/2,083, LEFTB 2,478/2,478, RIGHTB 2,481/2,481, MIDB 2,913/2,913, FINDB 2,861/2,861, SEARCHB 2,861/2,861, REPLACEB 2,951/2,951).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=LENB(UNICHAR(20013))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+        "locator": "sheet dczsn3_bytes row 18 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=LEFTB(UNICHAR(20013)&\"abc\",2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "中a",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+        "locator": "sheet dczsn3_bytes row 21 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=FINDB(\"b\",UNICHAR(20013)&\"b\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+        "locator": "sheet dczsn3_bytes row 24 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=REPLACEB(UNICHAR(20013)&\"abc\",2,1,\"x\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "中xbc",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+        "locator": "sheet dczsn3_bytes row 26 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+      "locator": "rows 18 to 27",
+      "note": "Excel 16.0.20527.20088 single-byte locale B-function measurements"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/text_functions.rs",
+      "locator": "single_byte",
+      "note": "Single-byte vs DBCS locale guard"
+    }
+  ],
+  "open": [
+    "DBCS locales (ja-JP, ko-KR, zh-CN) remain uncaptured and refused in calc-func (dc-zsn.3)."
+  ],
+  "recorded_on": "2026-11-22"
+}

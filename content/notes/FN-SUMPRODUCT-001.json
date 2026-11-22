@@ -1,0 +1,131 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SUMPRODUCT-001",
+  "functions": [
+    "FUNC.PRODUCT",
+    "FUNC.SUMPRODUCT",
+    "FUNC.SUMSQ"
+  ],
+  "kind": "quirk",
+  "title": "SUMPRODUCT reads direct text as 0 and rejects omitted args, unions, and single blank refs with #VALUE!; PRODUCT/SUMSQ/SUMPRODUCT flush subnormals to +0",
+  "statement": "In Excel 16.0.20527.20088, SUMPRODUCT evaluates direct scalar text to 0 (SUMPRODUCT(\"3\") = 0) and returns #VALUE! for an omitted argument (SUMPRODUCT(A1:A2,) = #VALUE!), a multi-area union (SUMPRODUCT((A1,A7)) = #VALUE!), or a single blank cell reference (while multi-cell ranges read blanks as 0). By contrast, PRODUCT skips omitted arguments (PRODUCT(2,) = 2) and returns #VALUE! for non-numeric direct text (PRODUCT(\"a\")). All three functions flush subnormal products or squares to +0 (PRODUCT(1E-200,1E-200) = 0, SUMSQ(1E-200) = 0, SUMPRODUCT(1E-200,1E-200) = 0).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in cfunc_m3_4 (argument_classes rows 6-37) and matched across 2,887/2,887 SUMPRODUCT, 1,211/1,211 PRODUCT, and 1,211/1,211 SUMSQ full-bank rows (dc-bd5, dc-ymjf.2.6).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SUMPRODUCT(\"3\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 31 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUMPRODUCT((A1,A7))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 33 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PRODUCT(2,)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 13 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=PRODUCT(1E-200,1E-200)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 14 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUMSQ(1E-200)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+        "locator": "sheet argument_classes row 21 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+      "locator": "argument_classes rows 6 to 37",
+      "note": "Excel 16.0.20527.20088 PRODUCT, SUMSQ, and SUMPRODUCT readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/aggregate.rs",
+      "locator": "product; sumsq; sumproduct",
+      "note": "Omitted, union, single-blank, and subnormal rules"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

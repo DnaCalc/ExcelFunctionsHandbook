@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-UNIQUE-001",
+  "functions": [
+    "FUNC.UNIQUE"
+  ],
+  "kind": "quirk",
+  "title": "UNIQUE deduplicates text case-insensitively keeping the first spelling, while comparing numbers by binary64 value",
+  "statement": "In Excel 16.0.20527.20088, UNIQUE compares text case-insensitively and retains the first spelling encountered (CONCAT(UNIQUE({\"a\";\"A\";\"b\"})) returns \"ab\"), whereas numbers are compared by exact binary64 value without a tolerance window, so 0.3 and 0.1+0.2 remain distinct (ROWS(UNIQUE(VSTACK(0.3,0.1+0.2))) returns 2).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in f3_arrays (rows 15-18) and matched across 1,277 of 1,277 full-bank UNIQUE rows (dc-ymjf.2.10).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CONCAT(UNIQUE({\"a\";\"A\";\"b\"}))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "ab",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 16 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(UNIQUE(VSTACK(0.3,0.1+0.2)))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 17 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CONCAT(UNIQUE({1;2;1;3},,TRUE))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "23",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 18 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+      "locator": "rows 15 to 18",
+      "note": "Excel 16.0.20527.20088 UNIQUE deduplication readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "UNIQUE",
+      "note": "1,277 of 1,277 full-bank UNIQUE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

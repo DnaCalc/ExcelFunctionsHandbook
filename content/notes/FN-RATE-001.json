@@ -1,0 +1,177 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-RATE-001",
+  "functions": [
+    "FUNC.RATE"
+  ],
+  "kind": "quirk",
+  "title": "RATE returns finite numbers near DBL_MAX on 46 inputs where no real annuity root exists above -1",
+  "statement": "In Excel 16.0.20527, RATE returns large finite numbers (such as 1.765850607151516e+308) on 46 recorded witness-reference rows where future value lies outside the real annuity balance range (where CalcFunc returns #NUM!), and differs by up to 12.57 ULP from the annuity root on extreme-rate rows (bank2-more-RATE-1195).",
+  "status": "measured",
+  "basis": "Recorded across 65 mismatching rows in crates/calc-func/witness-reference/RATE.tsv (46 structural number vs #NUM!, 9 #NUM! vs number, 2 no-real-root, 4 excel-quirk, 4 large-deviation) out of 4,787 full-bank RATE rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "RATE(-1.3669552943168466e-08, 0.004130753832019453, -0.9811375421215849, 0, 1, -0.22920042173301014)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "nper",
+          "value": {
+            "kind": "number",
+            "display": "-1.3669552943168466e-08",
+            "bits": "0xbe4d5aea8c545370"
+          }
+        },
+        {
+          "name": "pmt",
+          "value": {
+            "kind": "number",
+            "display": "0.004130753832019453",
+            "bits": "0x3f70eb68c9dc920f"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "-0.9811375421215849",
+            "bits": "0xbfef657a8f0947ec"
+          }
+        },
+        {
+          "name": "fv",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "type",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "guess",
+          "value": {
+            "kind": "number",
+            "display": "-0.22920042173301014",
+            "bits": "0xbfcd56707dc94dc8"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.765850607151516e+308",
+        "bits": "0x7fef6ee528c1d989"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-reference/RATE.tsv",
+        "locator": "fx2/evidence/rate-overflow-answers.json $[494]",
+        "note": null
+      }
+    },
+    {
+      "call": "RATE(0.1391623113305186, 10, -438.10866310194024, 8205, 0.5, 1.0000000000000002)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "nper",
+          "value": {
+            "kind": "number",
+            "display": "0.1391623113305186",
+            "bits": "0x3fc1d01214000b64"
+          }
+        },
+        {
+          "name": "pmt",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        },
+        {
+          "name": "pv",
+          "value": {
+            "kind": "number",
+            "display": "-438.10866310194024",
+            "bits": "0xc07b61bd158551d8"
+          }
+        },
+        {
+          "name": "fv",
+          "value": {
+            "kind": "number",
+            "display": "8205.0",
+            "bits": "0x40c0068000000000"
+          }
+        },
+        {
+          "name": "type",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        },
+        {
+          "name": "guess",
+          "value": {
+            "kind": "number",
+            "display": "1.0000000000000002",
+            "bits": "0x3ff0000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1630151639.0138218",
+        "bits": "0x41d84a88f5c0e275"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1630151639.0138187",
+        "bits": "0x41d84a88f5c0e268",
+        "how": "mpmath at 60 decimal digits solving the annuity balance equation"
+      },
+      "recorded_in": "Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-reference/RATE.tsv",
+        "locator": "bank2-more-RATE-1195",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-reference/RATE.tsv",
+      "locator": null,
+      "note": "65 RATE witness-reference differences"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "RATE",
+      "note": "4,722 of 4,787 full-bank rows matched"
+    }
+  ],
+  "open": [
+    "65 RATE structural and numerical differences remain open (dc-j9k)."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SUMX2MY2-001",
+  "functions": [
+    "FUNC.SUMX2MY2"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "SUMX2MY2 rounds each x^2 and y^2 separately before subtracting, differing by up to 0.82 ULP from the exact sum of x^2 - y^2",
+  "statement": "In Excel 16.0.20527, SUMX2MY2(array_x, array_y) evaluates x^2 and y^2 individually rather than (x - y)*(x + y) or higher-precision accumulation, so SUMX2MY2(0.03335225112884599, -11.999999999999998) returns -143.99888762734457 (0xc061fff6e32f7a5e), 0.815 ULP from the nearest binary64 value -143.9988876273446 (0xc061fff6e32f7a5f).",
+  "status": "measured",
+  "basis": "Recorded in crates/calc-func/witness-reference/SUMX2MY2.tsv (19 mismatching rows of 2,850 full-bank rows in Excel 16.0.20527).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SUMX2MY2(0.03335225112884599, -11.999999999999998)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "array_x",
+          "value": {
+            "kind": "number",
+            "display": "0.03335225112884599",
+            "bits": "0x3fa1138bd7b157c0"
+          }
+        },
+        {
+          "name": "array_y",
+          "value": {
+            "kind": "number",
+            "display": "-11.999999999999998",
+            "bits": "0xc027ffffffffffff"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-143.99888762734457",
+        "bits": "0xc061fff6e32f7a5e"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-143.9988876273446",
+        "bits": "0xc061fff6e32f7a5f",
+        "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-reference/SUMX2MY2.tsv",
+        "locator": "bank2-scalar-SUMX2MY2-0477",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-reference/SUMX2MY2.tsv",
+      "locator": null,
+      "note": "19 SUMX2MY2 witness-reference differences"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SUMX2MY2",
+      "note": "2,831 of 2,850 full-bank rows matched"
+    }
+  ],
+  "open": [
+    "19 SUMX2MY2 last-bit/x87 differences remain open (dc-j9k)."
+  ],
+  "recorded_on": "2026-11-22"
+}

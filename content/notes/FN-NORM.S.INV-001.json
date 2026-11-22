@@ -1,0 +1,112 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NORM.S.INV-001",
+  "functions": [
+    "FUNC.CONFIDENCE",
+    "FUNC.CONFIDENCE.NORM",
+    "FUNC.LOGINV",
+    "FUNC.LOGNORM.INV",
+    "FUNC.NORM.INV",
+    "FUNC.NORM.S.INV",
+    "FUNC.NORMINV",
+    "FUNC.NORMSINV"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "NORM.S.INV uses AS241 tails (p < 0.075 and p > 15/16) and three x87-stored rational/Padé pieces for sqrt(2)*erfinv(2p-1) in between",
+  "statement": "Excel's standard normal inverse (NORM.S.INV and NORMSINV) partitions (0, 1) asymmetrically: Wichura's AS241 formula runs for p < 0.075 and p > 15/16 using x87 FYL2X + FSQRT stored sqrt(-ln v), while the middle computes sqrt(2) * erfinv(t) with t = 2*(p - 0.5) across three pieces: for s = RN(t*t) <= 0.5, a degree-7/7 rational interpolant at the 15 zeros of T15 on [0, 0.73] solved near 100-bit precision; for sqrt(0.5) < |t| <= 0.85, a degree-7/5 rational interpolant times sqrt(-ln(1 - |t|)); and for 0.85 < t <= 0.875 (p in (0.925, 15/16]), a degree-9/9 Padé approximant centred at 225/256 solved at 96-bit precision times sqrt(-ln(1 - t)), storing every Horner product and sum from x87 64-bit precision to binary64. NORM.INV/NORMINV return mu + sigma*z, LOGNORM.INV/LOGINV return EXP(mu + sigma*z), and CONFIDENCE/CONFIDENCE.NORM return NORM.S.INV(1 - alpha/2)*sigma/SQRT(size) with stored steps. See https://github.com/DnaCalc/DnaCalc/blob/4fb9b728df8a96546ae685589b47e057b7e26771/docs/articles/last-bit-normsinv.md.",
+  "status": "inferred",
+  "basis": "Matched across 21,898 of 21,898 full-bank witness rows across all eight functions in Excel 16.0.20527 (NORMSINV 2,210/2,210, NORM.S.INV 2,206/2,206, NORM.INV 2,915/2,915, NORMINV 2,914/2,914, LOGNORM.INV 2,911/2,911, LOGINV 2,916/2,916, CONFIDENCE 2,910/2,910, CONFIDENCE.NORM 2,916/2,916), plus 32,452 of 32,452 frozen piece-C inputs and 1,230,456 distinct sweep inputs (docs/articles/last-bit-normsinv.md).",
+  "inferred": "The exact polynomial solve precisions (~100 bits for piece A and 96 bits for piece C) and compiled code structure are inferred from output-bit discriminators (such as p = 0x3fed999bc5f0efd8) and frozen holdout runs rather than source inspection.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NORM.S.INV(0.9)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.2815515655446006",
+        "bits": "0x3ff4813c36e26d33"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 164 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=NORM.INV(0.9,40,1.5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "41.9223273483169",
+        "bits": "0x4044f60ed2929d1e"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 162 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "=LOGNORM.INV(0.04,3.5,1.2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "4.051862753430021",
+        "bits": "0x4010351b82777327"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 148 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "docs/articles/last-bit-normsinv.md",
+      "locator": null,
+      "note": "Last-bit investigation of NORMSINV / NORM.S.INV"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "docs/research/normal-inverse-central-2026-11-17.md",
+      "locator": null,
+      "note": "Piece A, B, and C identification notes and discriminators"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/ported/normal_log_family.rs",
+      "locator": "as241_tail_magnitude; x87_sqrt_of_minus_log",
+      "note": "Production four-piece normal inverse and callers"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "NORM.S.INV; NORM.INV; LOGNORM.INV; CONFIDENCE.NORM",
+      "note": "21,898 of 21,898 full-bank rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

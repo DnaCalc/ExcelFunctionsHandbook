@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IF-001",
+  "functions": [
+    "FUNC.IF"
+  ],
+  "kind": "quirk",
+  "title": "IF evaluates only the selected branch, rejects numeric strings in its test, and turns omitted branches into 0 or FALSE",
+  "statement": "In Excel 16.0.20527.20088, IF(logical_test, value_if_true, [value_if_false]) evaluates logical_test first through logical coercion (accepting numbers, logicals, and \"TRUE\" or \"FALSE\", while rejecting \"1\", \"\", and \"x\" with #VALUE!) and evaluates only the chosen branch, so an unchosen branch containing 1/0 does not raise #DIV/0!. An omitted selected branch returns 0, whereas a FALSE test with no third argument returns FALSE.",
+  "status": "measured",
+  "basis": "Recorded in Excel 16.0.20527.20088 across the cfunc_m1_2 oracle capture (mixed_operands rows 112-123 and error_order rows 76-79) and matched across 4,189 of 4,189 full-bank IF witness rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=IF(\"1\",1,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 116 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=IF(0,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "FALSE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 118 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=IF(2,\"a\",1/0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "a",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 119 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=IF(TRUE,,2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+        "locator": "sheet mixed_operands row 120 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/logical.rs",
+      "locator": "if_selected",
+      "note": "Lazy IF evaluation and omitted-branch rules"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+      "locator": "mixed_operands rows 112 to 123",
+      "note": "Measured IF coercion and branch selection in Excel 16.0.20527.20088"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IF",
+      "note": "4,189 of 4,189 full-bank witness rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

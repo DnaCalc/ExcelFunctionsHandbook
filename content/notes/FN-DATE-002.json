@@ -1,0 +1,129 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DATE-002",
+  "functions": [
+    "FUNC.DATE"
+  ],
+  "kind": "quirk",
+  "title": "Excel 16.0.20527 rejects DATE with year >= 10000 even when negative month/day offsets roll back below 10000, differing from build 20430",
+  "statement": "Across 22 witness rows in crates/calc-func/witness-differences.tsv, Excel 16.0.20430 rolled negative month or day offsets back from year 10000 (or 9999.9999999) into 9999 and returned a valid serial (for example DATE(10000, 0, 0) = 2958434, 9999-11-30), whereas Excel 16.0.20527 rejects year >= 10000 before month/day normalization and returns #NUM! on all 22 rows.",
+  "status": "measured",
+  "basis": "Measured across all 22 DATE differences in crates/calc-func/witness-differences.tsv comparing Excel 16.0.20430 against Excel 16.0.20527 (dc-iuwct.36; full bank 22,250 of 22,250 matched on 20527).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "DATE(10000, 0, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "year",
+          "value": {
+            "kind": "number",
+            "display": "10000.0",
+            "bits": "0x40c3880000000000"
+          }
+        },
+        {
+          "name": "month",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "day",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics (Excel 16.0.20430 returned 2958434, 0x4146923100000000)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-differences.tsv",
+        "locator": "DATE row 4",
+        "note": null
+      }
+    },
+    {
+      "call": "DATE(9999.9999999, 0, -1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "year",
+          "value": {
+            "kind": "number",
+            "display": "9999.9999999",
+            "bits": "0x40c387ffffff2940"
+          }
+        },
+        {
+          "name": "month",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "day",
+          "value": {
+            "kind": "number",
+            "display": "-1.0",
+            "bits": "0xbff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics (Excel 16.0.20430 returned 2958433, 0x4146923080000000)",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-differences.tsv",
+        "locator": "DATE row 2",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-differences.tsv",
+      "locator": "DATE rows 2 to 23",
+      "note": "22 DATE differences between Excel 16.0.20430 and Excel 16.0.20527"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/ported/date_kernels.rs",
+      "locator": "date",
+      "note": "Excel 20527 original_year >= 10000 #NUM! check"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DATE",
+      "note": "22,250 of 22,250 full-bank DATE rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

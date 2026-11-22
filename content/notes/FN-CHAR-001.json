@@ -1,0 +1,113 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CHAR-001",
+  "functions": [
+    "FUNC.CHAR",
+    "FUNC.CODE",
+    "FUNC.UNICHAR",
+    "FUNC.UNICODE"
+  ],
+  "kind": "quirk",
+  "title": "CHAR and CODE use the Windows-1252 code page (CHAR(128) is U+20AC, astral characters give CODE 63), while UNICHAR/UNICODE use Unicode scalar values",
+  "statement": "In Excel 16.0.20527.20088 (UI language 1033 / en-ZA), CHAR maps 1..=255 through Windows-1252 rather than ISO-8859-1, so CHAR(128) is '€' (U+20AC) and CHAR(159) is 'Ÿ' (U+0178). CODE(\"\") returns #VALUE!, and characters outside Windows-1252 such as an astral emoji (LEFT(UNICHAR(128512),1)) return 63 ('?'), whereas UNICHAR and UNICODE preserve full Unicode scalar values (UNICODE(LEFT(UNICHAR(128512),1)) = 128512).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 across f2_rows (rows 1, 4) and dcfl2_text (rows 12-14) and matched across 1,056/1,056 CHAR, 2,109/2,109 CODE, 1,068/1,068 UNICHAR, and 2,087/2,087 UNICODE full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=CHAR(1)&CHAR(127)&CHAR(128)&CHAR(159)&CHAR(255)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "\u0001€Ÿÿ",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 1 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CODE(\"\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 4 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=CODE(LEFT(UNICHAR(128512),1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "63.0",
+        "bits": "0x404f800000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 14 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=UNICODE(LEFT(UNICHAR(128512),1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "128512.0",
+        "bits": "0x40ff600000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 12 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+      "locator": "rows 1 and 4",
+      "note": "Windows-1252 CHAR mapping and CODE empty-text #VALUE!"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+      "locator": "rows 12 to 14",
+      "note": "Astral character CODE 63 vs UNICODE 128512"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

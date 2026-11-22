@@ -1,0 +1,79 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IFERROR-001",
+  "functions": [
+    "FUNC.IFERROR"
+  ],
+  "kind": "quirk",
+  "title": "IFERROR catches all worksheet errors, passes bare LAMBDA callables through as #CALC!, and preserves blank cells as empty",
+  "statement": "In Excel 16.0.20527.20088, IFERROR(value, value_if_error) catches worksheet errors including #CALC!, #SPILL!, #FIELD!, and #GETTING_DATA, but a bare LAMBDA callable returned by value (such as IFS(TRUE,LAMBDA(xx,xx))) is not yet an error inside IFERROR, so IFERROR(IFS(TRUE,LAMBDA(xx,xx)),9) passes the callable through and produces #CALC! at the cell. A blank cell passed as value returns empty rather than empty text, so IFS(TRUE,IFERROR(A1,1))&\"|\" evaluates to \"0|\".",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in fn5_selection_boundaries (sheets q005 and q017) and Excel 16.0.20430.20182 (dc-ibp2), and matched across 4,182 of 4,182 full-bank IFERROR witness rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=IFERROR(IFS(TRUE,LAMBDA(xx,xx)),9)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_selection_boundaries/oracle.capture.json",
+        "locator": "sheet q005 row 20 column 10",
+        "note": null
+      }
+    },
+    {
+      "call": "=IFS(TRUE,IFERROR(A1,1))&\"|\"",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "0|",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/fn5_selection_boundaries/oracle.capture.json",
+        "locator": "sheet q017 row 20 column 10 (A1 blank)",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/error_fallback.rs",
+      "locator": "iferror_selected; fallback_selected",
+      "note": "IFERROR error set, callable pass-through, and blank preservation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/fn5_selection_boundaries/oracle.capture.json",
+      "locator": "q005; q017",
+      "note": "Excel 16.0.20527.20088 callable and blank IFERROR readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IFERROR",
+      "note": "4,182 of 4,182 full-bank witness rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

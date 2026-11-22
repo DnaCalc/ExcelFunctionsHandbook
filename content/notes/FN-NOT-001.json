@@ -1,0 +1,91 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-NOT-001",
+  "functions": [
+    "FUNC.NOT"
+  ],
+  "kind": "quirk",
+  "title": "NOT rejects numeric strings such as \"1\" and empty strings with #VALUE!, accepting only numbers, logicals, and \"TRUE\"/\"FALSE\"",
+  "statement": "In Excel 16.0.20527.20088, NOT(logical) coerces its single scalar argument as a logical rather than a number: \"TRUE\" gives FALSE and \"false\" gives TRUE, whereas \"1\", \"\", and \"x\" all return #VALUE!. A blank cell evaluates to FALSE, so NOT(blank) returns TRUE.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 across rows 86-102 and 114-115 of dc_fwpz.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=NOT(\"1\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+        "locator": "sheet logical_functions row 102 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=NOT(\"\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+        "locator": "sheet logical_functions row 93 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=NOT(\"false\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+        "locator": "sheet logical_functions row 91 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/logical.rs",
+      "locator": "not",
+      "note": "NOT logical coercion"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+      "locator": "logical_functions rows 86 to 102",
+      "note": "Excel 16.0.20527.20088 NOT readings"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

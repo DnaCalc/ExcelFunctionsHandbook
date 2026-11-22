@@ -1,0 +1,155 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LEFT-001",
+  "functions": [
+    "FUNC.CONCATENATE",
+    "FUNC.LEFT",
+    "FUNC.LEN",
+    "FUNC.MID",
+    "FUNC.REPLACE",
+    "FUNC.REPT",
+    "FUNC.RIGHT",
+    "FUNC.SUBSTITUTE"
+  ],
+  "kind": "quirk",
+  "title": "In CompatibilityVersion 1, LEFT/RIGHT preserve astral pairs, MID slices UTF-16 units, and 32,767-unit overflow errors differ by function",
+  "statement": "In Excel 16.0.20527.20088 (CompatibilityVersion 1), LEFT and RIGHT preserve valid UTF-16 surrogate pairs when counting characters (LEFT(UNICHAR(128512),1) returns '😀', whose LEN is 2), whereas MID slices raw UTF-16 code units and can emit an unpaired surrogate (MID(UNICHAR(128512),1,1) returns 0xd83d). Exceeding the 32,767 UTF-16 code-unit cell limit gives #VALUE! in REPT, SUBSTITUTE, and REPLACE, #CALC! in CONCAT, and silent truncation to 32,767 units in CONCATENATE and TEXTJOIN (which can leave an unpaired high surrogate when an astral character straddles index 32,767).",
+  "status": "measured",
+  "basis": "Measured across all 76 rows of dcfl2_text in Excel 16.0.20527.20088 under CompatibilityVersion 1.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=LEFT(UNICHAR(128512),1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "😀",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 1 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=LEN(LEFT(UNICHAR(128512),1))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 17 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=REPT(\"a\",32768)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 59 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=LEN(SUBSTITUTE(REPT(\"a\",32767),\"a\",\"bb\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 74 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=LEN(REPLACE(REPT(\"a\",32767),1,0,\"b\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 76 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=LEN(CONCATENATE(REPT(\"a\",32767),\"b\"))",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "32767.0",
+        "bits": "0x40dfffc000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+        "locator": "sheet dcfl2_text row 75 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+      "locator": "rows 1 to 76",
+      "note": "Measured surrogate and 32,767-unit text limits in Excel 16.0.20527.20088"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/text_functions.rs",
+      "locator": "count_surrogate_pairs",
+      "note": "CompatibilityVersion 1 vs 2 counting and overflow policies"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

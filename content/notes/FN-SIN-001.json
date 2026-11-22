@@ -1,0 +1,110 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SIN-001",
+  "functions": [
+    "FUNC.COS",
+    "FUNC.SIN"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "SIN and COS reduce with x87 66-bit pi and double-round, drifting by up to 3.4 ULP at large inputs and 0.5003 ULP near tie points",
+  "statement": "In Excel 16.0.20527.20196 on x86-64, SIN and COS evaluate the x87 hardware FSIN/FCOS path (66-bit ROM pi reduction and 64-bit significand rounded to binary64). That differs from correctly rounded binary64 by 0.5003 ULP on recorded SIN rows (12 of 2,141 bank rows differ from CalcFunc) and up to 3.41 ULP on large-argument COS rows (COS(120031) = -0.9856718840689155 vs nearest -0.9856718840689151).",
+  "status": "measured",
+  "basis": "Recorded in crates/calc-func/witness-reference/SIN.tsv (12 mismatching rows of 2,141) and COS.tsv (1 mismatching row of 3,685) from Excel 16.0.20527.20196.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "SIN(0.05094065035880841)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.05094065035880841",
+            "bits": "0x3faa14e496a7f689"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.05091862181157397",
+        "bits": "0x3faa12016ee04ef8"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.050918621811573965",
+        "bits": "0x3faa12016ee04ef7",
+        "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-reference/SIN.tsv",
+        "locator": "ax1/raw/run2-new2-reflect-public-sin.json.gz $.rows[6413]",
+        "note": null
+      }
+    },
+    {
+      "call": "COS(120031)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "120031.0",
+            "bits": "0x40fd4df000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-0.9856718840689155",
+        "bits": "0xbfef8a9fc35534cd"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-0.9856718840689151",
+        "bits": "0xbfef8a9fc35534ca",
+        "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/witness-reference/COS.tsv",
+        "locator": "sx1/run2-complex-denominator.json replies[1].rows[95]",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-reference/SIN.tsv",
+      "locator": null,
+      "note": "12 SIN witness-reference rows differing from nearest binary64"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-reference/COS.tsv",
+      "locator": null,
+      "note": "COS(120031) 3.41-ULP difference from nearest binary64"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "SIN; COS",
+      "note": "SIN 2,129/2,141 and COS 3,684/3,685 matched"
+    }
+  ],
+  "open": [
+    "12 SIN rows and 1 COS row remain open last-bit residuals against Excel 16.0.20527 (dc-j9k.62)."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 93,
+  "note_count": 117,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -497,6 +497,156 @@
         "The exact subnormal threshold between 0x00000000001c7ea3 (EXP(-730)) and 0x0008bfe58468888d (EXP(-709)) where SIGN(+x) changes from 0 to 1 and INT(-x) changes from 0 to -1 is not yet pinned."
       ],
       "recorded_on": "2026-11-08"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-AND-001",
+      "functions": [
+        "FUNC.AND",
+        "FUNC.OR",
+        "FUNC.XOR"
+      ],
+      "kind": "quirk",
+      "title": "AND, OR, and XOR evaluate direct arguments before references/arrays and skip direct non-boolean text unless no logical is found",
+      "statement": "In Excel 16.0.20527.20088, AND, OR, and XOR inspect every argument in two passes: all direct arguments first, then references and array constants. Direct errors therefore precede errors inside arrays or references (AND({TRUE,#N/A},#DIV/0!) is #DIV/0!). Direct text \"TRUE\" and \"FALSE\" parse as logicals, whereas other direct text (\"x\", \"1\", \"0\", \"\") is skipped when at least one logical is read (AND(TRUE,\"x\") is TRUE, OR(FALSE,\"x\") is FALSE) and gives #VALUE! when none is read (AND(\"x\"), OR(\"x\",\"y\")). Inside arrays and references, all text (including \"TRUE\") is skipped; omitted direct arguments read as FALSE in AND/OR and are ignored or FALSE in XOR (XOR(TRUE,) is TRUE).",
+      "status": "measured",
+      "basis": "Measured across all 115 Excel 16.0.20527.20088 readings in dc_fwpz (logical_functions rows 3-85) and matched across 1,210/1,210 AND, 1,212/1,212 OR, and 1,212/1,212 XOR full-bank rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=AND(TRUE,\"x\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 10 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=AND(\"x\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 11 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=AND({\"TRUE\"})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 30 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=AND({TRUE,#N/A},#DIV/0!)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 35 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=OR(FALSE,\"TRUE\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 49 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=XOR(TRUE,\"x\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 78 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/logical.rs",
+          "locator": "decide; tally; direct; held",
+          "note": "Two-pass evaluation and direct vs held text rules"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+          "locator": "logical_functions rows 3 to 85",
+          "note": "Measured Excel 16.0.20527.20088 AND/OR/XOR readings"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -1825,6 +1975,156 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-BINOM.DIST-001",
+      "functions": [
+        "FUNC.BINOM.DIST"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "BINOM.DIST diverges by up to 5.39 ULP on recorded PMF rows (and up to 592 ULP across 1,016 unaligned rows)",
+      "statement": "In Excel build 20131 (and 20527 across the full bank), BINOM.DIST deviates from exact mathematical values: on recorded PMF rows in crates/calc-func/witness-reference/BINOM.DIST.tsv, BINOM.DIST(0, 55, 0.2311064565071698, FALSE) differs by 5.39 ULP (0x3ea1b79145aacfdf vs nearest 0x3ea1b79145aacfe4), and 1,016 of 71,359 full-bank rows (137 excel-quirk, 860 large-deviation, 19 ours-wrong, worst 592 ULP) remain unresolved against CalcFunc.",
+      "status": "measured",
+      "basis": "Recorded in crates/calc-func/witness-reference/BINOM.DIST.tsv (1,016 rows) and crates/calc-func/witness-status.tsv (70,343 of 71,359 rows matched).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "BINOM.DIST(0, 55, 0.2311064565071698, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number_s",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "trials",
+              "value": {
+                "kind": "number",
+                "display": "55.0",
+                "bits": "0x404b800000000000"
+              }
+            },
+            {
+              "name": "probability_s",
+              "value": {
+                "kind": "number",
+                "display": "0.2311064565071698",
+                "bits": "0x3fcd94e5784bdeed"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "5.280095466048962e-07",
+            "bits": "0x3ea1b79145aacfdf"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "5.280095466048967e-07",
+            "bits": "0x3ea1b79145aacfe4",
+            "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+          },
+          "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-reference/BINOM.DIST.tsv",
+            "locator": "oc69559",
+            "note": null
+          }
+        },
+        {
+          "call": "BINOM.DIST(1, 6, 0.13000000000001066, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number_s",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "trials",
+              "value": {
+                "kind": "number",
+                "display": "6.0",
+                "bits": "0x4018000000000000"
+              }
+            },
+            {
+              "name": "probability_s",
+              "value": {
+                "kind": "number",
+                "display": "0.13000000000001066",
+                "bits": "0x3fc0a3d70a3d7224"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.38876831814600815",
+            "bits": "0x3fd8e194830a1d23"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "0.38876831814600804",
+            "bits": "0x3fd8e194830a1d21",
+            "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+          },
+          "recorded_in": "Excel 16.0.20131, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-reference/BINOM.DIST.tsv",
+            "locator": "oc37492",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-reference/BINOM.DIST.tsv",
+          "locator": null,
+          "note": "1,016 BINOM.DIST witness-reference differences"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "BINOM.DIST",
+          "note": "70,343 of 71,359 full-bank rows matched"
+        }
+      ],
+      "open": [
+        "Exact Excel operation graph for the 1,016 BINOM.DIST mismatches remains open (dc-j9k)."
+      ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-BINOM.INV-001",
       "functions": [
         "FUNC.BINOM.INV",
@@ -1955,6 +2255,119 @@
         "The six BINOM.INV and six CRITBINOM bank rows still unmatched."
       ],
       "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-CHAR-001",
+      "functions": [
+        "FUNC.CHAR",
+        "FUNC.CODE",
+        "FUNC.UNICHAR",
+        "FUNC.UNICODE"
+      ],
+      "kind": "quirk",
+      "title": "CHAR and CODE use the Windows-1252 code page (CHAR(128) is U+20AC, astral characters give CODE 63), while UNICHAR/UNICODE use Unicode scalar values",
+      "statement": "In Excel 16.0.20527.20088 (UI language 1033 / en-ZA), CHAR maps 1..=255 through Windows-1252 rather than ISO-8859-1, so CHAR(128) is '€' (U+20AC) and CHAR(159) is 'Ÿ' (U+0178). CODE(\"\") returns #VALUE!, and characters outside Windows-1252 such as an astral emoji (LEFT(UNICHAR(128512),1)) return 63 ('?'), whereas UNICHAR and UNICODE preserve full Unicode scalar values (UNICODE(LEFT(UNICHAR(128512),1)) = 128512).",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 across f2_rows (rows 1, 4) and dcfl2_text (rows 12-14) and matched across 1,056/1,056 CHAR, 2,109/2,109 CODE, 1,068/1,068 UNICHAR, and 2,087/2,087 UNICODE full-bank rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=CHAR(1)&CHAR(127)&CHAR(128)&CHAR(159)&CHAR(255)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "\u0001€Ÿÿ",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+            "locator": "sheet f2_rows row 1 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=CODE(\"\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+            "locator": "sheet f2_rows row 4 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=CODE(LEFT(UNICHAR(128512),1))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "63.0",
+            "bits": "0x404f800000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 14 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=UNICODE(LEFT(UNICHAR(128512),1))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "128512.0",
+            "bits": "0x40ff600000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 12 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+          "locator": "rows 1 and 4",
+          "note": "Windows-1252 CHAR mapping and CODE empty-text #VALUE!"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+          "locator": "rows 12 to 14",
+          "note": "Astral character CODE 63 vs UNICODE 128512"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -2203,6 +2616,68 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-CORREL-001",
+      "functions": [
+        "FUNC.CORREL",
+        "FUNC.PEARSON",
+        "FUNC.RSQ"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "CORREL and PEARSON use population normalisation (n) with stored-PC64 two-pass arithmetic, while RSQ squares the sample-normalised (n-1) correlation",
+      "statement": "In Excel 16.0.20527 (dc-wli1), CORREL and PEARSON divide centred sums of squares and cross-products by n (population variance/covariance) using x87 64-bit intermediate additions/products stored to binary64 at each step in the first-pass means, second-pass centred sums, roots, and final division. By contrast, RSQ squares the sample-normalised (n-1) correlation in binary64, so mathematically equivalent three-point inputs produce distinct last bits in RSQ (0x3fdb6db6db6db6da vs 0x3fdb6db6db6db6dd) while CORREL and PEARSON match 0x3fe4f2ec413cb52b.",
+      "status": "inferred",
+      "basis": "Measured across 414 identification/holdout vectors, 92 accumulation controls, 47 precision holdout vectors, and 438 corpus CORREL cells in Excel 16.0.20527 (docs/research/correlation-arithmetic-2026-11-12.md), plus 2,853/2,853 CORREL, 2,854/2,854 PEARSON, and 2,852/2,852 RSQ full-bank rows.",
+      "inferred": "That the stored-PC64 operation graph holds for all vector lengths beyond the mined holdout controls (with integer division by n indistinguishable on small counts) is inferred from dc-wli1; the raw probe JSONs were archived to R2 rather than committed.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=CORREL(Data!A1:A3,Data!E1:E3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 51 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "docs/research/correlation-arithmetic-2026-11-12.md",
+          "locator": null,
+          "note": "dc-wli1 CORREL, PEARSON, and RSQ identification and precision holdouts"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/ported/paired_stats_common.rs",
+          "locator": null,
+          "note": "Two-pass population CORREL/PEARSON and sample RSQ implementation"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "correlation_population_normalisation_and_rsq_sample_normalisation",
+          "note": "Three-point CORREL/PEARSON vs RSQ discriminators"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-COUNTBLANK-001",
       "functions": [
         "FUNC.COUNTBLANK"
@@ -2253,6 +2728,123 @@
       ],
       "open": [],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-COUNTIF-001",
+      "functions": [
+        "FUNC.AVERAGEIF",
+        "FUNC.AVERAGEIFS",
+        "FUNC.COUNTIF",
+        "FUNC.COUNTIFS",
+        "FUNC.MAXIFS",
+        "FUNC.MINIFS",
+        "FUNC.SUMIF",
+        "FUNC.SUMIFS"
+      ],
+      "kind": "quirk",
+      "title": "Criteria built as \"=\"&label over digit-bearing text with non-date/exponent letters evaluate as text rather than failing coercion",
+      "statement": "In Excel 16.0.20527.20088 under en-ZA, printable-ASCII digit-bearing labels that also contain a run of ASCII letters outside month names/prefixes (3+ letters), A, P, AM, PM, E, and R (such as \"2016-17 Winter\" or \"Q1 2016\") fail arithmetic coercion with #VALUE! but are unambiguously text in criteria: COUNTIF, COUNTIFS, SUMIF, SUMIFS, AVERAGEIF, AVERAGEIFS, MAXIFS, and MINIFS match \"=\"&label as text equality and do not match the number 2016 against \"2016-17 Winter\". Meanwhile \"10:30 a\" coerces to 0.4375.",
+      "status": "measured",
+      "basis": "Measured on 1,144 readings in dc_e00t in Excel 16.0.20527.20088 (en-ZA) and matched across full-bank rows (COUNTIF 4,253/4,253, COUNTIFS 1,399/1,399, SUMIF 5,561/5,561, SUMIFS 1,400/1,400, AVERAGEIF 4,212/4,212, AVERAGEIFS 1,400/1,400, MAXIFS 1,400/1,400, MINIFS 1,400/1,400).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=COUNTIF(A1:A8,\"2016-17 Winter\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+            "locator": "sheet digit_labels_as_text row 20 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=SUMIF(A1:A8,\"=\"&C1,B1:B8)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "65.0",
+            "bits": "0x4050400000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+            "locator": "sheet digit_labels_as_text row 28 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=AVERAGEIFS(B1:B8,A1:A8,\"=\"&C1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "32.5",
+            "bits": "0x4040400000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+            "locator": "sheet digit_labels_as_text row 34 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=MAXIFS(B1:B8,A1:A8,\"=\"&C1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "64.0",
+            "bits": "0x4050000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+            "locator": "sheet digit_labels_as_text row 36 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+          "locator": "digit_labels_as_text rows 1 to 60",
+          "note": "Excel 16.0.20527.20088 digit-label criteria readings"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/conditional.rs",
+          "locator": null,
+          "note": "Conditional aggregate criteria parsing and 255-unit text limit"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -3550,6 +4142,290 @@
         "CUMPRINC's per-period route. Recurrences, closed balances, count*PMT less interest and binary64 variants all stay below PPMT's 56 of 135. Recorded rows now match CUMPRINC 185 of 586 and CUMIPMT 12 of 38."
       ],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-DATE-001",
+      "functions": [
+        "FUNC.DATE",
+        "FUNC.DAY",
+        "FUNC.DAYS",
+        "FUNC.EDATE",
+        "FUNC.EOMONTH",
+        "FUNC.MONTH",
+        "FUNC.WEEKDAY",
+        "FUNC.YEAR"
+      ],
+      "kind": "quirk",
+      "title": "In the 1900 date system, serial 0 is 1900-01-00 and serial 60 is the fictitious 1900-02-29",
+      "statement": "In Excel 16.0.20527.20088 under the 1900 date system, serial 0 formats as 1900/1/0 (YEAR(0)=1900, MONTH(0)=1, DAY(0)=0), and 1900 is treated as a leap year so DATE(1900,2,29) returns 60, WEEKDAY(60,2) returns 3 (Wednesday), and DATE(1900,3,1)-DATE(1900,2,28) returns 2. EOMONTH(60,0) returns 59 (1900-02-28) rather than 60, whereas EDATE(60,12) returns 425 (1901-02-28).",
+      "status": "measured",
+      "basis": "Measured on all 16 sheets (q001-q016) of fn5_dates_1900 in Excel 16.0.20527.20088.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=YEAR(0)&\"/\"&MONTH(0)&\"/\"&DAY(0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1900/1/0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+            "locator": "sheet q001 row 20 column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=DATE(1900,2,29)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "60.0",
+            "bits": "0x404e000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+            "locator": "sheet q005 row 20 column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=EOMONTH(60,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "59.0",
+            "bits": "0x404d800000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+            "locator": "sheet q009 row 20 column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=EDATE(60,12)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "425.0",
+            "bits": "0x407a900000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+            "locator": "sheet q008 row 20 column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=WEEKDAY(60,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3.0",
+            "bits": "0x4008000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+            "locator": "sheet q012 row 20 column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=DAYS(DATE(1904,1,1),0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1462.0",
+            "bits": "0x4096d80000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+            "locator": "sheet q015 row 20 column 10",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/fn5_dates_1900/oracle.capture.json",
+          "locator": "sheets q001 to q016",
+          "note": "Excel 16.0.20527.20088 1900 leap-year and serial-0 readings"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/ported/date_kernels.rs",
+          "locator": "ymd_1900; serial_unbounded_1900",
+          "note": "1900-system serial 0 and 60 date arithmetic"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-DATE-002",
+      "functions": [
+        "FUNC.DATE"
+      ],
+      "kind": "quirk",
+      "title": "Excel 16.0.20527 rejects DATE with year >= 10000 even when negative month/day offsets roll back below 10000, differing from build 20430",
+      "statement": "Across 22 witness rows in crates/calc-func/witness-differences.tsv, Excel 16.0.20430 rolled negative month or day offsets back from year 10000 (or 9999.9999999) into 9999 and returned a valid serial (for example DATE(10000, 0, 0) = 2958434, 9999-11-30), whereas Excel 16.0.20527 rejects year >= 10000 before month/day normalization and returns #NUM! on all 22 rows.",
+      "status": "measured",
+      "basis": "Measured across all 22 DATE differences in crates/calc-func/witness-differences.tsv comparing Excel 16.0.20430 against Excel 16.0.20527 (dc-iuwct.36; full bank 22,250 of 22,250 matched on 20527).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "DATE(10000, 0, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "year",
+              "value": {
+                "kind": "number",
+                "display": "10000.0",
+                "bits": "0x40c3880000000000"
+              }
+            },
+            {
+              "name": "month",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "day",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics (Excel 16.0.20430 returned 2958434, 0x4146923100000000)",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-differences.tsv",
+            "locator": "DATE row 4",
+            "note": null
+          }
+        },
+        {
+          "call": "DATE(9999.9999999, 0, -1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "year",
+              "value": {
+                "kind": "number",
+                "display": "9999.9999999",
+                "bits": "0x40c387ffffff2940"
+              }
+            },
+            {
+              "name": "month",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "day",
+              "value": {
+                "kind": "number",
+                "display": "-1.0",
+                "bits": "0xbff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527, Windows (bitness not recorded), AMD Ryzen 7 4800H with Radeon Graphics (Excel 16.0.20430 returned 2958433, 0x4146923080000000)",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-differences.tsv",
+            "locator": "DATE row 2",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-differences.tsv",
+          "locator": "DATE rows 2 to 23",
+          "note": "22 DATE differences between Excel 16.0.20430 and Excel 16.0.20527"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/ported/date_kernels.rs",
+          "locator": "date",
+          "note": "Excel 20527 original_year >= 10000 #NUM! check"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "DATE",
+          "note": "22,250 of 22,250 full-bank DATE rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -4873,6 +5749,230 @@
         "The 52 F.TEST bank rows still unmatched,."
       ],
       "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FILTER-001",
+      "functions": [
+        "FUNC.CHOOSECOLS",
+        "FUNC.DROP",
+        "FUNC.EXPAND",
+        "FUNC.FILTER"
+      ],
+      "kind": "quirk",
+      "title": "Empty FILTER or DROP results return #CALC!, whereas out-of-range CHOOSECOLS or shrinking EXPAND dimensions return #VALUE!",
+      "statement": "In Excel 16.0.20527.20088, dynamic array functions distinguish empty results from invalid indices or dimensions: FILTER with no matching elements and no if_empty argument returns #CALC!, and DROP removing all rows or columns returns #CALC!, whereas CHOOSECOLS with an out-of-range column index and EXPAND with target rows or columns smaller than the input array return #VALUE!.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 in f3_arrays (rows 3-5, 20-24, 31-32) and matched across 3,000/3,000 FILTER, 2,400/2,400 DROP, 3,000/3,000 CHOOSECOLS, and 3,000/3,000 EXPAND full-bank rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=@FILTER(Data!A1:A3,Data!A1:A3>9)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#CALC!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+            "locator": "sheet f3_arrays row 5 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=@DROP({1,2},1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#CALC!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+            "locator": "sheet f3_arrays row 21 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=@CHOOSECOLS({1,2,3},4)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+            "locator": "sheet f3_arrays row 24 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=@EXPAND({1,2},1,1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+            "locator": "sheet f3_arrays row 32 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+          "locator": "rows 3 to 32",
+          "note": "Excel 16.0.20527.20088 array shape and empty-result readings"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/ported/dynamic_array_reshape_family.rs",
+          "locator": null,
+          "note": "FILTER, DROP, CHOOSECOLS, and EXPAND error rules"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-FIND-001",
+      "functions": [
+        "FUNC.FIND",
+        "FUNC.SEARCH"
+      ],
+      "kind": "quirk",
+      "title": "FIND and SEARCH match an empty find_text at start_num, reject start_num past length+1, and floor start_num near integer boundaries",
+      "statement": "In Excel 16.0.20527, FIND and SEARCH accept an empty find_text and return start_num (default 1), and return #VALUE! when start_num <= 0 or start_num > LEN(within_text) + 1 (or when the needle is not found). SEARCH supports ?, *, and ~ wildcards, while FIND matches literally with case sensitivity; both apply Excel's tolerant floor to fractional start_num values.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 in f2_rows (rows 24-27) and matched across 2,863/2,863 FIND and 2,857/2,857 SEARCH full-bank witness rows (dc-ymjf.2.127).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=FIND(\"\",  \"abc\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+            "locator": "sheet f2_rows row 24 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=FIND(\"c\",\"abc\",4)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+            "locator": "sheet f2_rows row 25 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=SEARCH(\"?b\",\"abc\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+            "locator": "sheet f2_rows row 26 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=SEARCH(\"*\",\"abc\",3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3.0",
+            "bits": "0x4008000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+            "locator": "sheet f2_rows row 27 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+          "locator": "rows 24 to 27",
+          "note": "Excel 16.0.20527.20088 FIND and SEARCH readings"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "FIND; SEARCH",
+          "note": "2,863/2,863 FIND and 2,857/2,857 SEARCH full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -7706,6 +8806,202 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-IF-001",
+      "functions": [
+        "FUNC.IF"
+      ],
+      "kind": "quirk",
+      "title": "IF evaluates only the selected branch, rejects numeric strings in its test, and turns omitted branches into 0 or FALSE",
+      "statement": "In Excel 16.0.20527.20088, IF(logical_test, value_if_true, [value_if_false]) evaluates logical_test first through logical coercion (accepting numbers, logicals, and \"TRUE\" or \"FALSE\", while rejecting \"1\", \"\", and \"x\" with #VALUE!) and evaluates only the chosen branch, so an unchosen branch containing 1/0 does not raise #DIV/0!. An omitted selected branch returns 0, whereas a FALSE test with no third argument returns FALSE.",
+      "status": "measured",
+      "basis": "Recorded in Excel 16.0.20527.20088 across the cfunc_m1_2 oracle capture (mixed_operands rows 112-123 and error_order rows 76-79) and matched across 4,189 of 4,189 full-bank IF witness rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IF(\"1\",1,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+            "locator": "sheet mixed_operands row 116 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IF(0,1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+            "locator": "sheet mixed_operands row 118 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IF(2,\"a\",1/0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "a",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+            "locator": "sheet mixed_operands row 119 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IF(TRUE,,2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+            "locator": "sheet mixed_operands row 120 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/logical.rs",
+          "locator": "if_selected",
+          "note": "Lazy IF evaluation and omitted-branch rules"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+          "locator": "mixed_operands rows 112 to 123",
+          "note": "Measured IF coercion and branch selection in Excel 16.0.20527.20088"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IF",
+          "note": "4,189 of 4,189 full-bank witness rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IFERROR-001",
+      "functions": [
+        "FUNC.IFERROR"
+      ],
+      "kind": "quirk",
+      "title": "IFERROR catches all worksheet errors, passes bare LAMBDA callables through as #CALC!, and preserves blank cells as empty",
+      "statement": "In Excel 16.0.20527.20088, IFERROR(value, value_if_error) catches worksheet errors including #CALC!, #SPILL!, #FIELD!, and #GETTING_DATA, but a bare LAMBDA callable returned by value (such as IFS(TRUE,LAMBDA(xx,xx))) is not yet an error inside IFERROR, so IFERROR(IFS(TRUE,LAMBDA(xx,xx)),9) passes the callable through and produces #CALC! at the cell. A blank cell passed as value returns empty rather than empty text, so IFS(TRUE,IFERROR(A1,1))&\"|\" evaluates to \"0|\".",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 in fn5_selection_boundaries (sheets q005 and q017) and Excel 16.0.20430.20182 (dc-ibp2), and matched across 4,182 of 4,182 full-bank IFERROR witness rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IFERROR(IFS(TRUE,LAMBDA(xx,xx)),9)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#CALC!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_selection_boundaries/oracle.capture.json",
+            "locator": "sheet q005 row 20 column 10",
+            "note": null
+          }
+        },
+        {
+          "call": "=IFS(TRUE,IFERROR(A1,1))&\"|\"",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "0|",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/fn5_selection_boundaries/oracle.capture.json",
+            "locator": "sheet q017 row 20 column 10 (A1 blank)",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/error_fallback.rs",
+          "locator": "iferror_selected; fallback_selected",
+          "note": "IFERROR error set, callable pass-through, and blank preservation"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/fn5_selection_boundaries/oracle.capture.json",
+          "locator": "q005; q017",
+          "note": "Excel 16.0.20527.20088 callable and blank IFERROR readings"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IFERROR",
+          "note": "4,182 of 4,182 full-bank witness rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-IFS-001",
       "functions": [
         "FUNC.IFS",
@@ -8355,6 +9651,279 @@
         "The cap of 200 steps is kept because 20 lost matched rows; Excel's own cap is not identified."
       ],
       "recorded_on": "2026-11-11"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-LEFT-001",
+      "functions": [
+        "FUNC.CONCATENATE",
+        "FUNC.LEFT",
+        "FUNC.LEN",
+        "FUNC.MID",
+        "FUNC.REPLACE",
+        "FUNC.REPT",
+        "FUNC.RIGHT",
+        "FUNC.SUBSTITUTE"
+      ],
+      "kind": "quirk",
+      "title": "In CompatibilityVersion 1, LEFT/RIGHT preserve astral pairs, MID slices UTF-16 units, and 32,767-unit overflow errors differ by function",
+      "statement": "In Excel 16.0.20527.20088 (CompatibilityVersion 1), LEFT and RIGHT preserve valid UTF-16 surrogate pairs when counting characters (LEFT(UNICHAR(128512),1) returns '\uD83D\uDE00', whose LEN is 2), whereas MID slices raw UTF-16 code units and can emit an unpaired surrogate (MID(UNICHAR(128512),1,1) returns 0xd83d). Exceeding the 32,767 UTF-16 code-unit cell limit gives #VALUE! in REPT, SUBSTITUTE, and REPLACE, #CALC! in CONCAT, and silent truncation to 32,767 units in CONCATENATE and TEXTJOIN (which can leave an unpaired high surrogate when an astral character straddles index 32,767).",
+      "status": "measured",
+      "basis": "Measured across all 76 rows of dcfl2_text in Excel 16.0.20527.20088 under CompatibilityVersion 1.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=LEFT(UNICHAR(128512),1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "\uD83D\uDE00",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 1 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=LEN(LEFT(UNICHAR(128512),1))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 17 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=REPT(\"a\",32768)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 59 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=LEN(SUBSTITUTE(REPT(\"a\",32767),\"a\",\"bb\"))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 74 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=LEN(REPLACE(REPT(\"a\",32767),1,0,\"b\"))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 76 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=LEN(CONCATENATE(REPT(\"a\",32767),\"b\"))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "32767.0",
+            "bits": "0x40dfffc000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+            "locator": "sheet dcfl2_text row 75 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json",
+          "locator": "rows 1 to 76",
+          "note": "Measured surrogate and 32,767-unit text limits in Excel 16.0.20527.20088"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/text_functions.rs",
+          "locator": "count_surrogate_pairs",
+          "note": "CompatibilityVersion 1 vs 2 counting and overflow policies"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-LENB-001",
+      "functions": [
+        "FUNC.FINDB",
+        "FUNC.LEFTB",
+        "FUNC.LENB",
+        "FUNC.MIDB",
+        "FUNC.REPLACEB",
+        "FUNC.RIGHTB",
+        "FUNC.SEARCHB"
+      ],
+      "kind": "quirk",
+      "title": "Under a single-byte Windows locale such as en-ZA, the B-suffixed text functions count characters rather than UTF-8 or UTF-16 bytes",
+      "statement": "In Excel 16.0.20527.20088 with user culture en-ZA (a single-byte Windows code page), LENB, LEFTB, RIGHTB, MIDB, FINDB, SEARCHB, and REPLACEB count characters rather than UTF-8 or UTF-16 bytes: LENB(UNICHAR(20013)) returns 1, LEFTB(UNICHAR(20013)&\"abc\",2) returns \"中a\", and FINDB(\"b\",UNICHAR(20013)&\"b\") returns 2 (double-byte counting applies only under DBCS languages such as ja-JP, ko-KR, or zh-CN).",
+      "status": "measured",
+      "basis": "Measured across rows 18-27 of dczsn3_bytes in Excel 16.0.20527.20088 (en-ZA) and matched across full-bank rows (LENB 2,083/2,083, LEFTB 2,478/2,478, RIGHTB 2,481/2,481, MIDB 2,913/2,913, FINDB 2,861/2,861, SEARCHB 2,861/2,861, REPLACEB 2,951/2,951).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=LENB(UNICHAR(20013))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+            "locator": "sheet dczsn3_bytes row 18 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=LEFTB(UNICHAR(20013)&\"abc\",2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "中a",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+            "locator": "sheet dczsn3_bytes row 21 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=FINDB(\"b\",UNICHAR(20013)&\"b\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+            "locator": "sheet dczsn3_bytes row 24 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=REPLACEB(UNICHAR(20013)&\"abc\",2,1,\"x\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "中xbc",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+            "locator": "sheet dczsn3_bytes row 26 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/dczsn3_bytes.capture.json",
+          "locator": "rows 18 to 27",
+          "note": "Excel 16.0.20527.20088 single-byte locale B-function measurements"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/text_functions.rs",
+          "locator": "single_byte",
+          "note": "Single-byte vs DBCS locale guard"
+        }
+      ],
+      "open": [
+        "DBCS locales (ja-JP, ko-KR, zh-CN) remain uncaptured and refused in calc-func (dc-zsn.3)."
+      ],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -9678,6 +11247,209 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-NORM.S.INV-001",
+      "functions": [
+        "FUNC.CONFIDENCE",
+        "FUNC.CONFIDENCE.NORM",
+        "FUNC.LOGINV",
+        "FUNC.LOGNORM.INV",
+        "FUNC.NORM.INV",
+        "FUNC.NORM.S.INV",
+        "FUNC.NORMINV",
+        "FUNC.NORMSINV"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "NORM.S.INV uses AS241 tails (p < 0.075 and p > 15/16) and three x87-stored rational/Padé pieces for sqrt(2)*erfinv(2p-1) in between",
+      "statement": "Excel's standard normal inverse (NORM.S.INV and NORMSINV) partitions (0, 1) asymmetrically: Wichura's AS241 formula runs for p < 0.075 and p > 15/16 using x87 FYL2X + FSQRT stored sqrt(-ln v), while the middle computes sqrt(2) * erfinv(t) with t = 2*(p - 0.5) across three pieces: for s = RN(t*t) <= 0.5, a degree-7/7 rational interpolant at the 15 zeros of T15 on [0, 0.73] solved near 100-bit precision; for sqrt(0.5) < |t| <= 0.85, a degree-7/5 rational interpolant times sqrt(-ln(1 - |t|)); and for 0.85 < t <= 0.875 (p in (0.925, 15/16]), a degree-9/9 Padé approximant centred at 225/256 solved at 96-bit precision times sqrt(-ln(1 - t)), storing every Horner product and sum from x87 64-bit precision to binary64. NORM.INV/NORMINV return mu + sigma*z, LOGNORM.INV/LOGINV return EXP(mu + sigma*z), and CONFIDENCE/CONFIDENCE.NORM return NORM.S.INV(1 - alpha/2)*sigma/SQRT(size) with stored steps. See https://github.com/DnaCalc/DnaCalc/blob/4fb9b728df8a96546ae685589b47e057b7e26771/docs/articles/last-bit-normsinv.md.",
+      "status": "inferred",
+      "basis": "Matched across 21,898 of 21,898 full-bank witness rows across all eight functions in Excel 16.0.20527 (NORMSINV 2,210/2,210, NORM.S.INV 2,206/2,206, NORM.INV 2,915/2,915, NORMINV 2,914/2,914, LOGNORM.INV 2,911/2,911, LOGINV 2,916/2,916, CONFIDENCE 2,910/2,910, CONFIDENCE.NORM 2,916/2,916), plus 32,452 of 32,452 frozen piece-C inputs and 1,230,456 distinct sweep inputs (docs/articles/last-bit-normsinv.md).",
+      "inferred": "The exact polynomial solve precisions (~100 bits for piece A and 96 bits for piece C) and compiled code structure are inferred from output-bit discriminators (such as p = 0x3fed999bc5f0efd8) and frozen holdout runs rather than source inspection.",
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=NORM.S.INV(0.9)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.2815515655446006",
+            "bits": "0x3ff4813c36e26d33"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 164 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "=NORM.INV(0.9,40,1.5)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "41.9223273483169",
+            "bits": "0x4044f60ed2929d1e"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 162 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "=LOGNORM.INV(0.04,3.5,1.2)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "4.051862753430021",
+            "bits": "0x4010351b82777327"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 148 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "docs/articles/last-bit-normsinv.md",
+          "locator": null,
+          "note": "Last-bit investigation of NORMSINV / NORM.S.INV"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "docs/research/normal-inverse-central-2026-11-17.md",
+          "locator": null,
+          "note": "Piece A, B, and C identification notes and discriminators"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/ported/normal_log_family.rs",
+          "locator": "as241_tail_magnitude; x87_sqrt_of_minus_log",
+          "note": "Production four-piece normal inverse and callers"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "NORM.S.INV; NORM.INV; LOGNORM.INV; CONFIDENCE.NORM",
+          "note": "21,898 of 21,898 full-bank rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-NOT-001",
+      "functions": [
+        "FUNC.NOT"
+      ],
+      "kind": "quirk",
+      "title": "NOT rejects numeric strings such as \"1\" and empty strings with #VALUE!, accepting only numbers, logicals, and \"TRUE\"/\"FALSE\"",
+      "statement": "In Excel 16.0.20527.20088, NOT(logical) coerces its single scalar argument as a logical rather than a number: \"TRUE\" gives FALSE and \"false\" gives TRUE, whereas \"1\", \"\", and \"x\" all return #VALUE!. A blank cell evaluates to FALSE, so NOT(blank) returns TRUE.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 across rows 86-102 and 114-115 of dc_fwpz.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=NOT(\"1\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 102 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=NOT(\"\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 93 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=NOT(\"false\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+            "locator": "sheet logical_functions row 91 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/logical.rs",
+          "locator": "not",
+          "note": "NOT logical coercion"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
+          "locator": "logical_functions rows 86 to 102",
+          "note": "Excel 16.0.20527.20088 NOT readings"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-OP_EQUAL-001",
       "functions": [
         "FUNC.OP_EQUAL",
@@ -10311,6 +12083,124 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-POWER-001",
+      "functions": [
+        "FUNC.OP_POWER",
+        "FUNC.POWER"
+      ],
+      "kind": "quirk",
+      "title": "POWER and ^ return #NUM! for 0^0, allow negative bases when 1/y rounds to an odd 32-bit integer to 15 digits, and double-round 10^126",
+      "statement": "In Excel 16.0.20527.20088, POWER(0,0) and 0^0 return #NUM! and POWER(0,-1) returns #DIV/0!. For a negative base with fractional exponent y, Excel accepts the real root -POWER(|x|, y) when 1/y rounded to 15 significant decimal digits is an odd signed 32-bit integer ((-8)^(1/3) = -1.9999999999999998, (-32)^(1/5) = -2, while (-8)^(2/3) = #NUM!). Integer exponents use staged binary exponentiation and flush subnormals to +0 (2^-1074 = 0), while POWER(10, k) double-rounds 10^k through 64-bit significand precision, giving 0x5a17a2ecc414a040 at k = 126 (1 ULP above nearest ...a03f).",
+      "status": "measured",
+      "basis": "Measured across all 59 rows of f1_power in Excel 16.0.20527.20088, Excel 16.0.20527 POWER(10, 0..308) sweeps, and 62,635 of 62,635 full-bank POWER witness rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=POWER(0,0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+            "locator": "sheet f1_power row 2 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=(-8)^(1/3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-1.9999999999999998",
+            "bits": "0xbfffffffffffffff"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+            "locator": "sheet f1_power row 27 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=(-8)^(2/3)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+            "locator": "sheet f1_power row 35 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=2^-1074",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+            "locator": "sheet f1_power row 45 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+          "locator": "rows 1 to 59",
+          "note": "Excel 16.0.20527.20088 POWER and ^ capture"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/ported/power_fn.rs",
+          "locator": "power_kernel; accept_negative_base_odd_root; ten_to",
+          "note": "15-digit odd-root check, staged binexp, and 10^126 double-rounding"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "POWER",
+          "note": "62,635 of 62,635 full-bank POWER rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-PPMT-001",
       "functions": [
         "FUNC.PMT",
@@ -10571,6 +12461,183 @@
       ],
       "open": [],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-RATE-001",
+      "functions": [
+        "FUNC.RATE"
+      ],
+      "kind": "quirk",
+      "title": "RATE returns finite numbers near DBL_MAX on 46 inputs where no real annuity root exists above -1",
+      "statement": "In Excel 16.0.20527, RATE returns large finite numbers (such as 1.765850607151516e+308) on 46 recorded witness-reference rows where future value lies outside the real annuity balance range (where CalcFunc returns #NUM!), and differs by up to 12.57 ULP from the annuity root on extreme-rate rows (bank2-more-RATE-1195).",
+      "status": "measured",
+      "basis": "Recorded across 65 mismatching rows in crates/calc-func/witness-reference/RATE.tsv (46 structural number vs #NUM!, 9 #NUM! vs number, 2 no-real-root, 4 excel-quirk, 4 large-deviation) out of 4,787 full-bank RATE rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "RATE(-1.3669552943168466e-08, 0.004130753832019453, -0.9811375421215849, 0, 1, -0.22920042173301014)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "nper",
+              "value": {
+                "kind": "number",
+                "display": "-1.3669552943168466e-08",
+                "bits": "0xbe4d5aea8c545370"
+              }
+            },
+            {
+              "name": "pmt",
+              "value": {
+                "kind": "number",
+                "display": "0.004130753832019453",
+                "bits": "0x3f70eb68c9dc920f"
+              }
+            },
+            {
+              "name": "pv",
+              "value": {
+                "kind": "number",
+                "display": "-0.9811375421215849",
+                "bits": "0xbfef657a8f0947ec"
+              }
+            },
+            {
+              "name": "fv",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "type",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "guess",
+              "value": {
+                "kind": "number",
+                "display": "-0.22920042173301014",
+                "bits": "0xbfcd56707dc94dc8"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1.765850607151516e+308",
+            "bits": "0x7fef6ee528c1d989"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-reference/RATE.tsv",
+            "locator": "fx2/evidence/rate-overflow-answers.json $[494]",
+            "note": null
+          }
+        },
+        {
+          "call": "RATE(0.1391623113305186, 10, -438.10866310194024, 8205, 0.5, 1.0000000000000002)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "nper",
+              "value": {
+                "kind": "number",
+                "display": "0.1391623113305186",
+                "bits": "0x3fc1d01214000b64"
+              }
+            },
+            {
+              "name": "pmt",
+              "value": {
+                "kind": "number",
+                "display": "10.0",
+                "bits": "0x4024000000000000"
+              }
+            },
+            {
+              "name": "pv",
+              "value": {
+                "kind": "number",
+                "display": "-438.10866310194024",
+                "bits": "0xc07b61bd158551d8"
+              }
+            },
+            {
+              "name": "fv",
+              "value": {
+                "kind": "number",
+                "display": "8205.0",
+                "bits": "0x40c0068000000000"
+              }
+            },
+            {
+              "name": "type",
+              "value": {
+                "kind": "number",
+                "display": "0.5",
+                "bits": "0x3fe0000000000000"
+              }
+            },
+            {
+              "name": "guess",
+              "value": {
+                "kind": "number",
+                "display": "1.0000000000000002",
+                "bits": "0x3ff0000000000001"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1630151639.0138218",
+            "bits": "0x41d84a88f5c0e275"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "1630151639.0138187",
+            "bits": "0x41d84a88f5c0e268",
+            "how": "mpmath at 60 decimal digits solving the annuity balance equation"
+          },
+          "recorded_in": "Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-reference/RATE.tsv",
+            "locator": "bank2-more-RATE-1195",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-reference/RATE.tsv",
+          "locator": null,
+          "note": "65 RATE witness-reference differences"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "RATE",
+          "note": "4,722 of 4,787 full-bank rows matched"
+        }
+      ],
+      "open": [
+        "65 RATE structural and numerical differences remain open (dc-j9k)."
+      ],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -11931,6 +13998,116 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-SIN-001",
+      "functions": [
+        "FUNC.COS",
+        "FUNC.SIN"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "SIN and COS reduce with x87 66-bit pi and double-round, drifting by up to 3.4 ULP at large inputs and 0.5003 ULP near tie points",
+      "statement": "In Excel 16.0.20527.20196 on x86-64, SIN and COS evaluate the x87 hardware FSIN/FCOS path (66-bit ROM pi reduction and 64-bit significand rounded to binary64). That differs from correctly rounded binary64 by 0.5003 ULP on recorded SIN rows (12 of 2,141 bank rows differ from CalcFunc) and up to 3.41 ULP on large-argument COS rows (COS(120031) = -0.9856718840689155 vs nearest -0.9856718840689151).",
+      "status": "measured",
+      "basis": "Recorded in crates/calc-func/witness-reference/SIN.tsv (12 mismatching rows of 2,141) and COS.tsv (1 mismatching row of 3,685) from Excel 16.0.20527.20196.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "SIN(0.05094065035880841)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "0.05094065035880841",
+                "bits": "0x3faa14e496a7f689"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.05091862181157397",
+            "bits": "0x3faa12016ee04ef8"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "0.050918621811573965",
+            "bits": "0x3faa12016ee04ef7",
+            "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+          },
+          "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-reference/SIN.tsv",
+            "locator": "ax1/raw/run2-new2-reflect-public-sin.json.gz $.rows[6413]",
+            "note": null
+          }
+        },
+        {
+          "call": "COS(120031)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "120031.0",
+                "bits": "0x40fd4df000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-0.9856718840689155",
+            "bits": "0xbfef8a9fc35534cd"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "-0.9856718840689151",
+            "bits": "0xbfef8a9fc35534ca",
+            "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+          },
+          "recorded_in": "Excel 16.0.20527.20196, Windows 64-bit, AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-reference/COS.tsv",
+            "locator": "sx1/run2-complex-denominator.json replies[1].rows[95]",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-reference/SIN.tsv",
+          "locator": null,
+          "note": "12 SIN witness-reference rows differing from nearest binary64"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-reference/COS.tsv",
+          "locator": null,
+          "note": "COS(120031) 3.41-ULP difference from nearest binary64"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "SIN; COS",
+          "note": "SIN 2,129/2,141 and COS 3,684/3,685 matched"
+        }
+      ],
+      "open": [
+        "12 SIN rows and 1 COS row remain open last-bit residuals against Excel 16.0.20527 (dc-j9k.62)."
+      ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-SORT-001",
       "functions": [
         "FUNC.OP_LESS_THAN",
@@ -12134,6 +14311,454 @@
       ],
       "open": [],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-SUBTOTAL-001",
+      "functions": [
+        "FUNC.AGGREGATE",
+        "FUNC.DAVERAGE",
+        "FUNC.DCOUNT",
+        "FUNC.DMAX",
+        "FUNC.DMIN",
+        "FUNC.DPRODUCT",
+        "FUNC.DSUM",
+        "FUNC.SUBTOTAL"
+      ],
+      "kind": "quirk",
+      "title": "SUBTOTAL, AGGREGATE, and the D-functions reject literal numbers or arrays in their reference slots at formula entry (0x800A03EC)",
+      "statement": "In Excel 16.0.20527.20088, SUBTOTAL (ref1/ref2...), AGGREGATE (reference/ref1... in reference form), and database functions (DSUM, DCOUNT, DAVERAGE, DMIN, DMAX, DPRODUCT, database argument) require actual range references in those parameter positions: supplying a literal number or array constant (such as =SUBTOTAL(9,1,2,3,4), =AGGREGATE(9,4,1,2,3,4), or =DSUM({1,2;3,4},1,{1})) is rejected by Excel at formula entry (COM 0x800A03EC) in both legacy and dynamic forms.",
+      "status": "measured",
+      "basis": "Measured by live Excel 16.0.20527 formula entry across all 18 entry-rejected rows of jnt_aggregate_arrays (rows 61-71 and 111-116) and crates/calc-fml/tests/fixtures/entry/excel-entry.tsv.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=SUBTOTAL(9.0,1.0,2.0,3.0,4.0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "entry rejected (0x800A03EC)",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+            "locator": "sheet jnt_aggregate_arrays row 61 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=AGGREGATE(9.0,4.0,1.0,2.0,3.0,4.0)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "entry rejected (0x800A03EC)",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+            "locator": "sheet jnt_aggregate_arrays row 67 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=DSUM({1,2;3,4},1.0,{1})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "entry rejected (0x800A03EC)",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+            "locator": "sheet jnt_aggregate_arrays row 111 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+          "locator": "rows 61 to 71 and 111 to 116",
+          "note": "Live Excel 16.0.20527 formula-entry rejections"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "docs/plan/corpus-failures-2026-11-11.md",
+          "locator": "Section A",
+          "note": "Analysis and live read-back of the 18 entry-rejected cells"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-fml/tests/fixtures/entry/excel-entry.tsv",
+          "locator": null,
+          "note": "Measured Excel 16.0.20527 formula-entry acceptance table"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-SUM-001",
+      "functions": [
+        "FUNC.SUM"
+      ],
+      "kind": "quirk",
+      "title": "SUM evaluates all direct-argument errors before held reference/array errors, and overflow does not mask later errors",
+      "statement": "In Excel 16.0.20527.20088, SUM checks direct scalar arguments (including text-to-number coercion #VALUE!) in argument order before reporting any error held inside a reference or array argument, so =SUM(A1:B2,\"a\") and =SUM({1,#REF!},\"a\") both return #VALUE! even when B1 holds #N/A. Among held errors, SUM follows argument order, and a numeric overflow to #NUM! does not stop reading later arguments, so =SUM(9.99999999999999E+307,9.99999999999999E+307,B1) returns #N/A.",
+      "status": "measured",
+      "basis": "Recorded in Excel 16.0.20527.20088 in cfunc_m1_2 (sheet error_order rows 69-87, with #N/A in B1 and #DIV/0! in A2) and matched across 1,211 of 1,211 full-bank SUM witness rows.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=SUM({1,#REF!},\"a\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+            "locator": "sheet error_order row 82 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=SUM(A1:B2,{1,#REF!})",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+            "locator": "sheet error_order row 84 column 4 (#N/A in B1)",
+            "note": null
+          }
+        },
+        {
+          "call": "=SUM(9.99999999999999E+307,9.99999999999999E+307,B1)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#N/A",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+            "locator": "sheet error_order row 87 column 4 (#N/A in B1)",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/aggregate.rs",
+          "locator": "sum; direct_first",
+          "note": "Two-pass SUM direct coercion/error check and overflow continuation"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/cfunc_m1_2/oracle.capture.json",
+          "locator": "error_order rows 69 to 87",
+          "note": "Excel 16.0.20527.20088 SUM error-order readings"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-SUM-002",
+      "functions": [
+        "FUNC.AVERAGE",
+        "FUNC.AVERAGEA",
+        "FUNC.SUM"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "SUM, AVERAGE, and AVERAGEA apply Excel's 50-exponent cancellation snap once at the final numeric addition",
+      "statement": "In Excel 16.0.20527 (dc-ss3b), SUM snaps its final result to +0 when the last left partial sum's binary exponent exceeds the sum's binary exponent by at least 50 (so SUM(0.1,0.2,-0.3) returns +0 rather than 2^-54). A trailing numeric 0 counts as the final addition and suppresses the snap (SUM(0.1,0.2,-0.3,0) returns 2^-54, 0x3c90000000000000), whereas trailing cell text, logicals, and blanks are skipped and do not suppress it. AVERAGE and AVERAGEA apply the same rule to their numerator before dividing by the count; SUMPRODUCT does not snap.",
+      "status": "inferred",
+      "basis": "Measured across 98+ Excel 16.0.20527 probes in dc-ss3b (docs/research/sum-cancellation-2026-11-12.md) covering scales 2^-900 to 2^900, exponent gaps 49 vs 50, zero vs skipped tails, and AVERAGE/AVERAGEA/SUMPRODUCT controls; full-bank SUM (1,211/1,211), AVERAGE (1,222/1,222), and AVERAGEA (1,212/1,212) remain matched.",
+      "inferred": "That the shared post-addition snap uses the exact 50-exponent threshold across every binade is inferred from the dc-ss3b power-of-two boundary sweeps; the raw probe JSON files were archived to R2 (research/round53/20261112-fn2-0327/) rather than committed to git.",
+      "documentation": null,
+      "repros": [],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "docs/research/sum-cancellation-2026-11-12.md",
+          "locator": null,
+          "note": "dc-ss3b probe predictions, results, and sibling controls in Excel 16.0.20527"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/aggregate.rs",
+          "locator": "sum; mean",
+          "note": "Shared adjust_final_sum call in SUM, AVERAGE, and AVERAGEA"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "sum_adjusts_the_last_numeric_addition",
+          "note": "Regression tests covering all dc-ss3b probe behaviours"
+        }
+      ],
+      "open": [
+        "Archive a representative subset of raw dc-ss3b SUM(0.1,0.2,-0.3) and SUM(0.1,0.2,-0.3,0) Excel readings in git so repros can cite a repository path directly."
+      ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-SUMPRODUCT-001",
+      "functions": [
+        "FUNC.PRODUCT",
+        "FUNC.SUMPRODUCT",
+        "FUNC.SUMSQ"
+      ],
+      "kind": "quirk",
+      "title": "SUMPRODUCT reads direct text as 0 and rejects omitted args, unions, and single blank refs with #VALUE!; PRODUCT/SUMSQ/SUMPRODUCT flush subnormals to +0",
+      "statement": "In Excel 16.0.20527.20088, SUMPRODUCT evaluates direct scalar text to 0 (SUMPRODUCT(\"3\") = 0) and returns #VALUE! for an omitted argument (SUMPRODUCT(A1:A2,) = #VALUE!), a multi-area union (SUMPRODUCT((A1,A7)) = #VALUE!), or a single blank cell reference (while multi-cell ranges read blanks as 0). By contrast, PRODUCT skips omitted arguments (PRODUCT(2,) = 2) and returns #VALUE! for non-numeric direct text (PRODUCT(\"a\")). All three functions flush subnormal products or squares to +0 (PRODUCT(1E-200,1E-200) = 0, SUMSQ(1E-200) = 0, SUMPRODUCT(1E-200,1E-200) = 0).",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 in cfunc_m3_4 (argument_classes rows 6-37) and matched across 2,887/2,887 SUMPRODUCT, 1,211/1,211 PRODUCT, and 1,211/1,211 SUMSQ full-bank rows (dc-bd5, dc-ymjf.2.6).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=SUMPRODUCT(\"3\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+            "locator": "sheet argument_classes row 31 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=SUMPRODUCT((A1,A7))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+            "locator": "sheet argument_classes row 33 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=PRODUCT(2,)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+            "locator": "sheet argument_classes row 13 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=PRODUCT(1E-200,1E-200)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+            "locator": "sheet argument_classes row 14 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=SUMSQ(1E-200)",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+            "locator": "sheet argument_classes row 21 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/cfunc_m3_4/oracle.capture.json",
+          "locator": "argument_classes rows 6 to 37",
+          "note": "Excel 16.0.20527.20088 PRODUCT, SUMSQ, and SUMPRODUCT readings"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/src/catalogue/aggregate.rs",
+          "locator": "product; sumsq; sumproduct",
+          "note": "Omitted, union, single-blank, and subnormal rules"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-SUMX2MY2-001",
+      "functions": [
+        "FUNC.SUMX2MY2"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "SUMX2MY2 rounds each x^2 and y^2 separately before subtracting, differing by up to 0.82 ULP from the exact sum of x^2 - y^2",
+      "statement": "In Excel 16.0.20527, SUMX2MY2(array_x, array_y) evaluates x^2 and y^2 individually rather than (x - y)*(x + y) or higher-precision accumulation, so SUMX2MY2(0.03335225112884599, -11.999999999999998) returns -143.99888762734457 (0xc061fff6e32f7a5e), 0.815 ULP from the nearest binary64 value -143.9988876273446 (0xc061fff6e32f7a5f).",
+      "status": "measured",
+      "basis": "Recorded in crates/calc-func/witness-reference/SUMX2MY2.tsv (19 mismatching rows of 2,850 full-bank rows in Excel 16.0.20527).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "SUMX2MY2(0.03335225112884599, -11.999999999999998)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "array_x",
+              "value": {
+                "kind": "number",
+                "display": "0.03335225112884599",
+                "bits": "0x3fa1138bd7b157c0"
+              }
+            },
+            {
+              "name": "array_y",
+              "value": {
+                "kind": "number",
+                "display": "-11.999999999999998",
+                "bits": "0xc027ffffffffffff"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-143.99888762734457",
+            "bits": "0xc061fff6e32f7a5e"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "-143.9988876273446",
+            "bits": "0xc061fff6e32f7a5f",
+            "how": "mpmath at 60 decimal digits, correctly rounded to nearest binary64"
+          },
+          "recorded_in": "Excel 16.0.20527, Windows (bitness and CPU not recorded), en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/witness-reference/SUMX2MY2.tsv",
+            "locator": "bank2-scalar-SUMX2MY2-0477",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-reference/SUMX2MY2.tsv",
+          "locator": null,
+          "note": "19 SUMX2MY2 witness-reference differences"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "SUMX2MY2",
+          "note": "2,831 of 2,850 full-bank rows matched"
+        }
+      ],
+      "open": [
+        "19 SUMX2MY2 last-bit/x87 differences remain open (dc-j9k)."
+      ],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",
@@ -13087,6 +15712,97 @@
         "Why this one input converts 3 steps below nearest."
       ],
       "recorded_on": "2026-11-04"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-UNIQUE-001",
+      "functions": [
+        "FUNC.UNIQUE"
+      ],
+      "kind": "quirk",
+      "title": "UNIQUE deduplicates text case-insensitively keeping the first spelling, while comparing numbers by binary64 value",
+      "statement": "In Excel 16.0.20527.20088, UNIQUE compares text case-insensitively and retains the first spelling encountered (CONCAT(UNIQUE({\"a\";\"A\";\"b\"})) returns \"ab\"), whereas numbers are compared by exact binary64 value without a tolerance window, so 0.3 and 0.1+0.2 remain distinct (ROWS(UNIQUE(VSTACK(0.3,0.1+0.2))) returns 2).",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 in f3_arrays (rows 15-18) and matched across 1,277 of 1,277 full-bank UNIQUE rows (dc-ymjf.2.10).",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=CONCAT(UNIQUE({\"a\";\"A\";\"b\"}))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "ab",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+            "locator": "sheet f3_arrays row 16 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=ROWS(UNIQUE(VSTACK(0.3,0.1+0.2)))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "2.0",
+            "bits": "0x4000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+            "locator": "sheet f3_arrays row 17 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=CONCAT(UNIQUE({1;2;1;3},,TRUE))",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "23",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+            "locator": "sheet f3_arrays row 18 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+          "locator": "rows 15 to 18",
+          "note": "Excel 16.0.20527.20088 UNIQUE deduplication readings"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "UNIQUE",
+          "note": "1,277 of 1,277 full-bank UNIQUE rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
     },
     {
       "schema": "efh.function-note/v1",

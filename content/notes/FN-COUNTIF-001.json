@@ -1,0 +1,117 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COUNTIF-001",
+  "functions": [
+    "FUNC.AVERAGEIF",
+    "FUNC.AVERAGEIFS",
+    "FUNC.COUNTIF",
+    "FUNC.COUNTIFS",
+    "FUNC.MAXIFS",
+    "FUNC.MINIFS",
+    "FUNC.SUMIF",
+    "FUNC.SUMIFS"
+  ],
+  "kind": "quirk",
+  "title": "Criteria built as \"=\"&label over digit-bearing text with non-date/exponent letters evaluate as text rather than failing coercion",
+  "statement": "In Excel 16.0.20527.20088 under en-ZA, printable-ASCII digit-bearing labels that also contain a run of ASCII letters outside month names/prefixes (3+ letters), A, P, AM, PM, E, and R (such as \"2016-17 Winter\" or \"Q1 2016\") fail arithmetic coercion with #VALUE! but are unambiguously text in criteria: COUNTIF, COUNTIFS, SUMIF, SUMIFS, AVERAGEIF, AVERAGEIFS, MAXIFS, and MINIFS match \"=\"&label as text equality and do not match the number 2016 against \"2016-17 Winter\". Meanwhile \"10:30 a\" coerces to 0.4375.",
+  "status": "measured",
+  "basis": "Measured on 1,144 readings in dc_e00t in Excel 16.0.20527.20088 (en-ZA) and matched across full-bank rows (COUNTIF 4,253/4,253, COUNTIFS 1,399/1,399, SUMIF 5,561/5,561, SUMIFS 1,400/1,400, AVERAGEIF 4,212/4,212, AVERAGEIFS 1,400/1,400, MAXIFS 1,400/1,400, MINIFS 1,400/1,400).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=COUNTIF(A1:A8,\"2016-17 Winter\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+        "locator": "sheet digit_labels_as_text row 20 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=SUMIF(A1:A8,\"=\"&C1,B1:B8)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "65.0",
+        "bits": "0x4050400000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+        "locator": "sheet digit_labels_as_text row 28 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=AVERAGEIFS(B1:B8,A1:A8,\"=\"&C1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "32.5",
+        "bits": "0x4040400000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+        "locator": "sheet digit_labels_as_text row 34 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=MAXIFS(B1:B8,A1:A8,\"=\"&C1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "64.0",
+        "bits": "0x4050000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+        "locator": "sheet digit_labels_as_text row 36 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/dc_e00t/oracle.capture.json",
+      "locator": "digit_labels_as_text rows 1 to 60",
+      "note": "Excel 16.0.20527.20088 digit-label criteria readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/catalogue/conditional.rs",
+      "locator": null,
+      "note": "Conditional aggregate criteria parsing and 255-unit text limit"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

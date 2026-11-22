@@ -187,6 +187,41 @@ Evidence:
 - CalcFunc-Evidence `readings/excel-20527/studies/cb9.json.gz`, scored_600[178] at `4ef2c244d7` (readings)
 - CalcFunc-Evidence `readings/excel-20527/studies/cb9.json.gz`, scored_binade4[6] at `4ef2c244d7` (readings)
 
+### FN-LEFT-001: In CompatibilityVersion 1, LEFT/RIGHT preserve astral pairs, MID slices UTF-16 units, and 32,767-unit overflow errors differ by function
+
+*Quirk; measured; recorded 2026-11-22.* Applies to CONCATENATE, LEFT, LEN, MID, REPLACE, REPT, RIGHT, SUBSTITUTE.
+
+In Excel 16.0.20527.20088 (CompatibilityVersion 1), LEFT and RIGHT preserve valid UTF-16
+surrogate pairs when counting characters (LEFT(UNICHAR(128512),1) returns '😀', whose LEN is
+2), whereas MID slices raw UTF-16 code units and can emit an unpaired surrogate
+(MID(UNICHAR(128512),1,1) returns 0xd83d). Exceeding the 32,767 UTF-16 code-unit cell limit
+gives #VALUE! in REPT, SUBSTITUTE, and REPLACE, #CALC! in CONCAT, and silent truncation to
+32,767 units in CONCATENATE and TEXTJOIN (which can leave an unpaired high surrogate when an
+astral character straddles index 32,767).
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=LEFT(UNICHAR(128512),1)` | as typed | `😀` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LEN(LEFT(UNICHAR(128512),1))` | as typed | `2.0` (`0x4000000000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=REPT("a",32768)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LEN(SUBSTITUTE(REPT("a",32767),"a","bb"))` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LEN(REPLACE(REPT("a",32767),1,0,"b"))` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=LEN(CONCATENATE(REPT("a",32767),"b"))` | as typed | `32767.0` (`0x40dfffc000000000`) | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured across all 76 rows of dcfl2_text in Excel 16.0.20527.20088 under
+CompatibilityVersion 1.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, rows 1 to 76 at `4fb9b728df` — Measured surrogate and 32,767-unit text limits in Excel 16.0.20527.20088
+- DnaCalc `crates/calc-func/src/catalogue/text_functions.rs`, count_surrogate_pairs at `4fb9b728df` — CompatibilityVersion 1 vs 2 counting and overflow policies
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 1 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 17 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 59 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 74 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 76 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/dcfl2_text.capture.json`, sheet dcfl2_text row 75 column 4 at `4fb9b728df` (readings)
+
 <!-- efh:notes end -->
 
 ## Page vocabulary

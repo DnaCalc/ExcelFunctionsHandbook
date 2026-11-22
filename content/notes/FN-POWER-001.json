@@ -1,0 +1,118 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-POWER-001",
+  "functions": [
+    "FUNC.OP_POWER",
+    "FUNC.POWER"
+  ],
+  "kind": "quirk",
+  "title": "POWER and ^ return #NUM! for 0^0, allow negative bases when 1/y rounds to an odd 32-bit integer to 15 digits, and double-round 10^126",
+  "statement": "In Excel 16.0.20527.20088, POWER(0,0) and 0^0 return #NUM! and POWER(0,-1) returns #DIV/0!. For a negative base with fractional exponent y, Excel accepts the real root -POWER(|x|, y) when 1/y rounded to 15 significant decimal digits is an odd signed 32-bit integer ((-8)^(1/3) = -1.9999999999999998, (-32)^(1/5) = -2, while (-8)^(2/3) = #NUM!). Integer exponents use staged binary exponentiation and flush subnormals to +0 (2^-1074 = 0), while POWER(10, k) double-rounds 10^k through 64-bit significand precision, giving 0x5a17a2ecc414a040 at k = 126 (1 ULP above nearest ...a03f).",
+  "status": "measured",
+  "basis": "Measured across all 59 rows of f1_power in Excel 16.0.20527.20088, Excel 16.0.20527 POWER(10, 0..308) sweeps, and 62,635 of 62,635 full-bank POWER witness rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=POWER(0,0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+        "locator": "sheet f1_power row 2 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=(-8)^(1/3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-1.9999999999999998",
+        "bits": "0xbfffffffffffffff"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+        "locator": "sheet f1_power row 27 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=(-8)^(2/3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+        "locator": "sheet f1_power row 35 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=2^-1074",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+        "locator": "sheet f1_power row 45 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/f1_power.capture.json",
+      "locator": "rows 1 to 59",
+      "note": "Excel 16.0.20527.20088 POWER and ^ capture"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/ported/power_fn.rs",
+      "locator": "power_kernel; accept_negative_base_odd_root; ten_to",
+      "note": "15-digit odd-root check, staged binexp, and 10^126 double-rounding"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "POWER",
+      "note": "62,635 of 62,635 full-bank POWER rows matched"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

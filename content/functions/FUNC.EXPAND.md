@@ -161,6 +161,36 @@ and where it was recorded; "measured" means the statement is read off recorded E
 "inferred" marks what goes beyond them. Where older text on this page says a behaviour was not
 measured, these notes are the later record. All notes: [Function notes](../notes/NOTES.md).
 
+### FN-FILTER-001: Empty FILTER or DROP results return #CALC!, whereas out-of-range CHOOSECOLS or shrinking EXPAND dimensions return #VALUE!
+
+*Quirk; measured; recorded 2026-11-22.* Applies to CHOOSECOLS, DROP, EXPAND, FILTER.
+
+In Excel 16.0.20527.20088, dynamic array functions distinguish empty results from invalid
+indices or dimensions: FILTER with no matching elements and no if_empty argument returns
+#CALC!, and DROP removing all rows or columns returns #CALC!, whereas CHOOSECOLS with an
+out-of-range column index and EXPAND with target rows or columns smaller than the input array
+return #VALUE!.
+
+| Call | Inputs (binary64) | Excel | Recorded in |
+|---|---|---|---|
+| `=@FILTER(Data!A1:A3,Data!A1:A3>9)` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=@DROP({1,2},1)` | as typed | `#CALC!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=@CHOOSECOLS({1,2,3},4)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+| `=@EXPAND({1,2},1,1)` | as typed | `#VALUE!` | Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA |
+
+Basis (measured): Measured in Excel 16.0.20527.20088 in f3_arrays (rows 3-5, 20-24, 31-32) and
+matched across 3,000/3,000 FILTER, 2,400/2,400 DROP, 3,000/3,000 CHOOSECOLS, and 3,000/3,000
+EXPAND full-bank rows.
+
+Evidence:
+
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, rows 3 to 32 at `4fb9b728df` — Excel 16.0.20527.20088 array shape and empty-result readings
+- DnaCalc `crates/calc-func/src/ported/dynamic_array_reshape_family.rs` at `4fb9b728df` — FILTER, DROP, CHOOSECOLS, and EXPAND error rules
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 5 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 21 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 24 column 4 at `4fb9b728df` (readings)
+- DnaCalc `crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json`, sheet f3_arrays row 32 column 4 at `4fb9b728df` (readings)
+
 ### FN-HSTACK-001: A direct error stops these array functions; the same error in an array or cell is an element
 
 *Quirk; measured; recorded 2026-11-04.* Applies to BYCOL, BYROW, EXPAND, HSTACK, MAP, TAKE, TOCOL, TOROW, VSTACK.

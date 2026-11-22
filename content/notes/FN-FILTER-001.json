@@ -1,0 +1,113 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-FILTER-001",
+  "functions": [
+    "FUNC.CHOOSECOLS",
+    "FUNC.DROP",
+    "FUNC.EXPAND",
+    "FUNC.FILTER"
+  ],
+  "kind": "quirk",
+  "title": "Empty FILTER or DROP results return #CALC!, whereas out-of-range CHOOSECOLS or shrinking EXPAND dimensions return #VALUE!",
+  "statement": "In Excel 16.0.20527.20088, dynamic array functions distinguish empty results from invalid indices or dimensions: FILTER with no matching elements and no if_empty argument returns #CALC!, and DROP removing all rows or columns returns #CALC!, whereas CHOOSECOLS with an out-of-range column index and EXPAND with target rows or columns smaller than the input array return #VALUE!.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 in f3_arrays (rows 3-5, 20-24, 31-32) and matched across 3,000/3,000 FILTER, 2,400/2,400 DROP, 3,000/3,000 CHOOSECOLS, and 3,000/3,000 EXPAND full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=@FILTER(Data!A1:A3,Data!A1:A3>9)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 5 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@DROP({1,2},1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#CALC!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 21 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@CHOOSECOLS({1,2,3},4)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 24 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@EXPAND({1,2},1,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+        "locator": "sheet f3_arrays row 32 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/catalogue/sections/f3_arrays.capture.json",
+      "locator": "rows 3 to 32",
+      "note": "Excel 16.0.20527.20088 array shape and empty-result readings"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/src/ported/dynamic_array_reshape_family.rs",
+      "locator": null,
+      "note": "FILTER, DROP, CHOOSECOLS, and EXPAND error rules"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

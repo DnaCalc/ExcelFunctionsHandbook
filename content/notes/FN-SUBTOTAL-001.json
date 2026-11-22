@@ -1,0 +1,105 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-SUBTOTAL-001",
+  "functions": [
+    "FUNC.AGGREGATE",
+    "FUNC.DAVERAGE",
+    "FUNC.DCOUNT",
+    "FUNC.DMAX",
+    "FUNC.DMIN",
+    "FUNC.DPRODUCT",
+    "FUNC.DSUM",
+    "FUNC.SUBTOTAL"
+  ],
+  "kind": "quirk",
+  "title": "SUBTOTAL, AGGREGATE, and the D-functions reject literal numbers or arrays in their reference slots at formula entry (0x800A03EC)",
+  "statement": "In Excel 16.0.20527.20088, SUBTOTAL (ref1/ref2...), AGGREGATE (reference/ref1... in reference form), and database functions (DSUM, DCOUNT, DAVERAGE, DMIN, DMAX, DPRODUCT, database argument) require actual range references in those parameter positions: supplying a literal number or array constant (such as =SUBTOTAL(9,1,2,3,4), =AGGREGATE(9,4,1,2,3,4), or =DSUM({1,2;3,4},1,{1})) is rejected by Excel at formula entry (COM 0x800A03EC) in both legacy and dynamic forms.",
+  "status": "measured",
+  "basis": "Measured by live Excel 16.0.20527 formula entry across all 18 entry-rejected rows of jnt_aggregate_arrays (rows 61-71 and 111-116) and crates/calc-fml/tests/fixtures/entry/excel-entry.tsv.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=SUBTOTAL(9.0,1.0,2.0,3.0,4.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "entry rejected (0x800A03EC)",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 61 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=AGGREGATE(9.0,4.0,1.0,2.0,3.0,4.0)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "entry rejected (0x800A03EC)",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 67 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=DSUM({1,2;3,4},1.0,{1})",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "entry rejected (0x800A03EC)",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+        "locator": "sheet jnt_aggregate_arrays row 111 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-func/tests/captures/jnt/sections/jnt_aggregate_arrays.capture.json",
+      "locator": "rows 61 to 71 and 111 to 116",
+      "note": "Live Excel 16.0.20527 formula-entry rejections"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "docs/plan/corpus-failures-2026-11-11.md",
+      "locator": "Section A",
+      "note": "Analysis and live read-back of the 18 entry-rejected cells"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "4fb9b728df8a96546ae685589b47e057b7e26771",
+      "path": "crates/calc-fml/tests/fixtures/entry/excel-entry.tsv",
+      "locator": null,
+      "note": "Measured Excel 16.0.20527 formula-entry acceptance table"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
