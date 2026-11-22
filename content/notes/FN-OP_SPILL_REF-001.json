@@ -1,0 +1,150 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-OP_SPILL_REF-001",
+  "functions": [
+    "FUNC.OP_SPILL_REF"
+  ],
+  "kind": "quirk",
+  "title": "Spill reference (A1#) tracks dynamic-array extent including 1x1 errors and returns #REF! on non-spills",
+  "statement": "In Excel 16.0.20527, the postfix spill operator A1# resolves to the spilled region anchored at A1 (ROWS(fn2_q009!J20#) = 2 and COLUMNS(fn2_q009!J20#) = 2 for a 2x2 spill; ROWS(J20#) = 1 and COLUMNS(J20#) = 4 in fn7_format_context, with INDEX(J20#,2,1) = #REF!). A dynamic-array formula evaluating to a single error cell still acts as a 1x1 spill anchor (ROWS(fn2_q001!J20#) = 1 where J20 holds =EXPAND(#N/A,0,3,\"pad\")), whereas referencing a cell with no spilling formula returns #REF! (ROWS(fn2_q123!J20#) = #REF!). In .xlsx files, Excel 16.0 build 20430 saves A1# as _xlfn.ANCHORARRAY(A1), but typing =ANCHORARRAY(B1) or =_xlfn.ANCHORARRAY(B1) at worksheet entry is refused (0x800A03EC).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527 in fn2_questions (478 observer # formulas across fn2_o001..fn2_o197), fn7_format_context (144 J20# formulas), excel-entry.tsv (B1# and ANCHORARRAY entry probes), and Excel 16.0 build 20430 in d1/excel-file-form.json (lines 291-311).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ROWS(fn2_q009!J20#)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "2.0",
+        "bits": "0x4000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_o009 row 2 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ROWS(fn2_q001!J20#)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.0",
+        "bits": "0x3ff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_o001 row 2 column 4",
+        "note": "fn2_q001!J20 holds =EXPAND(#N/A,0,3,\"pad\") evaluating to #N/A"
+      }
+    },
+    {
+      "call": "=ROWS(fn2_q123!J20#)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/fn2_questions/oracle.capture.json",
+        "locator": "sheet fn2_o123 row 2 column 4",
+        "note": "fn2_q123!J20 holds no spilling formula"
+      }
+    },
+    {
+      "call": "=COLUMNS(J20#)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "4.0",
+        "bits": "0x4010000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/fn7_format_context/oracle.capture.json",
+        "locator": "sheet q001 row 3 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=INDEX(J20#,2,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#REF!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20150 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+        "path": "crates/calc-func/tests/captures/fn7_format_context/oracle.capture.json",
+        "locator": "sheet q001 row 8 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/src/eval/run.rs",
+      "locator": "lines 2507-2530",
+      "note": "Spill reference (#) evaluation and #REF! on non-spill/multi-cell anchors"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/tests/acceptance/l1.rs",
+      "locator": "lines 984-1014",
+      "note": "Spill reference acceptance checks and ANCHORARRAY grammar refusal"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-doc/src/save/file_form.rs",
+      "locator": "lines 12-13",
+      "note": "_xlfn.ANCHORARRAY file-form serialization rule"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-doc/tests/fixtures/d1/excel-file-form.json",
+      "locator": "lines 291-311",
+      "note": "Excel 16.0 build 20430 saved _xlfn.ANCHORARRAY XML and cm=\"1\" flags"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "494f964897728b570a963d4c1d314d7734ba0bb1",
+      "path": "crates/calc-fml/tests/fixtures/entry/excel-entry.tsv",
+      "locator": "lines 135, 236, 618, and 3806-3808",
+      "note": "Excel 16.0.20527 entry acceptance of B1# vs refusal of ANCHORARRAY"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
