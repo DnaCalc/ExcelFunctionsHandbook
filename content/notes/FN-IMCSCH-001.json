@@ -1,0 +1,125 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMCSCH-001",
+  "functions": [
+    "FUNC.IMCSCH"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMCSCH forms the scaled reciprocal of IMSINH(z) without EXP's real-axis overflow check, returning \"0\" at 1e100",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMCSCH(inumber) computes sinh(inumber) through hyperbolic_parts (with 0.01 Taylor and 20.0 EXP(|x|)/2 cutoffs) without IMSINH's real-axis EXP-overflow #NUM! check, then takes the single scaled reciprocal 1 / sinh(z) with subnormals flushed to 0. Consequently IMCSCH(0) returns #NUM! while IMCSCH(1e100) returns \"0\". All 1,279 full-bank IMCSCH rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 119); 1,279/1,279 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMCSCH(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz",
+        "locator": "w111extended-2026092903-IMCSCH-00003",
+        "note": null
+      }
+    },
+    {
+      "call": "IMCSCH(1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e+100",
+            "bits": "0x54b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz",
+        "locator": "w111extended-2026092903-IMCSCH-00008",
+        "note": null
+      }
+    },
+    {
+      "call": "IMCSCH(1e-300)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "1E+300",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz",
+        "locator": "w111extended-2026092903-IMCSCH-00007",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::csch; ParsedComplex::reciprocal",
+      "note": "scaled reciprocal without real-axis EXP guard"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/tests/f1_engineering.rs",
+      "locator": "complex_hyperbolics_match_excel_neg_exp_and_cutoffs",
+      "note": "0.01 Taylor and 20.0 boundary controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMCSCH",
+      "note": "1,279/1,279 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

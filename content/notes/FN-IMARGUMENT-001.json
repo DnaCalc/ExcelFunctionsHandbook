@@ -1,0 +1,105 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMARGUMENT-001",
+  "functions": [
+    "FUNC.IMARGUMENT"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "IMARGUMENT forms im/re before atan, returning #DIV/0! when im/re overflows binary64",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMARGUMENT(inumber) returns #DIV/0! at 0+0i and +-pi/2 when re = 0 and im != 0, and for nonzero re evaluates ratio = im / re first: when |im / re| overflows binary64 (e.g. \"1e-300-1e9i\" or \"1e-300+1e109i\"), Excel returns #DIV/0! instead of +-pi/2. When ratio is finite, it computes excel_atan_reduced(ratio) shifted by +-pi in quadrants II and III, flushing subnormals to 0. All 1,209 full-bank IMARGUMENT rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 442-452, 599) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imargument.json.gz (Excel 16.0 build 20430); 1,209/1,209 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=IMARGUMENT(\"1e-300-1e9i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": {
+        "kind": "number",
+        "display": "-1.5707963267948966",
+        "bits": "0xbff921fb54442d18",
+        "how": "principal argument arg(1e-300 - 1e9i) = -pi/2 to nearest binary64"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 443 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMARGUMENT(\"1e-300+1e8i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.5707963267948966",
+        "bits": "0x3ff921fb54442d18"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 442 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "IMARGUMENT(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imargument.json.gz",
+        "locator": "w111extended-2026092903-IMARGUMENT-00003",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::argument",
+      "note": "im/re overflow check, excel_atan_reduced, and quadrant pi shift"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMARGUMENT",
+      "note": "1,209/1,209 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

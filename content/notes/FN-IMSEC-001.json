@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMSEC-001",
+  "functions": [
+    "FUNC.IMSEC"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMSEC forms one scaled reciprocal of IMCOS(z) and rejects |re| >= 2^27 or empty text with #NUM!",
+  "statement": "In Excel 16.0 build 20527, IMSEC(inumber) evaluates z_cos = cos(inumber) (rejecting |re| >= 2^27 and empty text \"\" with #NUM!, while treating a blank cell as 0 -> \"1\") and forms 1 / z_cos as a single scaled reciprocal 1 / (a + b * ratio) multiplied by ratio, with subnormal components flushed to 0. All 1,060 full-bank IMSEC rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-imsec-scalar.json (Excel 16.0 build 20527) and Excel 16.0.20527.20088 (prefix_metadata row 128); 1,060/1,060 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMSEC(\"\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "text",
+            "display": "",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-imsec-scalar.json",
+        "locator": "bank2-scalar-IMSEC-0001",
+        "note": null
+      }
+    },
+    {
+      "call": "IMSEC(\"1e+100\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "text",
+            "display": "1e+100",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-imsec-scalar.json",
+        "locator": "bank2-scalar-IMSEC-0009",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMSEC(\"4+3i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "-0.0652940278579471-0.0752249603027732i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 128 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::sec; ParsedComplex::reciprocal",
+      "note": "single scaled reciprocal of cos(z)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMSEC",
+      "note": "1,060/1,060 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

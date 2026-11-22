@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ARABIC-001",
+  "functions": [
+    "FUNC.ARABIC"
+  ],
+  "kind": "quirk",
+  "title": "ARABIC accepts empty text and blank cells as 0, ignores case, and rejects numeric or invalid text with #VALUE!",
+  "statement": "In Excel 16.0 build 20527, ARABIC(text) evaluates Roman numerals case-insensitively (e.g. \"XIV\" -> 14, \"i\" -> 1), returns 0 for empty text \"\" and blank cells, and returns #VALUE! for direct numbers or non-Roman strings such as \"0\" or \"1e2\". All 2,115 full-bank ARABIC rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (prefix_metadata row 6) and CalcFunc-Evidence readings/excel-20527/bank2-answers-arabic-scalar.json and bank2-answers-arabic-more.json (Excel 16.0 build 20527); 2,115/2,115 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ARABIC(\"XIV\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "14.0",
+        "bits": "0x402c000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 6 column 1",
+        "note": null
+      }
+    },
+    {
+      "call": "ARABIC(\"\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-arabic-scalar.json",
+        "locator": "bank2-scalar-ARABIC-0097",
+        "note": null
+      }
+    },
+    {
+      "call": "ARABIC(\"0\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "text",
+          "value": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-arabic-more.json",
+        "locator": "bank2-more-ARABIC-0001",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/arabic_fn.rs",
+      "locator": "arabic_kernel",
+      "note": "case-insensitive Roman numeral decoding and empty-text 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ARABIC",
+      "note": "2,115/2,115 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

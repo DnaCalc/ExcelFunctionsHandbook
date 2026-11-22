@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMEXP-001",
+  "functions": [
+    "FUNC.IMEXP"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMEXP routes numeric real inputs in [-300, 300] through Excel's worksheet EXP and uses CRT exp/cos/sin elsewhere",
+  "statement": "In Excel 16.0 build 20527, IMEXP(inumber) evaluates numeric real inputs in [-300, 300] via Excel's worksheet EXP kernel before complex text formatting, whereas complex text inputs or magnitudes outside [-300, 300] evaluate CRT exp(re) * (cos(im) + sin(im) i). Empty text \"\" returns #NUM! while a blank cell returns \"1\". All 1,049 full-bank IMEXP rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-imexp-scalar.json (Excel 16.0 build 20527) and Excel 16.0.20527.20088 (prefix_metadata row 121); 1,049/1,049 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMEXP(27.000000000000004)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "27.000000000000004",
+            "bits": "0x403b000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "532048240601.801",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-imexp-scalar.json",
+        "locator": "bank2-scalar-IMEXP-0296",
+        "note": null
+      }
+    },
+    {
+      "call": "IMEXP(100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "2.68811714181614E+43",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "readings/excel-20527/bank2-answers-imexp-scalar.json",
+        "locator": "bank2-scalar-IMEXP-0014",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMEXP(\"1+i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "1.46869393991589+2.28735528717884i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 121 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/engineering.rs",
+      "locator": "imexp",
+      "note": "worksheet EXP branch for numeric real inputs in [-300, 300]"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/tests/f1_engineering.rs",
+      "locator": "imexp_numeric_real_uses_excel_exponential",
+      "note": "Excel EXP vs CRT discriminator controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMEXP",
+      "note": "1,049/1,049 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

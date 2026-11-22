@@ -1,0 +1,118 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMCSC-001",
+  "functions": [
+    "FUNC.IMCSC"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMCSC takes one scaled reciprocal of IMSIN(z) rather than IMDIV(\"1\", IMSIN(z)), returning #NUM! at 0 and |re| >= 2^27",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMCSC(inumber) computes z_sin = sin(inumber) (rejecting |re| >= 2^27 with #NUM!), returns #NUM! when z_sin = 0+0i (such as 0), and forms 1 / z_sin via a single scaled reciprocal 1 / (a + b * ratio) multiplied by ratio (which differs after rounding from IMDIV's two separate quotients), flushing subnormal components to 0. All 1,209 full-bank IMCSC rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 118); 1,209/1,209 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMCSC(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz",
+        "locator": "w111extended-2026092903-IMCSC-00003",
+        "note": null
+      }
+    },
+    {
+      "call": "IMCSC(1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e+100",
+            "bits": "0x54b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz",
+        "locator": "w111extended-2026092903-IMCSC-00008",
+        "note": null
+      }
+    },
+    {
+      "call": "IMCSC(1e-300)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "1E+300",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz",
+        "locator": "w111extended-2026092903-IMCSC-00007",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::csc; ParsedComplex::reciprocal",
+      "note": "single scaled reciprocal of sin(z)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMCSC",
+      "note": "1,209/1,209 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

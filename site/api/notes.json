@@ -1,7 +1,7 @@
 {
   "schema": "efh.function-notes-api/v1",
   "source": "content/notes/FN-*.json (efh.function-note/v1)",
-  "note_count": 202,
+  "note_count": 231,
   "notes": [
     {
       "schema": "efh.function-note/v1",
@@ -1403,6 +1403,115 @@
           "path": "crates/calc-func/tests/captures/dc_fwpz/oracle.capture.json",
           "locator": "logical_functions rows 3 to 85",
           "note": "Measured Excel 16.0.20527.20088 AND/OR/XOR readings"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-ARABIC-001",
+      "functions": [
+        "FUNC.ARABIC"
+      ],
+      "kind": "quirk",
+      "title": "ARABIC accepts empty text and blank cells as 0, ignores case, and rejects numeric or invalid text with #VALUE!",
+      "statement": "In Excel 16.0 build 20527, ARABIC(text) evaluates Roman numerals case-insensitively (e.g. \"XIV\" -> 14, \"i\" -> 1), returns 0 for empty text \"\" and blank cells, and returns #VALUE! for direct numbers or non-Roman strings such as \"0\" or \"1e2\". All 2,115 full-bank ARABIC rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (prefix_metadata row 6) and CalcFunc-Evidence readings/excel-20527/bank2-answers-arabic-scalar.json and bank2-answers-arabic-more.json (Excel 16.0 build 20527); 2,115/2,115 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=ARABIC(\"XIV\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "14.0",
+            "bits": "0x402c000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 6 column 1",
+            "note": null
+          }
+        },
+        {
+          "call": "ARABIC(\"\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-arabic-scalar.json",
+            "locator": "bank2-scalar-ARABIC-0097",
+            "note": null
+          }
+        },
+        {
+          "call": "ARABIC(\"0\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "text",
+              "value": {
+                "kind": "text",
+                "display": "0",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-arabic-more.json",
+            "locator": "bank2-more-ARABIC-0001",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/arabic_fn.rs",
+          "locator": "arabic_kernel",
+          "note": "case-insensitive Roman numeral decoding and empty-text 0"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "ARABIC",
+          "note": "2,115/2,115 full-bank matches"
         }
       ],
       "open": [],
@@ -4870,6 +4979,155 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-COMPLEX-001",
+      "functions": [
+        "FUNC.COMPLEX"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "COMPLEX formats coefficients to 15 digits via directed x87 rounding, turns DBL_MIN into \"0\", and rejects DBL_MAX",
+      "statement": "In Excel 16.0 builds 20430 and 20527, COMPLEX(real_num, i_num, [suffix]) formats each nonzero coefficient to 15 significant digits via ExactDecimal::fifteen_x87 (floor(frexp_k / 3.3219), nibble-chain scaling, exact half-up ties, and 16-digit binary64 half-down re-scale on k = -485, -970 slivers), using fixed notation up to 21 unsigned characters and scientific notation beyond. It rejects exact DBL_MAX (0x7fefffffffffffff) with #NUM!, emits \"0\" (\"0i\") when rounding DBL_MIN to 15 digits falls below DBL_MIN, omits unit imaginary coefficients (\"i\", \"-i\"), and accepts only \"\", \"i\", or \"j\" as suffix (#VALUE! otherwise). All 10,709 full-bank COMPLEX rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-broad-regenerated-20260929/answers-complex.json.gz and runs/w111-complex-format-20260929/batches-answers/answers-batch-complex.json.gz (Excel 16.0 build 20430) plus Excel 16.0.20527.20196 discriminators; 10,709/10,709 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "COMPLEX(1.7976931348623157e+308, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "real_num",
+              "value": {
+                "kind": "number",
+                "display": "1.7976931348623157e+308",
+                "bits": "0x7fefffffffffffff"
+              }
+            },
+            {
+              "name": "i_num",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-broad-regenerated-20260929/answers-complex.json.gz",
+            "locator": "w111broad-20260929-COMPLEX-00125",
+            "note": null
+          }
+        },
+        {
+          "call": "COMPLEX(0, 2.2250738585072014e-308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "real_num",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "i_num",
+              "value": {
+                "kind": "number",
+                "display": "2.2250738585072014e-308",
+                "bits": "0x0010000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-format-20260929/batches-answers/answers-batch-complex.json.gz",
+            "locator": "complex-format-COMPLEX-normal-limit-pos1",
+            "note": null
+          }
+        },
+        {
+          "call": "COMPLEX(4503599627370495.0, -1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "real_num",
+              "value": {
+                "kind": "number",
+                "display": "4503599627370495.0",
+                "bits": "0x432ffffffffffffe"
+              }
+            },
+            {
+              "name": "i_num",
+              "value": {
+                "kind": "number",
+                "display": "-1.0",
+                "bits": "0xbff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "4503599627370500-i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-broad-regenerated-20260929/answers-complex.json.gz",
+            "locator": "w111broad-20260929-COMPLEX-00103",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "number_to_excel_text; format_complex_text",
+          "note": "directed 15-digit x87 coefficient rendering and DBL_MAX/DBL_MIN edges"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/f1_engineering.rs",
+          "locator": "complex_text_uses_directed_fifteen_x87_including_binade4_and_slivers",
+          "note": "binade-4, tie, and sliver discriminators"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "COMPLEX",
+          "note": "10,709/10,709 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-CONCAT-001",
       "functions": [
         "FUNC.ARRAYTOTEXT",
@@ -7420,6 +7678,147 @@
           "path": "crates/calc-func/witness-status.tsv",
           "locator": "DATE",
           "note": "22,250 of 22,250 full-bank DATE rows matched"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-DATEDIF-001",
+      "functions": [
+        "FUNC.DATEDIF"
+      ],
+      "kind": "quirk",
+      "title": "DATEDIF unit \"MD\" can return negative day counts when crossing a shorter preceding month",
+      "statement": "In Excel 16.0.20527.20088, DATEDIF(start_date, end_date, unit) truncates both serials, rejects start_date > end_date or unknown unit strings (anything outside trimmed case-insensitive Y, M, D, YM, YD, MD) with #NUM!, and for unit \"MD\" when end_day < start_day computes end_day + days_in_previous_month(end_year, end_month) - start_day. When start_day exceeds the month preceding end_date (e.g. 2001-01-31 to 2001-03-01, crossing 28-day February), \"MD\" returns -2 (and 2001-01-30 to 2001-03-01 returns -1). All 2,914 full-bank DATEDIF rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_dates_random rows 65-75 and f2_rows rows 133-137); 2,914/2,914 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=DATEDIF(A67,B67,\"MD\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "number",
+                "display": "36922.0",
+                "bits": "0x40e2074000000000"
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "36951.0",
+                "bits": "0x40e20ae000000000"
+              }
+            },
+            {
+              "name": "unit",
+              "value": {
+                "kind": "text",
+                "display": "MD",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-2.0",
+            "bits": "0xc000000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_dates_random.capture.json",
+            "locator": "sheet jnt_dates_random row 67 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=DATEDIF(A68,B68,\"MD\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "start_date",
+              "value": {
+                "kind": "number",
+                "display": "36921.0",
+                "bits": "0x40e2072000000000"
+              }
+            },
+            {
+              "name": "end_date",
+              "value": {
+                "kind": "number",
+                "display": "36951.0",
+                "bits": "0x40e20ae000000000"
+              }
+            },
+            {
+              "name": "unit",
+              "value": {
+                "kind": "text",
+                "display": "MD",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "-1.0",
+            "bits": "0xbff0000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_dates_random.capture.json",
+            "locator": "sheet jnt_dates_random row 68 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=DATEDIF(45000,45716,\"x\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+            "locator": "sheet f2_rows row 137 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/date_kernels.rs",
+          "locator": "datedif; datedif_unit",
+          "note": "MD previous-month formula and unit/order #NUM! checks"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "DATEDIF",
+          "note": "2,914/2,914 full-bank matches"
         }
       ],
       "open": [],
@@ -14005,6 +14404,2804 @@
     },
     {
       "schema": "efh.function-note/v1",
+      "note_id": "FN-IMABS-001",
+      "functions": [
+        "FUNC.IMABS"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMABS computes CRT hypot(re, im) without squaring underflow and rejects empty text with #NUM!",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMABS(inumber) parses complex text to 15 significant digits (rejecting empty text \"\" with #NUM! while treating a blank cell as 0) and computes modulus via CRT hypot(re, im), preserving tiny values such as 1e-300 without the squaring underflow seen in IMSQRT. All 1,209 full-bank IMABS rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imabs.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (jnt_parity_complex row 591); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMABS(1e-300)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e-300",
+                "bits": "0x01a56e1fc2f8f359"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imabs.json.gz",
+            "locator": "w111extended-2026092903-IMABS-00007",
+            "note": null
+          }
+        },
+        {
+          "call": "IMABS(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "100.0",
+            "bits": "0x4059000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imabs.json.gz",
+            "locator": "w111extended-2026092903-IMABS-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMABS(\"3+4i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "5.0",
+            "bits": "0x4014000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 591 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::abs",
+          "note": "crt_hypot(re, im)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMABS",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMAGINARY-001",
+      "functions": [
+        "FUNC.IMAGINARY"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "IMAGINARY truncates complex text coefficients to 15 significant digits before returning binary64",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMAGINARY(inumber) parses complex text through Excel's 15-significant-digit decimal parser and flushes subnormal coefficients below DBL_MIN to 0. Thus IMAGINARY(\"1.5707963267948966i\") returns 1.5707963267949 (0x3ff921fb54442cfa) instead of 0x3ff921fb54442d18, and IMAGINARY(\"3.141592653589793i\") returns 3.14159265358979 (0x400921fb54442d11) instead of 0x400921fb54442d18. All 1,209 full-bank IMAGINARY rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 482-494, 593) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imaginary.json.gz (Excel 16.0 build 20430); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IMAGINARY(\"1.5707963267948966i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.57079632679489",
+            "bits": "0x3ff921fb54442cfa"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "1.5707963267948966",
+            "bits": "0x3ff921fb54442d18",
+            "how": "exact binary64 rounding of 1.5707963267948966"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 482 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMAGINARY(\"3.141592653589793i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3.14159265358979",
+            "bits": "0x400921fb54442d11"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "3.141592653589793",
+            "bits": "0x400921fb54442d18",
+            "how": "exact binary64 rounding of 3.141592653589793"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 483 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "parse_ascii_decimal_15; parse_complex_text",
+          "note": "15-significant-digit complex coefficient parser"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMAGINARY",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMARGUMENT-001",
+      "functions": [
+        "FUNC.IMARGUMENT"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "IMARGUMENT forms im/re before atan, returning #DIV/0! when im/re overflows binary64",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMARGUMENT(inumber) returns #DIV/0! at 0+0i and +-pi/2 when re = 0 and im != 0, and for nonzero re evaluates ratio = im / re first: when |im / re| overflows binary64 (e.g. \"1e-300-1e9i\" or \"1e-300+1e109i\"), Excel returns #DIV/0! instead of +-pi/2. When ratio is finite, it computes excel_atan_reduced(ratio) shifted by +-pi in quadrants II and III, flushing subnormals to 0. All 1,209 full-bank IMARGUMENT rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 442-452, 599) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imargument.json.gz (Excel 16.0 build 20430); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IMARGUMENT(\"1e-300-1e9i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "correct": {
+            "kind": "number",
+            "display": "-1.5707963267948966",
+            "bits": "0xbff921fb54442d18",
+            "how": "principal argument arg(1e-300 - 1e9i) = -pi/2 to nearest binary64"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 443 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMARGUMENT(\"1e-300+1e8i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "1.5707963267948966",
+            "bits": "0x3ff921fb54442d18"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 442 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "IMARGUMENT(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#DIV/0!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imargument.json.gz",
+            "locator": "w111extended-2026092903-IMARGUMENT-00003",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::argument",
+          "note": "im/re overflow check, excel_atan_reduced, and quadrant pi shift"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMARGUMENT",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMCONJUGATE-001",
+      "functions": [
+        "FUNC.IMCONJUGATE"
+      ],
+      "kind": "quirk",
+      "title": "IMCONJUGATE preserves \"i\"/\"j\" suffix, formats DBL_MIN as \"0\", and rejects exact DBL_MAX with #NUM!",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMCONJUGATE(inumber) negates the imaginary part, preserves the operand's \"i\" or \"j\" suffix, rejects empty text \"\" with #NUM! (while treating a blank cell as 0), and formats via Excel's 15-significant-digit complex text formatter (emitting \"0\" for DBL_MIN and #NUM! for exact DBL_MAX). All 3,245 full-bank IMCONJUGATE rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 589-590) and CalcFunc-Evidence runs/w111-complex-format-20260929/batches-answers/answers-batch-imconjugate.json.gz (Excel 16.0 build 20430); 3,245/3,245 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IMCONJUGATE(\"3+4j\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "3-4j",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 590 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCONJUGATE(2.2250738585072014e-308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "2.2250738585072014e-308",
+                "bits": "0x0010000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-format-20260929/batches-answers/answers-batch-imconjugate.json.gz",
+            "locator": "complex-format-IMCONJUGATE-normal-limit-pos0",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCONJUGATE(1.7976931348623157e+308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1.7976931348623157e+308",
+                "bits": "0x7fefffffffffffff"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-format-20260929/batches-answers/answers-batch-imconjugate.json.gz",
+            "locator": "complex-format-IMCONJUGATE-normal-limit-pos0",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::conj; format_complex_text",
+          "note": "suffix preservation and 15-digit complex formatting"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMCONJUGATE",
+          "note": "3,245/3,245 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMCOS-001",
+      "functions": [
+        "FUNC.IMCOS"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMCOS rejects |re| >= 2^27 with #NUM! and pairs Excel circular kernels with EXP(im) and RN53(RN64(1/EXP(im)))",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMCOS(inumber) rejects |re| >= 2^27 = 134,217,728 with #NUM!, evaluates (sin(re), cos(re)) via Excel's scalar circular kernels, and forms positive = exp_kernel(im) and negative = RN53(RN64(1/positive)) to return cos(re)*(positive+negative)/2 - sin(re)*(positive-negative)/2 i. All 1,209 full-bank IMCOS rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcos.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (jnt_parity_complex row 342); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMCOS(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcos.json.gz",
+            "locator": "w111extended-2026092903-IMCOS-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCOS(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0.862318872287684",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcos.json.gz",
+            "locator": "w111extended-2026092903-IMCOS-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMCOS(\"0-0.1i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1.0050041680558",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 342 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::cos; complex_circular_parts",
+          "note": "2^27 circular guard and exp_kernel/x87_recip hyperbolic factors"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMCOS",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMCOSH-001",
+      "functions": [
+        "FUNC.IMCOSH"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMCOSH uses 1+re^2/2 for |re|<=0.0001, (1/EXP(-re)+EXP(-re))/2 below 20, and EXP(|re|+LN(cos(im)/2)) off-axis above 709",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMCOSH(inumber) rejects pure-real inputs where EXP(|re|) overflows with #NUM!, evaluates cosh(re) as 1 + re^2/2 for |re| <= 0.0001, (1/EXP(-re) + EXP(-re))/2 for 0.0001 < |re| < 20, and EXP(|re|)/2 for |re| >= 20. Off-axis (im != 0), it checks |im| < 2^27 and for re > 709 or re < -708 evaluates EXP(|re| + LN(cos(im)/2)) and EXP(|re| + LN(sin(im)/2)) without abs(), returning #NUM! when cos(im) <= 0 or sin(im) <= 0. All 1,216 full-bank IMCOSH rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcosh.json.gz (Excel 16.0 build 20430), CalcFunc-Evidence readings/excel-20527/studies/fx2.json.gz, and Excel 16.0.20527.20088 (prefix_metadata row 116); 1,216/1,216 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMCOSH(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcosh.json.gz",
+            "locator": "w111extended-2026092903-IMCOSH-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCOSH(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "1.34405857090807E+43",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcosh.json.gz",
+            "locator": "w111extended-2026092903-IMCOSH-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMCOSH(\"4+3i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "-27.0349456030742+3.85115333481178i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 116 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::cosh; hyperbolic_parts; large_off_axis_hyperbolic",
+          "note": "0.0001/20/709 regime switches"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/f1_engineering.rs",
+          "locator": "complex_hyperbolics_match_excel_neg_exp_and_cutoffs",
+          "note": "Excel 16.0.20527 cutoff controls"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMCOSH",
+          "note": "1,216/1,216 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMCOT-001",
+      "functions": [
+        "FUNC.IMCOT"
+      ],
+      "kind": "quirk",
+      "title": "IMCOT saturates to -+i for im > 354.5 or im < -354 before checking |re| >= 2^27 and returns \"0\" for real |re| >= 2^27",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMCOT(inumber) checks im > 354.5 (returning \"-i\") and im < -354.0 (returning \"i\") before checking |re| < 2^27. On the real axis (im = 0), |re| >= 2^27 returns \"0\" (whereas IMTAN returns #NUM!), tan(re) = 0 returns #NUM!, and otherwise it returns RN53(RN64(1/tan(re))). Off-axis, it uses Excel's circular reduction and flushes subnormal real quotients to 0; 1,283/1,283 pinned and 1,228/1,243 full-bank rows match (15 off-axis rows differ by up to 55 ULP on build 20527.20196).",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 402-412, 604) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcot.json.gz (Excel 16.0 build 20430); 1,283/1,283 pinned and 1,228/1,243 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMCOT(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcot.json.gz",
+            "locator": "w111extended-2026092903-IMCOT-00003",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCOT(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcot.json.gz",
+            "locator": "w111extended-2026092903-IMCOT-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMCOT(\"134217728-0.1i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": {
+            "kind": "text",
+            "display": "-0.986675276887534-0.194712611948852i",
+            "bits": null,
+            "how": "mathematical cot(134217728 - 0.1i) rounded to 15 digits"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 412 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::cot; tangent_imaginary_limit",
+          "note": "asymmetric imaginary saturation and real-axis 2^27 -> 0"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "docs/research/imtan-imcot-off-axis-2026-11-16.md",
+          "locator": null,
+          "note": "off-axis hyperbolic denominator and 55-ULP open rows"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMCOT",
+          "note": "1,283/1,283 pinned and 1,228/1,243 full-bank matches"
+        }
+      ],
+      "open": [
+        "15 off-axis full-bank IMCOT rows on Excel 16.0.20527.20196 differ by up to 55 ULP (unidentified hyperbolic denominator arithmetic)."
+      ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMCSC-001",
+      "functions": [
+        "FUNC.IMCSC"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMCSC takes one scaled reciprocal of IMSIN(z) rather than IMDIV(\"1\", IMSIN(z)), returning #NUM! at 0 and |re| >= 2^27",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMCSC(inumber) computes z_sin = sin(inumber) (rejecting |re| >= 2^27 with #NUM!), returns #NUM! when z_sin = 0+0i (such as 0), and forms 1 / z_sin via a single scaled reciprocal 1 / (a + b * ratio) multiplied by ratio (which differs after rounding from IMDIV's two separate quotients), flushing subnormal components to 0. All 1,209 full-bank IMCSC rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 118); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMCSC(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz",
+            "locator": "w111extended-2026092903-IMCSC-00003",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCSC(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz",
+            "locator": "w111extended-2026092903-IMCSC-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCSC(1e-300)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e-300",
+                "bits": "0x01a56e1fc2f8f359"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "1E+300",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcsc.json.gz",
+            "locator": "w111extended-2026092903-IMCSC-00007",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::csc; ParsedComplex::reciprocal",
+          "note": "single scaled reciprocal of sin(z)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMCSC",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMCSCH-001",
+      "functions": [
+        "FUNC.IMCSCH"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMCSCH forms the scaled reciprocal of IMSINH(z) without EXP's real-axis overflow check, returning \"0\" at 1e100",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMCSCH(inumber) computes sinh(inumber) through hyperbolic_parts (with 0.01 Taylor and 20.0 EXP(|x|)/2 cutoffs) without IMSINH's real-axis EXP-overflow #NUM! check, then takes the single scaled reciprocal 1 / sinh(z) with subnormals flushed to 0. Consequently IMCSCH(0) returns #NUM! while IMCSCH(1e100) returns \"0\". All 1,279 full-bank IMCSCH rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 119); 1,279/1,279 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMCSCH(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz",
+            "locator": "w111extended-2026092903-IMCSCH-00003",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCSCH(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz",
+            "locator": "w111extended-2026092903-IMCSCH-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "IMCSCH(1e-300)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e-300",
+                "bits": "0x01a56e1fc2f8f359"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "1E+300",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imcsch.json.gz",
+            "locator": "w111extended-2026092903-IMCSCH-00007",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::csch; ParsedComplex::reciprocal",
+          "note": "scaled reciprocal without real-axis EXP guard"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/f1_engineering.rs",
+          "locator": "complex_hyperbolics_match_excel_neg_exp_and_cutoffs",
+          "note": "0.01 Taylor and 20.0 boundary controls"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMCSCH",
+          "note": "1,279/1,279 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMDIV-001",
+      "functions": [
+        "FUNC.IMDIV"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMDIV scales by the larger denominator component and flushes subnormal output components below DBL_MIN to 0",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMDIV(inumber1, inumber2) returns #NUM! for a 0+0i divisor, scales both numerator and denominator by ratio = im2/re2 (when |re2| >= |im2|) or re2/im2 to avoid overflow/underflow, and flushes any real or imaginary quotient below DBL_MIN to 0 before complex text assembly. All 2,067 full-bank IMDIV rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence runs/w111-complex-kernels-20260929/answers/answers-imdiv.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (jnt_parity_complex row 594); 2,067/2,067 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMDIV(-1.3186812264501746e+183, 0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber1",
+              "value": {
+                "kind": "number",
+                "display": "-6.484674032191153e+189",
+                "bits": "0xe757496f6b38ec63"
+              }
+            },
+            {
+              "name": "inumber2",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-kernels-20260929/answers/answers-imdiv.json.gz",
+            "locator": "complex-kernel-2026092906-IMDIV-0000",
+            "note": null
+          }
+        },
+        {
+          "call": "IMDIV(-1.1483034436988412e-255, 1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber1",
+              "value": {
+                "kind": "number",
+                "display": "-1.3763059134700954e-255",
+                "bits": "0x8b04aa4fc3c87bbc"
+              }
+            },
+            {
+              "name": "inumber2",
+              "value": {
+                "kind": "number",
+                "display": "9.999999999999998e+99",
+                "bits": "0x54b249ad2594c37c"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-kernels-20260929/answers/answers-imdiv.json.gz",
+            "locator": "complex-kernel-2026092906-IMDIV-0095",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMDIV(\"3+4i\",\"1-2i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "-1+2i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 594 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::div; ParsedComplex::quotient",
+          "note": "scaled complex division and subnormal quotient flush"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMDIV",
+          "note": "2,067/2,067 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMEXP-001",
+      "functions": [
+        "FUNC.IMEXP"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMEXP routes numeric real inputs in [-300, 300] through Excel's worksheet EXP and uses CRT exp/cos/sin elsewhere",
+      "statement": "In Excel 16.0 build 20527, IMEXP(inumber) evaluates numeric real inputs in [-300, 300] via Excel's worksheet EXP kernel before complex text formatting, whereas complex text inputs or magnitudes outside [-300, 300] evaluate CRT exp(re) * (cos(im) + sin(im) i). Empty text \"\" returns #NUM! while a blank cell returns \"1\". All 1,049 full-bank IMEXP rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-imexp-scalar.json (Excel 16.0 build 20527) and Excel 16.0.20527.20088 (prefix_metadata row 121); 1,049/1,049 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMEXP(27.000000000000004)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "27.000000000000004",
+                "bits": "0x403b000000000001"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "532048240601.801",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-imexp-scalar.json",
+            "locator": "bank2-scalar-IMEXP-0296",
+            "note": null
+          }
+        },
+        {
+          "call": "IMEXP(100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "100.0",
+                "bits": "0x4059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "2.68811714181614E+43",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-imexp-scalar.json",
+            "locator": "bank2-scalar-IMEXP-0014",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMEXP(\"1+i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1.46869393991589+2.28735528717884i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 121 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/catalogue/engineering.rs",
+          "locator": "imexp",
+          "note": "worksheet EXP branch for numeric real inputs in [-300, 300]"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/f1_engineering.rs",
+          "locator": "imexp_numeric_real_uses_excel_exponential",
+          "note": "Excel EXP vs CRT discriminator controls"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMEXP",
+          "note": "1,049/1,049 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMLN-001",
+      "functions": [
+        "FUNC.IMLN"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMLN computes CRT ln(IMABS(z)) + atan2(im, re) i and returns #NUM! at 0",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMLN(inumber) returns #NUM! when IMABS(inumber) = 0, and otherwise formats crt_log(crt_hypot(re, im)) + crt_atan2(im, re) i with Excel's 15-digit complex text formatter. Unlike IMARGUMENT (which computes atan(im/re) and returns #DIV/0! on ratio overflow), IMLN uses atan2(im, re). All 1,209 full-bank IMLN rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imln.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 122); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMLN(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imln.json.gz",
+            "locator": "w111extended-2026092903-IMLN-00003",
+            "note": null
+          }
+        },
+        {
+          "call": "IMLN(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "4.60517018598809+3.14159265358979i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imln.json.gz",
+            "locator": "w111extended-2026092903-IMLN-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMLN(\"3+4i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "1.6094379124341+0.927295218001612i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 122 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::ln",
+          "note": "crt_log(abs) + crt_atan2(im, re) i"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMLN",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMLOG10-001",
+      "functions": [
+        "FUNC.IMLOG10"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMLOG10 multiplies Excel LN(|re|) by LOG10_E on the real axis and divides IMLN(z) by CRT ln(10) off-axis",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMLOG10(inumber) rejects 0 with #NUM!. When im = 0, its real component is RN53(RN64(excel_log(|re|) * LOG10_E)) (while the imaginary part for re < 0 is pi / crt_log(10)); off the real axis (im != 0), both components divide IMLN(z) by crt_log(10). All 1,209 full-bank and 1,323 pinned IMLOG10 rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imlog10.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527 (witnesses/IMLOG10.json fn10-log10-discriminators); 1,209/1,209 full-bank and 1,323/1,323 pinned rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMLOG10(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imlog10.json.gz",
+            "locator": "w111extended-2026092903-IMLOG10-00003",
+            "note": null
+          }
+        },
+        {
+          "call": "IMLOG10(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "2+1.36437635384184i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imlog10.json.gz",
+            "locator": "w111extended-2026092903-IMLOG10-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMLOG10(\"3+4i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "0.698970004336019+0.402719196273373i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 123 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/catalogue/engineering.rs",
+          "locator": "imlog10",
+          "note": "real-axis excel_log * LOG10_E vs off-axis ln / crt_log(10)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMLOG10",
+          "note": "1,209/1,209 full-bank and 1,323/1,323 pinned matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMLOG2-001",
+      "functions": [
+        "FUNC.IMLOG2"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMLOG2 multiplies Excel LN(|re|) by 0x3ff71547652b82ff on the real axis and divides IMLN(z) by CRT ln(2) off-axis",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMLOG2(inumber) rejects 0 with #NUM!. When im = 0, its real component multiplies Excel's scalar LN(|re|) by 0x3ff71547652b82ff (1.4426950408889636, 1 ULP above LOG2_E) in stored x87 arithmetic RN53(RN64(...)), whereas off-axis and imaginary parts divide IMLN(z) by crt_log(2). All 1,209 full-bank and 1,397 pinned IMLOG2 rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imlog2.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527 (crates/calc-func/tests/captures/fn10_complex_axes/scalar-observations.json, 944 coefficients + 130 validation rows); 1,209/1,209 full-bank and 1,397/1,397 pinned rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMLOG2(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imlog2.json.gz",
+            "locator": "w111extended-2026092903-IMLOG2-00003",
+            "note": null
+          }
+        },
+        {
+          "call": "IMLOG2(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "6.64385618977473+4.53236014182719i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imlog2.json.gz",
+            "locator": "w111extended-2026092903-IMLOG2-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMLOG2(\"3+4i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "2.32192809488736+1.33780421245098i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 124 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/catalogue/engineering.rs",
+          "locator": "imlog2",
+          "note": "real-axis excel_log * 0x3ff71547652b82ff vs off-axis ln / crt_log(2)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/captures/fn10_complex_axes/scalar-observations.json",
+          "locator": "fn11_imlog2_multiplier",
+          "note": "944-coefficient and 130-row validation bounds"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMLOG2",
+          "note": "1,209/1,209 full-bank and 1,397/1,397 pinned matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMPOWER-001",
+      "functions": [
+        "FUNC.IMPOWER"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "IMPOWER reduces axis angles with Excel's 66-bit pi (leaving residue on i^2) and rejects |angle| > 2^27 - 1",
+      "statement": "In Excel 16.0 build 20527, IMPOWER(inumber, number) returns #NUM! for 0^0 or negative powers of 0, returns \"0\" if |z|^number underflows to 0 (before checking the angle bound), and otherwise rejects |atan2(im, re) * number| > 134,217,727 (2^27 - 1) with #NUM!. On the real or imaginary axes (re = 0 or im = 0), it uses Excel's 66-bit pi circular reduction for sin/cos(angle), so IMPOWER(\"i\", 2) returns \"-1+1.22514845490862E-16i\" instead of \"-1\". All 2,735 full-bank IMPOWER rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-impower-more.json and bank2-answers-impower-scalar.json (Excel 16.0 build 20527); 2,735/2,735 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMPOWER(\"i\", 2)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "text",
+                "display": "i",
+                "bits": null
+              }
+            },
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "2.0",
+                "bits": "0x4000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "-1+1.22514845490862E-16i",
+            "bits": null
+          },
+          "correct": {
+            "kind": "text",
+            "display": "-1",
+            "bits": null,
+            "how": "exact mathematical value i^2 = -1"
+          },
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-impower-more.json",
+            "locator": "bank2-more-IMPOWER-0257",
+            "note": null
+          }
+        },
+        {
+          "call": "IMPOWER(\"-1\", -1e-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "text",
+                "display": "-1",
+                "bits": null
+              }
+            },
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "-1e-100",
+                "bits": "0xab2bff2ee48e0530"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "1-3.14159265358979E-100i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-impower-more.json",
+            "locator": "bank2-more-IMPOWER-0001",
+            "note": null
+          }
+        },
+        {
+          "call": "IMPOWER(1e+100, 25569)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            },
+            {
+              "name": "number",
+              "value": {
+                "kind": "number",
+                "display": "25569.0",
+                "bits": "0x40d8f84000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-impower-scalar.json",
+            "locator": "bank2-scalar-IMPOWER-0009",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::power",
+          "note": "scale==0 short-circuit, 2^27-1 angle bound, and axis circular reduction"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/f1_engineering.rs",
+          "locator": "impower_negative_axis_and_angle_limit",
+          "note": "axis residue and 2^27-1 controls"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMPOWER",
+          "note": "2,735/2,735 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMPRODUCT-001",
+      "functions": [
+        "FUNC.IMPRODUCT"
+      ],
+      "kind": "quirk",
+      "title": "IMPRODUCT rejects mixed \"i\"/\"j\" suffixes with #VALUE!, empty text with #NUM!, and formats DBL_MIN as \"0\"",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMPRODUCT(inumber1, [inumber2], ...) folds operands by binary64 complex multiplication, treats blank cells as 0 while rejecting empty text \"\" with #NUM!, returns #VALUE! if operands mix \"i\" and \"j\" suffixes, and formats via Excel's 15-digit complex formatter (emitting \"0\" at DBL_MIN and #NUM! at DBL_MAX). All 3,260 full-bank IMPRODUCT rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex row 596) and CalcFunc-Evidence runs/w111-complex-format-20260929/batches-answers/answers-batch-improduct.json.gz (Excel 16.0 build 20430); 3,260/3,260 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IMPRODUCT(\"3+4i\",\"1-2i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "11-2i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 596 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "IMPRODUCT(2.2250738585072014e-308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber1",
+              "value": {
+                "kind": "number",
+                "display": "2.2250738585072014e-308",
+                "bits": "0x0010000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-format-20260929/batches-answers/answers-batch-improduct.json.gz",
+            "locator": "complex-format-IMPRODUCT-normal-limit-pos0",
+            "note": null
+          }
+        },
+        {
+          "call": "IMPRODUCT(1.7976931348623157e+308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber1",
+              "value": {
+                "kind": "number",
+                "display": "1.7976931348623157e+308",
+                "bits": "0x7fefffffffffffff"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-format-20260929/batches-answers/answers-batch-improduct.json.gz",
+            "locator": "complex-format-IMPRODUCT-normal-limit-pos0",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::mul; suffix_from_operands",
+          "note": "binary64 product and suffix check"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMPRODUCT",
+          "note": "3,260/3,260 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMREAL-001",
+      "functions": [
+        "FUNC.IMREAL"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "IMREAL truncates complex text coefficients to 15 significant digits before returning binary64",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMREAL(inumber) parses complex text through Excel's 15-significant-digit decimal parser and flushes subnormal parsed coefficients below DBL_MIN to 0. Thus IMREAL(\"-1.5707963267948966\") returns -1.5707963267949 (0xbff921fb54442cfa) instead of 0xbff921fb54442d18. All 1,209 full-bank IMREAL rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 462-466, 592) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imreal.json.gz (Excel 16.0 build 20430); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IMREAL(\"-1.5707963267948966\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "-1.57079632679489",
+            "bits": "0xbff921fb54442cfa"
+          },
+          "correct": {
+            "kind": "number",
+            "display": "-1.5707963267948966",
+            "bits": "0xbff921fb54442d18",
+            "how": "exact binary64 rounding of -1.5707963267948966"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 462 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMREAL(\"3+4i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "number",
+            "display": "3.0",
+            "bits": "0x4008000000000000"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 592 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "parse_ascii_decimal_15; parse_complex_text",
+          "note": "15-significant-digit complex coefficient parser"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMREAL",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMSEC-001",
+      "functions": [
+        "FUNC.IMSEC"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMSEC forms one scaled reciprocal of IMCOS(z) and rejects |re| >= 2^27 or empty text with #NUM!",
+      "statement": "In Excel 16.0 build 20527, IMSEC(inumber) evaluates z_cos = cos(inumber) (rejecting |re| >= 2^27 and empty text \"\" with #NUM!, while treating a blank cell as 0 -> \"1\") and forms 1 / z_cos as a single scaled reciprocal 1 / (a + b * ratio) multiplied by ratio, with subnormal components flushed to 0. All 1,060 full-bank IMSEC rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence readings/excel-20527/bank2-answers-imsec-scalar.json (Excel 16.0 build 20527) and Excel 16.0.20527.20088 (prefix_metadata row 128); 1,060/1,060 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMSEC(\"\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "text",
+                "display": "",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-imsec-scalar.json",
+            "locator": "bank2-scalar-IMSEC-0001",
+            "note": null
+          }
+        },
+        {
+          "call": "IMSEC(\"1e+100\")",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "text",
+                "display": "1e+100",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20527, Windows, workbook compatibility 2, en-ZA; bitness and CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "readings/excel-20527/bank2-answers-imsec-scalar.json",
+            "locator": "bank2-scalar-IMSEC-0009",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMSEC(\"4+3i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "-0.0652940278579471-0.0752249603027732i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 128 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::sec; ParsedComplex::reciprocal",
+          "note": "single scaled reciprocal of cos(z)"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMSEC",
+          "note": "1,060/1,060 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMSECH-001",
+      "functions": [
+        "FUNC.IMSECH"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMSECH forms the scaled reciprocal of IMCOSH(z) without EXP's real-axis overflow check, returning \"0\" at 1e100",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMSECH(inumber) computes cosh(inumber) via hyperbolic_parts (with 0.0001 Taylor 1 + re^2/2 and 20.0 EXP(|re|)/2 cutoffs) without IMCOSH's real-axis EXP-overflow #NUM! check, then forms the single scaled reciprocal 1 / cosh(z) with subnormal components flushed to 0 (so IMSECH(1e100) returns \"0\"). All 1,224 full-bank IMSECH rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imsech.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 129); 1,224/1,224 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMSECH(0)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "1",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsech.json.gz",
+            "locator": "w111extended-2026092903-IMSECH-00003",
+            "note": null
+          }
+        },
+        {
+          "call": "IMSECH(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsech.json.gz",
+            "locator": "w111extended-2026092903-IMSECH-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMSECH(\"4+3i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "-0.0362534969158689-0.00516434460775318i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 129 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::sech; ParsedComplex::reciprocal",
+          "note": "scaled reciprocal without real-axis EXP guard"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMSECH",
+          "note": "1,224/1,224 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMSIN-001",
+      "functions": [
+        "FUNC.IMSIN"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMSIN rejects |re| >= 2^27 with #NUM! and pairs Excel circular kernels with EXP(im) and RN53(RN64(1/EXP(im)))",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMSIN(inumber) rejects |re| >= 2^27 = 134,217,728 with #NUM!, evaluates (sin(re), cos(re)) via Excel's scalar circular kernels, and forms positive = exp_kernel(im) and negative = RN53(RN64(1/positive)) to return sin(re)*(positive+negative)/2 + cos(re)*(positive-negative)/2 i. All 1,209 full-bank IMSIN rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imsin.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (jnt_parity_complex row 362); 1,209/1,209 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMSIN(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsin.json.gz",
+            "locator": "w111extended-2026092903-IMSIN-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "IMSIN(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0.506365641109759",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsin.json.gz",
+            "locator": "w111extended-2026092903-IMSIN-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMSIN(\"0+0.1i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "0.100166750019844i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 362 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::sin; complex_circular_parts",
+          "note": "2^27 circular guard and exp_kernel/x87_recip hyperbolic factors"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMSIN",
+          "note": "1,209/1,209 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMSINH-001",
+      "functions": [
+        "FUNC.IMSINH"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "IMSINH uses re+re^3/6+re^5/120 for |re|<=0.01, (1/EXP(-re)-EXP(-re))/2 below 20, and EXP(|re|+LN(cos(im)/2)) above 709",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMSINH(inumber) rejects pure-real inputs where EXP(|re|) overflows with #NUM!, and evaluates sinh(re) as re + re^3/6 + re^5/120 for |re| <= 0.01, (1/EXP(-re) - EXP(-re))/2 for 0.01 < |re| < 20, and signed EXP(|re|)/2 for |re| >= 20. Off-axis (im != 0), it checks |im| < 2^27 and for re > 709 or re < -708 evaluates EXP(|re| + LN(cos(im)/2)) and EXP(|re| + LN(sin(im)/2)) without abs(), returning #NUM! when cos(im) <= 0 or sin(im) <= 0. All 1,288 full-bank IMSINH rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imsinh.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 131); 1,288/1,288 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMSINH(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsinh.json.gz",
+            "locator": "w111extended-2026092903-IMSINH-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "IMSINH(-100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-100.0",
+                "bits": "0xc059000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "-1.34405857090807E+43",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsinh.json.gz",
+            "locator": "w111extended-2026092903-IMSINH-00000",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMSINH(\"4+3i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "-27.0168132580039+3.85373803791938i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 131 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::sinh; hyperbolic_parts; large_off_axis_hyperbolic",
+          "note": "0.01/20/709 regime switches"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/f1_engineering.rs",
+          "locator": "complex_hyperbolics_match_excel_neg_exp_and_cutoffs",
+          "note": "Excel 16.0.20527 cutoff controls"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMSINH",
+          "note": "1,288/1,288 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMSQRT-001",
+      "functions": [
+        "FUNC.IMSQRT"
+      ],
+      "kind": "excel-differs-from-math",
+      "title": "IMSQRT squares components directly (flushing 1e-300 to \"0\"), treats #DIV/0! angles as 0, and leaves residue on -1",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMSQRT(inumber) squares re and im directly (flushing subnormal squares < DBL_MIN to 0, and returning \"0\" if two finite squares sum to infinity), takes sum.sqrt().sqrt(), and uses IMARGUMENT(z)/2 with #DIV/0! angles mapped to 0, then multiplies by Excel's circular cos/sin. Consequently IMSQRT(1e-300) returns \"0\", IMSQRT(-1) returns \"6.1257422745431E-17+i\", and IMSQRT(\"1e-300-1e9i\") returns purely real \"31622.7766016838\". All 2,029 full-bank IMSQRT rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence runs/w111-complex-kernels-20260929/answers/answers-imsqrt.json.gz and cache/w111-extended-regenerated-20260929/answers-imsqrt.json.gz (Excel 16.0 build 20430) plus Excel 16.0.20527.20088 (jnt_parity_complex row 422); 2,029/2,029 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMSQRT(-1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "-1.0",
+                "bits": "0xbff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "6.1257422745431E-17+i",
+            "bits": null
+          },
+          "correct": {
+            "kind": "text",
+            "display": "i",
+            "bits": null,
+            "how": "exact principal square root of -1"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-kernels-20260929/answers/answers-imsqrt.json.gz",
+            "locator": "complex-kernel-2026092906-IMSQRT-0002",
+            "note": null
+          }
+        },
+        {
+          "call": "IMSQRT(1e-300)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e-300",
+                "bits": "0x01a56e1fc2f8f359"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": {
+            "kind": "text",
+            "display": "1E-150",
+            "bits": null,
+            "how": "exact principal square root of 1e-300"
+          },
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsqrt.json.gz",
+            "locator": "w111extended-2026092903-IMSQRT-00007",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMSQRT(\"1e-300-1e9i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "31622.7766016838",
+            "bits": null
+          },
+          "correct": {
+            "kind": "text",
+            "display": "22360.6797749979-22360.6797749979i",
+            "bits": null,
+            "how": "principal square root sqrt(5e8)*(1 - i) rounded to 15 digits"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 422 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::sqrt",
+          "note": "re^2 + im^2 squaring, #DIV/0! -> 0 angle fallback, and excel_cos/sin"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMSQRT",
+          "note": "2,029/2,029 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMSUB-001",
+      "functions": [
+        "FUNC.IMSUB"
+      ],
+      "kind": "quirk",
+      "title": "IMSUB subtracts components in binary64, rejects mixed \"i\"/\"j\" suffixes with #VALUE!, and rejects empty text with #NUM!",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMSUB(inumber1, inumber2) parses both operands to 15 significant digits, rejects empty text \"\" with #NUM! (while treating a blank cell as 0) and mixed \"i\"/\"j\" suffixes with #VALUE!, subtracts (re1 - re2) + (im1 - im2)i in binary64, and formats with Excel's 15-digit complex formatter. All 1,216 full-bank IMSUB rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imsub.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 133); 1,216/1,216 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMSUB(-1, 0.1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber1",
+              "value": {
+                "kind": "number",
+                "display": "-1.0",
+                "bits": "0xbff0000000000000"
+              }
+            },
+            {
+              "name": "inumber2",
+              "value": {
+                "kind": "number",
+                "display": "0.1",
+                "bits": "0x3fb999999999999a"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "-1.1",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imsub.json.gz",
+            "locator": "w111extended-2026092903-IMSUB-00002",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMSUB(\"13+4i\",\"5+3i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "8+i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+            "locator": "sheet prefix_metadata row 133 column 1",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::sub; suffix_from_operands",
+          "note": "binary64 component subtraction and suffix agreement"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMSUB",
+          "note": "1,216/1,216 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMSUM-001",
+      "functions": [
+        "FUNC.IMSUM"
+      ],
+      "kind": "quirk",
+      "title": "IMSUM rejects mixed \"i\"/\"j\" suffixes and logicals with #VALUE!, empty text with #NUM!, and formats DBL_MIN as \"0\"",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMSUM(inumber1, [inumber2], ...) folds operands by binary64 complex addition, treats blank cells as 0 while rejecting empty text \"\" with #NUM!, rejects mixed \"i\"/\"j\" suffixes or logical values with #VALUE!, and formats via Excel's 15-digit complex formatter (emitting \"0\" at DBL_MIN and #NUM! at DBL_MAX). All 3,260 full-bank IMSUM rows match.",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 595, 602) and CalcFunc-Evidence runs/w111-complex-format-20260929/batches-answers/answers-batch-imsum.json.gz (Excel 16.0 build 20430); 3,260/3,260 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "=IMSUM(\"3\",\"1+2j\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "4+2j",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 595 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMSUM(\"3+4i\",A602)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber1",
+              "value": {
+                "kind": "text",
+                "display": "3+4i",
+                "bits": null
+              }
+            },
+            {
+              "name": "inumber2",
+              "value": {
+                "kind": "logical",
+                "display": "TRUE",
+                "bits": null
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#VALUE!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 602 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "IMSUM(2.2250738585072014e-308)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber1",
+              "value": {
+                "kind": "number",
+                "display": "2.2250738585072014e-308",
+                "bits": "0x0010000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "text",
+            "display": "0",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "runs/w111-complex-format-20260929/batches-answers/answers-batch-imsum.json.gz",
+            "locator": "complex-format-IMSUM-normal-limit-pos0",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::add; suffix_from_operands",
+          "note": "binary64 sum and suffix agreement"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMSUM",
+          "note": "3,260/3,260 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-IMTAN-001",
+      "functions": [
+        "FUNC.IMTAN"
+      ],
+      "kind": "quirk",
+      "title": "IMTAN saturates to +-i for im > 354.5 or im < -354 before checking |re| >= 2^27 and rejects real |re| >= 2^27 with #NUM!",
+      "statement": "In Excel 16.0 builds 20430 and 20527, IMTAN(inumber) checks im > 354.5 (returning \"i\") and im < -354.0 (returning \"-i\") before enforcing |re| < 2^27 = 134,217,728 (where |re| >= 2^27 returns #NUM!). Off-axis, it uses Excel's scalar circular kernels in (2*sin(re)*cos(re)) / (cosh(2*im) + 1 - 2*sin(re)^2) and flushes subnormal real quotients to 0; 1,267/1,267 pinned and 1,228/1,283 full-bank rows match (55 off-axis rows differ by up to 57 ULP on build 20527.20196).",
+      "status": "measured",
+      "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 382-392, 603) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imtan.json.gz (Excel 16.0 build 20430); 1,267/1,267 pinned and 1,228/1,283 full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "IMTAN(1e+100)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "inumber",
+              "value": {
+                "kind": "number",
+                "display": "1e+100",
+                "bits": "0x54b249ad2594c37d"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/w111-extended-regenerated-20260929/answers-imtan.json.gz",
+            "locator": "w111extended-2026092903-IMTAN-00008",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMTAN(\"134217727+1e-100i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "text",
+            "display": "3.25845642561188+1.16175382776114E-99i",
+            "bits": null
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 391 column 4",
+            "note": null
+          }
+        },
+        {
+          "call": "=IMTAN(\"134217728+1e-100i\")",
+          "input_route": "formula-literal",
+          "inputs": [],
+          "excel": {
+            "kind": "error",
+            "display": "#NUM!",
+            "bits": null
+          },
+          "correct": {
+            "kind": "text",
+            "display": "-0.840749860116492+1.70685673780519E-100i",
+            "bits": null,
+            "how": "mathematical tan(134217728 + 1e-100i) rounded to 15 digits"
+          },
+          "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+          "source": {
+            "repository": "DnaCalc",
+            "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+            "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+            "locator": "sheet jnt_parity_complex row 392 column 4",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/complex_family.rs",
+          "locator": "ParsedComplex::tan; tangent_imaginary_limit",
+          "note": "asymmetric imaginary saturation and 2^27 real limit"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "docs/research/imtan-imcot-off-axis-2026-11-16.md",
+          "locator": null,
+          "note": "off-axis hyperbolic denominator and 57-ULP open rows"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "IMTAN",
+          "note": "1,267/1,267 pinned and 1,228/1,283 full-bank matches"
+        }
+      ],
+      "open": [
+        "55 off-axis full-bank IMTAN rows on Excel 16.0.20527.20196 differ by up to 57 ULP (unidentified hyperbolic denominator arithmetic)."
+      ],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
       "note_id": "FN-IPMT-001",
       "functions": [
         "FUNC.IPMT",
@@ -15463,6 +18660,196 @@
           "path": "crates/calc-func/witness-status.tsv",
           "locator": "LOG10",
           "note": "2,823/2,823 full-bank matches"
+        }
+      ],
+      "open": [],
+      "recorded_on": "2026-11-22"
+    },
+    {
+      "schema": "efh.function-note/v1",
+      "note_id": "FN-LOGNORM.DIST-001",
+      "functions": [
+        "FUNC.LOGNORM.DIST",
+        "FUNC.LOGNORMDIST"
+      ],
+      "kind": "bit-matching-detail",
+      "title": "LOGNORM.DIST and LOGNORMDIST use CRT ln(x) for the CDF and exp_of_sum in LN(sigma), LN(sqrt(2pi)), LN(x) order for PDF",
+      "statement": "In Excel 16.0 builds 20131 and 20430, LOGNORM.DIST(x, mean, standard_dev, cumulative) and LOGNORMDIST(x, mean, standard_dev) (cumulative only) require x > 0 and standard_dev > 0. The CDF evaluates NORM.S.DIST((crt_log(x) - mean) / standard_dev, TRUE) using CRT ln(x) rather than Excel's scalar LN(x) (distinguished at oc3066), while the PDF forms half_square = RN53(RN64(d*d) / RN64(sigma*sigma)) / 2 with d = RN53(RN64(excel_log(x) - mean)) and evaluates excel_exp_of_sum(half_square, [excel_log(sigma), LN_SQRT_2PI, excel_log(x)]), flushing subnormals to 0. All 7,809 LOGNORM.DIST and 3,299 LOGNORMDIST full-bank rows match.",
+      "status": "measured",
+      "basis": "Measured in CalcFunc-Evidence cache/oracle/build-20131/LOGNORM.DIST.jsonl.gz and LOGNORMDIST.jsonl.gz (Excel 16.0 build 20131) and cache/oracle-20430/build-20430/LOGNORM.DIST.jsonl.gz (Excel 16.0 build 20430); 7,809/7,809 LOGNORM.DIST and 3,299/3,299 LOGNORMDIST full-bank rows match.",
+      "inferred": null,
+      "documentation": null,
+      "repros": [
+        {
+          "call": "LOGNORM.DIST(0.5731993373225365, 0, 1, TRUE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "0.5731993373225365",
+                "bits": "0x3fe257a622fc740d"
+              }
+            },
+            {
+              "name": "mean",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "standard_dev",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.2889271187260719",
+            "bits": "0x3fd27dc82b76c882"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/oracle/build-20131/LOGNORM.DIST.jsonl.gz",
+            "locator": "LOGNORM.DIST|0x3fe257a622fc740d|0x0000000000000000|0x3ff0000000000000|0x3ff0000000000000",
+            "note": null
+          }
+        },
+        {
+          "call": "LOGNORMDIST(0.5731993373225365, 0, 1)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "0.5731993373225365",
+                "bits": "0x3fe257a622fc740d"
+              }
+            },
+            {
+              "name": "mean",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            },
+            {
+              "name": "standard_dev",
+              "value": {
+                "kind": "number",
+                "display": "1.0",
+                "bits": "0x3ff0000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "0.2889271187260719",
+            "bits": "0x3fd27dc82b76c882"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20131, Windows; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/oracle/build-20131/LOGNORMDIST.jsonl.gz",
+            "locator": "LOGNORMDIST|0x3fe257a622fc740d|0x0000000000000000|0x3ff0000000000000",
+            "note": null
+          }
+        },
+        {
+          "call": "LOGNORM.DIST(0.00010704351908777772, 2.1872565183976315, 0.6653390008365183, FALSE)",
+          "input_route": "cell-value2",
+          "inputs": [
+            {
+              "name": "x",
+              "value": {
+                "kind": "number",
+                "display": "3.3451300703639044e-06",
+                "bits": "0x3ecc0f9cb4532c7c"
+              }
+            },
+            {
+              "name": "mean",
+              "value": {
+                "kind": "number",
+                "display": "2.1872567008355306",
+                "bits": "0x40017f8070f05d1a"
+              }
+            },
+            {
+              "name": "standard_dev",
+              "value": {
+                "kind": "number",
+                "display": "0.6653389980468281",
+                "bits": "0x3fe54a7502abaa44"
+              }
+            },
+            {
+              "name": "cumulative",
+              "value": {
+                "kind": "number",
+                "display": "0.0",
+                "bits": "0x0000000000000000"
+              }
+            }
+          ],
+          "excel": {
+            "kind": "number",
+            "display": "7.513854296601383e-103",
+            "bits": "0x2abaed34ad79554c"
+          },
+          "correct": null,
+          "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+          "source": {
+            "repository": "CalcFunc-Evidence",
+            "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+            "path": "cache/oracle-20430/build-20430/LOGNORM.DIST.jsonl.gz",
+            "locator": "LOGNORM.DIST|0x3ecc0f9cb4532c7c|0x40017f8070f05d1a|0x3fe54a7502abaa44|0x0000000000000000",
+            "note": null
+          }
+        }
+      ],
+      "evidence": [
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/src/ported/normal_log_family.rs",
+          "locator": "lognorm_dist_kernel",
+          "note": "crt_log CDF and excel_exp_of_sum PDF ordering"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/tests/f1_stats.rs",
+          "locator": "lognormal_uses_its_internal_logarithm",
+          "note": "oc3066 CRT-log discriminator"
+        },
+        {
+          "repository": "DnaCalc",
+          "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+          "path": "crates/calc-func/witness-status.tsv",
+          "locator": "LOGNORM.DIST; LOGNORMDIST",
+          "note": "7,809/7,809 LOGNORM.DIST and 3,299/3,299 LOGNORMDIST full-bank matches"
         }
       ],
       "open": [],

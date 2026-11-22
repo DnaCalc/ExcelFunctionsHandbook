@@ -1,0 +1,141 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-DATEDIF-001",
+  "functions": [
+    "FUNC.DATEDIF"
+  ],
+  "kind": "quirk",
+  "title": "DATEDIF unit \"MD\" can return negative day counts when crossing a shorter preceding month",
+  "statement": "In Excel 16.0.20527.20088, DATEDIF(start_date, end_date, unit) truncates both serials, rejects start_date > end_date or unknown unit strings (anything outside trimmed case-insensitive Y, M, D, YM, YD, MD) with #NUM!, and for unit \"MD\" when end_day < start_day computes end_day + days_in_previous_month(end_year, end_month) - start_day. When start_day exceeds the month preceding end_date (e.g. 2001-01-31 to 2001-03-01, crossing 28-day February), \"MD\" returns -2 (and 2001-01-30 to 2001-03-01 returns -1). All 2,914 full-bank DATEDIF rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (jnt_dates_random rows 65-75 and f2_rows rows 133-137); 2,914/2,914 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=DATEDIF(A67,B67,\"MD\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "36922.0",
+            "bits": "0x40e2074000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "36951.0",
+            "bits": "0x40e20ae000000000"
+          }
+        },
+        {
+          "name": "unit",
+          "value": {
+            "kind": "text",
+            "display": "MD",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-2.0",
+        "bits": "0xc000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_dates_random.capture.json",
+        "locator": "sheet jnt_dates_random row 67 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=DATEDIF(A68,B68,\"MD\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "start_date",
+          "value": {
+            "kind": "number",
+            "display": "36921.0",
+            "bits": "0x40e2072000000000"
+          }
+        },
+        {
+          "name": "end_date",
+          "value": {
+            "kind": "number",
+            "display": "36951.0",
+            "bits": "0x40e20ae000000000"
+          }
+        },
+        {
+          "name": "unit",
+          "value": {
+            "kind": "text",
+            "display": "MD",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "-1.0",
+        "bits": "0xbff0000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_dates_random.capture.json",
+        "locator": "sheet jnt_dates_random row 68 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=DATEDIF(45000,45716,\"x\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/f2_rows.capture.json",
+        "locator": "sheet f2_rows row 137 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/date_kernels.rs",
+      "locator": "datedif; datedif_unit",
+      "note": "MD previous-month formula and unit/order #NUM! checks"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "DATEDIF",
+      "note": "2,914/2,914 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

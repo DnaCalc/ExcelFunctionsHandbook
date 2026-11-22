@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMLN-001",
+  "functions": [
+    "FUNC.IMLN"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMLN computes CRT ln(IMABS(z)) + atan2(im, re) i and returns #NUM! at 0",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMLN(inumber) returns #NUM! when IMABS(inumber) = 0, and otherwise formats crt_log(crt_hypot(re, im)) + crt_atan2(im, re) i with Excel's 15-digit complex text formatter. Unlike IMARGUMENT (which computes atan(im/re) and returns #DIV/0! on ratio overflow), IMLN uses atan2(im, re). All 1,209 full-bank IMLN rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imln.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (prefix_metadata row 122); 1,209/1,209 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMLN(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imln.json.gz",
+        "locator": "w111extended-2026092903-IMLN-00003",
+        "note": null
+      }
+    },
+    {
+      "call": "IMLN(-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "-100.0",
+            "bits": "0xc059000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "4.60517018598809+3.14159265358979i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imln.json.gz",
+        "locator": "w111extended-2026092903-IMLN-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMLN(\"3+4i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "1.6094379124341+0.927295218001612i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 122 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::ln",
+      "note": "crt_log(abs) + crt_atan2(im, re) i"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMLN",
+      "note": "1,209/1,209 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,114 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMTAN-001",
+  "functions": [
+    "FUNC.IMTAN"
+  ],
+  "kind": "quirk",
+  "title": "IMTAN saturates to +-i for im > 354.5 or im < -354 before checking |re| >= 2^27 and rejects real |re| >= 2^27 with #NUM!",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMTAN(inumber) checks im > 354.5 (returning \"i\") and im < -354.0 (returning \"-i\") before enforcing |re| < 2^27 = 134,217,728 (where |re| >= 2^27 returns #NUM!). Off-axis, it uses Excel's scalar circular kernels in (2*sin(re)*cos(re)) / (cosh(2*im) + 1 - 2*sin(re)^2) and flushes subnormal real quotients to 0; 1,267/1,267 pinned and 1,228/1,283 full-bank rows match (55 off-axis rows differ by up to 57 ULP on build 20527.20196).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 382-392, 603) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imtan.json.gz (Excel 16.0 build 20430); 1,267/1,267 pinned and 1,228/1,283 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMTAN(1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e+100",
+            "bits": "0x54b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imtan.json.gz",
+        "locator": "w111extended-2026092903-IMTAN-00008",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMTAN(\"134217727+1e-100i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "3.25845642561188+1.16175382776114E-99i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 391 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMTAN(\"134217728+1e-100i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": {
+        "kind": "text",
+        "display": "-0.840749860116492+1.70685673780519E-100i",
+        "bits": null,
+        "how": "mathematical tan(134217728 + 1e-100i) rounded to 15 digits"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 392 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::tan; tangent_imaginary_limit",
+      "note": "asymmetric imaginary saturation and 2^27 real limit"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "docs/research/imtan-imcot-off-axis-2026-11-16.md",
+      "locator": null,
+      "note": "off-axis hyperbolic denominator and 57-ULP open rows"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMTAN",
+      "note": "1,267/1,267 pinned and 1,228/1,283 full-bank matches"
+    }
+  ],
+  "open": [
+    "55 off-axis full-bank IMTAN rows on Excel 16.0.20527.20196 differ by up to 57 ULP (unidentified hyperbolic denominator arithmetic)."
+  ],
+  "recorded_on": "2026-11-22"
+}

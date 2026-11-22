@@ -1,0 +1,149 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COMPLEX-001",
+  "functions": [
+    "FUNC.COMPLEX"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "COMPLEX formats coefficients to 15 digits via directed x87 rounding, turns DBL_MIN into \"0\", and rejects DBL_MAX",
+  "statement": "In Excel 16.0 builds 20430 and 20527, COMPLEX(real_num, i_num, [suffix]) formats each nonzero coefficient to 15 significant digits via ExactDecimal::fifteen_x87 (floor(frexp_k / 3.3219), nibble-chain scaling, exact half-up ties, and 16-digit binary64 half-down re-scale on k = -485, -970 slivers), using fixed notation up to 21 unsigned characters and scientific notation beyond. It rejects exact DBL_MAX (0x7fefffffffffffff) with #NUM!, emits \"0\" (\"0i\") when rounding DBL_MIN to 15 digits falls below DBL_MIN, omits unit imaginary coefficients (\"i\", \"-i\"), and accepts only \"\", \"i\", or \"j\" as suffix (#VALUE! otherwise). All 10,709 full-bank COMPLEX rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-broad-regenerated-20260929/answers-complex.json.gz and runs/w111-complex-format-20260929/batches-answers/answers-batch-complex.json.gz (Excel 16.0 build 20430) plus Excel 16.0.20527.20196 discriminators; 10,709/10,709 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "COMPLEX(1.7976931348623157e+308, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "real_num",
+          "value": {
+            "kind": "number",
+            "display": "1.7976931348623157e+308",
+            "bits": "0x7fefffffffffffff"
+          }
+        },
+        {
+          "name": "i_num",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-broad-regenerated-20260929/answers-complex.json.gz",
+        "locator": "w111broad-20260929-COMPLEX-00125",
+        "note": null
+      }
+    },
+    {
+      "call": "COMPLEX(0, 2.2250738585072014e-308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "real_num",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "i_num",
+          "value": {
+            "kind": "number",
+            "display": "2.2250738585072014e-308",
+            "bits": "0x0010000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "0i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-complex-format-20260929/batches-answers/answers-batch-complex.json.gz",
+        "locator": "complex-format-COMPLEX-normal-limit-pos1",
+        "note": null
+      }
+    },
+    {
+      "call": "COMPLEX(4503599627370495.0, -1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "real_num",
+          "value": {
+            "kind": "number",
+            "display": "4503599627370495.0",
+            "bits": "0x432ffffffffffffe"
+          }
+        },
+        {
+          "name": "i_num",
+          "value": {
+            "kind": "number",
+            "display": "-1.0",
+            "bits": "0xbff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "4503599627370500-i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-broad-regenerated-20260929/answers-complex.json.gz",
+        "locator": "w111broad-20260929-COMPLEX-00103",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "number_to_excel_text; format_complex_text",
+      "note": "directed 15-digit x87 coefficient rendering and DBL_MAX/DBL_MIN edges"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/tests/f1_engineering.rs",
+      "locator": "complex_text_uses_directed_fifteen_x87_including_binade4_and_slivers",
+      "note": "binade-4, tie, and sliver discriminators"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COMPLEX",
+      "note": "10,709/10,709 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

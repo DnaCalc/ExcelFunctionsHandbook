@@ -1,0 +1,123 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMCOT-001",
+  "functions": [
+    "FUNC.IMCOT"
+  ],
+  "kind": "quirk",
+  "title": "IMCOT saturates to -+i for im > 354.5 or im < -354 before checking |re| >= 2^27 and returns \"0\" for real |re| >= 2^27",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMCOT(inumber) checks im > 354.5 (returning \"-i\") and im < -354.0 (returning \"i\") before checking |re| < 2^27. On the real axis (im = 0), |re| >= 2^27 returns \"0\" (whereas IMTAN returns #NUM!), tan(re) = 0 returns #NUM!, and otherwise it returns RN53(RN64(1/tan(re))). Off-axis, it uses Excel's circular reduction and flushes subnormal real quotients to 0; 1,283/1,283 pinned and 1,228/1,243 full-bank rows match (15 off-axis rows differ by up to 55 ULP on build 20527.20196).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0.20527.20088 (jnt_parity_complex rows 402-412, 604) and CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcot.json.gz (Excel 16.0 build 20430); 1,283/1,283 pinned and 1,228/1,243 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMCOT(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcot.json.gz",
+        "locator": "w111extended-2026092903-IMCOT-00003",
+        "note": null
+      }
+    },
+    {
+      "call": "IMCOT(1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e+100",
+            "bits": "0x54b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcot.json.gz",
+        "locator": "w111extended-2026092903-IMCOT-00008",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMCOT(\"134217728-0.1i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": {
+        "kind": "text",
+        "display": "-0.986675276887534-0.194712611948852i",
+        "bits": null,
+        "how": "mathematical cot(134217728 - 0.1i) rounded to 15 digits"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 412 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::cot; tangent_imaginary_limit",
+      "note": "asymmetric imaginary saturation and real-axis 2^27 -> 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "docs/research/imtan-imcot-off-axis-2026-11-16.md",
+      "locator": null,
+      "note": "off-axis hyperbolic denominator and 55-ULP open rows"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMCOT",
+      "note": "1,283/1,283 pinned and 1,228/1,243 full-bank matches"
+    }
+  ],
+  "open": [
+    "15 off-axis full-bank IMCOT rows on Excel 16.0.20527.20196 differ by up to 55 ULP (unidentified hyperbolic denominator arithmetic)."
+  ],
+  "recorded_on": "2026-11-22"
+}

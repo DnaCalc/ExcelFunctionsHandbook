@@ -1,0 +1,190 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-LOGNORM.DIST-001",
+  "functions": [
+    "FUNC.LOGNORM.DIST",
+    "FUNC.LOGNORMDIST"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "LOGNORM.DIST and LOGNORMDIST use CRT ln(x) for the CDF and exp_of_sum in LN(sigma), LN(sqrt(2pi)), LN(x) order for PDF",
+  "statement": "In Excel 16.0 builds 20131 and 20430, LOGNORM.DIST(x, mean, standard_dev, cumulative) and LOGNORMDIST(x, mean, standard_dev) (cumulative only) require x > 0 and standard_dev > 0. The CDF evaluates NORM.S.DIST((crt_log(x) - mean) / standard_dev, TRUE) using CRT ln(x) rather than Excel's scalar LN(x) (distinguished at oc3066), while the PDF forms half_square = RN53(RN64(d*d) / RN64(sigma*sigma)) / 2 with d = RN53(RN64(excel_log(x) - mean)) and evaluates excel_exp_of_sum(half_square, [excel_log(sigma), LN_SQRT_2PI, excel_log(x)]), flushing subnormals to 0. All 7,809 LOGNORM.DIST and 3,299 LOGNORMDIST full-bank rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/oracle/build-20131/LOGNORM.DIST.jsonl.gz and LOGNORMDIST.jsonl.gz (Excel 16.0 build 20131) and cache/oracle-20430/build-20430/LOGNORM.DIST.jsonl.gz (Excel 16.0 build 20430); 7,809/7,809 LOGNORM.DIST and 3,299/3,299 LOGNORMDIST full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "LOGNORM.DIST(0.5731993373225365, 0, 1, TRUE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.5731993373225365",
+            "bits": "0x3fe257a622fc740d"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "standard_dev",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.2889271187260719",
+        "bits": "0x3fd27dc82b76c882"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/oracle/build-20131/LOGNORM.DIST.jsonl.gz",
+        "locator": "LOGNORM.DIST|0x3fe257a622fc740d|0x0000000000000000|0x3ff0000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "LOGNORMDIST(0.5731993373225365, 0, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "0.5731993373225365",
+            "bits": "0x3fe257a622fc740d"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "standard_dev",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.2889271187260719",
+        "bits": "0x3fd27dc82b76c882"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20131, Windows; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/oracle/build-20131/LOGNORMDIST.jsonl.gz",
+        "locator": "LOGNORMDIST|0x3fe257a622fc740d|0x0000000000000000|0x3ff0000000000000",
+        "note": null
+      }
+    },
+    {
+      "call": "LOGNORM.DIST(0.00010704351908777772, 2.1872565183976315, 0.6653390008365183, FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "x",
+          "value": {
+            "kind": "number",
+            "display": "3.3451300703639044e-06",
+            "bits": "0x3ecc0f9cb4532c7c"
+          }
+        },
+        {
+          "name": "mean",
+          "value": {
+            "kind": "number",
+            "display": "2.1872567008355306",
+            "bits": "0x40017f8070f05d1a"
+          }
+        },
+        {
+          "name": "standard_dev",
+          "value": {
+            "kind": "number",
+            "display": "0.6653389980468281",
+            "bits": "0x3fe54a7502abaa44"
+          }
+        },
+        {
+          "name": "cumulative",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "7.513854296601383e-103",
+        "bits": "0x2abaed34ad79554c"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU AMD Ryzen 7 4800H with Radeon Graphics",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/oracle-20430/build-20430/LOGNORM.DIST.jsonl.gz",
+        "locator": "LOGNORM.DIST|0x3ecc0f9cb4532c7c|0x40017f8070f05d1a|0x3fe54a7502abaa44|0x0000000000000000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/normal_log_family.rs",
+      "locator": "lognorm_dist_kernel",
+      "note": "crt_log CDF and excel_exp_of_sum PDF ordering"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/tests/f1_stats.rs",
+      "locator": "lognormal_uses_its_internal_logarithm",
+      "note": "oc3066 CRT-log discriminator"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "LOGNORM.DIST; LOGNORMDIST",
+      "note": "7,809/7,809 LOGNORM.DIST and 3,299/3,299 LOGNORMDIST full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,125 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMDIV-001",
+  "functions": [
+    "FUNC.IMDIV"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMDIV scales by the larger denominator component and flushes subnormal output components below DBL_MIN to 0",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMDIV(inumber1, inumber2) returns #NUM! for a 0+0i divisor, scales both numerator and denominator by ratio = im2/re2 (when |re2| >= |im2|) or re2/im2 to avoid overflow/underflow, and flushes any real or imaginary quotient below DBL_MIN to 0 before complex text assembly. All 2,067 full-bank IMDIV rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-complex-kernels-20260929/answers/answers-imdiv.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (jnt_parity_complex row 594); 2,067/2,067 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMDIV(-1.3186812264501746e+183, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber1",
+          "value": {
+            "kind": "number",
+            "display": "-6.484674032191153e+189",
+            "bits": "0xe757496f6b38ec63"
+          }
+        },
+        {
+          "name": "inumber2",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-complex-kernels-20260929/answers/answers-imdiv.json.gz",
+        "locator": "complex-kernel-2026092906-IMDIV-0000",
+        "note": null
+      }
+    },
+    {
+      "call": "IMDIV(-1.1483034436988412e-255, 1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber1",
+          "value": {
+            "kind": "number",
+            "display": "-1.3763059134700954e-255",
+            "bits": "0x8b04aa4fc3c87bbc"
+          }
+        },
+        {
+          "name": "inumber2",
+          "value": {
+            "kind": "number",
+            "display": "9.999999999999998e+99",
+            "bits": "0x54b249ad2594c37c"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-complex-kernels-20260929/answers/answers-imdiv.json.gz",
+        "locator": "complex-kernel-2026092906-IMDIV-0095",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMDIV(\"3+4i\",\"1-2i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "-1+2i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 594 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::div; ParsedComplex::quotient",
+      "note": "scaled complex division and subnormal quotient flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMDIV",
+      "note": "2,067/2,067 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

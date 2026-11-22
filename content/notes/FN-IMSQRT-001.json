@@ -1,0 +1,124 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMSQRT-001",
+  "functions": [
+    "FUNC.IMSQRT"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "IMSQRT squares components directly (flushing 1e-300 to \"0\"), treats #DIV/0! angles as 0, and leaves residue on -1",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMSQRT(inumber) squares re and im directly (flushing subnormal squares < DBL_MIN to 0, and returning \"0\" if two finite squares sum to infinity), takes sum.sqrt().sqrt(), and uses IMARGUMENT(z)/2 with #DIV/0! angles mapped to 0, then multiplies by Excel's circular cos/sin. Consequently IMSQRT(1e-300) returns \"0\", IMSQRT(-1) returns \"6.1257422745431E-17+i\", and IMSQRT(\"1e-300-1e9i\") returns purely real \"31622.7766016838\". All 2,029 full-bank IMSQRT rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence runs/w111-complex-kernels-20260929/answers/answers-imsqrt.json.gz and cache/w111-extended-regenerated-20260929/answers-imsqrt.json.gz (Excel 16.0 build 20430) plus Excel 16.0.20527.20088 (jnt_parity_complex row 422); 2,029/2,029 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMSQRT(-1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "-1.0",
+            "bits": "0xbff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "6.1257422745431E-17+i",
+        "bits": null
+      },
+      "correct": {
+        "kind": "text",
+        "display": "i",
+        "bits": null,
+        "how": "exact principal square root of -1"
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-complex-kernels-20260929/answers/answers-imsqrt.json.gz",
+        "locator": "complex-kernel-2026092906-IMSQRT-0002",
+        "note": null
+      }
+    },
+    {
+      "call": "IMSQRT(1e-300)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": {
+        "kind": "text",
+        "display": "1E-150",
+        "bits": null,
+        "how": "exact principal square root of 1e-300"
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imsqrt.json.gz",
+        "locator": "w111extended-2026092903-IMSQRT-00007",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMSQRT(\"1e-300-1e9i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "31622.7766016838",
+        "bits": null
+      },
+      "correct": {
+        "kind": "text",
+        "display": "22360.6797749979-22360.6797749979i",
+        "bits": null,
+        "how": "principal square root sqrt(5e8)*(1 - i) rounded to 15 digits"
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 422 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::sqrt",
+      "note": "re^2 + im^2 squaring, #DIV/0! -> 0 angle fallback, and excel_cos/sin"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMSQRT",
+      "note": "2,029/2,029 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

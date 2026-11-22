@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMABS-001",
+  "functions": [
+    "FUNC.IMABS"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMABS computes CRT hypot(re, im) without squaring underflow and rejects empty text with #NUM!",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMABS(inumber) parses complex text to 15 significant digits (rejecting empty text \"\" with #NUM! while treating a blank cell as 0) and computes modulus via CRT hypot(re, im), preserving tiny values such as 1e-300 without the squaring underflow seen in IMSQRT. All 1,209 full-bank IMABS rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imabs.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527.20088 (jnt_parity_complex row 591); 1,209/1,209 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMABS(1e-300)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e-300",
+            "bits": "0x01a56e1fc2f8f359"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1e-300",
+        "bits": "0x01a56e1fc2f8f359"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imabs.json.gz",
+        "locator": "w111extended-2026092903-IMABS-00007",
+        "note": null
+      }
+    },
+    {
+      "call": "IMABS(-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "-100.0",
+            "bits": "0xc059000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "100.0",
+        "bits": "0x4059000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imabs.json.gz",
+        "locator": "w111extended-2026092903-IMABS-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMABS(\"3+4i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "5.0",
+        "bits": "0x4014000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_parity_complex.capture.json",
+        "locator": "sheet jnt_parity_complex row 591 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::abs",
+      "note": "crt_hypot(re, im)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMABS",
+      "note": "1,209/1,209 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMLOG10-001",
+  "functions": [
+    "FUNC.IMLOG10"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMLOG10 multiplies Excel LN(|re|) by LOG10_E on the real axis and divides IMLN(z) by CRT ln(10) off-axis",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMLOG10(inumber) rejects 0 with #NUM!. When im = 0, its real component is RN53(RN64(excel_log(|re|) * LOG10_E)) (while the imaginary part for re < 0 is pi / crt_log(10)); off the real axis (im != 0), both components divide IMLN(z) by crt_log(10). All 1,209 full-bank and 1,323 pinned IMLOG10 rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imlog10.json.gz (Excel 16.0 build 20430) and Excel 16.0.20527 (witnesses/IMLOG10.json fn10-log10-discriminators); 1,209/1,209 full-bank and 1,323/1,323 pinned rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMLOG10(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imlog10.json.gz",
+        "locator": "w111extended-2026092903-IMLOG10-00003",
+        "note": null
+      }
+    },
+    {
+      "call": "IMLOG10(-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "-100.0",
+            "bits": "0xc059000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "2+1.36437635384184i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imlog10.json.gz",
+        "locator": "w111extended-2026092903-IMLOG10-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMLOG10(\"3+4i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "0.698970004336019+0.402719196273373i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 123 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/catalogue/engineering.rs",
+      "locator": "imlog10",
+      "note": "real-axis excel_log * LOG10_E vs off-axis ln / crt_log(10)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMLOG10",
+      "note": "1,209/1,209 full-bank and 1,323/1,323 pinned matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

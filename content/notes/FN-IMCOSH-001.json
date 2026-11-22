@@ -1,0 +1,116 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-IMCOSH-001",
+  "functions": [
+    "FUNC.IMCOSH"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "IMCOSH uses 1+re^2/2 for |re|<=0.0001, (1/EXP(-re)+EXP(-re))/2 below 20, and EXP(|re|+LN(cos(im)/2)) off-axis above 709",
+  "statement": "In Excel 16.0 builds 20430 and 20527, IMCOSH(inumber) rejects pure-real inputs where EXP(|re|) overflows with #NUM!, evaluates cosh(re) as 1 + re^2/2 for |re| <= 0.0001, (1/EXP(-re) + EXP(-re))/2 for 0.0001 < |re| < 20, and EXP(|re|)/2 for |re| >= 20. Off-axis (im != 0), it checks |im| < 2^27 and for re > 709 or re < -708 evaluates EXP(|re| + LN(cos(im)/2)) and EXP(|re| + LN(sin(im)/2)) without abs(), returning #NUM! when cos(im) <= 0 or sin(im) <= 0. All 1,216 full-bank IMCOSH rows match.",
+  "status": "measured",
+  "basis": "Measured in CalcFunc-Evidence cache/w111-extended-regenerated-20260929/answers-imcosh.json.gz (Excel 16.0 build 20430), CalcFunc-Evidence readings/excel-20527/studies/fx2.json.gz, and Excel 16.0.20527.20088 (prefix_metadata row 116); 1,216/1,216 full-bank rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "IMCOSH(1e+100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "1e+100",
+            "bits": "0x54b249ad2594c37d"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcosh.json.gz",
+        "locator": "w111extended-2026092903-IMCOSH-00008",
+        "note": null
+      }
+    },
+    {
+      "call": "IMCOSH(-100)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "inumber",
+          "value": {
+            "kind": "number",
+            "display": "-100.0",
+            "bits": "0xc059000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "1.34405857090807E+43",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-extended-regenerated-20260929/answers-imcosh.json.gz",
+        "locator": "w111extended-2026092903-IMCOSH-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "=IMCOSH(\"4+3i\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "-27.0349456030742+3.85115333481178i",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/prefix_metadata.capture.json",
+        "locator": "sheet prefix_metadata row 116 column 1",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/src/ported/complex_family.rs",
+      "locator": "ParsedComplex::cosh; hyperbolic_parts; large_off_axis_hyperbolic",
+      "note": "0.0001/20/709 regime switches"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/tests/f1_engineering.rs",
+      "locator": "complex_hyperbolics_match_excel_neg_exp_and_cutoffs",
+      "note": "Excel 16.0.20527 cutoff controls"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "f8f4e0aa0038668cfe6cb8fcbacaf5edf36d1e4b",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "IMCOSH",
+      "note": "1,216/1,216 full-bank matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
