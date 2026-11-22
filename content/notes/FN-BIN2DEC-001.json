@@ -1,0 +1,207 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BIN2DEC-001",
+  "functions": [
+    "FUNC.BIN2DEC",
+    "FUNC.BIN2HEX",
+    "FUNC.BIN2OCT",
+    "FUNC.DEC2BIN",
+    "FUNC.DEC2HEX",
+    "FUNC.DEC2OCT",
+    "FUNC.HEX2BIN",
+    "FUNC.HEX2DEC",
+    "FUNC.HEX2OCT"
+  ],
+  "kind": "quirk",
+  "title": "Radix converters read empty text as 0, count leading zeros toward the 10-character limit, and ignore places on negative two's-complement outputs while still validating it",
+  "statement": "Across the A-L Engineering radix converters in Excel 16.0 build 20430 and 20527, string inputs reject any whitespace (including spaces and tabs) with #NUM!, reject logicals with #VALUE!, count leading zeros toward the 10-character maximum (e.g. HEX2DEC(\"00000000001\") is #NUM!), accept lowercase hex digits, and treat the empty string \"\" as 0 (HEX2BIN(\"\") = \"0\"). When outputting a negative number in two's complement, Excel always emits 10 digits regardless of places (DEC2BIN(-512, 1) = \"1000000000\"), yet still requires an explicit places argument to truncate into 1..=10 (#NUM! for 0 or 11).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0.20527.20088 readings in jnt_w111_rounding and build 20430 radix batches in CalcFunc-Evidence; every listed function matches 100% of its full-bank witness rows (BIN2DEC 1,347, BIN2HEX 2,748, BIN2OCT 2,757, DEC2BIN/DEC2HEX/DEC2OCT 4,807 each, HEX2BIN 1,214, HEX2DEC 1,025, HEX2OCT 1,218).",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=HEX2BIN(\"\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "0",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_w111_rounding.capture.json",
+        "locator": "sheet jnt_w111_rounding row 6110 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=HEX2DEC(\"00000000001\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_w111_rounding.capture.json",
+        "locator": "sheet jnt_w111_rounding row 6108 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=BIN2DEC(\" \")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/jnt/sections/jnt_w111_rounding.capture.json",
+        "locator": "sheet jnt_w111_rounding row 6086 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "DEC2BIN(-512, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-512.0",
+            "bits": "0xc080000000000000"
+          }
+        },
+        {
+          "name": "places",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "1000000000",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-radix-20260929/batches-answers/answers-batch-dec2bin.json.gz",
+        "locator": "radix-20260929-DEC2BIN-00020",
+        "note": null
+      }
+    },
+    {
+      "call": "DEC2HEX(-549755813888, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-549755813888.0",
+            "bits": "0xc260000000000000"
+          }
+        },
+        {
+          "name": "places",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "8000000000",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-radix-20260929/batches-answers/answers-batch-dec2hex.json.gz",
+        "locator": "radix-20260929-DEC2HEX-00020",
+        "note": null
+      }
+    },
+    {
+      "call": "DEC2OCT(-134217728, 1)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-536870912.0",
+            "bits": "0xc1c0000000000000"
+          }
+        },
+        {
+          "name": "places",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "4000000000",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-radix-20260929/batches-answers/answers-batch-dec2oct.json.gz",
+        "locator": "radix-20260929-DEC2OCT-00020",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/engineering_radix_family.rs",
+      "locator": "parse_radix_text; encode_signed_value",
+      "note": "Empty-text zero, 10-char limit, and negative places validation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "BIN2DEC; DEC2BIN; HEX2DEC",
+      "note": "100% full-bank matches across all nine A-L radix functions"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

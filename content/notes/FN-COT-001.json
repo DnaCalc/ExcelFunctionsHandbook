@@ -1,0 +1,118 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COT-001",
+  "functions": [
+    "FUNC.COT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "COT rejects |x| >= 2^27 with #NUM!, 0 with #DIV/0!, and evaluates the double-rounded x87 reciprocal 1 / TAN(x)",
+  "statement": "In Excel 16.0 build 20430, COT(x) applies the circular trigonometric argument bound |x| < 2^27 (#NUM! at ±134,217,728), returns #DIV/0! at 0, and computes RN53(RN64(1 / TAN(x))) over Excel's 66-bit-pi TAN chain rather than computing cos(x)/sin(x) directly. All 2,130 full-bank COT rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 W111 extended-numeric readings in CalcFunc-Evidence and matched on 2,130/2,130 full-bank COT rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "COT(0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.830487721712452",
+        "bits": "0x3ffd49ad7e47c0a3"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-cot.json.gz",
+        "locator": "w111extended-2026092903-COT-00007",
+        "note": null
+      }
+    },
+    {
+      "call": "COT(192097276.49546286)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "192097276.49546286",
+            "bits": "0x41a6e657f8fdad4f"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-cot.json.gz",
+        "locator": "w111extended-2026092903-COT-01112",
+        "note": null
+      }
+    },
+    {
+      "call": "COT(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#DIV/0!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/witnesses/COT.json",
+        "locator": "w111extended-2026092903-COT-00000",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/cot.rs",
+      "locator": "cot_kernel",
+      "note": "CIRCULAR_TRIG domain guard and double-rounded x87 1/TAN(x)"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COT",
+      "note": "2,130/2,130 full-bank COT matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

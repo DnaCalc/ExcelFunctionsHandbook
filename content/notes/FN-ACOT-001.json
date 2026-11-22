@@ -1,0 +1,90 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ACOT-001",
+  "functions": [
+    "FUNC.ACOT"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ACOT computes ATAN(1/x) with a stored x87 reciprocal, adding pi for negative inputs and returning pi/2 at zero",
+  "statement": "In Excel 16.0 build 20430, ACOT(0) returns pi/2 (0x3ff921fb54442d18) and nonzero inputs evaluate excel_atan_reduced(RN53(RN64(1/x))), adding pi when x < 0 and flushing subnormal results to +0. Storing the x87 reciprocal before the arctangent kernel is required to match all 16,924 full-bank ACOT rows.",
+  "status": "inferred",
+  "basis": "Measured across Excel 16.0 build 20430 Value2 probes in CalcFunc-Evidence (runs/w111-acot-heldout-20260929 and runs/w111-extended-numeric-20260929) and matched on 16,924/16,924 full-bank ACOT rows.",
+  "inferred": "That the stored-x87 reciprocal plus excel_atan_reduced model holds across all binary64 inputs beyond the 16,924 recorded bank rows is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ACOT(0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.5707963267948966",
+        "bits": "0x3ff921fb54442d18"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-acot.json.gz",
+        "locator": "w111extended-2026092903-ACOT-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "ACOT(-2)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-2.0",
+            "bits": "0xc000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.677945044588987",
+        "bits": "0x40056c6e7397f5ae"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-acot-heldout-20260929/answers-acot.json.gz",
+        "locator": "acot-heldout-2026092918-07824-boundary-neighbor",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/acot.rs",
+      "locator": "acot_kernel",
+      "note": "Stored x87 reciprocal and reduced arctangent graph"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ACOT",
+      "note": "16,924/16,924 full-bank ACOT matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

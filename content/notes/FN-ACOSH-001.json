@@ -1,0 +1,95 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ACOSH-001",
+  "functions": [
+    "FUNC.ACOSH"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "ACOSH evaluates LN(x + SQRT(x*x - 1)), returning #NUM! when x*x overflows even where acosh(x) is finite",
+  "statement": "In Excel 16.0 build 20430, ACOSH(x) evaluates LN(x + SQRT(x*x - 1)) via the worksheet LN kernel rather than a scaled asymptotic branch for large x. When x*x overflows binary64 (above sqrt(DBL_MAX)), Excel returns #NUM! even though acosh(x) is mathematically finite near 710: ACOSH(1.7976931348623157e+308) returns #NUM! while ACOSH(1.6449010616608172e+153) returns 353.48634664617043. Under cell Value2 delivery, ACOSH(1 + 2^-52) returns 2.1073424255447014e-08 (0x3e56a09e67ffffff), whereas literal formula entry can round 1+1e-16 down to 1 before evaluation. All 5,730 full-bank ACOSH rows match.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0 build 20430 (CalcFunc-Evidence runs/w111-extended-numeric-20260929/answers/answers-acosh.json.gz) and matched across 5,730/5,730 full-bank ACOSH rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ACOSH(1.7976931348623157e+308)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.7976931348623157e+308",
+            "bits": "0x7fefffffffffffff"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": {
+        "kind": "number",
+        "display": "710.475860073944",
+        "bits": "0x408633ce8fb9f87e",
+        "how": "ln(2 * DBL_MAX) computed at 120 decimal digits in Python Decimal and rounded to nearest binary64."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-acosh.json.gz",
+        "locator": "w111extended-2026092903-ACOSH-00022",
+        "note": null
+      }
+    },
+    {
+      "call": "ACOSH(1.0000000000000002)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0000000000000002",
+            "bits": "0x3ff0000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.1073424338879928e-08",
+        "bits": "0x3e56a09e67ffffff"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-acosh.json.gz",
+        "locator": "w111extended-2026092903-ACOSH-00014",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/acosh.rs",
+      "locator": "acosh_kernel",
+      "note": "LN(x + SQRT(x*x - 1)) implementation and overflow guard"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ACOSH",
+      "note": "5,730/5,730 full-bank ACOSH matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

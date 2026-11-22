@@ -1,0 +1,73 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-AMORDEGRC-001",
+  "functions": [
+    "FUNC.AMORDEGRC",
+    "FUNC.AMORLINC"
+  ],
+  "kind": "quirk",
+  "title": "On basis 1, AMORDEGRC and AMORLINC divide actual days by the purchase year's length even across year boundaries",
+  "statement": "In Excel 16.0.20527.20088, when basis is 1 (Actual/Actual) and the first period crosses from a leap year into a non-leap year (or vice versa), AMORLINC and AMORDEGRC divide the actual days between date_purchased and first_period by the number of days in the purchase year alone (365 or 366), rather than splitting the interval across year lengths. For example, AMORLINC(100000, 41252, 41557, 0, 0, 0.1, 1) (2012-12-09 to 2013-10-10, 305 days) computes 100000 * (0.1 * 305 / 366) = 8333.333333333334, multiplying rate by the first-period fraction before cost. For 0 < period < 1, AMORLINC returns the full annual charge cost * rate while AMORDEGRC returns 0. All 2,957 AMORDEGRC and 4,354 AMORLINC full-bank rows match.",
+  "status": "measured",
+  "basis": "Measured across all 40 AMORDEGRC and 120 AMORLINC readings in DnaCalc dcj9k_closed_form (Excel 16.0.20527.20088) and matched on 2,957/2,957 AMORDEGRC and 4,354/4,354 AMORLINC full-bank rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=AMORLINC(100000,41252,41557,0,0,0.1,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "8333.333333333334",
+        "bits": "0x40c046aaaaaaaaab"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_closed_form.capture.json",
+        "locator": "sheet dcj9k_closed_form row 83 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=AMORDEGRC(100380,41260,41531,0,0,0.1,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "18581.0",
+        "bits": "0x40d2254000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_closed_form.capture.json",
+        "locator": "sheet dcj9k_closed_form row 146 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/amor_depreciation_family.rs",
+      "locator": "actual_actual_positive; amorlinc_kernel; amordegrc_kernel",
+      "note": "Purchase-year denominator on basis 1 and multiplication order"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "AMORDEGRC; AMORLINC",
+      "note": "2,957/2,957 AMORDEGRC and 4,354/4,354 AMORLINC matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

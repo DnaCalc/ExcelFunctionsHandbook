@@ -1,0 +1,146 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ACOTH-001",
+  "functions": [
+    "FUNC.ACOTH"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ACOTH switches between a ratio logarithm and an odd-power series at 0x400d92b14ec204f3 and flushes large inputs to +0",
+  "statement": "In Excel 16.0 build 20228, ACOTH computes on |x| and restores the input sign, returning #NUM! for |x| <= 1 and switching between two x87-staged bodies around |x| = 0x400d92b14ec204f3 (~3.696627): below the switch, 0.5 * LN(RN53(RN64((|x|+1)/(|x|-1)))); at and above it, a 32-term inverse odd-power series sum(1/((2k+1)*|x|^(2k+1))) with every multiply, divide, and sum stored through x87 PC64. When the initial 1/|x| reciprocal falls below DBL_MIN, both signs flush to +0 (0x0000000000000000). All 270,010 full-bank ACOTH rows match.",
+  "status": "inferred",
+  "basis": "Measured across W109 discovery, dense switch sweeps, and held-out captures in Excel 16.0 build 20228 (CalcFunc-Evidence work/w109/G4-03-acoth/) and matched on 270,010/270,010 full-bank ACOTH rows.",
+  "inferred": "The three binary64 values between 0x400d92b14ec204ef and 0x400d92b14ec204f3 are observationally indistinguishable in the W109 switch sweep, so the exact switch bit among those four doubles is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ACOTH(3.6966272462739225)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "3.6966272499999984",
+            "bits": "0x400d92b14ec204ef"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.27742140962287104",
+        "bits": "0x3fd1c145ba6296bf"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "work/w109/G4-03-acoth/answers-acoth-switch-r2-20260809.json.gz",
+        "locator": "acoth-switch-r2-053830",
+        "note": null
+      }
+    },
+    {
+      "call": "ACOTH(3.6966272462739243)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "3.69662725",
+            "bits": "0x400d92b14ec204f3"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.2774214096228708",
+        "bits": "0x3fd1c145ba6296bb"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "work/w109/G4-03-acoth/answers-acoth-switch-r2-20260809.json.gz",
+        "locator": "acoth-switch-r2-053832",
+        "note": null
+      }
+    },
+    {
+      "call": "ACOTH(1.0000000000000002)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0000000000000002",
+            "bits": "0x3ff0000000000001"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "18.36840028483855",
+        "bits": "0x40325e4f7b2737fa"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "work/w109/G4-03-acoth/answers-acoth-dense-discovery-20260809.json.gz",
+        "locator": "acoth-dense-00000",
+        "note": null
+      }
+    },
+    {
+      "call": "ACOTH(4.642159985597223e+307)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "4.913868294770359e+307",
+            "bits": "0x7fd17e73a05c2b97"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20228, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "work/w109/G4-03-acoth/answers-acoth-dense-discovery-20260809.json.gz",
+        "locator": "acoth-dense-18266",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/acoth.rs",
+      "locator": "acoth_kernel",
+      "note": "Two-regime ratio vs odd-power series and subnormal +0 flush"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ACOTH",
+      "note": "270,010/270,010 full-bank ACOTH matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

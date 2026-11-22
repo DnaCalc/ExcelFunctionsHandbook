@@ -1,0 +1,218 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BITAND-001",
+  "functions": [
+    "FUNC.BITAND",
+    "FUNC.BITLSHIFT",
+    "FUNC.BITOR",
+    "FUNC.BITRSHIFT",
+    "FUNC.BITXOR"
+  ],
+  "kind": "quirk",
+  "title": "Bitwise functions reject fractional operands with #NUM! instead of truncating them, while shift counts truncate",
+  "statement": "In Excel 16.0 build 20430, the bitwise operand arguments (number, number1, number2) must already be integers in [0, 2^48 - 1]; any fractional part (such as 0.1 or 1.5) returns #NUM! rather than truncating toward zero. By contrast, shift_amount in BITLSHIFT and BITRSHIFT truncates toward zero (e.g. -13.5 becomes -13). All five bitwise functions match 100% of their full-bank rows (5,989 each for BITAND/BITOR/BITXOR; 8,131 for BITLSHIFT; 8,128 for BITRSHIFT).",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0 build 20430 W111 bitwise discriminator and held-out batches in CalcFunc-Evidence cache/w111-bitwise-20260929/.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BITAND(0, 1.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1.5",
+            "bits": "0x3ff8000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitand.json.gz",
+        "locator": "w111bit-discriminator-BITAND-00059",
+        "note": null
+      }
+    },
+    {
+      "call": "BITOR(0, 1.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1.5",
+            "bits": "0x3ff8000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitor.json.gz",
+        "locator": "w111bit-discriminator-BITOR-00059",
+        "note": null
+      }
+    },
+    {
+      "call": "BITXOR(0, 1.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number1",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "number2",
+          "value": {
+            "kind": "number",
+            "display": "1.5",
+            "bits": "0x3ff8000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitxor.json.gz",
+        "locator": "w111bit-discriminator-BITXOR-00059",
+        "note": null
+      }
+    },
+    {
+      "call": "BITLSHIFT(2.2250738585072014e-308, -1.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "2.2250738585072014e-308",
+            "bits": "0x0010000000000000"
+          }
+        },
+        {
+          "name": "shift_amount",
+          "value": {
+            "kind": "number",
+            "display": "-1.5",
+            "bits": "0xbff8000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitlshift.json.gz",
+        "locator": "w111bit-discriminator-BITLSHIFT-00114",
+        "note": null
+      }
+    },
+    {
+      "call": "BITRSHIFT(2.2250738585072014e-308, -1.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "2.2250738585072014e-308",
+            "bits": "0x0010000000000000"
+          }
+        },
+        {
+          "name": "shift_amount",
+          "value": {
+            "kind": "number",
+            "display": "-1.5",
+            "bits": "0xbff8000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitrshift.json.gz",
+        "locator": "w111bit-discriminator-BITRSHIFT-00114",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/bit_common.rs",
+      "locator": "coerce_bit_operand; coerce_shift_count",
+      "note": "Integer-only operand rule vs truncated shift_amount"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "BITAND; BITLSHIFT; BITOR; BITRSHIFT; BITXOR",
+      "note": "100% full-bank matches across all five bitwise functions"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

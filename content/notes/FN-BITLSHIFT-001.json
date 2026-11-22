@@ -1,0 +1,218 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BITLSHIFT-001",
+  "functions": [
+    "FUNC.BITLSHIFT",
+    "FUNC.BITRSHIFT"
+  ],
+  "kind": "documentation-differs",
+  "title": "BITLSHIFT and BITRSHIFT return 0 for |shift_amount| in 49..=53 and bypass the shift-count bound when number is 0",
+  "statement": "In Excel 16.0 build 20430, BITLSHIFT and BITRSHIFT deviate from Microsoft's published 48-bit result and 53-bit shift limits in two ways: (1) when number is 0, any finite shift_amount returns 0 (even BITLSHIFT(0, 54) = 0); (2) when number is nonzero and the truncated |shift_amount| is 49..=53, both functions return 0 instead of #NUM! (e.g. BITLSHIFT(1, 49) = 0 and BITLSHIFT(1, 53) = 0, whereas BITLSHIFT(1, 48) = #NUM! and BITLSHIFT(1, 54) = #NUM!).",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 W111 bitwise discriminator rows in CalcFunc-Evidence cache/w111-bitwise-20260929/ and matched on 8,131/8,131 BITLSHIFT and 8,128/8,128 BITRSHIFT full-bank rows.",
+  "inferred": null,
+  "documentation": {
+    "claim": "Microsoft's BITLSHIFT and BITRSHIFT pages state that if the result exceeds 2^48 - 1 (48 bits) or |shift_amount| > 53, the functions return #NUM!, without noting that zero operands ignore finite shift_amount > 53 or that |shift_amount| in 49..=53 returns 0 instead of #NUM!.",
+    "source": "https://support.microsoft.com/en-us/office/bitlshift-function-c55bb27e-cacd-4c7c-b258-d80861a03c9c; https://support.microsoft.com/en-us/office/bitrshift-function-274d6996-f42c-4743-abdb-4ff95351222c"
+  },
+  "repros": [
+    {
+      "call": "BITLSHIFT(1, 48)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "shift_amount",
+          "value": {
+            "kind": "number",
+            "display": "48.0",
+            "bits": "0x4048000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitlshift.json.gz",
+        "locator": "w111bit-discriminator-BITLSHIFT-00199",
+        "note": null
+      }
+    },
+    {
+      "call": "BITLSHIFT(1, 49)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "shift_amount",
+          "value": {
+            "kind": "number",
+            "display": "49.0",
+            "bits": "0x4048800000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitlshift.json.gz",
+        "locator": "w111bit-discriminator-BITLSHIFT-00201",
+        "note": null
+      }
+    },
+    {
+      "call": "BITLSHIFT(1, 53)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "shift_amount",
+          "value": {
+            "kind": "number",
+            "display": "53.0",
+            "bits": "0x404a800000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitlshift.json.gz",
+        "locator": "w111bit-discriminator-BITLSHIFT-00203",
+        "note": null
+      }
+    },
+    {
+      "call": "BITLSHIFT(0, 54)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "shift_amount",
+          "value": {
+            "kind": "number",
+            "display": "54.0",
+            "bits": "0x404b000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitlshift.json.gz",
+        "locator": "w111bit-discriminator-BITLSHIFT-00101",
+        "note": null
+      }
+    },
+    {
+      "call": "BITRSHIFT(1, -53)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "shift_amount",
+          "value": {
+            "kind": "number",
+            "display": "-53.0",
+            "bits": "0xc04a800000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "0.0",
+        "bits": "0x0000000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "cache/w111-bitwise-20260929/discriminator-answers/answers-batch-bitrshift.json.gz",
+        "locator": "w111bit-discriminator-BITRSHIFT-00186",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/bit_common.rs",
+      "locator": "bit_shift_kernel",
+      "note": "Zero-operand shortcut and |shift| in 49..=53 returning 0"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "BITLSHIFT; BITRSHIFT",
+      "note": "8,131/8,131 BITLSHIFT and 8,128/8,128 BITRSHIFT matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

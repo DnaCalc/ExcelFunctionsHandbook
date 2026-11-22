@@ -1,0 +1,266 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ADDRESS-001",
+  "functions": [
+    "FUNC.ADDRESS"
+  ],
+  "kind": "quirk",
+  "title": "ADDRESS quotes sheet names resembling R1C1 axis prefixes (even R1048576C16385), omits quotes after [book], and allows signed relative R1C1 offsets",
+  "statement": "In Excel 16.0 build 20430, ADDRESS quotes sheet_text not only for A1 references, spaces, punctuation, and TRUE/FALSE, but also for any unbracketed name starting with R<1..1048576> or C<1..16384> or RC<1..16384> not followed by a dot (so R1048576C16385 and R1048576C and R1C000 are quoted, whereas R1048577C16384 is not). A workbook-prefixed sheet_text like [a]TRUE is not quoted when the book and sheet parts use identifier characters, and empty sheet_text produces an unquoted '!'. When a1 is FALSE and abs_num selects relative coordinates (abs_num 2, 3, or 4), row_num and column_num admit negative and zero offsets in (-limit+1)..limit and format zero as R or C without brackets.",
+  "status": "measured",
+  "basis": "Measured in Excel 16.0 build 20430 across w111-broad, w111-address-sheet-20260929, and w111-address-refinement-20260929 in CalcFunc-Evidence, and matched on 1,284/1,284 full-bank ADDRESS rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ADDRESS(1, 1, 1, TRUE, \"R1048576C16385\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "row_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "column_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "abs_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "a1",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        },
+        {
+          "name": "sheet_text",
+          "value": {
+            "kind": "text",
+            "display": "R1048576C16385",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "'R1048576C16385'!$A$1",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-address-refinement-20260929/outcomes/excel.jsonl.gz",
+        "locator": "address-refinement-20260929-00588",
+        "note": null
+      }
+    },
+    {
+      "call": "ADDRESS(1, 1, 1, TRUE, \"R1048577C16384\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "row_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "column_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "abs_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "a1",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        },
+        {
+          "name": "sheet_text",
+          "value": {
+            "kind": "text",
+            "display": "R1048577C16384",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "R1048577C16384!$A$1",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-address-refinement-20260929/outcomes/excel.jsonl.gz",
+        "locator": "address-refinement-20260929-00587",
+        "note": null
+      }
+    },
+    {
+      "call": "ADDRESS(1048576, 16384, 1, TRUE, \"[a]TRUE\")",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "row_num",
+          "value": {
+            "kind": "number",
+            "display": "1048576.0",
+            "bits": "0x4130000000000000"
+          }
+        },
+        {
+          "name": "column_num",
+          "value": {
+            "kind": "number",
+            "display": "16384.0",
+            "bits": "0x40d0000000000000"
+          }
+        },
+        {
+          "name": "abs_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "a1",
+          "value": {
+            "kind": "logical",
+            "display": "TRUE",
+            "bits": null
+          }
+        },
+        {
+          "name": "sheet_text",
+          "value": {
+            "kind": "text",
+            "display": "[a]TRUE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "[a]TRUE!$XFD$1048576",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit (NT 10.00), workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-address-sheet-20260929/outcomes/excel.jsonl.gz",
+        "locator": "address-sheet-discovery-20260929-0093",
+        "note": null
+      }
+    },
+    {
+      "call": "ADDRESS(-1, 1, 4, FALSE)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "row_num",
+          "value": {
+            "kind": "number",
+            "display": "-1.0",
+            "bits": "0xbff0000000000000"
+          }
+        },
+        {
+          "name": "column_num",
+          "value": {
+            "kind": "number",
+            "display": "1.0",
+            "bits": "0x3ff0000000000000"
+          }
+        },
+        {
+          "name": "abs_num",
+          "value": {
+            "kind": "number",
+            "display": "4.0",
+            "bits": "0x4010000000000000"
+          }
+        },
+        {
+          "name": "a1",
+          "value": {
+            "kind": "logical",
+            "display": "FALSE",
+            "bits": null
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "R[-1]C[1]",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-broad-20260929/answers/answers-address.json.gz",
+        "locator": "w111broad-20260929-ADDRESS-00032",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/address.rs",
+      "locator": "quote_sheet_text_if_needed; format_address_body",
+      "note": "Sheet quoting grammar and relative R1C1 coordinate validation"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ADDRESS",
+      "note": "1,284/1,284 full-bank ADDRESS matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

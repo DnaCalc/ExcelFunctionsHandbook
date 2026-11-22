@@ -1,0 +1,90 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ACOS-001",
+  "functions": [
+    "FUNC.ACOS"
+  ],
+  "kind": "bit-matching-detail",
+  "title": "ACOS evaluates RN53(RN64(pi/2 - ASIN(x))), inheriting ASIN's 1-ULP sign asymmetry",
+  "statement": "In Excel 16.0 build 20430, ACOS(x) does not satisfy ACOS(-x) = pi - ACOS(x) to the last bit: ACOS(0.5) returns 0x3ff0c152382d7365 (1.0471975511965976) while ACOS(-0.5) returns 0x4000c152382d7366 (2.0943951023931957), and ACOS(0.75) vs ACOS(-0.75) similarly reflect ASIN's asymmetric 1 + x = 2 - (1 - x) staging followed by stored x87 subtraction from pi/2. All 13,962 full-bank ACOS rows match this graph.",
+  "status": "inferred",
+  "basis": "Measured across paired signed controls in CalcFunc-Evidence runs/w111-acos-caller-20260929/answers-acos.json.gz (Excel 16.0 build 20430) and matched on 13,962/13,962 full-bank ACOS witness rows.",
+  "inferred": "That the stored x87 pi/2 - ASIN(x) decomposition explains every ACOS input beyond the 13,962 bank rows is inferred.",
+  "documentation": null,
+  "repros": [
+    {
+      "call": "ACOS(0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.5",
+            "bits": "0x3fe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.0471975511965976",
+        "bits": "0x3ff0c152382d7365"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-acos-caller-20260929/answers-acos.json.gz",
+        "locator": "acos-caller-2026092922-05002-mathematical-boundary-neighbor",
+        "note": null
+      }
+    },
+    {
+      "call": "ACOS(-0.5)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-0.5",
+            "bits": "0xbfe0000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "2.0943951023931957",
+        "bits": "0x4000c152382d7366"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-acos-caller-20260929/answers-acos.json.gz",
+        "locator": "acos-caller-2026092922-05003-mathematical-boundary-neighbor",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/acos.rs",
+      "locator": "acos_kernel",
+      "note": "pi/2 - ASIN(x) staged x87 subtraction"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ACOS",
+      "note": "13,962/13,962 full-bank ACOS matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

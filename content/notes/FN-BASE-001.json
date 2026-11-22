@@ -1,0 +1,122 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BASE-001",
+  "functions": [
+    "FUNC.BASE"
+  ],
+  "kind": "quirk",
+  "title": "BASE(0, radix, 0) returns empty text \"\" rather than \"0\", and number >= 2^53 is #NUM!",
+  "statement": "In Excel 16.0 build 20430, BASE(number, radix, [min_length]) checks number in [0, 2^53) before truncating, validates radix in [2, 36] and optional min_length in [0, 255] after truncation, and distinguishes an explicit min_length of 0 from an omitted min_length when number truncates to 0: BASE(0, 10, 0) returns the empty string \"\", whereas omitting min_length returns \"0\". All 3,560 full-bank BASE rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 Value2 probes in CalcFunc-Evidence runs/w111-broad-20260929/answers/answers-base.json.gz and matched on 3,560/3,560 full-bank BASE rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "BASE(0, 10, 0)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        },
+        {
+          "name": "radix",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        },
+        {
+          "name": "min_length",
+          "value": {
+            "kind": "number",
+            "display": "0.0",
+            "bits": "0x0000000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "text",
+        "display": "",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-broad-20260929/answers/answers-base.json.gz",
+        "locator": "w111broad-20260929-BASE-00014",
+        "note": null
+      }
+    },
+    {
+      "call": "BASE(9007199254740992, 36, 10)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "9007199254740992.0",
+            "bits": "0x4340000000000000"
+          }
+        },
+        {
+          "name": "radix",
+          "value": {
+            "kind": "number",
+            "display": "36.0",
+            "bits": "0x4042000000000000"
+          }
+        },
+        {
+          "name": "min_length",
+          "value": {
+            "kind": "number",
+            "display": "10.0",
+            "bits": "0x4024000000000000"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/witnesses/BASE.json",
+        "locator": "radix-20260929-BASE-00277",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/base_fn.rs",
+      "locator": "base_kernel",
+      "note": "Explicit min_length=0 empty-string edge and 2^53 admission bound"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "BASE",
+      "note": "3,560/3,560 full-bank BASE matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

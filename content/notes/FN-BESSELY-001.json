@@ -1,0 +1,112 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-BESSELY-001",
+  "functions": [
+    "FUNC.BESSELY"
+  ],
+  "kind": "quirk",
+  "title": "BESSELY truncates order into 0..=10,000,000 and applies a phase-shifted 2^27-1 limit that admits BESSELY(134217728, 1)",
+  "statement": "In Excel 16.0.20527.20088, BESSELY(x, n) requires x > 0 and truncates n to an integer in 0..=10,000,000 (#NUM! for n < 0 such as -0.5 or n >= 10,000,001). For large x, Excel checks |x| - phase <= 2^27 - 1 using phase = 0.785398164 for Y0 and 2.356194491 for Y1 (forward recurrence orders require both seeds). Consequently, BESSELY(134217728, 1) is admitted and returns 1.1173873549496432e-05 (0x3ed7ff19f84f233c) because 134,217,728 - 2.356194491 <= 134,217,727, whereas BESSELJ(134217728, 0) returns #NUM! because 134,217,728 - 0.785398164 > 134,217,727. Subnormal operands and intermediates flush to zero.",
+  "status": "measured",
+  "basis": "Measured across all 84 BESSELY readings in DnaCalc dc96l3_bessel and 124 in dcj9k_r25_bessel (Excel 16.0.20527.20088); 2,901/2,905 full-bank BESSELY rows match.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=BESSELY(134217728,1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "5.721209054018052e-06",
+        "bits": "0x3ed7ff19f84f233c"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json",
+        "locator": "sheet dc96l3_bessel row 355 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=BESSELY(1,-0.5)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json",
+        "locator": "sheet dc96l3_bessel row 317 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=BESSELY(1.5,2.9)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "-0.9321937606262339",
+        "bits": "0xbfedd488026d9901"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json",
+        "locator": "sheet dc96l3_bessel row 318 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=BESSELY(5,10000001)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dc96l3_bessel.capture.json",
+        "locator": "sheet dc96l3_bessel row 319 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/bessel.rs",
+      "locator": "admit_phase; bessely_kernel",
+      "note": "Phase-shifted 2^27-1 admission, order truncation, and forward recurrence"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "BESSELY",
+      "note": "2,901/2,905 full-bank BESSELY matches (4 last-bit mismatches, worst 4 ULP)"
+    }
+  ],
+  "open": [
+    "Four remaining last-bit mismatches (worst 4 ULP) out of 2,905 full-bank BESSELY rows from high-x Y0/Y1 seed polynomials."
+  ],
+  "recorded_on": "2026-11-22"
+}

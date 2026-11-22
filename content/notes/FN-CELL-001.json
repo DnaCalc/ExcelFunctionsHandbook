@@ -1,0 +1,129 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-CELL-001",
+  "functions": [
+    "FUNC.CELL"
+  ],
+  "kind": "quirk",
+  "title": "CELL does not trim info_type, reads the active cell when reference is omitted, and returns a two-element {width, is_default} array for \"width\"",
+  "statement": "In Excel 16.0.20527.20088, CELL matches info_type case-insensitively without trimming whitespace (so CELL(\" format \", B2) is #VALUE!). Omitting reference reads the workbook's active cell (so CELL(\"address\") on another sheet returns the active sheet and cell such as [oracle.xlsx]Data!$A$1). CELL(\"width\", ref) returns a 1x2 array {width, is_default} where width is the rounded column width (0 when hidden) and is_default is TRUE/FALSE; legacy formulas implicitly intersect this array to the width number. CELL(\"prefix\", ref) emits ', \", ^, or \\ only for text constants and \"\" for numbers, formulas, logicals, errors, and blanks.",
+  "status": "measured",
+  "basis": "Measured across all 764 CELL readings in DnaCalc dcuar_cell (Excel 16.0.20527.20088) and matched on 2,862/2,862 full-bank CELL rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=@CELL(\" format \",B2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "error",
+        "display": "#VALUE!",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 53 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@CELL(\"address\")",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "[oracle.xlsx]Data!$A$1",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 46 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@CELL(\"width\",E1)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "8.0",
+        "bits": "0x4020000000000000"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 26 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@INDEX(CELL(\"width\",E1),2)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "logical",
+        "display": "TRUE",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 33 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=@CELL(\"prefix\",A3)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "text",
+        "display": "\"",
+        "bits": null
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcuar_cell.capture.json",
+        "locator": "sheet dcuar_cell row 3 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/catalogue/host_facts.rs",
+      "locator": "cell",
+      "note": "CELL info_type rules, active cell, prefix, and {width, default} array"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "CELL",
+      "note": "2,862/2,862 full-bank CELL matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}

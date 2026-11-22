@@ -1,0 +1,84 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-ATAN2-001",
+  "functions": [
+    "FUNC.ATAN2"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "ATAN2 evaluates ATAN(y/x) shifted by pi, drifting by 1 ULP on 37 of 120 readings and returning #NUM! when y/x overflows",
+  "statement": "In Excel 16.0.20527.20088, ATAN2(x_num, y_num) computes excel_atan(y_num / x_num) shifted by ±pi in the left half-plane (and ±pi/2 when x_num = 0, #DIV/0! at (0, 0)), rather than a correctly rounded quadrant atan2(y, x). As a result, 37 of 120 ATAN2 readings in dcj9k_math differ by 1 ULP from the correctly rounded mathematical value (for instance ATAN2(-0.152, 1.21) returns 1.6957615735034952 instead of 1.6957615735034954). When x_num != 0 and y_num / x_num overflows binary64 (e.g. ATAN2(1e-200, 1e109)), Excel returns #NUM! rather than ±pi/2.",
+  "status": "measured",
+  "basis": "Measured across all 120 ATAN2 readings in DnaCalc dcj9k_math (Excel 16.0.20527.20088, 37 differing by 1 ULP from 100-digit Decimal atan2) and verified on 2,744/2,746 full-bank ATAN2 rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "=ATAN2(-0.152,1.21)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "1.6957615735034952",
+        "bits": "0x3ffb21d6e3402d1b"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "1.6957615735034954",
+        "bits": "0x3ffb21d6e3402d1c",
+        "how": "pi + atan(1.21 / -0.152) computed at 100 decimal digits in Python Decimal and rounded to nearest binary64."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_math.capture.json",
+        "locator": "sheet dcj9k_math row 15 column 4",
+        "note": null
+      }
+    },
+    {
+      "call": "=ATAN2(8.255,6.074)",
+      "input_route": "formula-literal",
+      "inputs": [],
+      "excel": {
+        "kind": "number",
+        "display": "0.6343487161375854",
+        "bits": "0x3fe44c95adc241ac"
+      },
+      "correct": {
+        "kind": "number",
+        "display": "0.6343487161375855",
+        "bits": "0x3fe44c95adc241ad",
+        "how": "atan(6.074 / 8.255) computed at 100 decimal digits in Python Decimal and rounded to nearest binary64."
+      },
+      "recorded_in": "Excel 16.0.20527.20088 Current Channel, Windows 64-bit (NT 10.0.26200), x86-64, AMD Ryzen 7 4800H, en-ZA",
+      "source": {
+        "repository": "DnaCalc",
+        "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+        "path": "crates/calc-func/tests/captures/catalogue/sections/dcj9k_math.capture.json",
+        "locator": "sheet dcj9k_math row 18 column 4",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/atan2.rs",
+      "locator": "atan2_kernel",
+      "note": "ATAN(y/x) quadrant shift and y/x overflow -> #NUM!"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "ATAN2",
+      "note": "2,744/2,746 full-bank ATAN2 matches (2 last-bit mismatches, worst 2 ULP)"
+    }
+  ],
+  "open": [
+    "Two remaining last-bit mismatches (worst 2 ULP) out of 2,746 full-bank ATAN2 rows."
+  ],
+  "recorded_on": "2026-11-22"
+}

@@ -1,0 +1,95 @@
+{
+  "schema": "efh.function-note/v1",
+  "note_id": "FN-COSH-001",
+  "functions": [
+    "FUNC.COSH"
+  ],
+  "kind": "excel-differs-from-math",
+  "title": "COSH evaluates (EXP(x) + EXP(-x))/2 via stored x87 addition, returning #NUM! above ln(DBL_MAX) where cosh(x) is still finite",
+  "statement": "In Excel 16.0 build 20430, COSH(x) computes RN53(RN64(EXP(x) + EXP(-x))) / 2 using Excel's worksheet EXP kernel rather than calling the Windows CRT cosh() (which differs by 1 ULP on 29 of 1,224 W111 extended-numeric rows, and at 0.001, 0.01, and 10). Because EXP(|x|) overflows binary64 around 709.7827, COSH(-709.7827128933891) returns #NUM! even though the mathematical cosh is ~8.98846567435735e+307, half of DBL_MAX. All 33,550 full-bank COSH rows match.",
+  "status": "measured",
+  "basis": "Measured across Excel 16.0 build 20430 extended-numeric and integer-hyperbolic held-out captures in CalcFunc-Evidence and matched on 33,550/33,550 full-bank COSH rows.",
+  "inferred": null,
+  "documentation": null,
+  "repros": [
+    {
+      "call": "COSH(-709.7827128933891)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "-709.7827128933891",
+            "bits": "0xc0862e42fefa3a1c"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "error",
+        "display": "#NUM!",
+        "bits": null
+      },
+      "correct": {
+        "kind": "number",
+        "display": "8.98846567435735e+307",
+        "bits": "0x7fe0000000005995",
+        "how": "cosh(|-709.7827128933891|) = (exp(|x|) + exp(-|x|))/2 computed at 120 decimal digits in Python Decimal and rounded to nearest binary64."
+      },
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-integer-hyperbolic-heldout-20260929/answers/answers-cosh.json.gz",
+        "locator": "w111inthyp-heldout-COSH-005172",
+        "note": null
+      }
+    },
+    {
+      "call": "COSH(0.29241103248877653)",
+      "input_route": "cell-value2",
+      "inputs": [
+        {
+          "name": "number",
+          "value": {
+            "kind": "number",
+            "display": "0.29241103248877653",
+            "bits": "0x3fd2b6dcc361d950"
+          }
+        }
+      ],
+      "excel": {
+        "kind": "number",
+        "display": "1.043057599268652",
+        "bits": "0x3ff0b05d2a4b4009"
+      },
+      "correct": null,
+      "recorded_in": "Excel 16.0 build 20430, Windows 64-bit, workbook compatibility 2; CPU not recorded",
+      "source": {
+        "repository": "CalcFunc-Evidence",
+        "commit": "4ef2c244d73c6c4ca9b69641f9d95b72c806ed7e",
+        "path": "runs/w111-extended-numeric-20260929/answers/answers-cosh.json.gz",
+        "locator": "w111extended-2026092903-COSH-00057",
+        "note": null
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/src/ported/cosh.rs",
+      "locator": "cosh_kernel",
+      "note": "(EXP(x) + EXP(-x))/2 staged x87 addition"
+    },
+    {
+      "repository": "DnaCalc",
+      "commit": "95eb0cb2efcfb6a25b0e38b8764829f48f67430f",
+      "path": "crates/calc-func/witness-status.tsv",
+      "locator": "COSH",
+      "note": "33,550/33,550 full-bank COSH matches"
+    }
+  ],
+  "open": [],
+  "recorded_on": "2026-11-22"
+}
